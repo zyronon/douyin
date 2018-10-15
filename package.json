@@ -14,7 +14,9 @@
     "@vue/cli-plugin-babel": "^3.0.3",
     "@vue/cli-plugin-eslint": "^3.0.3",
     "@vue/cli-service": "^3.0.3",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.5.17",
+    "node-sass": "^4.9.3",
+    "sass-loader": "^7.1.0"
   },
   "eslintConfig": {
     "root": true,
