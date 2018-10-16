@@ -1,27 +1,36 @@
 <template>
     <div id="home">
-        <div class="bg-video">
+        <div class="bg-video" v-for="(item,index) in data">
+            <!--<video :src="data[0].videoUrl">-->
             <video src="../assets/video/吴三二的光年之外.mp4">
                 您的浏览器不支持 video 标签。
             </video>
             <div class="float" @click="togglePlayVideo($event)">
                 <transition name="pause">
                     <img src="../assets/img/play.svg" class="pause" v-show="!isPlaying"
-                         @click.stop="playVideo2($event)">
+                         @click.stop="togglePlayVideo($event)">
                 </transition>
                 <div class="toolbar mb10p">
                     <img src="../assets/img/head-image.jpeg" alt="" class="head-image mb15p">
-                    <div class="love mb15p">
-                        <img src="../assets/img/love.svg" alt="" class="love-image">
-                        <span class="f14">3453</span>
+                    <div class="love mb15p" @click.stop="loved($event,index)">
+                        <div>
+                            <transition name="love">
+                                <img src="../assets/img/love.svg" class="love-image" v-if="!item.isLoved">
+                                <img src="../assets/img/loved.svg" class="love-image" v-if="item.isLoved">
+
+                            </transition>
+                            <transition name="loved">
+                            </transition>
+                        </div>
+                        <span class="f14">{{item.loves}}</span>
                     </div>
-                    <div class="message mb15p" @click.stop="showComment()">
+                    <div class="message mb15p" @click.stop="isCommenting=!isCommenting">
                         <img src="../assets/img/message.svg" alt="" class="message-image">
-                        <span class="f14">6666</span>
+                        <span class="f14">{{item.comments}}</span>
                     </div>
-                    <div class="share mb35p">
+                    <div class="share mb35p" @click.stop="isSharing=!isSharing">
                         <img src="../assets/img/share.svg" alt="" class="share-image">
-                        <span class="f14">555</span>
+                        <span class="f14">{{item.shared}}</span>
                     </div>
                     <img src="../assets/img/head-image.jpeg" alt="" class="music">
                 </div>
@@ -37,149 +46,83 @@
                 </div>
             </div>
         </div>
-        <transition name="comment">
-            <div class="comment f14" v-if="isComment">
-                <div class="title">
-                    <p>2.7w条评论</p>
-                    <img src="../assets/img/close.svg" @click.stop="showComment()">
-                </div>
-                <div class="items">
-                    <div class="item pl5p pr15p mb5p  oh">
-                        <div class="content pull-left ">
-                            <img src="../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
-                            <div class="pull-right comment-container">
-                                <div class="name">@ttentau</div>
-                                <div class="detail">其实我也不知道评论点什么啊啊啊看吧看吧看吧</div>
-                                <div class="time mt10p">10-02</div>
-                            </div>
-                        </div>
-                        <div class="love pull-right">
-                            <img src="../assets/img/love-gray.svg" alt="" class="love-image">
-                            <span class="f14 block">3453</span>
-                        </div>
-                    </div>
-                    <div class="item pl5p pr15p mb5p  oh">
-                        <div class="content pull-left ">
-                            <img src="../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
-                            <div class="pull-right comment-container">
-                                <div class="name">@ttentau</div>
-                                <div class="detail">其实我也不知道评论点什么啊啊啊看吧看吧看吧</div>
-                                <div class="time mt10p">10-02</div>
-                            </div>
-                        </div>
-                        <div class="love pull-right">
-                            <img src="../assets/img/love-gray.svg" alt="" class="love-image">
-                            <span class="f14 block">3453</span>
-                        </div>
-                    </div>
-                    <div class="item pl5p pr15p mb5p  oh">
-                        <div class="content pull-left ">
-                            <img src="../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
-                            <div class="pull-right comment-container">
-                                <div class="name">@ttentau</div>
-                                <div class="detail">其实我也不知道评论点什么啊啊啊看吧看吧看吧</div>
-                                <div class="time mt10p">10-02</div>
-                            </div>
-                        </div>
-                        <div class="love pull-right">
-                            <img src="../assets/img/love-gray.svg" alt="" class="love-image">
-                            <span class="f14 block">3453</span>
-                        </div>
-                    </div>
-                    <div class="item pl5p pr15p mb5p  oh">
-                        <div class="content pull-left ">
-                            <img src="../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
-                            <div class="pull-right comment-container">
-                                <div class="name">@ttentau</div>
-                                <div class="detail">其实我也不知道评论点什么啊啊啊看吧看吧看吧</div>
-                                <div class="time mt10p">10-02</div>
-                            </div>
-                        </div>
-                        <div class="love pull-right">
-                            <img src="../assets/img/love-gray.svg" alt="" class="love-image">
-                            <span class="f14 block">3453</span>
-                        </div>
-                    </div>
-                    <div class="item pl5p pr15p mb5p  oh">
-                        <div class="content pull-left ">
-                            <img src="../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
-                            <div class="pull-right comment-container">
-                                <div class="name">@ttentau</div>
-                                <div class="detail">其实我也不知道评论点什么啊啊啊看吧看吧看吧</div>
-                                <div class="time mt10p">10-02</div>
-                            </div>
-                        </div>
-                        <div class="love pull-right">
-                            <img src="../assets/img/love-gray.svg" alt="" class="love-image">
-                            <span class="f14 block">3453</span>
-                        </div>
-                    </div>
-                    <div class="item pl5p pr15p mb5p  oh">
-                        <div class="content pull-left ">
-                            <img src="../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
-                            <div class="pull-right comment-container">
-                                <div class="name">@ttentau</div>
-                                <div class="detail">其实我也不知道评论点什么啊啊啊看吧看吧看吧</div>
-                                <div class="time mt10p">10-02</div>
-                            </div>
-                        </div>
-                        <div class="love pull-right">
-                            <img src="../assets/img/love-gray.svg" alt="" class="love-image">
-                            <span class="f14 block">3453</span>
-                        </div>
-                    </div>
-                    <div class="item pl5p pr15p mb5p  oh">
-                        <div class="content pull-left ">
-                            <img src="../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
-                            <div class="pull-right comment-container">
-                                <div class="name">@ttentau</div>
-                                <div class="detail">其实我也不知道评论点什么啊啊啊看吧看吧看吧</div>
-                                <div class="time mt10p">10-02</div>
-                            </div>
-                        </div>
-                        <div class="love pull-right">
-                            <img src="../assets/img/love-gray.svg" alt="" class="love-image">
-                            <span class="f14 block">3453</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-comment">
-                    <input type="text" placeholder="留下你的精彩评论哦">
-                    <span>@</span>
-                </div>
-            </div>
-        </transition>
-
+        <Comment v-bind:is-commenting="isCommenting" v-on:showComment='isCommenting=!isCommenting'/>
+        <Share v-bind:is-sharing="isSharing"/>
+        <Footer/>
     </div>
 </template>
 
 <script>
+    import Comment from './Comment';
+    import Share from './Share';
+    import Footer from './Footer';
+
     export default {
         name: "Home",
+        components: {
+            Comment,
+            Share,
+            Footer
+        },
         data() {
             return {
                 isPlaying: true,
-                isComment: false,
+                isCommenting: false,
+                isSharing: false,
+                data: [
+                    {
+                        videoUrl: '../assets/video/吴三二的光年之外.mp4',
+                        isLoved: false,
+                        loves: 1234,
+                        comments: 666,
+                        shared: 999
+                    }
+                ]
             }
         },
         methods: {
             togglePlayVideo(e) {
-                console.log(e.target);
-                let float = e.target;
-                let video = float.previousSibling;
+                if (this.isSharing) {
+                    this.isSharing = false;
+                    return;
+                }
+                if (this.isCommenting) {
+                    this.isCommenting = false;
+                    return;
+                }
+                // console.log(e);
+                let el = e.target;
+                // console.log(el)
+                // console.log(el.nodeName);
+                let video = '';
+                if (el.nodeName == 'IMG') {
+                    video = el.parentNode.previousSibling;
+                } else {
+                    video = el.previousSibling;
+                }
                 if (video.paused) {
                     video.play();
                 } else {
                     video.pause();
                 }
                 this.isPlaying = !video.paused;
+
+                // this.isPlaying = !this.isPlaying;
             },
             showComment() {
-                this.isComment = !this.isComment;
+                this.isCommenting = !this.isCommenting;
+            },
+            loved(e, index) {
+                let img = e.target.parentNode.childNodes[0];
+                console.log(img);
+                console.log(index);
+                this.data[index].isLoved = !this.data[index].isLoved;
+
             }
+
         },
         created() {
-            console.log(55)
+            // console.log(55)
         },
         mounted() {
         }
@@ -232,6 +175,14 @@
                         height: 100%;
                         border-radius: 50%;
                     }
+                    .love {
+                        img {
+
+                        }
+                    }
+                    .loved {
+                        background: red;
+                    }
                     .music {
                         animation: animations 4s linear forwards infinite;
                     }
@@ -266,71 +217,6 @@
                 }
             }
         }
-        .comment {
-            position: absolute;
-            bottom: 0;
-            background: #fff;
-            z-index: 2;
-            border-radius: 10px;
-            .title {
-                position: relative;
-                p {
-                    text-align: center;
-                }
-                img {
-                    width: 15px;
-                    height: 15px;
-                    position: absolute;
-                    right: 20px;
-                    top: 0;
-                }
-            }
-            .input-comment {
-                height: 30px;
-                border-top: 1px solid #e2e1e1;
-                input {
-                    height: 100%;
-                    width: 90%;
-                }
-                span {
-                    color: #999;
-                    font-size: 22px;
-                }
-            }
-            .items {
-                overflow-y: scroll;
-                max-height: 300px;
-                .item {
-                    .head-image {
-                        width: 40px;
-                        border-radius: 50%;
-                        float: left;
-                    }
-                    .content {
-                        float: left;
-                        width: 85%;
-                        .head-image {
-                            width: 15%;
-                        }
-                        .comment-container {
-                            width: 80%;
-                            .time {
-                                color: gray;
-                            }
-                        }
-
-                    }
-                    .love {
-                        text-align: center;
-                        .love-image {
-                            width: 30px;
-                            border-radius: 50%;
-                        }
-                    }
-                }
-            }
-
-        }
     }
 
     .pause-enter-active {
@@ -346,16 +232,29 @@
         opacity: 0;
     }
 
-    .comment-enter-active {
+    .love-enter-active {
         transition: all .3s ease;
     }
 
-    .comment-leave-active {
-        transition: all .3s ease ;
+    .love-leave-active {
+        transition: all .3s ease;
     }
 
-    .comment-enter, .comment-leave-to {
-        transform: translateY(300px);
+    .love-leave-to {
+        transform: scale(2);
+        opacity: 0;
     }
+    .loved-enter-active {
+        transition: all .3s ease;
+    }
+
+    .loved-leave-active {
+        transition: all .3s ease;
+    }
+
+    .loved-leave-to {
+        opacity: 0;
+    }
+
 
 </style>
