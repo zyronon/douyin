@@ -2,7 +2,7 @@
     <div id="home">
         <div class="bg-video" v-for="(item,index) in data">
             <!--<video :src="data[0].videoUrl">-->
-            <video src="../assets/video/吴三二的光年之外.mp4">
+            <video src="../assets/video/吴三二的光年之外.mp4" autoplay>
                 您的浏览器不支持 video 标签。
             </video>
             <div class="float" @click="togglePlayVideo($event)">
