@@ -44,7 +44,7 @@
 
     .footer {
         border-top: 1px solid #7b7878;
-        position: absolute;
+        position: fixed;
         z-index: 2;
         bottom: 0;
         width: 100%;

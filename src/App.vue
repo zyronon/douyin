@@ -23,6 +23,7 @@
         font-size: 14px;
         padding: 0;
         margin: 0;
+        font-family: "Microsoft Sans Serif";
     }
 
     $width: 1000;
@@ -65,6 +66,16 @@
         }
         $margin: $margin - 1;
     }
+
+    $margin: 50;
+    @while $margin > 0 {
+        .m#{$margin}p {
+            margin: #{$margin}px !important;
+        }
+        $margin: $margin - 1;
+    }
+
+
 
     $padding: 50;
     @while $padding > 0 {

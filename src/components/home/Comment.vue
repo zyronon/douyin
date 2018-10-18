@@ -129,10 +129,10 @@
 
 <style lang="scss" scoped>
     .comment {
-        position: absolute;
+        position: fixed;
         bottom: 0;
         background: #fff;
-        z-index: 2;
+        z-index: 3;
         border-radius: 10px 10px 0 0;
         .title {
             position: relative;

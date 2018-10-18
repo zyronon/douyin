@@ -2,7 +2,7 @@
     <div id="home">
         <div class="bg-video" v-for="(item,index) in data">
             <!--<video :src="data[0].videoUrl">-->
-            <video src="../../assets/video/吴三二的光年之外.mp4" autoplay>
+            <video src="../../assets/video/吴三二的光年之外.mp4" >
                 您的浏览器不支持 video 标签。
             </video>
             <div class="float" @click="togglePlayVideo($event)">
@@ -71,6 +71,12 @@
                 isSharing: false,
                 data: [
                     {
+                        videoUrl: '../assets/video/吴三二的光年之外.mp4',
+                        isLoved: false,
+                        loves: 1234,
+                        comments: 666,
+                        shared: 999
+                    },{
                         videoUrl: '../assets/video/吴三二的光年之外.mp4',
                         isLoved: false,
                         loves: 1234,
@@ -160,7 +166,7 @@
                 .toolbar {
                     width: 40px;
                     position: absolute;
-                    bottom: 20px;
+                    bottom: 35px;
                     right: 20px;
                     color: #fff;
                     div {
@@ -198,7 +204,7 @@
                 .content {
                     color: #fff;
                     position: absolute;
-                    bottom: 20px;
+                    bottom: 35px;
                     width: 75%;
                     .music {
                         position: relative;
