@@ -2,7 +2,7 @@
     <div class="footer f16 ">
         <div class="button" @click="tab(1)"><span v-bind:class="{active:currentTab==1}">首页</span></div>
         <div class="button" @click="tab(2)"><span v-bind:class="{active:currentTab==2}">关注</span></div>
-        <div class="button" @click="tab(3)"><img src="../assets/img/add.svg" alt=""></div>
+        <div class="button" @click="tab(3)"><img src="../../assets/img/add.svg" alt=""></div>
         <div class="button" @click="tab(4)"><span v-bind:class="{active:currentTab==4}">消息</span></div>
         <div class="button" @click="tab(5)"><span v-bind:class="{active:currentTab==5}">我</span></div>
     </div>
@@ -11,15 +11,30 @@
 <script>
     export default {
         name: "Footer",
-        data() {
-            return {
-                currentTab: 1
-            }
+        props:['initTab'],
+        data(){
+          return{
+              currentTab:this.initTab
+          }
         },
         methods: {
             tab(index) {
                 this.currentTab = index;
                 console.log(index);
+                switch (index) {
+                    case 1:
+                        this.$router.push('/home');
+                        break;
+                    case 2:
+                        this.$router.push('/attention');
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                }
             }
         }
     }

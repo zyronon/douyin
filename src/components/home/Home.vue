@@ -2,21 +2,21 @@
     <div id="home">
         <div class="bg-video" v-for="(item,index) in data">
             <!--<video :src="data[0].videoUrl">-->
-            <video src="../assets/video/吴三二的光年之外.mp4" autoplay>
+            <video src="../../assets/video/吴三二的光年之外.mp4" autoplay>
                 您的浏览器不支持 video 标签。
             </video>
             <div class="float" @click="togglePlayVideo($event)">
                 <transition name="pause">
-                    <img src="../assets/img/play.svg" class="pause" v-show="!isPlaying"
+                    <img src="../../assets/img/play.svg" class="pause" v-show="!isPlaying"
                          @click.stop="togglePlayVideo($event)">
                 </transition>
                 <div class="toolbar mb10p">
-                    <img src="../assets/img/head-image.jpeg" alt="" class="head-image mb15p">
+                    <img src="../../assets/img/head-image.jpeg" alt="" class="head-image mb15p">
                     <div class="love mb15p" @click.stop="loved($event,index)">
                         <div>
                             <transition name="love">
-                                <img src="../assets/img/love.svg" class="love-image" v-if="!item.isLoved">
-                                <img src="../assets/img/loved.svg" class="love-image" v-if="item.isLoved">
+                                <img src="../../assets/img/love.svg" class="love-image" v-if="!item.isLoved">
+                                <img src="../../assets/img/loved.svg" class="love-image" v-if="item.isLoved">
 
                             </transition>
                             <transition name="loved">
@@ -25,14 +25,14 @@
                         <span class="f14">{{item.loves}}</span>
                     </div>
                     <div class="message mb15p" @click.stop="isCommenting=!isCommenting">
-                        <img src="../assets/img/message.svg" alt="" class="message-image">
+                        <img src="../../assets/img/message.svg" alt="" class="message-image">
                         <span class="f14">{{item.comments}}</span>
                     </div>
                     <div class="share mb35p" @click.stop="isSharing=!isSharing">
-                        <img src="../assets/img/share.svg" alt="" class="share-image">
+                        <img src="../../assets/img/share.svg" alt="" class="share-image">
                         <span class="f14">{{item.shared}}</span>
                     </div>
-                    <img src="../assets/img/head-image.jpeg" alt="" class="music">
+                    <img src="../../assets/img/head-image.jpeg" alt="" class="music">
                 </div>
                 <div class="content ml10p">
                     <div class="name mb10p">@TTentau</div>
@@ -40,7 +40,7 @@
                         吴三二的光年之外, 您的浏览器不支持 video 标签。 您的浏览器不支持 video 标签。
                     </div>
                     <div class="music mb10p">
-                        <img src="../assets/img/music.svg" alt="" class="music-image">
+                        <img src="../../assets/img/music.svg" alt="" class="music-image">
                         <marquee behavior=scroll direction=left align=middle scrollamount=4> 吴三二 - 光年之外</marquee>
                     </div>
                 </div>
@@ -48,14 +48,14 @@
         </div>
         <Comment v-bind:is-commenting="isCommenting" v-on:showComment='isCommenting=!isCommenting'/>
         <Share v-bind:is-sharing="isSharing"/>
-        <Footer/>
+        <Footer v-bind:init-tab="1"/>
     </div>
 </template>
 
 <script>
     import Comment from './Comment';
     import Share from './Share';
-    import Footer from './Footer';
+    import Footer from '../common/Footer';
 
     export default {
         name: "Home",
