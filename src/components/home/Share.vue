@@ -125,9 +125,9 @@
 <style lang="scss" scoped>
 
     .share {
-        position: absolute;
+        position: fixed;
         bottom: 0;
-        z-index: 2;
+        z-index: 3;
         background: #eaeaea;
         border-radius: 10px 10px 0 0;
         .friends {
