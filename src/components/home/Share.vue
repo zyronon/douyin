@@ -5,35 +5,35 @@
                 <div class="title tac pb10p">私信给</div>
                 <div class="w200">
                     <div class="friend pr10p">
-                        <img src="../assets/img/head-image.jpeg" alt="">
+                        <img src="../../assets/img/head-image.jpeg" alt="">
                         <span>ttentau</span>
                     </div>
                     <div class="friend pr10p">
-                        <img src="../assets/img/head-image.jpeg" alt="">
+                        <img src="../../assets/img/head-image.jpeg" alt="">
                         <span>ttentau</span>
                     </div>
                     <div class="friend pr10p">
-                        <img src="../assets/img/head-image.jpeg" alt="">
+                        <img src="../../assets/img/head-image.jpeg" alt="">
                         <span>ttentau</span>
                     </div>
                     <div class="friend pr10p">
-                        <img src="../assets/img/head-image.jpeg" alt="">
+                        <img src="../../assets/img/head-image.jpeg" alt="">
                         <span>ttentau</span>
                     </div>
                     <div class="friend pr10p">
-                        <img src="../assets/img/head-image.jpeg" alt="">
+                        <img src="../../assets/img/head-image.jpeg" alt="">
                         <span>ttentau</span>
                     </div>
                     <div class="friend pr10p">
-                        <img src="../assets/img/head-image.jpeg" alt="">
+                        <img src="../../assets/img/head-image.jpeg" alt="">
                         <span>ttentau</span>
                     </div>
                     <div class="friend pr10p">
-                        <img src="../assets/img/head-image.jpeg" alt="">
+                        <img src="../../assets/img/head-image.jpeg" alt="">
                         <span>ttentau</span>
                     </div>
                     <div class="friend pr10p">
-                        <img src="../assets/img/ic_more.svg" alt="">
+                        <img src="../../assets/img/ic_more.svg" alt="">
                         <span>更多</span>
                     </div>
                 </div>
@@ -42,27 +42,27 @@
                 <div class="title tac pb10p">分享到</div>
                 <div class="w200">
                     <div class="share-to pr10p">
-                        <img src="../assets/img/friend_circle.svg" alt="">
+                        <img src="../../assets/img/friend_circle.svg" alt="">
                         <span>朋友圈</span>
                     </div>
                     <div class="share-to pr10p">
-                        <img src="../assets/img/wechat.svg" alt="">
+                        <img src="../../assets/img/wechat.svg" alt="">
                         <span>微信</span>
                     </div>
                     <div class="share-to pr10p">
-                        <img src="../assets/img/sq-share-qqzone-01.svg">
+                        <img src="../../assets/img/sq-share-qqzone-01.svg">
                         <span>QQ空间</span>
                     </div>
                     <div class="share-to pr10p">
-                        <img src="../assets/img/QQ.svg">
+                        <img src="../../assets/img/QQ.svg">
                         <span>QQ</span>
                     </div>
                     <div class="share-to pr10p">
-                        <img src="../assets/img/sina.svg">
+                        <img src="../../assets/img/sina.svg">
                         <span>微博</span>
                     </div>
                     <div class="share-to pr10p">
-                        <img src="../assets/img/More.svg">
+                        <img src="../../assets/img/More.svg">
                         <span>更多</span>
                     </div>
                 </div>
@@ -71,39 +71,39 @@
             <div class="toolbar oh pl20p pr20p pt10p pb10p f11">
                 <div class="w200">
                     <div class="tool pr10p ">
-                        <img src="../assets/img/举报.svg" alt="">
+                        <img src="../../assets/img/举报.svg" alt="">
                         <span>举报</span>
                     </div>
                     <div class="tool pr10p ">
-                        <img src="../assets/img/download.svg" alt="">
+                        <img src="../../assets/img/download.svg" alt="">
                         <span>保存本地</span>
                     </div>
                     <div class="tool pr10p ">
-                        <img src="../assets/img/collect.svg" alt="">
+                        <img src="../../assets/img/collect.svg" alt="">
                         <span>收藏</span>
                     </div>
                     <div class="tool pr10p ">
-                        <img src="../assets/img/qiangjing.svg" alt="">
+                        <img src="../../assets/img/qiangjing.svg" alt="">
                         <span>抢镜</span>
                     </div>
                     <div class="tool pr10p">
-                        <img src="../assets/img/qr_code.svg" alt="">
+                        <img src="../../assets/img/qr_code.svg" alt="">
                         <span>二维码</span>
                     </div>
                     <div class="tool pr10p">
-                        <img src="../assets/img/dongtaibizhi.svg" alt="">
+                        <img src="../../assets/img/dongtaibizhi.svg" alt="">
                         <span>动态壁纸</span>
                     </div>
                     <div class="tool pr10p">
-                        <img src="../assets/img/hepai.svg" alt="">
+                        <img src="../../assets/img/hepai.svg" alt="">
                         <span>合拍</span>
                     </div>
                     <div class="tool pr10p">
-                        <img src="../assets/img/dislike.svg" alt="">
+                        <img src="../../assets/img/dislike.svg" alt="">
                         <span>不感兴趣</span>
                     </div>
                     <div class="tool pr10p">
-                        <img src="../assets/img/href.svg" alt="">
+                        <img src="../../assets/img/href.svg" alt="">
                         <span>复制链接</span>
                     </div>
                 </div>
