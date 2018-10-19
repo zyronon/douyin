@@ -76,7 +76,8 @@
                         loves: 1234,
                         comments: 666,
                         shared: 999
-                    },{
+                    },
+                    {
                         videoUrl: '../assets/video/吴三二的光年之外.mp4',
                         isLoved: false,
                         loves: 1234,
