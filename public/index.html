@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
     <meta name="screen-orientation" content="portrait"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -10,12 +11,19 @@
     <meta name="x5-fullscreen" content="true">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>抖音</title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but douyin doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+    <style>
+        body{
+            height: 0!important;
+        }
+    </style>
+</head>
+<body>
+<noscript>
+    <strong>
+        We're sorry but douyin doesn't work properly without JavaScript enabled. Please enable it to continue.
+    </strong>
+</noscript>
+<div id="app"></div>
+<!-- built files will be auto injected -->
+</body>
 </html>

@@ -1,12 +1,12 @@
 <template>
     <div id="attention" >
-        <div class="items pl10p pr10p">
-            <div class="item">
-                <div class="header">
+        <div class="items p10p">
+            <div class="item mb20p pb20p" v-for="item of items">
+                <div class="header mb10p">
                     <img src="../../assets/img/head-image.jpeg" alt="">
                     <span class="ml5p">TTentau</span>
                 </div>
-                <div class="my-comment mt5p">
+                <div class="my-comment mb10p">
                     最靠近北极有个不生不来之地，北极熊比人还多，对中国免签 <span class="tag">#带他去旅行</span>
                 </div>
                 <div class="other-comment p10p">
@@ -14,7 +14,7 @@
                     <span class="tag">#购物车里是什么</span>
                     <span>无敌浩克</span>
                 </div>
-                <div class="video-container mb10p">
+                <div class="video-container mb10p ">
                     <video src="../../assets/video/吴三二的光年之外.mp4"></video>
                     <div class="music">
                         <img src="../../assets/img/music.svg" alt="" class="music-image">
@@ -73,6 +73,13 @@
         name: "Attention",
         components: {
             Footer
+        },
+        data(){
+            return {
+                items:[
+                    {},{},{}
+                ]
+            }
         }
     }
 </script>
@@ -85,25 +92,28 @@
         background: #2e3244;
         color: #b8b9c1;
         .items {
-            .item {
+            >.item {
+                border-bottom: 1px solid #494950;
                 .header {
                     display: flex;
                     justify-content: start;
                     align-items: center;
                     img {
-                        width: 30px;
-                        height: 30px;
+                        width: 40px;
+                        height: 40px;
                         border-radius: 50%;
                     }
                 }
                 .other-comment {
+                    display: none;
                     background: #15161b;
                     border-radius: 10px 10px 0 0;
                 }
                 .video-container {
                     position: relative;
+                    width: 80%;
                     video {
-                        border-radius: 0 0 10px 10px;
+                        border-radius: 10px 10px  10px 10px;
                         width: 100%;
                     }
                     .music {
