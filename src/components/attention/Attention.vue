@@ -30,6 +30,7 @@
                 <div class="toolbar mb10p">
                     <div class="item">
                         <img src="../../assets/img/love.svg" alt="">
+                        <img src="../../assets/img/loved.svg" alt="" class="love-image" v-if="false">
                         <span class="count">555</span>
                     </div>
                     <div class="item">
@@ -45,7 +46,7 @@
                         <span class="count">555</span>
                     </div>
                 </div>
-                <div class="hot-comment pl5p pr15p mb5p  oh">
+                <div class="hot-comment pr15p mb5p  oh">
                     <div class="content pull-left ">
                         <img src="../../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
                         <div class="pull-right comment-container">
@@ -55,6 +56,7 @@
                     </div>
                     <div class="love pull-right">
                         <img src="../../assets/img/love-gray.svg" alt="" class="love-image">
+                        <img src="../../assets/img/loved.svg" alt="" class="love-image" v-if="false">
                         <span class="f14 block">3453</span>
                     </div>
                 </div>
@@ -171,19 +173,16 @@
                     }
                 }
                 .hot-comment {
-                    .head-image {
-                        width: 40px;
-                        border-radius: 50%;
-                        float: left;
-                    }
                     .content {
                         float: left;
                         width: 85%;
                         .head-image {
-                            width: 15%;
+                            width: 40px;
+                            border-radius: 50%;
+                            float: left;
                         }
                         .comment-container {
-                            width: 80%;
+                            width: 85%;
                             .time {
                                 color: gray;
                             }

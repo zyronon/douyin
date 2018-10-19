@@ -11,11 +11,11 @@
 <script>
     export default {
         name: "Footer",
-        props:['initTab'],
-        data(){
-          return{
-              currentTab:this.initTab
-          }
+        props: ['initTab'],
+        data() {
+            return {
+                currentTab: this.initTab
+            }
         },
         methods: {
             tab(index) {
@@ -31,8 +31,10 @@
                     case 3:
                         break;
                     case 4:
+                        this.$router.push('/message');
                         break;
                     case 5:
+                        this.$router.push('/me');
                         break;
                 }
             }
