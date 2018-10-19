@@ -46,6 +46,10 @@
         margin: 0;
         font-family: "Microsoft Sans Serif";
     }
+    p{
+        padding: 0;
+        margin: 0;
+    }
 
     $width: 1000;
     @while $width > 0 {
