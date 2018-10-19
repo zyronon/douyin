@@ -33,7 +33,7 @@
                         <span>ttentau</span>
                     </div>
                     <div class="friend pr10p">
-                        <img src="../../assets/img/ic_more.svg" alt="">
+                        <img src="../../assets/img/next.svg" alt="">
                         <span>更多</span>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                         <span>微博</span>
                     </div>
                     <div class="share-to pr10p">
-                        <img src="../../assets/img/More.svg">
+                        <img src="../../assets/img/more.svg">
                         <span>更多</span>
                     </div>
                 </div>
