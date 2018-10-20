@@ -1,15 +1,16 @@
 <template>
     <div class="me">
         <div class="container">
-            <div class="header" v-bind:style="{height:height/2+'px'}">
+            <!--<div class="header" v-bind:style="{height:height/2+'px'}">-->
+            <div class="header">
                 <div class="top pt20p pl10p pr10p">
                     <img src="../../assets/img/next.svg" alt="">
                     <img src="../../assets/img/more.svg" alt="">
                 </div>
                 <div class="bottom">
-                    <div class="container p10p">
+                    <div class="container pr10p pl10p pt10p">
                         <div class="head">
-                            <img src="../../assets/img/head-image.jpeg" class="head-image">
+                            <img src="../../assets/img/head-image.jpeg" class="head-image ml20p">
                             <div class="other-buttons" v-if="false">
                                 <div class="attention">
                                     关注
@@ -33,7 +34,7 @@
                         </div>
                         <div class="description">
                             <p class="name f22 mt5p mb5p">ttentau</p>
-                            <div class="number">
+                            <div class="number mb10p">
                                 <span>抖音号：605128307</span>
                                 <div class="jrtt">
                                     <img src="../../assets/img/sina.svg" alt="">
@@ -41,12 +42,49 @@
                                     <img src="../../assets/img/next.svg" alt="">
                                 </div>
                             </div>
+                            <div class="signature f12 mb10p">
+                                <span>填写个性签名更容易获得别人关注哦</span>
+                            </div>
+                            <div class="info f10 mb10p">
+                                <div class="age">
+                                    <img src="../../assets/img/person.svg" alt="">
+                                    <span>22岁</span>
+                                </div>
+                                <div class="location">
+                                    <span>上海</span>
+                                </div>
+                                <div class="school">
+                                    四川理工大学
+                                </div>
+                            </div>
+                            <div class="heat mb10p">
+                                <span>8获赞</span>
+                                <span>38关注</span>
+                                <span>42粉丝</span>
+                            </div>
+                        </div>
+                        <div class="tabset">
+                            <div class="tab active">
+                                <span>作品1</span>
+                            </div>
+                            <div class="tab">
+                                <span>动态6</span>
+                            </div>
+                            <div class="tab">
+                                <span>喜欢6</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="content">
-
+                <div class="video-container" v-for="item of videos"  v-bind:style="{'height':width/3*1.2+'px'}">
+                    <video src="../../assets/video/吴三二的光年之外.mp4"></video>
+                    <div class="love">
+                        <img src="../../assets/img/love.svg" alt="">
+                        <span class="ml5p">72.3w</span>
+                    </div>
+                </div>
             </div>
         </div>
         <Footer v-bind:init-tab="5"/>
@@ -63,21 +101,26 @@
         },
         data() {
             return {
-                height: 0
+                height: 0,
+                width: 0,
+                videos: [{},{},{},{}]
             }
         },
         created() {
             this.height = window.screen.height;
+            this.width = window.screen.width;
         }
     }
 </script>
 
 <style scoped lang="scss">
     .me {
+        color: white;
         .header {
             background: gray;
             .top {
-                height: 40%;
+                /*height: 30%;*/
+                height: 100px;
                 display: flex;
                 justify-content: space-between;
                 background: url("../../assets/img/top-bg.jpg");
@@ -97,11 +140,16 @@
                 background-position: center;
                 background-size: cover;
                 background-repeat: no-repeat;
-                height: 60%;
+                /*height: 60%;*/
                 .container {
                     height: 100%;
-                    background-color: rgba(0, 0, 0, 0.89);
+                    background-color: #2e3244ed;
+                    position: relative;
                     .head {
+                        width: 100%;
+                        right: 10px;
+                        position: absolute;
+                        top: -8px;
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
@@ -124,32 +172,93 @@
                                     padding: 6px;
                                     height: 20px;
                                 }
-                                span{
+                                span {
                                     color: #cdcdcd;
                                 }
                             }
 
                         }
                     }
-                    .description{
+                    .description {
+                        margin-top: 60px;
                         color: white;
-                        .number{
+                        .number {
                             padding-bottom: 10px;
                             border-bottom: 1px solid gray;
-                            .jrtt{
+                            .jrtt {
                                 float: right;
                                 img {
                                     height: 10px;
                                     width: 10px;
                                 }
                                 span {
-                                    margin:0 5px;
+                                    margin: 0 5px;
                                 }
                             }
+                        }
+                        .info {
+                            display: flex;
+                            align-items: center;
+                            div {
+                                display: flex;
+                                align-items: center;
+                                float: left;
+                                border-radius: 2px;
+                                background: #676767;
+                                margin-right: 5px;
+                                padding: 2px 4px;
+                                img {
+                                    height: 10px;
+                                    margin-right: 3px;
+                                }
+                                span {
+                                    color: #cdcdcd;
+                                }
+                            }
+                        }
+                        .heat {
+                            span {
+                                margin-right: 10px;
+                            }
+                        }
+                    }
+                    .tabset {
+                        display: flex;
+                        justify-content: space-around;
+                        .tab {
+                            padding-top: 10px;
+                            padding-bottom: 10px;
+                            text-align: center;
+                            width: 30%;
+                        }
+                        .active {
+                            border-bottom: 2px solid gold;
                         }
                     }
                 }
 
+            }
+        }
+        .content {
+            .video-container {
+                width: 33%;
+                float: left;
+                position: relative;
+                overflow: hidden;
+                border: .5px solid black;
+                video {
+                    width: 100%;
+                }
+                .love {
+                    position: absolute;
+                    bottom: 10px;
+                    left: 10px;
+                    display: flex;
+                    align-items: center;
+                    img {
+                        height: 20px;
+                    }
+                }
             }
         }
     }
