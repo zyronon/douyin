@@ -4,13 +4,13 @@
             <!--<div class="header" v-bind:style="{height:height/2+'px'}">-->
             <div class="header">
                 <div class="top pt20p pl10p pr10p">
-                    <img src="../../assets/img/next.svg" alt="">
-                    <img src="../../assets/img/more.svg" alt="">
+                    <img src="../../assets/img/icon/next.svg" alt="">
+                    <img src="../../assets/img/icon/more.svg" alt="">
                 </div>
                 <div class="bottom">
                     <div class="container pr10p pl10p pt10p">
                         <div class="head">
-                            <img src="../../assets/img/head-image.jpeg" class="head-image ml20p">
+                            <img src="../../assets/img/icon/head-image.jpeg" class="head-image ml20p">
                             <div class="other-buttons" v-if="false">
                                 <div class="attention">
                                     关注
@@ -21,14 +21,14 @@
                             </div>
                             <div class="my-buttons ">
                                 <div class="collect">
-                                    <img src="../../assets/img/collect-white.svg" alt="">
+                                    <img src="../../assets/img/icon/collect-white.svg" alt="">
                                     <span class="mr5p">收藏</span>
                                 </div>
                                 <div class="add-friend">
-                                    <img src="../../assets/img/add-friend-white.svg" alt="">
+                                    <img src="../../assets/img/icon/add-friend-white.svg" alt="">
                                 </div>
                                 <div class="qr-code">
-                                    <img src="../../assets/img/qr-code-white.svg" alt="">
+                                    <img src="../../assets/img/icon/qr-code-white.svg" alt="">
                                 </div>
                             </div>
                         </div>
@@ -37,9 +37,9 @@
                             <div class="number mb10p">
                                 <span>抖音号：605128307</span>
                                 <div class="jrtt">
-                                    <img src="../../assets/img/sina.svg" alt="">
+                                    <img src="../../assets/img/icon/sina.svg" alt="">
                                     <span>头条主页</span>
-                                    <img src="../../assets/img/next.svg" alt="">
+                                    <img src="../../assets/img/icon/next.svg" alt="">
                                 </div>
                             </div>
                             <div class="signature f12 mb10p">
@@ -47,7 +47,7 @@
                             </div>
                             <div class="info f10 mb10p">
                                 <div class="age">
-                                    <img src="../../assets/img/person.svg" alt="">
+                                    <img src="../../assets/img/icon/person.svg" alt="">
                                     <span>22岁</span>
                                 </div>
                                 <div class="location">
@@ -81,7 +81,7 @@
                 <div class="video-container" v-for="item of videos"  v-bind:style="{'height':width/3*1.2+'px'}">
                     <video src="../../assets/video/吴三二的光年之外.mp4"></video>
                     <div class="love">
-                        <img src="../../assets/img/love.svg" alt="">
+                        <img src="../../assets/img/icon/love.svg" alt="">
                         <span class="ml5p">72.3w</span>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
                 height: 100px;
                 display: flex;
                 justify-content: space-between;
-                background: url("../../assets/img/top-bg.jpg");
+                background: url("../../assets/img/icon/top-bg.jpg");
                 img {
                     border-radius: 50%;
                     padding: 5px;
@@ -136,7 +136,7 @@
                 }
             }
             .bottom {
-                background-image: url("../../assets/img/head-image.jpeg");
+                background-image: url("../../assets/img/icon/head-image.jpeg");
                 background-position: center;
                 background-size: cover;
                 background-repeat: no-repeat;
