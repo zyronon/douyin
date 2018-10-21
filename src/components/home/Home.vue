@@ -1,90 +1,192 @@
 <template>
     <div id="home">
-        <div class="bg-video" v-for="(item,index) in data">
-            <!--<video :src="data[0].videoUrl">-->
-            <video src="../../assets/video/吴三二的光年之外.mp4" >
-                您的浏览器不支持 video 标签。30
-            </video>
-            <div class="float" @click="togglePlayVideo($event)">
-                <transition name="pause">
-                    <img src="../../assets/img/play.svg" class="pause" v-show="!isPlaying"
-                         @click.stop="togglePlayVideo($event)">
-                </transition>
-                <div class="toolbar mb10p">
-                    <img src="../../assets/img/head-image.jpeg" alt="" class="head-image mb15p">
-                    <div class="love mb15p" @click.stop="loved($event,index)">
-                        <div>
-                            <transition name="love">
-                                <img src="../../assets/img/love.svg" class="love-image" v-if="!item.isLoved">
-                                <img src="../../assets/img/loved.svg" class="love-image" v-if="item.isLoved">
+        <swiper :options="swiperOptionh" :style="{'height':otherUserHeight+'px'}">
+            <swiper-slide>
+                <swiper :options="swiperOptionv">
+                    <swiper-slide v-for="(item,index) in data">
+                        <div class="bg-video" v-bind:style="{'height':height+'px'}">
+                            <video :src="item.videoUrl" :poster="item.poster" ref="video" :autoplay="index == 0" loop>
+                                <p> 您的浏览器不支持 video 标签。</p>
+                            </video>
+                            <div class="float" @click="togglePlayVideo($event)">
+                                <transition name="pause">
+                                    <img src="../../assets/img/icon/play.svg" class="pause" v-show="!isPlaying"
+                                         @click.stop="togglePlayVideo($event)">
+                                </transition>
+                                <div class="toolbar mb10p">
+                                    <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image mb15p">
+                                    <div class="love mb15p" @click.stop="loved($event,index)">
+                                        <div>
+                                            <transition name="love">
+                                                <img src="../../assets/img/icon/love.svg" class="love-image"
+                                                     v-if="!item.isLoved">
+                                                <img src="../../assets/img/icon/loved.svg" class="love-image"
+                                                     v-if="item.isLoved">
 
-                            </transition>
-                            <transition name="loved">
-                            </transition>
+                                            </transition>
+                                            <transition name="loved">
+                                            </transition>
+                                        </div>
+                                        <span class="f14">{{item.loves}}</span>
+                                    </div>
+                                    <div class="message mb15p" @click.stop="showComment">
+                                        <img src="../../assets/img/icon/message.svg" alt="" class="message-image">
+                                        <span class="f14">{{item.comments}}</span>
+                                    </div>
+                                    <div class="share mb35p" @click.stop="showShare">
+                                        <img src="../../assets/img/icon/share.svg" alt="" class="share-image">
+                                        <span class="f14">{{item.shared}}</span>
+                                    </div>
+                                    <img src="../../assets/img/icon/head-image.jpeg" alt="" class="music">
+                                </div>
+                                <div class="content ml10p">
+                                    <div class="name mb10p">@TTentau</div>
+                                    <div class="description mb10p">
+                                        吴三二的光年之外, 您的浏览器不支持 video 标签。 您的浏览器不支持 video 标签。
+                                    </div>
+                                    <div class="music mb10p">
+                                        <img src="../../assets/img/icon/music.svg" alt="" class="music-image">
+                                        <marquee behavior=scroll direction=left align=middle scrollamount=4> 吴三二 -
+                                            光年之外
+                                        </marquee>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <span class="f14">{{item.loves}}</span>
-                    </div>
-                    <div class="message mb15p" @click.stop="isCommenting=!isCommenting">
-                        <img src="../../assets/img/message.svg" alt="" class="message-image">
-                        <span class="f14">{{item.comments}}</span>
-                    </div>
-                    <div class="share mb35p" @click.stop="isSharing=!isSharing">
-                        <img src="../../assets/img/share.svg" alt="" class="share-image">
-                        <span class="f14">{{item.shared}}</span>
-                    </div>
-                    <img src="../../assets/img/head-image.jpeg" alt="" class="music">
-                </div>
-                <div class="content ml10p">
-                    <div class="name mb10p">@TTentau</div>
-                    <div class="description mb10p">
-                        吴三二的光年之外, 您的浏览器不支持 video 标签。 您的浏览器不支持 video 标签。
-                    </div>
-                    <div class="music mb10p">
-                        <img src="../../assets/img/music.svg" alt="" class="music-image">
-                        <marquee behavior=scroll direction=left align=middle scrollamount=4> 吴三二 - 光年之外</marquee>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <Comment v-bind:is-commenting="isCommenting" v-on:showComment='isCommenting=!isCommenting'/>
-        <Share v-bind:is-sharing="isSharing"/>
-        <Footer v-bind:init-tab="1"/>
+                    </swiper-slide>
+                </swiper>
+                <Comment v-bind:is-commenting="isCommenting"
+                         v-on:showComment='isCommenting = !isCommenting'
+                         ref="comment"
+                         :style="{'top':height-commentHeight+'px'}"/>
+                <Share v-bind:is-sharing="isSharing" ref="share" :style="{'top':height-shareHeight+'px'}"/>
+                <Footer v-bind:init-tab="1" ref="footer" :style="{'top':height-footerHeight+'px'}"/>
+            </swiper-slide>
+            <swiper-slide>
+                <Other ref="other"/>
+            </swiper-slide>
+        </swiper>
     </div>
 </template>
 
 <script>
     import Comment from './Comment';
+    import Other from '../user/Other';
+    import Message from '../message/Message';
     import Share from './Share';
     import Footer from '../common/Footer';
+    import {swiper, swiperSlide} from 'vue-awesome-swiper';
 
+    require('swiper/dist/css/swiper.css');    //注意这里
+
+
+    let self = null;
     export default {
         name: "Home",
         components: {
             Comment,
             Share,
-            Footer
+            Footer,
+            Message,
+            Other,
+            swiper,
+            swiperSlide
         },
         data() {
             return {
                 isPlaying: true,
                 isCommenting: false,
                 isSharing: false,
+                height: 0,
+                width: 0,
+                otherUserHeight: 0,
+                footerHeight: 0,
+                commentHeight: 0,
+                shareHeight: 0,
                 data: [
                     {
-                        videoUrl: '../assets/video/吴三二的光年之外.mp4',
+                        videoUrl: require('../../assets/video/吴三二的光年之外.mp4'),
+                        // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
+                        videoPoster: require('../../assets/img/poster/src1-bg.png'),
                         isLoved: false,
                         loves: 1234,
                         comments: 666,
                         shared: 999
                     },
                     {
-                        videoUrl: '../assets/video/吴三二的光年之外.mp4',
+                        videoUrl: require('../../assets/video/src1.mp4'),
+                        videoPoster: require('../../assets/img/poster/src1-bg.png'),
                         isLoved: false,
                         loves: 1234,
                         comments: 666,
                         shared: 999
                     }
-                ]
+                ],
+                swiperOptionh: {
+                    direction: 'horizontal',
+                    height: document.body.clientHeight,
+                    width: document.body.clientWidth,
+                    // autoHeight: true, //高度随内容变化
+                    on: {
+                        slideChange: function () {
+                            self.isCommenting = false;
+                            self.isSharing = false;
+                        },
+                    },
+                },
+                swiperOptionv: {
+                    direction: 'vertical',
+                    height: document.body.clientHeight,
+                    width: document.body.clientWidth,
+                    // autoHeight: true, //高度随内容变化
+                    on: {
+                        slideChange() {
+                            let dateLength = self.data.length;
+                            let index = this.activeIndex;
+                            console.log(index);
+                            console.log(dateLength)
+
+                            let currentVideo = self.$refs.video[index];
+                            self.isPlaying = true;
+                            currentVideo.currentTime = 0;
+                            // console.log(currentVideo);
+                            currentVideo.play();
+                            if (index == 0) {
+                                let nextVideo = self.$refs.video[index + 1];
+                                nextVideo.pause();
+                            } else if (index == dateLength - 1) {
+                                let preVideo = self.$refs.video[index - 1];
+                                preVideo.pause();
+                            } else {
+                                let nextVideo = self.$refs.video[index + 1];
+                                nextVideo.pause();
+                                let preVideo = self.$refs.video[index - 1];
+                                preVideo.pause();
+                            }
+
+                            if (index + 2 > dateLength) {
+                                self.data.push(
+                                    {
+                                        videoUrl: require('../../assets/video/src1.mp4'),
+                                        videoPoster: require('../../assets/img/poster/src1-bg.png'),
+                                        isLoved: false,
+                                        loves: 1234,
+                                        comments: 666,
+                                        shared: 999
+                                    }
+                                )
+                            }
+                            console.log(self.data);
+                        },
+                        touchStart(event) {
+                            // console.log();
+                            // event.stopPropagation();
+                            self.isCommenting = false;
+                            self.isSharing = false;
+                        }
+                    },
+
+                }
             }
         },
         methods: {
@@ -118,6 +220,21 @@
             },
             showComment() {
                 this.isCommenting = !this.isCommenting;
+                setTimeout(()=>{
+                    let comment = this.$refs.comment.$el;
+                    this.commentHeight = comment.offsetHeight;
+                    console.log(this.commentHeight);
+                    console.log(this.height);
+                },50);
+            },
+            showShare() {
+                this.isSharing = !this.isSharing;
+                setTimeout(()=>{
+                    let share = this.$refs.share.$el;
+                    this.shareHeight = share.offsetHeight;
+                    console.log(this.shareHeight);
+                    console.log(this.height);
+                },50);
             },
             loved(e, index) {
                 let img = e.target.parentNode.childNodes[0];
@@ -126,12 +243,21 @@
                 this.data[index].isLoved = !this.data[index].isLoved;
 
             }
-
         },
         created() {
-            // console.log(55)
+            self = this;
+            this.height = document.body.clientHeight;
+            this.width = document.body.clientWidth;
         },
         mounted() {
+            let other = this.$refs.other.$el;
+            let footer = this.$refs.footer.$el;
+            let share = this.$refs.share.$el;
+            this.otherUserHeight = other.offsetHeight;
+            if (this.otherUserHeight < this.height) {
+                this.otherUserHeight = this.height;
+            }
+            this.footerHeight = footer.offsetHeight;
         }
     }
 </script>
@@ -140,6 +266,7 @@
     #home {
         .bg-video {
             position: relative;
+            background: black;
             video {
                 width: 100%;
                 height: 100%;
@@ -251,6 +378,7 @@
         transform: scale(2);
         opacity: 0;
     }
+
     .loved-enter-active {
         transition: all .3s ease;
     }

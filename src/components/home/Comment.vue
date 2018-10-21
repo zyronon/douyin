@@ -1,14 +1,14 @@
 <template>
     <transition name="comment">
         <div class="comment f14" v-if="isCommenting">
-            <div class="title">
+            <div class="title mt10p">
                 <p>2.7w条评论</p>
-                <img src="../../assets/img/close.svg" @click.stop="$emit('showComment')">
+                <img src="../../assets/img/icon/close.svg" @click.stop="$emit('showComment')">
             </div>
             <div class="items">
                 <div class="item pl5p pr15p mb5p  oh">
                     <div class="content pull-left ">
-                        <img src="../../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
+                        <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image pull-left">
                         <div class="pull-right comment-container">
                             <div class="name">@ttentau</div>
                             <div class="detail">其实我也不知道评论点什么啊啊啊看吧看吧看吧</div>
@@ -16,13 +16,13 @@
                         </div>
                     </div>
                     <div class="love pull-right">
-                        <img src="../../assets/img/love-gray.svg" alt="" class="love-image">
+                        <img src="../../assets/img/icon/love-gray.svg" alt="" class="love-image">
                         <span class="f14 block">3453</span>
                     </div>
                 </div>
                 <div class="item pl5p pr15p mb5p  oh">
                     <div class="content pull-left ">
-                        <img src="../../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
+                        <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image pull-left">
                         <div class="pull-right comment-container">
                             <div class="name">@ttentau</div>
                             <div class="detail">其实我也不知道评论点什么啊啊啊看吧看吧看吧</div>
@@ -30,13 +30,13 @@
                         </div>
                     </div>
                     <div class="love pull-right">
-                        <img src="../../assets/img/love-gray.svg" alt="" class="love-image">
+                        <img src="../../assets/img/icon/love-gray.svg" alt="" class="love-image">
                         <span class="f14 block">3453</span>
                     </div>
                 </div>
                 <div class="item pl5p pr15p mb5p  oh">
                     <div class="content pull-left ">
-                        <img src="../../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
+                        <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image pull-left">
                         <div class="pull-right comment-container">
                             <div class="name">@ttentau</div>
                             <div class="detail">其实我也不知道评论点什么啊啊啊看吧看吧看吧</div>
@@ -44,13 +44,13 @@
                         </div>
                     </div>
                     <div class="love pull-right">
-                        <img src="../../assets/img/love-gray.svg" alt="" class="love-image">
+                        <img src="../../assets/img/icon/love-gray.svg" alt="" class="love-image">
                         <span class="f14 block">3453</span>
                     </div>
                 </div>
                 <div class="item pl5p pr15p mb5p  oh">
                     <div class="content pull-left ">
-                        <img src="../../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
+                        <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image pull-left">
                         <div class="pull-right comment-container">
                             <div class="name">@ttentau</div>
                             <div class="detail">其实我也不知道评论点什么啊啊啊看吧看吧看吧</div>
@@ -58,13 +58,13 @@
                         </div>
                     </div>
                     <div class="love pull-right">
-                        <img src="../../assets/img/love-gray.svg" alt="" class="love-image">
+                        <img src="../../assets/img/icon/love-gray.svg" alt="" class="love-image">
                         <span class="f14 block">3453</span>
                     </div>
                 </div>
                 <div class="item pl5p pr15p mb5p  oh">
                     <div class="content pull-left ">
-                        <img src="../../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
+                        <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image pull-left">
                         <div class="pull-right comment-container">
                             <div class="name">@ttentau</div>
                             <div class="detail">其实我也不知道评论点什么啊啊啊看吧看吧看吧</div>
@@ -72,13 +72,13 @@
                         </div>
                     </div>
                     <div class="love pull-right">
-                        <img src="../../assets/img/love-gray.svg" alt="" class="love-image">
+                        <img src="../../assets/img/icon/love-gray.svg" alt="" class="love-image">
                         <span class="f14 block">3453</span>
                     </div>
                 </div>
                 <div class="item pl5p pr15p mb5p  oh">
                     <div class="content pull-left ">
-                        <img src="../../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
+                        <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image pull-left">
                         <div class="pull-right comment-container">
                             <div class="name">@ttentau</div>
                             <div class="detail">其实我也不知道评论点什么啊啊啊看吧看吧看吧</div>
@@ -86,13 +86,13 @@
                         </div>
                     </div>
                     <div class="love pull-right">
-                        <img src="../../assets/img/love-gray.svg" alt="" class="love-image">
+                        <img src="../../assets/img/icon/love-gray.svg" alt="" class="love-image">
                         <span class="f14 block">3453</span>
                     </div>
                 </div>
                 <div class="item pl5p pr15p mb5p  oh">
                     <div class="content pull-left ">
-                        <img src="../../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
+                        <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image pull-left">
                         <div class="pull-right comment-container">
                             <div class="name">@ttentau</div>
                             <div class="detail">其实我也不知道评论点什么啊啊啊看吧看吧看吧</div>
@@ -100,7 +100,7 @@
                         </div>
                     </div>
                     <div class="love pull-right">
-                        <img src="../../assets/img/love-gray.svg" alt="" class="love-image">
+                        <img src="../../assets/img/icon/love-gray.svg" alt="" class="love-image">
                         <span class="f14 block">3453</span>
                     </div>
                 </div>
@@ -130,9 +130,9 @@
 <style lang="scss" scoped>
     .comment {
         position: fixed;
-        bottom: 0;
+        top: 200px;
         background: #fff;
-        z-index: 3;
+        z-index: 5;
         border-radius: 10px 10px 0 0;
         .title {
             position: relative;

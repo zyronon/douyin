@@ -9,26 +9,26 @@
             </div>
             <div class="toolbar mt20p">
                 <div>
-                    <img src="../../assets/img/person.svg" alt="">
+                    <img src="../../assets/img/icon/person.svg" alt="">
                     <span>粉丝</span>
                 </div>
                 <div>
-                    <img src="../../assets/img/love.svg" alt="">
+                    <img src="../../assets/img/icon/love.svg" alt="">
                     <span>赞</span>
                 </div>
                 <div>
-                    <img src="../../assets/img/person.svg" alt="">
+                    <img src="../../assets/img/icon/person.svg" alt="">
                     <span>@我的</span>
                 </div>
                 <div>
-                    <img src="../../assets/img/message.svg" alt="">
+                    <img src="../../assets/img/icon/message.svg" alt="">
                     <span>评论</span>
                 </div>
             </div>
             <div class="messages mt20p">
                 <div class="message oh mt15p">
                     <div class="content pull-left ">
-                        <img src="../../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
+                        <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image pull-left">
                         <div class="pull-right comment-container">
                             <div class="name">游戏小助手</div>
                             <div class="detail">抖出好游戏</div>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="message oh mt15p">
                     <div class="content pull-left ">
-                        <img src="../../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
+                        <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image pull-left">
                         <div class="pull-right comment-container">
                             <div class="name">抖音小助手</div>
                             <div class="detail">抖音美好奇妙夜小贴士</div>
@@ -52,7 +52,7 @@
                 </div>
                 <div class="message oh mt15p">
                     <div class="content pull-left ">
-                        <img src="../../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
+                        <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image pull-left">
                         <div class="pull-right comment-container">
                             <div class="name">TTentau</div>
                             <div class="detail">其实我也不知道评论点什么啊啊啊看吧看吧看吧</div>
@@ -65,7 +65,7 @@
             </div>
             <p class="tac">无更多消息</p>
         </div>
-        <Footer v-bind:init-tab="4"/>
+        <Footer v-bind:init-tab="4" ref="footer" :style="{'top':height-footerUserHeight+'px'}"/>
     </div>
 </template>
 
@@ -78,11 +78,21 @@
             Footer
         },
         data() {
-            return {}
+            return {
+                height:0,
+                width:0,
+                footerHeight:0
+            }
         },
         created() {
-            let height = window.screen.height;
-            console.log(height);
+            self = this;
+            this.height = document.body.clientHeight;
+            this.width = document.body.clientWidth;
+        },
+        mounted() {
+            let footer = this.$refs.footer.$el;
+            this.footerUserHeight = footer.offsetHeight;
+
         }
     }
 </script>

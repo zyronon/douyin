@@ -3,7 +3,7 @@
         <div class="items p10p">
             <div class="item mb20p pb20p" v-for="item of items">
                 <div class="header mb10p">
-                    <img src="../../assets/img/head-image.jpeg" alt="">
+                    <img src="../../assets/img/icon/head-image.jpeg" alt="">
                     <span class="ml5p">TTentau</span>
                 </div>
                 <div class="my-comment mb10p">
@@ -17,53 +17,53 @@
                 <div class="video-container mb10p ">
                     <video src="../../assets/video/吴三二的光年之外.mp4"></video>
                     <div class="music">
-                        <img src="../../assets/img/music.svg" alt="" class="music-image">
+                        <img src="../../assets/img/icon/music.svg" alt="" class="music-image">
                         <marquee behavior=scroll direction=left align=middle scrollamount=4> 吴三二 - 光年之外</marquee>
-                        <img src="../../assets/img/play.svg" alt="" class="play">
-                        <img src="../../assets/img/pause.svg" alt="" class="pause" v-if="false">
+                        <img src="../../assets/img/icon/play.svg" alt="" class="play">
+                        <img src="../../assets/img/icon/pause.svg" alt="" class="pause" v-if="false">
                     </div>
                 </div>
                 <div class="location mb10p">
-                    <img src="../../assets/img/location.svg" alt="">
+                    <img src="../../assets/img/icon/location.svg" alt="">
                     <span class="ml5p">东方明珠</span>
                 </div>
                 <div class="toolbar mb10p">
                     <div class="item">
-                        <img src="../../assets/img/love.svg" alt="">
-                        <img src="../../assets/img/loved.svg" alt="" class="love-image" v-if="false">
+                        <img src="../../assets/img/icon/love.svg" alt="">
+                        <img src="../../assets/img/icon/loved.svg" alt="" class="love-image" v-if="false">
                         <span class="count">555</span>
                     </div>
                     <div class="item">
-                        <img src="../../assets/img/message.svg" alt="">
+                        <img src="../../assets/img/icon/message.svg" alt="">
                         <span class="count">555</span>
                     </div>
                     <div class="item">
-                        <img src="../../assets/img/love.svg" alt="">
+                        <img src="../../assets/img/icon/love.svg" alt="">
                         <span class="count">555</span>
                     </div>
                     <div class="item">
-                        <img src="../../assets/img/love.svg" alt="">
+                        <img src="../../assets/img/icon/love.svg" alt="">
                         <span class="count">555</span>
                     </div>
                 </div>
                 <div class="hot-comment pr15p mb5p  oh">
                     <div class="content pull-left ">
-                        <img src="../../assets/img/head-image.jpeg" alt="" class="head-image pull-left">
+                        <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image pull-left">
                         <div class="pull-right comment-container">
                             <div class="name">@ttentau</div>
                             <div class="detail">其实我也不知道评论点什么啊啊啊看吧看吧看吧</div>
                         </div>
                     </div>
                     <div class="love pull-right">
-                        <img src="../../assets/img/love-gray.svg" alt="" class="love-image">
-                        <img src="../../assets/img/loved.svg" alt="" class="love-image" v-if="false">
+                        <img src="../../assets/img/icon/love-gray.svg" alt="" class="love-image">
+                        <img src="../../assets/img/icon/loved.svg" alt="" class="love-image" v-if="false">
                         <span class="f14 block">3453</span>
                     </div>
                 </div>
                 <span class="time">11小时前</span>
             </div>
         </div>
-        <Footer v-bind:init-tab="2"/>
+        <Footer v-bind:init-tab="2" ref="footer" :style="{'top':height-footerUserHeight+'px'}"/>
     </div>
 </template>
 
@@ -80,8 +80,21 @@
             return {
                 items:[
                     {},{},{}
-                ]
+                ],
+                height:0,
+                width:0,
+                footerHeight:0
             }
+        },
+        created() {
+            self = this;
+            this.height = document.body.clientHeight;
+            this.width = document.body.clientWidth;
+        },
+        mounted() {
+            let footer = this.$refs.footer.$el;
+            this.footerUserHeight = footer.offsetHeight;
+
         }
     }
 </script>
