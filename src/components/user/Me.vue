@@ -77,7 +77,7 @@
                     </div>
                 </div>
             </div>
-            <div class="content">
+            <div class="content oh">
                 <div class="video-container" v-for="item of videos"  v-bind:style="{'height':width/3*1.2+'px'}">
                     <video src="../../assets/video/吴三二的光年之外.mp4"></video>
                     <div class="love">
@@ -87,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <Footer v-bind:init-tab="5"/>
+        <Footer v-bind:init-tab="5" ref="footer" :style="{'top':height-footerUserHeight+'px'}"/>
     </div>
 </template>
 
@@ -101,14 +101,21 @@
         },
         data() {
             return {
-                height: 0,
-                width: 0,
-                videos: [{},{},{},{}]
+                videos: [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
+                height:0,
+                width:0,
+                footerHeight:0
             }
         },
         created() {
-            this.height = window.screen.height;
-            this.width = window.screen.width;
+            self = this;
+            this.height = document.body.clientHeight;
+            this.width = document.body.clientWidth;
+        },
+        mounted() {
+            let footer = this.$refs.footer.$el;
+            this.footerUserHeight = footer.offsetHeight;
+
         }
     }
 </script>

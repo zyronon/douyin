@@ -175,4 +175,10 @@
     .tac {
         text-align: center;
     }
+
+    .red {background: red;}
+    .gold {background: gold;}
+    .green {background: green;}
+
+
 </style>

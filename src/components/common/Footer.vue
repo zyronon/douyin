@@ -2,7 +2,7 @@
     <div class="footer f16 ">
         <div class="button" @click="tab(1)"><span v-bind:class="{active:currentTab==1}">首页</span></div>
         <div class="button" @click="tab(2)"><span v-bind:class="{active:currentTab==2}">关注</span></div>
-        <div class="button" @click="tab(3)"><img src="../../assets/img/add.svg" alt=""></div>
+        <div class="button" @click="tab(3)"><img src="../../assets/img/icon/add.svg" alt=""></div>
         <div class="button" @click="tab(4)"><span v-bind:class="{active:currentTab==4}">消息</span></div>
         <div class="button" @click="tab(5)"><span v-bind:class="{active:currentTab==5}">我</span></div>
     </div>
@@ -34,7 +34,7 @@
                         this.$router.push('/message');
                         break;
                     case 5:
-                        this.$router.push('/me');
+                        this.$router.push('/user');
                         break;
                 }
             }
@@ -48,7 +48,7 @@
         border-top: 1px solid #7b7878;
         position: fixed;
         z-index: 2;
-        bottom: 0;
+        top: 600px;
         width: 100%;
         background: #020202b3;
         color: white;
