@@ -65,7 +65,7 @@
             </div>
             <p class="tac">无更多消息</p>
         </div>
-        <Footer v-bind:init-tab="4" ref="footer" :style="{'top':height-footerUserHeight+'px'}"/>
+        <Footer v-bind:init-tab="4" ref="footer" :style="{'top':height-footerHeight+'px'}"/>
     </div>
 </template>
 
@@ -91,7 +91,7 @@
         },
         mounted() {
             let footer = this.$refs.footer.$el;
-            this.footerUserHeight = footer.offsetHeight;
+            this.footerHeight = footer.offsetHeight;
 
         }
     }

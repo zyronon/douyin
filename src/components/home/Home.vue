@@ -129,6 +129,7 @@
                     // autoHeight: true, //高度随内容变化
                     on: {
                         slideChange: function () {
+                            window.scrollTo(0, 0);
                             self.isCommenting = false;
                             self.isSharing = false;
                         },
@@ -246,10 +247,12 @@
         },
         created() {
             self = this;
+            window.scrollTo(0, 0);
             this.height = document.body.clientHeight;
             this.width = document.body.clientWidth;
         },
         mounted() {
+            window.scrollTo(0, 0);
             let other = this.$refs.other.$el;
             let footer = this.$refs.footer.$el;
             let share = this.$refs.share.$el;
