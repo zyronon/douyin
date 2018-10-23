@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "push": "git add ./ & git commit -m 'dubug' & git push origin master"
+    "push": "git add ./ && git commit -m 'dubug'"
   },
   "dependencies": {
     "vue": "^2.5.17",
