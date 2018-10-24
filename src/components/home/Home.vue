@@ -153,6 +153,10 @@
                     // autoHeight: true, //高度随内容变化
                     on: {
                         slideChange() {
+                            self.isCommenting = false;
+                            self.isSharing = false;
+
+
                             let dateLength = self.data.length;
                             let index = self.currentPlayIndex = this.activeIndex;
                             console.log(index);
@@ -193,8 +197,8 @@
                         touchStart(event) {
                             // console.log();
                             // event.stopPropagation();
-                            self.isCommenting = false;
-                            self.isSharing = false;
+                            // self.isCommenting = false;
+                            // self.isSharing = false;
                         }
                     },
 
@@ -203,6 +207,10 @@
         },
         methods: {
             togglePlayVideo(e) {
+                console.log('1');
+                console.log(this.isCommenting)
+                console.log(this.isSharing);
+                // return;
                 if (this.isSharing) {
                     this.isSharing = false;
                     return;
@@ -266,7 +274,7 @@
             window.scrollTo(0, 0);
             let other = this.$refs.other.$el;
             let footer = this.$refs.footer.$el;
-            let share = this.$refs.share.$el;
+            // let share = this.$refs.share.$el;
             this.otherUserHeight = other.offsetHeight;
             if (this.otherUserHeight < this.height) {
                 this.otherUserHeight = this.height;
