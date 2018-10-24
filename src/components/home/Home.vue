@@ -94,6 +94,7 @@
         },
         data() {
             return {
+                currentPlayIndex: 0,
                 isPlaying: true,
                 isCommenting: false,
                 isSharing: false,
@@ -132,6 +133,16 @@
                             window.scrollTo(0, 0);
                             self.isCommenting = false;
                             self.isSharing = false;
+                            if (self.isPlaying) {
+                                let currentVideo = self.$refs.video[self.currentPlayIndex];
+                                currentVideo.pause();
+                                self.isPlaying = false;
+                            }else {
+                                let currentVideo = self.$refs.video[self.currentPlayIndex];
+                                currentVideo.play();
+                                self.isPlaying = true;
+                            }
+
                         },
                     },
                 },
@@ -143,7 +154,7 @@
                     on: {
                         slideChange() {
                             let dateLength = self.data.length;
-                            let index = this.activeIndex;
+                            let index = self.currentPlayIndex = this.activeIndex;
                             console.log(index);
                             console.log(dateLength)
 
@@ -221,21 +232,21 @@
             },
             showComment() {
                 this.isCommenting = !this.isCommenting;
-                setTimeout(()=>{
+                setTimeout(() => {
                     let comment = this.$refs.comment.$el;
                     this.commentHeight = comment.offsetHeight;
                     console.log(this.commentHeight);
                     console.log(this.height);
-                },50);
+                }, 50);
             },
             showShare() {
                 this.isSharing = !this.isSharing;
-                setTimeout(()=>{
+                setTimeout(() => {
                     let share = this.$refs.share.$el;
                     this.shareHeight = share.offsetHeight;
                     console.log(this.shareHeight);
                     console.log(this.height);
-                },50);
+                }, 50);
             },
             loved(e, index) {
                 let img = e.target.parentNode.childNodes[0];
