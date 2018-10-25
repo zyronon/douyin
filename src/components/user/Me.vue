@@ -79,7 +79,7 @@
             </div>
             <div class="content oh">
                 <div class="video-container" v-for="item of videos"  v-bind:style="{'height':width/3*1.2+'px'}">
-                    <video src="../../assets/video/吴三二的光年之外.mp4"></video>
+                    <video src="../../assets/video/吴三二的光年之外.mp4" poster="../../assets/img/poster/src1-bg.png"></video>
                     <div class="love">
                         <img src="../../assets/img/icon/love.svg" alt="">
                         <span class="ml5p">72.3w</span>
