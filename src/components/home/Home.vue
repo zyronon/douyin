@@ -137,12 +137,14 @@
                                 let currentVideo = self.$refs.video[self.currentPlayIndex];
                                 currentVideo.pause();
                                 self.isPlaying = false;
-                            }else {
-                                let currentVideo = self.$refs.video[self.currentPlayIndex];
-                                currentVideo.play();
-                                self.isPlaying = true;
                             }
-
+                            if (this.activeIndex == 0 ) {
+                                if (!self.isPlaying){
+                                    let currentVideo = self.$refs.video[self.currentPlayIndex];
+                                    currentVideo.play();
+                                    self.isPlaying = true;
+                                }
+                            }
                         },
                     },
                 },
