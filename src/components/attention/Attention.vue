@@ -63,7 +63,7 @@
                 <span class="time">11小时前</span>
             </div>
         </div>
-        <Footer v-bind:init-tab="2" ref="footer" :style="{'top':height-footerHeight+'px'}"/>
+        <Footer v-bind:init-tab="2"  style="position: fixed;" />
     </div>
 </template>
 
@@ -92,8 +92,8 @@
             this.width = document.body.clientWidth;
         },
         mounted() {
-            let footer = this.$refs.footer.$el;
-            this.footerHeight = footer.offsetHeight;
+            // let footer = this.$refs.footer.$el;
+            // this.footerHeight = footer.offsetHeight;
 
         }
     }
@@ -106,6 +106,7 @@
         //抖音原色，感觉很暗
         background: #2e3244;
         color: #b8b9c1;
+        position: relative;
         .items {
             >.item {
                 border-bottom: 1px solid #494950;

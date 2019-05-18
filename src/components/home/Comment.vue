@@ -130,7 +130,9 @@
 <style lang="scss" scoped>
     .comment {
         position: fixed;
-        top: 200px;
+        /*top: 200px;*/
+        width: 100%;
+        bottom: 0;
         background: #fff;
         z-index: 5;
         border-radius: 10px 10px 0 0;
