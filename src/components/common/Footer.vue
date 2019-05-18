@@ -23,7 +23,7 @@
                 console.log(index);
                 switch (index) {
                     case 1:
-                        this.$router.push('/home');
+                        this.$router.push('/');
                         break;
                     case 2:
                         this.$router.push('/attention');
@@ -45,11 +45,13 @@
 <style scoped lang="scss">
 
     .footer {
-        border-top: 1px solid #7b7878;
-        position: fixed;
-        z-index: 2;
-        top: 600px;
+        position: absolute;
+        bottom: 0;
         width: 100%;
+        height: 40px;
+        border-top: 1px solid #7b7878;
+        z-index: 2;
+        /*top: 600px;*/
         background: #020202b3;
         color: white;
         .button {

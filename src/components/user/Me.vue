@@ -87,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <Footer v-bind:init-tab="5" ref="footer" :style="{'top':height-footerHeight+'px'}"/>
+        <Footer v-bind:init-tab="5" style="position: fixed;"/>
     </div>
 </template>
 
@@ -113,10 +113,7 @@
             this.width = document.body.clientWidth;
         },
         mounted() {
-            let footer = this.$refs.footer.$el;
-            this.footerHeight = footer.offsetHeight;
-
-        }
+                  }
     }
 </script>
 

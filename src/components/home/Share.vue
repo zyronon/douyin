@@ -126,7 +126,9 @@
 
     .share {
         position: fixed;
-        top: 200px;
+        /*top: 200px;*/
+        width: 100%;
+        bottom: 0;
         z-index: 5;
         background: #eaeaea;
         border-radius: 10px 10px 0 0;

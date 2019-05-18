@@ -1,5 +1,5 @@
 <template>
-    <div id="app" v-bind:style="{'min-height':height + 'px'}">
+    <div id="app" >
         <!--<Home/>-->
         <router-view></router-view>
     </div>
@@ -9,31 +9,7 @@
     // import Home from './components/home/Home.vue'
 
     export default {
-        name: 'app',
-        components: {
-            // Home
-        },
-        data() {
-            return {
-                height: 0,
-                width: 0
-            }
-        },
-        created() {
-            this.height = window.screen.height;
-            // this.width = window.screen.width;
-            // let availWidth = window.screen.availWidth;
-            // let clientWidth = document.body.clientWidth;
-            // let offsetWidth = document.body.offsetWidth;
-            // let scrollWidth = document.body.scrollWidth;
-            // console.log(this.height);
-            // console.log(this.width);
-            // console.log(availWidth);
-            // console.log(clientWidth);
-            // console.log(offsetWidth);
-            // console.log(scrollWidth);
-
-        }
+        name: 'app'
     }
 </script>
 
