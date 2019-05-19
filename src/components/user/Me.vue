@@ -4,7 +4,7 @@
             <!--<div class="header" v-bind:style="{height:height/2+'px'}">-->
             <div class="header">
                 <div class="top pt20p pl10p pr10p">
-                    <img src="../../assets/img/icon/next.svg" alt="">
+                    <img src="../../assets/img/icon/next.svg" alt="" class="d-none">
                     <img src="../../assets/img/icon/more.svg" alt="">
                 </div>
                 <div class="bottom">
@@ -78,7 +78,7 @@
                 </div>
             </div>
             <div class="content oh">
-                <div class="video-container" v-for="item of videos"  v-bind:style="{'height':width/3*1.2+'px'}">
+                <div class="video-container" v-for="(item,index) of videos" :key="index"  v-bind:style="{'height':width/3*1.2+'px'}">
                     <video src="../../assets/video/吴三二的光年之外.mp4" poster="../../assets/img/poster/src1-bg.png"></video>
                     <div class="love">
                         <img src="../../assets/img/icon/love.svg" alt="">
@@ -108,7 +108,6 @@
             }
         },
         created() {
-            self = this;
             this.height = document.body.clientHeight;
             this.width = document.body.clientWidth;
         },
@@ -126,7 +125,7 @@
                 /*height: 30%;*/
                 height: 100px;
                 display: flex;
-                justify-content: space-between;
+                justify-content: flex-end;
                 background: url("../../assets/img/icon/top-bg.jpg");
                 img {
                     border-radius: 50%;
