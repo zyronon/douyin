@@ -11,7 +11,7 @@
                          @touchmove="contentItemTouchmove($event)"
                          @touchend="contentItemTouchend($event,index)">
                         <div class="bg-video" v-bind:style="{'height':height+'px'}">
-                            <video :src="item.videoUrl" :poster="item.poster" ref="video" :autoplay="index === 0" loop>
+                            <video :src="item.videoUrl" :poster="item.poster" ref="video" muted :autoplay="index === 0" loop>
                                 <p> 您的浏览器不支持 video 标签。</p>
                             </video>
                             <div class="float" @click="togglePlayVideo($event)">
@@ -20,7 +20,7 @@
                                          @click.stop="togglePlayVideo($event)">
                                 </transition>
                                 <div class="toolbar mb10p">
-                                    <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image mb15p">
+                                    <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image mb15p" @click.stop="goUserInfo(item)">
                                     <div class="love mb15p" @click.stop="loved($event,index)">
                                         <div>
                                             <transition name="love">
@@ -43,7 +43,7 @@
                                         <img src="../../assets/img/icon/share.svg" alt="" class="share-image">
                                         <span class="f14">{{item.shared}}</span>
                                     </div>
-                                    <img src="../../assets/img/icon/head-image.jpeg" alt="" class="music">
+                                    <img src="../../assets/img/icon/head-image.jpeg" alt="" class="music" @click.stop="goMusic()">
                                 </div>
                                 <div class="content ml10p">
                                     <div class="name mb10p">@TTentau</div>
@@ -61,12 +61,12 @@
                         </div>
                     </div>
                 </div>
-                <Comment v-bind:is-commenting="isCommenting" v-on:showComment='isCommenting = !isCommenting' ref="comment"/>
-                <Share v-bind:is-sharing="isSharing" ref="share"/>
+                <Comment v-bind:is-commenting.sync="isCommenting"/>
+                <Share v-bind:is-sharing.sync="isSharing" ref="share"/>
                 <Footer v-bind:init-tab="1"/>
             </div>
             <div class="right-container swiper-item">
-                <Other ref="other"/>
+                <Other ref="other" @back="backVideoList"/>
             </div>
         </div>
     </div>
@@ -149,6 +149,9 @@
             this.width = document.body.clientWidth
         },
         methods: {
+            goMusic(){
+                this.$router.push('/music')
+            },
             checkDirection() {
                 if (!this.isNeedCheck) {
                     return
@@ -335,6 +338,7 @@
                     videos[this.currentIndex - 1].pause()
                 }
                 videos[this.currentIndex].play()
+                videos[this.currentIndex].muted  = false
                 videos[this.currentIndex + 1].pause()
 
 
@@ -369,24 +373,20 @@
             //展示评论
             showComment() {
                 this.isCommenting = !this.isCommenting
-                // setTimeout(() => {
-                //     let comment = this.$refs.comment.$el;
-                //     this.commentHeight = comment.offsetHeight;
-                //     console.log(this.commentHeight);
-                //     console.log(this.height);
-                // }, 50);
             },
             showShare() {
                 this.isSharing = !this.isSharing
-                // setTimeout(() => {
-                //     let share = this.$refs.share.$el;
-                //     this.shareHeight = share.offsetHeight;
-                //     console.log(this.shareHeight);
-                //     console.log(this.height);
-                // }, 50);
             },
             loved(e, index) {
                 this.data[index].isLoved = !this.data[index].isLoved
+            },
+            //前往用户中心
+            goUserInfo(item){
+                this.wrapperLeft = '-100%'
+            },
+            //返回视频列表
+            backVideoList(){
+                this.wrapperLeft = '0'
             }
         },
         created() {

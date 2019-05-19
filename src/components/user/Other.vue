@@ -4,7 +4,7 @@
             <!--<div class="header" v-bind:style="{height:height/2+'px'}">-->
             <div class="header">
                 <div class="top pt20p pl10p pr10p">
-                    <img src="../../assets/img/icon/next.svg" alt="">
+                    <img src="../../assets/img/icon/next.svg" alt="" @click="$emit('back')">
                     <img src="../../assets/img/icon/more.svg" alt="">
                 </div>
                 <div class="bottom">

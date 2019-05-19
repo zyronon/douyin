@@ -1,0 +1,160 @@
+
+
+
+/*
+
+width
+
+*/
+$width: 500;
+@while $width >= 0 {
+    .w#{$width}p {
+        width: #{$width}px !important;
+    }
+    $width: $width - 10;
+}
+
+
+$width: 100;
+@while $width >= 0 {
+    .w#{$width} {
+        width: percentage($width / 100) !important;
+    }
+    $width: $width - 1;
+}
+
+/*
+
+$height
+
+*/
+$height: 500;
+@while $height >= 0 {
+    .h#{$height}p {
+        height: #{$height}px !important;
+    }
+    $height: $height - 10;
+}
+
+
+$height: 100;
+@while $height >= 0 {
+    .h#{$height} {
+        height: percentage($height / 100) !important;
+    }
+    $height: $height - 1;
+}
+
+
+
+
+
+/*
+
+margin
+
+*/
+$margin: 100;
+
+@while $margin >= 0 {
+    .ml#{$margin}p {
+        margin-left: #{$margin}px !important;
+    }
+    $margin: $margin - 1;
+}
+
+$margin: 100;
+@while $margin >= 0 {
+    .mr#{$margin}p {
+        margin-right: #{$margin}px !important;
+    }
+    $margin: $margin - 1;
+}
+
+$margin: 100;
+@while $margin >=0 {
+    .mt#{$margin}p {
+        margin-top: #{$margin}px !important;
+    }
+    $margin: $margin - 1;
+}
+
+$margin: 100;
+@while $margin >= 0 {
+    .mb#{$margin}p {
+        margin-bottom: #{$margin}px !important;
+    }
+    $margin: $margin - 1;
+}
+
+$margin: 100;
+@while $margin >= 0 {
+    .m#{$margin}p {
+        margin: #{$margin}px !important;
+    }
+    $margin: $margin - 1;
+}
+
+
+/*
+
+padding
+
+*/
+
+
+$padding: 100;
+@while $padding >= 0 {
+    .pl#{$padding}p {
+        padding-left: #{$padding}px !important;
+    }
+    $padding: $padding - 1;
+}
+
+$padding: 100;
+@while $padding >= 0 {
+    .pr#{$padding}p {
+        padding-right: #{$padding}px !important;
+    }
+    $padding: $padding - 1;
+}
+
+$padding: 100;
+@while $padding >= 0 {
+    .pt#{$padding}p {
+        padding-top: #{$padding}px !important;
+    }
+    $padding: $padding - 1;
+}
+
+$padding: 100;
+@while $padding >= 0 {
+    .pb#{$padding}p {
+        padding-bottom: #{$padding}px !important;
+    }
+    $padding: $padding - 1;
+}
+
+$padding: 100;
+@while $padding >= 0 {
+    .p#{$padding}p {
+        padding: #{$padding}px !important;
+    }
+    $padding: $padding - 1;
+}
+
+
+/*
+
+font
+
+*/
+
+$font: 40;
+@while $font >=0 {
+    .f#{$font} {
+        font-size: #{$font}px!important;
+    }
+    $font: $font - 1;
+}
+
