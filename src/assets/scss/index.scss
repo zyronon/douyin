@@ -1,0 +1,22 @@
+@import "variables";//一些变量
+@import "utils";//for循环生成的 margin、padding、width、height类
+@import "custom";//自定义的一些快捷css类
+@import "color";//颜色
+@import "dialog";//弹窗
+@import "layout";//布局
+
+//想自己写全局变量请到custom.scss里面写
+//想自己写全局变量请到custom.scss里面写
+//想自己写全局变量请到custom.scss里面写
+//想自己写全局变量请到custom.scss里面写
+//想自己写全局变量请到custom.scss里面写
+//想自己写全局变量请到custom.scss里面写
+//想自己写全局变量请到custom.scss里面写
+
+
+
+//使用的这个框架自带的而已样式表，改了页面会出问题
+p{
+    padding: 0;
+    margin: 0;
+}
