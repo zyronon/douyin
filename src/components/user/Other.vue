@@ -64,13 +64,13 @@
                             </div>
                         </div>
                         <div class="tabset">
-                            <div class="tab active">
+                            <div class="tab active" @click="toggleTab($event,0)">
                                 <span>作品1</span>
                             </div>
-                            <div class="tab">
+                            <div class="tab" @click="toggleTab($event,1)">
                                 <span>动态6</span>
                             </div>
-                            <div class="tab">
+                            <div class="tab" @click="toggleTab($event,2)">
                                 <span>喜欢6</span>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
 </template>
 
 <script>
-    import Footer from '../common/Footer';
+    import Footer from '../common/Footer'
 
     export default {
         name: "Other",
@@ -102,12 +102,21 @@
             return {
                 height: 0,
                 width: 0,
-                videos: [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
+                videos: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
             }
         },
         created() {
-            this.height = window.screen.height;
-            this.width = window.screen.width;
+            this.height = window.screen.height
+            this.width = window.screen.width
+        },
+        methods: {
+            toggleTab(e, index) {
+                let childNodes  = e.target.parentElement.childNodes
+                childNodes.forEach(function (item) {
+                    item.classList.remove('active')
+                })
+                e.target.classList.add('active')
+            },
         }
     }
 </script>
@@ -115,25 +124,30 @@
 <style scoped lang="scss">
     .me {
         color: white;
+
         .header {
             background: gray;
+
             .top {
                 /*height: 30%;*/
                 height: 100px;
                 display: flex;
                 justify-content: space-between;
                 background: url("../../assets/img/icon/top-bg.jpg");
+
                 img {
                     border-radius: 50%;
                     padding: 5px;
                     background: #524a4a;
                     height: 20px;
                     width: 20px;
+
                     &:nth-child(1) {
                         transform: rotate(180deg);
                     }
                 }
             }
+
             .bottom {
                 background-image: url("../../assets/img/icon/head-image.jpeg");
                 background-position: center;
@@ -144,6 +158,7 @@
                     height: 100%;
                     background-color: #2e3244ed;
                     position: relative;
+
                     .head {
                         width: 100%;
                         right: 10px;
@@ -152,6 +167,7 @@
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
+
                         .head-image {
                             background: black;
                             padding: 5px;
@@ -159,6 +175,7 @@
                             width: 60px;
                             height: 60px;
                         }
+
                         .my-buttons {
                             div {
                                 display: flex;
@@ -167,10 +184,12 @@
                                 border-radius: 2px;
                                 background: #676767;
                                 margin-right: 5px;
+
                                 img {
                                     padding: 6px;
                                     height: 20px;
                                 }
+
                                 span {
                                     color: #cdcdcd;
                                 }
@@ -178,26 +197,33 @@
 
                         }
                     }
+
                     .description {
                         margin-top: 60px;
                         color: white;
+
                         .number {
                             padding-bottom: 10px;
                             border-bottom: 1px solid gray;
+
                             .jrtt {
                                 float: right;
+
                                 img {
                                     height: 10px;
                                     width: 10px;
                                 }
+
                                 span {
                                     margin: 0 5px;
                                 }
                             }
                         }
+
                         .info {
                             display: flex;
                             align-items: center;
+
                             div {
                                 display: flex;
                                 align-items: center;
@@ -206,38 +232,46 @@
                                 background: #676767;
                                 margin-right: 5px;
                                 padding: 2px 4px;
+
                                 img {
                                     height: 10px;
                                     margin-right: 3px;
                                 }
+
                                 span {
                                     color: #cdcdcd;
                                 }
                             }
                         }
+
                         .heat {
                             span {
                                 margin-right: 10px;
                             }
                         }
                     }
+
                     .tabset {
                         display: flex;
                         justify-content: space-around;
+
                         .tab {
                             padding-top: 10px;
                             padding-bottom: 10px;
                             text-align: center;
                             width: 30%;
+
+                            &.active {
+                                border-bottom: 2px solid gold;
+                            }
                         }
-                        .active {
-                            border-bottom: 2px solid gold;
-                        }
+
                     }
                 }
 
             }
         }
+
         .content {
             .video-container {
                 width: 33%;
@@ -245,15 +279,18 @@
                 position: relative;
                 overflow: hidden;
                 border: .5px solid black;
+
                 video {
                     width: 100%;
                 }
+
                 .love {
                     position: absolute;
                     bottom: 10px;
                     left: 10px;
                     display: flex;
                     align-items: center;
+
                     img {
                         height: 20px;
                     }

@@ -45,12 +45,12 @@
                                     </div>
                                     <img src="../../assets/img/icon/head-image.jpeg" alt="" class="music" @click.stop="goMusic()">
                                 </div>
-                                <div class="content ml10p">
-                                    <div class="name mb10p">@TTentau</div>
+                                <div class="content ml10p" @click.stop="goUserInfo()">
+                                    <div class="name mb10p" >@TTentau</div>
                                     <div class="description mb10p">
                                         吴三二的光年之外, 您的浏览器不支持 video 标签。 您的浏览器不支持 video 标签。
                                     </div>
-                                    <div class="music mb10p">
+                                    <div class="music mb10p" @click.stop="goMusic()">
                                         <img src="../../assets/img/icon/music.svg" alt="" class="music-image">
                                         <marquee behavior=scroll direction=left align=middle scrollamount=4> 吴三二 -
                                             光年之外
@@ -149,6 +149,7 @@
             this.width = document.body.clientWidth
         },
         methods: {
+
             goMusic(){
                 this.$router.push('/music')
             },
