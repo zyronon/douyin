@@ -1,7 +1,7 @@
 <template>
     <div id="attention" >
         <div class="items p10p">
-            <div class="item mb20p pb20p" v-for="item of items">
+            <div class="item mb20p pb20p" v-for="(item,index) of items" :key="index" >
                 <div class="header mb10p">
                     <img src="../../assets/img/icon/head-image.jpeg" alt="">
                     <span class="ml5p">TTentau</span>
@@ -87,14 +87,10 @@
             }
         },
         created() {
-            self = this;
             this.height = document.body.clientHeight;
             this.width = document.body.clientWidth;
         },
         mounted() {
-            // let footer = this.$refs.footer.$el;
-            // this.footerHeight = footer.offsetHeight;
-
         }
     }
 </script>
@@ -112,7 +108,7 @@
                 border-bottom: 1px solid #494950;
                 .header {
                     display: flex;
-                    justify-content: start;
+                    justify-content: flex-start;
                     align-items: center;
                     img {
                         width: 40px;
@@ -160,7 +156,7 @@
                 }
                 .location {
                     display: flex;
-                    justify-content: start;
+                    justify-content: flex-start;
                     align-items: center;
                     height: 20px;
                     img {
@@ -175,7 +171,7 @@
                         height: 100%;
                         display: flex;
                         width: 25%;
-                        justify-content: start;
+                        justify-content: flex-start;
                         align-items: center;
                         float: left;
                         img{
