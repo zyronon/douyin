@@ -20,8 +20,8 @@
         </header>
         <div class="content">
             <div class="tabs">
-                <div class="tab active">热门</div>
-                <div class="tab">最新</div>
+                <div class="tab active" @click="toggleTab($event,0)">热门</div>
+                <div class="tab" @click="toggleTab($event,1)">最新</div>
             </div>
             <div class="video-container" v-for="(item,index) of videos" v-bind:style="{'height':width/3*1.2+'px'}">
                 <video src="../../assets/video/吴三二的光年之外.mp4" poster="../../assets/img/poster/src1-bg.png"></video>
@@ -47,7 +47,21 @@
         },
         computed: {},
         methods: {
-            back(){
+            toggleTab(e, index) {
+                if (!e.target.classList.contains('active')) {
+                    e.target.classList.toggle('active')
+                }
+
+                if (index === 1) {
+                    let pre = e.target.previousElementSibling
+                    pre.classList.remove('active')
+                } else {
+                    let pre = e.target.nextElementSibling
+                    pre.classList.remove('active')
+                }
+
+            },
+            back() {
                 window.history.back()
             }
         }
@@ -78,6 +92,7 @@
                 .logo {
                     width: 120px;
                     height: 100%;
+                    border-radius: 4px;
                 }
 
                 .info {
@@ -119,23 +134,26 @@
         }
 
         .content {
-            .tabs{
+            .tabs {
                 height: 40px;
                 display: flex;
                 align-items: center;
                 color: #fff;
-                .tab{
+
+                .tab {
                     height: 90%;
                     width: 50%;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     margin: 10px;
-                    &.active{
+
+                    &.active {
                         border-bottom: 3px solid yellow;
                     }
                 }
             }
+
             .video-container {
                 width: 33%;
                 float: left;
@@ -146,8 +164,9 @@
                 video {
                     width: 100%;
                 }
-                .first{
-                    padding:0 5px;
+
+                .first {
+                    padding: 0 5px;
                     border-radius: 4px;
                     position: absolute;
                     top: 10px;
