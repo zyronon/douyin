@@ -3,7 +3,7 @@
         <div class="comment f14" v-if="isCommenting">
             <div class="title mt10p">
                 <p>2.7w条评论</p>
-                <img src="../../assets/img/icon/close.svg" @click.stop="$emit('showComment')">
+                <img src="../../assets/img/icon/close.svg" @click.stop="$emit('update:is-commenting',false)">
             </div>
             <div class="items">
                 <div class="item pl5p pr15p mb5p  oh">
