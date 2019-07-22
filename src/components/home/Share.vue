@@ -108,7 +108,7 @@
                     </div>
                 </div>
             </div>
-            <div class="dismiss">
+            <div class="dismiss" @click="closeShare()">
                 取消
             </div>
         </div>
@@ -118,11 +118,22 @@
 <script>
     export default {
         name: "Share",
-        props:['isSharing']
+        props: ['isSharing'],
+        methods: {
+            closeShare() {
+                this.$emit("update:is-sharing", false)
+                // this.isSharing = false
+                console.log('关闭')
+            }
+        }
     }
 </script>
 
 <style lang="scss" scoped>
+
+    .w200 {
+        width: 200%;
+    }
 
     .share {
         position: fixed;
@@ -132,27 +143,34 @@
         z-index: 5;
         background: #eaeaea;
         border-radius: 10px 10px 0 0;
+
         .friends {
             overflow-x: scroll;
+
             .friend {
                 float: left;
+
                 img {
                     width: 40px;
                     height: 40px;
                     border-radius: 50%;
                 }
+
                 span {
                     display: block;
                     text-align: center;
                 }
             }
         }
+
         .shares {
             background: white;
             overflow-x: scroll;
+
             .share-to {
                 float: left;
                 width: 50px;
+
                 img {
                     width: 27px;
                     height: 27px;
@@ -160,18 +178,22 @@
                     border-radius: 50%;
                     background: #1ace04;
                 }
+
                 span {
                     display: block;
                     text-align: center;
                 }
             }
         }
+
         .toolbar {
             border-top: 1px solid #eaeaea;
             background: white;
             overflow-x: scroll;
+
             .tool {
                 float: left;
+
                 img {
                     width: 22px;
                     height: 22px;
@@ -179,12 +201,14 @@
                     border-radius: 50%;
                     background: #eaeaea;
                 }
+
                 span {
                     display: block;
                     text-align: center;
                 }
             }
         }
+
         .dismiss {
             background: white;
             border-top: 1px solid #eaeaea;

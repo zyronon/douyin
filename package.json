@@ -9,8 +9,10 @@
         "push": "git add ./ && git commit -m 'dubug' && git push origin master"
     },
     "dependencies": {
+        "lodash": "^4.17.14",
+        "pinyin": "^2.9.0",
         "vue": "^2.6.10",
-        "vue-router": "^3.0.2"
+        "vue-router": "^3.0.7"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "^3.0.3",
