@@ -11,7 +11,7 @@
                          @touchmove="contentItemTouchmove($event)"
                          @touchend="contentItemTouchend($event,index)">
                         <div class="bg-video" v-bind:style="{'height':height+'px'}">
-                            <video :src="item.videoUrl" :poster="item.poster" ref="video" :autoplay="index === 0" loop>
+                            <video :src="item.videoUrl" :poster="item.poster" ref="video" muted :autoplay="index === 0" loop>
                                 <p> 您的浏览器不支持 video 标签。</p>
                             </video>
                             <div class="float" @click="togglePlayVideo($event)">
