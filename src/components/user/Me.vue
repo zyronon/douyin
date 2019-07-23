@@ -92,7 +92,7 @@
 </template>
 
 <script>
-    import Footer from '../common/Footer';
+    import Footer from '../Footer';
 
     export default {
         name: "Me",

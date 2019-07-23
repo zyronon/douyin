@@ -73,10 +73,10 @@
 </template>
 
 <script>
-    import Comment from './Comment'
-    import Other from '../user/Other'
-    import Share from './Share'
-    import Footer from "../common/Footer"
+    import Comment from '../Comment'
+    import Other from '../Other'
+    import Share from '../Share'
+    import Footer from "../Footer"
 
     export default {
         name: "Home",
