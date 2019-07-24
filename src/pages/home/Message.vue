@@ -3,7 +3,7 @@
         <div class="container p15p">
             <div class="header">
                 <div class="title">
-                    <p class="tac">消息</p>
+                    <p class="tac fb c-white ">消息</p>
                     <span>联系人</span>
                 </div>
             </div>
@@ -18,11 +18,11 @@
                 </div>
                 <div>
                     <img src="../../assets/img/icon/msg-icon3.png" alt="">
-                    <span>@我的</span>
+                    <span>评论和@</span>
                 </div>
                 <div>
                     <img src="../../assets/img/icon/msg-icon4.png" alt="">
-                    <span>评论</span>
+                    <span>随拍互动</span>
                 </div>
             </div>
             <div class="messages mt20p">
@@ -65,7 +65,7 @@
             </div>
             <p class="tac">无更多消息</p>
         </div>
-        <Footer v-bind:init-tab="4" ref="footer"/>
+        <Footer v-bind:init-tab="4" />
     </div>
 </template>
 
@@ -79,13 +79,9 @@
         },
         data() {
             return {
-                height: 0,
-                width: 0,
-                footerHeight: 0
             }
         },
         created() {
-            self = this
 
         },
         mounted() {
@@ -95,6 +91,7 @@
 
 <style scoped lang="scss">
     .message {
+        font-size: 1.6rem;
         background: #2e3244;
         color: #b8b9c1;
         height: 100%;
