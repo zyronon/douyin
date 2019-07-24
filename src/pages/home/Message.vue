@@ -1,13 +1,14 @@
 <template>
-    <div class="message">
-        <div class="container p15p">
-            <div class="header">
+    <div id="Message">
+        <div class="container">
+            <div class="header pt15p">
                 <div class="title">
                     <p class="tac fb c-white ">消息</p>
                     <span>联系人</span>
                 </div>
             </div>
-            <div class="toolbar mt20p">
+            <div class="line mt20p"></div>
+            <div class="toolbar mt30p">
                 <div>
                     <img src="../../assets/img/icon/msg-icon1.png" alt="">
                     <span>粉丝</span>
@@ -25,47 +26,38 @@
                     <span>随拍互动</span>
                 </div>
             </div>
-            <div class="messages mt20p">
-                <div class="message oh mt15p">
-                    <div class="content pull-left ">
-                        <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image pull-left">
-                        <div class="pull-right comment-container">
+            <div class="line mt20p"></div>
+            <div class="messages  mt10p">
+                <div class="message top">
+                    <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image pull-left">
+                    <div class="content">
+                        <div class="left">
                             <div class="name">游戏小助手</div>
                             <div class="detail">抖出好游戏</div>
                         </div>
-                    </div>
-                    <div class="love pull-right">
-                        <span class="f14 block">20:54</span>
-                    </div>
-                </div>
-                <div class="message oh mt15p">
-                    <div class="content pull-left ">
-                        <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image pull-left">
-                        <div class="pull-right comment-container">
-                            <div class="name">抖音小助手</div>
-                            <div class="detail">抖音美好奇妙夜小贴士</div>
+                        <div class="right">
+                            <div class="f14">20:54</div>
+                            <div class="number">9</div>
                         </div>
                     </div>
-                    <div class="love pull-right">
-                        <span class="f14 block">20:54</span>
-                    </div>
                 </div>
-                <div class="message oh mt15p">
-                    <div class="content pull-left ">
-                        <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image pull-left">
-                        <div class="pull-right comment-container">
-                            <div class="name">TTentau</div>
-                            <div class="detail">其实我也不知道评论点什么啊啊啊看吧看吧看吧</div>
+                <div class="message">
+                    <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image pull-left">
+                    <div class="content">
+                        <div class="left">
+                            <div class="name">游戏小助手</div>
+                            <div class="detail">抖出好游戏</div>
                         </div>
-                    </div>
-                    <div class="love pull-right">
-                        <span class="f14 block">20:54</span>
+                        <div class="right">
+                            <div class="f14">20:54</div>
+                            <div class="number">9</div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <p class="tac">无更多消息</p>
+            <p class="tac mt18p f12">无更多消息</p>
         </div>
-        <Footer v-bind:init-tab="4" />
+        <Footer v-bind:init-tab="4"/>
     </div>
 </template>
 
@@ -78,8 +70,7 @@
             Footer
         },
         data() {
-            return {
-            }
+            return {}
         },
         created() {
 
@@ -90,7 +81,7 @@
 </script>
 
 <style scoped lang="scss">
-    .message {
+    #Message {
         font-size: 1.6rem;
         background: #2e3244;
         color: #b8b9c1;
@@ -129,38 +120,67 @@
 
         }
 
-        .messages {
+        .line {
+            margin: 0 20px;
             border-top: 1px solid #494950;
+        }
+
+        .messages {
 
             .message {
+                padding:13px 20px;
+                display: flex;
+                align-items: center;
+
+                &.top{
+                    background: #353a4f;
+                }
+                &:active{
+                    background: #353a4f;
+                }
+
+                .head-image {
+                    margin-right: 20px;
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                }
+
                 .content {
-                    float: left;
-                    width: 85%;
+                    flex: 1;
+                    display: flex;
+                    justify-content: space-between;
 
-                    .head-image {
-                        width: 40px;
-                        border-radius: 50%;
-                        float: left;
-                    }
+                    .left {
+                        .name {
+                            color: white;
+                        }
 
-                    .comment-container {
-                        width: 85%;
-
-                        .time {
-                            color: gray;
+                        .detail {
+                            margin-top: 5px;
+                            font-size: 14px;
                         }
                     }
 
-                }
+                    .right {
+                        font-size: 14px;
+                        text-align: center;
 
-                .love {
-                    text-align: center;
+                        .number {
+                            display: inline-block;
+                            min-height: 20px;
+                            min-width: 20px;
+                            text-align: center;
+                            color: black;
+                            margin-top: 5px;
+                            /*padding: 5px;*/
+                            background: yellow;
+                            border-radius: 50%;
 
-                    .love-image {
-                        width: 30px;
-                        border-radius: 50%;
+                        }
                     }
                 }
+
             }
         }
     }

@@ -1,6 +1,6 @@
 <template>
     <div class="Me">
-        <div class="wrapper" >
+        <div class="wrapper">
             <div class="left">
                 <header>
                     <img src="../../assets/img/icon/next.svg" alt="" @click="$emit('back')">
@@ -155,7 +155,7 @@
                         </div>
                     </div>
                 </div>
-                <my-footer v-bind:init-tab="5" ></my-footer>
+                <my-footer v-bind:init-tab="5"></my-footer>
             </div>
             <div class="right">
                 <ul>
@@ -282,7 +282,7 @@
                             }
                             isDrawRight = moveXDistance < 0
                             if (isDrawRight) {
-                                wrapper.style.left = -(currentSwiperItemIndex + 0) * width + moveXDistance + 'px'
+                                wrapper.style.left = -(currentSwiperItemIndex + 0) * width + moveXDistance + judgeValue + 'px'
                             } else {
                                 wrapper.style.left = -(currentSwiperItemIndex + 0) * width + moveXDistance + 'px'
                             }
@@ -293,7 +293,7 @@
                             }
                             isDrawRight = moveXDistance < 0
                             if (isDrawRight) {
-                                wrapper.style.left = -(currentSwiperItemIndex + 0) * rightWidth + moveXDistance + 'px'
+                                wrapper.style.left = -(currentSwiperItemIndex + 0) * rightWidth + moveXDistance - judgeValue + 'px'
                             } else {
                                 wrapper.style.left = -(currentSwiperItemIndex + 0) * rightWidth + moveXDistance + 'px'
                             }
@@ -312,7 +312,7 @@
                     //点击的是左边，并且是菜单展开状态，并且移动距离等于 0，那么就收起来
                     let left = getCss(wrapper, 'left')
                     if (e.path.includes(leftEl) && left !== 0 && moveXDistance === 0) {
-                        wrapper.style.transition = 'all .3s'
+                        wrapper.style.transition = 'all .2s'
                         wrapper.style.left = 0
                         leftEl.style.opacity = 1
                         resetConfig()
@@ -322,7 +322,7 @@
                     }
                     if (isCanRightWiping) {
                         if (!moveXDistance) return
-                        wrapper.style.transition = 'all .3s'
+                        wrapper.style.transition = 'all .2s'
                         let endTime = Date.now()
                         let gapTime = endTime - startTime
 
@@ -471,7 +471,7 @@
                         e.stopPropagation()
                         if (isDrawRight) {
                             indicator.style.marginLeft = (1.5 + (currentSwiperItemIndex + 0) * 33 + Math.abs(moveXDistance) / width / 3 * 100) + '%'
-                            tabs.style.left = -(currentSwiperItemIndex + 0) * width + moveXDistance + 'px'
+                            tabs.style.left = -(currentSwiperItemIndex + 0) * width + moveXDistance + judgeValue + 'px'
                         } else {
                             if (currentSwiperItemIndex === 0) {
                                 return tabs.style.left = 0
@@ -482,7 +482,7 @@
                             } else {
                                 indicator.style.marginLeft = '1.5%'
                             }
-                            tabs.style.left = -(currentSwiperItemIndex + 0) * width + moveXDistance + 'px'
+                            tabs.style.left = -(currentSwiperItemIndex + 0) * width + moveXDistance - judgeValue + 'px'
                         }
                     }
                 })
