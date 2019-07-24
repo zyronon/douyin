@@ -9,19 +9,19 @@
             </div>
             <div class="toolbar mt20p">
                 <div>
-                    <img src="../../assets/img/icon/person.svg" alt="">
+                    <img src="../../assets/img/icon/msg-icon1.png" alt="">
                     <span>粉丝</span>
                 </div>
                 <div>
-                    <img src="../../assets/img/icon/love.svg" alt="">
+                    <img src="../../assets/img/icon/msg-icon2.png" alt="">
                     <span>赞</span>
                 </div>
                 <div>
-                    <img src="../../assets/img/icon/person.svg" alt="">
+                    <img src="../../assets/img/icon/msg-icon3.png" alt="">
                     <span>@我的</span>
                 </div>
                 <div>
-                    <img src="../../assets/img/icon/message.svg" alt="">
+                    <img src="../../assets/img/icon/msg-icon4.png" alt="">
                     <span>评论</span>
                 </div>
             </div>
@@ -65,12 +65,12 @@
             </div>
             <p class="tac">无更多消息</p>
         </div>
-        <Footer v-bind:init-tab="4" ref="footer" :style="{'top':height-footerHeight+'px'}"/>
+        <Footer v-bind:init-tab="4" ref="footer"/>
     </div>
 </template>
 
 <script>
-    import Footer from '../../components/Footer';
+    import Footer from '../../components/Footer'
 
     export default {
         name: "Message",
@@ -79,20 +79,16 @@
         },
         data() {
             return {
-                height:0,
-                width:0,
-                footerHeight:0
+                height: 0,
+                width: 0,
+                footerHeight: 0
             }
         },
         created() {
-            self = this;
-            this.height = document.body.clientHeight;
-            this.width = document.body.clientWidth;
+            self = this
+
         },
         mounted() {
-            let footer = this.$refs.footer.$el;
-            this.footerHeight = footer.offsetHeight;
-
         }
     }
 </script>
@@ -102,9 +98,11 @@
         background: #2e3244;
         color: #b8b9c1;
         height: 100%;
+
         .header {
             .title {
                 position: relative;
+
                 span {
                     position: absolute;
                     right: 10px;
@@ -112,65 +110,55 @@
                 }
             }
         }
+
         .toolbar {
             display: flex;
             justify-content: space-around;
+
             div {
                 text-align: center;
-                &:nth-child(1) {
-                    img {
-                        background: rgb(79, 136, 251);
-                    }
-                }
-                &:nth-child(2) {
-                    img {
-                        background: rgb(248, 53, 95);
-                    }
-                }
-                &:nth-child(3) {
-                    img {
-                        background: rgb(28, 194, 98);
-                    }
-                }
-                &:nth-child(4) {
-                    img {
-                        background: rgb(195, 106, 250);
-                    }
-                }
+
                 img {
-                    padding: 10px;
                     border-radius: 3px;
-                    width: 25px;
-                    height: 25px;
+                    width: 45px;
+                    height: 45px;
 
                 }
+
                 span {
                     display: block;
                 }
             }
 
         }
+
         .messages {
             border-top: 1px solid #494950;
+
             .message {
                 .content {
                     float: left;
                     width: 85%;
+
                     .head-image {
                         width: 40px;
                         border-radius: 50%;
                         float: left;
                     }
+
                     .comment-container {
                         width: 85%;
+
                         .time {
                             color: gray;
                         }
                     }
 
                 }
+
                 .love {
                     text-align: center;
+
                     .love-image {
                         width: 30px;
                         border-radius: 50%;
