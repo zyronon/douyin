@@ -1,9 +1,10 @@
 // vue.config.js
+const isProduction = process.env.NODE_ENV === 'production'
+
 module.exports = {
     // 选项...
-    publicPath: process.env.NODE_ENV === 'production' ? '' : '',
-    assetsDir: '',//资源路径
-    outputDir: process.env.outputDir,//打包输出路径
+    publicPath: isProduction ? '' : '',
+    assetsDir: isProduction ? './' : './',
     // configureWebpack: config => {
     //     config.externals = {
     //         "vue": "Vue",

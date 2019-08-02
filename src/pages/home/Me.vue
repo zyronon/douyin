@@ -176,13 +176,35 @@
                         <img src="../../assets/img/icon/order-gray.png" alt="">
                         <span>订单</span>
                     </li>
-                    <li class="exception">
+                    <li class="exception" @click="toggleService()">
                         <div class="d-flex align-items-center">
                             <img src="../../assets/img/icon/category-gray.png" alt="">
                             <span>服务</span>
                         </div>
                         <div class="triangle"></div>
                     </li>
+                    <div class="service">
+                        <li>
+                            <img src="../../assets/img/icon/order-gray.png" alt="" class="op0">
+                            <span>购物助手</span>
+                        </li>
+                        <li>
+                            <img src="../../assets/img/icon/order-gray.png" alt="" class="op0">
+                            <span>生活服务订单</span>
+                        </li>
+                        <li>
+                            <img src="../../assets/img/icon/order-gray.png" alt="" class="op0">
+                            <span>DOU+ 上热门</span>
+                        </li>
+                        <li>
+                            <img src="../../assets/img/icon/order-gray.png" alt="" class="op0">
+                            <span>彩铃服务</span>
+                        </li>
+                        <li>
+                            <img src="../../assets/img/icon/order-gray.png" alt="" class="op0">
+                            <span>免流量看抖音</span>
+                        </li>
+                    </div>
 
                     <div class="line"></div>
 
@@ -194,10 +216,16 @@
                         <img src="../../assets/img/icon/juan-gray.png" alt="">
                         <span>卡卷</span>
                     </li>
+
+                    <div class="line"></div>
+
                     <li>
                         <img src="../../assets/img/icon/umbrella-gray.png" alt="">
                         <span>未成年保护工具</span>
                     </li>
+
+                    <div class="line"></div>
+
                     <li>
                         <img src="../../assets/img/icon/setting-gray.png" alt="">
                         <span>设置</span>
@@ -214,10 +242,12 @@
         name: "Me",
         components: { 'my-footer': Footer },
         data() {
-            return {}
+            return {
+                serviceEl: {},
+                serviceHeight: 0
+            }
         },
         created() {
-            
         },
         mounted() {
             !function () {
@@ -624,9 +654,22 @@
                 reg = /^(-?\d+(\.\d)?)(px|pt|em|rem)?$/i
                 return reg.test(val) ? parseFloat(val) : val
             }
+
+            this.serviceEl = document.querySelector('.service')
+            this.serviceHeight = this.getCss(this.serviceEl, 'height')
+            this.serviceEl.style.height = this.serviceHeight + 'px'
         },
         computed: {},
-        methods: {}
+        methods: {
+            toggleService() {
+                console.log(this.serviceEl.style.height)
+                if (this.serviceEl.style.height === this.serviceHeight + 'px') {
+                    this.serviceEl.style.height = 0
+                }else {
+                    this.serviceEl.style.height = this.serviceHeight + 'px'
+                }
+            }
+        }
     }
 </script>
 
@@ -862,18 +905,25 @@
                         height: 1px;
                         background: #cccccc;
                         opacity: .1;
-                        margin: 0 20px;
+                        margin: 5px 20px;
+                    }
+
+                    .service {
+                        transition: all .3s;
+                        overflow: hidden;
                     }
 
                     li {
-                        padding:20px;
+                        background: $right-bg-color;
+                        padding: 20px;
                         list-style: none;
                         display: flex;
                         align-items: center;
 
-                        &:active{
-                            background: #ffffff;
+                        &:active {
+                            background: #454b65;
                         }
+
                         img {
                             height: 30px;
                             width: 30px;
