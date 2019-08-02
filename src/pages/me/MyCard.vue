@@ -11,17 +11,23 @@
         </BaseHeader>
         <div class="content">
             <div class="card">
-
+                <div class="logo-ctn">
+                    <img src="@/assets/img/icon/head-image.jpeg" alt="">
+                </div>
+                <span class="name">TTentau</span>
+                <span class="notice">使用抖音扫码，加我好友</span>
+                <img src="@/assets/img/icon/logo2.png" alt="" class="logo">
             </div>
-            <div class="footer">
-                <div class="btn">
-                    <img src="@/assets/img/icon/download.png" alt="" style="height: 50px;">
-                    <span>保存到相册</span>
-                </div>
-                <div class="btn">
-                    <img src="../../assets/img/icon/ahb.png" alt="" style="height: 50px;">
-                    <span>保存到相册</span>
-                </div>
+        </div>
+        <div class="notice-two">请使用最新版抖音扫描</div>
+        <div class="footer">
+            <div class="btn">
+                <img src="@/assets/img/icon/download.png" alt="">
+                <span>保存到相册</span>
+            </div>
+            <div class="btn">
+                <img src="@/assets/img/icon/scan.png" alt="">
+                <span>保存到相册</span>
             </div>
         </div>
     </div>
@@ -47,6 +53,74 @@
 
 <style scoped lang='scss'>
     #MyCard {
+        width: 100%;
+        height: 100%;
+        position: relative;
 
+        .content {
+            padding: 20px;
+
+            .card {
+                background: white;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+
+                .logo-ctn {
+                    margin: 20px 0;
+                    width: 50vw;
+                    height: 50vw;
+                    background-image: url("../../assets/img/icon/logo-bg.png");
+                    background-position: center;
+                    background-size: 100% 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    img{
+                        width: 50%;
+                        height: 50%;
+                        border-radius: 50%;
+                    }
+                }
+
+                .notice {
+                    margin-top: 80px;
+                    opacity: .4;
+                }
+
+                .logo {
+                    margin: 20px 0;
+                    width: 40vw;
+                }
+            }
+
+        }
+
+        .notice-two {
+            color: white;
+            opacity: .4;
+            text-align: center;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+
+            .btn {
+                color: white;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                img {
+                    width: 30px;
+                    margin-bottom: 10px;
+                }
+            }
+        }
     }
 </style>
