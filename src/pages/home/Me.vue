@@ -854,6 +854,8 @@
                 background: $right-bg-color;
 
                 ul {
+                    height: 100%;
+                    overflow: auto;
                     padding: 0;
 
                     .line {
@@ -864,11 +866,14 @@
                     }
 
                     li {
-                        margin: 40px 20px;
+                        padding:20px;
                         list-style: none;
                         display: flex;
                         align-items: center;
 
+                        &:active{
+                            background: #ffffff;
+                        }
                         img {
                             height: 30px;
                             width: 30px;
