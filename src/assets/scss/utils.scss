@@ -54,7 +54,7 @@ $height: 100;
 margin
 
 */
-$margin: 100;
+$margin: 50;
 
 @while $margin >= 0 {
     .ml#{$margin}p {
@@ -63,7 +63,7 @@ $margin: 100;
     $margin: $margin - 1;
 }
 
-$margin: 100;
+$margin: 50;
 @while $margin >= 0 {
     .mr#{$margin}p {
         margin-right: #{$margin}px !important;
@@ -71,7 +71,7 @@ $margin: 100;
     $margin: $margin - 1;
 }
 
-$margin: 100;
+$margin: 50;
 @while $margin >=0 {
     .mt#{$margin}p {
         margin-top: #{$margin}px !important;
@@ -79,7 +79,7 @@ $margin: 100;
     $margin: $margin - 1;
 }
 
-$margin: 100;
+$margin: 50;
 @while $margin >= 0 {
     .mb#{$margin}p {
         margin-bottom: #{$margin}px !important;
@@ -87,7 +87,7 @@ $margin: 100;
     $margin: $margin - 1;
 }
 
-$margin: 100;
+$margin: 50;
 @while $margin >= 0 {
     .m#{$margin}p {
         margin: #{$margin}px !important;
@@ -103,7 +103,7 @@ padding
 */
 
 
-$padding: 100;
+$padding: 50;
 @while $padding >= 0 {
     .pl#{$padding}p {
         padding-left: #{$padding}px !important;
@@ -111,7 +111,7 @@ $padding: 100;
     $padding: $padding - 1;
 }
 
-$padding: 100;
+$padding: 50;
 @while $padding >= 0 {
     .pr#{$padding}p {
         padding-right: #{$padding}px !important;
@@ -119,7 +119,7 @@ $padding: 100;
     $padding: $padding - 1;
 }
 
-$padding: 100;
+$padding: 50;
 @while $padding >= 0 {
     .pt#{$padding}p {
         padding-top: #{$padding}px !important;
@@ -127,7 +127,7 @@ $padding: 100;
     $padding: $padding - 1;
 }
 
-$padding: 100;
+$padding: 50;
 @while $padding >= 0 {
     .pb#{$padding}p {
         padding-bottom: #{$padding}px !important;
@@ -135,7 +135,7 @@ $padding: 100;
     $padding: $padding - 1;
 }
 
-$padding: 100;
+$padding: 50;
 @while $padding >= 0 {
     .p#{$padding}p {
         padding: #{$padding}px !important;
@@ -151,7 +151,7 @@ font
 */
 
 $font: 40;
-@while $font >=0 {
+@while $font >=10 {
     .f#{$font} {
         font-size: #{$font}px!important;
     }
