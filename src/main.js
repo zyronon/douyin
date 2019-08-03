@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import Icon from 'vue-svg-icon/Icon.vue'
 import VueRouter from 'vue-router'
+import vueg from 'vueg'
+
 import './assets/scss/index.scss'
 import Index from './pages/home/Index'
 import Attention from './pages/home/Attention'
@@ -34,6 +36,8 @@ const router = new VueRouter({
         { path: '/myCard', component: MyCard },
     ]
 })
+Vue.use(vueg, router) // 传入实例化后的router, Options为可选的插件配置
+
 Vue.mixin({
     methods: {
         getCss(curEle, attr) {
@@ -52,6 +56,9 @@ Vue.mixin({
             }
             reg = /^(-?\d+(\.\d)?)(px|pt|em|rem)?$/i
             return reg.test(val) ? parseFloat(val) : val
+        },
+        nav(path, query = {}) {
+            this.$router.push({ path, query })
         }
     }
 })
