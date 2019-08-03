@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <transition   name="slide-fade">
+        <transition :name="$store.state.pageAnim">
             <router-view></router-view>
         </transition>
     </div>
@@ -10,22 +10,24 @@
     export default {
         name: 'app',
         data() {
-            return {
-                transitionName: 'fold-left'
-            }
+            return {}
         },
         watch: {
-            '$route'(to, from) {
-                //此时假设从index页面跳转到pointList页面
-                // console.log(to) // "/pointList"
-                // console.log(from) // “/index”
-                // if (to.path === '/me') {
-                //     this.transitionName = 'fold-right'
-                // } else {
-                //     this.transitionName = 'fold-left'
-                // }
+            $route(to, from) {
+                let rootRouters = ['/', '/home', '/attention', '/message', '/me']
+                if (rootRouters.indexOf(to.path) !== -1 && rootRouters.indexOf(from.path) !== -1) {
+                    this.$store.commit('setPageAnim', 'none')
+                    return
+                }
+                let routers = ['/', '/home', '/attention', '/message', '/me', '/myCard', '/chooseCountry']
+                //根据路由层次来决定转场效果
+                if (routers.indexOf(to.path) > routers.indexOf(from.path)) {
+                    this.$store.commit('setPageAnim', 'go')
+                } else {
+                    this.$store.commit('setPageAnim', 'back')
+                }
             }
-        },
+        }
     }
 </script>
 
@@ -35,17 +37,47 @@
         height: 100%;
     }
 
-    /* 可以设置不同的进入和离开动画 */
-    /* 设置持续时间和动画函数 */
-    .slide-fade-enter-active {
-        transition: all .3s ease;
+
+    .go-enter {
+        left: 100%;
     }
-    .slide-fade-leave-active {
-        transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+
+    .go-enter-to {
+        left: 0;
     }
-    .slide-fade-enter, .slide-fade-leave-to
-        /* .slide-fade-leave-active for below version 2.1.8 */ {
-        transform: translateX(10px);
-        opacity: 0;
+
+    .go-leave {
+        left: 0;
     }
+
+    .go-leave-to {
+        left: -100%;
+    }
+
+    .go-enter-active, .go-leave-active {
+        transition: all .3s;
+    }
+
+
+    .back-enter {
+        left: -100%;
+    }
+
+    .back-enter-to {
+        left: 0;
+    }
+
+    .back-leave {
+        left: 0;
+    }
+
+    .back-leave-to {
+        left: 100%;
+    }
+
+    .back-enter-active, .back-leave-active {
+        transition: all .3s;
+    }
+
+
 </style>

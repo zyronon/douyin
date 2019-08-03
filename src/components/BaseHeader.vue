@@ -1,6 +1,6 @@
 <template>
     <div id='BaseHeader'>
-        <svg v-if="isShowLeftBtn" @click="$emit('back')" t="1564765917375" class="icon left" viewBox="0 0 1024 1024"
+        <svg v-if="isShowLeftBtn" @click="back()" t="1564765917375" class="icon left" viewBox="0 0 1024 1024"
              version="1.1"
              xmlns="http://www.w3.org/2000/svg"
              p-id="16292" width="32" height="32">
@@ -36,7 +36,12 @@
             
         },
         computed: {},
-        methods: {}
+        methods: {
+            back(){
+                this.$store.commit('setPageAnim','back')
+                window.history.back()
+            }
+        }
     }
 </script>
 
