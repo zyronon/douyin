@@ -4,7 +4,7 @@
             <div class="header pt15p">
                 <div class="title">
                     <p class="tac fb c-white ">消息</p>
-                    <span>联系人</span>
+                    <span @click="nav('/myCard')">联系人</span>
                 </div>
             </div>
             <div class="line mt20p"></div>
@@ -82,10 +82,12 @@
 
 <style scoped lang="scss">
     #Message {
+        position: fixed;
         font-size: 1.6rem;
         background: #2e3244;
         color: #b8b9c1;
         height: 100%;
+        width: 100vw;
 
         .header {
             .title {

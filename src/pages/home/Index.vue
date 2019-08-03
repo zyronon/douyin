@@ -397,6 +397,7 @@
 </script>
 <style scoped lang="scss">
     #home-index {
+        position: fixed;
         width: 100%;
         height: 100%;
         overflow: hidden;

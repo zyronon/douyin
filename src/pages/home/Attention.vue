@@ -97,12 +97,12 @@
 
 <style scoped lang="scss">
     #attention {
+        position: fixed;
         /*background: rgb(22，24，34);*/
         /*background: #161822;*/
         //抖音原色，感觉很暗
         background: #2e3244;
         color: #b8b9c1;
-        position: relative;
         .items {
             >.item {
                 border-bottom: 1px solid #494950;

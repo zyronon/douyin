@@ -677,6 +677,7 @@
     $left-bg-color: #333;
     $right-bg-color: #2e3244;
     .Me {
+        position: fixed;
         font-size: 1.6rem;
         width: 100%;
         height: 100%;

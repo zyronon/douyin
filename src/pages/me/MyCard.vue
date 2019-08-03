@@ -1,6 +1,6 @@
 <template>
         <div id='MyCard'>
-            <BaseHeader @back="back">
+            <BaseHeader >
                 <svg t="1564765646732" class="icon" viewBox="0 0 1024 1024" version="1.1"
                      xmlns="http://www.w3.org/2000/svg"
                      p-id="15320" width="32" height="32">
@@ -31,7 +31,6 @@
                 </div>
             </div>
         </div>
-    </transition>
 </template>
 <script>
     export default {
@@ -47,18 +46,16 @@
         },
         computed: {},
         methods: {
-            back() {
-                window.history.back()
-            }
+
         }
     }
 </script>
 
 <style scoped lang='scss'>
     #MyCard {
-        width: 100%;
+        width: 100vw;
         height: 100%;
-        position: relative;
+        position: fixed;
 
         .content {
             padding: 20px;

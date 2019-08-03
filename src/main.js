@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import Icon from 'vue-svg-icon/Icon.vue'
 import VueRouter from 'vue-router'
-import vueg from 'vueg'
+import Vuex from 'vuex'
 
 import './assets/scss/index.scss'
 import Index from './pages/home/Index'
@@ -21,6 +21,7 @@ Vue.config.productionTip = false
 Vue.component('icon', Icon)
 Vue.component('BaseHeader', BaseHeader)
 Vue.use(VueRouter)
+Vue.use(Vuex)
 
 const router = new VueRouter({
     mode: 'hash',
@@ -36,7 +37,17 @@ const router = new VueRouter({
         { path: '/myCard', component: MyCard },
     ]
 })
-Vue.use(vueg, router) // 传入实例化后的router, Options为可选的插件配置
+
+const store = new Vuex.Store({
+    state: {
+        pageAnim: 'none'
+    },
+    mutations: {
+        setPageAnim(state, states) {
+            state.pageAnim = states
+        }
+    }
+})
 
 Vue.mixin({
     methods: {
@@ -63,7 +74,9 @@ Vue.mixin({
     }
 })
 
+
 new Vue({
     render: h => h(App),
+    store,
     router
 }).$mount('#app')
