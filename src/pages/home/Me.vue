@@ -1,10 +1,10 @@
 <template>
-    <div class="Me">
+    <div class="Me" >
         <div class="wrapper">
             <div class="left">
                 <header>
                     <img src="../../assets/img/icon/next.svg" alt="" @click="$emit('back')">
-                    <img src="../../assets/img/icon/more.svg" alt="">
+                    <img src="../../assets/img/icon/more.svg" alt="" @click="nav('myCard')">
                 </header>
                 <div class="detail">
                     <div class="head">
@@ -159,7 +159,7 @@
             </div>
             <div class="right">
                 <ul>
-                    <li>
+                    <li @click="nav('myCard')">
                         <img src="../../assets/img/icon/card-gray.png" alt="">
                         <span>个人名片</span>
                     </li>

@@ -12,7 +12,8 @@
         "lodash": "^4.17.14",
         "pinyin": "^2.9.0",
         "vue": "^2.6.10",
-        "vue-router": "^3.0.7"
+        "vue-router": "^3.0.7",
+        "vueg": "^1.4.5"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "^3.0.3",
