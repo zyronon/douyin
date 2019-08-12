@@ -4,7 +4,7 @@
             <div class="left">
                 <header>
                     <img src="../../assets/img/icon/next.svg" alt="" @click="$emit('back')">
-                    <img src="../../assets/img/icon/more.svg" alt="" @click="nav('myCard')">
+                    <img src="../../assets/img/icon/more.svg" alt="">
                 </header>
                 <div class="detail">
                     <div class="head">
@@ -159,11 +159,11 @@
             </div>
             <div class="right">
                 <ul>
-                    <li @click="nav('myCard')">
+                    <li @click="nav('MyCard')">
                         <img src="../../assets/img/icon/card-gray.png" alt="">
                         <span>个人名片</span>
                     </li>
-                    <li>
+                    <li @click="nav('MyCollect')">
                         <img src="../../assets/img/icon/collect-gray.png" alt="">
                         <span>我的收藏</span>
                     </li>

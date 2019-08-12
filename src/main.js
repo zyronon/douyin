@@ -15,6 +15,7 @@ import MyCard from "./pages/me/MyCard"
 
 
 import BaseHeader from "./components/BaseHeader"
+import MyCollect from "./pages/me/MyCollect";
 
 Vue.config.productionTip = false
 
@@ -34,7 +35,8 @@ const router = new VueRouter({
         { path: '/me', component: Me },
         { path: '/music', component: Music },
         { path: '/countryChoose', component: countryChoose },
-        { path: '/myCard', component: MyCard },
+        { path: '/MyCard', component: MyCard },
+        { path: '/MyCollect', component: MyCollect },
     ]
 })
 
