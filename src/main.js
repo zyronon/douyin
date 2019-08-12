@@ -16,11 +16,15 @@ import MyCard from "./pages/me/MyCard"
 
 import BaseHeader from "./components/BaseHeader"
 import MyCollect from "./pages/me/MyCollect";
+import BaseSlideList from "./components/BaseSlideList";
+import BaseSlideItem from "./components/BaseSlideItem";
 
 Vue.config.productionTip = false
 
 Vue.component('icon', Icon)
 Vue.component('BaseHeader', BaseHeader)
+Vue.component('BaseSlideList', BaseSlideList)
+Vue.component('BaseSlideItem', BaseSlideItem)
 Vue.use(VueRouter)
 Vue.use(Vuex)
 
@@ -53,7 +57,7 @@ const store = new Vuex.Store({
 
 Vue.mixin({
     methods: {
-        getCss(curEle, attr) {
+        $getCss(curEle, attr) {
             let val = null, reg = null
             if ("getComputedStyle" in window) {
                 val = window.getComputedStyle(curEle, null)[attr]
