@@ -8,7 +8,7 @@
                   p-id="16293" fill="#8a8a8a"></path>
         </svg>
         <span class="fb c-white f20">{{title}}</span>
-        <slot></slot>
+        <slot><span></span></slot>
     </div>
 </template>
 <script>
@@ -19,10 +19,6 @@
             title: {
                 type: String,
                 default: '我的名片'
-            },
-            isShowRightBtn: {
-                type: Boolean,
-                default: true
             },
             isShowLeftBtn: {
                 type: Boolean,
