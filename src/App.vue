@@ -19,7 +19,7 @@
                     this.$store.commit('setPageAnim', 'none')
                     return
                 }
-                let routers = ['/', '/home', '/attention', '/message', '/me', '/myCard', '/chooseCountry']
+                let routers = ['/', '/home', '/attention', '/message', '/me', '/MyCard','/MyCollect', '/chooseCountry']
                 //根据路由层次来决定转场效果
                 if (routers.indexOf(to.path) > routers.indexOf(from.path)) {
                     this.$store.commit('setPageAnim', 'go')
