@@ -9,7 +9,7 @@
         "push": "git add ./ && git commit -m 'dubug' && git push origin master"
     },
     "dependencies": {
-        "lodash": "^4.17.14",
+        "lodash": "^4.17.19",
         "pinyin": "^2.9.0",
         "vue": "^2.6.10",
         "vue-router": "^3.0.7",
