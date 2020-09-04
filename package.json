@@ -19,7 +19,7 @@
         "@vue/cli-plugin-babel": "^3.0.3",
         "@vue/cli-plugin-eslint": "^3.0.3",
         "@vue/cli-service": "^3.3.0",
-        "node-sass": "^4.9.3",
+        "node-sass": "^4.13.1",
         "sass-loader": "^7.1.0",
         "vue-svg-icon": "^1.2.9",
         "vue-template-compiler": "^2.5.21"
