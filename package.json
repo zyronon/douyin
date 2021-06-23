@@ -10,6 +10,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "lodash": "^4.17.21",
+    "mitt": "^2.1.0",
     "pinyin": "^2.9.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.8",

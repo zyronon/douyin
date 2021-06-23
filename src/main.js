@@ -2,7 +2,7 @@ import * as Vue from 'vue'
 import * as VueRouter from 'vue-router'
 import * as Vuex from 'vuex'
 import App from './App.vue'
-// import mitt from 'mitt'
+import mitt from 'mitt'
 
 import './assets/scss/index.scss'
 import Index from './pages/home/Index.vue'
@@ -39,12 +39,20 @@ const router = VueRouter.createRouter({
 
 const store = Vuex.createStore({
   state: {
-    pageAnim: 'none'
+    pageAnim: 'none',
+    playDuration: 60,
+    currentVideoId:null
   },
   mutations: {
     setPageAnim(state, states) {
       state.pageAnim = states
-    }
+    },
+    setPlayDuration(state, v) {
+      state.playDuration = v
+    },
+    setCurrentVideoId(state, v) {
+      state.currentVideoId = v
+    },
   }
 })
 
@@ -84,11 +92,33 @@ const myMixin = {
     },
     $console(v) {
       return console.log(JSON.stringify(v, null, 4))
+    },
+    $duration(v) {
+      let m = Math.floor(v / 60)
+      // let s = v % 60
+      let s = Math.round(v % 60)
+      let str = ''
+      if (m === 0) {
+        str = '00'
+      } else if (m > 0 && m < 10) {
+        str = '0' + m
+      } else {
+        str = m
+      }
+      str += ':'
+      if (s === 0) {
+        str += '00'
+      } else if (s > 0 && s < 10) {
+        str += '0' + s
+      } else {
+        str += s
+      }
+      return str
     }
   }
 }
 const app = Vue.createApp(App)
-// app.provide('mitt',mitt())
+app.provide('mitt',mitt())
 
 app.component('BaseHeader', BaseHeader)
 app.component('BaseSlideList', BaseSlideList)
