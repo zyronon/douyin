@@ -1,15 +1,15 @@
 <template>
   <div class="bg-video" v-bind:style="{'height':height+'px'}">
-    <video :src="video.videoUrl" :poster="video.poster" ref="video" muted :autoplay="index === 0" loop>
+    <video :src="video.videoUrl" :poster="video.poster" ref="video" muted :autoplay="!disabled" loop>
       <p> 您的浏览器不支持 video 标签。</p>
     </video>
-    <div class="float-container" @click="togglePlayVideo($event)">
+    <div class="float-container" @click.stop="togglePlayVideo">
       <transition name="pause">
         <img src="../assets/img/icon/play.svg" class="pause" v-show="!isPlaying"
-             @click.stop="togglePlayVideo($event)">
+        >
       </transition>
       <div class="float">
-        <div v-show="!isMove" class="normal">
+        <div :style="{opacity:isMove?0:1}" class="normal">
           <div class="toolbar mb10p">
             <img src="../assets/img/icon/head-image.jpeg" alt="" class="head-image mb15p"
                  @click.stop="$emit('goUserInfo')">
@@ -50,8 +50,12 @@
              @touchmove="move"
              @touchend="end"
         >
-          <div class="line" ref="line"></div>
-          <div class="point" ref="point"></div>
+          <div class="time" v-if="isMove">
+            <span class="playDuration">{{ $duration(playDuration) }}</span>
+            <span class="duration"> / {{ $duration(video.duration) }}</span>
+          </div>
+          <div class="line" :style="durationStyle" ref="line"></div>
+          <div class="point" :style="durationStyle" ref="point"></div>
         </div>
       </div>
     </div>
@@ -59,6 +63,8 @@
 </template>
 
 <script>
+
+import {inject} from "vue";
 
 export default {
   name: "Video",
@@ -68,19 +74,46 @@ export default {
       default: () => {
         return {}
       }
+    },
+    disabled: {
+      type: Boolean,
+      default: () => {
+        return true
+      }
+    }
+  },
+  computed: {
+    durationStyle() {
+      // return {left: this.$store.state.playDuration + 'px'}
+      return {left: this.playDuration + 'px'}
+    }
+  },
+  watch: {
+    disabled: {
+      immediate: true,
+      handler(v) {
+        // console.log('disabled', this.currentVideoId, v)
+        this.isPlaying = !v
+        if (!v) {
+          this.$store.commit('setCurrentVideoId', this.currentVideoId)
+        }
+      }
     }
   },
   data() {
     return {
+      playDuration: 30,
       index: 0,
       height: 0,
       width: 0,
-      isPlaying: true,
+      isPlaying: !this.disabled,
       isCommenting: false,
       isSharing: false,
       line: null,
       point: null,
-      isMove: false
+      isMove: false,
+      mitt: inject('mitt'),
+      currentVideoId: 'a' + Date.now()
     }
   },
   mounted() {
@@ -88,6 +121,10 @@ export default {
     this.width = document.body.clientWidth
     this.line = this.$refs.line
     this.point = this.$refs.point
+    this.mitt.on(this.currentVideoId, e => {
+      console.log('mitt-test', e)
+      this.playDuration = e
+    })
   },
   methods: {
     //划动到下一个视频
@@ -122,6 +159,7 @@ export default {
       } else {
         video = el.previousSibling
       }
+      video = this.$refs.video
       if (video.paused) {
         video.play()
       } else {
@@ -147,14 +185,15 @@ export default {
     },
     move(e) {
       this.isMove = true
-      console.log('move',this.isMove)
-      this.$setCss(this.line, 'width', e.touches[0].pageX + 'px')
+      this.playDuration = e.touches[0].pageX
+      // this.$store.commit('setPlayDuration',e.touches[0].pageX)
+      // this.$setCss(this.line, 'width', e.touches[0].pageX + 'px')
+      // this.$setCss(this.point, 'left', e.touches[0].pageX + 'px')
       this.stop(e)
     },
     end(e) {
       this.isMove = false
-      console.log('end',this.isMove)
-
+      this.stop(e)
     },
     stop(e) {
       e.stopImmediatePropagation()
@@ -206,6 +245,7 @@ export default {
       flex-direction: column;
 
       .normal {
+        transition: all .3s;
         position: relative;
 
         .toolbar {
@@ -282,11 +322,29 @@ export default {
 
       .process {
         //display: none;
+        //height: 20vh;
+        //width: 100vw;
         height: 3px;
         width: 100vw;
         background: black;
-        position: fixed;
-        bottom: 60px;
+        position: relative;
+        //bottom: 60px;
+
+
+        .time {
+          position: absolute;
+          z-index: 9;
+          font-size: 24px;
+          bottom: 50px;
+          left: 0;
+          right: 0;
+          color: white;
+          text-align: center;
+
+          .duration {
+            color: darkgray;
+          }
+        }
 
         &:before {
           z-index: 9;
@@ -304,7 +362,8 @@ export default {
           position: absolute;
           top: -3px;
           height: 3px;
-          width: 10vw;
+          width: 100vw;
+          transform: translate3d(-100%, 0, 0);
           background: white;
         }
 

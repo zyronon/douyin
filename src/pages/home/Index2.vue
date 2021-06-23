@@ -145,7 +145,6 @@
           <SlideItem>
             <SlideList direction="column"
                        ref="slideList"
-                       v-model:active-index="videoActiveIndex"
                        :virtual="true"
                        :total="total"
                        @end="end"
@@ -153,7 +152,6 @@
                        @slide="slide">
               <SlideItem :style="itemTop" v-for="(item,index)  of videos">
                 <Video
-                    :disabled="videoActiveIndex !== index"
                     v-model:video="videos[index]"
                     @showComments="isCommenting = !isCommenting"
                     @showShare="isSharing = !isSharing"
@@ -240,8 +238,7 @@ export default {
           isLoved: true,
           loves: 1234,
           comments: 666,
-          shared: 999,
-          duration:99
+          shared: 999
         },
         {
           videoUrl: mp1,
@@ -250,8 +247,7 @@ export default {
           isLoved: false,
           loves: 1234,
           comments: 666,
-          shared: 999,
-          duration:99
+          shared: 999
         },
         {
           videoUrl: mp1,
@@ -260,8 +256,7 @@ export default {
           isLoved: false,
           loves: 1234,
           comments: 666,
-          shared: 999,
-          duration:99
+          shared: 999
         },
         {
           videoUrl: mp1,
@@ -270,8 +265,7 @@ export default {
           isLoved: false,
           loves: 1234,
           comments: 666,
-          shared: 999,
-          duration:99
+          shared: 999
         },
         {
           videoUrl: mp1,
@@ -280,8 +274,7 @@ export default {
           isLoved: false,
           loves: 1234,
           comments: 666,
-          shared: 999,
-          duration:99
+          shared: 999
         },
       ],
       addCount: 0,
@@ -290,8 +283,6 @@ export default {
       isSharing: false,
       baseActiveIndex: 0,
       activeIndex: 2,
-      videoActiveIndex: 0,
-
       tabWidth: 30,
       tabIndexRelationActiveIndexLefts: [],
       slideMoveXDistance: 0,
