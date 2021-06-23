@@ -11,7 +11,8 @@
         name: 'app',
         data() {
             return {
-              aa:1
+              aa:1,
+              aaa:1,
             }
         },
         watch: {
