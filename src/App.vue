@@ -10,7 +10,9 @@
     export default {
         name: 'app',
         data() {
-            return {}
+            return {
+              aa:1
+            }
         },
         watch: {
             $route(to, from) {
