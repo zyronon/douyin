@@ -1,0 +1,26 @@
+@import "variables";
+//一些变量
+@import "utils";
+//for循环生成的 margin、padding、width、height类
+@import "custom";
+//自定义的一些快捷css类
+@import "color";
+//颜色
+@import "dialog";
+//弹窗
+@import "layout"; //布局
+
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background: #2e3244;
+    font-size: 62.5%;
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    padding: 0;
+    margin: 0;
+}
