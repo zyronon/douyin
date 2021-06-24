@@ -58,6 +58,11 @@ const store = Vuex.createStore({
 
 const myMixin = {
   methods: {
+    $stopPropagation(e) {
+      e.stopImmediatePropagation()
+      e.stopPropagation()
+      e.preventDefault()
+    },
     $getCss(curEle, attr) {
       let val = null, reg = null
       if ("getComputedStyle" in window) {

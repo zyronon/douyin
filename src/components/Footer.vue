@@ -35,9 +35,11 @@ export default {
   },
   methods: {
     move(e) {
-      this.mitt.emit(this.$store.state.currentVideoId, e.touches[0].pageX)
+      this.mitt.emit(this.$store.state.currentVideoId, {isMove: true, e: e.touches[0].pageX})
+      this.$stopPropagation(e)
     },
     end(e) {
+      this.mitt.emit(this.$store.state.currentVideoId, {isMove: false,})
     },
     tab(index) {
       this.currentTab = index
