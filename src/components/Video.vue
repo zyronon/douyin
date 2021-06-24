@@ -84,7 +84,6 @@ export default {
   },
   computed: {
     durationStyle() {
-      // return {left: this.$store.state.playDuration + 'px'}
       return {left: this.playDuration + 'px'}
     }
   },
@@ -92,10 +91,18 @@ export default {
     disabled: {
       immediate: true,
       handler(v) {
-        // console.log('disabled', this.currentVideoId, v)
+        console.log('disabled', this.currentVideoId, v)
         this.isPlaying = !v
         if (!v) {
           this.$store.commit('setCurrentVideoId', this.currentVideoId)
+          console.log(this.$refs)
+          if (this.$refs.video) {
+            this.$refs.video.play()
+          }
+        } else {
+          if (this.$refs.video) {
+            this.$refs.video.pause()
+          }
         }
       }
     }
@@ -121,9 +128,9 @@ export default {
     this.width = document.body.clientWidth
     this.line = this.$refs.line
     this.point = this.$refs.point
-    this.mitt.on(this.currentVideoId, e => {
-      console.log('mitt-test', e)
-      this.playDuration = e
+    this.mitt.on(this.currentVideoId, v => {
+      this.isMove = v.isMove
+      this.playDuration = v.isMove ? v.e : this.playDuration
     })
   },
   methods: {
@@ -186,20 +193,13 @@ export default {
     move(e) {
       this.isMove = true
       this.playDuration = e.touches[0].pageX
-      // this.$store.commit('setPlayDuration',e.touches[0].pageX)
-      // this.$setCss(this.line, 'width', e.touches[0].pageX + 'px')
-      // this.$setCss(this.point, 'left', e.touches[0].pageX + 'px')
-      this.stop(e)
+      this.$stopPropagation(e)
     },
     end(e) {
       this.isMove = false
-      this.stop(e)
+      this.$stopPropagation(e)
     },
-    stop(e) {
-      e.stopImmediatePropagation()
-      e.stopPropagation()
-      e.preventDefault()
-    },
+
   }
 }
 </script>
