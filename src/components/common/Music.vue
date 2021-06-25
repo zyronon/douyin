@@ -24,7 +24,7 @@
                 <div class="tab" @click="toggleTab($event,1)">最新</div>
             </div>
             <div class="video-container" v-for="(item,index) of videos" v-bind:style="{'height':width/3*1.2+'px'}">
-                <video src="../../assets/video/吴三二的光年之外.mp4" poster="../../assets/img/poster/src1-bg.png"></video>
+                <video src="../../assets/video/1.mp4" poster="../../assets/img/poster/src1-bg.png"></video>
                 <div class="no" v-if="index===1||index===2">
                     NO. <span>{{index+1}}</span>
                 </div>

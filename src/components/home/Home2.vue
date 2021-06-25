@@ -85,7 +85,7 @@
             return {
                 data: [
                     {
-                        videoUrl: require('../../assets/video/吴三二的光年之外.mp4'),
+                        videoUrl: require('../../assets/video/1.mp4'),
                         // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
                         videoPoster: require('../../assets/img/poster/src1-bg.png'),
                         isLoved: false,

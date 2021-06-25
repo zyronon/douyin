@@ -259,7 +259,7 @@ import Comment from '../../components/Comment.vue'
 import Other from '../../components/Other.vue'
 import Share from '../../components/Share.vue'
 import Footer from "../../components/Footer.vue"
-import mp1 from '../../assets/video/吴三二的光年之外.mp4'
+import mp1 from '../../assets/video/1.mp4'
 import src1Bg from '../../assets/img/poster/src1-bg.png'
 import SlideItem from './SlideItem.vue'
 import SlideList from './SlideList.vue'
