@@ -94,7 +94,6 @@ export default {
     closeShare() {
       this.$emit("update:is-sharing", false)
       // this.isSharing = false
-      console.log('关闭')
     }
   }
 }
