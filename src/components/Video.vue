@@ -230,7 +230,7 @@ export default {
       let video = this.$refs.video
       video.currentTime = this.currentTime
       video.play()
-      this.$stopPropagation(e)
+      // this.$stopPropagation(e)
     },
 
   }
