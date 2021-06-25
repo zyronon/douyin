@@ -1,23 +1,23 @@
 <template>
   <div id="home-index">
-    <div class="toolbar-ctn">
-      <div class="toolbar" :style="toolbarStyle">
-        <div class="left">直播</div>
-        <div class="tab-ctn">
-          <div class="tabs" ref="tabs">
-            <div class="tab"><span>双流</span></div>
-            <div class="tab"><span>关注</span></div>
-            <div class="tab"><span>推荐</span></div>
-          </div>
-          <div class="index" :style="tabIndexStyle"></div>
-        </div>
-        <div class="right" :style="{opacity:loading ? 0 : 1}">搜索</div>
-      </div>
-      <div class="notice" :style="noticeStyle"><span>下拉刷新内容</span></div>
-      <div class="loading" :style="loadingStyle">AA</div>
-    </div>
     <SlideList v-model:active-index="baseActiveIndex">
       <SlideItem>
+        <div class="toolbar-ctn">
+          <div class="toolbar" :style="toolbarStyle">
+            <div class="left">直播</div>
+            <div class="tab-ctn">
+              <div class="tabs" ref="tabs">
+                <div class="tab"><span>双流</span></div>
+                <div class="tab"><span>关注</span></div>
+                <div class="tab"><span>推荐</span></div>
+              </div>
+              <div class="index" :style="tabIndexStyle"></div>
+            </div>
+            <div class="right" :style="{opacity:loading ? 0 : 1}">搜索</div>
+          </div>
+          <div class="notice" :style="noticeStyle"><span>下拉刷新内容</span></div>
+          <div class="loading" :style="loadingStyle">AA</div>
+        </div>
         <SlideList v-model:active-index="activeIndex"
         >
           <SlideItem style="overflow:auto;">
@@ -153,7 +153,7 @@
                        @slide="slide">
               <SlideItem :style="itemTop" v-for="(item,index)  of videos">
                 <Video
-                    :disabled="videoActiveIndex !== index"
+                    :disabled="videoActiveIndex !== addCount + index"
                     v-model:video="videos[index]"
                     @showComments="isCommenting = !isCommenting"
                     @showShare="isSharing = !isSharing"
@@ -220,7 +220,11 @@ import Comment from '../../components/Comment.vue'
 import Other from '../../components/Other.vue'
 import Share from '../../components/Share.vue'
 import Footer from "../../components/Footer.vue"
-import mp1 from '../../assets/video/吴三二的光年之外.mp4'
+import mp41 from '../../assets/video/10.mp4'
+import mp42 from '../../assets/video/2.mp4'
+import mp43 from '../../assets/video/3.mp4'
+import mp44 from '../../assets/video/4.mp4'
+import mp45 from '../../assets/video/5.mp4'
 import src1Bg from '../../assets/img/poster/src1-bg.png'
 import SlideItem from './SlideItem.vue'
 import SlideList from './SlideList.vue'
@@ -234,54 +238,54 @@ export default {
       list: [1, 2, 3, 4, 5],
       videos: [
         {
-          videoUrl: mp1,
+          videoUrl: mp41,
           // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
           videoPoster: src1Bg,
           isLoved: true,
           loves: 1234,
           comments: 666,
           shared: 999,
-          duration:99
+          duration: 99
         },
         {
-          videoUrl: mp1,
+          videoUrl: mp42,
           // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
           videoPoster: src1Bg,
           isLoved: false,
           loves: 1234,
           comments: 666,
           shared: 999,
-          duration:99
+          duration: 99
         },
         {
-          videoUrl: mp1,
+          videoUrl: mp43,
           // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
           videoPoster: src1Bg,
           isLoved: false,
           loves: 1234,
           comments: 666,
           shared: 999,
-          duration:99
+          duration: 99
         },
         {
-          videoUrl: mp1,
+          videoUrl: mp44,
           // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
           videoPoster: src1Bg,
           isLoved: false,
           loves: 1234,
           comments: 666,
           shared: 999,
-          duration:99
+          duration: 99
         },
         {
-          videoUrl: mp1,
+          videoUrl: mp45,
           // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
           videoPoster: src1Bg,
           isLoved: false,
           loves: 1234,
           comments: 666,
           shared: 999,
-          duration:99
+          duration: 99
         },
       ],
       addCount: 0,

@@ -15,7 +15,7 @@
                     <span>无敌浩克</span>
                 </div>
                 <div class="video-container mb10p ">
-                    <video src="../../assets/video/吴三二的光年之外.mp4" poster="../../assets/img/poster/src1-bg.png"></video>
+                    <video src="../../assets/video/1.mp4" poster="../../assets/img/poster/src1-bg.png"></video>
                     <div class="music">
                         <img src="../../assets/img/icon/music.svg" alt="" class="music-image">
                         <marquee behavior=scroll direction=left align=middle scrollamount=4> 吴三二 - 光年之外</marquee>

@@ -1,115 +1,86 @@
 <template>
-  <transition name="comment">
+  <transition name="share">
     <div class="share" v-if="isSharing">
-      <div class="friends oh p10p ">
-        <div class="title tac pb10p">私信给</div>
-        <div class="w200">
-          <div class="friend pr10p">
-            <img src="../assets/img/icon/head-image.jpeg" alt="">
-            <span>ttentau</span>
-          </div>
-          <div class="friend pr10p">
-            <img src="../assets/img/icon/head-image.jpeg" alt="">
-            <span>ttentau</span>
-          </div>
-          <div class="friend pr10p">
-            <img src="../assets/img/icon/head-image.jpeg" alt="">
-            <span>ttentau</span>
-          </div>
-          <div class="friend pr10p">
-            <img src="../assets/img/icon/head-image.jpeg" alt="">
-            <span>ttentau</span>
-          </div>
-          <div class="friend pr10p">
-            <img src="../assets/img/icon/head-image.jpeg" alt="">
-            <span>ttentau</span>
-          </div>
-          <div class="friend pr10p">
-            <img src="../assets/img/icon/head-image.jpeg" alt="">
-            <span>ttentau</span>
-          </div>
-          <div class="friend pr10p">
-            <img src="../assets/img/icon/head-image.jpeg" alt="">
-            <span>ttentau</span>
-          </div>
-          <div class="friend pr10p">
-            <img src="../assets/img/icon/next.svg" alt="">
-            <span>更多</span>
-          </div>
+      <div class="title">
+        <span>私信给朋友</span>
+        <img src="../assets/img/icon/close.svg" @click="closeShare">
+      </div>
+      <div class="friends  pl10p pb20p">
+        <div class="friend pr10p pl10p" v-for="item in 10">
+          <img src="../assets/img/icon/head-image.jpeg" alt="">
+          <span>ttenu</span>
+        </div>
+        <div class="friend pr10p">
+          <img src="../assets/img/icon/next.svg" alt="">
+          <span>更多</span>
         </div>
       </div>
-      <div class="shares oh pl20p pr20p pt10p pb10p">
-        <div class="title tac pb10p">分享到</div>
-        <div class="w200">
-          <div class="share-to pr10p">
-            <img src="../assets/img/icon/friend_circle.svg" alt="">
-            <span>朋友圈</span>
-          </div>
-          <div class="share-to pr10p">
-            <img src="../assets/img/icon/wechat.svg" alt="">
-            <span>微信</span>
-          </div>
-          <div class="share-to pr10p">
-            <img src="../assets/img/icon/sq-share-qqzone-01.svg">
-            <span>QQ空间</span>
-          </div>
-          <div class="share-to pr10p">
-            <img src="../assets/img/icon/QQ.svg">
-            <span>QQ</span>
-          </div>
-          <div class="share-to pr10p">
-            <img src="../assets/img/icon/sina.svg">
-            <span>微博</span>
-          </div>
-          <div class="share-to pr10p">
-            <img src="../assets/img/icon/more.svg">
-            <span>更多</span>
-          </div>
+      <div class="line"></div>
+      <div class="shares pl10p pb20p">
+        <div class="share-to pr10p pl10p"
+             v-for="item in 5"
+        >
+          <img src="../assets/img/icon/friend_circle.svg" alt="">
+          <span>朋友圈</span>
         </div>
-
-      </div>
-      <div class="toolbar oh pl20p pr20p pt10p pb10p f11">
-        <div class="w200">
-          <div class="tool pr10p ">
-            <img src="../assets/img/icon/举报.svg" alt="">
-            <span>举报</span>
-          </div>
-          <div class="tool pr10p ">
-            <img src="../assets/img/icon/download.svg" alt="">
-            <span>保存本地</span>
-          </div>
-          <div class="tool pr10p ">
-            <img src="../assets/img/icon/collect.svg" alt="">
-            <span>收藏</span>
-          </div>
-          <div class="tool pr10p ">
-            <img src="../assets/img/icon/qiangjing.svg" alt="">
-            <span>抢镜</span>
-          </div>
-          <div class="tool pr10p">
-            <img src="../assets/img/icon/qr_code.svg" alt="">
-            <span>二维码</span>
-          </div>
-          <div class="tool pr10p">
-            <img src="../assets/img/icon/dongtaibizhi.svg" alt="">
-            <span>动态壁纸</span>
-          </div>
-          <div class="tool pr10p">
-            <img src="../assets/img/icon/hepai.svg" alt="">
-            <span>合拍</span>
-          </div>
-          <div class="tool pr10p">
-            <img src="../assets/img/icon/dislike.svg" alt="">
-            <span>不感兴趣</span>
-          </div>
-          <div class="tool pr10p">
-            <img src="../assets/img/icon/href.svg" alt="">
-            <span>复制链接</span>
-          </div>
+        <div class="share-to pr10p pl10p">
+          <img src="../assets/img/icon/wechat.svg" alt="">
+          <span>微信</span>
+        </div>
+        <div class="share-to pr10p pl10p">
+          <img src="../assets/img/icon/sq-share-qqzone-01.svg">
+          <span>QQ空间</span>
+        </div>
+        <div class="share-to pr10p pl10p">
+          <img src="../assets/img/icon/QQ.svg">
+          <span>QQ</span>
+        </div>
+        <div class="share-to pr10p pl10p">
+          <img src="../assets/img/icon/sina.svg">
+          <span>微博</span>
+        </div>
+        <div class="share-to pr10p pl10p">
+          <img src="../assets/img/icon/more.svg">
+          <span>更多</span>
         </div>
       </div>
-      <div class="dismiss" @click="closeShare()">
-        取消
+      <div class="toolbar pl10p pb20p">
+        <div class="tool pr10p pl10p ">
+          <img src="../assets/img/icon/举报.svg" alt="">
+          <span>举报</span>
+        </div>
+        <div class="tool pr10p pl10p ">
+          <img src="../assets/img/icon/download.svg" alt="">
+          <span>保存本地</span>
+        </div>
+        <div class="tool pr10p pl10p ">
+          <img src="../assets/img/icon/collect.svg" alt="">
+          <span>收藏</span>
+        </div>
+        <div class="tool pr10p pl10p ">
+          <img src="../assets/img/icon/qiangjing.svg" alt="">
+          <span>抢镜</span>
+        </div>
+        <div class="tool pr10p pl10p">
+          <img src="../assets/img/icon/qr_code.svg" alt="">
+          <span>二维码</span>
+        </div>
+        <div class="tool pr10p pl10p">
+          <img src="../assets/img/icon/dongtaibizhi.svg" alt="">
+          <span>动态壁纸</span>
+        </div>
+        <div class="tool pr10p pl10p">
+          <img src="../assets/img/icon/hepai.svg" alt="">
+          <span>合拍</span>
+        </div>
+        <div class="tool pr10p pl10p">
+          <img src="../assets/img/icon/dislike.svg" alt="">
+          <span>不感兴趣</span>
+        </div>
+        <div class="tool pr10p pl10p">
+          <img src="../assets/img/icon/href.svg" alt="">
+          <span>复制链接</span>
+        </div>
       </div>
     </div>
   </transition>
@@ -130,51 +101,70 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.w200 {
-  width: 200%;
-}
-
 .share {
   position: fixed;
   /*top: 200px;*/
   width: 100%;
   bottom: 0;
   z-index: 5;
-  background: #eaeaea;
+  background: black;
   border-radius: 10px 10px 0 0;
+  color: white;
+  box-sizing: border-box;
+
+
+  .title {
+    padding: 20px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+    img {
+      width: 15px;
+      height: 15px;
+    }
+  }
 
   .friends {
     overflow-x: scroll;
+    display: flex;
 
     .friend {
-      float: left;
+      width: 45px;
 
       img {
-        width: 40px;
-        height: 40px;
+        width: 45px;
+        height: 45px;
         border-radius: 50%;
       }
 
       span {
         display: block;
         text-align: center;
+        word-break: break-all;
       }
     }
   }
 
+  .line{
+    height: 1px;
+    background: #1c1c1c;
+    margin-left: 20px;
+    width:  calc(100% - 40px);
+    margin-bottom: 10px;
+  }
+
   .shares {
-    background: white;
     overflow-x: scroll;
+    display: flex;
 
     .share-to {
-      float: left;
       width: 50px;
 
       img {
-        width: 27px;
-        height: 27px;
-        padding: 6px;
+        width: 30px;
+        height: 30px;
+        padding: 10px;
         border-radius: 50%;
         background: #1ace04;
       }
@@ -187,16 +177,16 @@ export default {
   }
 
   .toolbar {
-    border-top: 1px solid #eaeaea;
-    background: white;
     overflow-x: scroll;
+    display: flex;
+
 
     .tool {
       float: left;
 
       img {
-        width: 22px;
-        height: 22px;
+        width: 30px;
+        height: 30px;
         padding: 10px;
         border-radius: 50%;
         background: #eaeaea;
@@ -208,25 +198,15 @@ export default {
       }
     }
   }
-
-  .dismiss {
-    background: white;
-    border-top: 1px solid #eaeaea;
-    text-align: center;
-    height: 30px;
-    line-height: 30px;
-  }
 }
 
-.comment-enter-active {
-  transition: all .3s ease;
+.share-enter-active,
+.share-leave-active {
+  transition: all .15s ease;
 }
 
-.comment-leave-active {
-  transition: all .3s ease;
+.share-enter-from, .share-leave-to {
+  transform: translateY(60vh);
 }
 
-.comment-enter, .comment-leave-to {
-  transform: translateY(300px);
-}
 </style>

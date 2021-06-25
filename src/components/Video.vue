@@ -47,12 +47,14 @@
           </div>
         </div>
         <div class="process"
+             :class="isMove ? '' : isPlaying && 'stop'"
+             v-if="duration > 60"
              @touchmove="move"
              @touchend="end"
         >
           <div class="time" v-if="isMove">
-            <span class="playDuration">{{ $duration(playDuration) }}</span>
-            <span class="duration"> / {{ $duration(video.duration) }}</span>
+            <span class="currentTime">{{ $duration(currentTime) }}</span>
+            <span class="duration"> / {{ $duration(duration) }}</span>
           </div>
           <div class="line" :style="durationStyle" ref="line"></div>
           <div class="point" :style="durationStyle" ref="point"></div>
@@ -84,21 +86,35 @@ export default {
   },
   computed: {
     durationStyle() {
-      return {left: this.playDuration + 'px'}
+      return {left: this.pageX + 'px'}
     }
   },
   watch: {
     disabled: {
       immediate: true,
       handler(v) {
-        console.log('disabled', this.currentVideoId, v)
+        // console.log('disabled', this.currentVideoId, v)
         this.isPlaying = !v
         if (!v) {
           this.$store.commit('setCurrentVideoId', this.currentVideoId)
-          console.log(this.$refs)
-          if (this.$refs.video) {
-            this.$refs.video.play()
-          }
+          setTimeout(() => {
+            let video = this.$refs.video
+            video.currentTime = 0
+            let fun = e => {
+              this.currentTime = Math.ceil(e.target.currentTime)
+              this.pageX = this.currentTime * this.step
+            }
+            video.addEventListener('timeupdate', fun)
+            video.addEventListener('loadedmetadata', e => {
+              this.duration = video.duration
+              if (this.duration > 60) {
+                this.step = this.width / Math.floor(this.duration)
+              } else {
+                video.removeEventListener('timeupdate', fun)
+              }
+            })
+            video.play()
+          })
         } else {
           if (this.$refs.video) {
             this.$refs.video.pause()
@@ -109,7 +125,10 @@ export default {
   },
   data() {
     return {
-      playDuration: 30,
+      duration: 0,
+      step: 0,
+      currentTime: 0,
+      pageX: 0,
       index: 0,
       height: 0,
       width: 0,
@@ -120,7 +139,7 @@ export default {
       point: null,
       isMove: false,
       mitt: inject('mitt'),
-      currentVideoId: 'a' + Date.now()
+      currentVideoId: 'a' + Date.now(),
     }
   },
   mounted() {
@@ -129,9 +148,14 @@ export default {
     this.line = this.$refs.line
     this.point = this.$refs.point
     this.mitt.on(this.currentVideoId, v => {
+      if (this.duration < 60) return
       this.isMove = v.isMove
-      this.playDuration = v.isMove ? v.e : this.playDuration
+      // this.currentTime = v.isMove ? v.e : this.currentTime
+      v.isMove ? this.move(v.e) : this.end(v.e)
     })
+  },
+  unmounted() {
+    console.log('unmounted')
   },
   methods: {
     //划动到下一个视频
@@ -192,11 +216,20 @@ export default {
     },
     move(e) {
       this.isMove = true
-      this.playDuration = e.touches[0].pageX
+      let video = this.$refs.video
+      video.pause()
+      this.pageX = e.touches[0].pageX
+      // console.log(this.step)
+      this.currentTime = Math.ceil(Math.ceil(e.touches[0].pageX) / this.step)
       this.$stopPropagation(e)
     },
     end(e) {
-      this.isMove = false
+      setTimeout(()=>{
+        this.isMove = false
+      },1000)
+      let video = this.$refs.video
+      video.currentTime = this.currentTime
+      video.play()
       this.$stopPropagation(e)
     },
 
@@ -362,8 +395,8 @@ export default {
           position: absolute;
           top: -3px;
           height: 3px;
-          width: 100vw;
-          transform: translate3d(-100%, 0, 0);
+          width: 200vw;
+          transform: translate3d(-200vw, 0, 0);
           background: white;
         }
 
@@ -376,6 +409,40 @@ export default {
           width: 8px;
           border-radius: 50%;
           background: white;
+        }
+      }
+
+      & .stop {
+        &:before {
+          z-index: 9;
+          content: ' ';
+          height: 1.5px;
+          width: 100vw;
+          background: #333333;
+          position: absolute;
+          top: -3px;
+        }
+
+        .line {
+          z-index: 999;
+          content: '';
+          position: absolute;
+          top: -3px;
+          height: 1px;
+          width: 200vw;
+          transform: translate3d(-200vw, 0, 0);
+          background: gray;
+        }
+
+        .point {
+          z-index: 10;
+          position: absolute;
+          left: 10vw;
+          top: -4px;
+          height: 4px;
+          width: 4px;
+          border-radius: 50%;
+          background: gray;
         }
       }
     }
