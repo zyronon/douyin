@@ -1,50 +1,50 @@
 @use "sass:math";
 
 
-/*
-
-width
-
-*/
-$width: 500;
-@while $width >= 0 {
-  .w#{$width}p {
-    width: #{$width}px !important;
-  }
-  $width: $width - 10;
-}
-
-
-$width: 100;
-@while $width >= 0 {
-  .w#{$width} {
-    //width: math.percentage($width / 100) !important;
-  }
-  $width: $width - 1;
-}
-
-/*
-
-$height
-
-*/
-$height: 500;
-@while $height >= 0 {
-  .h#{$height}p {
-    height: #{$height}px !important;
-  }
-  $height: $height - 10;
-}
-
-
-$height: 100;
-@while $height >= 0 {
-  .h#{$height} {
-    //height: math.percentage($height / 100) !important;
-  }
-  $height: $height - 1;
-}
-
+///*
+//
+//width
+//
+//*/
+//$width: 500;
+//@while $width >= 0 {
+//  .w#{$width}p {
+//    width: #{$width}px !important;
+//  }
+//  $width: $width - 10;
+//}
+//
+//
+//$width: 100;
+//@while $width >= 0 {
+//  .w#{$width} {
+//    //width: math.percentage($width / 100) !important;
+//  }
+//  $width: $width - 1;
+//}
+//
+///*
+//
+//$height
+//
+//*/
+//$height: 500;
+//@while $height >= 0 {
+//  .h#{$height}p {
+//    height: #{$height}px !important;
+//  }
+//  $height: $height - 10;
+//}
+//
+//
+//$height: 100;
+//@while $height >= 0 {
+//  .h#{$height} {
+//    //height: math.percentage($height / 100) !important;
+//  }
+//  $height: $height - 1;
+//}
+//
 
 /*
 
@@ -53,43 +53,43 @@ margin
 */
 $margin: 50;
 
-@while $margin >= 0 {
+@while $margin >= 5 {
   .ml#{$margin}p {
     margin-left: #{$margin}px !important;
   }
-  $margin: $margin - 1;
+  $margin: $margin - 5;
 }
 
 $margin: 50;
-@while $margin >= 0 {
+@while $margin >= 5 {
   .mr#{$margin}p {
     margin-right: #{$margin}px !important;
   }
-  $margin: $margin - 1;
+  $margin: $margin - 5;
 }
 
 $margin: 50;
-@while $margin >=0 {
+@while $margin >=5 {
   .mt#{$margin}p {
     margin-top: #{$margin}px !important;
   }
-  $margin: $margin - 1;
+  $margin: $margin - 5;
 }
 
 $margin: 50;
-@while $margin >= 0 {
+@while $margin >= 5 {
   .mb#{$margin}p {
     margin-bottom: #{$margin}px !important;
   }
-  $margin: $margin - 1;
+  $margin: $margin - 5;
 }
 
 $margin: 50;
-@while $margin >= 0 {
+@while $margin >= 5 {
   .m#{$margin}p {
     margin: #{$margin}px !important;
   }
-  $margin: $margin - 1;
+  $margin: $margin - 5;
 }
 
 
@@ -101,43 +101,43 @@ padding
 
 
 $padding: 50;
-@while $padding >= 0 {
+@while $padding >= 5 {
   .pl#{$padding}p {
     padding-left: #{$padding}px !important;
   }
-  $padding: $padding - 1;
+  $padding: $padding - 5;
 }
 
 $padding: 50;
-@while $padding >= 0 {
+@while $padding >= 5 {
   .pr#{$padding}p {
     padding-right: #{$padding}px !important;
   }
-  $padding: $padding - 1;
+  $padding: $padding - 5;
 }
 
 $padding: 50;
-@while $padding >= 0 {
+@while $padding >= 5 {
   .pt#{$padding}p {
     padding-top: #{$padding}px !important;
   }
-  $padding: $padding - 1;
+  $padding: $padding - 5;
 }
 
 $padding: 50;
-@while $padding >= 0 {
+@while $padding >= 5 {
   .pb#{$padding}p {
     padding-bottom: #{$padding}px !important;
   }
-  $padding: $padding - 1;
+  $padding: $padding - 5;
 }
 
 $padding: 50;
-@while $padding >= 0 {
+@while $padding >= 5 {
   .p#{$padding}p {
     padding: #{$padding}px !important;
   }
-  $padding: $padding - 1;
+  $padding: $padding - 5;
 }
 
 

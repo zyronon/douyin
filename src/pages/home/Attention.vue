@@ -1,218 +1,337 @@
 <template>
-    <div id="attention" >
-        <div class="items p10p">
-            <div class="item mb20p pb20p" v-for="(item,index) of items" :key="index" >
-                <div class="header mb10p">
-                    <img src="../../assets/img/icon/head-image.jpeg" alt="">
-                    <span class="ml5p">TTentau</span>
-                </div>
-                <div class="my-comment mb10p">
-                    最靠近北极有个不生不来之地，北极熊比人还多，对中国免签 <span class="tag">#带他去旅行</span>
-                </div>
-                <div class="other-comment p10p">
-                    <span class="user-name">@super-man:</span>
-                    <span class="tag">#购物车里是什么</span>
-                    <span>无敌浩克</span>
-                </div>
-                <div class="video-container mb10p ">
-                    <video src="../../assets/video/1.mp4" poster="../../assets/img/poster/src1-bg.png"></video>
-                    <div class="music">
-                        <img src="../../assets/img/icon/music.svg" alt="" class="music-image">
-                        <marquee behavior=scroll direction=left align=middle scrollamount=4> 吴三二 - 光年之外</marquee>
-                        <img src="../../assets/img/icon/play.svg" alt="" class="play">
-                        <img src="../../assets/img/icon/pause.svg" alt="" class="pause" v-if="false">
-                    </div>
-                </div>
-                <div class="location mb10p">
-                    <img src="../../assets/img/icon/location.svg" alt="">
-                    <span class="ml5p">东方明珠</span>
-                </div>
-                <div class="toolbar mb10p">
-                    <div class="item">
-                        <img src="../../assets/img/icon/love.svg" alt="">
-                        <img src="../../assets/img/icon/loved.svg" alt="" class="love-image" v-if="false">
-                        <span class="count">555</span>
-                    </div>
-                    <div class="item">
-                        <img src="../../assets/img/icon/message.svg" alt="">
-                        <span class="count">555</span>
-                    </div>
-                    <div class="item">
-                        <img src="../../assets/img/icon/love.svg" alt="">
-                        <span class="count">555</span>
-                    </div>
-                    <div class="item">
-                        <img src="../../assets/img/icon/love.svg" alt="">
-                        <span class="count">555</span>
-                    </div>
-                </div>
-                <div class="hot-comment pr15p mb5p  oh">
-                    <div class="content pull-left ">
-                        <img src="../../assets/img/icon/head-image.jpeg" alt="" class="head-image pull-left">
-                        <div class="pull-right comment-container">
-                            <div class="name">@ttentau</div>
-                            <div class="detail">其实我也不知道评论点什么啊啊啊看吧看吧看吧</div>
-                        </div>
-                    </div>
-                    <div class="love pull-right">
-                        <img src="../../assets/img/icon/love-gray.svg" alt="" class="love-image">
-                        <img src="../../assets/img/icon/loved.svg" alt="" class="love-image" v-if="false">
-                        <span class="f14 block">3453</span>
-                    </div>
-                </div>
-                <span class="time">11小时前</span>
+  <div id="attention">
+    <header>
+      <span>双流</span>
+      <div class="arrow"></div>
+    </header>
+    <div class="ad">
+      <div class="title">超值卖场 次日达</div>
+      <div class="good-ctn">
+        <div class="left">
+          <div class="left-title">
+            <span>限量秒杀</span>
+            <div>低至0.99元</div>
+          </div>
+          <div class="goods">
+            <div class="good">
+              <img class="good-img" src="../../assets/img/poster/1.jpg"/>
+              <div class="name">每日坚果5包</div>
+              <div class="price">￥0.99</div>
             </div>
+            <div class="good">
+              <img class="good-img" src="../../assets/img/poster/1.jpg"/>
+              <div class="name">每日坚果5包</div>
+              <div class="price">￥0.99</div>
+            </div>
+          </div>
         </div>
-        <Footer v-bind:init-tab="2"  style="position: fixed;" />
+        <div class="right">
+          <div class="goods">
+            <div class="good">
+              <div class="notice">
+                <div class="ad-name">低价疯抢</div>
+                <div class="ad-desc">统一方便面</div>
+              </div>
+              <img class="good-img" src="../../assets/img/poster/1.jpg"/>
+            </div>
+            <div class="good">
+              <div class="notice">
+                <div class="ad-name">低价疯抢</div>
+                <div class="ad-desc">统一方便面</div>
+              </div>
+              <img class="good-img" src="../../assets/img/poster/1.jpg"/>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="content">
+      <div class="left">
+        <div class="item" v-for="item in left">
+          <img class="poster" :src="item.src"/>
+          <div class="location">
+            <div class="top">
+              <img class="logo" src="../../assets/img/icon/msg-icon2.png" alt="">
+              <div class="name">电子科技大学沙河校区</div>
+            </div>
+            <div class="bottom">
+              <div class="type">大学</div>
+              <div class="line"></div>
+              <div class="other">1399人想去</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="item" v-for="item in right">
+          <img class="poster" :src="item.src"/>
+          <div class="location">
+            <div class="top">
+              <img class="logo" src="../../assets/img/icon/msg-icon2.png" alt="">
+              <div class="name">电子科技大学沙河校区</div>
+            </div>
+            <div class="bottom">
+              <div class="type">大学</div>
+              <div class="line"></div>
+              <div class="other">1399人想去</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <Footer v-bind:init-tab="2" style="position: fixed;"/>
+  </div>
 </template>
 
 <script>
 
-    import Footer from '../../components/Footer.vue';
+//TODO 还差个点击，返回后，定位到当前item最高点
+import Footer from '../../components/Footer.vue';
 
-    export default {
-        name: "Attention",
-        components: {
-            Footer
-        },
-        data(){
-            return {
-                items:[
-                    {},{},{}
-                ],
-                height:0,
-                width:0,
-                footerHeight:0
-            }
-        },
-        created() {
-            this.height = document.body.clientHeight;
-            this.width = document.body.clientWidth;
-        },
-        mounted() {
-        }
+export default {
+  name: "Attention",
+  components: {
+    Footer
+  },
+  data() {
+    return {
+      items: [],
+      height: 0,
+      width: 0,
+      footerHeight: 0
     }
+  },
+  created() {
+    this.height = document.body.clientHeight;
+    this.width = document.body.clientWidth;
+  },
+  computed: {
+    left() {
+      return this.items.filter((v, i) => {
+        return i % 2 === 0
+      })
+    },
+    right() {
+      return this.items.filter((v, i) => {
+        return i % 2 !== 0
+
+      })
+    }
+  },
+  mounted() {
+    for (let i = 1; i < 12; i++) {
+      this.items.push({
+        src: require(`../../assets/img/poster/${i}.jpg`)
+      })
+    }
+  }
+}
 </script>
 
 <style scoped lang="scss">
-    #attention {
-        position: fixed;
-        /*background: rgb(22，24，34);*/
-        /*background: #161822;*/
-        //抖音原色，感觉很暗
-        background: #2e3244;
-        color: #b8b9c1;
-        .items {
-            >.item {
-                border-bottom: 1px solid #494950;
-                .header {
-                    display: flex;
-                    justify-content: flex-start;
-                    align-items: center;
-                    img {
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 50%;
-                    }
-                }
-                .other-comment {
-                    display: none;
-                    background: #15161b;
-                    border-radius: 10px 10px 0 0;
-                }
-                .video-container {
-                    position: relative;
-                    width: 80%;
-                    video {
-                        border-radius: 10px 10px  10px 10px;
-                        width: 100%;
-                    }
-                    .music {
-                        position: absolute;
-                        bottom: 15px;
-                        right: 15px;
-                        left: 15px;
-                        .music-image {
-                            width: 20px;
-                            height: 20px;
-                            margin-top: 3px;
-                            position: absolute;
-                        }
-                        marquee {
-                            width: 50%;
-                            margin-left: 30px;
-                            color: white;
-                        }
-                        .play, .pause {
-                            width: 20px;
-                            height: 20px;
-                            margin-top: 3px;
-                            position: absolute;
-                            right: 0;
-                        }
+#attention {
+  /*background: rgb(22，24，34);*/
+  /*background: #161822;*/
+  //抖音原色，感觉很暗
+  $douyin-bg: #2e3244;
+  background: $douyin-bg;
+  color: #b8b9c1;
 
-                    }
-                }
-                .location {
-                    display: flex;
-                    justify-content: flex-start;
-                    align-items: center;
-                    height: 20px;
-                    img {
-                        height: 100%;
-                    }
-                }
-                .toolbar{
-                    width: 90%;
-                    height: 25px;
-                    text-align: center;
-                    .item {
-                        height: 100%;
-                        display: flex;
-                        width: 25%;
-                        justify-content: flex-start;
-                        align-items: center;
-                        float: left;
-                        img{
-                            height: 100%;
-                        }
-                        .count{
-                            margin-left: 5px;
-                        }
-                    }
-                }
-                .hot-comment {
-                    .content {
-                        float: left;
-                        width: 85%;
-                        .head-image {
-                            width: 40px;
-                            border-radius: 50%;
-                            float: left;
-                        }
-                        .comment-container {
-                            width: 85%;
-                            .time {
-                                color: gray;
-                            }
-                        }
+  header {
+    font-size: 1.5rem;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-                    }
-                    .love {
-                        text-align: center;
-                        .love-image {
-                            width: 30px;
-                            border-radius: 50%;
-                        }
-                    }
-                }
-            }
-            .tag {
-                color: #E6C346;
-                margin: 0 3px;
-            }
-        }
+    $arrow-width: 5px;
+
+    .arrow {
+      position: relative;
+      top: 3px;
+      left: 5px;
+      width: 0;
+      height: 0;
+      border-top: $arrow-width solid white;
+      border-right: $arrow-width solid transparent;
+      border-bottom: $arrow-width solid transparent;
+      border-left: $arrow-width solid transparent;
     }
+  }
+
+  .ad {
+    padding: 10px;
+    color: white;
+
+    .title {
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .good-ctn {
+      display: flex;
+      justify-content: space-between;
+
+      .left, .right {
+        width: calc(50% - 3px);
+      }
+
+
+      .left {
+        padding: 10px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        background: linear-gradient(to bottom right, #bd5959 5%, #3f445c 50%);
+
+
+        .left-title {
+          font-weight: bold;
+          font-size: 1.7rem;
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+
+          div {
+            background: linear-gradient(to top right, #e37c7c, #bd5959);
+            padding: 0 4px 2px 4px;
+            border-radius: 3px;
+            font-size: 1rem;
+            font-weight: lighter;
+            margin-left: 5px;
+          }
+        }
+
+        .goods {
+          display: flex;
+          justify-content: space-between;
+
+          .good {
+            width: calc(50% - 5px);
+
+            .good-img {
+              width: 100%;
+              height: 50px;
+              border-radius: 5px;
+            }
+
+            .name {
+              margin-top: 5px;
+            }
+
+            .price {
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+
+      .right {
+        .goods {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .good {
+            height: calc(50% - 3px);
+            border-radius: 5px;
+            box-sizing: border-box;
+            padding: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            background: linear-gradient(to bottom right, #6b267d 10%, #3f445c 50%);
+
+            &:nth-child(2){
+              background: linear-gradient(to bottom right, #283b53 5%, #3f445c 50%);
+            }
+
+            .notice {
+              display: flex;
+              justify-content: center;
+              flex-direction: column;
+              .ad-name {
+                font-weight: bold;
+              }
+
+              .ad-desc {
+                font-size: 1rem;
+                color: darkgray;
+              }
+            }
+
+            .good-img {
+              width: 50px;
+              height: 50px;
+              border-radius: 5px;
+            }
+
+
+          }
+        }
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    overflow: auto;
+    background: black;
+    box-sizing: border-box;
+    padding: 0 3px;
+
+    .left, .right {
+      width: calc(50% - 1.5px);
+    }
+
+    .item {
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 3px;
+
+      .poster {
+        width: 100%;
+        max-height: 50vh;
+        display: block;
+      }
+
+      .location {
+        padding: 8px 10px 10px 10px;
+        background: $douyin-bg;
+
+        .top, .bottom {
+          font-size: 1.4rem;
+          display: flex;
+          align-items: center;
+
+          .logo {
+            height: 12px;
+            width: 12px;
+            margin-right: 8px;
+          }
+
+          .name {
+            color: white;
+          }
+
+          .line {
+            margin: 0 4px;
+            width: 1px;
+            height: .8rem;
+            background: gray;
+          }
+        }
+
+        .bottom {
+          margin-top: 2px;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
 
 </style>

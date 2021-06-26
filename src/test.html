@@ -5,53 +5,25 @@
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        html, body {
-            padding: 0;
-            margin: 0;
-            width: 100%;
-            height: 100%;
+        .test {
+            width: 400px;
+            height: 600px;
+
         }
 
-       .Me{
-           position: fixed;
-           font-size: 1.6rem;
-           width: 100%;
-           height: 100%;
-           overflow: hidden;
-       }
+        img{
+            display: block;
+            width: 400px;
+            height: 600px;
+        }
 
-       .wrapper{
-           position: relative;
-           display: flex;
-           width: 100%;
-           height: 100%;
-       }
-       .left{
-           left: 0;
-           top: 0;
-           position: absolute;
-           height: 100%;
-           width: 100%;
-           background: #333;
-           overflow-y: scroll;
-       }
-
-       .right{
-           top: 0;
-           left: 100%;
-           position: absolute;
-           height: 100%;
-           width: 70%;
-           color: white;
-           background: #2e3244;
-       }
     </style>
 </head>
 <body>
-<div class="Me">
-    <div class="wrapper">
-        <div class="left"></div>
-        <div class="right"></div>
+<div class="test">
+    <img class="poster" src="./assets/img/poster/1.jpg"/>
+    <div>
+        123
     </div>
 </div>
 </body>

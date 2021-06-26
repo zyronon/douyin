@@ -11,8 +11,17 @@
       <div class="float">
         <div :style="{opacity:isMove?0:1}" class="normal">
           <div class="toolbar mb10p">
-            <img src="../assets/img/icon/head-image.jpeg" alt="" class="head-image mb15p"
-                 @click.stop="$emit('goUserInfo')">
+            <div class="avatar-ctn mb15p">
+              <img class="avatar" src="../assets/img/icon/head-image.jpeg" alt=""
+                   @click.stop="$emit('goUserInfo')">
+              <transition name="fade">
+                <div v-if="!isAttention" @click.stop="attention" class="options" ref="attention-option">
+                  <img class="no" src="../assets/img/icon/add.png" alt="">
+                  <img class="yes" src="../assets/img/icon/ok-red.png" alt="">
+                </div>
+              </transition>
+
+            </div>
             <div class="love mb15p" @click.stop="loved($event)">
               <div>
                 <img src="../assets/img/icon/love.svg" class="love-image" v-if="!video.isLoved">
@@ -22,17 +31,23 @@
                 <!--                <transition name="loved">-->
                 <!--                </transition>-->
               </div>
-              <span class="f14">{{ video.loves }}</span>
+              <span>{{ video.loves }}</span>
             </div>
             <div class="message mb15p" @click.stop="$emit('showComments')">
               <img src="../assets/img/icon/message.svg" alt="" class="message-image">
-              <span class="f14">{{ video.comments }}</span>
+              <span>{{ video.comments }}</span>
             </div>
             <div class="share mb35p" @click.stop="$emit('showShare')">
               <img src="../assets/img/icon/share.svg" alt="" class="share-image">
-              <span class="f14">{{ video.shared }}</span>
+              <span>{{ video.shared }}</span>
             </div>
-            <img src="../assets/img/icon/head-image.jpeg" alt="" class="music" @click.stop="$nav('/music')">
+            <div class="music-ctn">
+              <img class="music1" src="../assets/img/icon/home/music1.png" alt="">
+              <img class="music2" src="../assets/img/icon/home/music2.png" alt="">
+              <div class="music-bg">
+                <img class="music" src="../assets/img/icon/head-image.jpeg" alt="" @click.stop="$nav('/music')">
+              </div>
+            </div>
           </div>
           <div class="content ml10p mb10p" @click.stop="goUserInfo()">
             <div class="name mb10p">@TTentau</div>
@@ -134,6 +149,7 @@ export default {
       width: 0,
       isPlaying: !this.disabled,
       isCommenting: false,
+      isAttention: false,
       isSharing: false,
       line: null,
       point: null,
@@ -154,10 +170,14 @@ export default {
       v.isMove ? this.move(v.e) : this.end(v.e)
     })
   },
-  unmounted() {
-    console.log('unmounted')
-  },
   methods: {
+    attention() {
+      let option = this.$refs['attention-option']
+      option.classList.add('attention')
+      setTimeout(() => {
+        this.isAttention = true
+      }, 1000)
+    },
     //划动到下一个视频
     swipingVideo() {
       let videos = this.$refs.video
@@ -224,9 +244,9 @@ export default {
       this.$stopPropagation(e)
     },
     end(e) {
-      setTimeout(()=>{
+      setTimeout(() => {
         this.isMove = false
-      },1000)
+      }, 1000)
       let video = this.$refs.video
       video.currentTime = this.currentTime
       video.play()
@@ -238,6 +258,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.fade-enter-active,
+.fade-leave-active {
+  transition: transform 0.1s linear;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  transform: scale(0);
+}
 .bg-video {
   position: relative;
   background: black;
@@ -282,30 +311,78 @@ export default {
         position: relative;
 
         .toolbar {
-          width: 40px;
+          //width: 40px;
           position: absolute;
           bottom: 0;
-          right: 20px;
+          right: 5px;
           color: #fff;
 
-          div {
-            text-align: center;
+          .avatar-ctn {
+            position: relative;
+
+            .avatar {
+              width: 55px;
+              height: 55px;
+              border-radius: 50%;
+            }
+
+            .options {
+              position: absolute;
+              border-radius: 50%;
+              margin: auto;
+              left: 0;
+              right: 0;
+              bottom: -5px;
+              background: red;
+              //background: black;
+              width: 18px;
+              height: 18px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              transition: all 1s;
+
+              img {
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                transition: all 1s;
+              }
+
+              .yes {
+                opacity: 0;
+                transform: rotate(-180deg);
+              }
+
+              &.attention {
+                background: white;
+
+                .no {
+                  opacity: 0;
+                  transform: rotate(180deg);
+                }
+
+                .yes {
+                  opacity: 1;
+                  transform: rotate(0deg);
+                }
+              }
+            }
           }
 
-          img {
-            width: 90%;
-            height: 90%;
-          }
+          .love, .message, .share {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
 
-          .head-image, .music {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-          }
-
-          .love {
             img {
+              width: 40px;
+              height: 40px;
+            }
 
+            span {
+              font-size: 11px;
             }
           }
 
@@ -313,8 +390,46 @@ export default {
             background: red;
           }
 
-          .music {
-            animation: animations 4s linear forwards infinite;
+          .music-ctn {
+            position: relative;
+
+            .music-bg {
+              background-image: linear-gradient(black, #424242, black);
+              border-radius: 50%;
+              width: 50px;
+              height: 50px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              animation: animations 5s linear forwards infinite;
+              //display: none;
+
+              .music {
+                //display: none;
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+              }
+            }
+
+
+            .music1, .music2 {
+              //display: none;
+              position: absolute;
+              width: 18px;
+              height: 18px;
+              top: 10px;
+            }
+
+            .music1 {
+              animation: anim-music1 2s linear forwards infinite;
+            }
+
+            .music2 {
+              animation: anim-music1 2s linear forwards infinite;
+              animation-delay: 1s;
+            }
+
           }
 
           @keyframes animations {
@@ -323,6 +438,32 @@ export default {
             }
             100% {
               transform: rotate(360deg);
+            }
+          }
+          @keyframes anim-music1 {
+            0% {
+              transform: translate3d(0, 0, 0);
+              opacity: 0;
+            }
+            20% {
+              transform: translate3d(-8px, 0px, 0) rotate(30deg);
+              opacity: .3;
+            }
+            40% {
+              transform: translate3d(-16px, -5px, 0) rotate(15deg);
+              opacity: .5;
+            }
+            60% {
+              transform: translate3d(-24px, -15px, 0) rotate(0deg);
+              opacity: 1;
+            }
+            80% {
+              transform: translate3d(-32px, -30px, 0) rotate(-15deg);
+              opacity: 1;
+            }
+            100% {
+              transform: translate3d(-32px, -50px, 0) rotate(-30deg);
+              opacity: 0;
             }
           }
         }
