@@ -1,5 +1,25 @@
 <template>
   <div id="base-slide-wrapper" ref="slideWrapper">
+    <div class="toolbar-ctn" v-if="showIndicator">
+      <div class="notice" :style="noticeStyle"><span>下拉刷新内容</span></div>
+      <div class="toolbar" ref="toolbar" :style="toolbarStyle">
+        <div class="left">直播</div>
+        <div class="tab-ctn">
+          <div class="tabs" ref="tabs">
+            <div class="tab"
+                 :class="currentSlideItemIndex === 0?'active':''"
+                 @click="changeIndex(false,0)">
+              <span>关注</span></div>
+            <div class="tab"
+                 :class="currentSlideItemIndex === 1?'active':''"
+                 @click="changeIndex(false,1)"><span>推荐</span></div>
+          </div>
+          <div class="indicator" ref="indicator"></div>
+        </div>
+        <div class="right" :style="{opacity:loading ? 0 : 1}">搜索</div>
+      </div>
+      <div class="loading" :style="loadingStyle">AA</div>
+    </div>
     <div id="base-slide-list" ref="slideList"
          :style="{'flex-direction':direction}"
          @touchstart="touchStart($event)"
@@ -18,6 +38,14 @@ export default {
       type: String,
       default: () => 'row'
     },
+    showIndicator: {
+      type: Boolean,
+      default: () => false
+    },
+    useHomeLoading: {
+      type: Boolean,
+      default: () => false
+    },
     virtual: {
       type: Boolean,
       default: () => false
@@ -30,21 +58,49 @@ export default {
       type: Number,
       default: () => 0
     },
-    // slideMoveXDistance: {
-    //   type: Number,
-    //   default: () => 0
-    // }
+  },
+  computed: {
+    toolbarStyle() {
+      if (!this.useHomeLoading) return
+      return {
+        opacity: 1 - this.homeLoadingMoveYDistance / 20,
+        'transition-duration': this.toolbarStyleTransitionDuration + 'ms',
+        transform: `translate3d(0, ${this.homeLoadingMoveYDistance > 60 ? 60 : this.homeLoadingMoveYDistance}px, 0)`,
+      }
+    },
+    noticeStyle() {
+      if (!this.useHomeLoading) return
+      return {
+        opacity: this.homeLoadingMoveYDistance / 60,
+        'transition-duration': this.toolbarStyleTransitionDuration + 'ms',
+        transform: `translate3d(0, ${this.homeLoadingMoveYDistance > 60 ? 60 : this.homeLoadingMoveYDistance}px, 0)`,
+      }
+    },
+    loadingStyle() {
+      if (!this.useHomeLoading) return
+      if (this.loading) {
+        return {
+          opacity: 1,
+          'transition-duration': '300ms',
+        }
+      }
+      if (this.homeLoadingMoveYDistance !== 0) {
+        return {
+          opacity: this.homeLoadingMoveYDistance / 60,
+          'transition-duration': this.toolbarStyleTransitionDuration + 'ms',
+          transform: `translate3d(0, ${this.homeLoadingMoveYDistance > 60 ? 60 : this.homeLoadingMoveYDistance}px, 0)`,
+        }
+      }
+    }
   },
   data() {
     return {
+      loading: false,
       wrapperWidth: 0,
       wrapperHeight: 0,
 
       startLocationX: 0,
       startLocationY: 0,
-
-      lastLocationX: 0,
-      lastLocationY: 0,
 
       moveXDistance: 0,
       moveYDistance: 0,
@@ -61,42 +117,59 @@ export default {
 
       slideList: null,
       slideItems: null,
+      indicatorRef: null,
       slideItemsWidths: [],
       slideItemsHeights: [],
+      tabIndicatorRelationActiveIndexLefts: [],//指标和slideItem的index的对应left,
+      indicatorSpace: 0,//indicator之间的间距
+      toolbarStyleTransitionDuration: 0,
+      homeLoadingMoveYDistance: 0,//homeLoading专用的MoveYDistance，因为MoveYDistance是一直更新的，左右划的时候也在更新，会造成
+      //在往左划，但上面的toolbar开始往下移了，所以需要用一个专用的值来有条件的保存MoveYDistance，即只direction = row的时候
     }
   },
   watch: {
     activeIndex() {
-      this.currentSlideItemIndex = this.activeIndex
-      this.$setCss(this.slideList, 'transition-duration', `300ms`)
-      if (this.direction === 'row') {
-        this.$setCss(this.slideList, 'transform', `translate3d(${-this.getWidth(this.currentSlideItemIndex)}px, 0px, 0px)`)
-      } else {
-        this.$setCss(this.slideList, 'transform', `translate3d(0px, ${-this.getHeight(this.currentSlideItemIndex)}px, 0px)`)
-      }
-    }
+      this.changeIndex()
+    },
   },
   mounted() {
     this.checkChildren(true)
-    this.currentSlideItemIndex = this.activeIndex
-    if (this.direction === 'row') {
-      this.$setCss(this.slideList, 'transform', `translate3d(${-this.getWidth(this.currentSlideItemIndex) + this.moveXDistance}px, 0px, 0px)`)
-    } else {
-      this.$setCss(this.slideList, 'transform', `translate3d(0px, ${-this.getHeight(this.currentSlideItemIndex) + this.moveYDistance}px, 0px)`)
-    }
+    this.showIndicator && this.initTabs()
+    this.changeIndex(true)
   },
   methods: {
-    // emitMoveXDistance: _.throttle(function () {
-    //   // this.$emit('moveXDistance', this.moveXDistance)
-    //   this.$emit('update:test', this.moveXDistance)
-    // }, 500),
+    changeIndex(init = false, index = null) {
+      this.currentSlideItemIndex = index !== null ? index : this.activeIndex
+      !init && this.$setCss(this.slideList, 'transition-duration', `300ms`)
+      if (this.direction === 'row') {
+        this.$setCss(this.slideList, 'transform', `translate3d(${-this.getWidth(this.currentSlideItemIndex) + this.moveXDistance}px, 0px, 0px)`)
+        if (this.showIndicator) {
+          this.$setCss(this.indicatorRef, 'left', this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px')
+        }
+      } else {
+        this.$setCss(this.slideList, 'transform', `translate3d(0px, ${-this.getHeight(this.currentSlideItemIndex) + this.moveYDistance}px, 0px)`)
+      }
+    },
+    initTabs() {
+      let tabs = this.$refs.tabs
+      this.indicatorRef = this.$refs.indicator
+      for (let i = 0; i < tabs.children.length; i++) {
+        let item = tabs.children[i]
+        this.tabWidth = this.$getCss(item, 'width')
+        this.tabIndicatorRelationActiveIndexLefts.push(
+            item.getBoundingClientRect().x - tabs.children[0].getBoundingClientRect().x + this.tabWidth * 0.15)
+      }
+      this.indicatorSpace = this.tabIndicatorRelationActiveIndexLefts[1] - this.tabIndicatorRelationActiveIndexLefts[0]
+      if (this.showIndicator) {
+        this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
+        this.$setCss(this.indicatorRef, 'left', this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px')
+      }
+    },
     checkChildren(init) {
       this.slideList = this.$refs.slideList
       this.slideItems = this.slideList.children
       this.wrapperWidth = this.$getCss(this.slideList, 'width')
       this.wrapperHeight = this.$getCss(this.slideList, 'height')
-      // console.log(this.wrapperWidth)
-      // console.log(this.wrapperHeight)
 
       for (let i = 0; i < this.slideItems.length; i++) {
         let el = this.slideItems[i]
@@ -106,42 +179,44 @@ export default {
     },
     touchStart(e) {
       this.$setCss(this.slideList, 'transition-duration', `0ms`)
+      this.showIndicator && this.$setCss(this.indicatorRef, 'transition-duration', `0ms`)
+      this.toolbarStyleTransitionDuration = 0
+
       this.startLocationX = e.touches[0].pageX
       this.startLocationY = e.touches[0].pageY
-      // console.log('this.startLocationX', this.startLocationX)
-      // console.log('this.startLocationY', this.startLocationY)
       this.startTime = Date.now()
     },
     touchMove(e) {
-      // console.log(e)
-      this.lastLocationX = e.touches[0].pageX
-      this.lastLocationY = e.touches[0].pageY
-      this.moveXDistance = this.lastLocationX - this.startLocationX
-      this.moveYDistance = this.lastLocationY - this.startLocationY
+      this.moveXDistance = e.touches[0].pageX - this.startLocationX
+      this.moveYDistance = e.touches[0].pageY - this.startLocationY
 
-      // console.log(this.key)
-      // console.log(this.direction + '  moveXDistance', this.moveXDistance)
-      // console.log(this.direction + '  moveYDistance', this.moveYDistance)
-
-      // console.log('currentSlideItemIndex', this.currentSlideItemIndex)
       this.isDrawRight = this.moveXDistance < 0
       this.isDrawDown = this.moveYDistance < 0
 
       this.checkDirection()
+
+      //多重判断，this.isCanDownWiping 这个判断是为了，只能在一个方向上，进行页面更新，比如说，我斜着画，就会出现toolbar又在下移，
+      //slideitem同时在左右移的情况，所以不能直接使用moveYDistance
+      if (this.useHomeLoading && this.isCanDownWiping && !this.loading) {
+        this.homeLoadingMoveYDistance = this.moveYDistance
+      }
+
       if (this.direction === 'row') {
         if (this.isCanRightWiping) {
           // //禁止在index=0页面的时候，向左划
           if (this.currentSlideItemIndex === 0 && !this.isDrawRight) return
           //禁止在最后页面的时候，向右划
           if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawRight) return
-          // this.$attrs['onUpdate:slideMoveXDistance'] && this.$emit('update:slideMoveXDistance', this.moveXDistance)
 
-          this.stop(e)
+          this.$stopPropagation(e)
           this.$setCss(this.slideList, 'transform', `translate3d(${-this.getWidth(this.currentSlideItemIndex) + this.moveXDistance}px, 0px, 0px)`)
+          this.showIndicator && this.$setCss(this.indicatorRef, 'left',
+              this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] -
+              this.moveXDistance / (this.$store.state.bodyWidth / this.indicatorSpace) + 'px')
         }
       } else {
         if (this.isCanDownWiping) {
-          if (this.currentSlideItemIndex === 0 && !this.isDrawDown) {
+          if (this.currentSlideItemIndex === 0 && !this.isDrawDown) {//在第一个item，并且想往下划。
             this.$attrs['onFirst'] && this.$emit('first', this.moveYDistance)
             return
           }
@@ -151,15 +226,28 @@ export default {
             if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawDown) return
           }
           // this.$attrs.moveYDistance && this.$emit('moveYDistance', this.moveYDistance)
-          this.stop(e)
+          this.$stopPropagation(e)
           this.$setCss(this.slideList, 'transform', `translate3d(0px, ${-this.getHeight(this.currentSlideItemIndex) + this.moveYDistance}px, 0px)`)
         }
       }
     },
+    getData() {
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+      }, 1500)
+    },
     touchEnd(e) {
-      // console.log(this.$attrs)
       this.$attrs['onEnd'] && this.$emit('end')
+      if (this.useHomeLoading) {
+        if (this.homeLoadingMoveYDistance > 60) {
+          this.getData()
+        }
+        this.toolbarStyleTransitionDuration = 300
+        this.homeLoadingMoveYDistance = 0
+      }
       this.$setCss(this.slideList, 'transition-duration', `300ms`)
+      this.showIndicator && this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
       let endTime = Date.now()
       let gapTime = endTime - this.startTime
       // console.log(gapTime)
@@ -177,6 +265,9 @@ export default {
           }
         }
         this.$setCss(this.slideList, 'transform', `translate3d(${-this.getWidth(this.currentSlideItemIndex)}px, 0px, 0px)`)
+        if (this.showIndicator) {
+          this.$setCss(this.indicatorRef, 'left', this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px')
+        }
       } else {
         if (this.currentSlideItemIndex === 0 && !this.isDrawDown) return
         //禁止在最后页面的时候，向右划
@@ -210,11 +301,6 @@ export default {
       this.isNeedCheck = true
       this.moveXDistance = 0
       this.moveYDistance = 0
-    },
-    stop(e) {
-      e.stopImmediatePropagation()
-      e.stopPropagation()
-      e.preventDefault()
     },
     getWidth(index) {
       return this.slideItemsWidths.reduce((p, c, i) => {
@@ -257,9 +343,7 @@ export default {
         this.isCanDownWiping = false
         this.isCanRightWiping = true
         this.isNeedCheck = false
-        return
       }
-      return;
     }
   }
 }
@@ -277,6 +361,79 @@ export default {
     width: 100%;
     position: relative;
   }
+
+  .toolbar-ctn {
+    position: fixed;
+    font-size: 1.6rem;
+    top: 0;
+    left: 0;
+    height: 60px;
+    z-index: 2;
+    width: 100%;
+    color: white;
+
+    .notice {
+      opacity: 0;
+      top: 0;
+      position: absolute;
+      width: 100vw;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loading {
+      opacity: 0;
+      top: 20px;
+      right: 15px;
+      position: absolute;
+
+    }
+
+    .toolbar {
+      position: relative;
+      color: white;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 0 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .tab-ctn {
+        width: 30%;
+        position: relative;
+
+        .tabs {
+          display: flex;
+          justify-content: space-between;
+          font-weight: bold;
+
+          .tab {
+            transition: color .3s;
+            color: gray;
+            &.active {
+              color: white;
+            }
+          }
+        }
+
+
+        .indicator {
+          //transition: left .3s;
+          position: absolute;
+          bottom: -8px;
+          height: 3px;
+          width: 20px;
+          background: #fff;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+
 }
 
 </style>

@@ -27,7 +27,7 @@
         <p>我页面</p>
         <p>我页面</p>
         <p>我页面</p>
-        <SlideList key1="父" style="width: 100vw;">
+        <SlideList style="width: 100vw;" :active-index="contentIndex">
           <SlideItem>
             1
           </SlideItem>
@@ -35,7 +35,7 @@
             2
           </SlideItem>
           <SlideItem>
-            <div>
+            <div class="content">
               <p>喜欢</p>
               <p>喜欢</p>
               <p>喜欢</p>
@@ -142,7 +142,8 @@ export default {
   data() {
     return {
       serviceEl: {},
-      serviceHeight: 0
+      serviceHeight: 0,
+      contentIndex:0
     }
   },
 }

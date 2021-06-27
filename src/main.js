@@ -18,6 +18,7 @@ import BaseHeader from "./components/BaseHeader.vue"
 import MyCollect from "./pages/me/MyCollect.vue";
 import BaseSlideList from "./components/BaseSlideList.vue";
 import BaseSlideItem from "./components/BaseSlideItem.vue";
+import Me2 from "./pages/home/Me2";
 
 // 我们后面再讨论嵌套路由。
 const routes = [
@@ -27,6 +28,7 @@ const routes = [
   {path: '/attention', component: Attention},
   {path: '/message', component: Message},
   {path: '/me', component: Me},
+  {path: '/me2', component: Me2},
   {path: '/music', component: Music},
   {path: '/countryChoose', component: countryChoose},
   {path: '/MyCard', component: MyCard},
@@ -41,7 +43,9 @@ const store = Vuex.createStore({
   state: {
     pageAnim: 'none',
     playDuration: 60,
-    currentVideoId:null
+    currentVideoId: null,
+    bodyHeight: document.body.clientHeight,
+    bodyWidth: document.body.clientWidth
   },
   mutations: {
     setPageAnim(state, states) {
@@ -123,7 +127,7 @@ const myMixin = {
   }
 }
 const app = Vue.createApp(App)
-app.provide('mitt',mitt())
+app.provide('mitt', mitt())
 
 app.component('BaseHeader', BaseHeader)
 app.component('BaseSlideList', BaseSlideList)
