@@ -2,66 +2,13 @@
   <div id="home-index">
     <SlideList v-model:active-index="baseActiveIndex">
       <SlideItem>
-        <div class="toolbar-ctn">
-          <div class="toolbar" :style="toolbarStyle">
-            <div class="left">直播</div>
-            <div class="tab-ctn">
-              <div class="tabs" ref="tabs">
-                <div class="tab"><span>双流</span></div>
-                <div class="tab"><span>关注</span></div>
-                <div class="tab"><span>推荐</span></div>
-              </div>
-              <div class="index" :style="tabIndexStyle"></div>
-            </div>
-            <div class="right" :style="{opacity:loading ? 0 : 1}">搜索</div>
-          </div>
-          <div class="notice" :style="noticeStyle"><span>下拉刷新内容</span></div>
-          <div class="loading" :style="loadingStyle">AA</div>
-        </div>
-        <SlideList v-model:active-index="activeIndex"
+        <SlideList
+            v-model:active-index="activeIndex"
+            :showIndicator="true"
+            :useHomeLoading="true"
         >
-          <SlideItem style="overflow:auto;">
-            <div>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-              <p>同城页</p>
-            </div>
-          </SlideItem>
           <SlideItem>
             <SlideList direction="column"
-                       @end="end"
-                       @first="first"
             >
               <SlideItem style="background: tan">
                 <p>111111111111</p>
@@ -143,14 +90,13 @@
             </SlideList>
           </SlideItem>
           <SlideItem>
-            <SlideList direction="column"
-                       ref="slideList"
-                       v-model:active-index="videoActiveIndex"
-                       :virtual="true"
-                       :total="total"
-                       @end="end"
-                       @first="first"
-                       @slide="slide">
+            <SlideList
+                direction="column"
+                ref="slideList"
+                v-model:active-index="videoActiveIndex"
+                :virtual="true"
+                :total="total"
+                @slide="slide">
               <SlideItem :style="itemTop" v-for="(item,index)  of videos">
                 <Video
                     :disabled="videoActiveIndex !== addCount + index"
@@ -220,7 +166,7 @@ import Comment from '../../components/Comment.vue'
 import Other from '../../components/Other.vue'
 import Share from '../../components/Share.vue'
 import Footer from "../../components/Footer.vue"
-import mp41 from '../../assets/video/10.mp4'
+import mp41 from '../../assets/video/1.mp4'
 import mp42 from '../../assets/video/2.mp4'
 import mp43 from '../../assets/video/3.mp4'
 import mp44 from '../../assets/video/4.mp4'
@@ -293,7 +239,7 @@ export default {
       isCommenting: false,
       isSharing: false,
       baseActiveIndex: 0,
-      activeIndex: 2,
+      activeIndex: 1,
       videoActiveIndex: 0,
 
       tabWidth: 30,
@@ -310,69 +256,12 @@ export default {
     itemTop() {
       return {top: this.addCount * 812 + 'px'}
     },
-    tabIndexStyle() {
-      return {
-        width: `${this.tabWidth * 0.7}px`,
-        //如果用slide emit的moveX会很卡很卡
-        transform: `translate3d(${this.tabIndexRelationActiveIndexLefts[this.activeIndex]}px, 0, 0)`,
-        'transition-duration': '300ms',
-      }
-    },
-    toolbarStyle() {
-      return {
-        opacity: 1 - this.slideMoveYDistance / 20,
-        'transition-duration': this.toolbarStyleTransitionDuration + 'ms',
-        transform: `translate3d(0, ${this.slideMoveYDistance > 60 ? 60 : this.slideMoveYDistance}px, 0)`,
-      }
-    },
-    noticeStyle() {
-      return {
-        opacity: this.slideMoveYDistance / 60,
-        'transition-duration': this.toolbarStyleTransitionDuration + 'ms',
-        transform: `translate3d(0, ${this.slideMoveYDistance > 60 ? 60 : this.slideMoveYDistance}px, 0)`,
-      }
-    },
-    loadingStyle() {
-      if (this.loading) {
-        return {
-          opacity: 1,
-          'transition-duration': '300ms',
-        }
-      }
-      if (this.slideMoveYDistance !== 0) {
-        return {
-          opacity: this.slideMoveYDistance / 60,
-          'transition-duration': this.toolbarStyleTransitionDuration + 'ms',
-          transform: `translate3d(0, ${this.slideMoveYDistance > 60 ? 60 : this.slideMoveYDistance}px, 0)`,
-        }
-      }
-    }
   },
   mounted() {
-    let tabs = this.$refs.tabs
-    // let tabWidth = this.$getCss(tabs, 'width')
-    for (let i = 0; i < tabs.children.length; i++) {
-      let item = tabs.children[i]
-      this.tabWidth = this.$getCss(item, 'width')
-      this.tabIndexRelationActiveIndexLefts.push(
-          item.getBoundingClientRect().x - tabs.children[0].getBoundingClientRect().x + this.tabWidth * 0.15)
-    }
     this.height = document.body.clientHeight
     this.width = document.body.clientWidth
   },
   methods: {
-    end() {
-      if (this.slideMoveYDistance > 60) {
-        this.getData()
-      }
-      this.slideMoveYDistance = 0;
-      this.toolbarStyleTransitionDuration = 300
-    },
-    first(e) {
-      if (this.loading) return
-      this.slideMoveYDistance = e
-      this.toolbarStyleTransitionDuration = 0
-    },
     getData() {
       this.loading = true
       setTimeout(() => {
@@ -412,67 +301,5 @@ export default {
   height: 100%;
   width: 100%;
   position: relative;
-
-  .toolbar-ctn {
-    position: fixed;
-    font-size: 1.6rem;
-    top: 0;
-    left: 0;
-    height: 60px;
-    z-index: 2;
-    width: 100%;
-    color: white;
-
-    .notice {
-      opacity: 0;
-      top: 0;
-      position: absolute;
-      width: 100vw;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .loading {
-      opacity: 0;
-      top: 20px;
-      right: 15px;
-      position: absolute;
-
-    }
-
-    .toolbar {
-      position: relative;
-      color: white;
-      //background: #fff;
-      width: 100%;
-      height: 100%;
-      box-sizing: border-box;
-      padding: 0 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      //display: none;
-
-      .tab-ctn {
-        width: 40%;
-        position: relative;
-
-        .tabs {
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .index {
-          position: absolute;
-          bottom: -8px;
-          height: 3px;
-          background: #fff;
-          border-radius: 5px;
-        }
-      }
-    }
-  }
 }
 </style>
