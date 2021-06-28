@@ -20,27 +20,27 @@
       </div>
       <div class="loading" :style="loadingStyle">AA</div>
     </div>
-    <div class="indicator-me" v-if="showIndicator && indicatorType === 'me'">
+    <div class="indicator-me" :class="indicatorFixed?'fixed':''" v-if="showIndicator && indicatorType === 'me'">
       <div class="tabs" ref="tabs">
         <div class="tab"
              :class="currentSlideItemIndex === 0?'active':''"
              @click="changeIndex(false,0)">
-          <span>关注</span></div>
+          <span>作品</span></div>
         <div class="tab"
              :class="currentSlideItemIndex === 1?'active':''"
              @click.stop="changeIndex(false,1)">
-          <span>推荐</span>
+          <span>私密</span>
         </div>
         <div class="tab"
              :class="currentSlideItemIndex === 2?'active':''"
-             @click="changeIndex(false,2)">
-          <span>推荐</span>
+             @click="changeIndex(false,2,$event)">
+          <span>喜欢</span>
         </div>
       </div>
       <div class="indicator" ref="indicator"></div>
     </div>
     <div id="base-slide-list" ref="slideList"
-         :style="{'flex-direction':direction}"
+         :style="{'flex-direction':direction,marginTop:indicatorFixed?'42px':'0'}"
          @touchstart="touchStart($event)"
          @touchmove="touchMove($event)"
          @touchend="touchEnd($event)">
@@ -58,6 +58,10 @@ export default {
       default: () => 'row'
     },
     showIndicator: {
+      type: Boolean,
+      default: () => false
+    },
+    indicatorFixed: {
       type: Boolean,
       default: () => false
     },
@@ -152,6 +156,7 @@ export default {
   },
   watch: {
     activeIndex() {
+      // console.log('activeIndex')
       this.changeIndex()
     },
   },
@@ -161,8 +166,7 @@ export default {
     this.changeIndex(true)
   },
   methods: {
-    changeIndex(init = false, index = null) {
-      console.log(111)
+    changeIndex(init = false, index = null, e) {
       this.currentSlideItemIndex = index !== null ? index : this.activeIndex
       !init && this.$setCss(this.slideList, 'transition-duration', `300ms`)
       if (this.direction === 'row') {
@@ -173,6 +177,8 @@ export default {
       } else {
         this.$setCss(this.slideList, 'transform', `translate3d(0px, ${-this.getHeight(this.currentSlideItemIndex) + this.moveYDistance}px, 0px)`)
       }
+      this.$attrs['onUpdate:active-index'] && this.$emit('update:active-index', this.currentSlideItemIndex)
+
     },
     initTabs() {
       let tabs = this.$refs.tabs
@@ -225,6 +231,10 @@ export default {
         this.homeLoadingMoveYDistance = this.moveYDistance
       }
 
+      if (!this.isDrawDown) {
+        this.$attrs['onFirst'] && this.$emit('first', this.moveYDistance)
+      }
+
       if (this.direction === 'row') {
         if (this.isCanRightWiping) {
           // //禁止在index=0页面的时候，向左划
@@ -240,10 +250,8 @@ export default {
         }
       } else {
         if (this.isCanDownWiping) {
-          if (this.currentSlideItemIndex === 0 && !this.isDrawDown) {//在第一个item，并且想往下划。
-            this.$attrs['onFirst'] && this.$emit('first', this.moveYDistance)
-            return
-          }
+          if (this.currentSlideItemIndex === 0 && !this.isDrawDown)return; //在第一个item，并且想往下划。
+
           if (this.virtual) {
             if (this.currentSlideItemIndex === this.total - 1 && this.isDrawDown) return
           } else {
@@ -279,9 +287,13 @@ export default {
       if (this.direction === 'row') {
         if (this.currentSlideItemIndex === 0 && !this.isDrawRight) return
         if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawRight) return
-        // console.log('row-end')
-        this.$stopPropagation(e)//todo 如果是嵌套竖状的slide，会出问题,会到moveYDistance停下，不会移到
+
+        //21/06/28 发现一个bug，就是会把所有的点击事件，给失效了。。。//已解决
+        // this.$stopPropagation(e)//todo 如果是嵌套竖状的slide，会出问题,会到moveYDistance停下，不会移到
         //this.getWidth(this.currentSlideItemIndex)位置，但是不禁示冒泡的话，又会出现划动过快，把父级也会移动。
+        if (this.moveXDistance !== 0) {
+          this.$stopPropagation(e)
+        }
         if (Math.abs(this.moveXDistance) < 20) gapTime = 1000
         if (Math.abs(this.moveXDistance) > (this.wrapperWidth / 3)) gapTime = 100
         if (gapTime < 150) {
@@ -499,6 +511,10 @@ export default {
       position: relative;
       transition: all .3s;
     }
+  }
+
+  .indicator-me.fixed {
+    position: fixed;
   }
 
 }
