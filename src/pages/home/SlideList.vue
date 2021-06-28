@@ -1,6 +1,6 @@
 <template>
   <div id="base-slide-wrapper" ref="slideWrapper">
-    <div class="toolbar-ctn" v-if="showIndicator">
+    <div class="indicator-home" v-if="showIndicator && indicatorType === 'home'">
       <div class="notice" :style="noticeStyle"><span>下拉刷新内容</span></div>
       <div class="toolbar" ref="toolbar" :style="toolbarStyle">
         <div class="left">直播</div>
@@ -19,6 +19,25 @@
         <div class="right" :style="{opacity:loading ? 0 : 1}">搜索</div>
       </div>
       <div class="loading" :style="loadingStyle">AA</div>
+    </div>
+    <div class="indicator-me" v-if="showIndicator && indicatorType === 'me'">
+      <div class="tabs" ref="tabs">
+        <div class="tab"
+             :class="currentSlideItemIndex === 0?'active':''"
+             @click="changeIndex(false,0)">
+          <span>关注</span></div>
+        <div class="tab"
+             :class="currentSlideItemIndex === 1?'active':''"
+             @click.stop="changeIndex(false,1)">
+          <span>推荐</span>
+        </div>
+        <div class="tab"
+             :class="currentSlideItemIndex === 2?'active':''"
+             @click="changeIndex(false,2)">
+          <span>推荐</span>
+        </div>
+      </div>
+      <div class="indicator" ref="indicator"></div>
     </div>
     <div id="base-slide-list" ref="slideList"
          :style="{'flex-direction':direction}"
@@ -41,6 +60,10 @@ export default {
     showIndicator: {
       type: Boolean,
       default: () => false
+    },
+    indicatorType: {
+      type: String,
+      default: () => 'home'
     },
     useHomeLoading: {
       type: Boolean,
@@ -139,6 +162,7 @@ export default {
   },
   methods: {
     changeIndex(init = false, index = null) {
+      console.log(111)
       this.currentSlideItemIndex = index !== null ? index : this.activeIndex
       !init && this.$setCss(this.slideList, 'transition-duration', `300ms`)
       if (this.direction === 'row') {
@@ -157,7 +181,7 @@ export default {
         let item = tabs.children[i]
         this.tabWidth = this.$getCss(item, 'width')
         this.tabIndicatorRelationActiveIndexLefts.push(
-            item.getBoundingClientRect().x - tabs.children[0].getBoundingClientRect().x + this.tabWidth * 0.15)
+            item.getBoundingClientRect().x - tabs.children[0].getBoundingClientRect().x + (this.indicatorType === 'home' ? this.tabWidth * 0.15 : 0))
       }
       this.indicatorSpace = this.tabIndicatorRelationActiveIndexLefts[1] - this.tabIndicatorRelationActiveIndexLefts[0]
       if (this.showIndicator) {
@@ -255,6 +279,9 @@ export default {
       if (this.direction === 'row') {
         if (this.currentSlideItemIndex === 0 && !this.isDrawRight) return
         if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawRight) return
+        // console.log('row-end')
+        this.$stopPropagation(e)//todo 如果是嵌套竖状的slide，会出问题,会到moveYDistance停下，不会移到
+        //this.getWidth(this.currentSlideItemIndex)位置，但是不禁示冒泡的话，又会出现划动过快，把父级也会移动。
         if (Math.abs(this.moveXDistance) < 20) gapTime = 1000
         if (Math.abs(this.moveXDistance) > (this.wrapperWidth / 3)) gapTime = 100
         if (gapTime < 150) {
@@ -276,6 +303,9 @@ export default {
         } else {
           if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawDown) return
         }
+        console.log('column-end')
+
+        // this.$stopPropagation(e)
         if (Math.abs(this.moveYDistance) < 20) gapTime = 1000
         if (Math.abs(this.moveYDistance) > (this.wrapperHeight / 3)) gapTime = 100
         if (gapTime < 150) {
@@ -362,7 +392,7 @@ export default {
     position: relative;
   }
 
-  .toolbar-ctn {
+  .indicator-home {
     position: fixed;
     font-size: 1.6rem;
     top: 0;
@@ -414,6 +444,7 @@ export default {
           .tab {
             transition: color .3s;
             color: gray;
+
             &.active {
               color: white;
             }
@@ -431,6 +462,42 @@ export default {
           border-radius: 5px;
         }
       }
+    }
+  }
+
+  .indicator-me {
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: #333;
+
+    .tabs {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+
+      .tab {
+        height: 40px;
+        width: 33%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: gray;
+        transition: color .3s;
+
+        &.active {
+          color: white;
+        }
+      }
+    }
+
+    .indicator {
+      height: 2px;
+      background: gold;
+      width: 33%;
+      position: relative;
+      transition: all .3s;
     }
   }
 
