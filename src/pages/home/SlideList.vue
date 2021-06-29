@@ -231,9 +231,16 @@ export default {
         this.homeLoadingMoveYDistance = this.moveYDistance
       }
 
+      //me页面，需要获取向下滑动的时候
       if (!this.isDrawDown) {
         this.$attrs['onFirst'] && this.$emit('first', this.moveYDistance)
       }
+
+      this.$attrs['onMove'] && this.$emit('move', {
+        x: {distance: this.moveXDistance, isDrawRight: this.isDrawRight},
+        y: {distance: this.moveYDistance, isDrawDown: this.isDrawDown},
+      })
+
 
       if (this.direction === 'row') {
         if (this.isCanRightWiping) {
@@ -250,7 +257,7 @@ export default {
         }
       } else {
         if (this.isCanDownWiping) {
-          if (this.currentSlideItemIndex === 0 && !this.isDrawDown)return; //在第一个item，并且想往下划。
+          if (this.currentSlideItemIndex === 0 && !this.isDrawDown) return; //在第一个item，并且想往下划。
 
           if (this.virtual) {
             if (this.currentSlideItemIndex === this.total - 1 && this.isDrawDown) return

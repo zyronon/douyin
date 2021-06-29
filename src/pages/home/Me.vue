@@ -3,9 +3,10 @@
     <SlideList style="width: 100vw;"
                @first="first"
                @end="end"
+               @move="move"
                v-model:active-index="baseActiveIndex"
     >
-      <SlideItem style="overflow:auto;" @scroll="scroll">
+      <SlideItem style="overflow:auto;" :style="contentStyle" @scroll="scroll" @click="click">
         <div ref="desc" class="desc">
           <header ref="header">
             <img src="../../assets/img/icon/next.svg" alt="" @click="$emit('back')">
@@ -73,6 +74,7 @@
               :show-indicator="true"
               :indicator-fixed="indicatorFixed"
               indicator-type="me"
+              @end="end"
               v-model:active-index="contentIndex">
             <SlideItem>
               <div ref="tab-content1">
@@ -98,80 +100,111 @@
         </div>
         <Footer v-bind:init-tab="5"/>
       </SlideItem>
-      <SlideItem style="min-width: 60vw;line-height: 50px; overflow:auto;">
-        <ul>
-          <li @click="$nav('MyCard')">
-            <img src="../../assets/img/icon/card-gray.png" alt="">
-            <span>个人名片</span>
-          </li>
-          <li @click="$nav('MyCollect')">
-            <img src="../../assets/img/icon/collect-gray.png" alt="">
-            <span>我的收藏</span>
-          </li>
-          <div class="line"></div>
-          <li>
-            <img src="../../assets/img/icon/wallet-gray.png" alt="">
-            <span>钱包</span>
-          </li>
-          <li>
-            <img src="../../assets/img/icon/order-gray.png" alt="">
-            <span>订单</span>
-          </li>
-          <li class="exception" @click="toggleService()">
-            <div class="d-flex align-items-center">
-              <img src="../../assets/img/icon/category-gray.png" alt="">
-              <span>服务</span>
+      <SlideItem style="min-width: 70vw; overflow:auto;">
+        <transition name="fade">
+          <ul v-if="!isMoreFunction">
+            <li @click="$nav('MyCard')">
+              <img src="../../assets/img/icon/card-gray.png" alt="">
+              <span>我的订单</span>
+            </li>
+            <li @click="$nav('MyCard')">
+              <img src="../../assets/img/icon/wallet-gray.png" alt="">
+              <span>钱包</span>
+            </li>
+            <div class="line"></div>
+
+            <li @click="$nav('MyCard')">
+              <img src="../../assets/img/icon/card-gray.png" alt="">
+              <span>我的收藏</span>
+            </li>
+            <li @click="$nav('MyCard')">
+              <img src="../../assets/img/icon/card-gray.png" alt="">
+              <span>观看历史</span>
+            </li>
+            <li @click="$nav('MyCard')">
+              <img src="../../assets/img/icon/card-gray.png" alt="">
+              <span>我的动态</span>
+            </li>
+            <li @click="$nav('MyCard')">
+              <img src="../../assets/img/icon/card-gray.png" alt="">
+              <span>创作者服务中心</span>
+            </li>
+
+            <div class="line"></div>
+
+            <li @click="$nav('MyCard')">
+              <img src="../../assets/img/icon/link-gray.png" alt="">
+              <span>小程序</span>
+            </li>
+            <li @click="$nav('MyCard')">
+              <img src="../../assets/img/icon/card-gray.png" alt="">
+              <span>抖音公益</span>
+            </li>
+            <li @click="$nav('MyCard')">
+              <img src="../../assets/img/icon/umbrella-gray.png" alt="">
+              <span>未成年保护工具</span>
+            </li>
+            <li @click="$nav('MyCard')">
+              <img src="../../assets/img/icon/card-gray.png" alt="">
+              <span>我的客服</span>
+            </li>
+            <li @click="$nav('MyCard')">
+              <img src="../../assets/img/icon/setting-gray.png" alt="">
+              <span>设置</span>
+            </li>
+          </ul>
+          <div v-else class="more-function">
+            <div class="title">生活服务</div>
+            <div class="functions">
+              <div class="function">
+                <img src="../../assets/img/icon/juan-gray.png" alt="">
+                <span>卡券</span>
+              </div>
+              <div class="function">
+                <img src="../../assets/img/icon/order-gray.png" alt="">
+                <span>免流量</span>
+              </div>
+
+              <div class="function" @click="$nav('MyCollect')">
+                <img src="../../assets/img/icon/collect-gray.png" alt="">
+                <span>我的收藏</span>
+              </div>
             </div>
-            <div class="triangle"></div>
-          </li>
-          <div class="service">
-            <li>
-              <img src="../../assets/img/icon/order-gray.png" alt="" class="op0">
-              <span>购物助手</span>
-            </li>
-            <li>
-              <img src="../../assets/img/icon/order-gray.png" alt="" class="op0">
-              <span>生活服务订单</span>
-            </li>
-            <li>
-              <img src="../../assets/img/icon/order-gray.png" alt="" class="op0">
-              <span>DOU+ 上热门</span>
-            </li>
-            <li>
-              <img src="../../assets/img/icon/order-gray.png" alt="" class="op0">
-              <span>彩铃服务</span>
-            </li>
-            <li>
-              <img src="../../assets/img/icon/order-gray.png" alt="" class="op0">
-              <span>免流量看抖音</span>
-            </li>
+            <div class="title">拓展功能</div>
+            <div class="functions">
+              <div class="function" @click="$nav('MyCard')">
+                <img src="../../assets/img/icon/card-gray.png" alt="">
+                <span>我的二维码</span>
+              </div>
+              <div class="function">
+                <img src="../../assets/img/icon/order-gray.png" alt="">
+                <span>我的缓存</span>
+              </div>
+              <div class="function" @click="$nav('MyCard')">
+                <img src="../../assets/img/icon/card-gray.png" alt="">
+                <span>上热门</span>
+              </div>
+              <div class="function" @click="$nav('MyCollect')">
+                <img src="../../assets/img/icon/collect-gray.png" alt="">
+                <span>小店随心推</span>
+              </div>
+              <div class="function" @click="$nav('MyCollect')">
+                <img src="../../assets/img/icon/collect-gray.png" alt="">
+                <span>投教园地</span>
+              </div>
+            </div>
           </div>
+        </transition>
 
-          <div class="line"></div>
-
-          <li>
-            <img src="../../assets/img/icon/link-gray.png" alt="">
-            <span>小程序</span>
-          </li>
-          <li>
-            <img src="../../assets/img/icon/juan-gray.png" alt="">
-            <span>卡卷</span>
-          </li>
-
-          <div class="line"></div>
-
-          <li>
-            <img src="../../assets/img/icon/umbrella-gray.png" alt="">
-            <span>未成年保护工具</span>
-          </li>
-
-          <div class="line"></div>
-
-          <li>
-            <img src="../../assets/img/icon/setting-gray.png" alt="">
-            <span>设置</span>
-          </li>
-        </ul>
+        <div class="button-ctn">
+          <div class="button" v-if="!isMoreFunction" @click="isMoreFunction = true">
+            <img src="../../assets/img/icon/card-gray.png" alt="">
+            <span>更多功能</span>
+          </div>
+          <div class="button" v-if="isMoreFunction" @click="isMoreFunction = false">
+            <span>返回</span>
+          </div>
+        </div>
       </SlideItem>
     </SlideList>
   </div>
@@ -184,7 +217,7 @@ import Footer from "../../components/Footer";
 
 export default {
   name: "Me",
-  components: {SlideList, SlideItem, Posters,Footer},
+  components: {SlideList, SlideItem, Posters, Footer},
   data() {
     return {
       serviceEl: {},
@@ -198,17 +231,29 @@ export default {
       refs: {
         header: null,
         headerHeight: 0,
-      }
+      },
+      isMoreFunction: false,
+
     }
   },
   watch: {
     contentIndex(newVal, oldVal) {
       this.changeIndex(newVal, oldVal)
+    },
+    baseActiveIndex(newVal, oldVal) {
+      if (newVal === 1) {
+        console.log('right')
+      }
     }
   },
   computed: {
     bodyHeight() {
       return this.$store.state.bodyHeight
+    },
+    contentStyle(){
+      return{
+        opacity:1
+      }
     }
   },
   mounted() {
@@ -219,6 +264,18 @@ export default {
     })
   },
   methods: {
+    click(e) {
+      if (this.baseActiveIndex === 0) return
+      if (this.baseActiveIndex === 1) {
+        this.baseActiveIndex = 0
+        this.$stopPropagation(e)
+      }
+    },
+    move(e) {
+      if (e.x.isDrawRight) {
+        console.log('isDrawRight')
+      }
+    },
     scroll() {
       let top = this.tabContents[this.contentIndex].getBoundingClientRect().top
       this.indicatorFixed = top < this.indicatorHeight;
@@ -259,6 +316,7 @@ export default {
     },
     first(e) {
       if (this.baseActiveIndex !== 0) return
+      if (this.refs.header.getBoundingClientRect().top !== 0) return
       this.refs.header.style.transition = 'all 0s'
       this.refs.header.style.height = this.refs.headerHeight + (e / 3) + 'px'
     },
@@ -274,6 +332,18 @@ export default {
 <style scoped lang='scss'>
 $left-bg-color: #333;
 $right-bg-color: #2e3244;
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  transform: translateY(10px);
+  opacity: 0;
+}
+
 .Me {
   font-size: 1.6rem;
   height: 100%;
@@ -416,6 +486,10 @@ $right-bg-color: #2e3244;
     height: 100%;
     overflow: auto;
     padding: 0;
+    margin: 0;
+    position: absolute;
+    color: white;
+    background: $right-bg-color;
 
     .line {
       height: 1px;
@@ -424,42 +498,92 @@ $right-bg-color: #2e3244;
       margin: 5px 20px;
     }
 
-    .service {
-      transition: all .3s;
-      overflow: hidden;
-    }
-
     li {
       background: $right-bg-color;
-      padding: 20px;
+      padding: 10px 20px;
       list-style: none;
       display: flex;
       align-items: center;
+      line-height: 40px;
+
+      &:nth-last-child(1) {
+        margin-bottom: 90px;
+      }
 
       &:active {
         background: #454b65;
       }
 
       img {
-        height: 30px;
-        width: 30px;
-        margin-right: 20px;
-      }
-
-      &.exception {
-        justify-content: space-between;
-
-        .triangle {
-          transform: translateY(3px);
-          width: 0;
-          height: 0;
-          border-top: 7px solid #cccccc;
-          border-right: 7px solid transparent;
-          border-bottom: 7px solid transparent;
-          border-left: 7px solid transparent;
-        }
+        height: 20px;
+        width: 20px;
+        margin-right: 15px;
       }
     }
   }
+
+  .more-function {
+    box-sizing: border-box;
+    font-size: 1.2rem;
+    width: 100%;
+    position: absolute;
+    background: $right-bg-color;
+
+    .title {
+      padding: 20px;
+      color: gray;
+    }
+
+    .functions {
+      display: grid;
+      grid-template-columns: 33.33% 33.33%  33.33%;
+
+      color: white;
+
+      .function {
+        margin: 15px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        img {
+          height: 25px;
+          width: 25px;
+          margin-bottom: 15px;
+        }
+
+      }
+    }
+
+  }
+
+  .button-ctn {
+    z-index: 99999;
+    width: 70vw;
+    position: absolute;
+    bottom: 0;
+    background: $right-bg-color;
+
+    .button {
+      box-sizing: border-box;
+      width: calc(70vw - 40px);
+      background: #686464;
+      margin: 20px;
+      height: 50px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+
+      img {
+        height: 25px;
+        width: 25px;
+        margin-right: 15px;
+      }
+    }
+  }
+
 }
 </style>
