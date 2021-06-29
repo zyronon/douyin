@@ -3,14 +3,19 @@
     <SlideList style="width: 100vw;"
                @first="first"
                @end="end"
-               @move="move"
                v-model:active-index="baseActiveIndex"
     >
       <SlideItem style="overflow:auto;" :style="contentStyle" @scroll="scroll" @click="click">
         <div ref="desc" class="desc">
           <header ref="header">
-            <img src="../../assets/img/icon/next.svg" alt="" @click="$emit('back')">
-            <img src="../../assets/img/icon/more.svg" alt="">
+            <div class="left">
+              <img src="../../assets/img/icon/next.svg" alt="">
+              <span>切换账号</span>
+            </div>
+            <div class="right">
+              <img src="../../assets/img/icon/more.svg" alt="">
+              <img src="../../assets/img/icon/more.svg" alt="" @click.stop="baseActiveIndex = 1">
+            </div>
           </header>
           <div class="detail">
             <div class="head">
@@ -25,46 +30,29 @@
               </div>
               <div class="my-buttons ">
                 <div class="collect">
-                  <img src="../../assets/img/icon/collect-white.svg" alt="">
-                  <span class="mr5p">收藏</span>
+                  <span class="mr5p">编辑资料</span>
+                  <span class="f10p" style="color: darkgray">85%</span>
                 </div>
                 <div class="add-friend">
-                  <img src="../../assets/img/icon/add-friend-white.svg" alt="">
-                </div>
-                <div class="qr-code">
-                  <img src="../../assets/img/icon/qr-code-white.svg" alt="">
+                  <img src="../../assets/img/icon/add.svg" alt="">
+                  <span class="mr5p">熟人</span>
                 </div>
               </div>
             </div>
             <div class="description">
               <p class="name f22 mt5p mb5p">ttentau</p>
               <div class="number mb10p">
+                <span class="mr5p">私密账号</span>
                 <span>抖音号：605128307</span>
-                <div class="jrtt">
-                  <img src="../../assets/img/icon/sina.svg" alt="">
-                  <span>头条主页</span>
-                  <img src="../../assets/img/icon/next.svg" alt="">
-                </div>
+                <img src="../../assets/img/icon/qr_code.svg" alt="" @click.stop="$nav('/MyCard')">
               </div>
               <div class="signature f12 mb10p">
                 <span>填写个性签名更容易获得别人关注哦</span>
               </div>
-              <div class="info f10 mb10p">
-                <div class="age">
-                  <img src="../../assets/img/icon/person.svg" alt="">
-                  <span>22岁</span>
-                </div>
-                <div class="location">
-                  <span>上海</span>
-                </div>
-                <div class="school">
-                  四川理工大学
-                </div>
-              </div>
               <div class="heat">
-                <span>8获赞</span>
-                <span>38关注</span>
-                <span>42粉丝</span>
+                <div class="text"><span class="num">8</span>获赞</div>
+                <div class="text"><span class="num">8</span>关注</div>
+                <div class="text"><span class="num">8</span>粉丝</div>
               </div>
             </div>
           </div>
@@ -240,19 +228,14 @@ export default {
     contentIndex(newVal, oldVal) {
       this.changeIndex(newVal, oldVal)
     },
-    baseActiveIndex(newVal, oldVal) {
-      if (newVal === 1) {
-        console.log('right')
-      }
-    }
   },
   computed: {
     bodyHeight() {
       return this.$store.state.bodyHeight
     },
-    contentStyle(){
-      return{
-        opacity:1
+    contentStyle() {
+      return {
+        opacity: this.baseActiveIndex === 1 ? 0.5 : 1
       }
     }
   },
@@ -269,11 +252,6 @@ export default {
       if (this.baseActiveIndex === 1) {
         this.baseActiveIndex = 0
         this.$stopPropagation(e)
-      }
-    },
-    move(e) {
-      if (e.x.isDrawRight) {
-        console.log('isDrawRight')
       }
     },
     scroll() {
@@ -345,7 +323,7 @@ $right-bg-color: #2e3244;
 }
 
 .Me {
-  font-size: 1.6rem;
+  background: $right-bg-color;
   height: 100%;
   width: 100%;
 
@@ -359,6 +337,7 @@ $right-bg-color: #2e3244;
 
   .desc {
     header {
+      color: white;
       height: 150px;
       /* background-image: url('./imgs/header2.jpg'); */
       background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxAQEBAQEBAPEBAPEBAPDw8QDw8NEA8OFRIWFhURFRUYHSggGBolGxUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGBAQGC0dHR0tLS0rKy0tLS0tLS0tKy0tKy0tLSstLS0tLS0tLSstLSstLS0tKy0tLS0tLS0tLisrN//AABEIAKgBLAMBIgACEQEDEQH/xAAbAAACAwEBAQAAAAAAAAAAAAAAAwECBAUGB//EAD8QAAIBAgMFAwgIBQQDAAAAAAABAgMRBBIhBSIxQXFRYbEGEyMyUnKBkRWCkqGissHRFEJic/AkNIPhBzNT/8QAGAEBAQEBAQAAAAAAAAAAAAAAAAECAwT/xAAeEQEBAQEAAwEBAQEAAAAAAAAAARECEiExA0FRE//aAAwDAQACEQMRAD8A+QgUTJTPS4mRLpi4stF6hDETAiIRBpiAEwZcZoRaJBKCLZSbF7BYuMaXYmxewWGGqWCxewWGGqWCxewWLhpeULDLENEw1SwWLWCxcNVsRYvYLDCUmtw+KKIvivV+KFxZnPbpL6MiWRCLNEXQRYsyAaVUiLY+pwM5YiAuQyAJuRcLlbhUhci4XC6oSicpKQZ1aBaBMUTBA1aJKIXEtYJqSWWsSkBVEl7EqBUq1LVdBmQStHc1wSauiudLyhlG5QyBCspGUdlBxKEuJGUdlCw0JyhlHZSHEBOQMg3KGUaaVlIyjsoZSrrHjI7j6ozUuBt2gtx9UYsOtPiY/rpz8PQ1R0KIeloRdLaIsXZE0DSprQzM2NGSSAoVLMqwIuQwIYUXJKkgMsCQqnV5PQci/UsMii0EQuBaIASisi1MIYTEESVTXG5akgo9haUdTLNLqcS+HlZ5eT4dSMjJnTv15dTSVqsFiaEsyT58H3MvYmsYXYiw2xGUaFWJyjFEtlGhOULFq1WEFeUkra6vUXQxdOfqzTfZez+Q1fGpcSLDspVxGslWJsXyhlKMW0l6N9V4mTBRvCXU3bUXon1j4mbZmsJe+l80Zv124+DsHx4CZLUfHgFLCQMOQENGOotWa2ZqvEsCWVZeRRgVZDJZDIqCxUsBFWndd5WjWtoy1SskZJO5Or7a5mxqqYrkhKryXMWkaKWFb4k+tZOYIYmb7zVh693Z6FqdJRWiBwTeqLljFsrVEmxlmpQV4u65pk0MdGTs9GXUxtpaM15TPT7TZSa5kqYWo2LZUOdircRrOF0t2XdLxNeQy1JRtx8R1LHU7b0rNaPRkTDMhGQj+Po+3+GX7EfSFH2/wy/YSmL5BONq+bpzn7K073yXzL/SFH2/wy/Y5flBioTpqMJN72Z6NXtwWvW/wLq887XnKk3JuUndvVt6kLu0JUS2Uy9T0mx8eqscsn6RfiXb1Oi4HjqLcWpR0ad0ej2ftZSj6XRrhJJtS/Zl15++P7G3IWVMX9JUfaf2ZfsStqUPaf2ZF1jxZdtQtRl1j4mPYsbwqe8vA17Yx1GdGUYSbk3FpZZLg0YtiYmEIzUna8lbRvSxNdOZ6NxMd5Pt1LR4DayUoprquguJZTqZVJcyvIu+YJaFQpmesjQJrrgaRnZRjGLZKKshkshkaQAABmSbGKhpcfTgkTU4Mni35+8jGnZnQw87o5w/CVLO3aTmr3zsdFC6k0tWRUqZTn1qrkzVrnzzp1fGSlotEZgL0aTm7Ixuu2SR2djScou/J6HVpLVGbA0FCKj8+psjErl9afNK3AmFBNapE0noaaS0XQxp4sUaEXmVlo9DNGjFVFmimtbpq66nUow1n736CcRR313psSr4q7TwNNUZSjCKe7ZpJfzI2fRtL/5w+yhGIlfD1Ivllt0zLQ7nmzNuL4PPbMwNN003CLeaau4pv12Y9qbNUvPxhBXjShKMUv5lK+nysd/Y9L0X16n52cbau3aWHxFRZXUlkhBqO6oyWur+KLOicV4+dKUcratmV13o04LBTqXUY3srt8ku/wCRXae1ZVnpCNOKbkoxu9Xxd3+lg2ZtepQcrKMlOOWSd1p1XM1vp0x0sJsqTnDNBqOV53xSunZnV2Zs+ClVi4qSjJZc0U2k9UK2b5UULU6c4ThpGLm8rgn2vuO5g6XpcR1p/kMb/p1dmY52KwUFUoJQglKUk1lWu7zHbSwFNUarVOCahJpqKunY142l6XDe/P8AIx21afoK39ufgPJznLi7XwdNYPMoRUstLeUUnq1zOf5N4eMo1M0U7NWuk+R3NtQ/0P1KXjE5fkxHdqdY+BfL034rYimk2krLs7jG1ZnSx3r/AFf1MNZczXLPc9FNFUWZRM6OSkuIqqtB0xcuBRkYtjJFGhUUZDJZDI0gAABca/aXdVNMzAZ118YCYOzTIII0dXq5mKACEmLU4OTSXM7+BwkYR7XzZz9nxitb6s7FE1I527TqSNajw6mWmbIcupnpeYuka8Ot1dEZ5LRmrC+quhz6rfPK+FhrP3l4FcRG1SHfGQ7CetU95eAYmN6kfck/Azvt08WHH07Rku23iejhaSTXB6o4WN1g308TpbGq3i4PjB6dH/jHXzUz2jY8PRfXqfnZ8s2vUzYivLtq1PzM+r7GXovr1PzM+R4t3qVH2zm/xMcfSzISFiQbOuMIPp3kxeUMz1bpYa7/AOJHzKJ9M8ipZqF37FJfZi1+hj9PUb5mtuOh6XDe/P8AIxu1o+grf25+BOPXpcN78/yMvtf/AG9b+3PwOW/GvFyttL/Q/Uo+MTk+TS3avWPgzsba/wBh/wAdHxicbybe7V6x8Gal9VM9jaL9LFdsPBmPF1LIbtSfp6futCq0FLR/sduXPpgnWfaZcVO8ePYbJ4SN/wCb7TOTU0bXY2jblPqt33hd95vw+HjKKbvdmGejfUYsqLsLmmjSTV2S6SGU8oyEj5QRGUYeRFwv3jnFEZBhsZwADLoAABaAAAQSpNcDTR2hOPO/UygNLHYobZ9qPxR0qe2KXtHlQH0kx7XD7TpVbxg9UuDOng57q6HzvDVnCSkuXgeupY1uEWnZWRjrhudSfXbwlXeqe8vAtOr6aC7YT/Q4NLGSUpNPmr356D6eNvUhJ6WjJeBjrix0575vpvxTeSSt/lzds+MoVU2t2ScXquPFGHEYhODtpdLxNNPGK6u8ut9dOBm243Pzm/W7Y0l5r69T87PmHlBh/NYqvDkqkmvdlvL7mj3+ycbBU7OUU89Tn/W7Hg/KWrnxdeX9dl0jFL9C/nvlWP0mcxzCQA9EcEJHv/8Ax5iHKlVi/wCSUEujTa/U8Cei8kce6fnYq6vlndd11b7zH6TeW+Ll9vc7RqJVMO3olOd2+W4ym08XTlQrKM4t+bnpfXh2HDxmIzunecm3J+s1aO6cjF7QhZxi81002lov35nDn89+u3XWfx2fKPGSjhqMFly1IRzX47qi1Y8/gNpTpKWXLaTjmvxduzUVjsZGcaaV80cyafDlaxmpVNGdZxkyuXXe3Y6GNxsalWnKN+CTXY2+BqkcBys0+yzO83odJ8c+rpVU4Vdb0urO7M4eIW8+pq/HKfXQwfqRObUW8+rOlhfUj/nM51Ti+rLfhPrXhvUXVkyJwq3PiwkajFKYtjJFGKRUAAisoABzx3AABAAAFAAAMAAAIA62y8XaOV624dDklqU3Fpoalehoyu5Plx+4XtKcmopLK7Pu00Of/FTXqvja/LWxWWIctea+/Ral9E116G0Jxp5Zauzte1uOnA1YjalKbvaXvZtPkcDf0v0/6LQnFJ3S1vq1omZ8Z9b/AOnUmNrxjV0pOLzNp2g1b4tO5x8bNyqTk9czzXso3vrwXA01dHa1+dhdWhfV3i3rZ9nBeBc/xnWUB6w3f9wyGHS7+prE8mZU2+CGYCvKnUTjo2nDX+pWv87P4GtIHYXnUneD+Lq2blKelrXlLR63aM/nNVpxWut9DU5X42fVJlZUou2jVuFtVqZ8V8pWWWl+9E0eY6thssb6t31srpLryE0OfwCol6y72vE9A+BwJ+tHqvE70ufd+xZGaozi4ji+p2Wzj4j1mVmN2G9SJzanF9WdPDLcj0OZV4vqW/Gefrfg/wD1/FkSJwT3PiyJGozSpi2XkUYpFQADNVlAAMO4AAAAABoAAB6AAAUBBIGRenroalTS4a9eFzCdfZdWm0lNJtN8UiVrmbcLw9PW8svCyyqMfnZal6OCbd3kte/q3fRX5HSn5qzSjHh7KJn5t8N3otPkSV1v55Pq1KMV3P72c/ajvO6vokte4ViMRFpyvJyUrK1rWMv8U+d+7Vm+Y499WzDCbmZ1u4iVZm9c8apSKqRn86DqsaY1Z+o1SXFX63MCqsmNZr9gY35m3w7npxXO4z6PXGLv1VjFHEvklfqdLBYxNapJrs1uY79e46flJuVzpQ31f2l4nUq1471mmy1TEwSu1f4I51bFO+7ouzLFGebb/F/Tmc/KvGo9bmGvLeYxzd+JmqPVnSuMjr4V7kehzKvrPqx+HqLKrmao9X1F+JzPbZhpbnxZMpGalLd+JLNSs2ezJMo2LZFxqzle4XF3Ai+JQBYmxzdUATYiwAAWCwAAWCwAAWAugAAIoAAA00MZJaPVD8RWzJW4czn2G0arXQG1E0VTGOzFyNM4GQAWGqAABosmFypITF6cuI+lO1zOmTGYXGmVUTJlc5VzBV7ipE5irCYZFi5PUkgEi8XoWzC0wuXU8V2yLlAGr4r3C5QBpgAAMNgAAAAAAAAAAAAAAAAAAAAAAAAACYAAAoAAAAAAAAAJgAACgAAAAAAAAAAAAJgAABj/2Q==');
@@ -371,22 +350,37 @@ $right-bg-color: #2e3244;
       padding: 20px;
       box-sizing: border-box;
 
-      img {
-        border-radius: 50%;
-        padding: 5px;
-        background: #524a4a;
-        height: 20px;
-        width: 20px;
+      .left {
+        font-size: 1.2rem;
+        height: 26px;
+        display: flex;
+        padding-right: 13px;
+        padding-left: 5px;
+        align-items: center;
+        border-radius: 20px;
+        background: rgba(82, 80, 80, 0.5);
 
-        &:nth-child(1) {
-          transform: rotate(180deg);
+        img {
+          padding: 4px;
+          height: 16px;
+          width: 16px;
+        }
+      }
+
+      .right {
+        img {
+          margin-left: 20px;
+          border-radius: 50%;
+          background: rgba(82, 80, 80, 0.5);
+          padding: 4px;
+          height: 16px;
+          width: 16px;
         }
       }
     }
 
-
     .detail {
-      background: $left-bg-color;
+      background: $right-bg-color;
       padding: 0 20px;
 
       .head {
@@ -399,7 +393,7 @@ $right-bg-color: #2e3244;
 
         .head-image {
           background: black;
-          padding: 5px;
+          padding: 2px;
           border-radius: 50%;
           width: 80px;
           height: 80px;
@@ -407,20 +401,25 @@ $right-bg-color: #2e3244;
 
         .my-buttons {
           div {
+            font-size: 1.4rem;
             display: flex;
             align-items: center;
+            justify-content: center;
             float: left;
             border-radius: 2px;
-            background: #676767;
+            background: rgb(99, 98, 98);
             margin-right: 5px;
+            padding: 0 10px;
+            height: 30px;
+            color: white;
 
-            img {
-              padding: 6px;
-              height: 20px;
+            &:nth-child(1) {
+              padding: 0 25px;
             }
 
-            span {
-              color: #cdcdcd;
+            img {
+              padding: 0 6px;
+              height: 16px;
             }
           }
 
@@ -432,49 +431,33 @@ $right-bg-color: #2e3244;
         transform: translateY(-20px);
 
         .number {
+          color: darkgray;
           padding-bottom: 10px;
           border-bottom: 1px solid gray;
-
-          .jrtt {
-            float: right;
-
-            img {
-              height: 10px;
-              width: 10px;
-            }
-
-            span {
-              margin: 0 5px;
-            }
-          }
-        }
-
-        .info {
           display: flex;
           align-items: center;
 
-          div {
-            display: flex;
-            align-items: center;
-            float: left;
-            border-radius: 2px;
-            background: #676767;
-            margin-right: 5px;
-            padding: 2px 4px;
-
-            img {
-              height: 10px;
-              margin-right: 3px;
-            }
-
-            span {
-              color: #cdcdcd;
-            }
+          img {
+            width: 18px;
+            margin-left: 5px;
           }
+
         }
 
         .heat {
-          span {
+          color: darkgray;
+          display: flex;
+          align-items: center;
+
+          .num {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-right: 3px;
+          }
+
+          .text {
+            font-size: 1.4rem;
             margin-right: 10px;
           }
         }
