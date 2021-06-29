@@ -236,10 +236,11 @@ export default {
         this.$attrs['onFirst'] && this.$emit('first', this.moveYDistance)
       }
 
-      this.$attrs['onMove'] && this.$emit('move', {
-        x: {distance: this.moveXDistance, isDrawRight: this.isDrawRight},
-        y: {distance: this.moveYDistance, isDrawDown: this.isDrawDown},
-      })
+      //todo 太卡了，后面考虑用原生js来写
+      // this.$attrs['onMove'] && this.$emit('move', {
+      //   x: {distance: this.moveXDistance, isDrawRight: this.isDrawRight},
+      //   y: {distance: this.moveYDistance, isDrawDown: this.isDrawDown},
+      // })
 
 
       if (this.direction === 'row') {
