@@ -132,8 +132,6 @@ export default {
   padding-bottom: 60px;
   color: white;
 
-  $second-text-color: rgb(143, 143, 158);
-  $line-color: rgb(37, 45, 66);
 
   .header {
     .title {

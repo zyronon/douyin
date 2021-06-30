@@ -198,14 +198,12 @@
   </div>
 </template>
 <script>
-import SlideList from "./SlideList.vue";
-import SlideItem from "./SlideItem.vue";
 import Posters from '../../components/Posters'
 import Footer from "../../components/Footer";
 
 export default {
   name: "Me",
-  components: {SlideList, SlideItem, Posters, Footer},
+  components: {  Posters, Footer},
   data() {
     return {
       serviceEl: {},
@@ -308,8 +306,7 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-$left-bg-color: #333;
-$right-bg-color: #2e3244;
+@import "../../assets/scss/color";
 
 .fade-enter-active,
 .fade-leave-active {
@@ -323,7 +320,7 @@ $right-bg-color: #2e3244;
 }
 
 .Me {
-  background: $right-bg-color;
+  background: $main-bg;
   height: 100%;
   width: 100%;
 
@@ -380,7 +377,7 @@ $right-bg-color: #2e3244;
     }
 
     .detail {
-      background: $right-bg-color;
+      background: $main-bg;
       padding: 0 20px;
 
       .head {
@@ -401,14 +398,14 @@ $right-bg-color: #2e3244;
 
         .my-buttons {
           div {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
             float: left;
             border-radius: 2px;
-            background: rgb(99, 98, 98);
-            margin-right: 5px;
+            background: $second-btn-color;
+            margin-left: 5px;
             padding: 0 10px;
             height: 30px;
             color: white;
@@ -431,9 +428,9 @@ $right-bg-color: #2e3244;
         transform: translateY(-20px);
 
         .number {
-          color: darkgray;
+          color: $second-text-color;
           padding-bottom: 10px;
-          border-bottom: 1px solid gray;
+          border-bottom: 1px solid $line-color;
           display: flex;
           align-items: center;
 
@@ -472,7 +469,7 @@ $right-bg-color: #2e3244;
     margin: 0;
     position: absolute;
     color: white;
-    background: $right-bg-color;
+    background: $main-bg;
 
     .line {
       height: 1px;
@@ -482,7 +479,7 @@ $right-bg-color: #2e3244;
     }
 
     li {
-      background: $right-bg-color;
+      background: $main-bg;
       padding: 10px 20px;
       list-style: none;
       display: flex;
@@ -510,7 +507,7 @@ $right-bg-color: #2e3244;
     font-size: 1.2rem;
     width: 100%;
     position: absolute;
-    background: $right-bg-color;
+    background: $main-bg;
 
     .title {
       padding: 20px;
@@ -546,7 +543,7 @@ $right-bg-color: #2e3244;
     width: 70vw;
     position: absolute;
     bottom: 0;
-    background: $right-bg-color;
+    background: $main-bg;
 
     .button {
       box-sizing: border-box;

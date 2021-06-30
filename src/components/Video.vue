@@ -33,7 +33,8 @@
               </div>
               <span>{{ video.loves }}</span>
             </div>
-            <div class="message mb15p" @click.stop="$emit('showComments')">
+<!--            <div class="message mb15p" @click.stop="$emit('showComments')">-->
+            <div class="message mb15p" @click.stop="showComment">
               <img src="../assets/img/icon/message.svg" alt="" class="message-image">
               <span>{{ video.comments }}</span>
             </div>
@@ -49,7 +50,7 @@
               </div>
             </div>
           </div>
-          <div class="content ml10p mb10p" @click.stop="goUserInfo()">
+          <div class="content ml10p mb10p" @click.stop="goUserInfo()" v-if="!isMy">
             <div class="name mb10p">@TTentau</div>
             <div class="description mb10p">
               吴三二的光年之外, 您的浏览器不支持 video 标签。 您的浏览器不支持 video 标签。
@@ -59,6 +60,27 @@
               <!--              <marquee behavior=scroll direction=left align=middle scrollamount=4> 吴三二 - 光年之外</marquee>-->
               <div behavior=scroll direction=left align=middle scrollamount=4> 吴三二 - 光年之外</div>
             </div>
+          </div>
+          <div class="comment-status">
+            <div class="comment">
+              <div class="type-comment">
+                <img src="../assets/img/icon/head-image.jpeg" alt="" class="avatar">
+                <div class="right">
+                  <p>
+                    <span class="name">zzzzz</span>
+                    <span class="time">2020-01-20</span>
+                  </p>
+                  <p class="text">北京</p>
+                </div>
+              </div>
+              <transition-group name="fade" tag="ul">
+                <div class="type-loved"  v-for="i in test">
+                  <img src="../assets/img/icon/head-image.jpeg" alt="" class="avatar">
+                  <img src="../assets/img/icon/love.svg" alt="" class="loved">
+                </div>
+              </transition-group>
+            </div>
+
           </div>
         </div>
         <div class="process"
@@ -93,6 +115,12 @@ export default {
       }
     },
     disabled: {
+      type: Boolean,
+      default: () => {
+        return true
+      }
+    },
+    isMy: {
       type: Boolean,
       default: () => {
         return true
@@ -156,6 +184,7 @@ export default {
       isMove: false,
       mitt: inject('mitt'),
       currentVideoId: 'a' + Date.now(),
+      test: [1]
     }
   },
   mounted() {
@@ -169,6 +198,7 @@ export default {
       // this.currentTime = v.isMove ? v.e : this.currentTime
       v.isMove ? this.move(v.e) : this.end(v.e)
     })
+
   },
   methods: {
     attention() {
@@ -220,6 +250,7 @@ export default {
     },
     //展示评论
     showComment() {
+      return this.test.push(Date.now())
       this.isCommenting = !this.isCommenting
     },
     showShare() {
@@ -258,15 +289,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../assets/scss/color";
+
 .fade-enter-active,
 .fade-leave-active {
-  transition: transform 0.1s linear;
+  transition: transform 0.5s linear;
 }
 
 .fade-enter-from,
 .fade-leave-to {
   transform: scale(0);
 }
+
 .bg-video {
   position: relative;
   background: black;
@@ -488,6 +522,68 @@ export default {
 
             marquee {
               margin-left: 10px;
+            }
+
+          }
+        }
+
+        .comment-status {
+          display: flex;
+          align-items: center;
+
+          .comment {
+
+            .type-comment {
+              display: flex;
+              background: rgb(130, 21, 44);
+              border-radius: 50px;
+              padding: 3px;
+              margin-bottom: 20px;
+
+              .avatar {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+              }
+
+              .right {
+                margin: 0 10px;
+                color: $second-text-color;
+
+                .name {
+                  margin-right: 10px;
+                }
+
+                .text {
+                  color: white;
+                }
+
+              }
+
+            }
+
+            .type-loved {
+              position: relative;
+              margin-bottom: 20px;
+
+              .avatar {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+              }
+
+              .loved {
+                position: absolute;
+                bottom: 0;
+                left: 20px;
+                width: 10px;
+                height: 10px;
+                background: red;
+                padding: 3px;
+                border-radius: 50%;
+                border: 2px solid white;
+              }
+
             }
 
           }
