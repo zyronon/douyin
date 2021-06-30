@@ -9,7 +9,7 @@ export default {
 </script>
 <style lang="scss">
 #app {
-  background: #2e3244;
+  background: rgb(22,26,37);
   height: 100%;
   width: 100%;
 }
