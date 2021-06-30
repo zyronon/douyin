@@ -24,6 +24,13 @@
       </div>
     </div>
     <div class="line mt20p"></div>
+    <div class="requests">
+      <div class="span">关注请求（1）</div>
+      <div class="right">
+        <div class="not-read"></div>
+        <img class="arrow" src="../../assets/img/icon/close-white.png" alt="">
+      </div>
+    </div>
     <div class="messages ">
       <div class="message" v-for="i in 5">
         <div class="avatar on-line">
@@ -31,18 +38,25 @@
         </div>
         <div class="content">
           <div class="left">
-            <div class="name">粉丝</div>
+            <div class="name">
+              <span>粉丝</span>
+              <span class="tag">官方</span>
+            </div>
             <div class="detail">
               <img class="sent" src="../../assets/img/icon/close-white.png" alt="">
               已送达 ，sb，凌晨 01:15
             </div>
           </div>
           <div class="right">
-            <!--              <div class="not-read"></div>-->
-            <!--              <img class="camera" src="../../assets/img/icon/close-white.png" alt="">-->
-            <img class="arrow" src="../../assets/img/icon/close-white.png" alt="">
+            <!--                          <div class="not-read"></div>-->
+            <!--                          <img class="camera" src="../../assets/img/icon/close-white.png" alt="">-->
+            <!--            <img class="arrow" src="../../assets/img/icon/close-white.png" alt="">-->
+            <div class="badge">12</div>
           </div>
         </div>
+      </div>
+      <div class="not-more">
+        暂时没有更多了
       </div>
     </div>
     <div class="line mt10p"></div>
@@ -65,7 +79,7 @@
               </div>
             </div>
             <div class="right">
-              <div class="button">回头</div>
+              <div class="button">回关</div>
               <div class="button">移除</div>
             </div>
           </div>
@@ -111,7 +125,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../../assets/scss/color";
+
 #Message {
+  background: $main-bg;
   padding-bottom: 60px;
   color: white;
 
@@ -216,8 +233,36 @@ export default {
     border-top: 1px solid $line-color;
   }
 
+  .requests {
+    font-size: 1.4rem;
+    box-sizing: border-box;
+    margin: 0 20px;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid $line-color;
+
+    .right {
+      display: flex;
+      align-items: center;
+
+      .arrow {
+        width: 15px;
+        height: 15px;
+      }
+
+      .not-read {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: yellow;
+      }
+    }
+  }
+
   .messages {
     margin-top: 5px;
+
     .message {
       display: flex;
       align-items: center;
@@ -230,15 +275,17 @@ export default {
         background: #353a4f;
       }
 
-      .avatar{
+      .avatar {
         position: relative;
+
         .head-image {
-          margin-left: 30px;
+          margin-left: 20px;
           margin-right: 15px;
           width: 48px;
           height: 48px;
           border-radius: 50%;
         }
+
         &.on-line::before {
           content: ' ';
           border: 3px solid black;
@@ -264,6 +311,16 @@ export default {
           .name {
             font-size: 1.8rem;
             color: white;
+            display: flex;
+            align-items: start;
+
+            .tag {
+              margin-left: 5px;
+              font-size: 1rem;
+              background: $line-color;
+              padding: 2px 5px;
+              border-radius: 2px;
+            }
           }
 
           .detail {
@@ -299,9 +356,24 @@ export default {
             border-radius: 50%;
             background: yellow;
           }
+
+          .badge {
+            font-size: 1rem;
+            display: block;
+            color: black;
+            padding: 1px 6px;
+            border-radius: 10px;
+            background: yellow;
+          }
         }
       }
 
+    }
+
+    .not-more{
+      color: $second-text-color;
+      text-align: center;
+      padding: 20px;
     }
   }
 
@@ -313,6 +385,7 @@ export default {
       align-items: center;
 
       .left {
+        color: $second-text-color;
         img {
           width: 10px;
           height: 10px;
@@ -321,7 +394,7 @@ export default {
 
       .right {
         border-radius: 50%;
-        background: darkgray;
+        background: $second-text-color;
         padding: 5px;
         width: 10px;
         height: 10px;
@@ -343,8 +416,8 @@ export default {
       .head-image {
         margin-left: 20px;
         margin-right: 15px;
-        width: 50px;
-        height: 50px;
+        width: 48px;
+        height: 48px;
         border-radius: 50%;
       }
 
@@ -361,13 +434,9 @@ export default {
           }
 
           .detail {
-            font-size: 1.4rem;
-            margin-top: 5px;
-
-            .sent {
-              width: 10px;
-              height: 10px;
-            }
+            color: $second-text-color;
+            font-size: 1.2rem;
+            margin-top: 4px;
           }
         }
 
@@ -377,13 +446,13 @@ export default {
           align-items: center;
 
           .button {
-            background: #bb3c3c;
+            background: rgb(252,47,86);
             margin-left: 8px;
-            padding: 6px 20px;
+            padding: 8px 20px;
             border-radius: 3px;
 
             &:nth-last-child(1) {
-              background: darkgray;
+              background: rgb(58,58,67);
             }
           }
         }
