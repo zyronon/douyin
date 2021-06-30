@@ -2,7 +2,7 @@
   <div id="Message">
     <div class="header pt15p">
       <div class="title">
-        <p class="tac fb c-white ">消息</p>
+        <p class="tac c-white ">消息</p>
         <span @click="nav('/myCard')">创建群聊</span>
       </div>
     </div>
@@ -13,7 +13,9 @@
     <div class="line mb20p"></div>
     <div class="friends  pl10p ">
       <div class="friend pr10p pl10p" v-for="item in 10">
-        <img src="../../assets/img/icon/head-image.jpeg" alt="">
+        <div class="avatar on-line">
+          <img src="../../assets/img/icon/head-image.jpeg" alt="">
+        </div>
         <span>ttenu</span>
       </div>
       <div class="friend pr10p">
@@ -23,8 +25,10 @@
     </div>
     <div class="line mt20p"></div>
     <div class="messages ">
-      <div class="message " v-for="i in 5">
-        <img src="../../assets/img/icon/msg-icon1.png" alt="" class="head-image pull-left">
+      <div class="message" v-for="i in 5">
+        <div class="avatar on-line">
+          <img src="../../assets/img/icon/msg-icon1.png" alt="" class="head-image">
+        </div>
         <div class="content">
           <div class="left">
             <div class="name">粉丝</div>
@@ -111,11 +115,16 @@ export default {
   padding-bottom: 60px;
   color: white;
 
+  $second-text-color: rgb(143, 143, 158);
+  $line-color: rgb(37, 45, 66);
+
   .header {
     .title {
+      font-size: 1.8rem;
       position: relative;
 
       span {
+        font-size: 1.6rem;
         position: absolute;
         right: 10px;
         top: 0;
@@ -124,8 +133,8 @@ export default {
   }
 
   .search {
-    height: 40px;
-    background: darkgray;
+    height: 36px;
+    background: rgb(59, 59, 71);
     margin: 20px;
     border-radius: 3px;
     display: flex;
@@ -138,11 +147,17 @@ export default {
     }
 
     input {
+      font-size: 1.6rem;
+      color: white;
       height: 50%;
       width: 100%;
       outline: none;
       border: none;
       background: transparent;
+
+      &::-webkit-input-placeholder {
+        color: $second-text-color;
+      }
     }
   }
 
@@ -155,7 +170,7 @@ export default {
       &:nth-last-child(1) {
         img {
           margin: 0 10px;
-          padding: 15px;
+          padding: 17px;
           background: darkgray;
           width: 30px;
           height: 30px;
@@ -163,13 +178,33 @@ export default {
         }
       }
 
-      img {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
+      .avatar {
+        position: relative;
+        margin-bottom: 6px;
+
+        img {
+          width: 64px;
+          height: 64px;
+          border-radius: 50%;
+        }
+
+        &.on-line::before {
+          content: ' ';
+          border: 4px solid black;
+          width: 18px;
+          height: 18px;
+          background: rgb(115, 254, 73);
+          border-radius: 50%;
+          position: absolute;
+          bottom: 0;
+          right: 0;
+        }
+
       }
 
+
       span {
+        color: $second-text-color;
         display: block;
         text-align: center;
         word-break: break-all;
@@ -178,10 +213,11 @@ export default {
   }
 
   .line {
-    border-top: 1px solid #494950;
+    border-top: 1px solid $line-color;
   }
 
   .messages {
+    margin-top: 5px;
     .message {
       display: flex;
       align-items: center;
@@ -194,20 +230,35 @@ export default {
         background: #353a4f;
       }
 
-      .head-image {
-        margin-left: 30px;
-        margin-right: 15px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
+      .avatar{
+        position: relative;
+        .head-image {
+          margin-left: 30px;
+          margin-right: 15px;
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+        }
+        &.on-line::before {
+          content: ' ';
+          border: 3px solid black;
+          width: 12px;
+          height: 12px;
+          background: rgb(115, 254, 73);
+          border-radius: 50%;
+          position: absolute;
+          bottom: 0;
+          right: 15px;
+        }
       }
+
 
       .content {
         flex: 1;
         display: flex;
         justify-content: space-between;
-        padding: 15px 0;
-        border-bottom: 1px solid darkgray;
+        padding: 15px 0 15px 0;
+        border-bottom: 1px solid $line-color;
 
         .left {
           .name {
@@ -216,8 +267,9 @@ export default {
           }
 
           .detail {
-            font-size: 1.4rem;
-            margin-top: 5px;
+            color: $second-text-color;
+            font-size: 1.2rem;
+            margin-top: 4px;
 
             .sent {
               width: 10px;
@@ -255,17 +307,19 @@ export default {
 
   .recommend {
     .title {
-      padding:20px 20px 10px 20px;
+      padding: 20px 20px 10px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+
       .left {
         img {
           width: 10px;
           height: 10px;
         }
       }
-      .right{
+
+      .right {
         border-radius: 50%;
         background: darkgray;
         padding: 5px;
