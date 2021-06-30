@@ -53,6 +53,10 @@
 export default {
   name: "BaseSlideList",
   props: {
+    canMove: {
+      type: Boolean,
+      default: () => true
+    },
     direction: {
       type: String,
       default: () => 'row'
@@ -217,6 +221,7 @@ export default {
       this.startTime = Date.now()
     },
     touchMove(e) {
+      if (!this.canMove) return;
       this.moveXDistance = e.touches[0].pageX - this.startLocationX
       this.moveYDistance = e.touches[0].pageY - this.startLocationY
 
@@ -400,6 +405,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../../assets/scss/color";
+
 #base-slide-wrapper {
   width: 100%;
   height: 100%;
@@ -490,7 +497,7 @@ export default {
     left: 0;
     right: 0;
     z-index: 999;
-    background: #333;
+    background: $main-bg;
 
     .tabs {
       display: flex;

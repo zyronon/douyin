@@ -172,13 +172,11 @@ import mp43 from '../../assets/video/3.mp4'
 import mp44 from '../../assets/video/4.mp4'
 import mp45 from '../../assets/video/5.mp4'
 import src1Bg from '../../assets/img/poster/src1-bg.png'
-import SlideItem from './SlideItem.vue'
-import SlideList from './SlideList.vue'
 import Video from "../../components/Video.vue";
 
 export default {
   name: "HomeIndex",
-  components: {Footer, Comment, Share, Other, SlideList, SlideItem, Video},
+  components: {Footer, Comment, Share, Other, Video},
   data() {
     return {
       list: [1, 2, 3, 4, 5],
