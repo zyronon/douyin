@@ -306,7 +306,7 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-@import "../../assets/scss/color";
+@import "../../assets/scss/index";
 
 .fade-enter-active,
 .fade-leave-active {

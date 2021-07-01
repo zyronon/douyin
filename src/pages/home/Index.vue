@@ -166,7 +166,7 @@ import Comment from '../../components/Comment.vue'
 import Other from '../../components/Other.vue'
 import Share from '../../components/Share.vue'
 import Footer from "../../components/Footer.vue"
-import mp41 from '../../assets/video/1.mp4'
+import mp41 from '../../assets/video/5.mp4'
 import mp42 from '../../assets/video/2.mp4'
 import mp43 from '../../assets/video/3.mp4'
 import mp44 from '../../assets/video/4.mp4'
