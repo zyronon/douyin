@@ -33,14 +33,17 @@
               </div>
               <span>{{ video.loves }}</span>
             </div>
-<!--            <div class="message mb15p" @click.stop="$emit('showComments')">-->
+            <!--            <div class="message mb15p" @click.stop="$emit('showComments')">-->
             <div class="message mb15p" @click.stop="showComment">
               <img src="../assets/img/icon/message.svg" alt="" class="message-image">
               <span>{{ video.comments }}</span>
             </div>
-            <div class="share mb35p" @click.stop="$emit('showShare')">
+            <div v-if="!isMy" class="share mb35p" @click.stop="$emit('showShare')">
               <img src="../assets/img/icon/share.svg" alt="" class="share-image">
               <span>{{ video.shared }}</span>
+            </div>
+            <div v-else class="share mb35p" @click.stop="$emit('showShare')">
+              <img src="../assets/img/icon/share.svg" alt="" class="share-image">
             </div>
             <div class="music-ctn">
               <img class="music1" src="../assets/img/icon/home/music1.png" alt="">
@@ -50,7 +53,7 @@
               </div>
             </div>
           </div>
-          <div class="content ml10p mb10p" @click.stop="goUserInfo()" v-if="!isMy">
+          <div class="content ml10p mb10p" v-if="!isMy">
             <div class="name mb10p">@TTentau</div>
             <div class="description mb10p">
               吴三二的光年之外, 您的浏览器不支持 video 标签。 您的浏览器不支持 video 标签。
@@ -61,7 +64,7 @@
               <div behavior=scroll direction=left align=middle scrollamount=4> 吴三二 - 光年之外</div>
             </div>
           </div>
-          <div class="comment-status">
+          <div v-else class="comment-status">
             <div class="comment">
               <div class="type-comment">
                 <img src="../assets/img/icon/head-image.jpeg" alt="" class="avatar">
@@ -73,14 +76,13 @@
                   <p class="text">北京</p>
                 </div>
               </div>
-              <transition-group name="fade" tag="ul">
-                <div class="type-loved"  v-for="i in test">
+              <transition-group name="comment-status" tag="div" class="loveds">
+                <div class="type-loved" :key="i" v-for="i in test">
                   <img src="../assets/img/icon/head-image.jpeg" alt="" class="avatar">
                   <img src="../assets/img/icon/love.svg" alt="" class="loved">
                 </div>
               </transition-group>
             </div>
-
           </div>
         </div>
         <div class="process"
@@ -184,7 +186,7 @@ export default {
       isMove: false,
       mitt: inject('mitt'),
       currentVideoId: 'a' + Date.now(),
-      test: [1]
+      test: [1, 2]
     }
   },
   mounted() {
@@ -298,6 +300,20 @@ export default {
 
 .fade-enter-from,
 .fade-leave-to {
+  transform: scale(0);
+}
+
+.comment-status-enter-active,
+.comment-status-leave-active {
+  transition: transform 0.5s linear;
+}
+
+.comment-status-move {
+  transition: transform 0.5s ease;
+}
+
+.comment-status-enter-from,
+.comment-status-leave-to {
   transform: scale(0);
 }
 
@@ -562,9 +578,16 @@ export default {
 
             }
 
+            .loveds {
+            }
+
             .type-loved {
+              width: 40px;
+              height: 40px;
               position: relative;
               margin-bottom: 20px;
+              animation: test 1s ;
+              animation-delay: .5s;
 
               .avatar {
                 width: 36px;
@@ -583,9 +606,19 @@ export default {
                 border-radius: 50%;
                 border: 2px solid white;
               }
-
             }
 
+            @keyframes test {
+              from {
+                display: block;
+                transform: translate3d(0,0,0);
+              }
+              to {
+                display: none;
+                transform: translate3d(0,-60px,0);
+              }
+
+            }
           }
         }
       }
@@ -683,8 +716,6 @@ export default {
         }
       }
     }
-
-
   }
 }
 
