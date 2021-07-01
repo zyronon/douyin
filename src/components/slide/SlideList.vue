@@ -405,7 +405,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/scss/color";
+@import "../../assets/scss/index";
 
 #base-slide-wrapper {
   width: 100%;

@@ -6,10 +6,7 @@
         <span @click="nav('/myCard')">创建群聊</span>
       </div>
     </div>
-    <div class="search">
-      <img src="../../assets/img/icon/pause.svg" alt="">
-      <input type="text" placeholder="搜索">
-    </div>
+    <Search class="m20p"></Search>
     <div class="line mb20p"></div>
     <div class="friends  pl10p ">
       <div class="friend pr10p pl10p" v-for="item in 10">
@@ -107,11 +104,13 @@
 
 <script>
 import Footer from '../../components/Footer.vue'
+import Search from "../../components/Search";
 
 export default {
   name: "Message",
   components: {
-    Footer
+    Footer,
+    Search
   },
   data() {
     return {}
@@ -125,7 +124,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/scss/color";
+@import "../../assets/scss/index";
 
 #Message {
   background: $main-bg;
@@ -143,35 +142,6 @@ export default {
         position: absolute;
         right: 10px;
         top: 0;
-      }
-    }
-  }
-
-  .search {
-    height: 36px;
-    background: rgb(59, 59, 71);
-    margin: 20px;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-
-    img {
-      height: 15px;
-      width: 15px;
-      margin: 0 10px;
-    }
-
-    input {
-      font-size: 1.6rem;
-      color: white;
-      height: 50%;
-      width: 100%;
-      outline: none;
-      border: none;
-      background: transparent;
-
-      &::-webkit-input-placeholder {
-        color: $second-text-color;
       }
     }
   }
@@ -310,7 +280,7 @@ export default {
             font-size: 1.8rem;
             color: white;
             display: flex;
-            align-items: start;
+            align-items: flex-start;
 
             .tag {
               margin-left: 5px;
@@ -368,7 +338,7 @@ export default {
 
     }
 
-    .not-more{
+    .not-more {
       color: $second-text-color;
       text-align: center;
       padding: 20px;
@@ -384,6 +354,7 @@ export default {
 
       .left {
         color: $second-text-color;
+
         img {
           width: 10px;
           height: 10px;
@@ -444,13 +415,13 @@ export default {
           align-items: center;
 
           .button {
-            background: rgb(252,47,86);
+            background: $primary-btn-color;
             margin-left: 8px;
             padding: 8px 20px;
             border-radius: 3px;
 
             &:nth-last-child(1) {
-              background: rgb(58,58,67);
+              background: rgb(58, 58, 67);
             }
           }
         }
