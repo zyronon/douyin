@@ -10,10 +10,12 @@ import countryChoose from "../pages/login/countryChoose";
 import MyCard from "../pages/me/MyCard";
 import MyCollect from "../pages/me/MyCollect";
 import VideoDetail from "../pages/me/VideoDetail";
+import Index2 from "../pages/home/Index2";
 
 const routes = [
   // {path: '', component: Music},
-  {path: '/', component: Index},
+  // {path: '/', component: Index},
+  {path: '/', component: Index2},
   {path: '/home', component: Index},
   {path: '/attention', component: Attention},
   {path: '/message', component: Message},

@@ -576,7 +576,7 @@ export default {
               height: 40px;
               position: relative;
               margin-bottom: 20px;
-              animation: test 1s ;
+              animation: test 1s;
               animation-delay: .5s;
 
               .avatar {
@@ -601,11 +601,11 @@ export default {
             @keyframes test {
               from {
                 display: block;
-                transform: translate3d(0,0,0);
+                transform: translate3d(0, 0, 0);
               }
               to {
                 display: none;
-                transform: translate3d(0,-60px,0);
+                transform: translate3d(0, -60px, 0);
               }
 
             }
