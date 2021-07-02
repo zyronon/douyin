@@ -90,7 +90,7 @@
             </SlideList>
           </SlideItem>
           <SlideItem>
-            <SlideList
+            <SlideColumnList
                 direction="column"
                 ref="slideList"
                 v-model:active-index="videoActiveIndex"
@@ -106,7 +106,7 @@
                     @goUserInfo="baseActiveIndex = 1"
                 ></Video>
               </SlideItem>
-            </SlideList>
+            </SlideColumnList>
           </SlideItem>
         </SlideList>
         <Footer v-bind:init-tab="1"/>
@@ -173,10 +173,11 @@ import mp44 from '../../assets/video/4.mp4'
 import mp45 from '../../assets/video/5.mp4'
 import src1Bg from '../../assets/img/poster/src1-bg.png'
 import Video from "../../components/Video.vue";
+import SlideColumnList from "../../components/slide/SlideColumnList";
 
 export default {
   name: "HomeIndex",
-  components: {Footer, Comment, Share, Other, Video},
+  components: {Footer, Comment, Share, Other, Video, SlideColumnList},
   data() {
     return {
       list: [1, 2, 3, 4, 5],

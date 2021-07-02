@@ -50,8 +50,6 @@
 </template>
 
 <script>
-import {nextTick} from 'vue'
-
 export default {
   name: "BaseSlideList",
   props: {
@@ -166,8 +164,8 @@ export default {
       this.changeIndex()
     },
   },
-  mounted: async function () {
-    await this.checkChildren(true)
+  mounted() {
+    this.checkChildren(true)
     this.showIndicator && this.initTabs()
     this.changeIndex(true)
   },
@@ -201,18 +199,17 @@ export default {
         this.$setCss(this.indicatorRef, 'left', this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px')
       }
     },
-    async checkChildren(init) {
-      await nextTick(() => {
-        this.slideList = this.$refs.slideList
-        this.slideItems = this.slideList.children
-        this.wrapperWidth = this.$getCss(this.slideList, 'width')
-        this.wrapperHeight = this.$getCss(this.slideList, 'height')
-        for (let i = 0; i < this.slideItems.length; i++) {
-          let el = this.slideItems[i]
-          this.slideItemsWidths.push(this.$getCss(el, 'width'))
-          this.slideItemsHeights.push(this.$getCss(el, 'height'))
-        }
-      })
+    checkChildren(init) {
+      this.slideList = this.$refs.slideList
+      this.slideItems = this.slideList.children
+      this.wrapperWidth = this.$getCss(this.slideList, 'width')
+      this.wrapperHeight = this.$getCss(this.slideList, 'height')
+
+      for (let i = 0; i < this.slideItems.length; i++) {
+        let el = this.slideItems[i]
+        this.slideItemsWidths.push(this.$getCss(el, 'width'))
+        this.slideItemsHeights.push(this.$getCss(el, 'height'))
+      }
     },
     touchStart(e) {
       this.$setCss(this.slideList, 'transition-duration', `0ms`)
@@ -228,7 +225,6 @@ export default {
       this.moveXDistance = e.touches[0].pageX - this.startLocationX
       this.moveYDistance = e.touches[0].pageY - this.startLocationY
 
-      this.isDrawRight = this.moveXDistance < 0
       this.isDrawDown = this.moveYDistance < 0
 
       this.checkDirection()
@@ -250,33 +246,17 @@ export default {
       //   y: {distance: this.moveYDistance, isDrawDown: this.isDrawDown},
       // })
 
+      if (this.isCanDownWiping) {
+        if (this.currentSlideItemIndex === 0 && !this.isDrawDown) return; //在第一个item，并且想往下划。
 
-      if (this.direction === 'row') {
-        if (this.isCanRightWiping) {
-          // //禁止在index=0页面的时候，向左划
-          if (this.currentSlideItemIndex === 0 && !this.isDrawRight) return
-          //禁止在最后页面的时候，向右划
-          if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawRight) return
-
-          this.$stopPropagation(e)
-          this.$setCss(this.slideList, 'transform', `translate3d(${-this.getWidth(this.currentSlideItemIndex) + this.moveXDistance}px, 0px, 0px)`)
-          this.showIndicator && this.$setCss(this.indicatorRef, 'left',
-              this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] -
-              this.moveXDistance / (this.$store.state.bodyWidth / this.indicatorSpace) + 'px')
+        if (this.virtual) {
+          if (this.currentSlideItemIndex === this.total - 1 && this.isDrawDown) return
+        } else {
+          if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawDown) return
         }
-      } else {
-        if (this.isCanDownWiping) {
-          if (this.currentSlideItemIndex === 0 && !this.isDrawDown) return; //在第一个item，并且想往下划。
-
-          if (this.virtual) {
-            if (this.currentSlideItemIndex === this.total - 1 && this.isDrawDown) return
-          } else {
-            if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawDown) return
-          }
-          // this.$attrs.moveYDistance && this.$emit('moveYDistance', this.moveYDistance)
-          this.$stopPropagation(e)
-          this.$setCss(this.slideList, 'transform', `translate3d(0px, ${-this.getHeight(this.currentSlideItemIndex) + this.moveYDistance}px, 0px)`)
-        }
+        // console.log('this.isCanDownWiping')
+        this.$stopPropagation(e)
+        this.$setCss(this.slideList, 'transform', `translate3d(0px, ${-this.getHeight(this.currentSlideItemIndex) + this.moveYDistance}px, 0px)`)
       }
     },
     getData() {
@@ -294,38 +274,13 @@ export default {
         this.toolbarStyleTransitionDuration = 300
         this.homeLoadingMoveYDistance = 0
       }
-      this.$setCss(this.slideList, 'transition-duration', `300ms`)
-      this.showIndicator && this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
-      let endTime = Date.now()
-      let gapTime = endTime - this.startTime
-      // console.log(gapTime)
-      // if (gapTime)
-      if (this.direction === 'row') {
-        if (!this.isCanRightWiping) return this.resetConfig();
-        if (this.currentSlideItemIndex === 0 && !this.isDrawRight) return
-        if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawRight) return
 
-        //21/06/28 发现一个bug，就是会把所有的点击事件，给失效了。。。//已解决
-        // this.$stopPropagation(e)//todo 如果是嵌套竖状的slide，会出问题,会到moveYDistance停下，不会移到
-        //this.getWidth(this.currentSlideItemIndex)位置，但是不禁示冒泡的话，又会出现划动过快，把父级也会移动。
-        if (this.moveXDistance !== 0) {
-          this.$stopPropagation(e)
-        }
-        if (Math.abs(this.moveXDistance) < 20) gapTime = 1000
-        if (Math.abs(this.moveXDistance) > (this.wrapperWidth / 3)) gapTime = 100
-        if (gapTime < 150) {
-          if (this.isDrawRight) {
-            this.currentSlideItemIndex += 1
-          } else {
-            this.currentSlideItemIndex -= 1
-          }
-        }
-        this.$setCss(this.slideList, 'transform', `translate3d(${-this.getWidth(this.currentSlideItemIndex)}px, 0px, 0px)`)
-        if (this.showIndicator) {
-          this.$setCss(this.indicatorRef, 'left', this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px')
-        }
-      } else {
-        if (!this.isCanDownWiping) return this.resetConfig();
+      if (this.isCanDownWiping) {
+        this.$setCss(this.slideList, 'transition-duration', `300ms`)
+        this.showIndicator && this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
+        let endTime = Date.now()
+        let gapTime = endTime - this.startTime
+
         if (this.currentSlideItemIndex === 0 && !this.isDrawDown) return
         //禁止在最后页面的时候，向右划
         if (this.virtual) {
@@ -333,9 +288,8 @@ export default {
         } else {
           if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawDown) return
         }
-        // console.log('column-end', this.moveYDistance)
 
-        // this.$stopPropagation(e)
+        this.$stopPropagation(e)
         if (Math.abs(this.moveYDistance) < 20) gapTime = 1000
         if (Math.abs(this.moveYDistance) > (this.wrapperHeight / 3)) gapTime = 100
         if (gapTime < 150) {
@@ -344,10 +298,6 @@ export default {
           } else {
             this.currentSlideItemIndex -= 1
           }
-          // console.log('gaptTime', gapTime)
-          // console.log('this.isDrawDown', this.isDrawDown)
-          // console.log('this.currentSlideItemIndex', this.currentSlideItemIndex)
-          // console.log('this.getHeight', -this.getHeight(this.currentSlideItemIndex))
           this.$emit('slide', {
             currentSlideItemIndex: this.currentSlideItemIndex,
             isDrawDown: this.isDrawDown,
@@ -365,19 +315,6 @@ export default {
       this.isNeedCheck = true
       this.moveXDistance = 0
       this.moveYDistance = 0
-    },
-    getWidth(index) {
-      return this.slideItemsWidths.reduce((p, c, i) => {
-        if (i < index) {
-          //最后一页，如果宽度不够屏幕宽度，那不能拉完
-          if (this.slideItemsWidths.length - 1 === i + 1) {
-            p = p + c - (this.wrapperWidth - this.slideItemsWidths[index])
-          } else {
-            p += c
-          }
-        }
-        return p
-      }, 0)
     },
     getHeight(index) {
       return this.slideItemsHeights.reduce((p, c, i) => {
