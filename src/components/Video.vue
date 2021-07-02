@@ -105,8 +105,6 @@
 
 <script>
 
-import {inject} from "vue";
-
 export default {
   name: "Video",
   props: {
@@ -184,7 +182,6 @@ export default {
       line: null,
       point: null,
       isMove: false,
-      mitt: inject('mitt'),
       currentVideoId: 'a' + Date.now(),
       test: [1, 2]
     }
@@ -194,13 +191,6 @@ export default {
     this.width = document.body.clientWidth
     this.line = this.$refs.line
     this.point = this.$refs.point
-    this.mitt.on(this.currentVideoId, v => {
-      if (this.duration < 60) return
-      this.isMove = v.isMove
-      // this.currentTime = v.isMove ? v.e : this.currentTime
-      v.isMove ? this.move(v.e) : this.end(v.e)
-    })
-
   },
   methods: {
     attention() {

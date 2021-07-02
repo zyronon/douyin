@@ -1,7 +1,5 @@
 <template>
-  <div class="footer f16 "
-       @touchmove="move"
-       @touchend="end">
+  <div class="footer f16 ">
     <div class="button" @click="refresh()">
       <span v-if="!isRefresh" :class="{active:currentTab===1}">首页</span>
       <img v-else src="../assets/img/icon/refresh.png" alt="" class="refresh">
@@ -21,8 +19,6 @@
 </template>
 
 <script>
-import {inject} from "vue";
-
 export default {
   name: "Footer",
   props: ['initTab'],
@@ -30,17 +26,9 @@ export default {
     return {
       isRefresh: false,
       currentTab: this.initTab,
-      mitt: inject('mitt'),
     }
   },
   methods: {
-    move(e) {
-      this.mitt.emit(this.$store.state.currentVideoId, {isMove: true, e})
-      this.$stopPropagation(e)
-    },
-    end(e) {
-      this.mitt.emit(this.$store.state.currentVideoId, {isMove: false, e})
-    },
     tab(index) {
       this.currentTab = index
       switch (index) {
