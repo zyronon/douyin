@@ -8,6 +8,12 @@ export default {
 }
 </script>
 <style lang="scss">
+
+.base-slide-item {
+  min-width: 100vw;
+  min-height: 100vh;
+  position: relative;
+}
 #app {
   height: 100%;
   width: 100%;
