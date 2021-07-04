@@ -1,19 +1,21 @@
 <template>
   <div id="home-index">
     <SlideListVirtual direction="column"
-                      ref="slideList"
+                      ref="ssss"
                       :virtual="true"
                       :list="videos"
-                      :render="render"
+                      :renderSlide="render"
     >
     </SlideListVirtual>
+    <Comment v-model:is-commenting="isCommenting"/>
+    <Share v-model:is-sharing="isSharing" ref="share"/>
   </div>
 </template>
 
 <script>
 import SlideListVirtual from './SlideListVirtual'
 import src1Bg from '../../assets/img/poster/src1-bg.png'
-import Video from "../../components/Video.vue";
+import Video1 from "../../components/Video.vue";
 import mp40 from "../../assets/video/0.mp4";
 import mp41 from "../../assets/video/1.mp4";
 import mp42 from "../../assets/video/2.mp4";
@@ -25,10 +27,12 @@ import mp47 from "../../assets/video/7.mp4";
 import mp48 from "../../assets/video/8.mp4";
 import mp49 from "../../assets/video/9.mp4";
 import mp410 from "../../assets/video/10.mp4";
+import Comment from "../../components/Comment";
+import Share from "../../components/Share";
 
 export default {
   name: "HomeIndex",
-  components: {SlideListVirtual, Video},
+  components: {SlideListVirtual, Video1, Comment, Share,},
   data() {
     return {
       videos: [
@@ -143,15 +147,24 @@ export default {
           duration: 99
         },
       ],
-      render: item => {
+      isCommenting: false,
+      isSharing: false,
+      render: (item, index, list) => {
+        console.log(item)
+        let style = {}
+        if (index !== undefined) {
+          // style.top = (index - 1) * 812 + 'px'
+        }
         return (
-            `
-            <div class="base-slide-item">
-              <video src="${item.videoUrl}" ref="video" muted autoplay loop style="width: 100vw;height: 100vh;">
-              <p> 您的浏览器不支持 video 标签。</p>
-            </video>
-      </div>
-           `
+            <div className="base-slide-item" data-index={index} style={style}>
+              <Video1 disabled={false}
+                      video={item}
+                      index={index}
+                      onShowShare={this.t}
+                      onVideoTest={this.t}
+                      v-model={[this.videos[index], 'video']}
+              />
+            </div>
         )
       }
     }
@@ -160,6 +173,16 @@ export default {
     this.height = document.body.clientHeight
     this.width = document.body.clientWidth
   },
+  methods: {
+    t(e) {
+      this.$refs.ssss.update(e.index)
+      // console.log(this.videos)
+      // this.isSharing = !this.isSharing
+      // console.log(111)
+      console.log(e)
+    },
+
+  }
 }
 </script>
 <style scoped lang="scss">

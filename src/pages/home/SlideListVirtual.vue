@@ -1,59 +1,11 @@
-<template>
-  <div id="base-slide-wrapper" ref="slideWrapper">
-    <div class="indicator-home" v-if="showIndicator && indicatorType === 'home'">
-      <div class="notice" :style="noticeStyle"><span>下拉刷新内容</span></div>
-      <div class="toolbar" ref="toolbar" :style="toolbarStyle">
-        <div class="left">直播</div>
-        <div class="tab-ctn">
-          <div class="tabs" ref="tabs">
-            <div class="tab"
-                 :class="currentSlideItemIndex === 0?'active':''"
-                 @click="changeIndex(false,0)">
-              <span>关注</span></div>
-            <div class="tab"
-                 :class="currentSlideItemIndex === 1?'active':''"
-                 @click="changeIndex(false,1)"><span>推荐</span></div>
-          </div>
-          <div class="indicator" ref="indicator"></div>
-        </div>
-        <div class="right" :style="{opacity:loading ? 0 : 1}">搜索</div>
-      </div>
-      <div class="loading" :style="loadingStyle">AA</div>
-    </div>
-    <div class="indicator-me" :class="indicatorFixed?'fixed':''" v-if="showIndicator && indicatorType === 'me'">
-      <div class="tabs" ref="tabs">
-        <div class="tab"
-             :class="currentSlideItemIndex === 0?'active':''"
-             @click="changeIndex(false,0)">
-          <span>作品</span></div>
-        <div class="tab"
-             :class="currentSlideItemIndex === 1?'active':''"
-             @click.stop="changeIndex(false,1)">
-          <span>私密</span>
-        </div>
-        <div class="tab"
-             :class="currentSlideItemIndex === 2?'active':''"
-             @click="changeIndex(false,2,$event)">
-          <span>喜欢</span>
-        </div>
-      </div>
-      <div class="indicator" ref="indicator"></div>
-    </div>
-    <div id="base-slide-list" ref="slideList"
-         :style="{'flex-direction':direction,marginTop:indicatorFixed?'42px':'0'}"
-         @touchstart="touchStart($event)"
-         @touchmove="touchMove($event)"
-         @touchend="touchEnd($event)">
-      <slot></slot>
-    </div>
-  </div>
-</template>
-
 <script>
+
+import * as Vue from 'vue'
+
 export default {
   name: "BaseSlideList",
   props: {
-    render: {
+    renderSlide: {
       type: Function,
       default: () => {
         return null
@@ -102,40 +54,6 @@ export default {
       default: () => 0
     },
   },
-  computed: {
-    toolbarStyle() {
-      if (!this.useHomeLoading) return
-      return {
-        opacity: 1 - this.homeLoadingMoveYDistance / 20,
-        'transition-duration': this.toolbarStyleTransitionDuration + 'ms',
-        transform: `translate3d(0, ${this.homeLoadingMoveYDistance > 60 ? 60 : this.homeLoadingMoveYDistance}px, 0)`,
-      }
-    },
-    noticeStyle() {
-      if (!this.useHomeLoading) return
-      return {
-        opacity: this.homeLoadingMoveYDistance / 60,
-        'transition-duration': this.toolbarStyleTransitionDuration + 'ms',
-        transform: `translate3d(0, ${this.homeLoadingMoveYDistance > 60 ? 60 : this.homeLoadingMoveYDistance}px, 0)`,
-      }
-    },
-    loadingStyle() {
-      if (!this.useHomeLoading) return
-      if (this.loading) {
-        return {
-          opacity: 1,
-          'transition-duration': '300ms',
-        }
-      }
-      if (this.homeLoadingMoveYDistance !== 0) {
-        return {
-          opacity: this.homeLoadingMoveYDistance / 60,
-          'transition-duration': this.toolbarStyleTransitionDuration + 'ms',
-          transform: `translate3d(0, ${this.homeLoadingMoveYDistance > 60 ? 60 : this.homeLoadingMoveYDistance}px, 0)`,
-        }
-      }
-    }
-  },
   data() {
     return {
       loading: false,
@@ -173,21 +91,56 @@ export default {
   watch: {
     activeIndex() {
       // console.log('activeIndex')
-      this.changeIndex()
+      // this.changeIndex()
     },
+  },
+  render() {
+    console.log('render')
+    // this.$console(this.list.slice(0, 2))
+    return (
+        <div id="base-slide-wrapper">
+          <div id="base-slide-list"
+               ref="slideList"
+               style={{flexDirection: 'column'}}
+               ontouchstart={this.touchStart}
+               ontouchmove={this.touchMove}
+               ontouchend={this.touchEnd}
+          >
+            {
+              // this.list.slice(0, 2).map((item, index) => this.renderSlide(item, index))
+            }
+          </div>
+        </div>
+    )
   },
   mounted: async function () {
     await this.checkChildren(true)
-    if (this.virtual && this.render) {
-      this.list.slice(0, 2).map(v => {
-        this.slideList.innerHTML += this.render(v)
-      })
-    }
-    await this.checkChildren(true)
-    this.showIndicator && this.initTabs()
-    this.changeIndex(true)
+    this.list.slice(0, 2).map((item, index) => {
+      this.slideList.appendChild(this.getInsEl(item, index))
+    })
+    // await this.checkChildren(true)
+    // this.showIndicator && this.initTabs()
+    // this.changeIndex(true)
   },
   methods: {
+    update(index) {
+      let newEl = this.getInsEl(this.list[index], index)
+      $(`.base-slide-item[data-index=${index}]`).find('.float-container').replaceWith($(newEl).find('.float-container'))
+    },
+    getInsEl(v, index) {
+      let slideVNode = this.renderSlide(v, index)
+      const app = Vue.createApp({
+        render() {
+          return slideVNode
+        }
+      })
+      const parent = document.createElement('div')
+      const ins = app.mount(parent)
+      return ins.$el
+    },
+    t() {
+      alert(11)
+    },
     changeIndex(init = false, index = null, e) {
       this.currentSlideItemIndex = index !== null ? index : this.activeIndex
       !init && this.$setCss(this.slideList, 'transition-duration', `300ms`)
@@ -311,30 +264,31 @@ export default {
           } else {
             this.currentSlideItemIndex -= 1
           }
-          console.log(this.slideItems)
+          // console.log(this.slideItems)
           let that = this
           if (this.virtual) {
             if (this.slideItems.length > 2) {
               if (this.isDrawDown) {
-                $("#base-slide-list div:first").remove()
+                $("#base-slide-list .base-slide-item:first").remove()
                 $(".base-slide-item").each(function () {
                   $(this).css('top', (that.currentSlideItemIndex - 1) * that.wrapperHeight)
                 })
                 let item = this.list[this.currentSlideItemIndex + 1]
-                let s = $($(this.render(item))[0]).css('top', (this.currentSlideItemIndex - 1) * this.wrapperHeight)
+                let s = $(this.getInsEl(item, this.currentSlideItemIndex + 1)).css('top', (this.currentSlideItemIndex - 1) * this.wrapperHeight)
                 this.slideList.appendChild(s[0])
               } else {
-                $("#base-slide-list div:last").remove()
+                $("#base-slide-list .base-slide-item:last").remove()
                 $(".base-slide-item").each(function () {
                   $(this).css('top', (that.currentSlideItemIndex - 1) * that.wrapperHeight)
                 })
                 let item = this.list[this.currentSlideItemIndex - 1]
-                let s = $($(this.render(item))[0]).css('top', (this.currentSlideItemIndex - 1) * this.wrapperHeight)
+                let s = $(this.getInsEl(item, this.currentSlideItemIndex - 1)).css('top', (this.currentSlideItemIndex - 1) * this.wrapperHeight)
                 $('#base-slide-list').prepend(s)
               }
             } else {
               let item = this.list[this.currentSlideItemIndex + 1]
-              this.slideList.appendChild($(this.render(item))[0])
+              console.log('this.list[this.currentSlideItemIndex + 1]', item)
+              this.slideList.appendChild(this.getInsEl(item, this.currentSlideItemIndex + 1))
             }
             this.checkChildren()
           }
@@ -527,5 +481,4 @@ export default {
   }
 
 }
-
 </style>
