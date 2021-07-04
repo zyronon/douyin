@@ -1,9 +1,14 @@
+<!--<template>-->
+<!--  <video style="height: 100vh;width: 100vw;" :src="video.videoUrl" :poster="video.poster" ref="video" muted :autoplay="!disabled" loop>-->
+<!--    <p> 您的浏览器不支持 video 标签。</p>-->
+<!--  </video>-->
+<!--</template>-->
 <template>
   <div class="bg-video" v-bind:style="{'height':height+'px'}">
     <video :src="video.videoUrl" :poster="video.poster" ref="video" muted :autoplay="!disabled" loop>
       <p> 您的浏览器不支持 video 标签。</p>
     </video>
-    <div class="float-container" @click.stop="togglePlayVideo">
+    <div class="float-container" v-if="true" @click.stop="togglePlayVideo">
       <transition name="pause">
         <img src="../assets/img/icon/play.svg" class="pause" v-show="!isPlaying"
         >
@@ -104,6 +109,7 @@
 </template>
 
 <script>
+import globalMethods from '../utils/global-methods'
 
 export default {
   name: "Video",
@@ -112,6 +118,12 @@ export default {
       type: Object,
       default: () => {
         return {}
+      }
+    },
+    index: {
+      type: Number,
+      default: () => {
+        return -1
       }
     },
     disabled: {
@@ -139,23 +151,23 @@ export default {
         // console.log('disabled', this.currentVideoId, v)
         this.isPlaying = !v
         if (!v) {
-          this.$store.commit('setCurrentVideoId', this.currentVideoId)
+          // this.$store.commit('setCurrentVideoId', this.currentVideoId)
           setTimeout(() => {
             let video = this.$refs.video
             video.currentTime = 0
-            let fun = e => {
-              this.currentTime = Math.ceil(e.target.currentTime)
-              this.pageX = this.currentTime * this.step
-            }
-            video.addEventListener('timeupdate', fun)
-            video.addEventListener('loadedmetadata', e => {
-              this.duration = video.duration
-              if (this.duration > 60) {
-                this.step = this.width / Math.floor(this.duration)
-              } else {
-                video.removeEventListener('timeupdate', fun)
-              }
-            })
+            // let fun = e => {
+            //   this.currentTime = Math.ceil(e.target.currentTime)
+            //   this.pageX = this.currentTime * this.step
+            // }
+            // video.addEventListener('timeupdate', fun)
+            // video.addEventListener('loadedmetadata', e => {
+            //   this.duration = video.duration
+            //   if (this.duration > 60) {
+            //     this.step = this.width / Math.floor(this.duration)
+            //   } else {
+            //     video.removeEventListener('timeupdate', fun)
+            //   }
+            // })
             video.play()
           })
         } else {
@@ -172,13 +184,10 @@ export default {
       step: 0,
       currentTime: 0,
       pageX: 0,
-      index: 0,
       height: 0,
       width: 0,
       isPlaying: !this.disabled,
-      isCommenting: false,
       isAttention: false,
-      isSharing: false,
       line: null,
       point: null,
       isMove: false,
@@ -240,22 +249,14 @@ export default {
       }
       this.isPlaying = !video.paused
     },
-    //展示评论
-    showComment() {
-      return this.test.push(Date.now())
-      this.isCommenting = !this.isCommenting
-    },
-    showShare() {
-      this.isSharing = !this.isSharing
-    },
+
     loved(e, index) {
-      let temp = this.$clone(this.video)
+      // console.log(e)
+      // let temp = this.$clone(this.video)
+      let temp = globalMethods.$clone(this.video)
       temp.isLoved = !temp.isLoved
       this.$emit('update:video', temp)
-    },
-    //返回视频列表
-    backVideoList() {
-      this.wrapperLeft = '0'
+      this.$emit('videoTest', {item: temp, index: this.index})
     },
     move(e) {
       this.isMove = true
@@ -274,8 +275,7 @@ export default {
       video.currentTime = this.currentTime
       video.play()
       // this.$stopPropagation(e)
-    },
-
+    }
   }
 }
 </script>
