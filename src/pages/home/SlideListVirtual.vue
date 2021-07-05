@@ -86,6 +86,7 @@ export default {
       toolbarStyleTransitionDuration: 0,
       homeLoadingMoveYDistance: 0,//homeLoading专用的MoveYDistance，因为MoveYDistance是一直更新的，左右划的时候也在更新，会造成
       //在往左划，但上面的toolbar开始往下移了，所以需要用一个专用的值来有条件的保存MoveYDistance，即只direction = row的时候
+      appInsMap: new Map()
     }
   },
   watch: {
@@ -116,6 +117,7 @@ export default {
   mounted: async function () {
     await this.checkChildren(true)
     this.list.slice(0, 3).map((item, index) => {
+
       this.slideList.appendChild(this.getInsEl(item, index))
     })
     // await this.checkChildren(true)
@@ -123,12 +125,8 @@ export default {
     // this.changeIndex(true)
   },
   methods: {
-    update(index) {
-      let newEl = this.getInsEl(this.list[index], index)
-      $(`.base-slide-item[data-index=${index}]`).find('.float-container').replaceWith($(newEl).find('.float-container'))
-    },
-    getInsEl(v, index) {
-      let slideVNode = this.renderSlide(v, index, this.currentSlideItemIndex)
+    getInsEl(item, index) {
+      let slideVNode = this.renderSlide(item, index)
       const app = Vue.createApp({
         render() {
           return slideVNode
@@ -136,6 +134,7 @@ export default {
       })
       const parent = document.createElement('div')
       const ins = app.mount(parent)
+      this.appInsMap.set(index, app)
       return ins.$el
     },
     t() {
@@ -272,6 +271,7 @@ export default {
                 if (this.currentSlideItemIndex > 2) {
                   let item = this.list[this.currentSlideItemIndex + 2]
                   this.slideList.appendChild($(this.getInsEl(item, this.currentSlideItemIndex + 2))[0])
+                  // this.appInsMap.get($("#base-slide-list .base-slide-item:first").data('index')).unmount()
                   $("#base-slide-list .base-slide-item:first").remove()
                   $(".base-slide-item").each(function () {
                     $(this).css('top', (that.currentSlideItemIndex - 2) * that.wrapperHeight)
@@ -281,6 +281,7 @@ export default {
                 if (this.currentSlideItemIndex > 1) {
                   let item = this.list[this.currentSlideItemIndex - 2]
                   this.slideList.prepend($(this.getInsEl(item, this.currentSlideItemIndex - 2))[0])
+                  // this.appInsMap.get($("#base-slide-list .base-slide-item:last").data('index')).unmount()
                   $("#base-slide-list .base-slide-item:last").remove()
                   $(".base-slide-item").each(function () {
                     $(this).css('top', (that.currentSlideItemIndex - 2) * that.wrapperHeight)
