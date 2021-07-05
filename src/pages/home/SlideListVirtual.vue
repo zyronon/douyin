@@ -95,7 +95,7 @@ export default {
     },
   },
   render() {
-    console.log('render')
+    // console.log('render')
     // this.$console(this.list.slice(0, 2))
     return (
         <div id="base-slide-wrapper">
@@ -115,7 +115,7 @@ export default {
   },
   mounted: async function () {
     await this.checkChildren(true)
-    this.list.slice(0, 2).map((item, index) => {
+    this.list.slice(0, 3).map((item, index) => {
       this.slideList.appendChild(this.getInsEl(item, index))
     })
     // await this.checkChildren(true)
@@ -128,7 +128,7 @@ export default {
       $(`.base-slide-item[data-index=${index}]`).find('.float-container').replaceWith($(newEl).find('.float-container'))
     },
     getInsEl(v, index) {
-      let slideVNode = this.renderSlide(v, index)
+      let slideVNode = this.renderSlide(v, index, this.currentSlideItemIndex)
       const app = Vue.createApp({
         render() {
           return slideVNode
@@ -264,31 +264,34 @@ export default {
           } else {
             this.currentSlideItemIndex -= 1
           }
-          // console.log(this.slideItems)
+          // console.log(this.slideItems.length)
           let that = this
           if (this.virtual) {
-            if (this.slideItems.length > 2) {
+            if (this.slideItems.length > 4) {
               if (this.isDrawDown) {
-                $("#base-slide-list .base-slide-item:first").remove()
-                $(".base-slide-item").each(function () {
-                  $(this).css('top', (that.currentSlideItemIndex - 1) * that.wrapperHeight)
-                })
-                let item = this.list[this.currentSlideItemIndex + 1]
-                let s = $(this.getInsEl(item, this.currentSlideItemIndex + 1)).css('top', (this.currentSlideItemIndex - 1) * this.wrapperHeight)
-                this.slideList.appendChild(s[0])
+                if (this.currentSlideItemIndex > 2) {
+                  let item = this.list[this.currentSlideItemIndex + 2]
+                  this.slideList.appendChild($(this.getInsEl(item, this.currentSlideItemIndex + 2))[0])
+                  $("#base-slide-list .base-slide-item:first").remove()
+                  $(".base-slide-item").each(function () {
+                    $(this).css('top', (that.currentSlideItemIndex - 2) * that.wrapperHeight)
+                  })
+                }
               } else {
-                $("#base-slide-list .base-slide-item:last").remove()
-                $(".base-slide-item").each(function () {
-                  $(this).css('top', (that.currentSlideItemIndex - 1) * that.wrapperHeight)
-                })
-                let item = this.list[this.currentSlideItemIndex - 1]
-                let s = $(this.getInsEl(item, this.currentSlideItemIndex - 1)).css('top', (this.currentSlideItemIndex - 1) * this.wrapperHeight)
-                $('#base-slide-list').prepend(s)
+                if (this.currentSlideItemIndex > 1) {
+                  let item = this.list[this.currentSlideItemIndex - 2]
+                  this.slideList.prepend($(this.getInsEl(item, this.currentSlideItemIndex - 2))[0])
+                  $("#base-slide-list .base-slide-item:last").remove()
+                  $(".base-slide-item").each(function () {
+                    $(this).css('top', (that.currentSlideItemIndex - 2) * that.wrapperHeight)
+                  })
+                }
               }
             } else {
-              let item = this.list[this.currentSlideItemIndex + 1]
-              console.log('this.list[this.currentSlideItemIndex + 1]', item)
-              this.slideList.appendChild(this.getInsEl(item, this.currentSlideItemIndex + 1))
+              if (this.isDrawDown) {
+                let item = this.list[this.currentSlideItemIndex + 2]
+                this.slideList.appendChild(this.getInsEl(item, this.currentSlideItemIndex + 2))
+              }
             }
             this.checkChildren()
           }
