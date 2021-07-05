@@ -151,14 +151,14 @@ export default {
       isCommenting: false,
       isSharing: false,
       videoActiveIndex: 0,
-      render: (item, itemIndex, slideItemIndex) => {
+      render: (item, itemIndex) => {
         return (
             <div className="base-slide-item" data-index={itemIndex}>
               <Video1 disabled={itemIndex !== 0}
                       video={item}
                       index={itemIndex}
-                      onShowShare={this.t}
-                      onVideoTest={this.t}
+                      onShowComments={e => this.isCommenting = true}
+                      onShowShare={e => this.isSharing = true}
                       v-model={[this.videos[itemIndex], 'video']}
               />
             </div>
@@ -230,7 +230,8 @@ export default {
             comments: 666,
             shared: 999,
             duration: 99
-          },].map(v => {
+          },
+        ].map(v => {
           this.videos.push(v)
         })
 
@@ -243,11 +244,6 @@ export default {
   },
   methods: {
     t(e) {
-      console.log(this.videoActiveIndex)
-      this.$refs.ssss.update(e.index)
-      // console.log(this.videos)
-      // this.isSharing = !this.isSharing
-      // console.log(111)
       console.log(e)
     },
 

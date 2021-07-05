@@ -29,23 +29,23 @@
             </div>
             <div class="love mb15p" @click.stop="loved($event)">
               <div>
-                <img src="../assets/img/icon/love.svg" class="love-image" v-if="!video.isLoved">
+                <img src="../assets/img/icon/love.svg" class="love-image" v-if="!lVideo.isLoved">
                 <img src="../assets/img/icon/loved.svg" class="love-image" v-else>
                 <!--                <transition name="love">-->
                 <!--                </transition>-->
                 <!--                <transition name="loved">-->
                 <!--                </transition>-->
               </div>
-              <span>{{ video.loves }}</span>
+              <span>{{ lVideo.loves }}</span>
             </div>
-            <!--            <div class="message mb15p" @click.stop="$emit('showComments')">-->
-            <div class="message mb15p" @click.stop="showComment">
+            <div class="message mb15p" @click.stop="$emit('showComments')">
+              <!--            <div class="message mb15p" @click.stop="showComment">-->
               <img src="../assets/img/icon/message.svg" alt="" class="message-image">
-              <span>{{ video.comments }}</span>
+              <span>{{ lVideo.comments }}</span>
             </div>
             <div v-if="!isMy" class="share mb35p" @click.stop="$emit('showShare')">
               <img src="../assets/img/icon/share.svg" alt="" class="share-image">
-              <span>{{ video.shared }}</span>
+              <span>{{ lVideo.shared }}</span>
             </div>
             <div v-else class="share mb35p" @click.stop="$emit('showShare')">
               <img src="../assets/img/icon/share.svg" alt="" class="share-image">
@@ -192,7 +192,8 @@ export default {
       point: null,
       isMove: false,
       currentVideoId: 'a' + Date.now(),
-      test: [1, 2]
+      test: [1, 2],
+      lVideo: this.video
     }
   },
   mounted() {
@@ -215,10 +216,10 @@ export default {
         video.removeEventListener('timeupdate', fun)
       }
     })
-    video.addEventListener('play', e=>{
+    video.addEventListener('play', e => {
       this.isPlaying = true
     })
-    video.addEventListener('pause', e=>{
+    video.addEventListener('pause', e => {
       this.isPlaying = false
     })
   },
@@ -272,12 +273,8 @@ export default {
     },
 
     loved(e, index) {
-      // console.log(e)
-      // let temp = this.$clone(this.video)
-      let temp = globalMethods.$clone(this.video)
-      temp.isLoved = !temp.isLoved
-      this.$emit('update:video', temp)
-      this.$emit('videoTest', {item: temp, index: this.index})
+      this.lVideo.isLoved = !this.lVideo.isLoved
+      this.$emit('update:video', this.lVideo)
     },
     move(e) {
       this.isMove = true
