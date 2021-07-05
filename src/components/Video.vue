@@ -200,6 +200,27 @@ export default {
     this.width = document.body.clientWidth
     this.line = this.$refs.line
     this.point = this.$refs.point
+    let video = this.$refs.video
+    video.currentTime = 0
+    let fun = e => {
+      this.currentTime = Math.ceil(e.target.currentTime)
+      this.pageX = this.currentTime * this.step
+    }
+    video.addEventListener('timeupdate', fun)
+    video.addEventListener('loadedmetadata', e => {
+      this.duration = video.duration
+      if (this.duration > 60) {
+        this.step = this.width / Math.floor(this.duration)
+      } else {
+        video.removeEventListener('timeupdate', fun)
+      }
+    })
+    video.addEventListener('play', e=>{
+      this.isPlaying = true
+    })
+    video.addEventListener('pause', e=>{
+      this.isPlaying = false
+    })
   },
   methods: {
     attention() {

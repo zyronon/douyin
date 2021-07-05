@@ -5,6 +5,7 @@
                       :virtual="true"
                       :list="videos"
                       :renderSlide="render"
+                      v-model:active-index="videoActiveIndex"
     >
     </SlideListVirtual>
     <Comment v-model:is-commenting="isCommenting"/>
@@ -149,23 +150,90 @@ export default {
       ],
       isCommenting: false,
       isSharing: false,
-      render: (item, index, list) => {
-        console.log(item)
-        let style = {}
-        if (index !== undefined) {
-          // style.top = (index - 1) * 812 + 'px'
-        }
+      videoActiveIndex: 0,
+      render: (item, itemIndex, slideItemIndex) => {
         return (
-            <div className="base-slide-item" data-index={index} style={style}>
-              <Video1 disabled={false}
+            <div className="base-slide-item" data-index={itemIndex}>
+              <Video1 disabled={itemIndex !== 0}
                       video={item}
-                      index={index}
+                      index={itemIndex}
                       onShowShare={this.t}
                       onVideoTest={this.t}
-                      v-model={[this.videos[index], 'video']}
+                      v-model={[this.videos[itemIndex], 'video']}
               />
             </div>
         )
+      }
+    }
+  },
+  watch: {
+    videoActiveIndex(newVal) {
+      console.log(newVal)
+      $(".base-slide-item").each(function () {
+        let video = $(this).find('video')
+        if ($(this).data('index') === newVal) {
+          video.trigger('play')
+        } else {
+          video.trigger('pause')
+          setTimeout(() => {
+            video[0].currentTime = 0
+          }, 100)
+        }
+      })
+      if (newVal === this.videos.length - 3) {
+        [{
+          videoUrl: mp40,
+          // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
+          videoPoster: src1Bg,
+          isLoved: true,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+          {
+            videoUrl: mp41,
+            // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
+            videoPoster: src1Bg,
+            isLoved: true,
+            loves: 1234,
+            comments: 666,
+            shared: 999,
+            duration: 99
+          },
+          {
+            videoUrl: mp42,
+            // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
+            videoPoster: src1Bg,
+            isLoved: false,
+            loves: 1234,
+            comments: 666,
+            shared: 999,
+            duration: 99
+          },
+          {
+            videoUrl: mp43,
+            // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
+            videoPoster: src1Bg,
+            isLoved: false,
+            loves: 1234,
+            comments: 666,
+            shared: 999,
+            duration: 99
+          },
+          {
+            videoUrl: mp44,
+            // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
+            videoPoster: src1Bg,
+            isLoved: false,
+            loves: 1234,
+            comments: 666,
+            shared: 999,
+            duration: 99
+          },].map(v => {
+          this.videos.push(v)
+        })
+
       }
     }
   },
@@ -175,6 +243,7 @@ export default {
   },
   methods: {
     t(e) {
+      console.log(this.videoActiveIndex)
       this.$refs.ssss.update(e.index)
       // console.log(this.videos)
       // this.isSharing = !this.isSharing
