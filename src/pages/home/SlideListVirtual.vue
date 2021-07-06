@@ -1,5 +1,15 @@
+<template>
+  <div id="base-slide-wrapper">
+    <div id="base-slide-list" ref="slideList"
+         :style="{'flex-direction':'column'}"
+         @touchstart="touchStart($event)"
+         @touchmove="touchMove($event)"
+         @touchend="touchEnd($event)">
+      <slot></slot>
+    </div>
+  </div>
+</template>
 <script>
-
 import * as Vue from 'vue'
 
 export default {
@@ -11,43 +21,15 @@ export default {
         return null
       }
     },
+    virtual: {
+      type: Boolean,
+      default: () => false
+    },
     list: {
       type: Array,
       default: () => {
         return []
       }
-    },
-    canMove: {
-      type: Boolean,
-      default: () => true
-    },
-    direction: {
-      type: String,
-      default: () => 'row'
-    },
-    showIndicator: {
-      type: Boolean,
-      default: () => false
-    },
-    indicatorFixed: {
-      type: Boolean,
-      default: () => false
-    },
-    indicatorType: {
-      type: String,
-      default: () => 'home'
-    },
-    useHomeLoading: {
-      type: Boolean,
-      default: () => false
-    },
-    virtual: {
-      type: Boolean,
-      default: () => false
-    },
-    total: {
-      type: Number,
-      default: () => 20
     },
     activeIndex: {
       type: Number,
@@ -57,7 +39,6 @@ export default {
   data() {
     return {
       loading: false,
-      wrapperWidth: 0,
       wrapperHeight: 0,
 
       startLocationX: 0,
@@ -70,22 +51,13 @@ export default {
       startTime: 0,
 
       currentSlideItemIndex: 0,
-      isDrawRight: true,
       isDrawDown: true,
-      isCanRightWiping: false,
       isCanDownWiping: false,
       isNeedCheck: true,
 
       slideList: null,
       slideItems: null,
-      indicatorRef: null,
-      slideItemsWidths: [],
       slideItemsHeights: [],
-      tabIndicatorRelationActiveIndexLefts: [],//指标和slideItem的index的对应left,
-      indicatorSpace: 0,//indicator之间的间距
-      toolbarStyleTransitionDuration: 0,
-      homeLoadingMoveYDistance: 0,//homeLoading专用的MoveYDistance，因为MoveYDistance是一直更新的，左右划的时候也在更新，会造成
-      //在往左划，但上面的toolbar开始往下移了，所以需要用一个专用的值来有条件的保存MoveYDistance，即只direction = row的时候
       appInsMap: new Map()
     }
   },
@@ -94,35 +66,17 @@ export default {
       // console.log('activeIndex')
       // this.changeIndex()
     },
-  },
-  render() {
-    // console.log('render')
-    // this.$console(this.list.slice(0, 2))
-    return (
-        <div id="base-slide-wrapper">
-          <div id="base-slide-list"
-               ref="slideList"
-               style={{flexDirection: 'column'}}
-               ontouchstart={this.touchStart}
-               ontouchmove={this.touchMove}
-               ontouchend={this.touchEnd}
-          >
-            {
-              // this.list.slice(0, 2).map((item, index) => this.renderSlide(item, index))
-            }
-          </div>
-        </div>
-    )
+    // list(){
+    //
+    // }
   },
   mounted: async function () {
-    await this.checkChildren(true)
+    this.slideList = this.$refs.slideList
     this.list.slice(0, 3).map((item, index) => {
-
       this.slideList.appendChild(this.getInsEl(item, index))
     })
-    // await this.checkChildren(true)
-    // this.showIndicator && this.initTabs()
-    // this.changeIndex(true)
+    await this.checkChildren()
+    this.changeIndex(true)
   },
   methods: {
     getInsEl(item, index) {
@@ -137,47 +91,19 @@ export default {
       this.appInsMap.set(index, app)
       return ins.$el
     },
-    t() {
-      alert(11)
-    },
-    changeIndex(init = false, index = null, e) {
+    changeIndex(init = false, index = null) {
       this.currentSlideItemIndex = index !== null ? index : this.activeIndex
       !init && this.$setCss(this.slideList, 'transition-duration', `300ms`)
-      if (this.direction === 'row') {
-        this.$setCss(this.slideList, 'transform', `translate3d(${-this.getWidth(this.currentSlideItemIndex) + this.moveXDistance}px, 0px, 0px)`)
-        if (this.showIndicator) {
-          this.$setCss(this.indicatorRef, 'left', this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px')
-        }
-      } else {
-        this.$setCss(this.slideList, 'transform', `translate3d(0px, ${-this.getHeight(this.currentSlideItemIndex) + this.moveYDistance}px, 0px)`)
-      }
+      this.$setCss(this.slideList, 'transform', `translate3d(0px, ${-this.getHeight(this.currentSlideItemIndex) + this.moveYDistance}px, 0px)`)
       this.$attrs['onUpdate:active-index'] && this.$emit('update:active-index', this.currentSlideItemIndex)
-
     },
-    initTabs() {
-      let tabs = this.$refs.tabs
-      this.indicatorRef = this.$refs.indicator
-      for (let i = 0; i < tabs.children.length; i++) {
-        let item = tabs.children[i]
-        this.tabWidth = this.$getCss(item, 'width')
-        this.tabIndicatorRelationActiveIndexLefts.push(
-            item.getBoundingClientRect().x - tabs.children[0].getBoundingClientRect().x + (this.indicatorType === 'home' ? this.tabWidth * 0.15 : 0))
-      }
-      this.indicatorSpace = this.tabIndicatorRelationActiveIndexLefts[1] - this.tabIndicatorRelationActiveIndexLefts[0]
-      if (this.showIndicator) {
-        this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
-        this.$setCss(this.indicatorRef, 'left', this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px')
-      }
-    },
-    checkChildren(init) {
+    checkChildren() {
       this.slideList = this.$refs.slideList
       this.slideItems = this.slideList.children
-      this.wrapperWidth = this.$getCss(this.slideList, 'width')
       this.wrapperHeight = this.$getCss(this.slideList, 'height')
 
       for (let i = 0; i < this.slideItems.length; i++) {
         let el = this.slideItems[i]
-        this.slideItemsWidths.push(this.$getCss(el, 'width'))
         this.slideItemsHeights.push(this.$getCss(el, 'height'))
       }
     },
@@ -191,7 +117,6 @@ export default {
       this.startTime = Date.now()
     },
     touchMove(e) {
-      if (!this.canMove) return;
       this.moveXDistance = e.touches[0].pageX - this.startLocationX
       this.moveYDistance = e.touches[0].pageY - this.startLocationY
 
@@ -230,28 +155,17 @@ export default {
       }
     },
     touchEnd(e) {
-      this.$attrs['onEnd'] && this.$emit('end')
-      if (this.useHomeLoading) {
-        if (this.homeLoadingMoveYDistance > 60) {
-          this.getData()
-        }
-        this.toolbarStyleTransitionDuration = 300
-        this.homeLoadingMoveYDistance = 0
-      }
-
       if (this.isCanDownWiping) {
         this.$setCss(this.slideList, 'transition-duration', `300ms`)
-        this.showIndicator && this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
         let endTime = Date.now()
         let gapTime = endTime - this.startTime
 
         if (this.currentSlideItemIndex === 0 && !this.isDrawDown) return
-        //禁止在最后页面的时候，向右划
 
         if (this.virtual) {
-          if (this.currentSlideItemIndex === this.list.length - 1 && this.isDrawDown) return
+          if (this.currentSlideItemIndex === this.list.length - 1 && this.isDrawDown) return this.$attrs['onEnd'] && this.$emit('end')
         } else {
-          if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawDown) return
+          if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawDown) return this.$attrs['onEnd'] && this.$emit('end')
         }
 
         this.$stopPropagation(e)
@@ -290,22 +204,20 @@ export default {
               }
             } else {
               if (this.isDrawDown) {
+                // let res = $(`#base-slide-list .base-slide-item[data-index=${this.currentSlideItemIndex + 2}]`)
+                // console.log(res)
+
                 let item = this.list[this.currentSlideItemIndex + 2]
                 this.slideList.appendChild(this.getInsEl(item, this.currentSlideItemIndex + 2))
               }
             }
             this.checkChildren()
           }
-          this.$emit('slide', {
-            currentSlideItemIndex: this.currentSlideItemIndex,
-            isDrawDown: this.isDrawDown,
-            isDrawRight: this.isDrawRight
-          })
         }
         this.$setCss(this.slideList, 'transform', `translate3d(0px, ${-this.getHeight(this.currentSlideItemIndex)}px,  0px)`)
+        this.$attrs['onUpdate:active-index'] && this.$emit('update:active-index', this.currentSlideItemIndex)
       }
       this.resetConfig()
-      this.$attrs['onUpdate:active-index'] && this.$emit('update:active-index', this.currentSlideItemIndex)
     },
     getData() {
       this.loading = true
@@ -315,7 +227,6 @@ export default {
     },
     resetConfig() {
       this.isCanDownWiping = false
-      this.isCanRightWiping = false
       this.isNeedCheck = true
       this.moveXDistance = 0
       this.moveYDistance = 0
@@ -339,14 +250,12 @@ export default {
       if (angle < 0.6) {
         //上下划
         this.isCanDownWiping = true
-        this.isCanRightWiping = false
         this.isNeedCheck = false
         return
       }
       if (angle > 5) {
         //左右划
         this.isCanDownWiping = false
-        this.isCanRightWiping = true
         this.isNeedCheck = false
       }
     }
