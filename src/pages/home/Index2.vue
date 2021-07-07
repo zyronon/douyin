@@ -37,7 +37,7 @@ export default {
   components: {SlideListVirtual, Video1, Comment, Share,},
   data() {
     return {
-      videos: [
+      videos1: [
         {
           // videoUrl: mp40,
           videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/0.mp4',
@@ -141,6 +141,118 @@ export default {
         {
           // videoUrl: mp410,
           videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/10.mp4',
+          videoPoster: src1Bg,
+          isLoved: false,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+      ],
+      videos: [
+        {
+          videoUrl: mp40,
+          // videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/0.mp4',
+          videoPoster: src1Bg,
+          isLoved: true,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          videoUrl: mp41,
+          // videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/1.mp4',
+          videoPoster: src1Bg,
+          isLoved: true,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          videoUrl: mp42,
+          // videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/2.mp4',
+          videoPoster: src1Bg,
+          isLoved: false,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          videoUrl: mp43,
+          // videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/3.mp4',
+          videoPoster: src1Bg,
+          isLoved: false,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          videoUrl: mp44,
+          // videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/4.mp4',
+          videoPoster: src1Bg,
+          isLoved: false,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          videoUrl: mp45,
+          // videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/5.mp4',
+          videoPoster: src1Bg,
+          isLoved: false,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          videoUrl: mp46,
+          // videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/6.mp4',
+          videoPoster: src1Bg,
+          isLoved: false,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          videoUrl: mp47,
+          // videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/7.mp4',
+          videoPoster: src1Bg,
+          isLoved: false,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          videoUrl: mp48,
+          // videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/8.mp4',
+          videoPoster: src1Bg,
+          isLoved: false,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          videoUrl: mp49,
+          // videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/9.mp4',
+          videoPoster: src1Bg,
+          isLoved: false,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          videoUrl: mp410,
+          // videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/10.mp4',
           videoPoster: src1Bg,
           isLoved: false,
           loves: 1234,
