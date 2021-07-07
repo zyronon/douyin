@@ -89,6 +89,7 @@ export default {
       const parent = document.createElement('div')
       const ins = app.mount(parent)
       this.appInsMap.set(index, app)
+      // this.appInsMap.set(index, ins)
       return ins.$el
     },
     changeIndex(init = false, index = null) {
@@ -185,8 +186,8 @@ export default {
                 if (this.currentSlideItemIndex > 2) {
                   let item = this.list[this.currentSlideItemIndex + 2]
                   this.slideList.appendChild($(this.getInsEl(item, this.currentSlideItemIndex + 2))[0])
-                  // this.appInsMap.get($("#base-slide-list .base-slide-item:first").data('index')).unmount()
-                  $("#base-slide-list .base-slide-item:first").remove()
+                  this.appInsMap.get($("#base-slide-list .base-slide-item:first").data('index')).unmount()
+                  // $("#base-slide-list .base-slide-item:first").remove()
                   $(".base-slide-item").each(function () {
                     $(this).css('top', (that.currentSlideItemIndex - 2) * that.wrapperHeight)
                   })
@@ -195,8 +196,8 @@ export default {
                 if (this.currentSlideItemIndex > 1) {
                   let item = this.list[this.currentSlideItemIndex - 2]
                   this.slideList.prepend($(this.getInsEl(item, this.currentSlideItemIndex - 2))[0])
-                  // this.appInsMap.get($("#base-slide-list .base-slide-item:last").data('index')).unmount()
-                  $("#base-slide-list .base-slide-item:last").remove()
+                  this.appInsMap.get($("#base-slide-list .base-slide-item:last").data('index')).unmount()
+                  // $("#base-slide-list .base-slide-item:last").remove()
                   $(".base-slide-item").each(function () {
                     $(this).css('top', (that.currentSlideItemIndex - 2) * that.wrapperHeight)
                   })
