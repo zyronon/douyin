@@ -70,15 +70,27 @@ export default {
       // console.log('activeIndex')
       // this.changeIndex()
     },
-    // list(){
-    //
-    // }
+    watchList: {
+      handler(newVal, oldVal) {
+        console.log(newVal)
+        console.log(oldVal)
+      },
+      deep: true
+    }
+  },
+  computed: {
+    //包装下，不然后watch里面监听到的新值和旧值是一样的，麻了
+    watchList() {
+      return [...this.list]
+    }
   },
   mounted: async function () {
-    this.slideList = this.$refs.slideList
-    this.list.slice(0, (this.defaultVirtualItemTotal + 1) / 2).map((item, index) => {
-      this.slideList.appendChild(this.getInsEl(item, index))
-    })
+    if (this.virtual) {
+      this.slideList = this.$refs.slideList
+      this.list.slice(0, (this.defaultVirtualItemTotal + 1) / 2).map((item, index) => {
+        this.slideList.appendChild(this.getInsEl(item, index))
+      })
+    }
     await this.checkChildren()
     this.changeIndex(true)
   },
@@ -192,19 +204,12 @@ export default {
               if (this.slideItems.length < this.defaultVirtualItemTotal) {
                 this.slideList.appendChild(this.getInsEl(this.list[addItemIndex], addItemIndex))
               }
-              // console.log('this.currentSlideItemIndex', this.currentSlideItemIndex)
-              // console.log('this.slideItems.length >= this.defaultVirtualItemTotal',this.slideItems.length >= this.defaultVirtualItemTotal)
-              // console.log('this.currentSlideItemIndex >= (this.defaultVirtualItemTotal + 1) / 2', this.currentSlideItemIndex >= (this.defaultVirtualItemTotal + 1) / 2)
-              // console.log('this.currentSlideItemIndex <= this.list.length - 3', this.currentSlideItemIndex <= this.list.length - 3)
-              // console.log(this.slideItems.length >= this.defaultVirtualItemTotal
-              //     && this.currentSlideItemIndex >= (this.defaultVirtualItemTotal + 1) / 2
-              //     && this.currentSlideItemIndex <= this.list.length - 3)
               if (this.slideItems.length >= this.defaultVirtualItemTotal
                   && this.currentSlideItemIndex >= (this.defaultVirtualItemTotal + 1) / 2
                   && this.currentSlideItemIndex <= this.list.length - 3
               ) {
                 let res = $(`#base-slide-list .base-slide-item[data-index=${addItemIndex}]`)
-                console.log(res)
+                // console.log(res)
                 if (res.length === 0) {
                   this.slideList.appendChild(this.getInsEl(this.list[addItemIndex], addItemIndex))
                   this.appInsMap.get($("#base-slide-list .base-slide-item:first").data('index')).unmount()
@@ -215,17 +220,16 @@ export default {
                 }
               }
             } else {
-              // if (this.currentSlideItemIndex > 1) {
-              //   let item = this.list[this.currentSlideItemIndex - 2]
-              //   this.slideList.prepend(this.getInsEl(item, this.currentSlideItemIndex - 2))
-              //   this.appInsMap.get($("#base-slide-list .base-slide-item:last").data('index')).unmount()
-              //   // $("#base-slide-list .base-slide-item:last").remove()
-              //   $(".base-slide-item").each(function () {
-              //     $(this).css('top', (that.currentSlideItemIndex - 2) * that.wrapperHeight)
-              //   })
-              // }
+              if (this.currentSlideItemIndex > 1 && this.currentSlideItemIndex <= this.list.length - 4) {
+                let addItemIndex = this.currentSlideItemIndex - 2
+                this.slideList.prepend(this.getInsEl(this.list[addItemIndex], addItemIndex))
+                this.appInsMap.get($("#base-slide-list .base-slide-item:last").data('index')).unmount()
+                // $("#base-slide-list .base-slide-item:last").remove()
+                $(".base-slide-item").each(function () {
+                  $(this).css('top', (that.currentSlideItemIndex - 2) * that.wrapperHeight)
+                })
+              }
             }
-
             this.checkChildren()
           }
         }

@@ -1,13 +1,20 @@
 <template>
   <div id="home-index">
     <SlideListVirtual direction="column"
-                      ref="ssss"
-                      :virtual="true"
+                      :virtual="false"
                       :list="videos"
                       :renderSlide="render"
                       v-model:active-index="videoActiveIndex"
                       @end="end"
     >
+      <SlideItem v-for="(item,index)  of videos">
+        <Video1
+            v-model:video="videos[index]"
+            @showComments="isCommenting = !isCommenting"
+            @showShare="isSharing = !isSharing"
+            @goUserInfo="baseActiveIndex = 1"
+        ></Video1>
+      </SlideItem>
     </SlideListVirtual>
     <Comment v-model:is-commenting="isCommenting"/>
     <Share v-model:is-sharing="isSharing" ref="share"/>
@@ -360,19 +367,20 @@ export default {
     t(e) {
       console.log(e)
     },
-    end(){
+    end() {
       console.log('end')
-      setTimeout(()=>{
-        [{
-          videoUrl: mp40,
-          // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-          videoPoster: src1Bg,
-          isLoved: true,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
+      setTimeout(() => {
+        [
+          {
+            videoUrl: mp40,
+            // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
+            videoPoster: src1Bg,
+            isLoved: true,
+            loves: 1234,
+            comments: 666,
+            shared: 999,
+            duration: 99
+          },
           {
             videoUrl: mp41,
             // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
@@ -416,7 +424,8 @@ export default {
         ].map(v => {
           this.videos.push(v)
         })
-      },5000)
+        console.log('ok')
+      }, 1000)
     }
 
   }
