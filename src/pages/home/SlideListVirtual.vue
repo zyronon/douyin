@@ -31,6 +31,10 @@ export default {
         return []
       }
     },
+    defaultVirtualItemTotal: {
+      type: Number,
+      default: () => 5
+    },
     activeIndex: {
       type: Number,
       default: () => 0
@@ -72,7 +76,7 @@ export default {
   },
   mounted: async function () {
     this.slideList = this.$refs.slideList
-    this.list.slice(0, 3).map((item, index) => {
+    this.list.slice(0, (this.defaultVirtualItemTotal + 1) / 2).map((item, index) => {
       this.slideList.appendChild(this.getInsEl(item, index))
     })
     await this.checkChildren()
@@ -173,45 +177,55 @@ export default {
         if (Math.abs(this.moveYDistance) < 20) gapTime = 1000
         if (Math.abs(this.moveYDistance) > (this.wrapperHeight / 3)) gapTime = 100
         if (gapTime < 150) {
+
           if (this.isDrawDown) {
             this.currentSlideItemIndex += 1
           } else {
             this.currentSlideItemIndex -= 1
           }
+
           // console.log(this.slideItems.length)
           let that = this
           if (this.virtual) {
-            if (this.slideItems.length > 4) {
-              if (this.isDrawDown) {
-                if (this.currentSlideItemIndex > 2) {
-                  let item = this.list[this.currentSlideItemIndex + 2]
-                  this.slideList.appendChild($(this.getInsEl(item, this.currentSlideItemIndex + 2))[0])
+            if (this.isDrawDown) {
+              let addItemIndex = this.currentSlideItemIndex + 2
+              if (this.slideItems.length < this.defaultVirtualItemTotal) {
+                this.slideList.appendChild(this.getInsEl(this.list[addItemIndex], addItemIndex))
+              }
+              // console.log('this.currentSlideItemIndex', this.currentSlideItemIndex)
+              // console.log('this.slideItems.length >= this.defaultVirtualItemTotal',this.slideItems.length >= this.defaultVirtualItemTotal)
+              // console.log('this.currentSlideItemIndex >= (this.defaultVirtualItemTotal + 1) / 2', this.currentSlideItemIndex >= (this.defaultVirtualItemTotal + 1) / 2)
+              // console.log('this.currentSlideItemIndex <= this.list.length - 3', this.currentSlideItemIndex <= this.list.length - 3)
+              // console.log(this.slideItems.length >= this.defaultVirtualItemTotal
+              //     && this.currentSlideItemIndex >= (this.defaultVirtualItemTotal + 1) / 2
+              //     && this.currentSlideItemIndex <= this.list.length - 3)
+              if (this.slideItems.length >= this.defaultVirtualItemTotal
+                  && this.currentSlideItemIndex >= (this.defaultVirtualItemTotal + 1) / 2
+                  && this.currentSlideItemIndex <= this.list.length - 3
+              ) {
+                let res = $(`#base-slide-list .base-slide-item[data-index=${addItemIndex}]`)
+                console.log(res)
+                if (res.length === 0) {
+                  this.slideList.appendChild(this.getInsEl(this.list[addItemIndex], addItemIndex))
                   this.appInsMap.get($("#base-slide-list .base-slide-item:first").data('index')).unmount()
                   // $("#base-slide-list .base-slide-item:first").remove()
                   $(".base-slide-item").each(function () {
                     $(this).css('top', (that.currentSlideItemIndex - 2) * that.wrapperHeight)
                   })
                 }
-              } else {
-                if (this.currentSlideItemIndex > 1) {
-                  let item = this.list[this.currentSlideItemIndex - 2]
-                  this.slideList.prepend($(this.getInsEl(item, this.currentSlideItemIndex - 2))[0])
-                  this.appInsMap.get($("#base-slide-list .base-slide-item:last").data('index')).unmount()
-                  // $("#base-slide-list .base-slide-item:last").remove()
-                  $(".base-slide-item").each(function () {
-                    $(this).css('top', (that.currentSlideItemIndex - 2) * that.wrapperHeight)
-                  })
-                }
               }
             } else {
-              if (this.isDrawDown) {
-                // let res = $(`#base-slide-list .base-slide-item[data-index=${this.currentSlideItemIndex + 2}]`)
-                // console.log(res)
-
-                let item = this.list[this.currentSlideItemIndex + 2]
-                this.slideList.appendChild(this.getInsEl(item, this.currentSlideItemIndex + 2))
-              }
+              // if (this.currentSlideItemIndex > 1) {
+              //   let item = this.list[this.currentSlideItemIndex - 2]
+              //   this.slideList.prepend(this.getInsEl(item, this.currentSlideItemIndex - 2))
+              //   this.appInsMap.get($("#base-slide-list .base-slide-item:last").data('index')).unmount()
+              //   // $("#base-slide-list .base-slide-item:last").remove()
+              //   $(".base-slide-item").each(function () {
+              //     $(this).css('top', (that.currentSlideItemIndex - 2) * that.wrapperHeight)
+              //   })
+              // }
             }
+
             this.checkChildren()
           }
         }
