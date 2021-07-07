@@ -235,7 +235,6 @@ export default {
     getHeight(index) {
       return this.slideItemsHeights.reduce((p, c, i) => {
         if (i < index) {
-          //最后一页，如果宽度不够屏幕宽度，那不能拉完
           if (this.slideItemsHeights.length - 1 === i + 1) {
             p = p + c - (this.wrapperHeight - this.slideItemsHeights[index])
           } else {
@@ -272,7 +271,6 @@ export default {
   height: 100%;
   overflow: hidden;
 
-
   #base-slide-list {
     display: flex;
     height: 100%;
@@ -280,119 +278,5 @@ export default {
     position: relative;
 
   }
-
-  .indicator-home {
-    position: fixed;
-    font-size: 1.6rem;
-    top: 0;
-    left: 0;
-    height: 60px;
-    z-index: 2;
-    width: 100%;
-    color: white;
-
-    .notice {
-      opacity: 0;
-      top: 0;
-      position: absolute;
-      width: 100vw;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .loading {
-      opacity: 0;
-      top: 20px;
-      right: 15px;
-      position: absolute;
-
-    }
-
-    .toolbar {
-      position: relative;
-      color: white;
-      width: 100%;
-      height: 100%;
-      box-sizing: border-box;
-      padding: 0 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      .tab-ctn {
-        width: 30%;
-        position: relative;
-
-        .tabs {
-          display: flex;
-          justify-content: space-between;
-          font-weight: bold;
-
-          .tab {
-            transition: color .3s;
-            color: gray;
-
-            &.active {
-              color: white;
-            }
-          }
-        }
-
-
-        .indicator {
-          //transition: left .3s;
-          position: absolute;
-          bottom: -8px;
-          height: 3px;
-          width: 20px;
-          background: #fff;
-          border-radius: 5px;
-        }
-      }
-    }
-  }
-
-  .indicator-me {
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 999;
-    background: $main-bg;
-
-    .tabs {
-      display: flex;
-      justify-content: space-between;
-      font-weight: bold;
-
-      .tab {
-        height: 40px;
-        width: 33%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: gray;
-        transition: color .3s;
-
-        &.active {
-          color: white;
-        }
-      }
-    }
-
-    .indicator {
-      height: 2px;
-      background: gold;
-      width: 33%;
-      position: relative;
-      transition: all .3s;
-    }
-  }
-
-  .indicator-me.fixed {
-    position: fixed;
-  }
-
 }
 </style>
