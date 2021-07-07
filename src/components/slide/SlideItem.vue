@@ -1,5 +1,5 @@
 <template>
-  <div id="base-slide-item" ref="slideItem">
+  <div class="base-slide-item">
     <slot></slot>
   </div>
 </template>
@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#base-slide-item {
+.base-slide-item {
   min-width: 100vw;
   min-height: 100vh;
   position: relative;
