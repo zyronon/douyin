@@ -72,8 +72,24 @@ export default {
     },
     watchList: {
       handler(newVal, oldVal) {
-        console.log(newVal)
-        console.log(oldVal)
+        console.log(this.currentSlideItemIndex)
+        let endLength = newVal.length
+        if (newVal.length - oldVal.length > (this.defaultVirtualItemTotal - 1) / 2) {
+          endLength = oldVal.length + (this.defaultVirtualItemTotal - 1) / 2
+        }
+        let that = this
+        newVal.slice(oldVal.length, endLength).map((item, index) => {
+          this.slideList.appendChild(this.getInsEl(item, oldVal.length + index))
+          this.appInsMap.get($("#base-slide-list .base-slide-item:first").data('index')).unmount()
+          // $("#base-slide-list .base-slide-item:first").remove()
+          $(".base-slide-item").each(function () {
+            $(this).css('top',
+                ((endLength - oldVal.length) > 1 ?
+                    (that.currentSlideItemIndex - 2) :
+                    (that.currentSlideItemIndex - 3)) *
+                that.wrapperHeight)
+          })
+        })
       },
       deep: true
     }
