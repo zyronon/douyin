@@ -162,7 +162,10 @@ export default {
         }
         // console.log('this.isCanDownWiping')
         this.$stopPropagation(e)
-        this.$setCss(this.slideList, 'transform', `translate3d(0px, ${-this.getHeight(this.currentSlideItemIndex) + this.moveYDistance}px, 0px)`)
+        this.$setCss(this.slideList, 'transform', `translate3d(0px, ${-this.getHeight(this.currentSlideItemIndex) +
+        this.moveYDistance +
+        (this.isDrawDown ? this.judgeValue : -this.judgeValue)
+        }px, 0px)`)
       }
     },
     touchEnd(e) {

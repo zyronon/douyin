@@ -1,5 +1,5 @@
 <template>
-  <div class="footer f16 ">
+  <div class="footer f16 " @touchmove.stop="false">
     <div class="button" @click="refresh()">
       <span v-if="!isRefresh" :class="{active:currentTab===1}">首页</span>
       <img v-else src="../assets/img/icon/refresh.png" alt="" class="refresh">

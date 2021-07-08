@@ -1,6 +1,6 @@
 <template>
   <div class="Me">
-    <SlideList style="width: 100vw;"
+    <SlideRowList style="width: 100vw;"
                @first="first"
                @end="end"
                v-model:active-index="baseActiveIndex"
@@ -58,7 +58,7 @@
           </div>
         </div>
         <div ref="content" style="margin-bottom: 60px;">
-          <SlideList
+          <SlideRowList
               :show-indicator="true"
               :indicator-fixed="indicatorFixed"
               indicator-type="me"
@@ -66,10 +66,8 @@
               v-model:active-index="contentIndex">
             <SlideItem>
               <div ref="tab-content1">
-                <div class="posters">
-                  <Posters></Posters>
-                  <div class="no-more">暂时没有更多了</div>
-                </div>
+                <Posters></Posters>
+                <div class="no-more">暂时没有更多了</div>
               </div>
             </SlideItem>
             <SlideItem>
@@ -84,7 +82,7 @@
                 <div class="no-more">暂时没有更多了</div>
               </div>
             </SlideItem>
-          </SlideList>
+          </SlideRowList>
         </div>
         <Footer v-bind:init-tab="5"/>
       </SlideItem>
@@ -194,7 +192,7 @@
           </div>
         </div>
       </SlideItem>
-    </SlideList>
+    </SlideRowList>
   </div>
 </template>
 <script>
@@ -219,7 +217,6 @@ export default {
         headerHeight: 0,
       },
       isMoreFunction: false,
-
     }
   },
   watch: {
