@@ -40,7 +40,7 @@
       <div class="indicator" ref="indicator"></div>
     </div>
     <div id="base-slide-list" ref="slideList"
-         :style="{'flex-direction':direction,marginTop:indicatorFixed?'42px':'0'}"
+         :style="{'flex-direction':'row',marginTop:indicatorFixed?'42px':'0'}"
          @touchstart="touchStart($event)"
          @touchmove="touchMove($event)"
          @touchend="touchEnd($event)">
@@ -59,10 +59,6 @@ export default {
       type: Boolean,
       default: () => true
     },
-    direction: {
-      type: String,
-      default: () => 'row'
-    },
     showIndicator: {
       type: Boolean,
       default: () => false
@@ -78,14 +74,6 @@ export default {
     useHomeLoading: {
       type: Boolean,
       default: () => false
-    },
-    virtual: {
-      type: Boolean,
-      default: () => false
-    },
-    total: {
-      type: Number,
-      default: () => 20
     },
     activeIndex: {
       type: Number,
@@ -130,7 +118,6 @@ export default {
     return {
       loading: false,
       wrapperWidth: 0,
-      wrapperHeight: 0,
 
       startLocationX: 0,
       startLocationY: 0,
@@ -152,7 +139,6 @@ export default {
       slideItems: null,
       indicatorRef: null,
       slideItemsWidths: [],
-      slideItemsHeights: [],
       tabIndicatorRelationActiveIndexLefts: [],//指标和slideItem的index的对应left,
       indicatorSpace: 0,//indicator之间的间距
       toolbarStyleTransitionDuration: 0,
@@ -162,7 +148,6 @@ export default {
   },
   watch: {
     activeIndex() {
-      // console.log('activeIndex')
       this.changeIndex()
     },
   },
@@ -180,7 +165,6 @@ export default {
         this.$setCss(this.indicatorRef, 'left', this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px')
       }
       this.$attrs['onUpdate:active-index'] && this.$emit('update:active-index', this.currentSlideItemIndex)
-
     },
     initTabs() {
       let tabs = this.$refs.tabs
@@ -198,16 +182,14 @@ export default {
       }
     },
     async checkChildren(init) {
-      await nextTick(() => {
-        this.slideList = this.$refs.slideList
-        this.slideItems = this.slideList.children
-        this.wrapperWidth = this.$getCss(this.slideList, 'width')
-        this.wrapperHeight = this.$getCss(this.slideList, 'height')
-        for (let i = 0; i < this.slideItems.length; i++) {
-          let el = this.slideItems[i]
-          this.slideItemsWidths.push(this.$getCss(el, 'width'))
-        }
-      })
+      this.slideList = this.$refs.slideList
+      this.slideItems = this.slideList.children
+      this.wrapperWidth = this.$getCss(this.slideList, 'width')
+      this.wrapperHeight = this.$getCss(this.slideList, 'height')
+      for (let i = 0; i < this.slideItems.length; i++) {
+        let el = this.slideItems[i]
+        this.slideItemsWidths.push(this.$getCss(el, 'width'))
+      }
     },
     touchStart(e) {
       this.$setCss(this.slideList, 'transition-duration', `0ms`)
@@ -228,7 +210,6 @@ export default {
 
       this.checkDirection()
 
-
       //me页面，需要获取向下滑动的时候
       if (!this.isDrawDown) {
         this.$attrs['onFirst'] && this.$emit('first', this.moveYDistance)
@@ -240,6 +221,12 @@ export default {
       //   y: {distance: this.moveYDistance, isDrawDown: this.isDrawDown},
       // })
 
+      //多重判断，this.isCanDownWiping 这个判断是为了，只能在一个方向上，进行页面更新，比如说，我斜着画，就会出现toolbar又在下移，
+      //slideitem同时在左右移的情况，所以不能直接使用moveYDistance
+      if (this.isCanDownWiping && this.useHomeLoading && !this.loading) {
+        this.homeLoadingMoveYDistance = this.moveYDistance > 0 ? this.moveYDistance : 0
+      }
+
       if (this.isCanRightWiping) {
         // //禁止在index=0页面的时候，向左划
         if (this.currentSlideItemIndex === 0 && !this.isDrawRight) return
@@ -247,17 +234,12 @@ export default {
         if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawRight) return
 
         this.$stopPropagation(e)
-        this.$setCss(this.slideList, 'transform', `translate3d(${-this.getWidth(this.currentSlideItemIndex) + this.moveXDistance}px, 0px, 0px)`)
+        this.$setCss(this.slideList, 'transform', `translate3d(${-this.getWidth(this.currentSlideItemIndex) +
+        this.moveXDistance +
+        (this.isDrawRight ? this.judgeValue : -this.judgeValue)}px, 0px, 0px)`)
         this.showIndicator && this.$setCss(this.indicatorRef, 'left',
             this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] -
             this.moveXDistance / (this.$store.state.bodyWidth / this.indicatorSpace) + 'px')
-      } else {
-
-        //多重判断，this.isCanDownWiping 这个判断是为了，只能在一个方向上，进行页面更新，比如说，我斜着画，就会出现toolbar又在下移，
-        //slideitem同时在左右移的情况，所以不能直接使用moveYDistance
-        if (this.useHomeLoading && !this.loading) {
-          this.homeLoadingMoveYDistance = this.moveYDistance > 0 ? this.moveYDistance : 0
-        }
       }
     },
     getData() {
@@ -332,12 +314,14 @@ export default {
       let angle = (Math.abs(this.moveXDistance) * 10) / (Math.abs(this.moveYDistance) * 10)
       if (angle < 0.6) {
         //上下划
+        this.isCanDownWiping = true
         this.isCanRightWiping = false
         this.isNeedCheck = false
         return
       }
       if (angle > 5) {
         //左右划
+        this.isCanDownWiping = false
         this.isCanRightWiping = true
         this.isNeedCheck = false
       }

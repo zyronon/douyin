@@ -14,6 +14,8 @@ import Footer from "./components/Footer";
 import router from "./router";
 import store from "./store";
 import globalMethods from './utils/global-methods'
+import SlideRowList from "./components/slide/SlideRowList";
+import SlideColumnList from "./components/slide/SlideColumnList";
 
 const mixin = {
   methods: {
@@ -25,6 +27,8 @@ app.provide('mitt', mitt())
 
 app.component('BaseHeader', BaseHeader)
 app.component('SlideList', SlideList)
+app.component('SlideRowList', SlideRowList)
+app.component('SlideColumnList', SlideColumnList)
 app.component('SlideItem', SlideItem)
 app.component('Video1', Video)
 app.component('Footer', Footer)

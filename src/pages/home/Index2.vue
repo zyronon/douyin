@@ -404,7 +404,7 @@ export default {
       isSharing: false,
       videoActiveIndex: 0,
       baseActiveIndex: 0,
-      activeIndex: 0,
+      activeIndex: 1,
       render: (item, itemIndex) => {
         return (
             <div className="base-slide-item video-slide-item" data-index={itemIndex}>
