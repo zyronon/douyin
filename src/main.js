@@ -8,6 +8,9 @@ import BaseHeader from "./components/BaseHeader.vue"
 import SlideList from "./components/slide/SlideList";
 import SlideItem from "./components/slide/SlideItem";
 import Video from "./components/Video";
+import Footer from "./components/Footer";
+
+
 import router from "./router";
 import store from "./store";
 import globalMethods from './utils/global-methods'
@@ -24,6 +27,7 @@ app.component('BaseHeader', BaseHeader)
 app.component('SlideList', SlideList)
 app.component('SlideItem', SlideItem)
 app.component('Video1', Video)
+app.component('Footer', Footer)
 app.mixin(mixin)
 app.use(router)
 app.use(store)
