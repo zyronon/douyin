@@ -1,20 +1,14 @@
 <template>
   <div id="home-index">
-    <SlideListVirtual direction="column"
-                      :virtual="false"
-                      :list="videos"
-                      :renderSlide="render"
-                      v-model:active-index="videoActiveIndex"
-                      @end="end"
+    <SlideListVirtual
+        ref="slideList"
+        direction="column"
+        :virtual="true"
+        :list="videos"
+        :renderSlide="render"
+        v-model:active-index="videoActiveIndex"
+        @end="end"
     >
-      <SlideItem v-for="(item,index)  of videos">
-        <Video1
-            v-model:video="videos[index]"
-            @showComments="isCommenting = !isCommenting"
-            @showShare="isSharing = !isSharing"
-            @goUserInfo="baseActiveIndex = 1"
-        ></Video1>
-      </SlideItem>
     </SlideListVirtual>
     <Comment v-model:is-commenting="isCommenting"/>
     <Share v-model:is-sharing="isSharing" ref="share"/>
@@ -302,16 +296,17 @@ export default {
       })
       // if (newVal >= this.videos.length - 3) {
       if (false) {
-        [{
-          videoUrl: mp40,
-          // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-          videoPoster: src1Bg,
-          isLoved: true,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
+        [
+          {
+            videoUrl: mp40,
+            // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
+            videoPoster: src1Bg,
+            isLoved: true,
+            loves: 1234,
+            comments: 666,
+            shared: 999,
+            duration: 99
+          },
           {
             videoUrl: mp41,
             // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
@@ -381,49 +376,51 @@ export default {
             shared: 999,
             duration: 99
           },
-          {
-            videoUrl: mp41,
-            // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-            videoPoster: src1Bg,
-            isLoved: true,
-            loves: 1234,
-            comments: 666,
-            shared: 999,
-            duration: 99
-          },
-          {
-            videoUrl: mp42,
-            // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-            videoPoster: src1Bg,
-            isLoved: false,
-            loves: 1234,
-            comments: 666,
-            shared: 999,
-            duration: 99
-          },
-          {
-            videoUrl: mp43,
-            // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-            videoPoster: src1Bg,
-            isLoved: false,
-            loves: 1234,
-            comments: 666,
-            shared: 999,
-            duration: 99
-          },
-          {
-            videoUrl: mp44,
-            // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-            videoPoster: src1Bg,
-            isLoved: false,
-            loves: 1234,
-            comments: 666,
-            shared: 999,
-            duration: 99
-          },
+          // {
+          //   videoUrl: mp41,
+          //   // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
+          //   videoPoster: src1Bg,
+          //   isLoved: true,
+          //   loves: 1234,
+          //   comments: 666,
+          //   shared: 999,
+          //   duration: 99
+          // },
+          // {
+          //   videoUrl: mp42,
+          //   // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
+          //   videoPoster: src1Bg,
+          //   isLoved: false,
+          //   loves: 1234,
+          //   comments: 666,
+          //   shared: 999,
+          //   duration: 99
+          // },
+          // {
+          //   videoUrl: mp43,
+          //   // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
+          //   videoPoster: src1Bg,
+          //   isLoved: false,
+          //   loves: 1234,
+          //   comments: 666,
+          //   shared: 999,
+          //   duration: 99
+          // },
+          // {
+          //   videoUrl: mp44,
+          //   // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
+          //   videoPoster: src1Bg,
+          //   isLoved: false,
+          //   loves: 1234,
+          //   comments: 666,
+          //   shared: 999,
+          //   duration: 99
+          // },
         ].map(v => {
           this.videos.push(v)
         })
+        this.$refs.slideList.checkChildren()
+
         console.log('ok')
       }, 1000)
     }
