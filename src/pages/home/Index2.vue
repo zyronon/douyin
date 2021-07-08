@@ -1,22 +1,158 @@
 <template>
   <div id="home-index">
-    <SlideListVirtual
-        ref="slideList"
-        direction="column"
-        :virtual="true"
-        :list="videos"
-        :renderSlide="render"
-        v-model:active-index="videoActiveIndex"
-        @end="end"
-    >
-    </SlideListVirtual>
+    <SlideRowList v-model:active-index="baseActiveIndex">
+      <SlideItem>
+        <SlideRowList
+            v-model:active-index="activeIndex"
+            :showIndicator="true"
+            :useHomeLoading="true"
+        >
+          <SlideItem>
+            <SlideColumnList>
+              <SlideItem style="background: tan">
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+                <p>111111111111</p>
+              </SlideItem>
+              <SlideItem style="background: red;">
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+                <p>222222222222</p>
+              </SlideItem>
+              <SlideItem style="background: yellow">
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+                <p>3333333333333</p>
+              </SlideItem>
+            </SlideColumnList>
+          </SlideItem>
+          <SlideItem>
+            <SlideColumnList
+                ref="slideList"
+                direction="column"
+                :virtual="true"
+                :list="videos"
+                :renderSlide="render"
+                v-model:active-index="videoActiveIndex"
+                @end="end"
+            >
+            </SlideColumnList>
+          </SlideItem>
+        </SlideRowList>
+        <Footer v-bind:init-tab="1"/>
+      </SlideItem>
+      <SlideItem style="font-size: 40px;overflow:auto;">
+        <div>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+          <p>详情页</p>
+        </div>
+      </SlideItem>
+    </SlideRowList>
     <Comment v-model:is-commenting="isCommenting"/>
     <Share v-model:is-sharing="isSharing" ref="share"/>
   </div>
 </template>
-
 <script>
-import SlideListVirtual from './SlideListVirtual'
 import src1Bg from '../../assets/img/poster/src1-bg.png'
 import Video1 from "../../components/Video.vue";
 import mp40 from "../../assets/video/0.mp4";
@@ -32,10 +168,12 @@ import mp49 from "../../assets/video/9.mp4";
 import mp410 from "../../assets/video/10.mp4";
 import Comment from "../../components/Comment";
 import Share from "../../components/Share";
+import SlideColumnList from "../../components/slide/SlideColumnList";
+import SlideRowList from "../../components/slide/SlideRowList";
 
 export default {
   name: "HomeIndex",
-  components: {SlideListVirtual, Video1, Comment, Share,},
+  components: {SlideColumnList, SlideRowList, Video1, Comment, Share,},
   data() {
     return {
       videos1: [
@@ -265,14 +403,17 @@ export default {
       isCommenting: false,
       isSharing: false,
       videoActiveIndex: 0,
+      baseActiveIndex: 0,
+      activeIndex: 0,
       render: (item, itemIndex) => {
         return (
-            <div className="base-slide-item" data-index={itemIndex}>
+            <div className="base-slide-item video-slide-item" data-index={itemIndex}>
               <Video1 disabled={itemIndex !== 0}
                       video={item}
                       index={itemIndex}
                       onShowComments={e => this.isCommenting = true}
                       onShowShare={e => this.isSharing = true}
+                      onGoUserInfo={e => this.baseActiveIndex = 1}
                       v-model={[this.videos[itemIndex], 'video']}
               />
             </div>
@@ -283,7 +424,7 @@ export default {
   watch: {
     videoActiveIndex(newVal) {
       // console.log(newVal)
-      $(".base-slide-item").each(function () {
+      $(".video-slide-item").each(function () {
         let video = $(this).find('video')
         if ($(this).data('index') === newVal) {
           video.trigger('play')
