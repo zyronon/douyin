@@ -14,6 +14,7 @@ export default {
   min-height: 100vh;
   position: relative;
 }
+
 #app {
   height: 100%;
   width: 100%;
@@ -62,5 +63,14 @@ export default {
 }
 
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 
 </style>

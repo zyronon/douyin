@@ -8,13 +8,13 @@
         </div>
         <SlideList key1="子" direction="column" v-model:active-index="videoActiveIndex">
           <SlideItem :style="itemTop" v-for="(item,index)  of videos">
-            <Video
+            <Video1
                 :disabled="videoActiveIndex !== addCount + index"
                 v-model:video="videos[index]"
                 @showComments="isCommenting = !isCommenting"
                 @showShare="isSharing = !isSharing"
                 @goUserInfo="baseActiveIndex = 1"
-            ></Video>
+            ></Video1>
           </SlideItem>
         </SlideList>
         <div class="share-to-friend" v-if="!isMy">
