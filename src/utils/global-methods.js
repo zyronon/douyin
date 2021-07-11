@@ -1,4 +1,7 @@
 export default {
+  $back(){
+    window.history.back()
+  },
   $stopPropagation(e) {
     e.stopImmediatePropagation()
     e.stopPropagation()

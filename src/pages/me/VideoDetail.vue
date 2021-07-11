@@ -1,9 +1,9 @@
 <template>
-  <div id="home-index">
+  <div id="video-detail">
     <SlideList key1="父" style="width: 100vw;" v-model:can-move="canMove">
       <SlideItem>
         <div class="search-ctn">
-          <img src="../../assets/img/icon/back.png" alt="" class="back">
+          <img src="../../assets/img/icon/back.png" alt="" class="back" @click="$back">
           <Search></Search>
         </div>
         <SlideList key1="子" direction="column" v-model:active-index="videoActiveIndex">
@@ -221,6 +221,118 @@ export default {
           duration: 99
         },
       ],
+      videos1: [
+        {
+          // videoUrl: mp40,
+          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/0.mp4',
+          videoPoster: src1Bg,
+          isLoved: true,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          // videoUrl: mp41,
+          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/1.mp4',
+          videoPoster: src1Bg,
+          isLoved: true,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          // videoUrl: mp42,
+          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/2.mp4',
+          videoPoster: src1Bg,
+          isLoved: false,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          // videoUrl: mp43,
+          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/3.mp4',
+          videoPoster: src1Bg,
+          isLoved: false,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          // videoUrl: mp44,
+          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/4.mp4',
+          videoPoster: src1Bg,
+          isLoved: false,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          // videoUrl: mp45,
+          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/5.mp4',
+          videoPoster: src1Bg,
+          isLoved: false,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          // videoUrl: mp46,
+          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/6.mp4',
+          videoPoster: src1Bg,
+          isLoved: false,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          // videoUrl: mp47,
+          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/7.mp4',
+          videoPoster: src1Bg,
+          isLoved: false,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          // videoUrl: mp48,
+          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/8.mp4',
+          videoPoster: src1Bg,
+          isLoved: false,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          // videoUrl: mp49,
+          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/9.mp4',
+          videoPoster: src1Bg,
+          isLoved: false,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+        {
+          // videoUrl: mp410,
+          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/10.mp4',
+          videoPoster: src1Bg,
+          isLoved: false,
+          loves: 1234,
+          comments: 666,
+          shared: 999,
+          duration: 99
+        },
+      ],
       addCount: 0,
       total: 10,
       baseActiveIndex: 0,
@@ -243,9 +355,10 @@ export default {
     // this.width = document.body.clientWidth
   },
   created() {
-
+    if (process.env.NODE_ENV !== 'development') {
+      this.videos = this.$clone(this.videos1)
+    }
   },
-
 }
 </script>
 
@@ -262,7 +375,12 @@ export default {
   transform: translate3d(0, 50vh, 0);
 }
 
-#home-index {
+#video-detail {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   height: 100%;
   width: 100%;
 
