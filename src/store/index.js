@@ -1,23 +1,24 @@
 import * as Vuex from "vuex";
+import enums from'../utils/enums'
 
 const store = Vuex.createStore({
   state: {
-    pageAnim: 'none',
-    playDuration: 60,
-    currentVideoId: null,
     bodyHeight: document.body.clientHeight,
-    bodyWidth: document.body.clientWidth
+    bodyWidth: document.body.clientWidth,
+    userinfo: {
+      school: {
+        name: 'asdasd',
+        department: null,
+        joinTime: null,
+        education: null,
+        displayType: enums.DISPLAY_TYPE.ALL,
+      }
+    }
   },
   mutations: {
-    setPageAnim(state, states) {
-      state.pageAnim = states
-    },
-    setPlayDuration(state, v) {
-      state.playDuration = v
-    },
-    setCurrentVideoId(state, v) {
-      state.currentVideoId = v
-    },
+    setUserinfo(store, val) {
+      store.userinfo = val
+    }
   }
 })
 

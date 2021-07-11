@@ -22,9 +22,11 @@ export default {
         return this.transitionName = ''
       }
       const routeDeep = ['/message', '/attention', '/home', '/me',
-        '/editUserInfo',
-        '/editUserInfoItem',
-        '/VideoDetail',
+        '/edit-userinfo',
+        '/edit-userinfo-item',
+        '/video-detail',
+        '/add-school',
+        '/choose-school',
       ];
       const toDepth = routeDeep.indexOf(to.path)
       const fromDepth = routeDeep.indexOf(from.path)
