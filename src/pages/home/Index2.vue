@@ -495,6 +495,11 @@ export default {
       }
     }
   },
+  created() {
+    if (process.env.NODE_ENV !== 'development') {
+      this.videos = this.$clone(this.videos1)
+    }
+  },
   mounted() {
     this.height = document.body.clientHeight
     this.width = document.body.clientWidth

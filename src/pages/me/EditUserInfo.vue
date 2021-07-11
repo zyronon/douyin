@@ -45,13 +45,19 @@
         </div>
       </div>
       <div class="row">
+        <input type="date" style="opacity: 0;left: 0;
+    position: absolute;
+    right: 0;
+    width: 98%;
+    height: 50px;"/>
+
         <div class="left">生日</div>
         <div class="right">
           <span>B</span>
           <img src="../../assets/img/icon/back.png" alt="">
         </div>
       </div>
-      <div class="row">
+      <div class="row" @click="$nav('/editUserInfoItem')">
         <div class="left">所在地</div>
         <div class="right">
           <span>B</span>
@@ -104,6 +110,13 @@ export default {
 <style scoped lang="scss">
 @import "../../assets/scss/index";
 
+.edit{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
 .title {
   display: flex;
   flex-direction: column;

@@ -135,7 +135,7 @@ export default {
     isMy: {
       type: Boolean,
       default: () => {
-        return true
+        return false
       }
     }
   },
