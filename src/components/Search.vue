@@ -1,13 +1,39 @@
 <template>
   <div class="search">
     <img src="../assets/img/icon/pause.svg" alt="">
-    <input type="text" placeholder="搜索">
+    <input type="text" :placeholder="placeholder" v-model="value">
+    <img v-if="modelValue.length" class="close" src="../assets/img/icon/close.svg" @click="clear">
   </div>
 </template>
 
 <script>
 export default {
-  name: "Search"
+  name: "Search",
+  props: {
+    placeholder: {
+      type: String,
+      default: '搜索'
+    },
+    modelValue: String,
+  },
+  methods: {
+    clear() {
+      this.value = ''
+    }
+  },
+  computed: {
+    value: {
+      get() {
+        return this.modelValue
+      },
+      set(val) {
+        this.$emit('update:modelValue', val)
+        if (!val) {
+          this.$emit('clear')
+        }
+      }
+    }
+  }
 }
 </script>
 
@@ -15,6 +41,7 @@ export default {
 @import "../assets/scss/color";
 
 .search {
+  position: relative;
   height: 36px;
   background: rgb(59, 59, 71);
   border-radius: 2px;
@@ -39,6 +66,12 @@ export default {
     &::-webkit-input-placeholder {
       color: $second-text-color;
     }
+  }
+
+  .close {
+    position: absolute;
+    right: 0;
+    width: 1rem;
   }
 }
 

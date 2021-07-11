@@ -18,7 +18,7 @@
         <div class="notice">我的名字</div>
         <div class="input-ctn" style="margin-bottom: 1rem;">
           <input type="text" v-model="name" placeholder="记得填写名字哦">
-          <img class="close" src="../../assets/img/icon/close.svg" alt="">
+          <img class="close" src="../../../assets/img/icon/close.svg" alt="">
         </div>
         <div class="num">{{ name.length }}/20</div>
       </div>
@@ -26,7 +26,7 @@
         <div class="notice">我的抖音号</div>
         <div class="input-ctn" style="margin-bottom: 1rem;">
           <input type="text" v-model="name">
-          <img class="close" src="../../assets/img/icon/close.svg" alt="">
+          <img class="close" src="../../../assets/img/icon/close.svg" alt="">
         </div>
         <div class="num">最多16个字，只允许包含字母、数字、下划线和点，30天内仅能修改一次</div>
       </div>
@@ -61,7 +61,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/scss/index";
+@import "../../../assets/scss/index";
 
 .edit-item {
   position: fixed;

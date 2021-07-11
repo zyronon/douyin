@@ -29,7 +29,7 @@
                 </div>
               </div>
               <div class="my-buttons ">
-                <div class="collect" @click="$nav('/editUserInfo')">
+                <div class="collect" @click="$nav('/edit-userinfo')">
                   <span class="mr5p">编辑资料</span>
                   <span class="f10p" style="color: darkgray">85%</span>
                 </div>

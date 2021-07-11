@@ -11,37 +11,37 @@
     <div class="userinfo">
       <div class="change-avatar">
         <div class="avatar-ctn" @click="changeAvatarDialog = true">
-          <img class="avatar" src="../../assets/img/icon/head-image.jpeg" alt="">
-          <img class="change" src="../../assets/img/icon/back.png" alt="">
+          <img class="avatar" src="../../../assets/img/icon/head-image.jpeg" alt="">
+          <img class="change" src="../../../assets/img/icon/back.png" alt="">
         </div>
         <span>点击更换头像</span>
       </div>
-      <div class="row" @click="$nav('/editUserInfoItem',{type:1})">
+      <div class="row" @click="$nav('/edit-userinfo-item',{type:1})">
         <div class="left">名字</div>
         <div class="right">
           <span>B</span>
-          <img src="../../assets/img/icon/back.png" alt="">
+          <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
-      <div class="row" @click="$nav('/editUserInfoItem',{type:2})">
+      <div class="row" @click="$nav('/edit-userinfo-item',{type:2})">
         <div class="left">抖音号</div>
         <div class="right">
           <span>B</span>
-          <img src="../../assets/img/icon/back.png" alt="">
+          <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
-      <div class="row" @click="$nav('/editUserInfoItem',{type:3})">
+      <div class="row" @click="$nav('/edit-userinfo-item',{type:3})">
         <div class="left">简介</div>
         <div class="right">
           <span>B</span>
-          <img src="../../assets/img/icon/back.png" alt="">
+          <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
       <div class="row" @click="changeSexDialog = true">
         <div class="left">性别</div>
         <div class="right">
           <span>B</span>
-          <img src="../../assets/img/icon/back.png" alt="">
+          <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
       <div class="row">
@@ -54,21 +54,21 @@
         <div class="left">生日</div>
         <div class="right">
           <span>B</span>
-          <img src="../../assets/img/icon/back.png" alt="">
+          <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
-      <div class="row" @click="$nav('/editUserInfoItem')">
+      <div class="row" @click="$nav('/edit-userinfo-item')">
         <div class="left">所在地</div>
         <div class="right">
           <span>B</span>
-          <img src="../../assets/img/icon/back.png" alt="">
+          <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
-      <div class="row">
+      <div class="row" @click="$nav('/add-school')">
         <div class="left">学校</div>
         <div class="right">
           <span>B</span>
-          <img src="../../assets/img/icon/back.png" alt="">
+          <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
     </div>
@@ -108,7 +108,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/scss/index";
+@import "../../../assets/scss/index";
 
 .edit{
   position: fixed;
@@ -173,7 +173,7 @@ export default {
     font-size: 1.4rem;
 
     &:active {
-      opacity: .5;
+      background: $active-main-bg;
     }
 
     .right {

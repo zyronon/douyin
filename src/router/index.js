@@ -10,8 +10,10 @@ import MyCard from "../pages/me/MyCard";
 import MyCollect from "../pages/me/MyCollect";
 import VideoDetail from "../pages/me/VideoDetail";
 import Index2 from "../pages/home/Index2";
-import EditUserInfo from "../pages/me/EditUserInfo";
-import EditUserInfoItem from "../pages/me/EditUserInfoItem";
+import EditUserInfo from "../pages/me/userinfo/EditUserInfo";
+import EditUserInfoItem from "../pages/me/userinfo/EditUserInfoItem";
+import AddSchool from "../pages/me/userinfo/AddSchool";
+import ChooseSchool from "../pages/me/userinfo/ChooseSchool";
 
 const routes = [
   // {path: '', component: Music},
@@ -21,13 +23,15 @@ const routes = [
   {path: '/attention', component: Attention},
   {path: '/message', component: Message},
   {path: '/me', component: Me},
-  {path: '/editUserInfo', component: EditUserInfo},
-  {path: '/editUserInfoItem', component: EditUserInfoItem},
+  {path: '/edit-userinfo', component: EditUserInfo},
+  {path: '/edit-userinfo-item', component: EditUserInfoItem},
   {path: '/music', component: Music},
-  {path: '/countryChoose', component: countryChoose},
-  {path: '/MyCard', component: MyCard},
-  {path: '/MyCollect', component: MyCollect},
-  {path: '/VideoDetail', component: VideoDetail},
+  {path: '/country-choose', component: countryChoose},
+  {path: '/my-card', component: MyCard},
+  {path: '/my-collect', component: MyCollect},
+  {path: '/video-detail', component: VideoDetail},
+  {path: '/add-school', component: AddSchool},
+  {path: '/choose-school', component: ChooseSchool},
 ]
 
 export default VueRouter.createRouter({
