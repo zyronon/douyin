@@ -5,7 +5,7 @@
         <span class="f16">添加学校</span>
       </template>
       <template v-slot:right>
-        <span class="f14">没有找到?</span>
+        <span class="f14" @click="$nav('/declare-school')">没有找到?</span>
       </template>
       <template v-slot:bottom>
         <div class="search-ctn">

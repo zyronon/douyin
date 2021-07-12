@@ -14,6 +14,7 @@ import EditUserInfo from "../pages/me/userinfo/EditUserInfo";
 import EditUserInfoItem from "../pages/me/userinfo/EditUserInfoItem";
 import AddSchool from "../pages/me/userinfo/AddSchool";
 import ChooseSchool from "../pages/me/userinfo/ChooseSchool";
+import DeclareSchool from "../pages/me/userinfo/DeclareSchool";
 
 const routes = [
   // {path: '', component: Music},
@@ -32,6 +33,7 @@ const routes = [
   {path: '/video-detail', component: VideoDetail},
   {path: '/add-school', component: AddSchool},
   {path: '/choose-school', component: ChooseSchool},
+  {path: '/declare-school', component: DeclareSchool},
 ]
 
 export default VueRouter.createRouter({
