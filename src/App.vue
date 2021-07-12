@@ -27,6 +27,7 @@ export default {
         '/video-detail',
         '/add-school',
         '/choose-school',
+        '/declare-school',
       ];
       const toDepth = routeDeep.indexOf(to.path)
       const fromDepth = routeDeep.indexOf(from.path)
