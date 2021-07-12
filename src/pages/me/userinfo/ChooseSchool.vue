@@ -5,7 +5,7 @@
         <span class="f16">添加学校</span>
       </template>
       <template v-slot:right>
-        <span class="f14" @click="$nav('/declare-school')">没有找到?</span>
+        <span class="f14" @click="$nav('/declare-school',{type:1})">没有找到?</span>
       </template>
       <template v-slot:bottom>
         <div class="search-ctn">
@@ -49,7 +49,7 @@
           <img src="../../../assets/img/icon/head-image.jpeg" alt="">
           <div class="title">搜索结果为空</div>
           <div class="sub-title">没有搜索到相关的内容</div>
-          <div class="btn">没有学校信息？去申报</div>
+          <div class="btn" @click="$nav('/declare-school')">没有学校信息？去申报</div>
         </div>
       </div>
     </div>
@@ -57,9 +57,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
 import Search from '../../../components/Search'
-import {inject} from "vue";
 
 export default {
   name: "ChooseSchool",
@@ -73,14 +71,7 @@ export default {
       schools: [],
       searchSchools: [],
       schoolName: '',
-      mitt: inject('mitt')
     }
-  },
-  computed: {
-    ...mapState({
-      userinfo: 'userinfo',
-      school: state => state.userinfo.school,
-    })
   },
   created() {
     for (let i = 0; i < 20; i++) {

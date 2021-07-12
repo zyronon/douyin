@@ -18,10 +18,10 @@
           <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
-      <div class="row" @click="$nav('/edit-userinfo-item',{type:1})">
+      <div class="row" @click="checkGo('/choose-department')">
         <div class="left">院系</div>
         <div class="right">
-          <span>{{ isEmpty(school.department) }}</span>
+          <span>{{ isEmpty(localSchool.department) }}</span>
           <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
@@ -64,11 +64,11 @@ export default {
     }
   },
   created() {
-    let val = localStorage.getItem('changeSchool')
-    if (val) {
-      this.localSchool.name = val
-      localStorage.clear()
-    }
+    let school = localStorage.getItem('changeSchool')
+    let department = localStorage.getItem('changeDepartment')
+    if (school) this.localSchool.name = school
+    if (department) this.localSchool.department = department
+    localStorage.clear()
   },
   computed: {
     isChanged() {
@@ -92,6 +92,10 @@ export default {
     isEmpty(val) {
       if (val) return val
       return '点击设置'
+    },
+    checkGo(path) {
+      if (!this.localSchool.name) return this.$notice('请先选择学校 ')
+      this.$nav(path)
     }
   }
 }

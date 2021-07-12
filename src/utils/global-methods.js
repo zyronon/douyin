@@ -1,5 +1,14 @@
 export default {
-  $back(){
+  $notice(val) {
+    let div = document.createElement('div')
+    div.classList.add('global-notice')
+    div.textContent = val
+    document.body.append(div)
+    setTimeout(() => {
+      document.body.removeChild(div)
+    }, 1000)
+  },
+  $back() {
     window.history.back()
   },
   $stopPropagation(e) {
