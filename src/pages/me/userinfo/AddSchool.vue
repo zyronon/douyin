@@ -55,6 +55,7 @@ import {mapState} from 'vuex'
 import enums from '../../../utils/enums'
 import {inject} from "vue";
 
+//TODO 年份选择器没做
 export default {
   name: "AddSchool",
   data() {

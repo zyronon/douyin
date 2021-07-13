@@ -1,4 +1,29 @@
+import * as Vue from "vue";
+import SelectDialog from "../components/SelectDialog";
+
 export default {
+  $showSelectDialog(sexList, cb) {
+    let remove = () => {
+      let parent = document.querySelector('.dialog-ctn')
+      parent.classList.replace('fade-in', 'fade-out')
+      setTimeout(() => {
+        parent.remove()
+      }, 300)
+    }
+    let tempCb = e => {
+      remove()
+      cb(e)
+    }
+    const app = Vue.createApp({
+      render() {
+        return <SelectDialog onCancel={remove} list={sexList} onOk={tempCb}/>
+      },
+    })
+    let parent = document.createElement('div')
+    parent.classList.add(...['dialog-ctn', 'fade-in'])
+    document.body.append(parent)
+    app.mount(parent)
+  },
   $notice(val) {
     let div = document.createElement('div')
     div.classList.add('global-notice')
