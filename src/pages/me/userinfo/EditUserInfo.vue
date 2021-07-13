@@ -10,7 +10,7 @@
     </BaseHeader>
     <div class="userinfo">
       <div class="change-avatar">
-        <div class="avatar-ctn" @click="changeAvatarDialog = true">
+        <div class="avatar-ctn" @click="showAvatarDialog">
           <img class="avatar" src="../../../assets/img/icon/head-image.jpeg" alt="">
           <img class="change" src="../../../assets/img/icon/back.png" alt="">
         </div>
@@ -37,7 +37,7 @@
           <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
-      <div class="row" @click="changeSexDialog = true">
+      <div class="row" @click="showSexDialog">
         <div class="left">性别</div>
         <div class="right">
           <span>B</span>
@@ -73,36 +73,39 @@
       </div>
     </div>
 
-    <transition name="fade">
-      <div v-if="changeAvatarDialog" class="change-dialog" @click="changeAvatarDialog = false">
-        <div class="content">
-          <div class="item">拍一张</div>
-          <div class="item">从相册选择</div>
-          <div class="item">查看大图</div>
-          <div class="item">取消</div>
-        </div>
-      </div>
-    </transition>
-    <transition name="fade">
-      <div v-if="changeSexDialog" class="change-dialog" @click="changeSexDialog = false">
-        <div class="content">
-          <div class="item">男</div>
-          <div class="item">女</div>
-          <div class="item">不展示</div>
-        </div>
-      </div>
-    </transition>
   </div>
 </template>
 
 <script>
 export default {
   name: "EditUserInfo",
+  components: {},
   data() {
     return {
-      changeAvatarDialog: false,
-      changeSexDialog: false,
+      sexList: [
+        {id: 1, name: '男'},
+        {id: 2, name: '女'},
+        {id: 3, name: '不展示'},
+      ],
+      avatarList: [
+        {id: 1, name: '拍一张'},
+        {id: 2, name: '从相册选择'},
+        {id: 3, name: '查看大图'},
+        {id: 4, name: '查看大图'},
+      ]
     }
+  },
+  methods: {
+    showSexDialog() {
+      this.$showSelectDialog(this.sexList, e => {
+        console.log(e)
+      })
+    },
+    showAvatarDialog() {
+      this.$showSelectDialog(this.avatarList, e => {
+        console.log(e)
+      })
+    },
   }
 }
 </script>
@@ -110,13 +113,14 @@ export default {
 <style scoped lang="scss">
 @import "../../../assets/scss/index";
 
-.edit{
+.edit {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
   top: 0;
 }
+
 .title {
   display: flex;
   flex-direction: column;
@@ -128,6 +132,7 @@ export default {
 }
 
 .userinfo {
+  padding-top: 6rem;
   color: white;
 
   .change-avatar {
@@ -191,9 +196,6 @@ export default {
   }
 }
 
-.mask {
-}
-
 .change-dialog {
   z-index: 10;
   position: absolute;
@@ -208,11 +210,13 @@ export default {
 
   .content {
     background: white;
-    width: 60%;
+    width: 80%;
     padding: .5rem 0;
+    border-radius: 2px;
     box-sizing: border-box;
 
     .item {
+      font-size: 1.5rem;
       padding: 1.5rem 2rem;
       transition: all .2s;
 
