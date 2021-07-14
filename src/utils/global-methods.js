@@ -1,7 +1,24 @@
 import * as Vue from "vue";
 import SelectDialog from "../components/SelectDialog";
+import ConfirmDialog from "../components/ConfirmDialog";
+import Loading from "../components/Loading";
 
 export default {
+  $showLoading() {
+    const app = Vue.createApp({
+      render() {
+        return <Loading/>
+      },
+    })
+    let parent = document.createElement('div')
+    parent.classList.add(...['dialog-ctn'])
+    document.body.append(parent)
+    app.mount(parent)
+  },
+  $hideLoading() {
+    let parent = document.querySelector('.dialog-ctn')
+    parent.remove()
+  },
   $showSelectDialog(sexList, cb) {
     let remove = () => {
       let parent = document.querySelector('.dialog-ctn')
@@ -17,6 +34,32 @@ export default {
     const app = Vue.createApp({
       render() {
         return <SelectDialog onCancel={remove} list={sexList} onOk={tempCb}/>
+      },
+    })
+    let parent = document.createElement('div')
+    parent.classList.add(...['dialog-ctn', 'fade-in'])
+    document.body.append(parent)
+    app.mount(parent)
+  },
+  $showConfirmDialog(title, okCb, cancelCb) {
+    let remove = () => {
+      let parent = document.querySelector('.dialog-ctn')
+      parent.classList.replace('fade-in', 'fade-out')
+      setTimeout(() => {
+        parent.remove()
+      }, 300)
+    }
+    let tempOkCb = e => {
+      remove()
+      okCb(e)
+    }
+    let tempCancelCb = e => {
+      remove()
+      cancelCb(e)
+    }
+    const app = Vue.createApp({
+      render() {
+        return <ConfirmDialog onCancel={tempCancelCb} onDismiss={remove} title={title} onOk={tempOkCb}/>
       },
     })
     let parent = document.createElement('div')
@@ -97,5 +140,10 @@ export default {
       str += s
     }
     return str
+  },
+  $sleep(duration) {
+    return new Promise((resolve, reject) => {
+      setTimeout(resolve, duration)
+    })
   }
 }

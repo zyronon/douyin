@@ -16,6 +16,7 @@ import AddSchool from "../pages/me/userinfo/AddSchool";
 import ChooseSchool from "../pages/me/userinfo/ChooseSchool";
 import DeclareSchool from "../pages/me/userinfo/DeclareSchool";
 import ChooseDepartment from "../pages/me/userinfo/ChooseDepartment";
+import DisplayType from "../pages/me/userinfo/DisplayType";
 
 const routes = [
   // {path: '', component: Music},
@@ -36,6 +37,7 @@ const routes = [
   {path: '/choose-school', component: ChooseSchool},
   {path: '/declare-school', component: DeclareSchool},
   {path: '/choose-department', component: ChooseDepartment},
+  {path: '/display-type', component: DisplayType},
 ]
 
 export default VueRouter.createRouter({

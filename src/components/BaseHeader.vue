@@ -28,7 +28,11 @@ export default {
   computed: {},
   methods: {
     back() {
-      window.history.back()
+      if (this.$attrs.onBack) {
+        this.$attrs.onBack()
+      } else {
+        this.$back()
+      }
     }
   }
 }
@@ -41,6 +45,7 @@ export default {
   width: 100%;
   position: fixed;
   background: $main-bg;
+
   .header {
     display: flex;
     justify-content: center;

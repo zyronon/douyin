@@ -1,7 +1,7 @@
 export default {
   DISPLAY_TYPE: {
-    ALL: 1,
-    SCHOOL: 2,
-    ME: 3,
+    ALL: 0,
+    SCHOOL: 1,
+    ME: 2,
   }
 }
