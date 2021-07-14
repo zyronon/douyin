@@ -29,6 +29,7 @@ export default {
         '/choose-school',
         '/choose-department',
         '/declare-school',
+        '/display-type',
       ];
       const toDepth = routeDeep.indexOf(to.path)
       const fromDepth = routeDeep.indexOf(from.path)

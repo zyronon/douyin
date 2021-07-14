@@ -1,12 +1,12 @@
 <template>
   <div class="school">
-    <BaseHeader>
+    <BaseHeader @back="back">
       <template v-slot:center>
         <span class="f16">添加学校</span>
       </template>
       <template v-slot:right>
         <div>
-          <span class="f16" :class="isChanged?'save-yes':'save-no'">保存</span>
+          <span class="f16" :class="isChanged?'save-yes':'save-no'" @click="save">保存</span>
         </div>
       </template>
     </BaseHeader>
@@ -25,21 +25,22 @@
           <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
-      <div class="row" @click="$nav('/edit-userinfo-item',{type:1})">
+      <div class="row" @click="showJoinTimeDialog">
         <div class="left">入学时间</div>
         <div class="right">
-          <span>{{ isEmpty(school.joinTime) }}</span>
+          <span>{{ isEmpty(localSchool.joinTime) }}</span>
           <img src="../../../assets/img/icon/back.png" alt="">
+          <div v-show="false" id="trigger1"></div>
         </div>
       </div>
-      <div class="row" @click="$nav('/edit-userinfo-item',{type:1})">
+      <div class="row" @click="showEducationDialog">
         <div class="left">学历</div>
         <div class="right">
-          <span>{{ isEmpty(school.education) }}</span>
+          <span>{{ isEmpty(localSchool.education) }}</span>
           <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
-      <div class="row" @click="$nav('/edit-userinfo-item',{type:1})">
+      <div class="row" @click="$nav('/display-type',{displayType : localSchool.displayType})">
         <div class="left">展示范围</div>
         <div class="right">
           <span>{{ displayType }}</span>
@@ -54,6 +55,9 @@
 import {mapState} from 'vuex'
 import enums from '../../../utils/enums'
 import {inject} from "vue";
+import MobileSelect from "mobile-select";
+import ConfirmDialog from "../../../components/ConfirmDialog";
+import Loading from "../../../components/Loading";
 
 //TODO 年份选择器没做
 export default {
@@ -61,14 +65,22 @@ export default {
   data() {
     return {
       mitt: inject('mitt'),
-      localSchool: this.$clone(this.$store.state.userinfo.school)
+      localSchool: this.$clone(this.$store.state.userinfo.school),
+      educationList: [
+        {id: 1, name: '专科'},
+        {id: 2, name: '本科'},
+        {id: 3, name: '硕士'},
+        {id: 4, name: '博士'},
+      ]
     }
   },
   created() {
     let school = localStorage.getItem('changeSchool')
     let department = localStorage.getItem('changeDepartment')
-    if (school) this.localSchool.name = school
-    if (department) this.localSchool.department = department
+    let displayType = localStorage.getItem('changeDisplayType')
+    if (school !== null) this.localSchool.name = school
+    if (department !== null) this.localSchool.department = department
+    if (displayType !== null) this.localSchool.displayType = ~~displayType
     localStorage.clear()
   },
   computed: {
@@ -80,9 +92,9 @@ export default {
       return this.school.displayType !== this.localSchool.displayType;
     },
     displayType() {
-      if (this.school.displayType === enums.DISPLAY_TYPE.ALL) return '公开可见'
-      if (this.school.displayType === enums.DISPLAY_TYPE.SCHOOL) return '校友可见'
-      if (this.school.displayType === enums.DISPLAY_TYPE.ME) return '仅自己可见'
+      if (this.localSchool.displayType === enums.DISPLAY_TYPE.ALL) return '公开可见'
+      if (this.localSchool.displayType === enums.DISPLAY_TYPE.SCHOOL) return '校友可见'
+      if (this.localSchool.displayType === enums.DISPLAY_TYPE.ME) return '仅自己可见'
     },
     ...mapState({
       userinfo: 'userinfo',
@@ -90,6 +102,25 @@ export default {
     })
   },
   methods: {
+    showJoinTimeDialog() {
+      new MobileSelect({
+        trigger: "#trigger1",
+        title: "学历",
+        wheels: [
+          {
+            data: Array.apply(null, {length: 50}).map((v, i) => new Date().getFullYear() - i)
+          },
+        ],
+        callback: (indexArr, data) => {
+          this.localSchool.joinTime = ~~data[0]
+        }
+      }).show()
+    },
+    showEducationDialog() {
+      this.$showSelectDialog(this.educationList, e => {
+        this.localSchool.education = e.name
+      })
+    },
     isEmpty(val) {
       if (val) return val
       return '点击设置'
@@ -97,6 +128,23 @@ export default {
     checkGo(path) {
       if (!this.localSchool.name) return this.$notice('请先选择学校 ')
       this.$nav(path)
+    },
+    back() {
+      if (this.isChanged) {
+        this.$showConfirmDialog('学校信息30天内只允许修改一次，是否保存修改', this.save, this.$back)
+      } else {
+        this.$back()
+      }
+    },
+    async save() {
+      if (!this.isChanged) return
+      this.$showLoading()
+      let data = {...this.userinfo, ...{school: this.localSchool}}
+      this.$store.commit('setUserinfo', data)
+      await this.$sleep(500)
+      this.$hideLoading()
+      this.$back()
+      this.$notice('修改成功')
     }
   }
 }
@@ -148,7 +196,6 @@ export default {
 
 }
 
-
 .save-yes {
   color: $primary-btn-color;
 }
@@ -156,4 +203,6 @@ export default {
 .save-no {
   color: $disable-primary-btn-color;
 }
+
+
 </style>

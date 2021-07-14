@@ -27,8 +27,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
-
 .SelectDialog {
   z-index: 10;
   position: absolute;

@@ -25,6 +25,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0",
+    "mobile-select": "^1.1.2",
     "node-sass": "^4.9.3",
     "sass-loader": "^7.1.0"
   },
