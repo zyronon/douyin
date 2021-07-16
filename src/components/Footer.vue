@@ -39,6 +39,7 @@ export default {
           this.$router.push('/attention')
           break
         case 3:
+          this.$nav('/publish')
           break
         case 4:
           this.$router.push('/message')

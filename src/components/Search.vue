@@ -14,7 +14,10 @@ export default {
       type: String,
       default: '搜索'
     },
-    modelValue: String,
+    modelValue: {
+      type: String,
+      default: ''
+    },
   },
   methods: {
     clear() {

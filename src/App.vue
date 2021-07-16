@@ -17,11 +17,11 @@ export default {
   // watch $route 决定使用哪种过渡
   watch: {
     '$route'(to, from) {
-      let noAnimation = ['/', '/home', '/me', '/attention', '/message']
+      let noAnimation = ['/', '/home', '/me', '/attention', '/message', '/publish']
       if (noAnimation.indexOf(from.path) !== -1 && noAnimation.indexOf(to.path) !== -1) {
         return this.transitionName = ''
       }
-      const routeDeep = ['/message', '/attention', '/home', '/me',
+      const routeDeep = ['/message', '/attention', '/home', '/me', '/publish',
         '/edit-userinfo',
         '/edit-userinfo-item',
         '/video-detail',
