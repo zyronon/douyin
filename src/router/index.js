@@ -17,6 +17,8 @@ import ChooseSchool from "../pages/me/userinfo/ChooseSchool";
 import DeclareSchool from "../pages/me/userinfo/DeclareSchool";
 import ChooseDepartment from "../pages/me/userinfo/ChooseDepartment";
 import DisplayType from "../pages/me/userinfo/DisplayType";
+import Publish from "../pages/home/Publish";
+import Test from "../pages/home/Test";
 
 const routes = [
   // {path: '', component: Music},
@@ -24,6 +26,8 @@ const routes = [
   {path: '/', component: Index2},
   {path: '/home', component: Index},
   {path: '/attention', component: Attention},
+  {path: '/publish', component: Publish},
+  {path: '/test', component: Test},
   {path: '/message', component: Message},
   {path: '/me', component: Me},
   {path: '/edit-userinfo', component: EditUserInfo},
