@@ -33,7 +33,7 @@
                   <span class="mr5p">编辑资料</span>
                   <span class="f10p" style="color: darkgray">85%</span>
                 </div>
-                <div class="add-friend">
+                <div class="add-friend" @click="$nav('/find-acquaintance')">
                   <img src="../../assets/img/icon/add.svg" alt="">
                   <span class="mr5p">熟人</span>
                 </div>

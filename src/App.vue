@@ -33,6 +33,11 @@ export default {
         '/choose-location',
         '/choose-province',
         '/choose-city',
+        '/find-acquaintance',
+        '/service-protocol',
+        '/address-list',
+        '',
+        '',
       ];
       const toDepth = routeDeep.indexOf(to.path)
       const fromDepth = routeDeep.indexOf(from.path)

@@ -22,6 +22,9 @@ import Test from "../pages/home/Test";
 import ChooseLocation from "../pages/me/userinfo/ChooseLocation";
 import ChooseProvince from "../pages/me/userinfo/ChooseProvince";
 import ChooseCity from "../pages/me/userinfo/ChooseCity";
+import FindAcquaintance from "../pages/people/FindAcquaintance";
+import ServiceProtocol from "../pages/other/ServiceProtocol";
+import AddressList from "../pages/people/AddressList";
 
 const routes = [
   // {path: '', component: Music},
@@ -48,6 +51,9 @@ const routes = [
   {path: '/choose-location', component: ChooseLocation},
   {path: '/choose-province', component: ChooseProvince},
   {path: '/choose-city', component: ChooseCity},
+  {path: '/find-acquaintance', component: FindAcquaintance},
+  {path: '/service-protocol', component: ServiceProtocol},
+  {path: '/address-list', component: AddressList},
 ]
 
 export default VueRouter.createRouter({

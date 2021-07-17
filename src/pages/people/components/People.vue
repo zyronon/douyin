@@ -1,0 +1,188 @@
+<template>
+  <div class="People">
+    <img src="../../../assets/img/icon/msg-icon1.png" alt="" class="head-image pull-left">
+    <div class="content">
+      <div class="left">
+        <div class="name">A</div>
+        <div class="detail">
+          该用户关注了你
+        </div>
+      </div>
+      <!--      -->
+      <div class="right" v-if="people.type === 1">
+        <div class="button">已关注</div>
+      </div>
+      <!--     粉丝 -->
+      <div class="right" v-if="people.type === 2">
+        <div class="button red">回关</div>
+        <img src="../../../assets/img/icon/close.svg" alt="">
+      </div>
+      <!--     互相关注 -->
+      <div class="right" v-if="people.type === 3">
+        <div class="button">发私信</div>
+        <img src="../../../assets/img/icon/close.svg" alt="" @click="showPopover = !showPopover">
+      </div>
+      <!--     粉丝 -->
+      <div class="right" v-if="people.type === 4">
+        <div class="button red">回关</div>
+        <div class="button">移除</div>
+      </div>
+      <!--     通讯录 -->
+      <div class="right" v-if="people.type === 5">
+        <div class="button red address-list">回关</div>
+      </div>
+    </div>
+    <transition name="scale">
+      <div class="popover" v-if="people.type === 3 && showPopover">
+        <div class="arrow"></div>
+        <div class="item">
+          <img src="../../../assets/img/icon/close.svg" alt="">
+          <span>设置备注名</span>
+        </div>
+        <div class="item">
+          <img src="../../../assets/img/icon/close.svg" alt="">
+          <span>从朋友中移除</span>
+        </div>
+      </div>
+    </transition>
+  </div>
+</template>
+<script>
+export default {
+  name: "People",
+  props: {
+    people: {
+      type: Object,
+      default: {}
+    }
+  },
+  data() {
+    return {
+      showPopover: false
+    }
+  },
+  computed: {},
+  created() {
+  },
+  methods: {}
+}
+</script>
+
+<style scoped lang="scss">
+@import "../../../assets/scss/index";
+
+.scale-enter-active,
+.scale-leave-active {
+  transition: all 0.3s ease;
+}
+
+.scale-enter-from,
+.scale-leave-to {
+  //transform: scale(0);
+  opacity: 0;
+}
+
+.People {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &.top {
+    background: #353a4f;
+  }
+
+
+  .head-image {
+    margin-left: 20px;
+    margin-right: 15px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+  }
+
+  .content {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+
+    .left {
+      .name {
+        font-size: 1.8rem;
+        color: white;
+      }
+
+      .detail {
+        color: $second-text-color;
+        font-size: 1.2rem;
+        margin-top: 4px;
+      }
+    }
+
+    .right {
+      margin-right: 20px;
+      display: flex;
+      align-items: center;
+
+      .button {
+        margin-left: .8rem;
+        padding: .5rem 2rem;
+        border-radius: .2rem;
+        background: rgb(58, 58, 67);
+
+        &.address-list {
+          padding: .7rem 3rem;
+        }
+
+        &.red {
+          background: $primary-btn-color;
+        }
+
+      }
+
+      img {
+        width: 1.2rem;
+        margin-left: 2rem;
+      }
+    }
+  }
+
+  .popover {
+    z-index: 9;
+    position: absolute;
+    bottom: -100%;
+    right: 1rem;
+    border-radius: .8rem;
+    background: $second-btn-color;
+
+    .item {
+      font-size: 1.4rem;
+      padding: 0 4rem 0 1rem;
+      display: flex;
+      height: 4rem;
+      align-items: center;
+      border-bottom: 1px solid $line-color;
+
+      &:nth-last-child(1) {
+        border-bottom: none;
+        color: $primary-btn-color;
+      }
+
+      img {
+        margin-right: 1rem;
+        width: 1.5rem;
+      }
+    }
+
+    .arrow {
+      width: 0;
+      height: 0;
+      border: .7rem solid transparent;
+      border-bottom: .7rem solid $second-btn-color;
+      position: absolute;
+      right: 1rem;
+      top: -1.4rem;
+    }
+  }
+}
+</style>
