@@ -78,10 +78,14 @@ export default {
     let school = localStorage.getItem('changeSchool')
     let department = localStorage.getItem('changeDepartment')
     let displayType = localStorage.getItem('changeDisplayType')
+    let joinTime = localStorage.getItem('changeJoinTime')
+    let education = localStorage.getItem('changeEducation')
     if (school !== null) this.localSchool.name = school
     if (department !== null) this.localSchool.department = department
     if (displayType !== null) this.localSchool.displayType = ~~displayType
-    localStorage.clear()
+    if (joinTime !== null) this.localSchool.joinTime = ~~joinTime
+    if (education !== null) this.localSchool.education = education
+    // localStorage.clear()
   },
   computed: {
     isChanged() {
@@ -112,12 +116,14 @@ export default {
           },
         ],
         callback: (indexArr, data) => {
+          localStorage.setItem('changeJoinTime', data[0])
           this.localSchool.joinTime = ~~data[0]
         }
       }).show()
     },
     showEducationDialog() {
       this.$showSelectDialog(this.educationList, e => {
+        localStorage.setItem('changeEducation', e.name)
         this.localSchool.education = e.name
       })
     },
@@ -131,8 +137,12 @@ export default {
     },
     back() {
       if (this.isChanged) {
-        this.$showConfirmDialog('学校信息30天内只允许修改一次，是否保存修改', this.save, this.$back)
+        this.$showConfirmDialog('学校信息30天内只允许修改一次，是否保存修改', this.save, () => {
+          localStorage.clear()
+          this.$back()
+        })
       } else {
+        localStorage.clear()
         this.$back()
       }
     },
@@ -143,6 +153,7 @@ export default {
       this.$store.commit('setUserinfo', data)
       await this.$sleep(500)
       this.$hideLoading()
+      localStorage.clear()
       this.$back()
       this.$notice('修改成功')
     }

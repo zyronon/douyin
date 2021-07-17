@@ -1,6 +1,6 @@
 <template>
   <div class="edit-item">
-    <BaseHeader>
+    <BaseHeader @back="back">
       <template v-slot:center>
         <span v-if="type === 1" class="f16">修改名字</span>
         <span v-if="type === 2" class="f16">修改抖音号</span>
@@ -8,7 +8,7 @@
       </template>
       <template v-slot:right>
         <div>
-          <span class="f16" :class="isChanged?'save-yes':'save-no'">保存</span>
+          <span class="f16" :class="isChanged?'save-yes':'save-no'" @click="save">保存</span>
         </div>
       </template>
     </BaseHeader>
@@ -17,16 +17,16 @@
       <div v-if="type === 1">
         <div class="notice">我的名字</div>
         <div class="input-ctn" style="margin-bottom: 1rem;">
-          <input type="text" v-model="name" placeholder="记得填写名字哦">
-          <img class="close" src="../../../assets/img/icon/close.svg" alt="">
+          <input type="text" v-model="localUserinfo.name" placeholder="记得填写名字哦">
+          <img class="close" src="../../../assets/img/icon/close.svg" alt="" @click="localUserinfo.name = ''">
         </div>
-        <div class="num">{{ name.length }}/20</div>
+        <div class="num">{{ localUserinfo.name.length }}/20</div>
       </div>
       <div class="row" v-if="type === 2">
         <div class="notice">我的抖音号</div>
         <div class="input-ctn" style="margin-bottom: 1rem;">
-          <input type="text" v-model="name">
-          <img class="close" src="../../../assets/img/icon/close.svg" alt="">
+          <input type="text" v-model="localUserinfo.account">
+          <img class="close" src="../../../assets/img/icon/close.svg" alt="" @click="localUserinfo.account = ''">
         </div>
         <div class="num">最多16个字，只允许包含字母、数字、下划线和点，30天内仅能修改一次</div>
       </div>
@@ -34,6 +34,7 @@
         <div class="notice">个人简介</div>
         <div class="textarea-ctn">
         <textarea name="" id="" cols="30" rows="10"
+                  v-model="localUserinfo.desc"
                   placeholder="填写个人简介更容易获得别人关注哦"></textarea>
         </div>
       </div>
@@ -45,17 +46,53 @@
 
 //TODO 1、数据变了后，保存按钮变亮；2、数据变了，点返回，弹窗是否确认
 
+import MobileSelect from "mobile-select";
+import {mapState} from "vuex";
+
 export default {
   name: "EditUserInfo",
   data() {
     return {
       type: 1,
-      name: 'B',
-      isChanged: false,
+      localUserinfo: this.$clone(this.$store.state.userinfo)
     }
+  },
+  computed: {
+    isChanged() {
+      if (this.type === 1) if (!this.localUserinfo.name) return false
+      if (this.type === 2) if (!this.localUserinfo.desc) return false
+      if (this.userinfo.name !== this.localUserinfo.name) return true
+      if (this.userinfo.desc !== this.localUserinfo.desc) return true
+      return this.userinfo.account !== this.localUserinfo.account;
+    },
+    ...mapState({
+      userinfo: 'userinfo',
+    })
   },
   created() {
     this.type = Number(this.$route.query.type)
+  },
+  methods: {
+    back() {
+      if (this.isChanged) {
+        this.$showConfirmDialog('是否保存修改', this.save, this.$back)
+      } else {
+        this.$back()
+      }
+    },
+    async save() {
+      if (!this.isChanged) return
+      if (this.type === 1) {
+        if (!this.localUserinfo.name) return this.$notice('名字不能为空')
+      }
+      this.$showLoading()
+      this.$store.commit('setUserinfo', this.localUserinfo)
+      await this.$sleep(500)
+      this.$hideLoading()
+      this.$back()
+      if (this.type === 3) return this.$notice('新签名保存成功')
+    },
+
   }
 }
 </script>
@@ -80,6 +117,7 @@ export default {
 
   .content {
     padding: 2rem;
+    padding-top: 7rem;
 
     .notice, .num {
       font-size: 1.2rem;
@@ -116,7 +154,7 @@ export default {
 
     .textarea-ctn {
       width: 100%;
-      background: rgb(100, 114, 158);
+      background: $active-main-bg;
       padding: 1.5rem;
       box-sizing: border-box;
       margin-top: 1rem;

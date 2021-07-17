@@ -1,11 +1,17 @@
 import * as Vuex from "vuex";
-import enums from'../utils/enums'
+import enums from '../utils/enums'
 
 const store = Vuex.createStore({
   state: {
     bodyHeight: document.body.clientHeight,
     bodyWidth: document.body.clientWidth,
     userinfo: {
+      name: '',
+      account: '',
+      desc: '123',
+      sex: '',
+      birthday: '',
+      location:'',
       school: {
         name: 'asdasd',
         department: null,
