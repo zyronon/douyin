@@ -20,7 +20,7 @@
       </SlideRowList>
     </div>
     <div class="float">
-      <img class="close" src="../../assets/img/icon/close-white.png" alt="">
+      <img class="close" src="../../assets/img/icon/close-white.png" alt="" @click="$back">
       <div class="choose-music">
         <img src="../../assets/img/icon/close-white.png" alt="">
         <span>选择音乐</span>
@@ -80,9 +80,7 @@ export default {
         console.log(PermissionDeniedError);
       })
     },
-
   },
-
 }
 </script>
 

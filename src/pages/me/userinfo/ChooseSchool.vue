@@ -28,6 +28,7 @@
         </div>
         <div v-else class="item">无法获取</div>
       </div>
+      <div class="line" style="width: calc(100% - 4rem);margin-left: 2rem;"></div>
       <div class="schools" v-if="!isSearch">
         <div class="item" v-for="item in schools"
              @click="setSchool(item)"
@@ -75,7 +76,7 @@ export default {
   },
   created() {
     for (let i = 0; i < 20; i++) {
-      this.nearby.push('附件大学' + i)
+      this.nearby.push('附近大学' + i)
       this.schools.push('所有大学' + i)
     }
   },
@@ -129,7 +130,6 @@ export default {
     padding-top: 12rem;
 
     .nearby {
-      border-bottom: 1px solid $line-color;
 
       .title {
         padding: 1rem 2rem;

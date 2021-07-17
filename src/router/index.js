@@ -19,6 +19,9 @@ import ChooseDepartment from "../pages/me/userinfo/ChooseDepartment";
 import DisplayType from "../pages/me/userinfo/DisplayType";
 import Publish from "../pages/home/Publish";
 import Test from "../pages/home/Test";
+import ChooseLocation from "../pages/me/userinfo/ChooseLocation";
+import ChooseProvince from "../pages/me/userinfo/ChooseProvince";
+import ChooseCity from "../pages/me/userinfo/ChooseCity";
 
 const routes = [
   // {path: '', component: Music},
@@ -42,6 +45,9 @@ const routes = [
   {path: '/declare-school', component: DeclareSchool},
   {path: '/choose-department', component: ChooseDepartment},
   {path: '/display-type', component: DisplayType},
+  {path: '/choose-location', component: ChooseLocation},
+  {path: '/choose-province', component: ChooseProvince},
+  {path: '/choose-city', component: ChooseCity},
 ]
 
 export default VueRouter.createRouter({

@@ -19,55 +19,50 @@
       <div class="row" @click="$nav('/edit-userinfo-item',{type:1})">
         <div class="left">名字</div>
         <div class="right">
-          <span>B</span>
+          <span>{{ isEmpty(userinfo.name) }}</span>
           <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
       <div class="row" @click="$nav('/edit-userinfo-item',{type:2})">
         <div class="left">抖音号</div>
         <div class="right">
-          <span>B</span>
+          <span>{{ isEmpty(userinfo.account) }}</span>
           <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
       <div class="row" @click="$nav('/edit-userinfo-item',{type:3})">
         <div class="left">简介</div>
         <div class="right">
-          <span>B</span>
+          <span>{{ isEmpty(userinfo.desc) }}</span>
           <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
       <div class="row" @click="showSexDialog">
         <div class="left">性别</div>
         <div class="right">
-          <span>B</span>
+          <span>{{ isEmpty(userinfo.sex) }}</span>
           <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
-      <div class="row">
-        <input type="date" style="opacity: 0;left: 0;
-    position: absolute;
-    right: 0;
-    width: 98%;
-    height: 50px;"/>
-
+      <div class="row" @click="showBirthdayDialog">
         <div class="left">生日</div>
         <div class="right">
-          <span>B</span>
+          <span>{{ isEmpty(userinfo.birthday) }}</span>
+          <div v-show="false" id="trigger1"></div>
           <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
-      <div class="row" @click="$nav('/edit-userinfo-item')">
+      <div class="row" @click="$nav('/choose-location')">
         <div class="left">所在地</div>
         <div class="right">
-          <span>B</span>
+          <span>{{ isEmpty(userinfo.location) }}</span>
           <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
       <div class="row" @click="$nav('/add-school')">
         <div class="left">学校</div>
         <div class="right">
-          <span>B</span>
+          <span>{{ isEmpty(userinfo.school.name) }}</span>
           <img src="../../../assets/img/icon/back.png" alt="">
         </div>
       </div>
@@ -77,6 +72,9 @@
 </template>
 
 <script>
+import MobileSelect from "mobile-select";
+import {mapState} from "vuex";
+
 export default {
   name: "EditUserInfo",
   components: {},
@@ -95,16 +93,54 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapState({
+      userinfo: 'userinfo',
+    })
+  },
   methods: {
+    isEmpty(val) {
+      if (val) return val
+      return '点击设置'
+    },
     showSexDialog() {
-      this.$showSelectDialog(this.sexList, e => {
-        console.log(e)
+      this.$showSelectDialog(this.sexList, async e => {
+        this.$showLoading()
+        await this.$sleep(500)
+        this.$store.commit('setUserinfo', {...this.userinfo, sex: e.name})
+        this.$hideLoading()
       })
     },
     showAvatarDialog() {
       this.$showSelectDialog(this.avatarList, e => {
         console.log(e)
       })
+    },
+    showBirthdayDialog() {
+      new MobileSelect({
+        trigger: "#trigger1",
+        title: "生日",
+        connector: "生日",
+        wheels: [
+          {
+            data: Array.apply(null, {length: 100}).map((v, i) => new Date().getFullYear() - i)
+          },
+          {
+            data: Array.apply(null, {length: 12}).map((v, i) => 12 - i)
+          },
+          {
+            data: Array.apply(null, {length: 31}).map((v, i) => 31 - i)
+          },
+        ],
+        callback: async (indexArr, data) => {
+          console.log(data)
+          this.$showLoading()
+          await this.$sleep(500)
+          this.$store.commit('setUserinfo', {...this.userinfo, birthday: data.join('-')})
+          this.$hideLoading()
+          // this.localSchool.joinTime = ~~data[0]
+        }
+      }).show()
     },
   }
 }
