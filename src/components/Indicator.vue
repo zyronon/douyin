@@ -99,6 +99,7 @@ export default {
 @import "../assets/scss/index";
 
 .indicator-ctn {
+  font-size: 1.4rem;
   width: 100%;
   height: 6rem;
   top: 0;
