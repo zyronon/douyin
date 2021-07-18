@@ -36,6 +36,11 @@ export default {
       type: Array,
       default: () => []
     },
+    //用于和slidList绑定，因为一个页面可能有多个slidList，但只有一个indicator组件
+    name: {
+      type: String,
+      default: () => ''
+    },
   },
   data() {
     return {
@@ -48,8 +53,8 @@ export default {
   computed: {},
   mounted() {
     this.initTabs()
-    bus.on('move', this.move)
-    bus.on('end', this.end)
+    bus.on(this.name + 'move', this.move)
+    bus.on(this.name + 'end', this.end)
   },
   methods: {
     changeIndex(index) {
@@ -95,10 +100,11 @@ export default {
 
 .indicator-ctn {
   width: 100%;
+  height: 6rem;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 999;
+  z-index: 2;
   background: $main-bg;
 
   .tabs {
@@ -107,7 +113,7 @@ export default {
     font-weight: bold;
 
     .tab {
-      height: 40px;
+      height: 5.5rem;
       width: 45%;
       display: flex;
       justify-content: center;

@@ -36,7 +36,7 @@ export default {
         '/find-acquaintance',
         '/service-protocol',
         '/address-list',
-        '',
+        '/video-detail',
         '',
       ];
       const toDepth = routeDeep.indexOf(to.path)

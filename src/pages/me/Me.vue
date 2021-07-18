@@ -59,12 +59,14 @@
         </div>
         <div ref="content" style="margin-bottom: 60px;">
           <Indicator
+              name="videoList"
               :fixed="indicatorFixed"
               tabStyleWidth="33%"
               :tabTexts="['作品','私密','喜欢']"
               v-model:active-index="contentIndex">
           </Indicator>
           <SlideRowList
+              name="videoList"
               @end="end"
               :indicator-fixed="indicatorFixed"
               v-model:active-index="contentIndex">

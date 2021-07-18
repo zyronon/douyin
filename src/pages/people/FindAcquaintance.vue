@@ -1,42 +1,69 @@
 <template>
   <div class="FindAcquaintance">
     <div class="header">
-      <img src="../../assets/img/icon/back.png" alt="" class="back">
+      <img src="../../assets/img/icon/back.png" alt="" class="back" @click="$back">
       <Indicator
+          style="width: 50%;"
           tabStyleWidth="40%"
           :tabTexts="['熟人列表','发现熟人']"
           v-model:active-index="currentSlideItemIndex">
       </Indicator>
-      <img src="../../assets/img/icon/back.png" alt="" class="option">
+      <img src="../../assets/img/icon/back.png" alt="" class="option" @click="moreOptionDialog = true">
     </div>
-    <SlideRowList v-model:active-index="currentSlideItemIndex">
+    <SlideRowList v-model:active-index="currentSlideItemIndex" :style="{opacity : moreOptionDialog ? .5:1}">
       <SlideItem>
-        <Search class="vue"></Search>
+        <Search placeholder="搜索用户备注或名字" class="mr20p ml20p mt10p"></Search>
+        <div class="title">我的好友（互相关注）</div>
         <People v-for="item in list " :people="item"></People>
+        <NoMore></NoMore>
       </SlideItem>
       <SlideItem>
-        <Search class="vue"></Search>
-        <Search class="vue" @click="findAddressListDialog = true"></Search>
+        <Search :key="1"></Search>
       </SlideItem>
     </SlideRowList>
-    <div v-if="findAddressListDialog" class="dialog find-address-list">
-      <div class="content">
-        <div class="body">
-          <div>
-            <img src="../../assets/img/icon/head-image.jpeg" alt="">
-          </div>
-          <span class="title">发现通讯录好友</span>
-          <span class="desc">
+
+
+    <transition name="fade">
+      <div v-if="findAddressListDialog" class="dialog find-address-list" @click="findAddressListDialog = false">
+        <div class="content" @click.stop="null">
+          <div class="body">
+            <div>
+              <img src="../../assets/img/icon/head-image.jpeg" alt="">
+            </div>
+            <span class="title">发现通讯录好友</span>
+            <span class="desc">
             授权通讯录，看看哪些好友在使用抖音。具体使用场景及撤回授权方式详见
             <span class="link" @click="$nav('/service-protocol')">《隐私政策》</span>
         </span>
-        </div>
-        <div class="footer">
-          <div @click="findAddressListDialog = false">暂时不要</div>
-          <div @click="$nav('/address-list')">发现好友</div>
+          </div>
+          <div class="footer">
+            <div @click="findAddressListDialog = false">暂时不要</div>
+            <div @click="$nav('/address-list')">发现好友</div>
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
+    <transition name="fade">
+      <Mask v-if="moreOptionDialog" @click="moreOptionDialog = false"></Mask>
+    </transition>
+    <transition name="from-bottom">
+      <div class="more-option-dialog" v-if="moreOptionDialog">
+        <div class="row">
+          <span>站外好友口令</span>
+        </div>
+        <div class="row">
+          <span>扫一扫加好友</span>
+        </div>
+        <div class="row" style="border-bottom: none;">
+          <span>面对面加好友</span>
+        </div>
+        <div class="space"></div>
+        <div class="row" @click="moreOptionDialog = false">
+          取消
+        </div>
+      </div>
+    </transition>
+
   </div>
 </template>
 <script>
@@ -54,6 +81,7 @@ export default {
   data() {
     return {
       findAddressListDialog: false,
+      moreOptionDialog: true,
       indicatorFixed: false,
       currentSlideItemIndex: 1,
       list: [
@@ -85,6 +113,16 @@ export default {
 <style scoped lang="scss">
 @import "../../assets/scss/index";
 
+.from-bottom-enter-active,
+.from-bottom-leave-active {
+  transition: transform 0.2s ease;
+}
+
+.from-bottom-enter-from,
+.from-bottom-leave-to {
+  transform: translate3d(0, 50vh, 0);
+}
+
 .FindAcquaintance {
   position: fixed;
   left: 0;
@@ -93,52 +131,26 @@ export default {
   top: 0;
   color: white;
 
-  .content {
-
-  }
-
   .header {
+    height: 6rem;
+    font-size: 1.4rem;
+    padding: 0 2rem;
     display: flex;
     justify-content: space-between;
-  }
+    align-items: center;
+    border-bottom: 1px solid $line-color;
 
-  .indicator-ctn {
-    width: 50%;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 999;
-    background: $main-bg;
-
-    .tabs {
-      display: flex;
-      justify-content: space-between;
-      font-weight: bold;
-
-      .tab {
-        height: 40px;
-        width: 45%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: gray;
-        transition: color .3s;
-
-        &.active {
-          color: white;
-        }
-      }
-    }
-
-    .indicator {
-      height: 2px;
-      background: gold;
-      width: 45%;
-      position: relative;
-      transition: all .3s;
+    img {
+      height: 2rem;
     }
   }
 
+  .title {
+    margin-left: 2rem;
+    margin-top: 2rem;
+    color: $second-text-color;
+    font-size: 1.2rem;
+  }
 
   .dialog {
     z-index: 10;
@@ -214,6 +226,37 @@ export default {
 
     }
 
+  }
+
+
+  .more-option-dialog {
+    z-index: 9;
+    position: fixed;
+    width: 100%;
+    max-height: 50vh;
+    overflow: auto;
+    bottom: 0;
+    background: white;
+    box-sizing: border-box;
+    border-radius: 5px 5px 0 0;
+
+    .space {
+      height: 1rem;
+      background: whitesmoke;
+    }
+
+    .row {
+      font-size: 1.6rem;
+      color: black;
+      background: white;
+      box-sizing: border-box;
+      padding: 1.8rem;
+      width: 100%;
+      //border-bottom: 1px solid ghostwhite;
+      border-bottom: 1px solid gainsboro;
+      text-align: center;
+
+    }
   }
 }
 </style>

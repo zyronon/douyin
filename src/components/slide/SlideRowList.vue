@@ -20,7 +20,6 @@
       </div>
       <div class="loading" :style="loadingStyle">AA</div>
     </div>
-    <slot name="indicator"></slot>
     <div id="base-slide-list" ref="slideList"
          :style="{'flex-direction':'row',marginTop:indicatorFixed?'42px':'0'}"
          @touchstart="touchStart($event)"
@@ -60,6 +59,10 @@ export default {
     activeIndex: {
       type: Number,
       default: () => 0
+    },
+    name: {
+      type: String,
+      default: () => ''
     },
   },
   computed: {
@@ -137,7 +140,6 @@ export default {
     await this.checkChildren(true)
     this.showIndicator && this.initTabs()
     this.changeIndex(true)
-    console.log(this.$slots.indicator)
   },
   methods: {
     changeIndex(init = false, index = null, e) {
@@ -215,7 +217,7 @@ export default {
         //禁止在最后页面的时候，向右划
         if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawRight) return
 
-        bus.emit('move', {
+        bus.emit(this.name + 'move', {
           x: {distance: this.moveXDistance, isDrawRight: this.isDrawRight},
         })
 
@@ -269,7 +271,7 @@ export default {
       this.resetConfig()
       this.$attrs['onUpdate:active-index'] && this.$emit('update:active-index', this.currentSlideItemIndex)
       this.$attrs['onEnd'] && this.$emit('end')
-      bus.emit('end', this.currentSlideItemIndex)
+      bus.emit(this.name + 'end', this.currentSlideItemIndex)
     },
     resetConfig() {
       this.isCanRightWiping = false
