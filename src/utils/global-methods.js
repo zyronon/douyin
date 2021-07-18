@@ -103,6 +103,7 @@ export default {
     return parseFloat(val)
   },
   $setCss(el, key, value) {
+    // console.log(value)
     if (key === 'transform') {
       //直接设置不生效
       el.style.webkitTransform = el.style.MsTransform = el.style.msTransform = el.style.MozTransform = el.style.OTransform = el.style.transform = value;

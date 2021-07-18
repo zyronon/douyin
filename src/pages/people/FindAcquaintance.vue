@@ -1,6 +1,15 @@
 <template>
   <div class="FindAcquaintance">
-    <SlideRowList>
+    <div class="header">
+      <img src="../../assets/img/icon/back.png" alt="" class="back">
+      <Indicator
+          tabStyleWidth="40%"
+          :tabTexts="['熟人列表','发现熟人']"
+          v-model:active-index="currentSlideItemIndex">
+      </Indicator>
+      <img src="../../assets/img/icon/back.png" alt="" class="option">
+    </div>
+    <SlideRowList v-model:active-index="currentSlideItemIndex">
       <SlideItem>
         <Search class="vue"></Search>
         <People v-for="item in list " :people="item"></People>
@@ -10,7 +19,6 @@
         <Search class="vue" @click="findAddressListDialog = true"></Search>
       </SlideItem>
     </SlideRowList>
-
     <div v-if="findAddressListDialog" class="dialog find-address-list">
       <div class="content">
         <div class="body">
@@ -34,16 +42,20 @@
 <script>
 import People from './components/People'
 import Search from '../../components/Search'
+import Indicator from '../../components/Indicator'
 
 export default {
   name: "FindAcquaintance",
   components: {
     People,
-    Search
+    Search,
+    Indicator
   },
   data() {
     return {
       findAddressListDialog: false,
+      indicatorFixed: false,
+      currentSlideItemIndex: 1,
       list: [
         {
           type: 1,
@@ -60,11 +72,11 @@ export default {
         {
           type: 5,
         },
-      ]
+      ],
     }
   },
   computed: {},
-  created() {
+  mounted() {
   },
   methods: {}
 }
@@ -84,6 +96,49 @@ export default {
   .content {
 
   }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .indicator-ctn {
+    width: 50%;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: $main-bg;
+
+    .tabs {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+
+      .tab {
+        height: 40px;
+        width: 45%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: gray;
+        transition: color .3s;
+
+        &.active {
+          color: white;
+        }
+      }
+    }
+
+    .indicator {
+      height: 2px;
+      background: gold;
+      width: 45%;
+      position: relative;
+      transition: all .3s;
+    }
+  }
+
 
   .dialog {
     z-index: 10;
