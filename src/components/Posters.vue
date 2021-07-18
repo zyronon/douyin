@@ -1,6 +1,6 @@
 <template>
   <div class="posters">
-    <div class="poster-item" v-for="i in list" @click="$nav('/VideoDetail')">
+    <div class="poster-item" v-for="i in list" @click="$nav('/video-detail')">
       <img class="poster" src="../assets/img/poster/2.jpg" alt="">
       <div class="num">
         <img class="love" src="../assets/img/icon/love.svg" alt="">

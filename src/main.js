@@ -16,6 +16,8 @@ import store from "./store";
 import globalMethods from './utils/global-methods'
 import SlideRowList from "./components/slide/SlideRowList";
 import SlideColumnList from "./components/slide/SlideColumnList";
+import Mask from "./components/Mask";
+import NoMore from "./components/NoMore";
 
 const mixin = {
   methods: {
@@ -32,6 +34,8 @@ app.component('SlideColumnList', SlideColumnList)
 app.component('SlideItem', SlideItem)
 app.component('Video1', Video)
 app.component('Footer', Footer)
+app.component('Mask', Mask)
+app.component('NoMore', NoMore)
 app.mixin(mixin)
 app.use(router)
 app.use(store)

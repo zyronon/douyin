@@ -2,7 +2,7 @@
   <div class="search">
     <img src="../assets/img/icon/pause.svg" alt="">
     <input type="text" :placeholder="placeholder" v-model="value">
-    <img v-if="modelValue.length" class="close" src="../assets/img/icon/close.svg" @click="clear">
+    <img v-if="value.length" class="close" src="../assets/img/icon/close.svg" @click="clear">
   </div>
 </template>
 
