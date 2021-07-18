@@ -1,9 +1,9 @@
 <template>
   <div class="Me">
     <SlideRowList style="width: 100vw;"
-               @first="first"
-               @end="end"
-               v-model:active-index="baseActiveIndex"
+                  @first="first"
+                  @end="end"
+                  v-model:active-index="baseActiveIndex"
     >
       <SlideItem style="overflow:auto;" :style="contentStyle" @scroll="scroll" @click="click">
         <div ref="desc" class="desc">
@@ -58,11 +58,15 @@
           </div>
         </div>
         <div ref="content" style="margin-bottom: 60px;">
+          <Indicator
+              :fixed="indicatorFixed"
+              tabStyleWidth="33%"
+              :tabTexts="['作品','私密','喜欢']"
+              v-model:active-index="contentIndex">
+          </Indicator>
           <SlideRowList
-              :show-indicator="true"
-              :indicator-fixed="indicatorFixed"
-              indicator-type="me"
               @end="end"
+              :indicator-fixed="indicatorFixed"
               v-model:active-index="contentIndex">
             <SlideItem>
               <div ref="tab-content1">
@@ -198,10 +202,11 @@
 <script>
 import Posters from '../../components/Posters'
 import Footer from "../../components/Footer";
+import Indicator from '../../components/Indicator'
 
 export default {
   name: "Me",
-  components: {  Posters, Footer},
+  components: {Posters, Footer, Indicator},
   data() {
     return {
       serviceEl: {},
@@ -459,6 +464,7 @@ export default {
   }
 
   ul {
+    width: 100%;
     height: 100%;
     overflow: auto;
     padding: 0;

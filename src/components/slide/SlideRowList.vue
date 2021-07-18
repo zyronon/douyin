@@ -20,25 +20,7 @@
       </div>
       <div class="loading" :style="loadingStyle">AA</div>
     </div>
-    <div class="indicator-me" :class="indicatorFixed?'fixed':''" v-if="showIndicator && indicatorType === 'me'">
-      <div class="tabs" ref="tabs">
-        <div class="tab"
-             :class="currentSlideItemIndex === 0?'active':''"
-             @click="changeIndex(false,0)">
-          <span>作品</span></div>
-        <div class="tab"
-             :class="currentSlideItemIndex === 1?'active':''"
-             @click.stop="changeIndex(false,1)">
-          <span>私密</span>
-        </div>
-        <div class="tab"
-             :class="currentSlideItemIndex === 2?'active':''"
-             @click="changeIndex(false,2,$event)">
-          <span>喜欢</span>
-        </div>
-      </div>
-      <div class="indicator" ref="indicator"></div>
-    </div>
+    <slot name="indicator"></slot>
     <div id="base-slide-list" ref="slideList"
          :style="{'flex-direction':'row',marginTop:indicatorFixed?'42px':'0'}"
          @touchstart="touchStart($event)"
@@ -50,7 +32,7 @@
 </template>
 
 <script>
-import {nextTick} from 'vue'
+import bus from "../../utils/bus";
 
 export default {
   name: "BaseSlideList",
@@ -155,6 +137,7 @@ export default {
     await this.checkChildren(true)
     this.showIndicator && this.initTabs()
     this.changeIndex(true)
+    console.log(this.$slots.indicator)
   },
   methods: {
     changeIndex(init = false, index = null, e) {
@@ -218,7 +201,6 @@ export default {
       //todo 太卡了，后面考虑用原生js来写
       // this.$attrs['onMove'] && this.$emit('move', {
       //   x: {distance: this.moveXDistance, isDrawRight: this.isDrawRight},
-      //   y: {distance: this.moveYDistance, isDrawDown: this.isDrawDown},
       // })
 
       //多重判断，this.isCanDownWiping 这个判断是为了，只能在一个方向上，进行页面更新，比如说，我斜着画，就会出现toolbar又在下移，
@@ -233,6 +215,10 @@ export default {
         //禁止在最后页面的时候，向右划
         if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawRight) return
 
+        bus.emit('move', {
+          x: {distance: this.moveXDistance, isDrawRight: this.isDrawRight},
+        })
+
         this.$stopPropagation(e)
         this.$setCss(this.slideList, 'transform', `translate3d(${-this.getWidth(this.currentSlideItemIndex) +
         this.moveXDistance +
@@ -242,14 +228,7 @@ export default {
             this.moveXDistance / (this.$store.state.bodyWidth / this.indicatorSpace) + 'px')
       }
     },
-    getData() {
-      this.loading = true
-      setTimeout(() => {
-        this.loading = false
-      }, 1500)
-    },
     touchEnd(e) {
-      this.$attrs['onEnd'] && this.$emit('end')
       if (this.useHomeLoading) {
         if (this.homeLoadingMoveYDistance > 60) {
           this.getData()
@@ -289,12 +268,20 @@ export default {
       }
       this.resetConfig()
       this.$attrs['onUpdate:active-index'] && this.$emit('update:active-index', this.currentSlideItemIndex)
+      this.$attrs['onEnd'] && this.$emit('end')
+      bus.emit('end', this.currentSlideItemIndex)
     },
     resetConfig() {
       this.isCanRightWiping = false
       this.isNeedCheck = true
       this.moveXDistance = 0
       this.moveYDistance = 0
+    },
+    getData() {
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+      }, 1500)
     },
     getWidth(index) {
       return this.slideItemsWidths.reduce((p, c, i) => {
@@ -417,47 +404,6 @@ export default {
       }
     }
   }
-
-  .indicator-me {
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 999;
-    background: $main-bg;
-
-    .tabs {
-      display: flex;
-      justify-content: space-between;
-      font-weight: bold;
-
-      .tab {
-        height: 40px;
-        width: 33%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: gray;
-        transition: color .3s;
-
-        &.active {
-          color: white;
-        }
-      }
-    }
-
-    .indicator {
-      height: 2px;
-      background: gold;
-      width: 33%;
-      position: relative;
-      transition: all .3s;
-    }
-  }
-
-  .indicator-me.fixed {
-    position: fixed;
-  }
-
 }
 
 </style>
