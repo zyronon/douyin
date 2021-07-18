@@ -328,6 +328,7 @@ export default {
 .bg-video {
   position: relative;
   background: black;
+  font-size: 1.4rem;
 
   video {
     width: 100%;

@@ -104,7 +104,7 @@
         <Footer v-bind:init-tab="1"/>
       </SlideItem>
       <SlideItem style="font-size: 40px;overflow:auto;">
-        <div>
+        <div v-if="false">
           <p>详情页</p>
           <p>详情页</p>
           <p>详情页</p>
@@ -146,6 +146,7 @@
           <p>详情页</p>
           <p>详情页</p>
         </div>
+        <Me></Me>
       </SlideItem>
     </SlideRowList>
     <Comment v-model:is-commenting="isCommenting"/>
@@ -170,10 +171,10 @@ import Comment from "../../components/Comment";
 import Share from "../../components/Share";
 import SlideColumnList from "../../components/slide/SlideColumnList";
 import SlideRowList from "../../components/slide/SlideRowList";
-
+import Me from '../me/Me'
 export default {
   name: "HomeIndex",
-  components: {SlideColumnList, SlideRowList, Video1, Comment, Share,},
+  components: {SlideColumnList, SlideRowList, Video1, Comment, Share,Me},
   data() {
     return {
       videos1: [

@@ -94,57 +94,57 @@
       </SlideItem>
       <SlideItem style="min-width: 70vw; overflow:auto;">
         <transition name="fade">
-          <ul v-if="!isMoreFunction">
-            <li @click="$nav('MyCard')">
+          <div class="ul" v-if="!isMoreFunction">
+            <div class="li" @click="$nav('MyCard')">
               <img src="../../assets/img/icon/card-gray.png" alt="">
               <span>我的订单</span>
-            </li>
-            <li @click="$nav('MyCard')">
+            </div>
+            <div class="li" @click="$nav('MyCard')">
               <img src="../../assets/img/icon/wallet-gray.png" alt="">
               <span>钱包</span>
-            </li>
+            </div>
             <div class="line"></div>
 
-            <li @click="$nav('MyCard')">
+            <div class="li" @click="$nav('MyCard')">
               <img src="../../assets/img/icon/card-gray.png" alt="">
               <span>我的收藏</span>
-            </li>
-            <li @click="$nav('MyCard')">
+            </div>
+            <div class="li" @click="$nav('MyCard')">
               <img src="../../assets/img/icon/card-gray.png" alt="">
               <span>观看历史</span>
-            </li>
-            <li @click="$nav('MyCard')">
+            </div>
+            <div class="li" @click="$nav('MyCard')">
               <img src="../../assets/img/icon/card-gray.png" alt="">
               <span>我的动态</span>
-            </li>
-            <li @click="$nav('MyCard')">
+            </div>
+            <div class="li" @click="$nav('MyCard')">
               <img src="../../assets/img/icon/card-gray.png" alt="">
               <span>创作者服务中心</span>
-            </li>
+            </div>
 
             <div class="line"></div>
 
-            <li @click="$nav('MyCard')">
+            <div class="li" @click="$nav('MyCard')">
               <img src="../../assets/img/icon/link-gray.png" alt="">
               <span>小程序</span>
-            </li>
-            <li @click="$nav('MyCard')">
+            </div>
+            <div class="li" @click="$nav('MyCard')">
               <img src="../../assets/img/icon/card-gray.png" alt="">
               <span>抖音公益</span>
-            </li>
-            <li @click="$nav('MyCard')">
+            </div>
+            <div class="li" @click="$nav('MyCard')">
               <img src="../../assets/img/icon/umbrella-gray.png" alt="">
               <span>未成年保护工具</span>
-            </li>
-            <li @click="$nav('MyCard')">
+            </div>
+            <div class="li" @click="$nav('MyCard')">
               <img src="../../assets/img/icon/card-gray.png" alt="">
               <span>我的客服</span>
-            </li>
-            <li @click="$nav('MyCard')">
+            </div>
+            <div class="li" @click="$nav('MyCard')">
               <img src="../../assets/img/icon/setting-gray.png" alt="">
               <span>设置</span>
-            </li>
-          </ul>
+            </div>
+          </div>
           <div v-else class="more-function">
             <div class="title">生活服务</div>
             <div class="functions">
@@ -427,6 +427,7 @@ export default {
       }
 
       .description {
+        font-size: 1.2rem;
         color: white;
         transform: translateY(-20px);
 
@@ -465,10 +466,12 @@ export default {
     }
   }
 
-  ul {
+  .ul {
+    font-size: 1.2rem;
     width: 100%;
     height: 100%;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     padding: 0;
     margin: 0;
     position: absolute;
@@ -482,13 +485,15 @@ export default {
       margin: 5px 20px;
     }
 
-    li {
+    .li {
+      box-sizing: border-box;
       background: $main-bg;
-      padding: 10px 20px;
+      width: 100%;
+      padding: 1rem 2rem;
       list-style: none;
       display: flex;
       align-items: center;
-      line-height: 40px;
+      line-height: 4rem;
 
       &:nth-last-child(1) {
         margin-bottom: 90px;
@@ -543,6 +548,7 @@ export default {
   }
 
   .button-ctn {
+    font-size: 1.4rem;
     z-index: 99999;
     width: 70vw;
     position: absolute;
@@ -551,10 +557,10 @@ export default {
 
     .button {
       box-sizing: border-box;
-      width: calc(70vw - 40px);
-      background: #686464;
-      margin: 20px;
-      height: 50px;
+      width: calc(100% - 4rem);
+      background: $second-btn-color;
+      margin: 2rem;
+      height: 4.5rem;
       border-radius: 3px;
       display: flex;
       align-items: center;
