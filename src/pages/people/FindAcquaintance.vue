@@ -197,6 +197,8 @@ export default {
   }
 
   .tab1 {
+    box-sizing: border-box;
+    padding: 2rem;
     .title {
       margin-left: 2rem;
       margin-top: 2rem;
@@ -266,6 +268,7 @@ export default {
       padding: 0 2rem 2rem 2rem;
 
       .tooltip {
+        font-size: 1.2rem;
         margin-top: 2rem;
         display: flex;
         align-items: center;
