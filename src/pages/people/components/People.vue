@@ -93,7 +93,6 @@ export default {
 
 
   .head-image {
-    margin-left: 20px;
     margin-right: 15px;
     width: 48px;
     height: 48px;
@@ -120,7 +119,6 @@ export default {
     }
 
     .right {
-      margin-right: 20px;
       display: flex;
       align-items: center;
 

@@ -541,10 +541,8 @@ export default {
           width: 25px;
           margin-bottom: 15px;
         }
-
       }
     }
-
   }
 
   .button-ctn {

@@ -8,10 +8,11 @@
         <span class="f14" @click="$nav('/declare-school',{type:1})">没有找到?</span>
       </template>
       <template v-slot:bottom>
-        <div class="search-ctn">
-          <Search placeholder="搜索大学名称" v-model="schoolName" @clear="isSearch = false"></Search>
-          <span class="search-btn" @click="search">搜索</span>
-        </div>
+        <Search class="mt1r mb1r ml2r mr2r" placeholder="搜索大学名称"
+                v-model="schoolName"
+                @clear="isSearch = false"
+                :is-show-text="true"
+                @notice="search"></Search>
       </template>
     </BaseHeader>
     <div class="content">
@@ -107,24 +108,6 @@ export default {
   color: white;
   overflow: auto;
 
-  .search-ctn {
-    background: $main-bg;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 1rem 2rem;
-    display: flex;
-    align-items: center;
-
-    .search {
-      flex: 1;
-    }
-
-    .search-btn {
-      font-size: 1.4rem;
-      margin-left: 2rem;
-      color: $primary-btn-color;
-    }
-  }
 
   .content {
     padding-top: 12rem;
