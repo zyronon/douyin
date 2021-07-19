@@ -1,7 +1,7 @@
 <template>
   <div class="FindAcquaintance">
     <div class="header">
-      <img src="../../assets/img/icon/back.png" alt="" class="back" @click="$back">
+      <img src="../../assets/img/icon/back.png" alt="" class="back" @click="back">
       <Indicator
           style="width: 50%;"
           tabStyleWidth="40%"
@@ -11,14 +11,44 @@
       <img src="../../assets/img/icon/back.png" alt="" class="option" @click="moreOptionDialog = true">
     </div>
     <SlideRowList v-model:active-index="currentSlideItemIndex" :style="{opacity : moreOptionDialog ? .5:1}">
-      <SlideItem>
+      <SlideItem class="tab1">
         <Search placeholder="搜索用户备注或名字" class="mr20p ml20p mt10p"></Search>
         <div class="title">我的好友（互相关注）</div>
         <People v-for="item in list " :people="item"></People>
         <NoMore></NoMore>
       </SlideItem>
-      <SlideItem>
-        <Search :key="1"></Search>
+      <SlideItem class="tab2">
+        <div class="mr2r ml2r mt1r">
+          <Search v-if="!isShowText" :is-show-text="false" @click="isShowText = true">
+            <img src="../../assets/img/icon/close.svg" style="width: 1rem;" @click.stop="t">
+          </Search>
+          <Search v-else v-model="searchKey" :is-show-text="true" @notice="search" @clear="isSearch = false"></Search>
+        </div>
+        <div class="no-search" v-if="!isShowText">
+          <div class="look-address-list" @click="findAddressListDialog = true">
+            <img class="left" src="../../assets/img/icon/head-image.jpeg" alt="">
+            <div class="right">
+              <div class="notice">
+                <div class="text1">查看通讯录朋友</div>
+                <div class="text2">看看谁在抖音</div>
+              </div>
+              <img src="../../assets/img/icon/back.png" alt="">
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="title">
+            朋友推荐
+            <img src="../../assets/img/icon/close.svg" style="width: 1rem;">
+          </div>
+          <People v-for="item in list " :people="item"></People>
+        </div>
+        <div class="is-search" v-else>
+          <div class="tooltip" v-if="searchKey && !isSearch">
+            <img src="../../assets/img/icon/close.svg" style="width: 1rem;">
+            搜索用户名字/抖音号：<span class="searchKey">{{ searchKey }}</span>
+          </div>
+          <People v-if="isSearch" v-for="item in list " :people="item"></People>
+        </div>
       </SlideItem>
     </SlideRowList>
 
@@ -81,8 +111,12 @@ export default {
   data() {
     return {
       findAddressListDialog: false,
-      moreOptionDialog: true,
+      moreOptionDialog: false,
       indicatorFixed: false,
+      isShowText: false,
+      isSearch: false,
+      searchKey: '',
+
       currentSlideItemIndex: 1,
       list: [
         {
@@ -106,7 +140,24 @@ export default {
   computed: {},
   mounted() {
   },
-  methods: {}
+  methods: {
+    t() {
+      console.log('scan')
+    },
+    async search() {
+      this.$showLoading()
+      await this.$sleep(500)
+      this.$hideLoading()
+      this.isSearch = true
+    },
+    back() {
+      if (this.isShowText) {
+        this.isShowText = false
+      } else {
+        this.$back()
+      }
+    }
+  }
 }
 </script>
 
@@ -145,11 +196,91 @@ export default {
     }
   }
 
-  .title {
-    margin-left: 2rem;
-    margin-top: 2rem;
-    color: $second-text-color;
-    font-size: 1.2rem;
+  .tab1 {
+    .title {
+      margin-left: 2rem;
+      margin-top: 2rem;
+      color: $second-text-color;
+      font-size: 1.2rem;
+    }
+  }
+
+  .tab2 {
+    .title {
+      display: flex;
+      align-items: center;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: $second-text-color;
+      font-size: 1.2rem;
+
+      img {
+        width: 1rem;
+      }
+    }
+
+    .no-search {
+      padding: 2rem;
+
+      .look-address-list {
+        margin: 0 2rem 2rem 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .left {
+          background: $second-btn-color;
+          border-radius: 50%;
+          padding: 1rem;
+          width: 2.4rem;
+          margin-right: 1.8rem;
+        }
+
+        .right {
+          flex: 1;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          img {
+            height: 2rem;
+          }
+
+          .notice {
+
+            .text1 {
+              font-size: 1.6rem;
+              margin-bottom: .5rem;
+            }
+
+            .text2 {
+              font-size: 1.2rem;
+              color: $second-text-color;
+            }
+          }
+        }
+      }
+    }
+
+    .is-search {
+      padding: 0 2rem 2rem 2rem;
+
+      .tooltip {
+        margin-top: 2rem;
+        display: flex;
+        align-items: center;
+        color: $second-text-color;
+
+        img {
+          margin-right: 1rem;
+          width: 1.5rem;
+        }
+
+        .searchKey {
+          color: yellow;
+        }
+      }
+    }
   }
 
   .dialog {
@@ -227,7 +358,6 @@ export default {
     }
 
   }
-
 
   .more-option-dialog {
     z-index: 9;
