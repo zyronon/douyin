@@ -25,6 +25,8 @@ import ChooseCity from "../pages/me/userinfo/ChooseCity";
 import FindAcquaintance from "../pages/people/FindAcquaintance";
 import ServiceProtocol from "../pages/other/ServiceProtocol";
 import AddressList from "../pages/people/AddressList";
+import Scan from "../pages/people/Scan";
+import FaceToFace from "../pages/people/FaceToFace";
 
 const routes = [
   // {path: '', component: Music},
@@ -54,6 +56,8 @@ const routes = [
   {path: '/find-acquaintance', component: FindAcquaintance},
   {path: '/service-protocol', component: ServiceProtocol},
   {path: '/address-list', component: AddressList},
+  {path: '/scan', component: Scan},
+  {path: '/face-to-face', component: FaceToFace},
 ]
 
 export default VueRouter.createRouter({

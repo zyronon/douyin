@@ -1,15 +1,15 @@
 <template>
   <div id="Message">
-    <div class="header pt15p">
+    <div class="header ">
       <div class="title">
         <p class="tac c-white ">消息</p>
         <span @click="nav('/myCard')">创建群聊</span>
       </div>
     </div>
-    <Search class="m20p"></Search>
-    <div class="line mb20p"></div>
-    <div class="friends  pl10p ">
-      <div class="friend pr10p pl10p" v-for="item in 10">
+    <Search class="m2r"></Search>
+    <div class="line mb2r"></div>
+    <div class="friends  pl1r ">
+      <div class="friend pr1r pl1r" v-for="item in 10">
         <div class="avatar on-line">
           <img src="../../assets/img/icon/head-image.jpeg" alt="">
         </div>
@@ -20,7 +20,7 @@
         <span>状态设置</span>
       </div>
     </div>
-    <div class="line mt20p"></div>
+    <div class="line mt2r"></div>
     <div class="requests">
       <div class="span">关注请求（1）</div>
       <div class="right">
@@ -56,7 +56,7 @@
         暂时没有更多了
       </div>
     </div>
-    <div class="line mt10p"></div>
+    <div class="line mt1r"></div>
     <div class="recommend">
       <div class="title">
         <div class="left">
@@ -99,6 +99,11 @@
       </div>
     </div>
     <Footer v-bind:init-tab="4"/>
+
+    <div class="create-chat">
+      <div class="heng-gang"></div>
+      <Search class="m2r"></Search>
+    </div>
   </div>
 </template>
 
@@ -131,8 +136,96 @@ export default {
   padding-bottom: 60px;
   color: white;
 
+  .create-chat {
+    padding: 10px 10px 0 10px;
+    z-index: 9;
+    position: fixed;
+    width: 100%;
+    max-height: 50vh;
+    overflow: auto;
+    bottom: 0;
+    background: $main-bg;
+    box-sizing: border-box;
+    border-radius: 5px 5px 0 0;
+
+    .heng-gang {
+      display: flex;
+      justify-content: center;
+
+      .content {
+        border-radius: 2px;
+        height: 4px;
+        width: 30px;
+        background: $second-btn-color;
+        margin-bottom: 5px;
+      }
+    }
+
+    .collection {
+      margin: 10px 0;
+      background: white;
+      width: 100%;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      font-size: 1.6rem;
+      font-weight: bold;
+      padding: 10px;
+      box-sizing: border-box;
+
+      img {
+        background: white;
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
+      }
+
+    }
+
+    .friends {
+      background: white;
+      border-radius: 6px 6px 0 0;
+
+      width: 100%;
+
+      .friend {
+        box-sizing: border-box;
+        padding: 10px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        //border-bottom: 1px solid ghostwhite;
+        border-bottom: 1px solid gainsboro;
+
+        img {
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+        }
+
+        .right {
+          margin: 0 5px 0 15px;
+          font-size: 1.6rem;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .share-btn {
+            font-size: 1.4rem;
+            color: white;
+            padding: 5px 20px;
+            background: $primary-btn-color;
+            border-radius: 2px;
+          }
+        }
+      }
+    }
+  }
 
   .header {
+    margin-top: 2rem;
+
     .title {
       font-size: 1.8rem;
       position: relative;
@@ -140,7 +233,7 @@ export default {
       span {
         font-size: 1.6rem;
         position: absolute;
-        right: 10px;
+        right: 2rem;
         top: 0;
       }
     }
