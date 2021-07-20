@@ -1,0 +1,108 @@
+<template>
+  <div class="Scan">
+    <img src="../../assets/img/icon/back.png" @click="$back" class="back">
+    <div class="video-ctn">
+      <video src="../../assets/video/3.mp4"></video>
+    </div>
+    <div class="float">
+      <div class="open-light">
+        <img src="../../assets/img/icon/qr-code-white.svg" alt="">
+        <span>轻触照亮</span>
+      </div>
+      <div class="option">
+        <img src="../../assets/img/icon/qr-code-white.svg" alt="">
+        <span>我的抖音码</span>
+      </div>
+      <div class="option">
+        <img src="../../assets/img/icon/qr-code-white.svg" alt="">
+        <span>相册</span>
+      </div>
+    </div>
+    <div class="scan-anim">
+
+    </div>
+  </div>
+</template>
+<script>
+//TODO 那个动画没做，用css画有点麻烦，后面ps p一张图片吧
+export default {
+  name: "Scan",
+  data() {
+    return {}
+  },
+  computed: {},
+  created() {
+  },
+  methods: {}
+}
+</script>
+
+<style scoped lang="scss">
+@import "../../assets/scss/index";
+
+.Scan {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  overflow: auto;
+  color: white;
+
+  .back {
+    z-index: 3;
+    margin: 2rem 0 0 2rem;
+    position: fixed;
+    height: 2rem;
+  }
+
+  .float {
+    position: fixed;
+    bottom: 6rem;
+    display: flex;
+    justify-content: space-between;
+    width: 80vw;
+    left: 10vw;
+
+    .option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      img {
+        border-radius: 50%;
+        background: $second-btn-color-tran;
+        padding: 1.6rem;
+        height: 2.4rem;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .open-light {
+      position: fixed;
+      bottom: 16rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      left: 50%;
+      transform: translateX(-50%);
+
+      img {
+        height: 2.4rem;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  .video-ctn {
+    height: 100vh;
+    width: 100vw;
+
+    video {
+      height: 100vh;
+      width: 100vw;
+    }
+  }
+
+}
+</style>
