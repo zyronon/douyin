@@ -5,13 +5,14 @@ const store = Vuex.createStore({
   state: {
     bodyHeight: document.body.clientHeight,
     bodyWidth: document.body.clientWidth,
+    maskDialog: false,
     userinfo: {
       name: '',
       account: '',
       desc: '123',
       sex: '',
       birthday: '',
-      location:'',
+      location: '',
       school: {
         name: 'asdasd',
         department: null,
@@ -24,6 +25,9 @@ const store = Vuex.createStore({
   mutations: {
     setUserinfo(store, val) {
       store.userinfo = val
+    },
+    setMaskDialog(store, val) {
+      store.maskDialog = val
     }
   }
 })

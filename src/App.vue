@@ -1,5 +1,8 @@
 <template>
   <router-view v-slot="{ Component }">
+    <transition name="fade">
+      <Mask v-if="maskDialog" @click="hideMaskDialog"></Mask>
+    </transition>
     <transition :name="transitionName">
       <component :is="Component"/>
     </transition>
@@ -11,7 +14,17 @@ export default {
   name: 'App',
   data() {
     return {
-      transitionName: 'go'
+      transitionName: 'go',
+    }
+  },
+  computed: {
+    maskDialog() {
+      return this.$store.state.maskDialog
+    }
+  },
+  methods: {
+    hideMaskDialog() {
+      this.$store.commit('setMaskDialog', false)
     }
   },
   // watch $route 决定使用哪种过渡

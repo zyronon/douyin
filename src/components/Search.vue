@@ -69,6 +69,7 @@ export default {
   }
 
   .search {
+    padding: 0;
     flex: 1;
     position: relative;
     height: 3.6rem;
@@ -84,12 +85,14 @@ export default {
     }
 
     input {
+      //margin-top: .4rem;
       font-size: 1.6rem;
       color: white;
       height: 50%;
       width: 100%;
       outline: none;
       border: none;
+      padding: 0;
       background: transparent;
 
       &::-webkit-input-placeholder {

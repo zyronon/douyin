@@ -1,9 +1,9 @@
 <template>
-  <div id="Message">
+  <div id="Message" ref="app" :class="createChatDialog?'disable-scroll':''">
     <div class="header ">
       <div class="title">
         <p class="tac c-white ">消息</p>
-        <span @click="nav('/myCard')">创建群聊</span>
+        <span @click="createChatDialog = true">创建群聊</span>
       </div>
     </div>
     <Search class="m2r"></Search>
@@ -99,31 +99,177 @@
       </div>
     </div>
     <Footer v-bind:init-tab="4"/>
+    <from-bottom-dialog v-model="createChatDialog">
+      <div class="create-chat-wrapper" v-show="!showJoinedChat">
+        <Search class="ml2r mr2r" placeholder="搜索用户" v-model="createChatSearchKey"></Search>
+        <template v-if="createChatSearchKey">
+          <div class="search-result" v-if="searchFriends.length">
+            <div class="search-result-item" v-for="item in searchFriends"
+                 @click="item.select = !item.select;createChatSearchKey = ''">
+              <img class="left" src="../../assets/img/icon/head-image.jpeg" alt="">
+              <div class="right">
+                <div class="info">
+                  <span class="name">{{ item.name }}</span>
+                  <span class="account">{{ item.account ? '抖音号:' + item.account : '' }}</span>
+                </div>
+                <img v-if="item.select" src="../../assets/img/icon/back.png" alt="">
+                <img v-if="!item.select" src="../../assets/img/icon/close.svg" alt=""></div>
+            </div>
+          </div>
+          <div class="no-result" v-else>
+            <div class="notice-h1">
+              搜索结果为空
+            </div>
+            <div class="notice-h2">
+              没有搜索到相关的联系人
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <div class="joined-chat" @click="showJoinedChat = true">
+            <img class="left" src="../../assets/img/icon/close-white.png" alt="">
+            <div class="right">
+              <span>已加入的群聊</span>
+              <img src="../../assets/img/icon/back.png" alt="">
+            </div>
+          </div>
+          <div class="friend-list">
+            <div class="index">Z</div>
+            <div class="friend-item" v-for="item in friends" @click="item.select = !item.select">
+              <img class="left" src="../../assets/img/icon/head-image.jpeg" alt="">
+              <div class="right">
+                <span>{{ item.name }}</span>
+                <img v-if="item.select" src="../../assets/img/icon/back.png" alt="">
+                <img v-if="!item.select" src="../../assets/img/icon/close.svg" alt="">
+              </div>
+            </div>
+          </div>
+        </template>
+        <div class="btn-wrapper">
+          <div class="btn" :class="selectFriends ? 'primary' : ''">
+            发起聊天
+          </div>
+        </div>
+      </div>
+      <div class="joined-chat-wrapper" v-show="showJoinedChat">
+        <div class="nav">
+          <img src="../../assets/img/icon/back.png" alt="" @click="showJoinedChat = false">
+          <span>已加入的群聊</span>
+          <span>&nbsp;</span>
+        </div>
 
-    <div class="create-chat">
-      <div class="heng-gang"></div>
-      <Search class="m2r"></Search>
-    </div>
+        <div class="chat-list">
+          <div class="chat-item" v-for="item in 15">
+            <img class="left" src="../../assets/img/icon/head-image.jpeg" alt="">
+            <div class="right">
+              <div class="title">
+                <div class="name">{{ text.length > 20 ? text.substr(0, 20) + '...' : text }}</div>
+                <div class="num">(3)</div>
+              </div>
+              <img class="arrow" src="../../assets/img/icon/back.png" alt="">
+            </div>
+          </div>
+        </div>
+        <NoMore></NoMore>
+      </div>
+    </from-bottom-dialog>
   </div>
 </template>
 
 <script>
 import Footer from '../../components/Footer.vue'
 import Search from "../../components/Search";
+import FromBottomDialog from '../../components/FromBottomDialog'
 
 export default {
   name: "Message",
   components: {
     Footer,
-    Search
+    Search,
+    FromBottomDialog
   },
   data() {
-    return {}
+    return {
+      createChatSearchKey: '',
+      showJoinedChat: false,
+      // createChatDialog: false,
+      createChatDialog: false,
+      text: 'AAAAAAAAA、BBBBBBBBBBBBB、CCCCCCCC',
+      friends: [
+        {
+          avatar: '',
+          name: '11',
+          account: '173123141231qoqo',
+          select: false
+        },
+        {
+          avatar: '',
+          name: 'Boooo',
+          account: '234242ooo',
+          select: false
+        },
+        {
+          avatar: '',
+          name: '三分钟情、',
+          account: '3029342',
+          select: false
+        },
+        {
+          avatar: '',
+          name: 'zzzzz',
+          account: '6034592',
+          select: false
+        },
+        {
+          avatar: '',
+          name: 'zzzzz',
+          account: '6034592',
+          select: false
+        },
+        {
+          avatar: '',
+          name: 'zzzzz',
+          account: '6034592',
+          select: false
+        },
+        {
+          avatar: '',
+          name: 'zzzzz',
+          account: '6034592',
+          select: false
+        },
+        {
+          avatar: '',
+          name: 'zzzzz',
+          account: '6034592',
+          select: false
+        },
+      ],
+      searchFriends: []
+    }
   },
-  created() {
-
+  computed: {
+    selectFriends() {
+      let res = this.friends.filter(v => v.select)
+      return res.length
+    }
+  },
+  watch: {
+    createChatSearchKey(newVal) {
+      if (newVal) {
+        //TODO　搜索时仅仅判断是否包含了对应字符串，抖音做了拼音判断的
+        this.searchFriends = this.friends.filter(v => {
+          if (v.name.includes(newVal)) return true
+          return v.account.includes(newVal);
+        })
+      } else {
+        this.searchFriends = []
+      }
+    }
   },
   mounted() {
+  },
+  methods: {
   }
 }
 </script>
@@ -133,90 +279,240 @@ export default {
 
 #Message {
   background: $main-bg;
-  padding-bottom: 60px;
+  padding-bottom: 6rem;
   color: white;
 
-  .create-chat {
-    padding: 10px 10px 0 10px;
-    z-index: 9;
-    position: fixed;
-    width: 100%;
-    max-height: 50vh;
-    overflow: auto;
-    bottom: 0;
-    background: $main-bg;
-    box-sizing: border-box;
-    border-radius: 5px 5px 0 0;
+  &.disable-scroll {
+    //height: calc(100vh - 6rem);
+    //overflow: hidden;
+  }
 
-    .heng-gang {
-      display: flex;
-      justify-content: center;
+  .create-chat-wrapper {
+    margin-top: 2.4rem;
+    padding-bottom: 6rem;
 
-      .content {
-        border-radius: 2px;
-        height: 4px;
-        width: 30px;
-        background: $second-btn-color;
-        margin-bottom: 5px;
-      }
-    }
-
-    .collection {
-      margin: 10px 0;
-      background: white;
-      width: 100%;
-      border-radius: 6px;
+    .joined-chat {
+      border-bottom: 1px solid $line-color;
+      height: 5rem;
+      padding: 0 2rem;
       display: flex;
       align-items: center;
-      font-size: 1.6rem;
-      font-weight: bold;
-      padding: 10px;
-      box-sizing: border-box;
 
-      img {
-        background: white;
-        width: 35px;
-        height: 35px;
-        margin-right: 10px;
+      .left {
+        width: 1.8rem;
+        height: 1.8rem;
+        margin-left: 1rem;
+        margin-right: 2rem;
       }
 
-    }
-
-    .friends {
-      background: white;
-      border-radius: 6px 6px 0 0;
-
-      width: 100%;
-
-      .friend {
-        box-sizing: border-box;
-        padding: 10px;
-        width: 100%;
+      .right {
+        font-size: 1.4rem;
+        flex: 1;
         display: flex;
         align-items: center;
-        //border-bottom: 1px solid ghostwhite;
-        border-bottom: 1px solid gainsboro;
+        justify-content: space-between;
 
         img {
+          height: 1.5rem;
+        }
+      }
+    }
+
+    .friend-list {
+      padding: 0 2rem;
+
+      .index {
+        height: 6rem;
+        line-height: 6rem;
+        font-size: 1.4rem;
+      }
+
+      .friend-item {
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+
+        &:nth-child(1) {
+          margin-top: 1rem;
+        }
+
+        .left {
+          width: 4.8rem;
+          height: 4.8rem;
           border-radius: 50%;
-          width: 40px;
-          height: 40px;
+          margin-right: 1rem;
         }
 
         .right {
-          margin: 0 5px 0 15px;
-          font-size: 1.6rem;
-          width: 100%;
+          font-size: 1.4rem;
+          flex: 1;
           display: flex;
           align-items: center;
           justify-content: space-between;
 
-          .share-btn {
-            font-size: 1.4rem;
-            color: white;
-            padding: 5px 20px;
-            background: $primary-btn-color;
-            border-radius: 2px;
+          img {
+            height: 1.5rem;
+          }
+        }
+      }
+    }
+
+    .btn-wrapper {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: $main-bg;
+      //background: red;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .btn {
+        margin-bottom: 2rem;
+        width: calc(100% - 4rem);
+        height: 4rem;
+        display: flex;
+        align-items: center;
+        font-size: 1.4rem;
+        justify-content: center;
+        background: #3f445c;
+        border-radius: .2rem;
+
+        &.primary {
+          background: $primary-btn-color;
+        }
+      }
+    }
+
+    .search-result {
+      padding: 0 2rem;
+
+      .search-result-item {
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+
+        &:nth-child(1) {
+          margin-top: 1rem;
+        }
+
+        .left {
+          width: 4.8rem;
+          height: 4.8rem;
+          border-radius: 50%;
+          margin-right: 1rem;
+        }
+
+        .right {
+          font-size: 1.4rem;
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .info {
+            display: flex;
+            flex-direction: column;
+
+            .name {
+              font-size: 1.4rem;
+            }
+
+            .account {
+              font-size: 1.3rem;
+              color: $second-text-color;
+            }
+          }
+
+          img {
+            height: 1.5rem;
+          }
+        }
+      }
+    }
+
+    .no-result {
+      height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      .notice-h1 {
+        font-size: 1.6rem;
+      }
+
+      .notice-h2 {
+        margin-top: 1rem;
+        font-size: 1.4rem;
+        color: $second-text-color;
+      }
+
+    }
+  }
+
+  .joined-chat-wrapper {
+    margin-top: 2.4rem;
+
+    .nav {
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+
+      img {
+        height: 2rem;
+      }
+    }
+
+    .chat-list {
+      padding: 0 2rem;
+
+      .chat-item {
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+
+        &:nth-last-child(1) {
+          margin-bottom: 0;
+        }
+
+        &:nth-child(1) {
+          margin-top: 1rem;
+        }
+
+        .left {
+          width: 4.8rem;
+          height: 4.8rem;
+          border-radius: 50%;
+          margin-right: 1rem;
+        }
+
+        .right {
+          font-size: 1.4rem;
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .title {
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+
+            .name {
+            }
+
+            .num {
+              margin-left: .5rem;
+              color: $second-text-color;
+            }
+          }
+
+          img {
+            height: 1.5rem;
           }
         }
       }
