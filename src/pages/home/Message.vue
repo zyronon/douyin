@@ -9,7 +9,9 @@
     <Search class="m2r"></Search>
     <div class="line mb2r"></div>
     <div class="friends  pl1r ">
-      <div class="friend pr1r pl1r" v-for="item in 10">
+      <div class="friend pr1r pl1r"
+           @click="$nav('/edit-userinfo')"
+           v-for="item in 10">
         <div class="avatar on-line">
           <img src="../../assets/img/icon/head-image.jpeg" alt="">
         </div>
@@ -269,8 +271,7 @@ export default {
   },
   mounted() {
   },
-  methods: {
-  }
+  methods: {}
 }
 </script>
 
@@ -278,14 +279,17 @@ export default {
 @import "../../assets/scss/index";
 
 #Message {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  //height: 100%;
+  //width: 100%;
+  overflow: auto;
   background: $main-bg;
   padding-bottom: 6rem;
   color: white;
-
-  &.disable-scroll {
-    //height: calc(100vh - 6rem);
-    //overflow: hidden;
-  }
 
   .create-chat-wrapper {
     margin-top: 2.4rem;

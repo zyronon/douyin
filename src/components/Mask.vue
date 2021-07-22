@@ -1,9 +1,17 @@
 <template>
-  <div class="Mask"></div>
+  <div class="Mask"
+       :class="mode"
+  ></div>
 </template>
 <script>
 export default {
   name: "Mask",
+  props: {
+    mode: {
+      type: String,
+      default: 'dark'
+    },
+  }
 }
 </script>
 
@@ -17,5 +25,17 @@ export default {
   left: 0;
   right: 0;
   background: #000000bb;
+
+  &.dark {
+    background: #000000bb;
+  }
+
+  &.light {
+    background: transparent;
+  }
+
+  &.white {
+    background: transparent;
+  }
 }
 </style>

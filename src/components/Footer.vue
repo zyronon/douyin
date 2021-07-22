@@ -69,12 +69,13 @@ export default {
 .footer {
   font-size: 1.8rem;
   position: fixed;
-  bottom: 0;
   width: 100%;
   height: 60px;
   //border-top: 1px solid #7b7878;
   z-index: 2;
-  /*top: 600px;*/
+  //不用bottom：0是因为，在进行页面切换的时候，vue的transition
+  // 会使footer的bottom：0失效，不能准备定位
+  top: calc(100vh - 6rem);
   background: #020202;
   color: white;
   display: flex;

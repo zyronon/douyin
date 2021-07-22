@@ -1,6 +1,9 @@
 <template>
   <transition name="from-bottom">
-    <div ref="dialog" class="FromBottomDialog" v-if="modelValue" :class="mode" :style="{height}"
+    <div ref="dialog" class="FromBottomDialog"
+         v-if="modelValue"
+         :class="mode"
+         :style="{'max-height':height}"
          @touchstart="start"
          @touchmove="move"
          @touchend="end"
@@ -24,26 +27,37 @@ export default {
     mode: {
       type: String,
       default: 'dark'
+      // default: 'light'
+      // default: 'white'
     },
     height: {
       type: String,
       default: '70vh'
+    },
+    useMask: {
+      type: Boolean,
+      default: true
     }
   },
   watch: {
     modelValue(newVal) {
+      let app = document.getElementById('app')
       if (newVal) {
+        app.children[0].style.position = 'absolute'
         this.scroll = document.documentElement.scrollTop
         document.body.style.position = 'fixed'
         document.body.style.top = -this.scroll + 'px'
       } else {
+        app.children[1].style.position = 'fixed'
         document.body.style.position = 'static'
         document.documentElement.scrollTop = this.scroll
       }
-      this.$store.commit('setMaskDialog', newVal)
+      this.$store.commit('setMaskDialog', {state: newVal, mode: this.mode})
     },
     maskDialog(newVal) {
-      this.hide(newVal)
+      if (!newVal) {
+        this.hide(newVal)
+      }
     }
   },
   data() {
@@ -51,7 +65,7 @@ export default {
       scroll: 0,
       startLocationY: 0,
       moveYDistance: 0,
-      startTime: 0
+      startTime: 0,
     }
   },
   computed: {
@@ -67,7 +81,6 @@ export default {
     },
     start(e) {
       if (this.$refs.dialog.scrollTop !== 0) return
-      this.$setCss(this.$refs.dialog, 'transition-duration', `0ms`)
       this.startLocationY = e.touches[0].pageY
       this.startTime = Date.now()
     },
@@ -79,16 +92,19 @@ export default {
       }
     },
     end(e) {
+      //点击
+      if (Date.now() - this.startTime < 150) return
+
+      //滑动
       if (this.$refs.dialog.scrollTop !== 0) return
       let clientHeight = this.$refs.dialog.clientHeight
+      this.$setCss(this.$refs.dialog, 'transition-duration', `300ms`)
       if (Math.abs(this.moveYDistance) > clientHeight / 2) {
-        this.$setCss(this.$refs.dialog, 'transition-duration', `300ms`)
         this.$setCss(this.$refs.dialog, 'transform', `translate3d(0,${clientHeight}px,0)`)
         setTimeout(this.hide, 300)
       } else {
-        this.$setCss(this.$refs.dialog, 'transition-duration', `300ms`)
         this.$setCss(this.$refs.dialog, 'transform', `translate3d(0,0,0)`)
-        setTimeout(()=>{
+        setTimeout(() => {
           this.$setCss(this.$refs.dialog, 'transform', 'none')
           this.$setCss(this.$refs.dialog, 'transition-duration', `0ms`)
         }, 300)
@@ -109,7 +125,7 @@ export default {
 
 .from-bottom-enter-from,
 .from-bottom-leave-to {
-  transform: translate3d(0, 100vh, 0);
+  transform: translate3d(0, 40vh, 0);
 }
 
 .FromBottomDialog {
@@ -117,6 +133,7 @@ export default {
   position: fixed;
   width: 100%;
   overflow: auto;
+  padding-top: 2.4rem;
   bottom: 0;
   box-sizing: border-box;
   border-radius: .5rem .5rem 0 0;
@@ -126,6 +143,10 @@ export default {
   }
 
   &.light {
+    background: whitesmoke;
+  }
+
+  &.white {
     background: white;
   }
 
@@ -134,9 +155,11 @@ export default {
     z-index: 3;
     width: 100%;
     position: fixed;
-    padding-top: 1rem;
+    height: 2rem;
     display: flex;
+    transform: translateY(-2.4rem);
     justify-content: center;
+    align-items: center;
 
     &.dark {
       background: $main-bg;
@@ -147,6 +170,14 @@ export default {
     }
 
     &.light {
+      background: whitesmoke;
+
+      .content {
+        background: darkgray;
+      }
+    }
+
+    &.white {
       background: white;
 
       .content {
@@ -158,7 +189,6 @@ export default {
       border-radius: 2px;
       height: .4rem;
       width: 3rem;
-      margin-bottom: 1rem;
     }
   }
 }

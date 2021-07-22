@@ -6,6 +6,7 @@ const store = Vuex.createStore({
     bodyHeight: document.body.clientHeight,
     bodyWidth: document.body.clientWidth,
     maskDialog: false,
+    maskDialogMode: 'dark',
     userinfo: {
       name: '',
       account: '',
@@ -27,7 +28,8 @@ const store = Vuex.createStore({
       store.userinfo = val
     },
     setMaskDialog(store, val) {
-      store.maskDialog = val
+      store.maskDialog = val.state
+      store.maskDialogMode = val.mode
     }
   }
 })

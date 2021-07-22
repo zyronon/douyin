@@ -1,7 +1,7 @@
 <template>
   <router-view v-slot="{ Component }">
     <transition name="fade">
-      <Mask v-if="maskDialog" @click="hideMaskDialog"></Mask>
+      <Mask v-if="maskDialog" @click="hideMaskDialog" :mode="maskDialogMode"></Mask>
     </transition>
     <transition :name="transitionName">
       <component :is="Component"/>
@@ -20,21 +20,27 @@ export default {
   computed: {
     maskDialog() {
       return this.$store.state.maskDialog
-    }
+    },
+    maskDialogMode() {
+      return this.$store.state.maskDialogMode
+    },
   },
   methods: {
     hideMaskDialog() {
-      this.$store.commit('setMaskDialog', false)
+      this.$store.commit('setMaskDialog', {state: false, mode: this.maskDialogMode})
     }
   },
   // watch $route 决定使用哪种过渡
   watch: {
     '$route'(to, from) {
+      //footer下面的5个按钮，对跳不要用动画
       let noAnimation = ['/', '/home', '/me', '/attention', '/message', '/publish']
       if (noAnimation.indexOf(from.path) !== -1 && noAnimation.indexOf(to.path) !== -1) {
         return this.transitionName = ''
       }
-      const routeDeep = ['/message', '/attention', '/home', '/me', '/publish',
+
+      const routeDeep = [
+        '/message', '/attention', '/home', '/me', '/publish',
         '/edit-userinfo',
         '/edit-userinfo-item',
         '/video-detail',
