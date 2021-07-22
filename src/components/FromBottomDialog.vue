@@ -1,5 +1,14 @@
 <template>
-  <transition name="from-bottom">
+  <!--  <transition name="from-bottom"> -->
+  <transition
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @after-enter="afterEnter"
+      @before-leave="beforeLeave"
+      @leave="leave"
+      @after-leave="afterLeave"
+      :css="false"
+  >
     <div ref="dialog" class="FromBottomDialog"
          v-if="modelValue"
          :class="mode"
@@ -76,6 +85,27 @@ export default {
   created() {
   },
   methods: {
+    beforeEnter(el) {
+      this.$setCss(el, 'transition-duration', `200ms`)
+      this.$setCss(el, 'transform', `translate3d(0,${this.height},0)`)
+    },
+    enter(el, done) {
+      setTimeout(() => {
+        this.$setCss(el, 'transform', `translate3d(0,0,0)`)
+      }, 0)
+      setTimeout(() => {
+        this.$setCss(el, 'transition-duration', `0ms`)
+        done()
+      }, 200)
+    },
+    beforeLeave(el) {
+      this.$setCss(el, 'transition-duration', `200ms`)
+      this.$setCss(el, 'transform', `translate3d(0,0,0)`)
+    },
+    leave(el, done) {
+      this.$setCss(el, 'transform', `translate3d(0,${this.height},0)`)
+      setTimeout(done, 200)
+    },
     hide(val = false) {
       this.$emit('update:modelValue', val)
     },
@@ -110,23 +140,12 @@ export default {
         }, 300)
       }
     }
-
   }
 }
 </script>
 
 <style scoped lang="scss">
 @import "../assets/scss/index";
-
-.from-bottom-enter-active,
-.from-bottom-leave-active {
-  transition: transform 0.2s ease;
-}
-
-.from-bottom-enter-from,
-.from-bottom-leave-to {
-  transform: translate3d(0, 40vh, 0);
-}
 
 .FromBottomDialog {
   z-index: 9;
