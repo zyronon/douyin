@@ -28,7 +28,6 @@
           </div>
           <div class="share-btn" @click="dialog.permissionDialog = true">权限设置</div>
         </div>
-
       </SlideItem>
       <SlideItem style="font-size: 40px;overflow:auto;">
         <div>
@@ -76,12 +75,13 @@
       </SlideItem>
     </SlideList>
 
-    <transition name="share-dialog">
-      <div class="share-dialog" v-if="dialog.shareToFriend ">
-        <div class="heng-gang">
-          <div class="content"></div>
-        </div>
-        <div class="collection" @click="dialog.shareToFriend  = false">
+    <from-bottom-dialog
+        v-model="dialog.shareToFriend"
+        height="50vh"
+        mode="light"
+    >
+      <div class="share-dialog">
+        <div class="collection" @click="dialog.shareToFriend = false">
           <img src="../../assets/img/icon/me/collection-black.png" alt="">
           收藏
         </div>
@@ -101,13 +101,14 @@
           </div>
         </div>
       </div>
-    </transition>
+    </from-bottom-dialog>
 
-    <transition name="share-dialog">
-      <div class="permission-dialog" v-if="dialog.permissionDialog">
-        <div class="heng-gang">
-          <div class="content"></div>
-        </div>
+    <from-bottom-dialog
+        v-model="dialog.permissionDialog"
+        height="40vh"
+        mode="white"
+    >
+      <div class="permission-dialog">
         <div class="setting" @click="dialog.permissionDialog = false">
           <img src="../../assets/img/icon/head-image.jpeg" alt="">
           <div class="right">
@@ -139,14 +140,14 @@
         <div class="space">
 
         </div>
-        <div class="setting pb40p">
+        <div class="setting pb4r">
           <img src="../../assets/img/icon/head-image.jpeg" alt="">
           <div class="right">
             <span>更多好友</span>
           </div>
         </div>
       </div>
-    </transition>
+    </from-bottom-dialog>
   </div>
 </template>
 
@@ -162,10 +163,14 @@ import mp43 from "../../assets/video/3.mp4";
 import mp44 from "../../assets/video/4.mp4";
 import mp45 from "../../assets/video/5.mp4";
 import Search from "../../components/Search";
+import FromBottomDialog from "../../components/FromBottomDialog";
 
 export default {
   name: "VideoDetail",
-  components: {Footer, Comment, Share, Other, Search},
+  components: {
+    Footer, Comment, Share, Other, Search,
+    FromBottomDialog
+  },
   data() {
     return {
       list: [1, 2, 3, 4, 5],
@@ -341,6 +346,7 @@ export default {
       dialog: {
         shareToFriend: false,
         permissionDialog: false,
+        test: false,
       },
       isMy: true
     }
@@ -365,15 +371,6 @@ export default {
 <style scoped lang="scss">
 @import "../../assets/scss/index";
 
-.share-dialog-enter-active,
-.share-dialog-leave-active {
-  transition: transform 0.2s ease;
-}
-
-.share-dialog-enter-from,
-.share-dialog-leave-to {
-  transform: translate3d(0, 50vh, 0);
-}
 
 #video-detail {
   position: fixed;
@@ -461,35 +458,12 @@ export default {
 
   }
 
+
   .share-dialog {
-    padding: 10px 10px 0 10px;
-    z-index: 9;
-    position: fixed;
-    width: 100%;
-    max-height: 50vh;
-    overflow: auto;
-    bottom: 0;
-    background: whitesmoke;
-    box-sizing: border-box;
-    border-radius: 5px 5px 0 0;
-
-    .heng-gang {
-      display: flex;
-      justify-content: center;
-
-      .content {
-        border-radius: 2px;
-        height: 4px;
-        width: 30px;
-        background: darkgray;
-        margin-bottom: 5px;
-      }
-    }
-
     .collection {
-      margin: 10px 0;
       background: white;
-      width: 100%;
+      margin: 0 1rem 1rem 1rem;
+      width: calc(100% - 2rem);
       border-radius: 6px;
       display: flex;
       align-items: center;
@@ -508,10 +482,10 @@ export default {
     }
 
     .friends {
+      margin: 1rem 1rem 0 1rem;
+      width: calc(100% - 2rem);
       background: white;
       border-radius: 6px 6px 0 0;
-
-      width: 100%;
 
       .friend {
         box-sizing: border-box;
@@ -546,33 +520,10 @@ export default {
         }
       }
     }
+
   }
 
   .permission-dialog {
-    padding: 10px 0 0 0;
-    z-index: 9;
-    position: fixed;
-    width: 100%;
-    max-height: 50vh;
-    overflow: auto;
-    bottom: 0;
-    background: white;
-    box-sizing: border-box;
-    border-radius: 5px 5px 0 0;
-
-    .heng-gang {
-      display: flex;
-      justify-content: center;
-
-      .content {
-        border-radius: 2px;
-        height: 4px;
-        width: 30px;
-        background: darkgray;
-        margin-bottom: 10px;
-      }
-    }
-
     .space {
       height: 10px;
       background: whitesmoke;
@@ -581,7 +532,7 @@ export default {
     .setting {
       background: white;
       box-sizing: border-box;
-      padding: 10px;
+      padding: 1rem 2rem;
       width: 100%;
       display: flex;
       align-items: center;
