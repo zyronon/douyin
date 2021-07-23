@@ -98,6 +98,8 @@ export default {
         done()
       }, 200)
     },
+    afterEnter() {
+    },
     beforeLeave(el) {
       this.$setCss(el, 'transition-duration', `200ms`)
       this.$setCss(el, 'transform', `translate3d(0,0,0)`)
@@ -106,6 +108,10 @@ export default {
       this.$setCss(el, 'transform', `translate3d(0,${this.height},0)`)
       setTimeout(done, 200)
     },
+    afterLeave() {
+    },
+
+
     hide(val = false) {
       this.$emit('update:modelValue', val)
     },

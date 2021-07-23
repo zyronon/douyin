@@ -2,7 +2,7 @@ import * as VueRouter from "vue-router";
 
 import Index from "../pages/home/Index";
 import Attention from "../pages/home/Attention";
-import Message from "../pages/home/Message";
+import Message from "../pages/message/Message";
 import Me from "../pages/me/Me";
 import Music from "../components/common/Music";
 import countryChoose from "../pages/login/countryChoose";
@@ -27,6 +27,7 @@ import ServiceProtocol from "../pages/other/ServiceProtocol";
 import AddressList from "../pages/people/AddressList";
 import Scan from "../pages/people/Scan";
 import FaceToFace from "../pages/people/FaceToFace";
+import Chat from "../pages/message/Chat";
 
 const routes = [
   // {path: '', component: Music},
@@ -58,6 +59,7 @@ const routes = [
   {path: '/address-list', component: AddressList},
   {path: '/scan', component: Scan},
   {path: '/face-to-face', component: FaceToFace},
+  {path: '/chat', component: Chat},
 ]
 
 export default VueRouter.createRouter({
