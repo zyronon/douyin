@@ -10,7 +10,7 @@
     <div class="line mb2r"></div>
     <div class="friends  pl1r ">
       <div class="friend pr1r pl1r"
-           @click="$nav('/edit-userinfo')"
+           @click="$nav('/chat')"
            v-for="item in 10">
         <div class="avatar on-line">
           <img src="../../assets/img/icon/head-image.jpeg" alt="">
@@ -719,7 +719,7 @@ export default {
           }
 
           .badge {
-            font-size: 1rem;
+            font-size: 1.2rem;
             display: block;
             color: black;
             padding: 1px 6px;
