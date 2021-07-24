@@ -8,6 +8,7 @@ const store = Vuex.createStore({
     maskDialog: false,
     maskDialogMode: 'dark',
     userinfo: {
+      id: 1,
       name: '',
       account: '',
       desc: '123',

@@ -1,14 +1,16 @@
 <template>
   <div class="People">
-    <img src="../../../assets/img/icon/msg-icon1.png" alt="" class="head-image pull-left">
+    <img v-if="people.type === 6" src="../../../assets/img/icon/add.png" alt="" class="add">
+    <img v-else src="../../../assets/img/icon/msg-icon1.png" alt="" class="head-image pull-left">
     <div class="content">
       <div class="left">
-        <div class="name">A</div>
-        <div class="detail">
+        <div class="name">{{ people.name }}</div>
+        <div class="detail" v-if="people.type !== 6">
           该用户关注了你
         </div>
       </div>
-      <!--      -->
+
+      <!--   已关注   -->
       <div class="right" v-if="people.type === 1">
         <div class="button">已关注</div>
       </div>
@@ -17,15 +19,15 @@
         <div class="button red">回关</div>
         <img src="../../../assets/img/icon/close.svg" alt="">
       </div>
-      <!--     互相关注 -->
+      <!--     朋友推荐 -->
       <div class="right" v-if="people.type === 3">
+        <div class="button red">回关</div>
+        <div class="button ">移除</div>
+      </div>
+      <!--     互相关注 -->
+      <div class="right" v-if="people.type === 4">
         <div class="button">发私信</div>
         <img src="../../../assets/img/icon/close.svg" alt="" @click="showPopover = !showPopover">
-      </div>
-      <!--     粉丝 -->
-      <div class="right" v-if="people.type === 4">
-        <div class="button red">回关</div>
-        <div class="button">移除</div>
       </div>
       <!--     通讯录 -->
       <div class="right" v-if="people.type === 5">
@@ -33,7 +35,7 @@
       </div>
     </div>
     <transition name="scale">
-      <div class="popover" v-if="people.type === 3 && showPopover">
+      <div class="popover" v-if="people.type === 4 && showPopover">
         <div class="arrow"></div>
         <div class="item">
           <img src="../../../assets/img/icon/close.svg" alt="">
@@ -83,6 +85,7 @@ export default {
 }
 
 .People {
+  height: 7rem;
   display: flex;
   align-items: center;
   position: relative;
@@ -93,9 +96,18 @@ export default {
 
 
   .head-image {
-    margin-right: 15px;
-    width: 48px;
-    height: 48px;
+    margin-right: 1.5rem;
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 50%;
+  }
+
+  .add {
+    background: $second-btn-color-tran;
+    margin-right: 1.5rem;
+    padding: 1.5rem;
+    width: 1.8rem;
+    height: 1.8rem;
     border-radius: 50%;
   }
 
@@ -107,7 +119,7 @@ export default {
 
     .left {
       .name {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         color: white;
       }
 
