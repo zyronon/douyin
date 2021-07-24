@@ -59,6 +59,7 @@ export default {
         '/scan',
         '/face-to-face',
         '/chat',
+        '/chat-detail',
         '',
       ];
       const toDepth = routeDeep.indexOf(to.path)

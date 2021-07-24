@@ -28,6 +28,7 @@ import AddressList from "../pages/people/AddressList";
 import Scan from "../pages/people/Scan";
 import FaceToFace from "../pages/people/FaceToFace";
 import Chat from "../pages/message/Chat";
+import ChatDetail from "../pages/message/ChatDetail";
 
 const routes = [
   // {path: '', component: Music},
@@ -60,6 +61,7 @@ const routes = [
   {path: '/scan', component: Scan},
   {path: '/face-to-face', component: FaceToFace},
   {path: '/chat', component: Chat},
+  {path: '/chat-detail', component: ChatDetail},
 ]
 
 export default VueRouter.createRouter({

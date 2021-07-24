@@ -2,7 +2,7 @@
   <div class="search-ctn">
     <div class="search">
       <img class="search-icon" src="../assets/img/icon/pause.svg" alt="">
-      <input autofocus type="text" :placeholder="placeholder" v-model="value">
+      <input type="text" :placeholder="placeholder" v-model="value">
       <div class="suffix">
         <slot v-if="$slots.default"></slot>
         <img v-if="value.length && (!$slots.default)" src="../assets/img/icon/close.svg" @click="clear">
