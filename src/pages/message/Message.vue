@@ -181,7 +181,7 @@
 <script>
 import Footer from '../../components/Footer.vue'
 import Search from "../../components/Search";
-import FromBottomDialog from '../../components/FromBottomDialog'
+import FromBottomDialog from '../../components/dialog/FromBottomDialog'
 
 export default {
   name: "Message",
@@ -292,7 +292,6 @@ export default {
   color: white;
 
   .create-chat-wrapper {
-    margin-top: 2.4rem;
     padding-bottom: 6rem;
 
     .joined-chat {
@@ -457,7 +456,6 @@ export default {
   }
 
   .joined-chat-wrapper {
-    margin-top: 2.4rem;
 
     .nav {
       padding: 2rem;

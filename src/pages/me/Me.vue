@@ -44,7 +44,7 @@
               <div class="number mb10p">
                 <span class="mr5p">私密账号</span>
                 <span>抖音号：605128307</span>
-                <img src="../../assets/img/icon/qr_code.svg" alt="" @click.stop="$nav('/MyCard')">
+                <img src="../../assets/img/icon/qr_code.svg" alt="" @click.stop="$nav('/my-card')">
               </div>
               <div class="signature f12 mb10p">
                 <span>填写个性签名更容易获得别人关注哦</span>
@@ -95,7 +95,7 @@
       <SlideItem style="min-width: 70vw; overflow:auto;">
         <transition name="fade">
           <div class="ul" v-if="!isMoreFunction">
-            <div class="li" @click="$nav('MyCard')">
+            <div class="li" @click="$nav('/my-card')">
               <img src="../../assets/img/icon/card-gray.png" alt="">
               <span>我的订单</span>
             </div>
@@ -105,17 +105,13 @@
             </div>
             <div class="line"></div>
 
-            <div class="li" @click="$nav('MyCard')">
-              <img src="../../assets/img/icon/card-gray.png" alt="">
-              <span>我的收藏</span>
-            </div>
-            <div class="li" @click="$nav('MyCard')">
+            <div class="li" @click="$nav('/me/right-menu/look-history')">
               <img src="../../assets/img/icon/card-gray.png" alt="">
               <span>观看历史</span>
             </div>
-            <div class="li" @click="$nav('MyCard')">
+            <div class="li" @click="$nav('/my-card')">
               <img src="../../assets/img/icon/card-gray.png" alt="">
-              <span>我的动态</span>
+              <span>我的二维码</span>
             </div>
             <div class="li" @click="$nav('MyCard')">
               <img src="../../assets/img/icon/card-gray.png" alt="">
@@ -159,14 +155,14 @@
 
               <div class="function" @click="$nav('MyCollect')">
                 <img src="../../assets/img/icon/collect-gray.png" alt="">
-                <span>我的收藏</span>
+                <span>视频彩铃</span>
               </div>
             </div>
             <div class="title">拓展功能</div>
             <div class="functions">
               <div class="function" @click="$nav('MyCard')">
                 <img src="../../assets/img/icon/card-gray.png" alt="">
-                <span>我的二维码</span>
+                <span>我的动态</span>
               </div>
               <div class="function">
                 <img src="../../assets/img/icon/order-gray.png" alt="">
@@ -187,7 +183,6 @@
             </div>
           </div>
         </transition>
-
         <div class="button-ctn">
           <div class="button" v-if="!isMoreFunction" @click="isMoreFunction = true">
             <img src="../../assets/img/icon/card-gray.png" alt="">

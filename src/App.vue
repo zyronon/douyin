@@ -56,10 +56,13 @@ export default {
         '/service-protocol',
         '/address-list',
         '/video-detail',
+        '/my-card',
         '/scan',
         '/face-to-face',
         '/chat',
         '/chat-detail',
+        '/set-remark',
+        '/me/right-menu/look-history',
         '',
       ];
       const toDepth = routeDeep.indexOf(to.path)

@@ -9,15 +9,16 @@
       @after-leave="afterLeave"
       :css="false"
   >
-    <div ref="dialog" class="FromBottomDialog"
+    <div ref="dialog"
+         class="FromBottomDialog"
          v-if="modelValue"
-         :class="mode"
+         :class="[mode,showHengGang ? '' : 'no-heng-gang']"
          :style="{'max-height':height}"
          @touchstart="start"
          @touchmove="move"
          @touchend="end"
     >
-      <div class="heng-gang" :class="mode">
+      <div class="heng-gang" :class="mode" v-if="showHengGang">
         <div class="content"></div>
       </div>
       <slot></slot>
@@ -39,14 +40,18 @@ export default {
       // default: 'light'
       // default: 'white'
     },
+    maskMode:{
+      type: String,
+      default: 'dark'
+    },
     height: {
       type: String,
       default: '70vh'
     },
-    useMask: {
+    showHengGang: {
       type: Boolean,
       default: true
-    }
+    },
   },
   watch: {
     modelValue(newVal) {
@@ -61,7 +66,7 @@ export default {
         document.body.style.position = 'static'
         document.documentElement.scrollTop = this.scroll
       }
-      this.$store.commit('setMaskDialog', {state: newVal, mode: this.mode})
+      this.$store.commit('setMaskDialog', {state: newVal, mode: this.maskMode})
     },
     maskDialog(newVal) {
       if (!newVal) {
@@ -95,6 +100,7 @@ export default {
       }, 0)
       setTimeout(() => {
         this.$setCss(el, 'transition-duration', `0ms`)
+        this.$setCss(el, 'transform', `none`)
         done()
       }, 200)
     },
@@ -151,7 +157,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../assets/scss/index";
+@import "../../assets/scss/index";
 
 .FromBottomDialog {
   z-index: 9;
@@ -173,6 +179,10 @@ export default {
 
   &.white {
     background: white;
+  }
+
+  &.no-heng-gang {
+    padding-top: 0;
   }
 
   .heng-gang {

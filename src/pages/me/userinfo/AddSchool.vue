@@ -56,7 +56,7 @@ import {mapState} from 'vuex'
 import enums from '../../../utils/enums'
 import {inject} from "vue";
 import MobileSelect from "mobile-select";
-import ConfirmDialog from "../../../components/ConfirmDialog";
+import ConfirmDialog from "../../../components/dialog/ConfirmDialog";
 import Loading from "../../../components/Loading";
 
 //TODO 年份选择器没做

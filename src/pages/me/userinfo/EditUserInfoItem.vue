@@ -18,7 +18,8 @@
         <div class="notice">我的名字</div>
         <div class="input-ctn" style="margin-bottom: 1rem;">
           <input type="text" v-model="localUserinfo.name" placeholder="记得填写名字哦">
-          <img class="close" src="../../../assets/img/icon/close.svg" alt="" @click="localUserinfo.name = ''">
+          <img v-if="localUserinfo.name"
+              class="close" src="../../../assets/img/icon/close.svg" alt="" @click="localUserinfo.name = ''">
         </div>
         <div class="num">{{ localUserinfo.name.length }}/20</div>
       </div>
@@ -26,7 +27,9 @@
         <div class="notice">我的抖音号</div>
         <div class="input-ctn" style="margin-bottom: 1rem;">
           <input type="text" v-model="localUserinfo.account">
-          <img class="close" src="../../../assets/img/icon/close.svg" alt="" @click="localUserinfo.account = ''">
+          <img
+              v-if="localUserinfo.account"
+              class="close" src="../../../assets/img/icon/close.svg" alt="" @click="localUserinfo.account = ''">
         </div>
         <div class="num">最多16个字，只允许包含字母、数字、下划线和点，30天内仅能修改一次</div>
       </div>
