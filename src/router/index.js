@@ -29,6 +29,8 @@ import Scan from "../pages/people/Scan";
 import FaceToFace from "../pages/people/FaceToFace";
 import Chat from "../pages/message/Chat";
 import ChatDetail from "../pages/message/ChatDetail";
+import SetRemark from "../pages/message/SetRemark";
+import LookHistory from "../pages/me/rightMenu/LookHistory";
 
 const routes = [
   // {path: '', component: Music},
@@ -62,6 +64,8 @@ const routes = [
   {path: '/face-to-face', component: FaceToFace},
   {path: '/chat', component: Chat},
   {path: '/chat-detail', component: ChatDetail},
+  {path: '/set-remark', component: SetRemark},
+  {path: '/me/right-menu/look-history', component: LookHistory},
 ]
 
 export default VueRouter.createRouter({

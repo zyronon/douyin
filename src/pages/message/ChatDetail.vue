@@ -22,19 +22,20 @@
             <switches v-model="top" theme="bootstrap" color="success"></switches>
           </div>
         </div>
-        <div class="row">
+        <div class="row" @click="$nav('/set-remark')">
           <div class="left">设备备注</div>
           <div class="right">
             <img src="../../assets/img/icon/back.png" alt="">
           </div>
         </div>
+        <!-- TODO 没做        -->
         <div class="row">
           <div class="left">举报</div>
           <div class="right">
             <img src="../../assets/img/icon/back.png" alt="">
           </div>
         </div>
-        <div class="row">
+        <div class="row" @click="blockDialog = true">
           <div class="left">拉黑</div>
           <div class="right">
             <img src="../../assets/img/icon/back.png" alt="">
@@ -42,30 +43,48 @@
         </div>
       </div>
     </div>
+    <from-bottom-dialog
+        v-model="blockDialog"
+        :show-heng-gang="false"
+        height="20rem"
+        mode="white">
+      <div class="block-dialog">
+        <div class="notice">
+          拉黑后，对方将无法搜索到你，也不能再给你发私信
+        </div>
+        <div class="row">确认拉黑</div>
+        <div class="row">不让 TA 看</div>
+        <div class="space"></div>
+        <div class="row" @click="blockDialog = false">取消</div>
+      </div>
+    </from-bottom-dialog>
   </div>
 </template>
 <script>
 import Switches from './components/swtich/switches';
 import People from "../people/components/People";
+import FromBottomDialog from "../../components/dialog/FromBottomDialog";
 
 export default {
   name: "ChatDetail",
   components: {
     Switches,
-    People
+    People,
+    FromBottomDialog
   },
   data() {
     return {
       noMessage: false,
       top: false,
+      blockDialog: false,
       list: [
         {
           type: 1,
-          name:'A'
+          name: 'A'
         },
         {
           type: 6,
-          name:'多人聊天'
+          name: '多人聊天'
         },
       ]
     }
@@ -92,6 +111,7 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
+  font-size: 1.4rem;
 
   .content {
     padding-top: 6rem;
@@ -108,15 +128,10 @@ export default {
       .row {
         padding-left: 2rem;
         padding-right: 2rem;
-
         display: flex;
         align-items: center;
         justify-content: space-between;
         height: 4rem;
-
-        &:active {
-          opacity: .5;
-        }
 
         .right {
           img {
@@ -126,5 +141,36 @@ export default {
       }
     }
   }
+
+  .block-dialog {
+    color: black;
+
+    .notice {
+      color: $second-text-color;
+      font-size: 1.2rem;
+      height: 4rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .row {
+      height: 5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-top: 1px solid gainsboro;
+
+      &:nth-last-child(1) {
+        border-top: none;
+      }
+    }
+
+    .space {
+      height: 1rem;
+      background: whitesmoke;
+    }
+  }
+
 }
 </style>

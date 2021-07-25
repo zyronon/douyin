@@ -155,6 +155,8 @@ export default {
   right: 0;
   bottom: 0;
   top: 0;
+  overflow: auto;
+  font-size: 1.4rem;
 }
 
 .title {

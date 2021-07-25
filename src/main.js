@@ -18,6 +18,7 @@ import SlideRowList from "./components/slide/SlideRowList";
 import SlideColumnList from "./components/slide/SlideColumnList";
 import Mask from "./components/Mask";
 import NoMore from "./components/NoMore";
+import Indicator from "./components/Indicator";
 
 const mixin = {
   methods: {
@@ -32,6 +33,7 @@ app.component('SlideList', SlideList)
 app.component('SlideRowList', SlideRowList)
 app.component('SlideColumnList', SlideColumnList)
 app.component('SlideItem', SlideItem)
+app.component('Indicator', Indicator)
 app.component('Video1', Video)
 app.component('Footer', Footer)
 app.component('Mask', Mask)

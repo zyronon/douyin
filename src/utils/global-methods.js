@@ -1,6 +1,6 @@
 import * as Vue from "vue";
-import SelectDialog from "../components/SelectDialog";
-import ConfirmDialog from "../components/ConfirmDialog";
+import SelectDialog from "../components/dialog/SelectDialog";
+import ConfirmDialog from "../components/dialog/ConfirmDialog";
 import Loading from "../components/Loading";
 
 export default {

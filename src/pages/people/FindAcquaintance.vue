@@ -54,10 +54,6 @@
 
 
     <transition name="fade">
-      <Mask v-if="maskDialog" @click="maskDialog = false"></Mask>
-    </transition>
-
-    <transition name="fade">
       <div v-if="findAddressListDialog" class="find-address-list-dialog" @click="findAddressListDialog = false">
         <div class="body">
           <div>
@@ -77,7 +73,7 @@
     </transition>
 
     <transition name="from-bottom">
-      <div class="more-option-dialog" v-if="moreOptionDialog">
+      <div class="more-option-dialog" v-if="false">
         <div class="row" @click="outWebImgAccountDialog = true;moreOptionDialog = false">
           <span>站外好友口令</span>
         </div>
@@ -93,6 +89,28 @@
         </div>
       </div>
     </transition>
+
+    <from-bottom-dialog
+        v-model="moreOptionDialog"
+        :show-heng-gang="false"
+        height="20rem"
+        mode="white">
+      <div class="more-option-dialog">
+        <div class="row" @click="outWebImgAccountDialog = true;moreOptionDialog = false">
+          <span>站外好友口令</span>
+        </div>
+        <div class="row" @click="$nav('/scan')">
+          <span>扫一扫加好友</span>
+        </div>
+        <div class="row" style="border-bottom: none;" @click="$nav('/face-to-face')">
+          <span>面对面加好友</span>
+        </div>
+        <div class="space"></div>
+        <div class="row" @click="moreOptionDialog = false">
+          取消
+        </div>
+      </div>
+    </from-bottom-dialog>
 
     <transition name="fade">
       <div class="out-web-img-account-dialog" v-if="outWebImgAccountDialog">
@@ -123,13 +141,15 @@
 import People from './components/People'
 import Search from '../../components/Search'
 import Indicator from '../../components/Indicator'
+import FromBottomDialog from "../../components/dialog/FromBottomDialog";
 
 export default {
   name: "FindAcquaintance",
   components: {
     People,
     Search,
-    Indicator
+    Indicator,
+    FromBottomDialog
   },
   data() {
     return {
@@ -388,15 +408,7 @@ export default {
   }
 
   .more-option-dialog {
-    z-index: 9;
-    position: fixed;
-    width: 100%;
-    max-height: 50vh;
-    overflow: auto;
-    bottom: 0;
-    background: white;
-    box-sizing: border-box;
-    border-radius: 5px 5px 0 0;
+    font-size: 1.4rem;
 
     .space {
       height: 1rem;
@@ -404,16 +416,16 @@ export default {
     }
 
     .row {
-      font-size: 1.6rem;
+      height: 5rem;
       color: black;
       background: white;
       box-sizing: border-box;
-      padding: 1.8rem;
       width: 100%;
       //border-bottom: 1px solid ghostwhite;
       border-bottom: 1px solid gainsboro;
-      text-align: center;
-
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 

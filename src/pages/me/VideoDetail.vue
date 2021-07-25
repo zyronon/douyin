@@ -79,6 +79,7 @@
         v-model="dialog.shareToFriend"
         height="50vh"
         mode="light"
+        mask-mode="light"
     >
       <div class="share-dialog">
         <div class="collection" @click="dialog.shareToFriend = false">
@@ -107,6 +108,7 @@
         v-model="dialog.permissionDialog"
         height="40vh"
         mode="white"
+        mask-mode="white"
     >
       <div class="permission-dialog">
         <div class="setting" @click="dialog.permissionDialog = false">
@@ -163,7 +165,7 @@ import mp43 from "../../assets/video/3.mp4";
 import mp44 from "../../assets/video/4.mp4";
 import mp45 from "../../assets/video/5.mp4";
 import Search from "../../components/Search";
-import FromBottomDialog from "../../components/FromBottomDialog";
+import FromBottomDialog from "../../components/dialog/FromBottomDialog";
 
 export default {
   name: "VideoDetail",
