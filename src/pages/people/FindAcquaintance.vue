@@ -52,6 +52,9 @@
       </SlideItem>
     </SlideRowList>
 
+    <transition name="fade">
+      <Mask v-if="maskDialog" @click="maskDialog = false"></Mask>
+    </transition>
 
     <transition name="fade">
       <div v-if="findAddressListDialog" class="find-address-list-dialog" @click="findAddressListDialog = false">
@@ -72,28 +75,10 @@
       </div>
     </transition>
 
-    <transition name="from-bottom">
-      <div class="more-option-dialog" v-if="false">
-        <div class="row" @click="outWebImgAccountDialog = true;moreOptionDialog = false">
-          <span>站外好友口令</span>
-        </div>
-        <div class="row" @click="$nav('/scan')">
-          <span>扫一扫加好友</span>
-        </div>
-        <div class="row" style="border-bottom: none;" @click="$nav('/face-to-face')">
-          <span>面对面加好友</span>
-        </div>
-        <div class="space"></div>
-        <div class="row" @click="moreOptionDialog = false">
-          取消
-        </div>
-      </div>
-    </transition>
-
     <from-bottom-dialog
         v-model="moreOptionDialog"
         :show-heng-gang="false"
-        height="20rem"
+        height="21rem"
         mode="white">
       <div class="more-option-dialog">
         <div class="row" @click="outWebImgAccountDialog = true;moreOptionDialog = false">
@@ -184,10 +169,10 @@ export default {
   computed: {
     maskDialog: {
       get() {
-        return this.findAddressListDialog || this.moreOptionDialog || this.outWebImgAccountDialog
+        return this.findAddressListDialog || this.outWebImgAccountDialog
       },
       set() {
-        this.findAddressListDialog = this.moreOptionDialog = this.outWebImgAccountDialog = false
+        this.findAddressListDialog = this.outWebImgAccountDialog = false
       }
     }
   },

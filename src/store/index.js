@@ -30,7 +30,9 @@ const store = Vuex.createStore({
     },
     setMaskDialog(store, val) {
       store.maskDialog = val.state
-      store.maskDialogMode = val.mode
+      if (val.mode){
+        store.maskDialogMode = val.mode
+      }
     }
   }
 })
