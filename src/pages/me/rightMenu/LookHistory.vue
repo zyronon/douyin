@@ -15,12 +15,22 @@
           :tabTexts="['熟人列表','发现熟人']"
           v-model:active-index="currentSlideItemIndex">
       </Indicator>
-      <SlideRowList v-model:active-index="currentSlideItemIndex" style="height: calc(100vh - 6rem);">
+      <SlideRowList v-model:active-index="currentSlideItemIndex" style="height: calc(100vh - 12rem);">
         <SlideItem class="tab1">
-          <Posters></Posters>
-          <NoMore></NoMore>
+
+          <Posters :list="list" v-if="list" style="overflow:auto;"></Posters>
+          <div class="empty" v-else>
+            <img src="../../../assets/img/icon/head-image.jpeg" alt="">
+            <div class="title">暂无内容</div>
+            <div class="subtitle">暂无观看历史记录</div>
+          </div>
         </SlideItem>
         <SlideItem class="tab2">
+          <div class="empty">
+            <img src="../../../assets/img/icon/head-image.jpeg" alt="">
+            <div class="title">暂无内容</div>
+            <div class="subtitle">暂无观影历史记录</div>
+          </div>
         </SlideItem>
       </SlideRowList>
     </div>
@@ -36,7 +46,8 @@ export default {
   },
   data() {
     return {
-      currentSlideItemIndex: 0
+      currentSlideItemIndex: 0,
+      list: 20,
     }
   },
   computed: {},
@@ -44,8 +55,9 @@ export default {
   },
   methods: {
     clear() {
-      this.$showConfirmDialog('确定清空？',()=>{
-
+      this.$showConfirmDialog('确定清空？', '清空后，以往观看记录不再展示', () => {
+        this.list = 0
+        console.log(this.list)
       })
     }
   }
@@ -67,6 +79,25 @@ export default {
 
   .content {
     padding-top: 6rem;
+
+    .empty {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      .title {
+        margin-top: 1rem;
+        font-size: 1.5rem;
+      }
+
+      .subtitle {
+        font-size: 1.3rem;
+        margin-top: 1rem;
+        color: $second-text-color;
+      }
+    }
   }
 }
 </style>

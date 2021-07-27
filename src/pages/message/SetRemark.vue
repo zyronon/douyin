@@ -44,7 +44,7 @@ export default {
   methods: {
     back() {
       if (this.isChanged) {
-        this.$showConfirmDialog('是否保存修改', this.save, this.$back)
+        this.$showSimpleConfirmDialog('是否保存修改', this.save, this.$back)
       } else {
         this.$back()
       }
