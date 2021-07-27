@@ -1,10 +1,13 @@
 <template>
   <div class="ConfirmDialog " @click="$emit('dismiss')">
     <div class="content" @click.stop="null">
-      <div class="item">{{ title }}</div>
+      <div class="body">
+        <div class="title">{{ title }}</div>
+        <div class="subtitle" v-if="subtitle">{{ subtitle }}</div>
+      </div>
       <div class="footer">
-        <div class="cancel" @click.stop="$emit('cancel')">放弃</div>
-        <div class="ok" @click.stop="$emit('ok')">保存</div>
+        <div class="cancel" @click.stop="$emit('cancel')">取消</div>
+        <div class="ok" @click.stop="$emit('ok')">确定</div>
       </div>
     </div>
   </div>
@@ -22,6 +25,12 @@ export default {
       default() {
         return ''
       }
+    },
+    subtitle: {
+      type: String,
+      default() {
+        return ''
+      }
     }
   },
   data() {
@@ -31,6 +40,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../../assets/scss/index";
 
 .ConfirmDialog {
   z-index: 10;
@@ -51,16 +61,41 @@ export default {
     width: 80%;
     border-radius: 2px;
     box-sizing: border-box;
-    padding: 1.5rem 2rem;
     font-size: 1.5rem;
+    text-align: center;
+
+    .body {
+      padding: 1rem;
+
+      .title {
+        margin-top: 1rem;
+        font-size: 1.5rem;
+      }
+
+      .subtitle {
+        margin-top: 1rem;
+        color: $second-text-color;
+        font-size: 1.2rem;
+      }
+    }
 
     .footer {
+      height: 4rem;
       margin-top: 2rem;
       display: flex;
-      justify-content: flex-end;
+      border-top: 1px solid whitesmoke;
+      font-size: 1.4rem;
+
+      .cancel, .ok {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 49%;
+      }
 
       .cancel {
-        margin-right: 2.5rem;
+        color: $second-text-color;
+        border-right: 1px solid whitesmoke;
       }
 
     }

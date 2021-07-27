@@ -137,7 +137,7 @@ export default {
     },
     back() {
       if (this.isChanged) {
-        this.$showConfirmDialog('学校信息30天内只允许修改一次，是否保存修改', this.save, () => {
+        this.$showSimpleConfirmDialog('学校信息30天内只允许修改一次，是否保存修改', this.save, () => {
           localStorage.clear()
           this.$back()
         })
