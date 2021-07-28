@@ -65,6 +65,9 @@ export default {
         '/chat-detail',
         '/set-remark',
         '/me/right-menu/look-history',
+        '/me/right-menu/minor-protection/index',
+        '/me/right-menu/minor-protection/detail-setting',
+        '/me/right-menu/minor-protection/trigger-time',
         '',
       ];
       const toDepth = routeDeep.indexOf(to.path)

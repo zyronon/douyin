@@ -75,7 +75,7 @@ export default {
       .subtitle {
         margin-top: 1rem;
         color: $second-text-color;
-        font-size: 1.2rem;
+        font-size: 1.3rem;
       }
     }
 

@@ -4,7 +4,7 @@
       <template v-slot:center>
         <span class="f16">观看历史</span>
       </template>
-      <template v-slot:right>
+      <template v-slot:right v-if="list">
         <span class="second-text-color f13" @click="clear">清空</span>
       </template>
     </BaseHeader>
@@ -16,9 +16,8 @@
           v-model:active-index="currentSlideItemIndex">
       </Indicator>
       <SlideRowList v-model:active-index="currentSlideItemIndex" style="height: calc(100vh - 12rem);">
-        <SlideItem class="tab1">
-
-          <Posters :list="list" v-if="list" style="overflow:auto;"></Posters>
+        <SlideItem class="tab1"  style="overflow:auto;">
+          <Posters :list="list" v-if="list"></Posters>
           <div class="empty" v-else>
             <img src="../../../assets/img/icon/head-image.jpeg" alt="">
             <div class="title">暂无内容</div>
@@ -47,7 +46,7 @@ export default {
   data() {
     return {
       currentSlideItemIndex: 0,
-      list: 20,
+      list: 2,
     }
   },
   computed: {},

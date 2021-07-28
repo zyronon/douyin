@@ -207,31 +207,6 @@ export default {
 
   }
 
-  .row {
-    padding: 0 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 5rem;
-    font-size: 1.4rem;
-
-    &:active {
-      background: $active-main-bg;
-    }
-
-    .right {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: $second-text-color;
-
-
-      img {
-        margin-left: 1rem;
-        width: 15px;
-      }
-    }
-  }
 }
 
 .change-dialog {
