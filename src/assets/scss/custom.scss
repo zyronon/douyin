@@ -1,14 +1,86 @@
-.op0{
-    opacity: 0;
+@import "color";
+
+.op0 {
+  opacity: 0;
 }
+
 .global-notice {
-    position: fixed;
+  position: fixed;
+  color: white;
+  background: black;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: .7rem 1rem;
+  border-radius: 1px;
+  font-size: 1.4rem;
+}
+
+.row {
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5rem;
+  font-size: 1.4rem;
+
+  &.no-active {
+    &:active {
+      background: $main-bg;
+    }
+  }
+
+  &:active {
+    background: $active-main-bg;
+  }
+
+  .left {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: white;
-    background: black;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    padding: .7rem 1rem;
-    border-radius: 1px;
-    font-size: 1.4rem;
+
+    img {
+      margin-right: 1rem;
+      width: 1.5rem;
+    }
+  }
+
+  .right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: $second-text-color;
+
+    img {
+      margin-left: 1rem;
+      width: 1.5rem;
+    }
+  }
+}
+
+.button {
+  color: white;
+  height: 4rem;
+  line-height: 4rem;
+  text-align: center;
+  border-radius: .3rem;
+  //width: 100%;
+  font-size: 1.4rem;
+
+  &.primary {
+    background: $primary-btn-color;
+
+    &:active {
+      background: $disable-primary-btn-color;
+    }
+  }
+
+  &.dark {
+    background: $second-btn-color;
+
+    &:active {
+      background: $second-btn-color-tran;
+    }
+  }
 }

@@ -31,6 +31,9 @@ import Chat from "../pages/message/Chat";
 import ChatDetail from "../pages/message/ChatDetail";
 import SetRemark from "../pages/message/SetRemark";
 import LookHistory from "../pages/me/rightMenu/LookHistory";
+import MinorProtectionIndex from "../pages/me/rightMenu/MinorProtection/Index";
+import MinorProtectionDetailSetting from "../pages/me/rightMenu/MinorProtection/DetailSetting";
+import TriggerTime from "../pages/me/rightMenu/MinorProtection/TriggerTime";
 
 const routes = [
   // {path: '', component: Music},
@@ -66,6 +69,9 @@ const routes = [
   {path: '/chat-detail', component: ChatDetail},
   {path: '/set-remark', component: SetRemark},
   {path: '/me/right-menu/look-history', component: LookHistory},
+  {path: '/me/right-menu/minor-protection/index', component: MinorProtectionIndex},
+  {path: '/me/right-menu/minor-protection/detail-setting', component: MinorProtectionDetailSetting},
+  {path: '/me/right-menu/minor-protection/trigger-time', component: TriggerTime},
 ]
 
 export default VueRouter.createRouter({

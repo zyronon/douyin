@@ -38,6 +38,16 @@ app.component('Video1', Video)
 app.component('Footer', Footer)
 app.component('Mask', Mask)
 app.component('NoMore', NoMore)
+app.component('back', {
+  data(){
+    return{
+      src:require('./assets/img/icon/back.png')
+    }
+  },
+  render() {
+    return <img src={this.src} alt=""/>
+  },
+})
 app.mixin(mixin)
 app.use(router)
 app.use(store)

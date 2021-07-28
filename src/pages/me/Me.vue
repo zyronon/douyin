@@ -113,7 +113,7 @@
               <img src="../../assets/img/icon/card-gray.png" alt="">
               <span>我的二维码</span>
             </div>
-            <div class="li" @click="$nav('MyCard')">
+            <div class="li" @click="$nav('')">
               <img src="../../assets/img/icon/card-gray.png" alt="">
               <span>创作者服务中心</span>
             </div>
@@ -128,7 +128,7 @@
               <img src="../../assets/img/icon/card-gray.png" alt="">
               <span>抖音公益</span>
             </div>
-            <div class="li" @click="$nav('MyCard')">
+            <div class="li" @click="$nav('/me/right-menu/minor-protection/index')">
               <img src="../../assets/img/icon/umbrella-gray.png" alt="">
               <span>未成年保护工具</span>
             </div>
