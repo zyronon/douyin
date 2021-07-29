@@ -101,6 +101,7 @@
       </div>
     </div>
     <Footer v-bind:init-tab="4"/>
+
     <from-bottom-dialog v-model="createChatDialog">
       <div class="create-chat-wrapper" v-show="!showJoinedChat">
         <Search class="ml2r mr2r" placeholder="搜索用户" v-model="createChatSearchKey"></Search>
@@ -129,10 +130,10 @@
         </template>
         <template v-else>
           <div class="joined-chat" @click="showJoinedChat = true">
-            <img class="left" src="../../assets/img/icon/close-white.png" alt="">
+            <img class="left" src="../../assets/img/icon/people-gray.png" alt="">
             <div class="right">
               <span>已加入的群聊</span>
-              <img src="../../assets/img/icon/back.png" alt="">
+              <back direction="right" scale="1.2"></back>
             </div>
           </div>
           <div class="friend-list">
@@ -155,7 +156,7 @@
       </div>
       <div class="joined-chat-wrapper" v-show="showJoinedChat">
         <div class="nav">
-          <img src="../../assets/img/icon/back.png" alt="" @click="showJoinedChat = false">
+          <back @click="showJoinedChat = false" mode="white" scale="1.8"></back>
           <span>已加入的群聊</span>
           <span>&nbsp;</span>
         </div>
@@ -168,7 +169,7 @@
                 <div class="name">{{ text.length > 20 ? text.substr(0, 20) + '...' : text }}</div>
                 <div class="num">(3)</div>
               </div>
-              <img class="arrow" src="../../assets/img/icon/back.png" alt="">
+              <back direction="right" scale="1.2"></back>
             </div>
           </div>
         </div>
@@ -302,8 +303,8 @@ export default {
       align-items: center;
 
       .left {
-        width: 1.8rem;
-        height: 1.8rem;
+        width: 2.2rem;
+        height: 2.2rem;
         margin-left: 1rem;
         margin-right: 2rem;
       }
@@ -458,6 +459,7 @@ export default {
   .joined-chat-wrapper {
 
     .nav {
+      font-size: 1.7rem;
       padding: 2rem;
       display: flex;
       justify-content: space-between;

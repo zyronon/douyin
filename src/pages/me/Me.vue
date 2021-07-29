@@ -8,13 +8,13 @@
       <SlideItem style="overflow:auto;" :style="contentStyle" @scroll="scroll" @click="click">
         <div ref="desc" class="desc">
           <header ref="header">
-            <div class="left">
+            <div class="left" style="opacity: 0;">
               <img src="../../assets/img/icon/next.svg" alt="">
               <span>切换账号</span>
             </div>
             <div class="right">
-              <img src="../../assets/img/icon/more.svg" alt="">
-              <img src="../../assets/img/icon/more.svg" alt="" @click.stop="baseActiveIndex = 1">
+              <img src="../../assets/img/icon/me/finger-right.png" alt="">
+              <img src="../../assets/img/icon/me/menu.png" alt="" @click.stop="baseActiveIndex = 1">
             </div>
           </header>
           <div class="detail">
@@ -30,23 +30,23 @@
               </div>
               <div class="my-buttons ">
                 <div class="collect" @click="$nav('/edit-userinfo')">
-                  <span class="mr5p">编辑资料</span>
+                  <span class="mr1r">编辑资料</span>
                   <span class="f10p" style="color: darkgray">85%</span>
                 </div>
                 <div class="add-friend" @click="$nav('/find-acquaintance')">
-                  <img src="../../assets/img/icon/add.svg" alt="">
+                  <img src="../../assets/img/icon/add-white.png" alt="">
                   <span class="mr5p">熟人</span>
                 </div>
               </div>
             </div>
             <div class="description">
-              <p class="name f22 mt5p mb5p">ttentau</p>
-              <div class="number mb10p">
-                <span class="mr5p">私密账号</span>
+              <p class="name f22 mt1r mb1r">ttentau</p>
+              <div class="number mb1r">
+                <span class="mr1r">私密账号</span>
                 <span>抖音号：605128307</span>
-                <img src="../../assets/img/icon/qr_code.svg" alt="" @click.stop="$nav('/my-card')">
+                <img src="../../assets/img/icon/me/qrcode-gray.png" alt="" @click.stop="$nav('/my-card')">
               </div>
-              <div class="signature f12 mb10p">
+              <div class="signature f12 mb1r">
                 <span>填写个性签名更容易获得别人关注哦</span>
               </div>
               <div class="heat">
@@ -96,48 +96,48 @@
         <transition name="fade">
           <div class="ul" v-if="!isMoreFunction">
             <div class="li" @click="$nav('/my-card')">
-              <img src="../../assets/img/icon/card-gray.png" alt="">
+              <img src="../../assets/img/icon/newicon/left_menu/shopping.png" alt="">
               <span>我的订单</span>
             </div>
             <div class="li" @click="$nav('MyCard')">
-              <img src="../../assets/img/icon/wallet-gray.png" alt="">
+              <img src="../../assets/img/icon/newicon/left_menu/wallet.png" alt="">
               <span>钱包</span>
             </div>
             <div class="line"></div>
 
             <div class="li" @click="$nav('/me/right-menu/look-history')">
-              <img src="../../assets/img/icon/card-gray.png" alt="">
+              <img src="../../assets/img/icon/newicon/left_menu/clock.png" alt="">
               <span>观看历史</span>
             </div>
             <div class="li" @click="$nav('/my-card')">
-              <img src="../../assets/img/icon/card-gray.png" alt="">
+              <img src="../../assets/img/icon/newicon/left_menu/qrcode.png" alt="">
               <span>我的二维码</span>
             </div>
             <div class="li" @click="$nav('')">
-              <img src="../../assets/img/icon/card-gray.png" alt="">
+              <img src="../../assets/img/icon/newicon/left_menu/workbench.png" alt="">
               <span>创作者服务中心</span>
             </div>
 
             <div class="line"></div>
 
             <div class="li" @click="$nav('MyCard')">
-              <img src="../../assets/img/icon/link-gray.png" alt="">
+              <img src="../../assets/img/icon/newicon/left_menu/bytedance-mini-app.png" alt="">
               <span>小程序</span>
             </div>
             <div class="li" @click="$nav('MyCard')">
-              <img src="../../assets/img/icon/card-gray.png" alt="">
+              <img src="../../assets/img/icon/newicon/left_menu/gongyi.png" alt="">
               <span>抖音公益</span>
             </div>
             <div class="li" @click="$nav('/me/right-menu/minor-protection/index')">
-              <img src="../../assets/img/icon/umbrella-gray.png" alt="">
+              <img src="../../assets/img/icon/newicon/left_menu/umbrella.png" alt="">
               <span>未成年保护工具</span>
             </div>
             <div class="li" @click="$nav('MyCard')">
-              <img src="../../assets/img/icon/card-gray.png" alt="">
+              <img src="../../assets/img/icon/newicon/left_menu/headset.png" alt="">
               <span>我的客服</span>
             </div>
-            <div class="li" @click="$nav('MyCard')">
-              <img src="../../assets/img/icon/setting-gray.png" alt="">
+            <div class="li" @click="$nav('/me/right-menu/setting')">
+              <img src="../../assets/img/icon/newicon/left_menu/setting-one.png" alt="">
               <span>设置</span>
             </div>
           </div>
@@ -145,39 +145,38 @@
             <div class="title">生活服务</div>
             <div class="functions">
               <div class="function">
-                <img src="../../assets/img/icon/juan-gray.png" alt="">
+                <img src="../../assets/img/icon/newicon/left_menu/quan.png" alt="">
                 <span>卡券</span>
               </div>
               <div class="function">
-                <img src="../../assets/img/icon/order-gray.png" alt="">
+                <img src="../../assets/img/icon/newicon/left_menu/sd-card.png" alt="">
                 <span>免流量</span>
               </div>
-
               <div class="function" @click="$nav('MyCollect')">
-                <img src="../../assets/img/icon/collect-gray.png" alt="">
+                <img src="../../assets/img/icon/newicon/left_menu/alarmmmmmmmmmmmm.png" alt="">
                 <span>视频彩铃</span>
               </div>
             </div>
             <div class="title">拓展功能</div>
             <div class="functions">
               <div class="function" @click="$nav('MyCard')">
-                <img src="../../assets/img/icon/card-gray.png" alt="">
+                <img src="../../assets/img/icon/newicon/left_menu/sun-one.png" alt="">
                 <span>我的动态</span>
               </div>
               <div class="function">
-                <img src="../../assets/img/icon/order-gray.png" alt="">
+                <img src="../../assets/img/icon/newicon/left_menu/download.png" alt="">
                 <span>我的缓存</span>
               </div>
               <div class="function" @click="$nav('MyCard')">
-                <img src="../../assets/img/icon/card-gray.png" alt="">
+                <img src="../../assets/img/icon/newicon/left_menu/hot.png" alt="">
                 <span>上热门</span>
               </div>
               <div class="function" @click="$nav('MyCollect')">
-                <img src="../../assets/img/icon/collect-gray.png" alt="">
+                <img src="../../assets/img/icon/newicon/left_menu/shop.png" alt="">
                 <span>小店随心推</span>
               </div>
               <div class="function" @click="$nav('MyCollect')">
-                <img src="../../assets/img/icon/collect-gray.png" alt="">
+                <img src="../../assets/img/icon/newicon/left_menu/yuandi.png" alt="">
                 <span>投教园地</span>
               </div>
             </div>
@@ -185,7 +184,7 @@
         </transition>
         <div class="button-ctn">
           <div class="button" v-if="!isMoreFunction" @click="isMoreFunction = true">
-            <img src="../../assets/img/icon/card-gray.png" alt="">
+            <img src="../../assets/img/icon/newicon/left_menu/more.png" alt="">
             <span>更多功能</span>
           </div>
           <div class="button" v-if="isMoreFunction" @click="isMoreFunction = false">
@@ -413,8 +412,8 @@ export default {
             }
 
             img {
-              padding: 0 6px;
-              height: 16px;
+              padding: 0 .6rem;
+              height: 1.2rem;
             }
           }
 
@@ -428,7 +427,7 @@ export default {
 
         .number {
           color: $second-text-color;
-          padding-bottom: 10px;
+          padding-bottom: 2rem;
           border-bottom: 1px solid $line-color;
           display: flex;
           align-items: center;
@@ -462,7 +461,7 @@ export default {
   }
 
   .ul {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     width: 100%;
     height: 100%;
     overflow-y: auto;
@@ -514,7 +513,7 @@ export default {
     background: $main-bg;
 
     .title {
-      padding: 20px;
+      padding: 2rem 0 1rem 2rem;
       color: gray;
     }
 
@@ -532,8 +531,10 @@ export default {
         align-items: center;
 
         img {
-          height: 25px;
-          width: 25px;
+          border-radius: 50%;
+          background: $second-btn-color-tran;
+          padding: .6rem;
+          height: 1.6rem;
           margin-bottom: 15px;
         }
       }

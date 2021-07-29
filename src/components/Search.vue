@@ -1,7 +1,7 @@
 <template>
   <div class="search-ctn">
     <div class="search">
-      <img class="search-icon" src="../assets/img/icon/pause.svg" alt="">
+      <img class="search-icon" src="../assets/img/icon/search-gray.png" alt="">
       <input type="text" :placeholder="placeholder" v-model="value">
       <div class="suffix">
         <slot v-if="$slots.default"></slot>
@@ -69,6 +69,7 @@ export default {
   }
 
   .search {
+    font-size: 1.4rem;
     padding: 0;
     flex: 1;
     position: relative;
@@ -79,14 +80,13 @@ export default {
     align-items: center;
 
     .search-icon {
-      height: 1.5rem;
-      width: 1.5rem;
+      height: 2rem;
+      width: 2rem;
       margin: 0 1rem;
     }
 
     input {
       //margin-top: .4rem;
-      font-size: 1.6rem;
       color: white;
       height: 50%;
       width: 100%;

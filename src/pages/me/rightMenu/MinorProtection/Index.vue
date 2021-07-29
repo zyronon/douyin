@@ -10,21 +10,21 @@
         <div class="left">时间锁</div>
         <div class="right">
           <span>未开启</span>
-          <img src="../../../../assets/img/icon/back.png" alt="">
+          <back direction="right"></back>
         </div>
       </div>
       <div class="row" @click="$nav('detail-setting',{type:1})">
         <div class="left">青少年模式</div>
         <div class="right">
           <span>未开启</span>
-          <img src="../../../../assets/img/icon/back.png" alt="">
+          <back direction="right"></back>
         </div>
       </div>
       <div class="row" @click="$nav('detail-setting',{type:2})">
         <div class="left">亲子平台</div>
         <div class="right">
           <span>未开启</span>
-          <img src="../../../../assets/img/icon/back.png" alt="">
+          <back direction="right"></back>
         </div>
       </div>
     </div>

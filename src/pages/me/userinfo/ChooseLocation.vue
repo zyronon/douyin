@@ -20,7 +20,7 @@
         <div class="row" @click="$nav('/choose-province')">
           <span>中国</span>
           <div class="right">
-            <img src="../../../assets/img/icon/close-white.png" alt="">
+            <back scale='1.5' direction="right"></back>
           </div>
         </div>
       </div>
