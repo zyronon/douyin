@@ -1,19 +1,19 @@
 <template>
   <div class="footer f16 " @touchmove.stop="false">
-    <div class="button" @click="refresh()">
+    <div class="l-button" @click="refresh()">
       <span v-if="!isRefresh" :class="{active:currentTab===1}">首页</span>
       <img v-else src="../assets/img/icon/refresh.png" alt="" class="refresh">
     </div>
-    <div class="button" @click="tab(2)"><span :class="{active:currentTab===2}">关注</span></div>
-    <div class="button" @click="tab(3)">
+    <div class="l-button" @click="tab(2)"><span :class="{active:currentTab===2}">关注</span></div>
+    <div class="l-button" @click="tab(3)">
       <div class="add-ctn">
         <div class="add-one"></div>
         <div class="add-two"></div>
         <img src="../assets/img/icon/add.svg" alt="" class="add">
       </div>
     </div>
-    <div class="button" @click="tab(4)"><span :class="{active:currentTab===4}">消息</span></div>
-    <div class="button" @click="tab(5)"><span :class="{active:currentTab===5}">我</span></div>
+    <div class="l-button" @click="tab(4)"><span :class="{active:currentTab===4}">消息</span></div>
+    <div class="l-button" @click="tab(5)"><span :class="{active:currentTab===5}">我</span></div>
   </div>
 
 </template>
@@ -67,21 +67,21 @@ export default {
 <style scoped lang="scss">
 
 .footer {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   position: fixed;
   width: 100%;
-  height: 60px;
+  height: 5rem;
   //border-top: 1px solid #7b7878;
   z-index: 2;
   //不用bottom：0是因为，在进行页面切换的时候，vue的transition
   // 会使footer的bottom：0失效，不能准备定位
-  top: calc(100vh - 6rem);
+  top: calc(100vh - 5rem);
   background: #020202;
   color: white;
   display: flex;
   //justify-content: space-between;
 
-  .button {
+  .l-button {
     width: 20%;
     display: flex;
     justify-content: center;

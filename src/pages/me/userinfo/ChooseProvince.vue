@@ -10,7 +10,7 @@
         <div class="row" @click="$nav('/choose-city')" v-for="item in list">
           <span>{{ item }}</span>
           <div class="right">
-            <img src="../../../assets/img/icon/close-white.png" alt="">
+            <back scale='1.5' direction="right"></back>
           </div>
         </div>
       </div>

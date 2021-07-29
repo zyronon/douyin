@@ -9,25 +9,25 @@
       <div class="row" @click="setTriggerTime(enums.TRIGGER_TIME.TIME40)">
         <div class="left">40分钟</div>
         <div class="right" v-if="triggerTime === enums.TRIGGER_TIME.TIME40">
-          <img src="../../../../assets/img/icon/back.png" alt="">
+          <img src="../../../../assets/img/icon/ok-red.png" alt="">
         </div>
       </div>
       <div class="row" @click="setTriggerTime(enums.TRIGGER_TIME.TIME60)">
         <div class="left">60分钟</div>
         <div class="right" v-if="triggerTime === enums.TRIGGER_TIME.TIME60">
-          <img src="../../../../assets/img/icon/back.png" alt="">
+          <img src="../../../../assets/img/icon/ok-red.png" alt="">
         </div>
       </div>
       <div class="row" @click="setTriggerTime(enums.TRIGGER_TIME.TIME90)">
         <div class="left">90分钟</div>
         <div class="right" v-if="triggerTime === enums.TRIGGER_TIME.TIME90">
-          <img src="../../../../assets/img/icon/back.png" alt="">
+          <img src="../../../../assets/img/icon/ok-red.png" alt="">
         </div>
       </div>
       <div class="row" @click="setTriggerTime(enums.TRIGGER_TIME.TIME120)">
         <div class="left">120分钟</div>
         <div class="right" v-if="triggerTime === enums.TRIGGER_TIME.TIME120">
-          <img src="../../../../assets/img/icon/back.png" alt="">
+          <img src="../../../../assets/img/icon/ok-red.png" alt="">
         </div>
       </div>
     </div>

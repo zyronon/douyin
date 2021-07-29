@@ -55,7 +55,6 @@ export default {
         '/choose-province',
         '/choose-city',
         '/find-acquaintance',
-        '/service-protocol',
         '/address-list',
         '/video-detail',
         '/my-card',
@@ -68,6 +67,10 @@ export default {
         '/me/right-menu/minor-protection/index',
         '/me/right-menu/minor-protection/detail-setting',
         '/me/right-menu/minor-protection/trigger-time',
+        '/me/right-menu/setting',
+
+
+        '/service-protocol',
         '',
       ];
       const toDepth = routeDeep.indexOf(to.path)

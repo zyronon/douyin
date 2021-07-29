@@ -18,22 +18,25 @@
         <div class="notice">我的名字</div>
         <div class="input-ctn" style="margin-bottom: 1rem;">
           <input type="text" v-model="localUserinfo.name" placeholder="记得填写名字哦">
-          <img v-if="localUserinfo.name"
-              class="close" src="../../../assets/img/icon/close.svg" alt="" @click="localUserinfo.name = ''">
+            <img v-if="localUserinfo.name"
+               style="transform: scale(2)"
+               class="close" src="../../../assets/img/icon/newicon/close-and-bg.png" alt=""
+               @click="localUserinfo.name = ''">
         </div>
         <div class="num">{{ localUserinfo.name.length }}/20</div>
       </div>
-      <div class="row" v-if="type === 2">
+      <div class="l-row" v-if="type === 2">
         <div class="notice">我的抖音号</div>
         <div class="input-ctn" style="margin-bottom: 1rem;">
           <input type="text" v-model="localUserinfo.account">
           <img
-              v-if="localUserinfo.account"
-              class="close" src="../../../assets/img/icon/close.svg" alt="" @click="localUserinfo.account = ''">
+              v-if="localUserinfo.account" style="transform: scale(2)"
+              class="close" src="../../../assets/img/icon/newicon/close-and-bg.png" alt=""
+              @click="localUserinfo.account = ''">
         </div>
         <div class="num">最多16个字，只允许包含字母、数字、下划线和点，30天内仅能修改一次</div>
       </div>
-      <div class="row" v-if="type === 3">
+      <div class="l-row" v-if="type === 3">
         <div class="notice">个人简介</div>
         <div class="textarea-ctn">
         <textarea name="" id="" cols="30" rows="10"

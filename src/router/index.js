@@ -34,6 +34,7 @@ import LookHistory from "../pages/me/rightMenu/LookHistory";
 import MinorProtectionIndex from "../pages/me/rightMenu/MinorProtection/Index";
 import MinorProtectionDetailSetting from "../pages/me/rightMenu/MinorProtection/DetailSetting";
 import TriggerTime from "../pages/me/rightMenu/MinorProtection/TriggerTime";
+import Setting from "../pages/me/rightMenu/Setting";
 
 const routes = [
   // {path: '', component: Music},
@@ -72,6 +73,7 @@ const routes = [
   {path: '/me/right-menu/minor-protection/index', component: MinorProtectionIndex},
   {path: '/me/right-menu/minor-protection/detail-setting', component: MinorProtectionDetailSetting},
   {path: '/me/right-menu/minor-protection/trigger-time', component: TriggerTime},
+  {path: '/me/right-menu/setting', component: Setting},
 ]
 
 export default VueRouter.createRouter({

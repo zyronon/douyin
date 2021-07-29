@@ -19,6 +19,7 @@ import SlideColumnList from "./components/slide/SlideColumnList";
 import Mask from "./components/Mask";
 import NoMore from "./components/NoMore";
 import Indicator from "./components/Indicator";
+import Back from "./components/Back";
 
 const mixin = {
   methods: {
@@ -38,16 +39,7 @@ app.component('Video1', Video)
 app.component('Footer', Footer)
 app.component('Mask', Mask)
 app.component('NoMore', NoMore)
-app.component('back', {
-  data(){
-    return{
-      src:require('./assets/img/icon/back.png')
-    }
-  },
-  render() {
-    return <img src={this.src} alt=""/>
-  },
-})
+app.component('back', Back)
 app.mixin(mixin)
 app.use(router)
 app.use(store)

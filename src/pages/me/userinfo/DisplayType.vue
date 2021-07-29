@@ -9,19 +9,19 @@
       <div class="row" @click="setDisplayType(enums.DISPLAY_TYPE.ALL)">
         <div class="left">公开可见</div>
         <div class="right" v-if="displayType === enums.DISPLAY_TYPE.ALL">
-          <img src="../../../assets/img/icon/back.png" alt="">
+          <img src="../../../assets/img/icon/ok-red.png" alt="">
         </div>
       </div>
       <div class="row" @click="setDisplayType(enums.DISPLAY_TYPE.SCHOOL)">
         <div class="left">校友可见</div>
         <div class="right" v-if="displayType === enums.DISPLAY_TYPE.SCHOOL">
-          <img src="../../../assets/img/icon/back.png" alt="">
+          <img src="../../../assets/img/icon/ok-red.png" alt="">
         </div>
       </div>
       <div class="row" @click="setDisplayType(enums.DISPLAY_TYPE.ME)">
         <div class="left">仅自己可见</div>
         <div class="right" v-if="displayType === enums.DISPLAY_TYPE.ME">
-          <img src="../../../assets/img/icon/back.png" alt="">
+          <img src="../../../assets/img/icon/ok-red.png" alt="">
         </div>
       </div>
     </div>
@@ -64,29 +64,6 @@ export default {
 
   .content {
     padding-top: 6rem;
-
-    .row {
-      padding: 0 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 5rem;
-      font-size: 1.4rem;
-      transition: all .1s;
-      background: $main-bg;
-
-      .right {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        color: $second-text-color;
-
-        img {
-          margin-left: 1rem;
-          width: 15px;
-        }
-      }
-    }
   }
 
 }

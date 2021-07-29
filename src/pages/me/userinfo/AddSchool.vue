@@ -15,21 +15,21 @@
         <div class="left">学校</div>
         <div class="right">
           <span>{{ isEmpty(localSchool.name) }}</span>
-          <img src="../../../assets/img/icon/back.png" alt="">
+          <back scale='1' direction="right"></back>
         </div>
       </div>
       <div class="row" @click="checkGo('/choose-department')">
         <div class="left">院系</div>
         <div class="right">
           <span>{{ isEmpty(localSchool.department) }}</span>
-          <img src="../../../assets/img/icon/back.png" alt="">
+          <back scale='1' direction="right"></back>
         </div>
       </div>
       <div class="row" @click="showJoinTimeDialog">
         <div class="left">入学时间</div>
         <div class="right">
           <span>{{ isEmpty(localSchool.joinTime) }}</span>
-          <img src="../../../assets/img/icon/back.png" alt="">
+          <back scale='1' direction="right"></back>
           <div v-show="false" id="trigger1"></div>
         </div>
       </div>
@@ -37,14 +37,14 @@
         <div class="left">学历</div>
         <div class="right">
           <span>{{ isEmpty(localSchool.education) }}</span>
-          <img src="../../../assets/img/icon/back.png" alt="">
+          <back scale='1' direction="right"></back>
         </div>
       </div>
       <div class="row" @click="$nav('/display-type',{displayType : localSchool.displayType})">
         <div class="left">展示范围</div>
         <div class="right">
           <span>{{ displayType }}</span>
-          <img src="../../../assets/img/icon/back.png" alt="">
+          <back scale='1' direction="right"></back>
         </div>
       </div>
     </div>
@@ -176,35 +176,6 @@ export default {
     padding-top: 6rem;
 
   }
-
-  .row {
-    padding: 0 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 5rem;
-    font-size: 1.4rem;
-    transition: all .1s;
-    background: $main-bg;
-
-    &:active {
-      background: $active-main-bg;
-    }
-
-    .right {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: $second-text-color;
-
-
-      img {
-        margin-left: 1rem;
-        width: 15px;
-      }
-    }
-  }
-
 }
 
 .save-yes {

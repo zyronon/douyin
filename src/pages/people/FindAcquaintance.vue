@@ -1,26 +1,24 @@
 <template>
   <div class="FindAcquaintance">
     <div class="header">
-      <img src="../../assets/img/icon/back.png" alt="" class="back" @click="back">
+      <back scale="1.8" mode="white" @click="back"></back>
       <Indicator
           style="width: 50%;"
           tabStyleWidth="40%"
-          :tabTexts="['熟人列表','发现熟人']"
+          :tabTexts="['发现熟人','熟人列表']"
           v-model:active-index="currentSlideItemIndex">
       </Indicator>
-      <img src="../../assets/img/icon/back.png" alt="" class="option" @click="moreOptionDialog = true">
+      <img src="../../assets/img/icon/menu-gray.png" alt="" class="option" @click="moreOptionDialog = true">
     </div>
     <SlideRowList v-model:active-index="currentSlideItemIndex">
       <SlideItem class="tab1">
-        <Search placeholder="搜索用户备注或名字" class="mr20p ml20p mt10p"></Search>
-        <div class="title">我的好友（互相关注）</div>
-        <People v-for="item in list " :people="item"></People>
-        <NoMore></NoMore>
-      </SlideItem>
-      <SlideItem class="tab2">
         <div class="mr2r ml2r mt1r">
-          <Search v-if="!isShowText" :is-show-text="false" @click="isShowText = true">
-            <img src="../../assets/img/icon/close.svg" style="width: 1rem;" @click.stop="$nav('/scan')">
+          <Search v-if="!isShowText"
+                  placeholder="搜索用户名字/抖音号"
+                  :is-show-text="false"
+                  @click="isShowText = true">
+            <img src="../../assets/img/icon/scan-gray.png" style="width: 1rem;transform: scale(1.5)"
+                 @click.stop="$nav('/scan')">
           </Search>
           <Search v-else v-model="searchKey" :is-show-text="true" @notice="search" @clear="isSearch = false"></Search>
         </div>
@@ -32,13 +30,13 @@
                 <div class="text1">查看通讯录朋友</div>
                 <div class="text2">看看谁在抖音</div>
               </div>
-              <img src="../../assets/img/icon/back.png" alt="">
+              <back scale="1" direction="right"></back>
             </div>
           </div>
           <div class="line"></div>
           <div class="title">
             朋友推荐
-            <img src="../../assets/img/icon/close.svg" style="width: 1rem;">
+            <img src="../../assets/img/icon/about-gray.png" style="width: 1rem;margin-left: .2rem;">
           </div>
           <People v-for="item in list " :people="item"></People>
         </div>
@@ -49,6 +47,12 @@
           </div>
           <People v-if="isSearch" v-for="item in list " :people="item"></People>
         </div>
+      </SlideItem>
+      <SlideItem class="tab2">
+        <Search placeholder="搜索用户备注或名字" class="mr20p ml20p mt10p"></Search>
+        <div class="title">我的好友（互相关注）</div>
+        <People v-for="item in list " :people="item"></People>
+        <NoMore></NoMore>
       </SlideItem>
     </SlideRowList>
 
@@ -65,7 +69,7 @@
           <span class="title">发现通讯录好友</span>
           <span class="desc">
             <span>授权通讯录，看看哪些好友在使用抖音。具体使用场景及撤回授权方式详见</span>
-            <span class="link" @click="$nav('/service-protocol')">《隐私政策》</span>
+            <span class="link" @click="$nav('/service-protocol',{type:'“抖音”用户服务协议'})">《隐私政策》</span>
            </span>
         </div>
         <div class="footer">
@@ -146,7 +150,7 @@ export default {
       isSearch: false,
       searchKey: '',
 
-      currentSlideItemIndex: 1,
+      currentSlideItemIndex: 0,
       list: [
         {
           type: 1,
@@ -232,19 +236,18 @@ export default {
     }
   }
 
-  .tab1 {
+  .tab2 {
     box-sizing: border-box;
     padding: 2rem;
 
     .title {
-      margin-left: 2rem;
       margin-top: 2rem;
       color: $second-text-color;
       font-size: 1.2rem;
     }
   }
 
-  .tab2 {
+  .tab1 {
     .title {
       display: flex;
       align-items: center;
@@ -262,7 +265,7 @@ export default {
       padding: 2rem;
 
       .look-address-list {
-        margin: 0 2rem 2rem 0;
+        margin: 0 0 2rem 0;
         display: flex;
         justify-content: space-between;
         align-items: center;

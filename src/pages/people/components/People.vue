@@ -12,37 +12,37 @@
 
       <!--   已关注   -->
       <div class="right" v-if="people.type === 1">
-        <div class="button">已关注</div>
+        <div class="l-button">已关注</div>
       </div>
       <!--     粉丝 -->
       <div class="right" v-if="people.type === 2">
-        <div class="button red">回关</div>
-        <img src="../../../assets/img/icon/close.svg" alt="">
+        <div class="l-button red">回关</div>
+        <img src="../../../assets/img/icon/menu-white.png" alt="">
       </div>
       <!--     朋友推荐 -->
       <div class="right" v-if="people.type === 3">
-        <div class="button red">回关</div>
-        <div class="button ">移除</div>
+        <div class="l-button red">回关</div>
+        <div class="l-button ">移除</div>
       </div>
       <!--     互相关注 -->
       <div class="right" v-if="people.type === 4">
-        <div class="button">发私信</div>
-        <img src="../../../assets/img/icon/close.svg" alt="" @click="showPopover = !showPopover">
+        <div class="l-button">发私信</div>
+        <img src="../../../assets/img/icon/menu-white.png" alt="" @click="showPopover = !showPopover">
       </div>
       <!--     通讯录 -->
       <div class="right" v-if="people.type === 5">
-        <div class="button red address-list">回关</div>
+        <div class="l-button red address-list">回关</div>
       </div>
     </div>
     <transition name="scale">
       <div class="popover" v-if="people.type === 4 && showPopover">
         <div class="arrow"></div>
         <div class="item">
-          <img src="../../../assets/img/icon/close.svg" alt="">
+          <img src="../../../assets/img/icon/feedback-white.png" alt="">
           <span>设置备注名</span>
         </div>
         <div class="item">
-          <img src="../../../assets/img/icon/close.svg" alt="">
+          <img src="../../../assets/img/icon/people-red.png" alt="">
           <span>从朋友中移除</span>
         </div>
       </div>
@@ -134,7 +134,7 @@ export default {
       display: flex;
       align-items: center;
 
-      .button {
+      .l-button {
         margin-left: .8rem;
         padding: .5rem 2rem;
         border-radius: .2rem;
@@ -151,7 +151,7 @@ export default {
       }
 
       img {
-        width: 1.2rem;
+        height: 1.8rem;
         margin-left: 2rem;
       }
     }
@@ -180,7 +180,7 @@ export default {
 
       img {
         margin-right: 1rem;
-        width: 1.5rem;
+        height: 2rem;
       }
     }
 

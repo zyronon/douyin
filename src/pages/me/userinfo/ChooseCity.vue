@@ -9,9 +9,6 @@
       <div class="schools">
         <div class="row" @click="save(item)" v-for="item in list">
           <span>{{ item }}</span>
-          <div class="right">
-            <img src="../../../assets/img/icon/close-white.png" alt="">
-          </div>
         </div>
       </div>
     </div>

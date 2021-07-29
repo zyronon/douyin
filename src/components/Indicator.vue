@@ -101,7 +101,7 @@ export default {
 .indicator-ctn {
   font-size: 1.4rem;
   width: 100%;
-  height: 6rem;
+  height: 5rem;
   top: 0;
   left: 0;
   right: 0;
@@ -114,7 +114,7 @@ export default {
     font-weight: bold;
 
     .tab {
-      height: 5.5rem;
+      height: 4.5rem;
       width: 45%;
       display: flex;
       justify-content: center;

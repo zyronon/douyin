@@ -1,26 +1,26 @@
 <template>
   <div class="DetailSetting">
     <BaseHeader/>
-    <div class="content" v-if="type === 0">
+    <div class="content type1" v-if="type === 0">
       <div class="notice">
-        <img src="../../../../assets/img/icon/head-image.jpeg" alt="">
+        <img src="../../../../assets/img/icon/newicon/left_menu/lock.png" alt="">
         <span>时间锁已关闭</span>
       </div>
       <div class="row mt1r no-active">
         <div class="left">
-          <back></back>
+          <img src="../../../../assets/img/icon/newicon/left_menu/hourglass.png" alt="">
           <span>可为时间锁设置一个触发时间</span>
         </div>
       </div>
       <div class="row mt1r no-active">
         <div class="left">
-          <back></back>
+          <img src="../../../../assets/img/icon/newicon/left_menu/clock.png" alt="">
           <span>开启时间锁后，单日使用时长超过触发时间，需输入密码才能继续使用</span>
         </div>
       </div>
       <div class="row mt1r mb1r no-active">
         <div class="left">
-          <back></back>
+          <img src="../../../../assets/img/icon/newicon/left_menu/lock.png" alt="">
           <span>开启时间锁，需先设置独立密码；忘记密码后可通过申诉重置密码</span>
         </div>
       </div>
@@ -30,14 +30,36 @@
         </div>
         <div class="right">
           <span>{{ triggerTime }}分钟</span>
-          <back></back>
+          <back direction="right"></back>
         </div>
       </div>
-      <div class="button primary ">
-        开启时间锁
+      <div class="footer">
+        <div class="button primary ">开启时间锁</div>
       </div>
     </div>
-    <div class="content"></div>
+    <div class="content type2" v-if="type === 1">
+      <img class="desc" src="../../../../assets/img/icon/newicon/left_menu/qingshaonian.png" alt="">
+      <div class="footer">
+        <div class="notice">
+          <span>更多信息可阅读</span>
+          <span style="color: yellow"  @click="$nav('/service-protocol',{type:'儿童/青少年使用须知'})">《儿童/青少年使用须知》</span>
+        </div>
+        <div class="button primary ">开启青少年模式</div>
+      </div>
+    </div>
+    <div class="content type2" v-if="type === 2">
+      <img class="desc" src="../../../../assets/img/icon/newicon/left_menu/img-type3.png" alt="">
+      <div class="footer">
+        <div class="notice">
+          <!--          TODO  有个勾选没做-->
+          <span>我已阅读并接受</span>
+          <span style="color: yellow" @click="$nav('/service-protocol',{type:'抖音亲子平台服务协议'})">
+            《抖音亲子平台服务协议》
+          </span>
+        </div>
+        <div class="button primary ">立即绑定</div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -55,7 +77,7 @@ export default {
   },
   computed: {},
   created() {
-    this.type = this.$route.query.type
+    this.type = ~~this.$route.query.type
     let triggerTime = localStorage.getItem('changeTriggerTime')
     if (triggerTime !== null) this.triggerTime = triggerTime
   },
@@ -77,8 +99,22 @@ export default {
   font-size: 1.4rem;
 
   .content {
-    padding-top: 6rem;
+    padding-top: $header-height;
+  }
 
+  .footer {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 1rem;
+    right: 1rem;
+
+    .notice {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .type1 {
     .notice {
       margin: 6rem 0;
       display: flex;
@@ -94,12 +130,12 @@ export default {
       }
 
     }
+  }
 
-    .button {
-      position: fixed;
-      bottom: 1rem;
-      left: 1rem;
-      right: 1rem;
+  .type2 {
+    .desc {
+      margin-top: 4rem;
+      width: 100%;
     }
   }
 
