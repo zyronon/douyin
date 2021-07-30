@@ -1,12 +1,12 @@
 <template>
   <transition name="comment">
     <div class="comment f14" v-if="isCommenting">
-      <div class="title mt10p">
+      <div class="title mt1r">
         <p>2.7w条评论</p>
         <img src="../assets/img/icon/close.svg" @click.stop="$emit('update:is-commenting',false)">
       </div>
       <div class="items">
-        <div class="item pl5p pr15p mb5p  oh"
+        <div class="item pl1r pr1r mb1r  oh"
              v-for="item in 2"
         >
           <div class="content pull-left ">
