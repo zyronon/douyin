@@ -15,8 +15,8 @@
       </transition>
       <div class="float">
         <div :style="{opacity:isMove?0:1}" class="normal">
-          <div class="toolbar mb10p">
-            <div class="avatar-ctn mb15p">
+          <div class="toolbar mb1r">
+            <div class="avatar-ctn mb2r">
               <img class="avatar" src="../assets/img/icon/head-image.jpeg" alt=""
                    @click.stop="$emit('goUserInfo')">
               <transition name="fade">
@@ -27,7 +27,7 @@
               </transition>
 
             </div>
-            <div class="love mb15p" @click.stop="loved($event)">
+            <div class="love mb2r" @click.stop="loved($event)">
               <div>
                 <img src="../assets/img/icon/love.svg" class="love-image" v-if="!lVideo.isLoved">
                 <img src="../assets/img/icon/loved.svg" class="love-image" v-else>
@@ -38,16 +38,16 @@
               </div>
               <span>{{ lVideo.loves }}</span>
             </div>
-            <div class="message mb15p" @click.stop="$emit('showComments')">
+            <div class="message mb2r" @click.stop="$emit('showComments')">
               <!--            <div class="message mb15p" @click.stop="showComment">-->
               <img src="../assets/img/icon/message.svg" alt="" class="message-image">
               <span>{{ lVideo.comments }}</span>
             </div>
-            <div v-if="!isMy" class="share mb35p" @click.stop="$emit('showShare')">
+            <div v-if="!isMy" class="share mb4r" @click.stop="$emit('showShare')">
               <img src="../assets/img/icon/share.svg" alt="" class="share-image">
               <span>{{ lVideo.shared }}</span>
             </div>
-            <div v-else class="share mb35p" @click.stop="$emit('showShare')">
+            <div v-else class="share mb4r" @click.stop="$emit('showShare')">
               <img src="../assets/img/icon/share.svg" alt="" class="share-image">
             </div>
             <div class="music-ctn">
@@ -58,9 +58,9 @@
               </div>
             </div>
           </div>
-          <div class="content ml10p mb10p" v-if="!isMy">
-            <div class="name mb10p">@TTentau</div>
-            <div class="description mb10p">
+          <div class="content ml1r mb1r" v-if="!isMy">
+            <div class="name mb1r">@TTentau</div>
+            <div class="description mb1r">
               吴三二的光年之外, 您的浏览器不支持 video 标签。 您的浏览器不支持 video 标签。
             </div>
             <div class="music " @click.stop="$nav('/music')">

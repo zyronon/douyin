@@ -2,14 +2,13 @@
   <div class="Chat">
     <div class="header">
       <div class="left">
-        <img src="../../assets/img/icon/back.png" alt="" @click="$back">
+        <back scale="1.8" @click="$back"></back>
         <div class="badge">12</div>
         <span>zzzz</span>
       </div>
       <div class="right">
-        <img src="../../assets/img/icon/back.png" alt="">
-        <img src="../../assets/img/icon/back.png" alt="">
-        <img src="../../assets/img/icon/back.png" alt="" @click="$nav('/chat-detail')">
+        <img style="transform: scale(1.1)" src="../../assets/img/icon/message/video-white.png" alt="">
+        <img src="../../assets/img/icon/menu-white.png" alt="" @click="$nav('/chat-detail')">
       </div>
     </div>
     <div class="message-wrapper" :class="isExpand ? 'expand' : ''">
@@ -17,17 +16,24 @@
     </div>
     <div class="footer" :class="isTyping ? 'typing' : ''">
       <div class="toolbar" v-if="!recording">
-        <img src="../../assets/img/icon/head-image.jpeg" alt="" class="camera">
+        <img src="../../assets/img/icon/message/camera.png" alt="" class="camera">
         <input @click="typing = true"
                @blur="typing = false"
                type="text" placeholder="发送信息...">
-        <img @click="recording = true;showOption = false" src="../../assets/img/icon/head-image.jpeg" alt="">
-        <img src="../../assets/img/icon/head-image.jpeg" alt="">
-        <img @click="showOption = !showOption" src="../../assets/img/icon/head-image.jpeg" alt="">
+        <template v-if="!isTyping">
+          <img @click="recording = true;showOption = false" src="../../assets/img/icon/message/voice-white.png" alt="">
+          <img src="../../assets/img/icon/message/emoji-white.png" alt="">
+          <img @click="showOption = !showOption" src="../../assets/img/icon/message/add-white.png" alt="">
+        </template>
+        <template v-else>
+          <img @click="recording = true;showOption = false" src="../../assets/img/icon/message/voice-black.png" alt="">
+          <img src="../../assets/img/icon/message/emoji-black.png" alt="">
+          <img @click="showOption = !showOption" src="../../assets/img/icon/message/add-black.png" alt="">
+        </template>
       </div>
       <div class="record" v-else>
         <span>按住 说话</span>
-        <img @click="recording = false" src="../../assets/img/icon/head-image.jpeg" alt="">
+        <img @click="recording = false" src="../../assets/img/icon/message/keyboard.png" alt="">
       </div>
       <div class="options" v-if="showOption">
         <div class="option-wrapper">
@@ -335,7 +341,6 @@ export default {
             avatar: '../../assets/img/icon/head-image.jpg'
           }
         },
-
       ],
       typing: false,
       recording: false,
