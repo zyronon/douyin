@@ -54,57 +54,16 @@
           </div>
         </div>
       </div>
-      <div class="not-more">
-        暂时没有更多了
-      </div>
-    </div>
-    <div class="line mt1r"></div>
-    <div class="recommend">
-      <div class="title">
-        <div class="left">
-          朋友推荐
-          <img src="../../assets/img/icon/close-white.png" alt="">
-        </div>
-        <img class="right" src="../../assets/img/icon/close-white.png" alt="">
-      </div>
-      <div class="list">
-        <div class="item" v-for="i in 5">
-          <img src="../../assets/img/icon/msg-icon1.png" alt="" class="head-image pull-left">
-          <div class="content">
-            <div class="left">
-              <div class="name">A</div>
-              <div class="detail">
-                该用户关注了你
-              </div>
-            </div>
-            <div class="right">
-              <div class="button">回关</div>
-              <div class="button">移除</div>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="../../assets/img/icon/msg-icon1.png" alt="" class="head-image pull-left">
-          <div class="content">
-            <div class="left">
-              <div class="name">A</div>
-              <div class="detail">
-                该用户关注了你
-              </div>
-            </div>
-            <div class="right">
-              <div class="button">回头</div>
-              <div class="button">移除</div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
     <Footer v-bind:init-tab="4"/>
 
     <from-bottom-dialog v-model="createChatDialog">
       <div class="create-chat-wrapper" v-show="!showJoinedChat">
-        <Search class="ml2r mr2r" placeholder="搜索用户" v-model="createChatSearchKey"></Search>
+        <Search :isShowText="isShowText"
+                @click="isShowText = true"
+                @notice="isShowText = false;"
+                @clear="isShowText = false"
+                class="ml2r mr2r" placeholder="搜索用户" v-model="createChatSearchKey"></Search>
         <template v-if="createChatSearchKey">
           <div class="search-result" v-if="searchFriends.length">
             <div class="search-result-item" v-for="item in searchFriends"
@@ -115,8 +74,8 @@
                   <span class="name">{{ item.name }}</span>
                   <span class="account">{{ item.account ? '抖音号:' + item.account : '' }}</span>
                 </div>
-                <img v-if="item.select" src="../../assets/img/icon/back.png" alt="">
-                <img v-if="!item.select" src="../../assets/img/icon/close.svg" alt=""></div>
+                <img v-if="item.select" src="../../assets/img/icon/message/checked.png" alt="">
+                <img v-if="!item.select" src="../../assets/img/icon/message/no-check2.png" alt=""></div>
             </div>
           </div>
           <div class="no-result" v-else>
@@ -142,8 +101,8 @@
               <img class="left" src="../../assets/img/icon/head-image.jpeg" alt="">
               <div class="right">
                 <span>{{ item.name }}</span>
-                <img v-if="item.select" src="../../assets/img/icon/back.png" alt="">
-                <img v-if="!item.select" src="../../assets/img/icon/close.svg" alt="">
+                <img v-if="item.select" src="../../assets/img/icon/message/checked.png" alt="">
+                <img v-if="!item.select" src="../../assets/img/icon/message/no-check2.png" alt="">
               </div>
             </div>
           </div>
@@ -195,8 +154,8 @@ export default {
     return {
       createChatSearchKey: '',
       showJoinedChat: false,
-      // createChatDialog: false,
       createChatDialog: false,
+      isShowText: false,
       text: 'AAAAAAAAA、BBBBBBBBBBBBB、CCCCCCCC',
       friends: [
         {
@@ -272,7 +231,8 @@ export default {
   },
   mounted() {
   },
-  methods: {}
+  methods: {
+  }
 }
 </script>
 
@@ -335,6 +295,7 @@ export default {
         margin-bottom: 2rem;
         display: flex;
         align-items: center;
+        //background: #fff;
 
         &:nth-child(1) {
           margin-top: 1rem;
@@ -355,7 +316,7 @@ export default {
           justify-content: space-between;
 
           img {
-            height: 1.5rem;
+            height: 2rem;
           }
         }
       }
@@ -430,7 +391,7 @@ export default {
           }
 
           img {
-            height: 1.5rem;
+            height: 2rem;
           }
         }
       }

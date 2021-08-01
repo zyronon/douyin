@@ -28,7 +28,8 @@
         <template v-else>
           <img @click="recording = true;showOption = false" src="../../assets/img/icon/message/voice-black.png" alt="">
           <img src="../../assets/img/icon/message/emoji-black.png" alt="">
-          <img @click="showOption = !showOption" src="../../assets/img/icon/message/add-black.png" alt="">
+          <img v-if="showOption" @click="showOption = !showOption" src="../../assets/img/icon/message/close-black.png" alt="">
+          <img v-else @click="showOption = !showOption" src="../../assets/img/icon/message/add-black.png" alt="">
         </template>
       </div>
       <div class="record" v-else>
@@ -37,9 +38,33 @@
       </div>
       <div class="options" v-if="showOption">
         <div class="option-wrapper">
-          <div class="option" v-for="i in 7">
-            <img src="../../assets/img/icon/举报.svg" alt="">
+          <div class="option">
+            <img src="../../assets/img/icon/message/photo.png" alt="">
             <span>照片</span>
+          </div>
+          <div class="option">
+            <img src="../../assets/img/icon/message/camera2.png" alt="">
+            <span>拍摄</span>
+          </div>
+          <div class="option">
+            <img src="../../assets/img/icon/message/redpack.png" alt="">
+            <span>红包</span>
+          </div>
+          <div class="option">
+            <img src="../../assets/img/icon/message/video.png" alt="">
+            <span>视频通话</span>
+          </div>
+          <div class="option">
+            <img src="../../assets/img/icon/message/audio.png" alt="">
+            <span>语音通话</span>
+          </div>
+          <div class="option">
+            <img src="../../assets/img/icon/message/come-on.png" alt="">
+            <span>一起看视频</span>
+          </div>
+          <div class="option">
+            <img src="../../assets/img/icon/message/come-chang.png" alt="">
+            <span>一起唱</span>
           </div>
         </div>
       </div>
@@ -495,12 +520,14 @@ export default {
     }
 
     .options {
-      padding-top: 1.5rem;
+      font-size: 1.4rem;
+      width: 100vw;
+      padding: 1.5rem;
       height: 30vh;
       box-sizing: border-box;
 
       .option-wrapper {
-        padding: 1.5rem;
+        box-sizing: border-box;
         $grid-width: calc((100vw - 3rem) / 4);
         color: black;
         display: grid;
@@ -517,7 +544,7 @@ export default {
             border-radius: .4rem;
             background: whitesmoke;
             padding: 1rem;
-            width: 2.5rem;
+            width: 3rem;
             margin-bottom: 1rem;
           }
         }
