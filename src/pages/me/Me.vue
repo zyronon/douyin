@@ -355,20 +355,18 @@ export default {
         background: rgba(82, 80, 80, 0.5);
 
         img {
-          padding: 4px;
-          height: 16px;
-          width: 16px;
+          padding: .6rem;
+          width: 1.8rem;
         }
       }
 
       .right {
         img {
-          margin-left: 20px;
+          margin-left: 2rem;
           border-radius: 50%;
           background: rgba(82, 80, 80, 0.5);
-          padding: 4px;
-          height: 16px;
-          width: 16px;
+          padding: .6rem;
+          width: 1.8rem;
         }
       }
     }

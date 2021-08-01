@@ -5,10 +5,10 @@
       <input type="text" :placeholder="placeholder" v-model="value">
       <div class="suffix">
         <slot v-if="$slots.default"></slot>
-        <img v-if="value.length && (!$slots.default)" src="../assets/img/icon/close.svg" @click="clear">
+        <img v-if="value.length && (!$slots.default)" src="../assets/img/icon/close.svg" @click.stop="clear">
       </div>
     </div>
-    <div v-if="isShowText" class="notice" :style="{color : notice}" @click="$emit('notice')">搜索</div>
+    <div v-if="isShowText" class="notice" :style="{color : notice}" @click.stop="$emit('notice')">搜索</div>
   </div>
 </template>
 

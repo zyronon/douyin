@@ -25,20 +25,20 @@
         <div class="row" @click="$nav('/set-remark')">
           <div class="left">设备备注</div>
           <div class="right">
-            <img src="../../assets/img/icon/back.png" alt="">
+            <back direction="right" scale="1.2" ></back>
           </div>
         </div>
         <!-- TODO 没做        -->
         <div class="row">
           <div class="left">举报</div>
           <div class="right">
-            <img src="../../assets/img/icon/back.png" alt="">
+            <back direction="right" scale="1.2" ></back>
           </div>
         </div>
         <div class="row" @click="blockDialog = true">
           <div class="left">拉黑</div>
           <div class="right">
-            <img src="../../assets/img/icon/back.png" alt="">
+            <back direction="right" scale="1.2" ></back>
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@
         <div class="notice">
           拉黑后，对方将无法搜索到你，也不能再给你发私信
         </div>
-        <div class="row">确认拉黑</div>
+        <div class="row red">确认拉黑</div>
         <div class="row">不让 TA 看</div>
         <div class="space"></div>
         <div class="row" @click="blockDialog = false">取消</div>
@@ -163,6 +163,10 @@ export default {
 
       &:nth-last-child(1) {
         border-top: none;
+      }
+
+      &.red{
+        color: $primary-btn-color;
       }
     }
 

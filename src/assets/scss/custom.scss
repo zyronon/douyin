@@ -29,6 +29,13 @@
       background: $main-bg;
     }
   }
+  &.no-padding {
+    padding:0;
+  }
+
+  &.border{
+    border-bottom: 1px solid $line-color;
+  }
 
   &:active {
     background: $active-main-bg;

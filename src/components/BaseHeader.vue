@@ -38,6 +38,7 @@ export default {
   width: 100%;
   position: fixed;
   background: $main-bg;
+  z-index: 2;
 
   .header {
     display: flex;

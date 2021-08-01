@@ -43,6 +43,7 @@ export default {
 
       const routeDeep = [
         '/message', '/attention', '/home', '/me', '/publish',
+        '/country-choose',
         '/edit-userinfo',
         '/edit-userinfo-item',
         '/video-detail',

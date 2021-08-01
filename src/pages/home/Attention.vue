@@ -1,7 +1,7 @@
 <template>
   <div id="attention">
     <header>
-      <span>双流</span>
+      <span @click="$nav('/country-choose')">双流</span>
       <div class="arrow"></div>
     </header>
     <div class="ad">
