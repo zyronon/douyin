@@ -8,7 +8,7 @@
         <img v-if="value.length && (!$slots.default)" src="../assets/img/icon/close.svg" @click.stop="clear">
       </div>
     </div>
-    <div v-if="isShowText" class="notice" :style="{color : notice}" @click.stop="$emit('notice')">搜索</div>
+    <div v-if="isShowText" class="notice" :style="{color : notice}" @click.stop="$emit('notice')">{{ showText }}</div>
   </div>
 </template>
 
@@ -32,6 +32,10 @@ export default {
       type: Boolean,
       default: false
     },
+    showText:{
+      type:String,
+      default:'搜索'
+    }
   },
   methods: {
     clear() {
