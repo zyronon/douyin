@@ -82,7 +82,7 @@ export default {
           e.x.distance / (this.$store.state.bodyWidth / this.indicatorSpace) + 'px')
     },
     end(index) {
-      console.log(index)
+      // console.log(index)
       this.currentSlideItemIndex = index
       this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
       this.$setCss(this.indicatorRef, 'left',

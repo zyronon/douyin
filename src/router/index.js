@@ -35,6 +35,7 @@ import MinorProtectionIndex from "../pages/me/rightMenu/MinorProtection/Index";
 import MinorProtectionDetailSetting from "../pages/me/rightMenu/MinorProtection/DetailSetting";
 import TriggerTime from "../pages/me/rightMenu/MinorProtection/TriggerTime";
 import Setting from "../pages/me/rightMenu/Setting";
+import Me2 from "../pages/me/Me2";
 
 const routes = [
   // {path: '', component: Music},
@@ -45,7 +46,8 @@ const routes = [
   {path: '/publish', component: Publish},
   {path: '/test', component: Test},
   {path: '/message', component: Message},
-  {path: '/me', component: Me},
+  // {path: '/me', component: Me},
+  {path: '/me', component: Me2},
   {path: '/edit-userinfo', component: EditUserInfo},
   {path: '/edit-userinfo-item', component: EditUserInfoItem},
   {path: '/music', component: Music},

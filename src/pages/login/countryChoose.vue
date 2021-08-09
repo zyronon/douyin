@@ -1,11 +1,10 @@
 <template>
   <div class='countryChoose'>
     <base-header>
-      <template v-slot:center>
-        选择国家或地区
-      </template>
+      <template v-slot:center>切换城市</template>
       <template v-slot:bottom>
         <Search :isShowText="isShowText"
+                showText="取消"
                 @click="isShowText = true"
                 @notice="isShowText = false;"
                 @clear="isShowText = false"
@@ -13,13 +12,41 @@
       </template>
     </base-header>
     <div ref="list" class="content" @scroll="scroll">
-      <div class="row no-active">
-        默认位置
+      <div class="row no-active no-padding">默认位置</div>
+      <div class="row no-active border no-padding">同城</div>
+      <div class="top">
+        <div class="row no-active no-padding">历史访问</div>
+        <div class="cities">
+          <span class="city">大连</span>
+          <span class="city">深圳</span>
+          <span class="city">北京</span>
+          <span class="city">上海</span>
+        </div>
       </div>
-      <div class="row no-active">
-        同城
+      <div class="top">
+        <div class="row no-active no-padding">抖单热门城市</div>
+        <div class="cities">
+          <span class="city">深圳</span>
+          <span class="city">北京</span>
+          <span class="city">上海</span>
+          <span class="city">成都</span>
+          <span class="city">广州</span>
+          <span class="city">重庆</span>
+          <span class="city">西安</span>
+          <span class="city">苏州</span>
+          <span class="city">武汉</span>
+          <span class="city">杭州</span>
+          <span class="city">郑州</span>
+          <span class="city">南京</span>
+          <span class="city">合肥</span>
+          <span class="city">长沙</span>
+          <span class="city">福州</span>
+        </div>
       </div>
       <div class="list">
+        <div v-if="currentFixedIndicator" class="row no-active no-padding border index fixed">
+          <span>{{ currentFixedIndicator }}</span>
+        </div>
         <div v-for="(value, name)  of countryOk">
           <div :class="name" class="row no-active no-padding border index">
             <span>{{ name }}</span>
@@ -2297,18 +2324,23 @@ export default {
           }
         ]
       },
+      history: [],
       isShowText: false,
       searchKey: '',
-      indexOffsetTop: {}
+      indexOffsetTop: {},
+      // currentFixedIndicator: null,
+      currentFixedIndicator: 'A',
     }
   },
   created() {
+    this.history = localStorage.getItem('locationSearchHistory')
   },
   mounted() {
     let indexs = document.querySelectorAll('.index')
     indexs.forEach(v => {
       this.indexOffsetTop[v.children[0].innerText] = v.offsetTop
     })
+    console.log(this.indexOffsetTop)
     let items = document.querySelectorAll('.item')
     let item = document.querySelector(`.item:nth-child(2)`)
     let itemHeight = item.clientHeight
@@ -2326,7 +2358,7 @@ export default {
       let pageY = e.touches[0].pageY - ulOffsetTop
       let currentIndex = pageY / itemHeight
       currentIndex = Math.floor(currentIndex)
-      if (currentIndex >= 0 && currentIndex < 26) {
+      if (currentIndex >= 0 && currentIndex < 27) {
         render(currentIndex)
       }
     })
@@ -2354,7 +2386,7 @@ export default {
             items[preIndex].style.color = `#ffffff${22 * i}`
           }
         }
-        if (nextIndex < 26) {
+        if (nextIndex < 27) {
           if (i === 4) {
             items[nextIndex].style.transform = `translate3d(0,0,0) ${resetScale}`
             items[nextIndex].style.color = resetColor
@@ -2375,15 +2407,26 @@ export default {
       }
       let py = el.innerText
       if (document.querySelector(`.${py}`)) {
-        list.scrollTop = document.querySelector(`.${py}`).offsetTop - 110
+        list.scrollTop = document.querySelector(`.${py}`).offsetTop - 100
       }
     },
     scroll(e) {
-      // console.log()
-      let listScrollTop = e.target.scrollTop + 100
-      for (const item of this.indexOffsetTop) {
-
+      // let isFixed = document.querySelector(`.fixed`)
+      // console.log(isFixed)
+      // let listScrollTop = e.target.scrollTop + (isFixed ? 110 : 110)
+      let listScrollTop = e.target.scrollTop + 110
+      // console.log('listScrollTop', listScrollTop)
+      let currentKey = null
+      for (const key in this.indexOffsetTop) {
+        // if (currentKey) break
+        let offsetTop = this.indexOffsetTop[key]
+        // console.log('offsetTop',offsetTop)
+        if (offsetTop < listScrollTop) {
+          currentKey = key
+        }
       }
+      this.currentFixedIndicator = currentKey
+      // console.log('currentKey', currentKey)
     }
   }
 }
@@ -2403,7 +2446,7 @@ export default {
   overflow: hidden;
 
   .indicator-ctn {
-    width: 2rem;
+    width: 2.5rem;
     height: 100vh;
     position: fixed;
     z-index: 3;
@@ -2414,7 +2457,7 @@ export default {
     justify-content: center;
 
     .indicator {
-      width: 2rem;
+      width: 2.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -2448,12 +2491,31 @@ export default {
   .content {
     height: calc(100% - 11rem);
     margin-top: 11rem;
+    padding: 0 2.5rem 0 2rem;
+    box-sizing: border-box;
     width: 100%;
     overflow-y: scroll;
 
+    .top {
+      padding-bottom: 1rem;
+      border-bottom: 1px solid $line-color;
+
+      .cities {
+        .city {
+          margin-right: .4rem;
+          margin-bottom: .4rem;
+          border-radius: .2rem;
+          height: 4rem;
+          line-height: 4rem;
+          background: $second-btn-color-tran;
+          display: inline-block;
+          width: 32%;
+          text-align: center;
+        }
+      }
+    }
+
     .list {
-      padding-left: 2rem;
-      padding-right: 2rem;
       //padding-right: 2.5rem;
 
       .row {
