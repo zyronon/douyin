@@ -21,7 +21,7 @@
       <div class="loading" :style="loadingStyle">AA</div>
     </div>
     <div id="base-slide-list" ref="slideList"
-         :style="{'flex-direction':'row',marginTop:indicatorFixed?'42px':'0'}"
+         :style="{'flex-direction':'row',marginTop:indicatorFixed?'5rem':'0'}"
          @touchstart="touchStart($event)"
          @touchmove="touchMove($event)"
          @touchend="touchEnd($event)">

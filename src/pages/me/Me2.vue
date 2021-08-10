@@ -8,47 +8,100 @@
              @touchmove="touchMove($event)"
              @touchend="touchEnd($event)">
           <div ref="desc" class="desc">
-            <div style="height: 380px;"></div>
+            <header ref="header">
+              <div class="left" style="opacity: 0;">
+                <img src="../../assets/img/icon/next.svg" alt="">
+                <span>切换账号</span>
+              </div>
+              <div class="right">
+                <img src="../../assets/img/icon/me/finger-right.png" alt="">
+                <img src="../../assets/img/icon/me/menu.png" alt="" @click.stop="baseActiveIndex = 1">
+              </div>
+            </header>
+            <div class="detail">
+              <div class="head">
+                <img src="../../assets/img/icon/head-image.jpeg" class="head-image">
+                <div class="other-buttons" v-if="false">
+                  <div class="attention">
+                    关注
+                  </div>
+                  <div class="more-attention">
+                    -
+                  </div>
+                </div>
+                <div class="my-buttons ">
+                  <div class="collect" @click="$nav('/edit-userinfo')">
+                    <span class="mr1r">编辑资料</span>
+                    <span class="f10p" style="color: darkgray">85%</span>
+                  </div>
+                  <div class="add-friend" @click="$nav('/find-acquaintance')">
+                    <img src="../../assets/img/icon/add-white.png" alt="">
+                    <span class="mr5p">熟人</span>
+                  </div>
+                </div>
+              </div>
+              <div class="description">
+                <p class="name f22 mt1r mb1r">ttentau</p>
+                <div class="number mb1r">
+                  <span class="mr1r">私密账号</span>
+                  <span>抖音号：605128307</span>
+                  <img src="../../assets/img/icon/me/qrcode-gray.png" alt="" @click.stop="$nav('/my-card')">
+                </div>
+                <div class="signature f12 mb1r">
+                  <span>填写个性签名更容易获得别人关注哦</span>
+                </div>
+                <div class="heat">
+                  <div class="text"><span class="num">8</span>获赞</div>
+                  <div class="text"><span class="num">8</span>关注</div>
+                  <div class="text"><span class="num">8</span>粉丝</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div ref="content" class="test " :class="isFixed?'fixed':''" style="margin-bottom: 60px;">
-            <Indicator
-                name="videoList"
-                :fixed="indicatorFixed"
-                tabStyleWidth="25%"
-                :tabTexts="['作品','私密','喜欢','收藏']"
-                v-model:active-index="contentIndex">
-            </Indicator>
-            <SlideRowList
-                name="videoList"
-                :indicator-fixed="indicatorFixed"
-                v-model:active-index="contentIndex">
-              <SlideItem style="overflow: auto;height: 100vh;">
-                <div ref="tab-content1">
-                  <Posters :list="25"></Posters>
-                  <div class="no-more">暂时没有更多了</div>
-                </div>
-              </SlideItem>
-              <SlideItem>
-                <div ref="tab-content2">
-                  <Posters :list="5"></Posters>
-                  <div class="no-more">暂时没有更多了</div>
-                </div>
-              </SlideItem>
-              <SlideItem>
-                <div ref="tab-content3">
-                  <Posters :list="5"></Posters>
-                  <div class="no-more">暂时没有更多了</div>
-                </div>
-              </SlideItem>
-              <SlideItem>
-                <div ref="tab-content3">
-                  <Posters :list="5"></Posters>
-                  <div class="no-more">暂时没有更多了</div>
-                </div>
-              </SlideItem>
-            </SlideRowList>
-          </div>
+          <Indicator
+              name="videoList"
+              tabStyleWidth="25%"
+              :tabTexts="['作品','私密','喜欢','收藏']"
+              v-model:active-index="contentIndex">
+          </Indicator>
+          <SlideRowList
+              name="videoList"
+              style="height: calc(100vh - 9.5rem);"
+              v-model:active-index="contentIndex">
+            <SlideItem class="SlideItem"
+                       @touchmove="move"
+                       :style="isScroll?'overflow: auto;':''">
+              <Posters :list="25"></Posters>
+              <div class="no-more">暂时没有更多了</div>
+            </SlideItem>
+            <SlideItem class="SlideItem"
+                       @touchmove="move"
+                       :style="isScroll?'overflow: auto;':''">
+              <Posters :list="5"></Posters>
+              <div class="no-more">暂时没有更多了</div>
+            </SlideItem>
+            <SlideItem class="SlideItem"
+                       @touchmove="move"
+                       :style="isScroll?'overflow: auto;':''">
+              <Posters :list="5"></Posters>
+              <div class="no-more">暂时没有更多了</div>
+            </SlideItem>
+            <SlideItem class="SlideItem"
+                       @touchmove="move"
+                       :style="isScroll?'overflow: auto;':''">
+              <Posters :list="5"></Posters>
+              <div class="no-more">暂时没有更多了</div>
+            </SlideItem>
+          </SlideRowList>
         </div>
+        <Indicator
+            v-if="indicatorFixed"
+            name="videoList"
+            :fixed="true"
+            tabStyleWidth="25%"
+            :tabTexts="['作品','私密','喜欢','收藏']"
+            v-model:active-index="contentIndex">
+        </Indicator>
         <Footer v-bind:init-tab="5"/>
       </SlideItem>
       <SlideItem style="min-width: 70vw; overflow:auto;">
@@ -164,7 +217,6 @@ export default {
   components: {Posters, Footer, Indicator},
   data() {
     return {
-      isFixed: false,
       serviceEl: {},
       serviceHeight: 0,
       contentIndex: 0,
@@ -173,13 +225,17 @@ export default {
       tabContents: [],
       indicatorHeight: 42,
       indicatorFixed: false,
+      isScroll: false,
       refs: {
         header: null,
         headerHeight: 0,
+        descHeight: 0,
       },
       isMoreFunction: false,
       startLocationY: 0,
+      fixedLocationY: 0,
       moveYDistance: 0,
+      startTime: 0,
     }
   },
   computed: {
@@ -188,26 +244,153 @@ export default {
     },
   },
   mounted() {
+    setTimeout(() => {
+      this.refs.header = this.$refs.header
+      this.refs.headerHeight = this.$refs.header.offsetHeight
+      this.refs.descHeight = this.$refs.desc.offsetHeight
+      this.changeIndex(0, null)
+    })
   },
   methods: {
+    changeIndex() {
+
+    },
     touchStart(e) {
-      this.startLocationY = e.touches[0].pageY
+      this.$refs.scroll.style.transition = 'none'
+      this.fixedLocationY = this.startLocationY = e.touches[0].pageY
+      this.startTime = Date.now()
+    },
+    move(e) {
+      (!this.isScroll) && e.preventDefault();
     },
     touchMove(e) {
-      let distance = this.moveYDistance + e.touches[0].pageY - this.startLocationY
-      console.log(distance)
-      if (this.indicatorFixed && Math.abs(distance) > 380) {
-
-      } else {
-
+      // console.log('pageY', e.touches[0].pageY)
+      // console.log('moveYDistance', this.moveYDistance)
+      let moveYDistance = e.touches[0].pageY - this.startLocationY
+      let distance = this.moveYDistance + moveYDistance * 1.2
+      // console.log('distance', distance)
+      if (distance > 0) {
+        if (distance < 400) {
+          // if (this.baseActiveIndex !== 0) return
+          // if (this.refs.header.getBoundingClientRect().top !== 0) return
+          this.refs.header.style.transition = 'all 0s'
+          this.refs.header.style.height = this.refs.headerHeight + (distance / 2) + 'px'
+        } else {
+          this.startLocationY = e.touches[0].pageY
+          this.moveYDistance = 400
+        }
+        return
       }
-      this.indicatorFixed = Math.abs(distance) > 380
-      this.$refs.scroll.style.transform = `translate3d(0,${distance}px,0)`
+      // console.log('s', e.touches[0].pageY - this.startLocationY)
+      // console.log('indicatorFixed', this.indicatorFixed)
+      if (this.indicatorFixed) {
+        let SlideItems = document.querySelectorAll('.SlideItem')
+        let SlideItem = SlideItems[this.contentIndex]
+
+        // console.log(tt.scrollTop)
+        if (!this.isScroll) {
+          SlideItem.style.overflow = 'auto'
+          SlideItem.scrollTop = Math.abs(distance) - this.refs.descHeight
+        }
+        if (SlideItem.scrollTop === 0 && (e.touches[0].pageY - this.fixedLocationY) > 0) {
+          this.isScroll = this.indicatorFixed = false
+          SlideItem.style.overflow = 'hidden'
+          this.startLocationY = e.touches[0].pageY
+          this.moveYDistance = -this.refs.descHeight
+        }
+      } else {
+        this.indicatorFixed = Math.abs(distance) > this.refs.descHeight
+        if (this.indicatorFixed) {
+          this.fixedLocationY = e.touches[0].pageY
+        }
+        this.$refs.scroll.style.transform = `translate3d(0,${distance}px,0)`
+      }
     },
     touchEnd(e) {
-      this.moveYDistance = this.moveYDistance + e.changedTouches[0].pageY - this.startLocationY
-      console.log('end', this.moveYDistance)
-      this.indicatorFixed = Math.abs(this.moveYDistance) > 380
+      console.log('this.startLocationY', this.startLocationY)
+      let moveYDistance = e.changedTouches[0].pageY - this.startLocationY
+      this.moveYDistance = this.moveYDistance + moveYDistance * 1.2//乘以1.2倍，加速滚动，不然看起来很慢
+
+      // console.log('end-moveYDistance',this.moveYDistance)
+
+      //往上划，恢复header
+      if (this.moveYDistance > 0) {
+        // if (this.baseActiveIndex !== 0) return
+        this.refs.header.style.transition = 'all .3s'
+        this.refs.header.style.height = this.refs.headerHeight + 'px'
+        this.moveYDistance = 0
+      }
+
+      //原谅我判断太多
+      //如果没固定，则可以滚动到顶和底
+      if (!this.indicatorFixed) {
+        //算出滚动距离
+        let distance = e.changedTouches[0].pageY - this.startLocationY
+        // console.log('end-distance', distance)
+        let endTime = Date.now()
+        let gapTime = endTime - this.startTime
+
+        //距离太小
+        if (Math.abs(distance) < 20) gapTime = 1000
+        //超过header的1/3
+        if (Math.abs(distance) > (this.refs.descHeight / 2)) gapTime = 50
+        // console.log('时间', gapTime)
+        if (gapTime < 150) {
+          //往上划
+          if (distance > 0) {
+            //时间短，滑动距离长，则应该快速滚动到顶部
+            if (gapTime < 100 && Math.abs(distance) > 100) {
+              //用cancelAnimationFrame快速滚动到顶部，要比transition = 'all .3s'快
+              this.$refs.scroll.style.transition = 'none'
+              let transform = this.$refs.scroll.style.transform
+              let transformY = transform.substring(transform.indexOf('0px') + 5, transform.lastIndexOf('0px') - 4)
+              //当前的transformY
+              transformY = parseInt(transformY)
+              // console.log('transformY', transformY)
+              let timer
+              cancelAnimationFrame(timer);
+              let fn = () => {
+                //说明没到顶
+                if (transformY < 0) {
+                  transformY = transformY + 40
+                  this.$refs.scroll.style.transform = `translate3d(0,${transformY > 0 ? 0 : transformY}px,0)`
+                  timer = requestAnimationFrame(fn);
+                } else {
+                  //transformY === 0说明，本来就在顶部，然后猛的一划,这里要判断下
+                  if (transformY !== 0) {
+                    if (this.$getCss(this.refs.header, 'height') < 400) {
+                      this.refs.header.style.transition = 'none'
+                      this.refs.header.style.height = this.$getCss(this.refs.header, 'height') + 10 + 'px'
+                      timer = requestAnimationFrame(fn);
+                    } else {
+                      this.refs.header.style.transition = 'all .6s'
+                      this.refs.header.style.height = this.refs.headerHeight + 'px'
+                      this.moveYDistance = 0
+                      cancelAnimationFrame(timer);
+                    }
+                  } else {
+                    //快速动画结束
+                    this.moveYDistance = 0
+                    cancelAnimationFrame(timer);
+                  }
+                }
+              }
+              timer = requestAnimationFrame(fn);
+            } else {
+              //正常回弹动画
+              this.$refs.scroll.style.transition = 'all .3s'
+              this.$refs.scroll.style.transform = `translate3d(0,${distance > 0 ? 0 : -this.refs.descHeight}px,0)`
+              this.moveYDistance = distance > 0 ? 0 : -this.refs.descHeight
+            }
+          } else {
+            //往下划
+            this.$refs.scroll.style.transition = 'all .3s'
+            this.$refs.scroll.style.transform = `translate3d(0,${distance > 0 ? 0 : -this.refs.descHeight}px,0)`
+            this.moveYDistance = distance > 0 ? 0 : -this.refs.descHeight
+          }
+        }
+      }
+      this.isScroll = Math.abs(this.moveYDistance) > this.refs.descHeight
     }
   }
 }
@@ -237,6 +420,151 @@ export default {
     padding: 10px;
     color: gray;
     text-align: center;
+  }
+
+  .desc {
+    header {
+      color: white;
+      height: 12rem;
+      background-image: url('../../assets/img/header-bg.png');
+      //background-image: url('data:image/jpeg;base64,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');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      justify-content: space-between;
+      /*background: url("../../assets/img/icon/top-bg.jpg");*/
+      padding: 2rem;
+      box-sizing: border-box;
+
+      .left {
+        font-size: 1.2rem;
+        height: 2.6rem;
+        display: flex;
+        padding-right: 1.3rem;
+        padding-left: .5rem;
+        align-items: center;
+        border-radius: 2rem;
+        background: rgba(82, 80, 80, 0.5);
+
+        img {
+          padding: .6rem;
+          width: 1.8rem;
+        }
+      }
+
+      .right {
+        img {
+          margin-left: 2rem;
+          border-radius: 50%;
+          background: rgba(82, 80, 80, 0.5);
+          padding: .6rem;
+          width: 1.8rem;
+        }
+      }
+
+      &.bound-anim {
+        animation: anim .6s;
+      }
+
+      @keyframes anim {
+        0% {
+          height: 15rem;
+        }
+        25% {
+          height: 30rem;
+        }
+        100% {
+          height: 15rem;
+        }
+      }
+    }
+
+    .detail {
+      background: $main-bg;
+      padding: 0 20px;
+
+      .head {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        transform: translateY(-20px);
+
+        .head-image {
+          background: black;
+          padding: 2px;
+          border-radius: 50%;
+          width: 80px;
+          height: 80px;
+        }
+
+        .my-buttons {
+          div {
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            float: left;
+            border-radius: 2px;
+            background: $second-btn-color;
+            margin-left: 5px;
+            padding: 0 10px;
+            height: 30px;
+            color: white;
+
+            &:nth-child(1) {
+              padding: 0 25px;
+            }
+
+            img {
+              padding: 0 .6rem;
+              height: 1.2rem;
+            }
+          }
+
+        }
+      }
+
+      .description {
+        font-size: 1.2rem;
+        color: white;
+        transform: translateY(-20px);
+
+        .number {
+          color: $second-text-color;
+          padding-bottom: 2rem;
+          border-bottom: 1px solid $line-color;
+          display: flex;
+          align-items: center;
+
+          img {
+            width: 18px;
+            margin-left: 5px;
+          }
+
+        }
+
+        .heat {
+          color: darkgray;
+          display: flex;
+          align-items: center;
+
+          .num {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-right: 3px;
+          }
+
+          .text {
+            font-size: 1.4rem;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
   }
 
   .ul {
