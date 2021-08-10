@@ -29,16 +29,17 @@ export default {
 .posters {
   display: grid;
   grid-template-columns: 33.33vw 33.33vw 33.33vw;
-  grid-template-rows:calc(33.33vw * 1.2);
 }
 
 .poster-item {
+  height: calc(33.33vw * 1.2);
   border: 1px solid black;
   overflow: hidden;
   position: relative;
 
   .poster {
     width: 100%;
+    height: 100%;
     display: block;
   }
 
