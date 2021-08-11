@@ -1,12 +1,18 @@
 <template>
-  <div class="Loading">
+  <div class="Loading" :class="isFullScreen?'full':'normal'">
     <div class="circle blue"></div>
     <div class="circle red"></div>
   </div>
 </template>
 <script>
 export default {
-  name: "Loading"
+  name: "Loading",
+  props: {
+    isFullScreen: {
+      type: Boolean,
+      default: true
+    }
+  }
 }
 </script>
 
@@ -14,13 +20,25 @@ export default {
 @import "../assets/scss/index";
 
 .Loading {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: space-between;
-  width: 2.2rem;
+
+  &.normal {
+    width: 100%;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  &.full {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: space-between;
+    width: 2.2rem;
+  }
 
   .circle {
     width: 1rem;
