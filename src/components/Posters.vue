@@ -1,10 +1,10 @@
 <template>
   <div class="posters">
-    <div class="poster-item" v-for="i in list" >
-      <img class="poster" src="../assets/img/poster/2.jpg" alt="">
+    <div class="poster-item" v-for="i in list">
+      <img class="poster" :src="i.src" alt="">
       <div class="num">
         <img class="love" src="../assets/img/icon/love.svg" alt="">
-        <span>123.2w</span>
+        <span>{{ likeNum(i.like) }}</span>
       </div>
     </div>
   </div>
@@ -18,7 +18,16 @@ export default {
     list: {
       type: [Array, Number],
       default: () => {
-        return 5
+        return []
+      }
+    }
+  },
+  methods: {
+    likeNum(num) {
+      if (num < 1000) {
+        return num
+      } else {
+        return num / 10000 + 'w'
       }
     }
   }

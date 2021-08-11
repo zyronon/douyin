@@ -2,22 +2,28 @@
   <div class="Me">
     <SlideRowList style="width: 100vw;" v-model:active-index="baseActiveIndex">
       <SlideItem>
+        <div ref="float" class="float" :class="floatFixed?'fixed':''">
+          <div class="left" style="opacity: 0;">
+            <img src="../../assets/img/icon/next.svg" alt="">
+            <span>切换账号</span>
+          </div>
+          <transition name="fade">
+            <div class="center" v-if="floatShowName">
+              <p class="name f22 mt1r mb1r">ttentau</p>
+            </div>
+          </transition>
+          <div class="right">
+            <img :style="floatFixed?'opacity: 0;':''" src="../../assets/img/icon/me/finger-right.png" alt="">
+            <img src="../../assets/img/icon/me/menu.png" alt="" @click.stop="baseActiveIndex = 1">
+          </div>
+        </div>
         <div class="scroll"
              ref="scroll"
              @touchstart="touchStart($event)"
              @touchmove="touchMove($event)"
              @touchend="touchEnd($event)">
           <div ref="desc" class="desc">
-            <header ref="header">
-              <div class="left" style="opacity: 0;">
-                <img src="../../assets/img/icon/next.svg" alt="">
-                <span>切换账号</span>
-              </div>
-              <div class="right">
-                <img src="../../assets/img/icon/me/finger-right.png" alt="">
-                <img src="../../assets/img/icon/me/menu.png" alt="" @click.stop="baseActiveIndex = 1">
-              </div>
-            </header>
+            <header ref="header"></header>
             <div class="detail">
               <div class="head">
                 <img src="../../assets/img/icon/head-image.jpeg" class="head-image">
@@ -66,35 +72,36 @@
           </Indicator>
           <SlideRowList
               name="videoList"
-              style="height: calc(100vh - 9.5rem);"
+              style="height: calc(100vh - 14rem);"
               v-model:active-index="contentIndex">
             <SlideItem class="SlideItem"
                        @touchmove="move"
                        :style="isScroll?'overflow: auto;':''">
-              <Posters :list="25"></Posters>
+              <Posters :list="res.my"></Posters>
               <div class="no-more">暂时没有更多了</div>
             </SlideItem>
             <SlideItem class="SlideItem"
                        @touchmove="move"
                        :style="isScroll?'overflow: auto;':''">
-              <Posters :list="5"></Posters>
+              <Posters :list="res.private"></Posters>
               <div class="no-more">暂时没有更多了</div>
             </SlideItem>
             <SlideItem class="SlideItem"
                        @touchmove="move"
                        :style="isScroll?'overflow: auto;':''">
-              <Posters :list="5"></Posters>
+              <Posters :list="res.like"></Posters>
               <div class="no-more">暂时没有更多了</div>
             </SlideItem>
             <SlideItem class="SlideItem"
                        @touchmove="move"
                        :style="isScroll?'overflow: auto;':''">
-              <Posters :list="5"></Posters>
+              <Posters :list="res.collect"></Posters>
               <div class="no-more">暂时没有更多了</div>
             </SlideItem>
           </SlideRowList>
         </div>
         <Indicator
+            style="margin-top: 4.6rem;"
             v-if="indicatorFixed"
             name="videoList"
             :fixed="true"
@@ -105,7 +112,7 @@
         <Footer v-bind:init-tab="5"/>
       </SlideItem>
       <SlideItem style="min-width: 70vw; overflow:auto;">
-        <transition name="fade">
+        <transition name="fade1">
           <div class="ul" v-if="!isMoreFunction">
             <div class="li" @click="$nav('/my-card')">
               <img src="../../assets/img/icon/newicon/left_menu/shopping.png" alt="">
@@ -217,25 +224,32 @@ export default {
   components: {Posters, Footer, Indicator},
   data() {
     return {
-      serviceEl: {},
-      serviceHeight: 0,
       contentIndex: 0,
       baseActiveIndex: 0,
       desc: null,
       tabContents: [],
       indicatorHeight: 42,
       indicatorFixed: false,
+      floatFixed: false,
+      floatShowName: false,
       isScroll: false,
+      isMoreFunction: false,
       refs: {
         header: null,
         headerHeight: 0,
         descHeight: 0,
       },
-      isMoreFunction: false,
       startLocationY: 0,
       fixedLocationY: 0,
       moveYDistance: 0,
       startTime: 0,
+      floatHeight: 46,
+      res: {
+        my: [],
+        private: [],
+        like: [],
+        collect: []
+      }
     }
   },
   computed: {
@@ -250,8 +264,37 @@ export default {
       this.refs.descHeight = this.$refs.desc.offsetHeight
       this.changeIndex(0, null)
     })
+    // this.getData()
+    // res.my
   },
   methods: {
+    getData() {
+      // for (let i = 0; i < this.$randomNum(15, 30); i++) {
+      //   this.res.my.push({
+      //     src: require(`../../assets/img/poster/${this.$randomNum(11)}.jpg`),
+      //     like: this.$randomNum(99) * 10000
+      //   })
+      // }
+      // for (let i = 0; i < this.$randomNum(0, 5); i++) {
+      //   this.res.private.push({
+      //     src: require(`../../assets/img/poster/${this.$randomNum(11)}.jpg`),
+      //     like: this.$randomNum(99) * 10000
+      //   })
+      // }
+      // for (let i = 0; i < this.$randomNum(200); i++) {
+      //   this.res.like.push({
+      //     src: require(`../../assets/img/poster/${this.$randomNum(11)}.jpg`),
+      //     like: this.$randomNum(99) * 10000
+      //   })
+      // }
+      // for (let i = 0; i < this.$randomNum(10); i++) {
+      //   this.res.collect.push({
+      //     src: require(`../../assets/img/poster/${this.$randomNum(11)}.jpg`),
+      //     like: this.$randomNum(99) * 10000
+      //   })
+      // }
+      console.log(this.res)
+    },
     changeIndex() {
 
     },
@@ -269,6 +312,7 @@ export default {
       let moveYDistance = e.touches[0].pageY - this.startLocationY
       let distance = this.moveYDistance + moveYDistance * 1.2
       // console.log('distance', distance)
+      //往上划
       if (distance > 0) {
         if (distance < 400) {
           // if (this.baseActiveIndex !== 0) return
@@ -290,28 +334,31 @@ export default {
         // console.log(tt.scrollTop)
         if (!this.isScroll) {
           SlideItem.style.overflow = 'auto'
-          SlideItem.scrollTop = Math.abs(distance) - this.refs.descHeight
+          SlideItem.scrollTop = Math.abs(distance) - this.refs.descHeight + this.floatHeight
         }
         if (SlideItem.scrollTop === 0 && (e.touches[0].pageY - this.fixedLocationY) > 0) {
           this.isScroll = this.indicatorFixed = false
           SlideItem.style.overflow = 'hidden'
           this.startLocationY = e.touches[0].pageY
-          this.moveYDistance = -this.refs.descHeight
+          this.moveYDistance = -this.refs.descHeight + this.floatHeight
         }
       } else {
-        this.indicatorFixed = Math.abs(distance) > this.refs.descHeight
+        this.indicatorFixed = Math.abs(distance) > this.refs.descHeight - this.floatHeight
+        this.floatFixed = Math.abs(distance) > 100
+        this.floatShowName = Math.abs(distance) > 150
         if (this.indicatorFixed) {
           this.fixedLocationY = e.touches[0].pageY
         }
         this.$refs.scroll.style.transform = `translate3d(0,${distance}px,0)`
+
       }
     },
     touchEnd(e) {
-      console.log('this.startLocationY', this.startLocationY)
+      // console.log('this.startLocationY', this.startLocationY)
       let moveYDistance = e.changedTouches[0].pageY - this.startLocationY
       this.moveYDistance = this.moveYDistance + moveYDistance * 1.2//乘以1.2倍，加速滚动，不然看起来很慢
+      // console.log('end-moveYDistance', this.moveYDistance)
 
-      // console.log('end-moveYDistance',this.moveYDistance)
 
       //往上划，恢复header
       if (this.moveYDistance > 0) {
@@ -319,8 +366,12 @@ export default {
         this.refs.header.style.transition = 'all .3s'
         this.refs.header.style.height = this.refs.headerHeight + 'px'
         this.moveYDistance = 0
+        this.floatShowName = this.floatFixed = this.isScroll = false
+        return
       }
 
+      // console.log('header-height',this.refs.descHeight - this.floatHeight)
+      // this.isScroll = Math.abs(this.moveYDistance) > this.refs.descHeight - this.floatHeight
       //原谅我判断太多
       //如果没固定，则可以滚动到顶和底
       if (!this.indicatorFixed) {
@@ -339,13 +390,12 @@ export default {
           //往上划
           if (distance > 0) {
             //时间短，滑动距离长，则应该快速滚动到顶部
+            gapTime = endTime - this.startTime
             if (gapTime < 100 && Math.abs(distance) > 100) {
               //用cancelAnimationFrame快速滚动到顶部，要比transition = 'all .3s'快
               this.$refs.scroll.style.transition = 'none'
-              let transform = this.$refs.scroll.style.transform
-              let transformY = transform.substring(transform.indexOf('0px') + 5, transform.lastIndexOf('0px') - 4)
+              let transformY = this.getTransform(this.$refs.scroll)
               //当前的transformY
-              transformY = parseInt(transformY)
               // console.log('transformY', transformY)
               let timer
               cancelAnimationFrame(timer);
@@ -382,15 +432,25 @@ export default {
               this.$refs.scroll.style.transform = `translate3d(0,${distance > 0 ? 0 : -this.refs.descHeight}px,0)`
               this.moveYDistance = distance > 0 ? 0 : -this.refs.descHeight
             }
+            this.floatShowName = this.floatFixed = this.isScroll = false
           } else {
             //往下划
             this.$refs.scroll.style.transition = 'all .3s'
-            this.$refs.scroll.style.transform = `translate3d(0,${distance > 0 ? 0 : -this.refs.descHeight}px,0)`
-            this.moveYDistance = distance > 0 ? 0 : -this.refs.descHeight
+            this.$refs.scroll.style.transform = `translate3d(0,${distance > 0 ? 0 : -this.refs.descHeight + this.floatHeight}px,0)`
+            this.moveYDistance = distance > 0 ? 0 : -this.refs.descHeight + this.floatHeight
+            this.floatShowName = this.floatFixed = this.isScroll = true
           }
         }
       }
-      this.isScroll = Math.abs(this.moveYDistance) > this.refs.descHeight
+      // console.log('end-isScroll', this.isScroll)
+
+    },
+    getTransform(el) {
+      let transform = el.style.transform
+      let transformY = transform.substring(transform.indexOf('0px') + 5, transform.lastIndexOf('0px') - 4)
+      //当前的transformY
+      transformY = parseInt(transformY)
+      return transformY
     }
   }
 }
@@ -399,13 +459,13 @@ export default {
 <style scoped lang='scss'>
 @import "../../assets/scss/index";
 
-.fade-enter-active,
-.fade-leave-active {
+.fade1-enter-active,
+.fade1-leave-active {
   transition: all 0.3s ease;
 }
 
-.fade-enter-from,
-.fade-leave-to {
+.fade1-enter-from,
+.fade1-leave-to {
   transform: translateY(10px);
   opacity: 0;
 }
@@ -422,6 +482,59 @@ export default {
     text-align: center;
   }
 
+  .float {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4.6rem;
+    padding: 0 1.5rem;
+    background: transparent;
+    transition: all .2s;
+
+    .center {
+      color: white;
+    }
+
+    &.fixed {
+      background: $main-bg;
+
+      img {
+        background: $main-bg !important;
+      }
+    }
+
+    .left {
+      font-size: 1.2rem;
+      height: 2.6rem;
+      display: flex;
+      padding-right: 1.3rem;
+      padding-left: .5rem;
+      align-items: center;
+      border-radius: 2rem;
+      background: rgba(82, 80, 80, 0.5);
+
+      img {
+        padding: .6rem;
+        width: 1.8rem;
+      }
+    }
+
+    .right {
+      img {
+        margin-left: 2rem;
+        border-radius: 50%;
+        background: rgba(82, 80, 80, 0.5);
+        padding: .6rem;
+        width: 1.8rem;
+      }
+    }
+  }
+
   .desc {
     header {
       color: white;
@@ -431,53 +544,8 @@ export default {
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      display: flex;
-      justify-content: space-between;
-      /*background: url("../../assets/img/icon/top-bg.jpg");*/
-      padding: 2rem;
+
       box-sizing: border-box;
-
-      .left {
-        font-size: 1.2rem;
-        height: 2.6rem;
-        display: flex;
-        padding-right: 1.3rem;
-        padding-left: .5rem;
-        align-items: center;
-        border-radius: 2rem;
-        background: rgba(82, 80, 80, 0.5);
-
-        img {
-          padding: .6rem;
-          width: 1.8rem;
-        }
-      }
-
-      .right {
-        img {
-          margin-left: 2rem;
-          border-radius: 50%;
-          background: rgba(82, 80, 80, 0.5);
-          padding: .6rem;
-          width: 1.8rem;
-        }
-      }
-
-      &.bound-anim {
-        animation: anim .6s;
-      }
-
-      @keyframes anim {
-        0% {
-          height: 15rem;
-        }
-        25% {
-          height: 30rem;
-        }
-        100% {
-          height: 15rem;
-        }
-      }
     }
 
     .detail {

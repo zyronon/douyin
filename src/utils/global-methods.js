@@ -151,6 +151,19 @@ export default {
   $console(v) {
     return console.log(JSON.stringify(v, null, 4))
   },
+  $randomNum(minNum,maxNum){
+    switch(arguments.length){
+      case 1:
+        return parseInt(Math.random()*minNum+1,10);
+        break;
+      case 2:
+        return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10);
+        break;
+      default:
+        return 0;
+        break;
+    }
+  },
   $duration(v) {
     let m = Math.floor(v / 60)
     // let s = v % 60

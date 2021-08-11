@@ -205,8 +205,6 @@ export default {
   components: {Posters, Footer, Indicator},
   data() {
     return {
-      serviceEl: {},
-      serviceHeight: 0,
       contentIndex: 0,
       baseActiveIndex: 0,
       desc: null,
