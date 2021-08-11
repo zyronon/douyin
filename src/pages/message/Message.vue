@@ -212,7 +212,7 @@ export default {
   },
   computed: {
     selectFriends() {
-      let res = this.friends.filter(v => v.select)
+      let videos = this.friends.filter(v => v.select)
       return res.length
     }
   },

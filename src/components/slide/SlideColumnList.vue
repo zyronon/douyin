@@ -204,8 +204,8 @@ export default {
                   && this.currentSlideItemIndex >= (this.defaultVirtualItemTotal + 1) / 2
                   && this.currentSlideItemIndex <= this.list.length - 3
               ) {
-                let res = $(`#base-slide-list .video-slide-item[data-index=${addItemIndex}]`)
-                // console.log(res)
+                let videos = $(`#base-slide-list .video-slide-item[data-index=${addItemIndex}]`)
+                // console.log(videos)
                 if (res.length === 0) {
                   this.slideList.appendChild(this.getInsEl(this.list[addItemIndex], addItemIndex))
                   this.appInsMap.get($("#base-slide-list .video-slide-item:first").data('index')).unmount()

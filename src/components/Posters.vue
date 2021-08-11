@@ -27,7 +27,7 @@ export default {
       if (num < 1000) {
         return num
       } else {
-        return num / 10000 + 'w'
+        return parseInt(num / 10000) + 'w'
       }
     }
   }

@@ -186,6 +186,8 @@ export default {
       this.startTime = Date.now()
     },
     touchMove(e) {
+    //  this.$stopPropagation(e)
+
       if (!this.canMove) return;
       this.moveXDistance = e.touches[0].pageX - this.startLocationX
       this.moveYDistance = e.touches[0].pageY - this.startLocationY

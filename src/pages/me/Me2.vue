@@ -65,50 +65,47 @@
             </div>
           </div>
           <Indicator
+              :class="indicatorFixed?'fffffffff':''"
               name="videoList"
               tabStyleWidth="25%"
               :tabTexts="['作品','私密','喜欢','收藏']"
               v-model:active-index="contentIndex">
           </Indicator>
           <SlideRowList
+              ref="videoSlideRowList"
               name="videoList"
-              style="height: calc(100vh - 13.5rem);"
+              :style="videoSlideRowListStyle"
               v-model:active-index="contentIndex">
             <SlideItem class="SlideItem"
                        @touchmove="move"
                        :style="isScroll?'overflow: auto;':''">
-              <Posters :list="res.my.list"></Posters>
-              <div class="no-more">暂时没有更多了</div>
+              <Posters v-if="videos.my.total !== -1" :list="videos.my.list"></Posters>
+              <Loading v-else :is-full-screen="false"></Loading>
+              <no-more/>
             </SlideItem>
             <SlideItem class="SlideItem"
                        @touchmove="move"
                        :style="isScroll?'overflow: auto;':''">
-              <Posters :list="res.private.list"></Posters>
-              <div class="no-more">暂时没有更多了</div>
+              <Posters v-if="videos.private.total !== -1" :list="videos.private.list"></Posters>
+              <Loading v-else :is-full-screen="false"></Loading>
+              <no-more/>
             </SlideItem>
             <SlideItem class="SlideItem"
                        @touchmove="move"
                        :style="isScroll?'overflow: auto;':''">
-              <Posters :list="res.like.list"></Posters>
-              <div class="no-more">暂时没有更多了</div>
+              <Posters v-if="videos.like.total !== -1" :list="videos.like.list"></Posters>
+              <Loading v-else :is-full-screen="false"></Loading>
+              <no-more/>
             </SlideItem>
             <SlideItem class="SlideItem"
                        @touchmove="move"
                        :style="isScroll?'overflow: auto;':''">
-              <Posters :list="res.collect.list"></Posters>
-              <div class="no-more">暂时没有更多了</div>
+              <Posters v-if="videos.collect.total !== -1" :list="videos.collect.list"></Posters>
+              <Loading v-else :is-full-screen="false"></Loading>
+              <no-more/>
             </SlideItem>
           </SlideRowList>
         </div>
-        <!--        <Indicator-->
-        <!--            style="margin-top: 4.6rem;"-->
-        <!--            v-if="indicatorFixed"-->
-        <!--            name="videoList"-->
-        <!--            :fixed="true"-->
-        <!--            tabStyleWidth="25%"-->
-        <!--            :tabTexts="['作品','私密','喜欢','收藏']"-->
-        <!--            v-model:active-index="contentIndex">-->
-        <!--        </Indicator>-->
         <Footer v-bind:init-tab="5"/>
       </SlideItem>
       <SlideItem style="min-width: 70vw; overflow:auto;">
@@ -238,35 +235,49 @@ export default {
         header: null,
         headerHeight: 0,
         descHeight: 0,
+        videoSlideRowListHeight: 0,
+        defaultVideoSlideRowListHeight: 0
       },
+      videoItemHeight: 0,
       startLocationY: 0,
       fixedLocationY: 0,
       moveYDistance: 0,
       startTime: 0,
       floatHeight: 46,
-      res: {
+      videos: {
         my: {
           list: [],
-          total: 0
+          total: -1
         },
         private: {
           list: [],
-          total: 0
+          total: -1
         },
         like: {
           list: [],
-          total: 0
+          total: -1
         },
         collect: {
           list: [],
-          total: 0
+          total: -1
         },
-      }
+      },
     }
   },
   computed: {
     bodyHeight() {
       return this.$store.state.bodyHeight
+    },
+    bodyWidth() {
+      return this.$store.state.bodyWidth
+    },
+    videoSlideRowListStyle() {
+      return {height: this.refs.videoSlideRowListHeight !== 0 ? this.refs.videoSlideRowListHeight + 'px' : 'calc(100vh - 14.6rem)'}
+    }
+  },
+  watch: {
+    contentIndex(newVal, oldVal) {
+      this.changeIndex(newVal, oldVal)
     },
   },
   mounted() {
@@ -274,43 +285,46 @@ export default {
       this.refs.header = this.$refs.header
       this.refs.headerHeight = this.$refs.header.offsetHeight
       this.refs.descHeight = this.$refs.desc.offsetHeight
+      this.refs.defaultVideoSlideRowListHeight = this.$refs.videoSlideRowList.wrapperHeight
+      // this.refs.videoSlideRowListHeight = this.$refs.videoSlideRowList.wrapperHeight
       this.changeIndex(0, null)
     })
-    this.getData()
+    this.videoItemHeight = this.bodyWidth / 3 * 1.2 + 2
   },
   methods: {
-    getData() {
-      this.res.my.total = this.$randomNum(15, 30)
-      for (let i = 0; i < this.res.my.total; i++) {
-        this.res.my.list.push({
-          src: require(`../../assets/img/poster/${this.$randomNum(11)}.jpg`),
-          like: this.$randomNum(99) * 10000
-        })
-      }
-      this.res.private.total = this.$randomNum(10)
-      for (let i = 0; i < this.res.private.total; i++) {
-        this.res.private.list.push({
-          src: require(`../../assets/img/poster/${this.$randomNum(11)}.jpg`),
-          like: this.$randomNum(99) * 10000
-        })
-      }
-      this.res.like.total = this.$randomNum(15, 100)
-      for (let i = 0; i < this.res.like.total; i++) {
-        this.res.like.list.push({
-          src: require(`../../assets/img/poster/${this.$randomNum(11)}.jpg`),
-          like: this.$randomNum(99) * 10000
-        })
-      }
-      this.res.collect.total = this.$randomNum(5)
-      for (let i = 0; i < this.res.collect.total; i++) {
-        this.res.collect.list.push({
-          src: require(`../../assets/img/poster/${this.$randomNum(11)}.jpg`),
-          like: this.$randomNum(99) * 10000
-        })
-      }
-    },
-    changeIndex() {
+    async changeIndex(newVal, oldVal) {
+      let res
+      if (this.videos[Object.keys(this.videos)[newVal]].total !== -1) return
+      switch (newVal) {
+        case 0:
+          res = await this.$api.videos.my()
+          if (res.code === this.SUCCESS_CODE) this.videos.my = res.data
+          this.$console(this.videos)
 
+          let posterHeight = Math.ceil(this.videos.my.total / 3) * this.videoItemHeight
+          if (posterHeight < this.refs.defaultVideoSlideRowListHeight) {
+            // this.$setCss(this.$refs.videoSlideRowList, 'height', posterHeight + 'px')
+            this.refs.videoSlideRowListHeight = posterHeight + 60
+          } else {
+            this.refs.videoSlideRowListHeight = this.refs.defaultVideoSlideRowListHeight
+          }
+          break
+        case 1:
+          res = await this.$api.videos.private()
+          if (res.code === this.SUCCESS_CODE) this.videos.private = res.data
+          this.$console(this.videos)
+          break
+        case 2:
+          res = await this.$api.videos.like()
+          if (res.code === this.SUCCESS_CODE) this.videos.like = res.data
+          this.$console(this.videos)
+          break
+        case 3:
+          res = await this.$api.videos.collect()
+          if (res.code === this.SUCCESS_CODE) this.videos.collect = res.data
+          this.$console(this.videos)
+          break
+      }
     },
     touchStart(e) {
       this.$refs.scroll.style.transition = 'none'
@@ -367,7 +381,18 @@ export default {
         }
         // console.log('indicatorFixed', this.indicatorFixed)
         // console.log('distance', distance)
-        this.$refs.scroll.style.transform = `translate3d(0,${distance}px,0)`
+        // if (this.indicatorFixed){
+        //   this.$refs.scroll.style.transform = `translate3d(0,${this.indicatorFixed ? -offsetTop : distance}px,0)`
+        // }
+        //todo
+        if (this.refs.defaultVideoSlideRowListHeight > this.refs.videoSlideRowListHeight) {
+          let endTransformY = Math.abs(offsetTop) - (this.refs.defaultVideoSlideRowListHeight - this.refs.videoSlideRowListHeight)
+          this.$refs.scroll.style.transform = `translate3d(0,${
+              distance > -endTransformY ? distance : -endTransformY
+          }px,0)`
+        } else {
+          this.$refs.scroll.style.transform = `translate3d(0,${this.indicatorFixed ? -offsetTop : distance}px,0)`
+        }
       }
     },
     touchEnd(e) {
@@ -388,7 +413,7 @@ export default {
         return
       }
 
-      console.log('header-height', this.refs.descHeight - this.floatHeight)
+      // console.log('header-height', this.refs.descHeight - this.floatHeight)
       // this.isScroll = Math.abs(this.moveYDistance) > this.refs.descHeight - this.floatHeight
       //原谅我判断太多
       //如果没固定，则可以滚动到顶和底
@@ -459,9 +484,10 @@ export default {
             this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = true
           }
         }
+      } else {
+        this.isScroll = true
       }
       // console.log('end-isScroll', this.isScroll)
-
     },
     getTransform(el) {
       let transform = el.style.transform

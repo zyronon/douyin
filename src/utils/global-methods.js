@@ -149,6 +149,7 @@ export default {
     return JSON.parse(JSON.stringify(v))
   },
   $console(v) {
+    return
     return console.log(JSON.stringify(v, null, 4))
   },
   $randomNum(minNum,maxNum){
