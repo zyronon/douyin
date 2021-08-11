@@ -72,43 +72,43 @@
           </Indicator>
           <SlideRowList
               name="videoList"
-              style="height: calc(100vh - 14rem);"
+              style="height: calc(100vh - 13.5rem);"
               v-model:active-index="contentIndex">
             <SlideItem class="SlideItem"
                        @touchmove="move"
                        :style="isScroll?'overflow: auto;':''">
-              <Posters :list="res.my"></Posters>
+              <Posters :list="res.my.list"></Posters>
               <div class="no-more">暂时没有更多了</div>
             </SlideItem>
             <SlideItem class="SlideItem"
                        @touchmove="move"
                        :style="isScroll?'overflow: auto;':''">
-              <Posters :list="res.private"></Posters>
+              <Posters :list="res.private.list"></Posters>
               <div class="no-more">暂时没有更多了</div>
             </SlideItem>
             <SlideItem class="SlideItem"
                        @touchmove="move"
                        :style="isScroll?'overflow: auto;':''">
-              <Posters :list="res.like"></Posters>
+              <Posters :list="res.like.list"></Posters>
               <div class="no-more">暂时没有更多了</div>
             </SlideItem>
             <SlideItem class="SlideItem"
                        @touchmove="move"
                        :style="isScroll?'overflow: auto;':''">
-              <Posters :list="res.collect"></Posters>
+              <Posters :list="res.collect.list"></Posters>
               <div class="no-more">暂时没有更多了</div>
             </SlideItem>
           </SlideRowList>
         </div>
-        <Indicator
-            style="margin-top: 4.6rem;"
-            v-if="indicatorFixed"
-            name="videoList"
-            :fixed="true"
-            tabStyleWidth="25%"
-            :tabTexts="['作品','私密','喜欢','收藏']"
-            v-model:active-index="contentIndex">
-        </Indicator>
+        <!--        <Indicator-->
+        <!--            style="margin-top: 4.6rem;"-->
+        <!--            v-if="indicatorFixed"-->
+        <!--            name="videoList"-->
+        <!--            :fixed="true"-->
+        <!--            tabStyleWidth="25%"-->
+        <!--            :tabTexts="['作品','私密','喜欢','收藏']"-->
+        <!--            v-model:active-index="contentIndex">-->
+        <!--        </Indicator>-->
         <Footer v-bind:init-tab="5"/>
       </SlideItem>
       <SlideItem style="min-width: 70vw; overflow:auto;">
@@ -245,10 +245,22 @@ export default {
       startTime: 0,
       floatHeight: 46,
       res: {
-        my: [],
-        private: [],
-        like: [],
-        collect: []
+        my: {
+          list: [],
+          total: 0
+        },
+        private: {
+          list: [],
+          total: 0
+        },
+        like: {
+          list: [],
+          total: 0
+        },
+        collect: {
+          list: [],
+          total: 0
+        },
       }
     }
   },
@@ -264,36 +276,38 @@ export default {
       this.refs.descHeight = this.$refs.desc.offsetHeight
       this.changeIndex(0, null)
     })
-    // this.getData()
-    // res.my
+    this.getData()
   },
   methods: {
     getData() {
-      // for (let i = 0; i < this.$randomNum(15, 30); i++) {
-      //   this.res.my.push({
-      //     src: require(`../../assets/img/poster/${this.$randomNum(11)}.jpg`),
-      //     like: this.$randomNum(99) * 10000
-      //   })
-      // }
-      // for (let i = 0; i < this.$randomNum(0, 5); i++) {
-      //   this.res.private.push({
-      //     src: require(`../../assets/img/poster/${this.$randomNum(11)}.jpg`),
-      //     like: this.$randomNum(99) * 10000
-      //   })
-      // }
-      // for (let i = 0; i < this.$randomNum(200); i++) {
-      //   this.res.like.push({
-      //     src: require(`../../assets/img/poster/${this.$randomNum(11)}.jpg`),
-      //     like: this.$randomNum(99) * 10000
-      //   })
-      // }
-      // for (let i = 0; i < this.$randomNum(10); i++) {
-      //   this.res.collect.push({
-      //     src: require(`../../assets/img/poster/${this.$randomNum(11)}.jpg`),
-      //     like: this.$randomNum(99) * 10000
-      //   })
-      // }
-      console.log(this.res)
+      this.res.my.total = this.$randomNum(15, 30)
+      for (let i = 0; i < this.res.my.total; i++) {
+        this.res.my.list.push({
+          src: require(`../../assets/img/poster/${this.$randomNum(11)}.jpg`),
+          like: this.$randomNum(99) * 10000
+        })
+      }
+      this.res.private.total = this.$randomNum(10)
+      for (let i = 0; i < this.res.private.total; i++) {
+        this.res.private.list.push({
+          src: require(`../../assets/img/poster/${this.$randomNum(11)}.jpg`),
+          like: this.$randomNum(99) * 10000
+        })
+      }
+      this.res.like.total = this.$randomNum(15, 100)
+      for (let i = 0; i < this.res.like.total; i++) {
+        this.res.like.list.push({
+          src: require(`../../assets/img/poster/${this.$randomNum(11)}.jpg`),
+          like: this.$randomNum(99) * 10000
+        })
+      }
+      this.res.collect.total = this.$randomNum(5)
+      for (let i = 0; i < this.res.collect.total; i++) {
+        this.res.collect.list.push({
+          src: require(`../../assets/img/poster/${this.$randomNum(11)}.jpg`),
+          like: this.$randomNum(99) * 10000
+        })
+      }
     },
     changeIndex() {
 
@@ -307,6 +321,8 @@ export default {
       (!this.isScroll) && e.preventDefault();
     },
     touchMove(e) {
+      //距离顶部的距离
+      let offsetTop = this.refs.descHeight - this.floatHeight
       // console.log('pageY', e.touches[0].pageY)
       // console.log('moveYDistance', this.moveYDistance)
       let moveYDistance = e.touches[0].pageY - this.startLocationY
@@ -343,18 +359,20 @@ export default {
           this.moveYDistance = -this.refs.descHeight + this.floatHeight
         }
       } else {
-        this.indicatorFixed = Math.abs(distance) > this.refs.descHeight - this.floatHeight
+        this.indicatorFixed = Math.abs(distance) > offsetTop
         this.floatFixed = Math.abs(distance) > 100
         this.floatShowName = Math.abs(distance) > 150
         if (this.indicatorFixed) {
           this.fixedLocationY = e.touches[0].pageY
         }
+        // console.log('indicatorFixed', this.indicatorFixed)
+        // console.log('distance', distance)
         this.$refs.scroll.style.transform = `translate3d(0,${distance}px,0)`
-
       }
     },
     touchEnd(e) {
       // console.log('this.startLocationY', this.startLocationY)
+      // debugger
       let moveYDistance = e.changedTouches[0].pageY - this.startLocationY
       this.moveYDistance = this.moveYDistance + moveYDistance * 1.2//乘以1.2倍，加速滚动，不然看起来很慢
       // console.log('end-moveYDistance', this.moveYDistance)
@@ -370,7 +388,7 @@ export default {
         return
       }
 
-      // console.log('header-height',this.refs.descHeight - this.floatHeight)
+      console.log('header-height', this.refs.descHeight - this.floatHeight)
       // this.isScroll = Math.abs(this.moveYDistance) > this.refs.descHeight - this.floatHeight
       //原谅我判断太多
       //如果没固定，则可以滚动到顶和底
@@ -432,13 +450,13 @@ export default {
               this.$refs.scroll.style.transform = `translate3d(0,${distance > 0 ? 0 : -this.refs.descHeight}px,0)`
               this.moveYDistance = distance > 0 ? 0 : -this.refs.descHeight
             }
-            this.floatShowName = this.floatFixed = this.isScroll = false
+            this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = false
           } else {
             //往下划
             this.$refs.scroll.style.transition = 'all .3s'
             this.$refs.scroll.style.transform = `translate3d(0,${distance > 0 ? 0 : -this.refs.descHeight + this.floatHeight}px,0)`
             this.moveYDistance = distance > 0 ? 0 : -this.refs.descHeight + this.floatHeight
-            this.floatShowName = this.floatFixed = this.isScroll = true
+            this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = true
           }
         }
       }
