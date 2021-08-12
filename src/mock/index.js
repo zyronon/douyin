@@ -57,18 +57,24 @@ let pageSize = 15
 }())
 
 !(function private1() {
-  let data = {total: Mock.Random.natural(1, 20)}
-  data[`list|${data.total > pageSize ? pageSize : data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
+  // let data = {total: Mock.Random.natural(1, 20)}
+  // data[`list|${data.total > pageSize ? pageSize : data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
+  let data = {total: 4}
+  data[`list|${data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
   Mock.mock(/private/, Mock.mock({data, code: 200, msg: '',}))
 }())
 
 !(function like() {
-  let data = {total: Mock.Random.natural(1, 20)}
-  data[`list|${data.total > pageSize ? pageSize : data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
+  // let data = {total: Mock.Random.natural(1, 20)}
+  // data[`list|${data.total > pageSize ? pageSize : data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
+  let data = {total: 11}
+  data[`list|${data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
   Mock.mock(/like/, Mock.mock({data, code: 200, msg: '',}))
 }())
 !(function collect() {
-  let data = {total: Mock.Random.natural(1, 20)}
-  data[`list|${data.total > pageSize ? pageSize : data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
+  // let data = {total: Mock.Random.natural(1, 20)}
+  // data[`list|${data.total > pageSize ? pageSize : data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
+  let data = {total: 5}
+  data[`list|${data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
   Mock.mock(/collect/, Mock.mock({data, code: 200, msg: '',}))
 }())
