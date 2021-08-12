@@ -356,37 +356,19 @@ export default {
       (!this.isScroll) && e.preventDefault();
     },
     touchMove(e) {
-      //距离顶部的距离
-      let offsetTop = this.refs.descHeight - this.floatHeight
-      // console.log('pageY', e.touches[0].pageY)
-      // console.log('moveYDistance', this.moveYDistance)
-      let moveYDistance = e.touches[0].pageY - this.startLocationY
-      let distance = this.moveYDistance + moveYDistance * 1.2
-      // console.log('distance', distance)
-      //往上划
-      if (distance > 0) {
-        this.$refs.scroll.style.transform = `translate3d(0,0,0)`
-        if (distance < 400) {
-          // if (this.baseActiveIndex !== 0) return
-          // if (this.refs.header.getBoundingClientRect().top !== 0) return
-          this.refs.header.style.transition = 'all 0s'
-          this.refs.header.style.height = this.refs.headerHeight + (distance / 2) + 'px'
-        } else {
-          this.startLocationY = e.touches[0].pageY
-          this.moveYDistance = 400
-        }
-        return
-      }
-      // console.log('s', e.touches[0].pageY - this.startLocationY)
-      // console.log('indicatorFixed', this.indicatorFixed)
+      let canTransformY = this.refs.descHeight - this.floatHeight
+      let touchMoveDistance = e.touches[0].pageY - this.startLocationY
+      let pageMoveDistance = this.moveYDistance + touchMoveDistance * 1.2
+
+      // console.log('move-pageMoveDistance', pageMoveDistance)
+
       if (this.indicatorFixed) {
         let SlideItems = document.querySelectorAll('.SlideItem')
         let SlideItem = SlideItems[this.contentIndex]
 
-        // console.log(tt.scrollTop)
         if (!this.isScroll) {
           SlideItem.style.overflow = 'auto'
-          SlideItem.scrollTop = Math.abs(distance) - this.refs.descHeight + this.floatHeight
+          SlideItem.scrollTop = Math.abs(pageMoveDistance) - this.refs.descHeight + this.floatHeight
         }
         if (SlideItem.scrollTop === 0 && (e.touches[0].pageY - this.fixedLocationY) > 0) {
           this.isScroll = this.indicatorFixed = false
@@ -395,126 +377,149 @@ export default {
           this.moveYDistance = -this.refs.descHeight + this.floatHeight
         }
       } else {
-        this.indicatorFixed = Math.abs(distance) > offsetTop
-        if (this.indicatorFixed) {
-          this.fixedLocationY = e.touches[0].pageY
-        }
-        if (this.refs.defaultVideoSlideRowListHeight > this.refs.videoSlideRowListHeight) {
-          let endTransformY = Math.abs(offsetTop) - (this.refs.defaultVideoSlideRowListHeight - this.refs.videoSlideRowListHeight)
-          this.$refs.scroll.style.transform = `translate3d(0,${
-              distance > -endTransformY ? distance : -endTransformY
-          }px,0)`
-          this.floatFixed = Math.abs(distance) > 100
-          this.floatShowName = Math.abs(distance) > 150
+        if (pageMoveDistance > 0) {
+          this.$refs.scroll.style.transform = `translate3d(0,0,0)`
+          if (pageMoveDistance < 400) {
+            this.refs.header.style.transition = 'all 0s'
+            this.refs.header.style.height = this.refs.headerHeight + (pageMoveDistance / 2) + 'px'
+          } else {
+            this.startLocationY = e.touches[0].pageY
+            this.moveYDistance = 400
+          }
         } else {
-          this.floatFixed = Math.abs(distance) > 100
-          this.floatShowName = Math.abs(distance) > 150
-          this.$refs.scroll.style.transform = `translate3d(0,${this.indicatorFixed ? -offsetTop : distance}px,0)`
+          if (this.refs.defaultVideoSlideRowListHeight > this.refs.videoSlideRowListHeight) {
+            let endTransformY = Math.abs(canTransformY) - (this.refs.defaultVideoSlideRowListHeight - this.refs.videoSlideRowListHeight)
+            this.$refs.scroll.style.transform = `translate3d(0,${
+                pageMoveDistance > -endTransformY ? pageMoveDistance : -endTransformY
+            }px,0)`
+            // this.floatFixed = Math.abs(pageMoveDistance) > 100
+            // this.floatShowName = Math.abs(pageMoveDistance) > 150
+          } else {
+            this.indicatorFixed = Math.abs(pageMoveDistance) > canTransformY
+            // this.floatFixed = Math.abs(pageMoveDistance) > 100
+            // this.floatShowName = Math.abs(pageMoveDistance) > 150
+            this.$refs.scroll.style.transform = `translate3d(0,${this.indicatorFixed ? -canTransformY : pageMoveDistance}px,0)`
+          }
+          if (this.indicatorFixed) {
+            this.fixedLocationY = e.touches[0].pageY
+          }
         }
       }
+
     },
     touchEnd(e) {
-      // console.log('this.startLocationY', this.startLocationY)
-      // debugger
-      let moveYDistance = e.changedTouches[0].pageY - this.startLocationY
-      this.moveYDistance = this.moveYDistance + moveYDistance * 1.2//乘以1.2倍，加速滚动，不然看起来很慢
-      // console.log('end-moveYDistance', this.moveYDistance)
-
-
-      //往上划，恢复header
-      if (this.moveYDistance > 0) {
-        // if (this.baseActiveIndex !== 0) return
-        this.refs.header.style.transition = 'all .3s'
-        this.refs.header.style.height = this.refs.headerHeight + 'px'
-        this.moveYDistance = 0
-        this.floatShowName = this.floatFixed = this.isScroll = false
-        return
-      }
-
-      // console.log('header-height', this.refs.descHeight - this.floatHeight)
-      // this.isScroll = Math.abs(this.moveYDistance) > this.refs.descHeight - this.floatHeight
-      //原谅我判断太多
-      //如果没固定，则可以滚动到顶和底
-      if (!this.indicatorFixed) {
-        //算出滚动距离
-        let distance = e.changedTouches[0].pageY - this.startLocationY
-        // console.log('end-distance', distance)
-        let endTime = Date.now()
-        let gapTime = endTime - this.startTime
-
-        //距离太小
-        if (Math.abs(distance) < 20) gapTime = 1000
-        //超过header的1/3
-        if (Math.abs(distance) > (this.refs.descHeight / 2)) gapTime = 50
-        // console.log('时间', gapTime)
-        if (gapTime < 150) {
-          //往上划
-          if (distance > 0) {
-            //时间短，滑动距离长，则应该快速滚动到顶部
-            gapTime = endTime - this.startTime
-            if (gapTime < 100 && Math.abs(distance) > 100) {
-              //用cancelAnimationFrame快速滚动到顶部，要比transition = 'all .3s'快
-              this.$refs.scroll.style.transition = 'none'
-              let transformY = this.getTransform(this.$refs.scroll)
-              //当前的transformY
-              // console.log('transformY', transformY)
-              let timer
-              cancelAnimationFrame(timer);
-              let fn = () => {
-                //说明没到顶
-                if (transformY < 0) {
-                  transformY = transformY + 40
-                  this.$refs.scroll.style.transform = `translate3d(0,${transformY > 0 ? 0 : transformY}px,0)`
-                  timer = requestAnimationFrame(fn);
-                } else {
-                  //transformY === 0说明，本来就在顶部，然后猛的一划,这里要判断下
-                  if (transformY !== 0) {
-                    if (this.$getCss(this.refs.header, 'height') < 400) {
-                      this.refs.header.style.transition = 'none'
-                      this.refs.header.style.height = this.$getCss(this.refs.header, 'height') + 10 + 'px'
-                      timer = requestAnimationFrame(fn);
+      let canTransformY = this.refs.descHeight - this.floatHeight
+      let touchMoveDistance = e.changedTouches[0].pageY - this.startLocationY
+      let pageMoveDistance = this.moveYDistance + touchMoveDistance * 1.2
+      let endTransformY = Math.abs(canTransformY) - (this.refs.defaultVideoSlideRowListHeight - this.refs.videoSlideRowListHeight)
+      if (this.indicatorFixed) {
+        this.moveYDistance = -canTransformY
+        this.isScroll = true
+      } else {
+        // debugger
+        if (pageMoveDistance > 0) {
+          this.refs.header.style.transition = 'all .3s'
+          this.refs.header.style.height = this.refs.headerHeight + 'px'
+          this.moveYDistance = 0
+          this.floatShowName = this.floatFixed = this.isScroll = false
+        } else {
+          let endTime = Date.now()
+          let gapTime = endTime - this.startTime
+          //距离太小
+          if (Math.abs(touchMoveDistance) < 20) gapTime = 1000
+          //超过header的1/3
+          if (Math.abs(touchMoveDistance) > (this.refs.descHeight / 2)) gapTime = 50
+          // console.log('时间', gapTime)
+          if (gapTime < 150) {
+            //往上划
+            if (touchMoveDistance > 0) {
+              //时间短，滑动距离长，则应该快速滚动到顶部
+              gapTime = endTime - this.startTime
+              if (gapTime < 100 && Math.abs(touchMoveDistance) > 100) {
+                //用cancelAnimationFrame快速滚动到顶部，要比transition = 'all .3s'快
+                this.$refs.scroll.style.transition = 'none'
+                let transformY = this.getTransform(this.$refs.scroll)
+                //当前的transformY
+                // console.log('transformY', transformY)
+                let timer
+                cancelAnimationFrame(timer);
+                let fn = () => {
+                  //说明没到顶
+                  if (transformY < 0) {
+                    transformY = transformY + 40
+                    this.$refs.scroll.style.transform = `translate3d(0,${transformY > 0 ? 0 : transformY}px,0)`
+                    timer = requestAnimationFrame(fn);
+                  } else {
+                    //transformY === 0说明，本来就在顶部，然后猛的一划,这里要判断下
+                    if (transformY !== 0) {
+                      if (this.$getCss(this.refs.header, 'height') < 400) {
+                        this.refs.header.style.transition = 'none'
+                        this.refs.header.style.height = this.$getCss(this.refs.header, 'height') + 10 + 'px'
+                        timer = requestAnimationFrame(fn);
+                      } else {
+                        this.refs.header.style.transition = 'all .6s'
+                        this.refs.header.style.height = this.refs.headerHeight + 'px'
+                        this.moveYDistance = 0
+                        cancelAnimationFrame(timer);
+                      }
                     } else {
-                      this.refs.header.style.transition = 'all .6s'
-                      this.refs.header.style.height = this.refs.headerHeight + 'px'
+                      //快速动画结束
                       this.moveYDistance = 0
                       cancelAnimationFrame(timer);
                     }
-                  } else {
-                    //快速动画结束
-                    this.moveYDistance = 0
-                    cancelAnimationFrame(timer);
                   }
                 }
+                timer = requestAnimationFrame(fn);
+              } else {
+                //正常回弹动画
+                this.$refs.scroll.style.transition = 'all .3s'
+                this.$refs.scroll.style.transform = `translate3d(0,${touchMoveDistance > 0 ? 0 : -this.refs.descHeight}px,0)`
+                this.moveYDistance = touchMoveDistance > 0 ? 0 : -this.refs.descHeight
               }
-              timer = requestAnimationFrame(fn);
+              this.moveYDistance = 0
+              this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = false
+              this.changeIndex(this.contentIndex, this.contentIndex)
+              let SlideItems = document.querySelectorAll('.SlideItem')
+              // let SlideItem = SlideItems[this.contentIndex]
+              SlideItems.forEach(SlideItem => {
+                SlideItem.style.overflow = 'auto'
+                SlideItem.scrollTop = 0
+              })
+              SlideItems.forEach(SlideItem => {
+                SlideItem.style.overflow = 'hidden'
+              })
             } else {
-              //正常回弹动画
+              //往下划
               this.$refs.scroll.style.transition = 'all .3s'
-              this.$refs.scroll.style.transform = `translate3d(0,${distance > 0 ? 0 : -this.refs.descHeight}px,0)`
-              this.moveYDistance = distance > 0 ? 0 : -this.refs.descHeight
+              if (this.refs.defaultVideoSlideRowListHeight > this.refs.videoSlideRowListHeight) {
+                this.$refs.scroll.style.transform = `translate3d(0,${-endTransformY}px,0)`
+                // this.floatShowName = this.floatFixed = true
+                this.floatFixed = Math.abs(endTransformY) > 100
+                this.floatShowName = Math.abs(endTransformY) > 150
+                this.moveYDistance = -endTransformY
+              } else {
+                this.$refs.scroll.style.transform = `translate3d(0,${-this.refs.descHeight + this.floatHeight}px,0)`
+                this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = true
+                this.moveYDistance = -this.refs.descHeight + this.floatHeight
+                this.moveYDistance = pageMoveDistance
+              }
             }
-            this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = false
-            this.changeIndex(this.contentIndex, this.contentIndex)
           } else {
-            //往下划
-            this.$refs.scroll.style.transition = 'all .3s'
-            let offsetTop = this.refs.descHeight - this.floatHeight
-            if (this.refs.defaultVideoSlideRowListHeight > this.refs.videoSlideRowListHeight) {
-              let endTransformY = Math.abs(offsetTop) - (this.refs.defaultVideoSlideRowListHeight - this.refs.videoSlideRowListHeight)
-              this.$refs.scroll.style.transform = `translate3d(0,${-endTransformY}px,0)`
-              // this.floatShowName = this.floatFixed = true
-              this.floatFixed = Math.abs(endTransformY) > 100
-              this.floatShowName = Math.abs(endTransformY) > 150
-              this.moveYDistance = -endTransformY
-            } else {
-              this.$refs.scroll.style.transform = `translate3d(0,${-this.refs.descHeight + this.floatHeight}px,0)`
-              this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = true
-              this.moveYDistance = -this.refs.descHeight + this.floatHeight
-            }
+            // this.$refs.scroll.style.transition = 'all .3s'
+            // if (this.refs.defaultVideoSlideRowListHeight > this.refs.videoSlideRowListHeight) {
+            //   this.$refs.scroll.style.transform = `translate3d(0,0,0)`
+            //   // this.floatShowName = this.floatFixed = true
+            //   this.floatFixed = Math.abs(endTransformY) > 100
+            //   this.floatShowName = Math.abs(endTransformY) > 150
+            //   this.moveYDistance = 0
+            // } else {
+            //   this.$refs.scroll.style.transform = `translate3d(0,${-this.refs.descHeight + this.floatHeight}px,0)`
+            //   this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = true
+            //   this.moveYDistance = -this.refs.descHeight + this.floatHeight
+            this.moveYDistance = pageMoveDistance
+            // }
           }
         }
-      } else {
-        this.isScroll = true
       }
     },
     getTransform(el) {

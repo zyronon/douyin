@@ -51,7 +51,7 @@ let pageSize = 15
 !(function my() {
   // let data = {total: Mock.Random.natural(1, 20)}
   // data[`list|${data.total > pageSize ? pageSize : data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
-  let data = {total: 8}
+  let data = {total: 18}
   data[`list|${data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
   Mock.mock(/my/, Mock.mock({data, code: 200, msg: '',}))
 }())
