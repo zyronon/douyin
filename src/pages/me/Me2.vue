@@ -225,7 +225,6 @@ export default {
       baseActiveIndex: 0,
       desc: null,
       tabContents: [],
-      indicatorHeight: 42,
       indicatorFixed: false,
       floatFixed: false,
       floatShowName: false,
@@ -262,6 +261,7 @@ export default {
           total: -1
         },
       },
+      slideRowListHeight: 0
     }
   },
   computed: {
@@ -281,6 +281,7 @@ export default {
     },
   },
   mounted() {
+    this.slideRowListHeight = this.bodyHeight - 50 - 352 - 50
     setTimeout(() => {
       this.refs.header = this.$refs.header
       this.refs.headerHeight = this.$refs.header.offsetHeight
@@ -323,16 +324,18 @@ export default {
       let posterHeight = Math.ceil(this.videos[Object.keys(this.videos)[newVal]].total / 3) * this.videoItemHeight
       // console.log('posterHeight', posterHeight)
 
+      // debugger
+
       if (oldVal !== null) {
         let transformY = this.getTransform(this.$refs.scroll)
         // console.log('transformY', transformY)
-        let slideRowListHeight = this.bodyHeight - 50 - 352 - 50 + Math.abs(transformY)
+        let screenSlideRowListHeight = this.slideRowListHeight + Math.abs(transformY)
         // console.log('slideRowListHeight', slideRowListHeight)
 // debugger
-        if (posterHeight + 60 < slideRowListHeight) {
-          this.refs.videoSlideRowListHeight = slideRowListHeight
+        if (posterHeight + 60 < screenSlideRowListHeight) {
+          this.refs.videoSlideRowListHeight = screenSlideRowListHeight
         }
-        if (posterHeight + 60 > slideRowListHeight) {
+        if (posterHeight + 60 > screenSlideRowListHeight) {
           this.refs.videoSlideRowListHeight = posterHeight + 60
         }
         if (posterHeight + 60 > this.refs.defaultVideoSlideRowListHeight) {
@@ -362,42 +365,52 @@ export default {
 
       // console.log('move-pageMoveDistance', pageMoveDistance)
 
-      if (this.indicatorFixed) {
-        let SlideItems = document.querySelectorAll('.SlideItem')
-        let SlideItem = SlideItems[this.contentIndex]
 
-        if (!this.isScroll) {
-          SlideItem.style.overflow = 'auto'
-          SlideItem.scrollTop = Math.abs(pageMoveDistance) - this.refs.descHeight + this.floatHeight
-        }
-        if (SlideItem.scrollTop === 0 && (e.touches[0].pageY - this.fixedLocationY) > 0) {
-          this.isScroll = this.indicatorFixed = false
-          SlideItem.style.overflow = 'hidden'
+      if (pageMoveDistance > 0) {
+        this.$refs.scroll.style.transform = `translate3d(0,0,0)`
+        if (pageMoveDistance < 400) {
+          this.refs.header.style.transition = 'all 0s'
+          this.refs.header.style.height = this.refs.headerHeight + (pageMoveDistance / 2) + 'px'
+        } else {
           this.startLocationY = e.touches[0].pageY
-          this.moveYDistance = -this.refs.descHeight + this.floatHeight
+          this.moveYDistance = 400
         }
       } else {
-        if (pageMoveDistance > 0) {
+        let posterHeight = Math.ceil(this.videos[Object.keys(this.videos)[this.contentIndex]].total / 3) * this.videoItemHeight
+        if (this.refs.videoSlideRowListHeight > posterHeight + 60 && Math.abs(touchMoveDistance) > 30) {
+          this.$refs.scroll.style.transition = 'all .2s'
           this.$refs.scroll.style.transform = `translate3d(0,0,0)`
-          if (pageMoveDistance < 400) {
-            this.refs.header.style.transition = 'all 0s'
-            this.refs.header.style.height = this.refs.headerHeight + (pageMoveDistance / 2) + 'px'
-          } else {
+          this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = false
+          return;
+        }
+
+
+        if (this.indicatorFixed) {
+          let SlideItems = document.querySelectorAll('.SlideItem')
+          let SlideItem = SlideItems[this.contentIndex]
+
+          if (!this.isScroll) {
+            SlideItem.style.overflow = 'auto'
+            SlideItem.scrollTop = Math.abs(pageMoveDistance) - this.refs.descHeight + this.floatHeight
+          }
+          if (SlideItem.scrollTop === 0 && (e.touches[0].pageY - this.fixedLocationY) > 0) {
+            this.isScroll = this.indicatorFixed = false
+            SlideItem.style.overflow = 'hidden'
             this.startLocationY = e.touches[0].pageY
-            this.moveYDistance = 400
+            this.moveYDistance = -this.refs.descHeight + this.floatHeight
           }
         } else {
+          if (this.slideRowListHeight > this.refs.videoSlideRowListHeight) return
           if (this.refs.defaultVideoSlideRowListHeight > this.refs.videoSlideRowListHeight) {
             let endTransformY = Math.abs(canTransformY) - (this.refs.defaultVideoSlideRowListHeight - this.refs.videoSlideRowListHeight)
-            this.$refs.scroll.style.transform = `translate3d(0,${
-                pageMoveDistance > -endTransformY ? pageMoveDistance : -endTransformY
-            }px,0)`
-            // this.floatFixed = Math.abs(pageMoveDistance) > 100
-            // this.floatShowName = Math.abs(pageMoveDistance) > 150
+            let moveTransformY = Math.abs(pageMoveDistance) < Math.abs(endTransformY) ? pageMoveDistance : -endTransformY
+            this.$refs.scroll.style.transform = `translate3d(0,${moveTransformY}px,0)`
+            this.floatFixed = Math.abs(moveTransformY) > 100
+            this.floatShowName = Math.abs(moveTransformY) > 150
           } else {
             this.indicatorFixed = Math.abs(pageMoveDistance) > canTransformY
-            // this.floatFixed = Math.abs(pageMoveDistance) > 100
-            // this.floatShowName = Math.abs(pageMoveDistance) > 150
+            this.floatFixed = Math.abs(pageMoveDistance) > 100
+            this.floatShowName = Math.abs(pageMoveDistance) > 150
             this.$refs.scroll.style.transform = `translate3d(0,${this.indicatorFixed ? -canTransformY : pageMoveDistance}px,0)`
           }
           if (this.indicatorFixed) {
@@ -411,6 +424,8 @@ export default {
       let canTransformY = this.refs.descHeight - this.floatHeight
       let touchMoveDistance = e.changedTouches[0].pageY - this.startLocationY
       let pageMoveDistance = this.moveYDistance + touchMoveDistance * 1.2
+      console.log('end-pageMoveDistance', pageMoveDistance)
+
       let endTransformY = Math.abs(canTransformY) - (this.refs.defaultVideoSlideRowListHeight - this.refs.videoSlideRowListHeight)
       if (this.indicatorFixed) {
         this.moveYDistance = -canTransformY
@@ -423,6 +438,9 @@ export default {
           this.moveYDistance = 0
           this.floatShowName = this.floatFixed = this.isScroll = false
         } else {
+          if (this.slideRowListHeight > this.refs.videoSlideRowListHeight) {
+            return this.moveYDistance = 0
+          }
           let endTime = Date.now()
           let gapTime = endTime - this.startTime
           //距离太小
@@ -478,7 +496,6 @@ export default {
               }
               this.moveYDistance = 0
               this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = false
-              this.changeIndex(this.contentIndex, this.contentIndex)
               let SlideItems = document.querySelectorAll('.SlideItem')
               // let SlideItem = SlideItems[this.contentIndex]
               SlideItems.forEach(SlideItem => {
@@ -505,28 +522,23 @@ export default {
               }
             }
           } else {
-            // this.$refs.scroll.style.transition = 'all .3s'
-            // if (this.refs.defaultVideoSlideRowListHeight > this.refs.videoSlideRowListHeight) {
-            //   this.$refs.scroll.style.transform = `translate3d(0,0,0)`
-            //   // this.floatShowName = this.floatFixed = true
-            //   this.floatFixed = Math.abs(endTransformY) > 100
-            //   this.floatShowName = Math.abs(endTransformY) > 150
-            //   this.moveYDistance = 0
-            // } else {
-            //   this.$refs.scroll.style.transform = `translate3d(0,${-this.refs.descHeight + this.floatHeight}px,0)`
-            //   this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = true
-            //   this.moveYDistance = -this.refs.descHeight + this.floatHeight
-            this.moveYDistance = pageMoveDistance
-            // }
+            if (this.refs.defaultVideoSlideRowListHeight > this.refs.videoSlideRowListHeight) {
+              let endTransformY = Math.abs(canTransformY) - (this.refs.defaultVideoSlideRowListHeight - this.refs.videoSlideRowListHeight)
+              this.moveYDistance = -endTransformY
+            } else {
+              this.moveYDistance = pageMoveDistance
+            }
           }
         }
       }
+      this.changeIndex(this.contentIndex, this.contentIndex)
     },
     getTransform(el) {
       let transform = el.style.transform
-      // console.log(transform)
+      if (!transform) return 0
+      // console.log('transform',transform)
       let transformY = transform.substring(transform.indexOf('0px') + 5, transform.lastIndexOf('0px') - 4)
-      // console.log(transformY)
+      // console.log('transformY',transformY)
       //当前的transformY
       transformY = parseInt(transformY)
       return transformY
