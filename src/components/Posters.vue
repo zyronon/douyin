@@ -1,10 +1,14 @@
 <template>
   <div class="posters">
     <div class="poster-item" v-for="i in list">
-      <img class="poster" :src="i.src" alt="">
-      <div class="num">
+      <img class="poster" :src="$imgPreview(i.poster)" alt="">
+      <div class="num" v-if="mode === 'normal'">
         <img class="love" src="../assets/img/icon/love.svg" alt="">
-        <span>{{ likeNum(i.like) }}</span>
+        <span>{{ $likeNum(i.likeNum) }}</span>
+      </div>
+      <div v-else class="date">
+        <div class="day">{{ getDay(i.createTime) }}</div>
+        <div class="month">{{ getMonth(i.createTime) }}</div>
       </div>
     </div>
   </div>
@@ -20,14 +24,45 @@ export default {
       default: () => {
         return []
       }
+    },
+    mode: {
+      type: String,
+      default: 'normal'
     }
   },
   methods: {
-    likeNum(num) {
-      if (num < 1000) {
-        return num
-      } else {
-        return parseInt(num / 10000) + 'w'
+    getDay(time) {
+      let date = new Date(time * 1000)
+      return date.getDate()
+    },
+    getMonth(time) {
+      let date = new Date(time * 1000)
+      let month = date.getMonth() + 1
+      switch (month) {
+        case 1:
+          return '一月'
+        case 2:
+          return '二月'
+        case 3:
+          return '三月'
+        case 4:
+          return '四月'
+        case 5:
+          return '五月'
+        case 6:
+          return '六月'
+        case 7:
+          return '七月'
+        case 8:
+          return '八月'
+        case 9:
+          return '九月'
+        case 10:
+          return '十月'
+        case 11:
+          return '十一月'
+        case 12:
+          return '十二月'
       }
     }
   }
@@ -55,16 +90,37 @@ export default {
   .num {
     color: white;
     position: absolute;
-    bottom: 5px;
-    left: 5px;
+    bottom: .5rem;
+    left: .5rem;
     display: flex;
     align-items: center;
     font-size: 1.4rem;
 
     .love {
-      width: 14px;
-      height: 14px;
-      margin-right: 5px;
+      width: 1.4rem;
+      height: 1.4rem;
+      margin-right: .5rem;
+    }
+  }
+
+  .date {
+    position: absolute;
+    top: .5rem;
+    left: .5rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1.4rem;
+    color: black;
+    background: white;
+    padding: .6rem;
+    border-radius: .6rem;
+
+    .day{
+      font-weight: bold;
+    }
+    .month{
+      font-size: 1rem;
     }
   }
 }

@@ -1,4 +1,6 @@
 import Mock from 'mockjs'
+import globalMethods from '../utils/global-methods'
+import {da} from "pinyin/data/dict-zi-web";
 
 Mock.setup({
   timeout: '500-1000'
@@ -48,13 +50,33 @@ Mock.Random.extend({
 }())
 
 let pageSize = 15
-!(function my() {
+Mock.mock(/my/, options => {
+  let params = globalMethods.$parseURL(options.url).params
+  params.pageNo = ~~params.pageNo
+  params.pageSize = ~~params.pageSize
+  params.total = ~~params.total
+  // console.log(params)
   // let data = {total: Mock.Random.natural(1, 20)}
   // data[`list|${data.total > pageSize ? pageSize : data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
-  let data = {total: 14}
-  data[`list|${data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
+  // data[`list|${data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
+  let data = {
+    total: params.total === -1 ? 20 : params.total,
+    pageNo: params.pageNo,
+    pageSize: params.pageSize
+  }
+  let listLength = 0
+  if (params.pageNo !== 0) {
+    let remainder = data.total - (params.pageNo * params.pageSize)
+    listLength = remainder > params.pageSize ? params.pageSize : remainder
+  } else {
+    listLength = data.total > params.pageSize ? params.pageSize : data.total
+  }
+  data[`list|${listLength}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
+  // console.log(data)
   Mock.mock(/my/, Mock.mock({data, code: 200, msg: '',}))
-}())
+  return Mock.mock({data, code: 200, msg: '',})
+})
+
 
 !(function private1() {
   // let data = {total: Mock.Random.natural(1, 20)}

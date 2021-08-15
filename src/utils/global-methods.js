@@ -3,6 +3,7 @@ import SelectDialog from "../components/dialog/SelectDialog";
 import SimpleConfirmDialog from "../components/dialog/SimpleConfirmDialog";
 import ConfirmDialog from "../components/dialog/ConfirmDialog";
 import Loading from "../components/Loading";
+import Config from '../config'
 
 export default {
   $showLoading() {
@@ -152,13 +153,13 @@ export default {
     return
     return console.log(JSON.stringify(v, null, 4))
   },
-  $randomNum(minNum,maxNum){
-    switch(arguments.length){
+  $randomNum(minNum, maxNum) {
+    switch (arguments.length) {
       case 1:
-        return parseInt(Math.random()*minNum+1,10);
+        return parseInt(Math.random() * minNum + 1, 10);
         break;
       case 2:
-        return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10);
+        return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
         break;
       default:
         return 0;
@@ -191,5 +192,41 @@ export default {
     return new Promise((resolve, reject) => {
       setTimeout(resolve, duration)
     })
-  }
+  },
+  $parseURL(url) {
+    const a = document.createElement('a')
+    a.href = url
+    return {
+      host: a.hostname,
+      port: a.port,
+      query: a.search,
+      params: (function () {
+        const ret = {}
+        const seg = a.search.replace(/^\?/, '')
+          .split('&')
+        const len = seg.length
+        let i = 0
+        let s
+        for (; i < len; i++) {
+          if (!seg[i]) {
+            continue
+          }
+          s = seg[i].split('=')
+          ret[s[0]] = s[1]
+        }
+        return ret
+      }()),
+      hash: a.hash.replace('#', ''),
+    }
+  },
+  $imgPreview(url) {
+    return Config.filePreview + url
+  },
+  $likeNum(num) {
+    if (num < 1000) {
+      return num
+    } else {
+      return parseInt(num / 10000) + 'w'
+    }
+  },
 }
