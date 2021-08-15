@@ -78,31 +78,89 @@
               v-model:active-index="contentIndex">
             <SlideItem class="SlideItem"
                        @touchmove="move"
+                       @scroll="scroll"
                        :style="isScroll?'overflow: auto;':''">
               <Posters v-if="videos.my.total !== -1" :list="videos.my.list"></Posters>
-              <Loading v-else :is-full-screen="false"></Loading>
-              <no-more/>
+              <Loading v-if="loadings.loading0" :is-full-screen="false"></Loading>
+              <no-more v-else/>
+            </SlideItem>
+            <SlideItem class="SlideItem"
+                       @touchmove="'move'"
+                       :style="isScroll?'overflow: auto;':''">
+              <div class="notice">
+                <img src="../../assets/img/icon/me/lock-gray.png" alt="">
+                <span>只有你能看到设为私密的作品和日常</span>
+              </div>
+              <Posters v-if="videos.private.total !== -1" mode="private" :list="videos.private.list"></Posters>
+              <Loading v-if="loadings.loading1" :is-full-screen="false"></Loading>
+              <no-more v-else/>
             </SlideItem>
             <SlideItem class="SlideItem"
                        @touchmove="move"
                        :style="isScroll?'overflow: auto;':''">
-              <Posters v-if="videos.private.total !== -1" :list="videos.private.list"></Posters>
-              <Loading v-else :is-full-screen="false"></Loading>
-              <no-more/>
-            </SlideItem>
-            <SlideItem class="SlideItem"
-                       @touchmove="move"
-                       :style="isScroll?'overflow: auto;':''">
+              <div class="notice">
+                <img src="../../assets/img/icon/me/lock-gray.png" alt="">
+                <span>只有你能看到自己的喜欢列表</span>
+              </div>
               <Posters v-if="videos.like.total !== -1" :list="videos.like.list"></Posters>
-              <Loading v-else :is-full-screen="false"></Loading>
-              <no-more/>
+              <Loading v-if="loadings.loading2" :is-full-screen="false"></Loading>
+              <no-more v-else/>
             </SlideItem>
             <SlideItem class="SlideItem"
                        @touchmove="move"
                        :style="isScroll?'overflow: auto;':''">
-              <Posters v-if="videos.collect.total !== -1" :list="videos.collect.list"></Posters>
-              <Loading v-else :is-full-screen="false"></Loading>
-              <no-more/>
+              <div class="notice">
+                <img src="../../assets/img/icon/me/lock-gray.png" alt="">
+                <span>只有你能看到自己的收藏列表</span>
+              </div>
+              <div class="collect" ref="collect">
+                <div class="video" v-if=" videos.collect.video.list.length">
+                  <div class="top">
+                    <div class="left">
+                      <img src="../../assets/img/icon/me/video-whitegray.png" alt="">
+                      <span>视频</span>
+                    </div>
+                    <div class="right">
+                      <span>全部</span>
+                      <back direction="right"></back>
+                    </div>
+                  </div>
+                  <div class="list">
+                    <div class="item"
+                         v-for="i in videos.collect.video.list.length>3?videos.collect.video.list.slice(0,3):videos.collect.video.list">
+                      <img class="poster" :src="$imgPreview(i.poster)" alt="">
+                      <div class="num">
+                        <img class="love" src="../../assets/img/icon/love.svg" alt="">
+                        <span>{{ $likeNum(i.likeNum) }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="audio" v-if=" videos.collect.video.list.length">
+                  <div class="top">
+                    <div class="left">
+                      <img src="../../assets/img/icon/me/music-whitegray.png" alt="">
+                      <span>音乐</span>
+                    </div>
+                    <div class="right">
+                      <span>全部</span>
+                      <back direction="right"></back>
+                    </div>
+                  </div>
+                  <div class="list">
+                    <div class="item"
+                         v-for="i in videos.collect.video.list.length>3?videos.collect.video.list.slice(0,3):videos.collect.video.list">
+                      <img class="poster" :src="$imgPreview(i.poster)" alt="">
+                      <div class="title">用户创作的原声用户创作的原声用户创作的原声
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <Loading v-if="loadings.loading3" :is-full-screen="false"></Loading>
+              <no-more v-else/>
             </SlideItem>
           </SlideRowList>
         </div>
@@ -215,6 +273,7 @@
 import Posters from '../../components/Posters'
 import Footer from "../../components/Footer";
 import Indicator from '../../components/Indicator'
+import {nextTick} from 'vue'
 
 export default {
   name: "Me",
@@ -246,7 +305,8 @@ export default {
       videos: {
         my: {
           list: [],
-          total: -1
+          total: -1,
+          pageNo: 0
         },
         private: {
           list: [],
@@ -257,11 +317,24 @@ export default {
           total: -1
         },
         collect: {
-          list: [],
-          total: -1
+          video: {
+            list: [],
+            total: -1,
+          },
+          audio: {
+            list: [],
+            total: -1,
+          }
         },
       },
-      slideRowListHeight: 0
+      pageSize: 15,
+      slideRowListHeight: 0,
+      loadings: {
+        loading0: false,
+        loading1: false,
+        loading2: false,
+        loading3: false,
+      },
     }
   },
   computed: {
@@ -287,42 +360,66 @@ export default {
       this.refs.headerHeight = this.$refs.header.offsetHeight
       this.refs.descHeight = this.$refs.desc.offsetHeight
       this.refs.defaultVideoSlideRowListHeight = this.$refs.videoSlideRowList.wrapperHeight
-      // this.refs.videoSlideRowListHeight = this.$refs.videoSlideRowList.wrapperHeight
       this.changeIndex(0, null)
     })
     this.videoItemHeight = this.bodyWidth / 3 * 1.2 + 2
     // console.log('videoItemHeight',this.videoItemHeight)
   },
   methods: {
-    async changeIndex(newVal, oldVal) {
-      // console.log('oldVal',oldVal)
-      if (this.videos[Object.keys(this.videos)[newVal]].total === -1) {
-        let res
-        switch (newVal) {
+    async getScrollAreaHeight(index = this.contentIndex) {
+      let scrollAreaHeight = 0
+      if (index === 3) {
+        await nextTick(async () => {
+          scrollAreaHeight = this.$refs.collect.clientHeight + 60 + 40
+        })
+      } else {
+        scrollAreaHeight = Math.ceil(this.videos[Object.keys(this.videos)[index]].list.length / 3) * this.videoItemHeight
+        switch (index) {
           case 0:
-            res = await this.$api.videos.my()
-            if (res.code === this.SUCCESS_CODE) this.videos.my = res.data
-            this.$console(this.videos)
+            scrollAreaHeight += 60
             break
           case 1:
-            res = await this.$api.videos.private()
-            if (res.code === this.SUCCESS_CODE) this.videos.private = res.data
-            this.$console(this.videos)
+            scrollAreaHeight += 60 + 40
             break
           case 2:
-            res = await this.$api.videos.like()
-            if (res.code === this.SUCCESS_CODE) this.videos.like = res.data
-            this.$console(this.videos)
-            break
-          case 3:
-            res = await this.$api.videos.collect()
-            if (res.code === this.SUCCESS_CODE) this.videos.collect = res.data
-            this.$console(this.videos)
+            scrollAreaHeight += 60 + 40
             break
         }
       }
-      let posterHeight = Math.ceil(this.videos[Object.keys(this.videos)[newVal]].total / 3) * this.videoItemHeight
-      // console.log('posterHeight', posterHeight)
+      return scrollAreaHeight
+    },
+    async changeIndex(newVal, oldVal) {
+      if (this.loadings['loading' + newVal]) return
+      let videoOb = this.videos[Object.keys(this.videos)[newVal]]
+      if (newVal === 3) {
+        if (videoOb.video.total === -1) {
+          this.loadings['loading' + newVal] = true
+          let res = await this.$api.videos.collect({pageNo: this.videos.my.pageNo, pageSize: this.pageSize,})
+          this.loadings['loading' + newVal] = false
+          if (res.code === this.SUCCESS_CODE) this.videos.collect = res.data
+        }
+      } else {
+        if (videoOb.total === -1) {
+          this.loadings['loading' + newVal] = true
+          let res
+          switch (newVal) {
+            case 0:
+              res = await this.$api.videos.my({pageNo: this.videos.my.pageNo, pageSize: this.pageSize,})
+              if (res.code === this.SUCCESS_CODE) this.videos.my = res.data
+              break
+            case 1:
+              res = await this.$api.videos.private({pageNo: this.videos.my.pageNo, pageSize: this.pageSize,})
+              if (res.code === this.SUCCESS_CODE) this.videos.private = res.data
+              break
+            case 2:
+              res = await this.$api.videos.like({pageNo: this.videos.my.pageNo, pageSize: this.pageSize,})
+              if (res.code === this.SUCCESS_CODE) this.videos.like = res.data
+              break
+          }
+          this.loadings['loading' + newVal] = false
+        }
+      }
+      let scrollAreaHeight = await this.getScrollAreaHeight(newVal)
 
       // debugger
 
@@ -332,21 +429,47 @@ export default {
         let screenSlideRowListHeight = this.slideRowListHeight + Math.abs(transformY)
         // console.log('slideRowListHeight', slideRowListHeight)
 // debugger
-        if (posterHeight + 60 < screenSlideRowListHeight) {
+        if (scrollAreaHeight < screenSlideRowListHeight) {
           this.refs.videoSlideRowListHeight = screenSlideRowListHeight
         }
-        if (posterHeight + 60 > screenSlideRowListHeight) {
-          this.refs.videoSlideRowListHeight = posterHeight + 60
+        if (scrollAreaHeight > screenSlideRowListHeight) {
+          this.refs.videoSlideRowListHeight = scrollAreaHeight
         }
-        if (posterHeight + 60 > this.refs.defaultVideoSlideRowListHeight) {
+        if (scrollAreaHeight > this.refs.defaultVideoSlideRowListHeight) {
           this.refs.videoSlideRowListHeight = this.refs.defaultVideoSlideRowListHeight
         }
       } else {
-        if (posterHeight + 60 < this.refs.defaultVideoSlideRowListHeight) {
-          // this.$setCss(this.$refs.videoSlideRowList, 'height', posterHeight + 'px')
-          this.refs.videoSlideRowListHeight = posterHeight + 60
+        if (scrollAreaHeight < this.refs.defaultVideoSlideRowListHeight) {
+          this.refs.videoSlideRowListHeight = scrollAreaHeight
         } else {
           this.refs.videoSlideRowListHeight = this.refs.defaultVideoSlideRowListHeight
+        }
+      }
+    },
+    async loadMoreData() {
+      if (this.loadings['loading' + this.contentIndex]) return
+      let videoOb = this.videos[Object.keys(this.videos)[this.contentIndex]]
+      if (videoOb.total > videoOb.list.length) {
+        videoOb.pageNo++
+        this.loadings['loading' + this.contentIndex] = true
+        let res
+        switch (this.contentIndex) {
+          case 0:
+            res = await this.$api.videos.my({pageNo: videoOb.pageNo, pageSize: this.pageSize,})
+            break
+          case 1:
+            res = await this.$api.videos.private({pageNo: videoOb.pageNo, pageSize: this.pageSize,})
+            break
+          case 2:
+            res = await this.$api.videos.like({pageNo: videoOb.pageNo, pageSize: this.pageSize,})
+            break
+          case 3:
+            res = await this.$api.videos.collect({pageNo: videoOb.pageNo, pageSize: this.pageSize,})
+            break
+        }
+        this.loadings['loading' + this.contentIndex] = false
+        if (res.code === this.SUCCESS_CODE) {
+          videoOb.list = videoOb.list.concat(res.data.list)
         }
       }
     },
@@ -358,14 +481,24 @@ export default {
     move(e) {
       (!this.isScroll) && e.preventDefault();
     },
-    touchMove(e) {
+    async scroll() {
+      if (this.indicatorFixed) {
+        let scrollAreaHeight = await this.getScrollAreaHeight()
+        let SlideItems = document.querySelectorAll('.SlideItem')
+        let SlideItem = SlideItems[this.contentIndex]
+        if (scrollAreaHeight - this.refs.videoSlideRowListHeight < SlideItem.scrollTop + 60) {
+          this.loadMoreData()
+        }
+      }
+    },
+    async touchMove(e) {
       let canTransformY = this.refs.descHeight - this.floatHeight
       let touchMoveDistance = e.touches[0].pageY - this.startLocationY
       let pageMoveDistance = this.moveYDistance + touchMoveDistance * 1.2
-
       // console.log('move-pageMoveDistance', pageMoveDistance)
+      // console.log('move-touchMoveDistance', touchMoveDistance)
 
-
+      //页面已经滚动到头了，往下划动，要把header图放大
       if (pageMoveDistance > 0) {
         this.$refs.scroll.style.transform = `translate3d(0,0,0)`
         if (pageMoveDistance < 400) {
@@ -376,23 +509,40 @@ export default {
           this.moveYDistance = 400
         }
       } else {
-        let posterHeight = Math.ceil(this.videos[Object.keys(this.videos)[this.contentIndex]].total / 3) * this.videoItemHeight
-        if (this.refs.videoSlideRowListHeight > posterHeight + 60 && Math.abs(touchMoveDistance) > 30) {
-          this.$refs.scroll.style.transition = 'all .2s'
-          this.$refs.scroll.style.transform = `translate3d(0,0,0)`
-          this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = false
-          return;
+        let scrollAreaHeight = await this.getScrollAreaHeight()
+        //往下划动
+        if (touchMoveDistance > 0) {
+          //如果可滚动区的高度大于posterHeight，并且移动超过30，就直接滚到顶
+          if (this.refs.videoSlideRowListHeight > scrollAreaHeight && Math.abs(touchMoveDistance) > 20) {
+            this.$refs.scroll.style.transition = 'all .2s'
+            this.$refs.scroll.style.transform = `translate3d(0,0,0)`
+            this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = false
+            this.moveYDistance = 0
+            this.startLocationY = e.touches[0].pageY
+            this.changeIndex(this.contentIndex, this.contentIndex)
+            let SlideItems = document.querySelectorAll('.SlideItem')
+            SlideItems.forEach(SlideItem => {
+              SlideItem.style.overflow = 'auto'
+              SlideItem.scrollTop = 0
+            })
+            SlideItems.forEach(SlideItem => {
+              SlideItem.style.overflow = 'hidden'
+            })
+            return;
+          }
         }
-
-
         if (this.indicatorFixed) {
           let SlideItems = document.querySelectorAll('.SlideItem')
           let SlideItem = SlideItems[this.contentIndex]
-
           if (!this.isScroll) {
             SlideItem.style.overflow = 'auto'
             SlideItem.scrollTop = Math.abs(pageMoveDistance) - this.refs.descHeight + this.floatHeight
           }
+
+          if (scrollAreaHeight - this.refs.videoSlideRowListHeight < SlideItem.scrollTop + 60) {
+            this.loadMoreData()
+          }
+
           if (SlideItem.scrollTop === 0 && (e.touches[0].pageY - this.fixedLocationY) > 0) {
             this.isScroll = this.indicatorFixed = false
             SlideItem.style.overflow = 'hidden'
@@ -403,6 +553,7 @@ export default {
           if (this.slideRowListHeight > this.refs.videoSlideRowListHeight) return
           if (this.refs.defaultVideoSlideRowListHeight > this.refs.videoSlideRowListHeight) {
             let endTransformY = Math.abs(canTransformY) - (this.refs.defaultVideoSlideRowListHeight - this.refs.videoSlideRowListHeight)
+            console.log('endTransformY',endTransformY)
             let moveTransformY = Math.abs(pageMoveDistance) < Math.abs(endTransformY) ? pageMoveDistance : -endTransformY
             this.$refs.scroll.style.transform = `translate3d(0,${moveTransformY}px,0)`
             this.floatFixed = Math.abs(moveTransformY) > 100
@@ -424,7 +575,7 @@ export default {
       let canTransformY = this.refs.descHeight - this.floatHeight
       let touchMoveDistance = e.changedTouches[0].pageY - this.startLocationY
       let pageMoveDistance = this.moveYDistance + touchMoveDistance * 1.2
-      console.log('end-pageMoveDistance', pageMoveDistance)
+      // console.log('end-pageMoveDistance', pageMoveDistance)
 
       let endTransformY = Math.abs(canTransformY) - (this.refs.defaultVideoSlideRowListHeight - this.refs.videoSlideRowListHeight)
       if (this.indicatorFixed) {
@@ -438,6 +589,7 @@ export default {
           this.moveYDistance = 0
           this.floatShowName = this.floatFixed = this.isScroll = false
         } else {
+
           if (this.slideRowListHeight > this.refs.videoSlideRowListHeight) {
             return this.moveYDistance = 0
           }
@@ -497,7 +649,6 @@ export default {
               this.moveYDistance = 0
               this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = false
               let SlideItems = document.querySelectorAll('.SlideItem')
-              // let SlideItem = SlideItems[this.contentIndex]
               SlideItems.forEach(SlideItem => {
                 SlideItem.style.overflow = 'auto'
                 SlideItem.scrollTop = 0
@@ -566,12 +717,146 @@ export default {
   height: 100%;
   width: 100%;
 
-  .no-more {
-    font-size: 1.4rem;
-    padding: 10px;
-    color: gray;
-    text-align: center;
+  .scroll {
+
+    .notice {
+      font-size: 1.2rem;
+      height: 4rem;
+      color: $second-text-color;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        height: 1.2rem;
+        margin-right: .5rem;
+      }
+    }
+
+    .collect {
+      .video {
+        background: $active-main-bg;
+        border-radius: .5rem;
+        margin: .7rem;
+        padding: 1rem;
+
+        .top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1rem;
+
+          .left {
+            display: flex;
+            align-items: center;
+            color: gainsboro;
+
+            img {
+              height: 2rem;
+              margin-right: .5rem;
+            }
+          }
+
+          .right {
+            display: flex;
+            align-items: center;
+            color: $second-text-color;
+          }
+        }
+
+        .list {
+          display: grid;
+          grid-template-columns: 33.33% 33.33% 33.33%;
+
+          .item {
+            height: calc(33.33vw * 1.3);
+            padding: .2rem;
+            overflow: hidden;
+            position: relative;
+
+            .poster {
+              border-radius: .4rem;
+              width: 100%;
+              height: 100%;
+              display: block;
+            }
+
+            .num {
+              color: white;
+              position: absolute;
+              bottom: .5rem;
+              left: .5rem;
+              display: flex;
+              align-items: center;
+              font-size: 1.4rem;
+
+              .love {
+                width: 1.4rem;
+                height: 1.4rem;
+                margin-right: .5rem;
+              }
+            }
+          }
+        }
+      }
+
+      .audio {
+        background: $active-main-bg;
+        border-radius: .5rem;
+        margin: .7rem;
+        padding: 1rem;
+
+        .top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1rem;
+
+          .left {
+            display: flex;
+            align-items: center;
+            color: gainsboro;
+
+            img {
+              height: 1.5rem;
+              margin-right: .5rem;
+            }
+          }
+
+          .right {
+            display: flex;
+            align-items: center;
+            color: $second-text-color;
+          }
+        }
+
+        .list {
+          display: grid;
+          grid-template-columns: 33.33% 33.33% 33.33%;
+
+          .item {
+            padding: .2rem;
+            overflow: hidden;
+            position: relative;
+
+            .poster {
+              border-radius: .4rem;
+              width: 100%;
+              height: calc((100vw - 3.4rem) / 3);
+              display: block;
+            }
+
+            .title {
+              margin-top: .5rem;
+              color: $second-text-color;
+            }
+          }
+        }
+      }
+    }
+
   }
+
 
   .float {
     position: fixed;

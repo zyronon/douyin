@@ -8,7 +8,6 @@ import globalMethods from './global-methods'
 const instance = axios.create({
   baseURL: config.baseUrl,
   timeout: 60000,
-  withCredentials: true
 })
 // request拦截器
 instance.interceptors.request.use((config) => {
