@@ -29,11 +29,12 @@
       background: $main-bg;
     }
   }
+
   &.no-padding {
-    padding:0;
+    padding: 0;
   }
 
-  &.border{
+  &.border {
     border-bottom: 1px solid $line-color;
   }
 
@@ -83,6 +84,22 @@
     }
   }
 
+  &.no-active {
+    &:active {
+      &.primary {
+        background: $primary-btn-color;
+      }
+
+      &.dark {
+        background: $second-btn-color;
+      }
+
+      &.white {
+        background: white;
+      }
+    }
+  }
+
   &.dark {
     background: $second-btn-color;
 
@@ -90,4 +107,25 @@
       background: $second-btn-color-tran;
     }
   }
+
+  &.white {
+    background: white;
+    color: black;
+    border: 1px solid gainsboro;
+  }
+}
+
+p {
+  padding: 0;
+  margin: 0;
+}
+
+.line {
+  height: 1px;
+  background: $line-color;
+  width: 100%;
+}
+
+.link {
+  color: rgb(18, 100, 149);
 }

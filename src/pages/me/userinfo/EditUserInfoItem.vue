@@ -41,7 +41,7 @@
         <div class="textarea-ctn">
         <textarea name="" id="" cols="30" rows="10"
                   v-model="localUserinfo.desc"
-                  placeholder="填写个人简介更容易获得别人关注哦"></textarea>
+                  placeholder="你可以填写兴趣爱好、心情愿望，有趣的介绍能让被关注的概率变高噢！"></textarea>
         </div>
       </div>
     </div>
