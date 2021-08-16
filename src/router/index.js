@@ -36,6 +36,7 @@ import MinorProtectionDetailSetting from "../pages/me/rightMenu/MinorProtection/
 import TriggerTime from "../pages/me/rightMenu/MinorProtection/TriggerTime";
 import Setting from "../pages/me/rightMenu/Setting";
 import Me2 from "../pages/me/Me2";
+import Login from "../pages/login/Login";
 
 const routes = [
   // {path: '', component: Music},
@@ -76,6 +77,7 @@ const routes = [
   {path: '/me/right-menu/minor-protection/detail-setting', component: MinorProtectionDetailSetting},
   {path: '/me/right-menu/minor-protection/trigger-time', component: TriggerTime},
   {path: '/me/right-menu/setting', component: Setting},
+  {path: '/login', component: Login},
 ]
 
 export default VueRouter.createRouter({

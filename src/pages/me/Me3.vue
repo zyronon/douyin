@@ -35,16 +35,21 @@
                     -
                   </div>
                 </div>
-                <div class="my-buttons ">
-                  <div class="collect" @click="$nav('/edit-userinfo')">
-                    <span class="mr1r">编辑资料</span>
-                    <span class="f10p" style="color: darkgray">85%</span>
+                <div class="heat">
+                  <div class="text">
+                    <span>获赞</span>
+                    <span class="num">18</span>
                   </div>
-                  <div class="add-friend" @click="$nav('/find-acquaintance')">
-                    <img src="../../assets/img/icon/add-white.png" alt="">
-                    <span class="mr5p">熟人</span>
+                  <div class="text">
+                    <span>粉丝</span>
+                    <span class="num">62</span>
+                  </div>
+                  <div class="text">
+                    <span>关注</span>
+                    <span class="num">8</span>
                   </div>
                 </div>
+
               </div>
               <div class="description">
                 <p class="name f22 mt1r mb1r">ttentau</p>
@@ -53,13 +58,34 @@
                   <span>抖音号：605128307</span>
                   <img src="../../assets/img/icon/me/qrcode-gray.png" alt="" @click.stop="$nav('/my-card')">
                 </div>
-                <div class="signature f12 mb1r">
-                  <span>填写个性签名更容易获得别人关注哦</span>
+                <div class="signature f12" @click="$nav('/edit-userinfo-item',{type:3})">
+                  <template v-if="!userinfo.desc">
+                    <span>点击添加介绍，让大家认识你...</span>
+                    <img src="../../assets/img/icon/me/write-gray.png" alt="">
+                  </template>
+                  <span v-else class="text">{{ userinfo.desc }}</span>
                 </div>
-                <div class="heat">
-                  <div class="text"><span class="num">8</span>获赞</div>
-                  <div class="text"><span class="num">8</span>关注</div>
-                  <div class="text"><span class="num">8</span>粉丝</div>
+                <div class="more">
+                  <div class="age item" v-if="userinfo.birthday">
+                    <img v-if="userinfo.sex === '女'" src="../../assets/img/icon/me/woman.png" alt="">
+                    <img v-if="userinfo.sex === '男'" src="../../assets/img/icon/me/man.png" alt="">
+                    <span>{{ filterAge(userinfo.birthday) }}岁</span>
+                  </div>
+                  <div class="item" v-if="userinfo.location">
+                    {{ userinfo.location }}
+                  </div>
+                  <div class="item" v-if="userinfo.school.name">
+                    {{ userinfo.school.name }}
+                  </div>
+                </div>
+
+              </div>
+              <div class="my-buttons">
+                <div @click="$nav('/edit-userinfo')">
+                  <span class="mr1r">编辑资料</span>
+                </div>
+                <div class="add-friend" @click="$nav('/find-acquaintance')">
+                  <span class="mr5p">添加朋友</span>
                 </div>
               </div>
             </div>
@@ -78,31 +104,89 @@
               v-model:active-index="contentIndex">
             <SlideItem class="SlideItem"
                        @touchmove="move"
+                       @scroll="scroll"
                        :style="isScroll?'overflow: auto;':''">
               <Posters v-if="videos.my.total !== -1" :list="videos.my.list"></Posters>
-              <Loading v-else :is-full-screen="false"></Loading>
-              <no-more/>
+              <Loading v-if="loadings.loading0" :is-full-screen="false"></Loading>
+              <no-more v-else/>
+            </SlideItem>
+            <SlideItem class="SlideItem"
+                       @touchmove="'move'"
+                       :style="isScroll?'overflow: auto;':''">
+              <div class="notice">
+                <img src="../../assets/img/icon/me/lock-gray.png" alt="">
+                <span>只有你能看到设为私密的作品和日常</span>
+              </div>
+              <Posters v-if="videos.private.total !== -1" mode="private" :list="videos.private.list"></Posters>
+              <Loading v-if="loadings.loading1" :is-full-screen="false"></Loading>
+              <no-more v-else/>
             </SlideItem>
             <SlideItem class="SlideItem"
                        @touchmove="move"
                        :style="isScroll?'overflow: auto;':''">
-              <Posters v-if="videos.private.total !== -1" :list="videos.private.list"></Posters>
-              <Loading v-else :is-full-screen="false"></Loading>
-              <no-more/>
-            </SlideItem>
-            <SlideItem class="SlideItem"
-                       @touchmove="move"
-                       :style="isScroll?'overflow: auto;':''">
+              <div class="notice">
+                <img src="../../assets/img/icon/me/lock-gray.png" alt="">
+                <span>只有你能看到自己的喜欢列表</span>
+              </div>
               <Posters v-if="videos.like.total !== -1" :list="videos.like.list"></Posters>
-              <Loading v-else :is-full-screen="false"></Loading>
-              <no-more/>
+              <Loading v-if="loadings.loading2" :is-full-screen="false"></Loading>
+              <no-more v-else/>
             </SlideItem>
             <SlideItem class="SlideItem"
                        @touchmove="move"
                        :style="isScroll?'overflow: auto;':''">
-              <Posters v-if="videos.collect.total !== -1" :list="videos.collect.list"></Posters>
-              <Loading v-else :is-full-screen="false"></Loading>
-              <no-more/>
+              <div class="notice">
+                <img src="../../assets/img/icon/me/lock-gray.png" alt="">
+                <span>只有你能看到自己的收藏列表</span>
+              </div>
+              <div class="collect" ref="collect">
+                <div class="video" v-if=" videos.collect.video.list.length">
+                  <div class="top">
+                    <div class="left">
+                      <img src="../../assets/img/icon/me/video-whitegray.png" alt="">
+                      <span>视频</span>
+                    </div>
+                    <div class="right">
+                      <span>全部</span>
+                      <back direction="right"></back>
+                    </div>
+                  </div>
+                  <div class="list">
+                    <div class="item"
+                         v-for="i in videos.collect.video.list.length>3?videos.collect.video.list.slice(0,3):videos.collect.video.list">
+                      <img class="poster" :src="$imgPreview(i.poster)" alt="">
+                      <div class="num">
+                        <img class="love" src="../../assets/img/icon/love.svg" alt="">
+                        <span>{{ $likeNum(i.likeNum) }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="audio" v-if=" videos.collect.video.list.length">
+                  <div class="top">
+                    <div class="left">
+                      <img src="../../assets/img/icon/me/music-whitegray.png" alt="">
+                      <span>音乐</span>
+                    </div>
+                    <div class="right">
+                      <span>全部</span>
+                      <back direction="right"></back>
+                    </div>
+                  </div>
+                  <div class="list">
+                    <div class="item"
+                         v-for="i in videos.collect.video.list.length>3?videos.collect.video.list.slice(0,3):videos.collect.video.list">
+                      <img class="poster" :src="$imgPreview(i.poster)" alt="">
+                      <div class="title">用户创作的原声用户创作的原声用户创作的原声
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <Loading v-if="loadings.loading3" :is-full-screen="false"></Loading>
+              <no-more v-else/>
             </SlideItem>
           </SlideRowList>
         </div>
@@ -215,6 +299,8 @@
 import Posters from '../../components/Posters'
 import Footer from "../../components/Footer";
 import Indicator from '../../components/Indicator'
+import {nextTick} from 'vue'
+import {mapState} from "vuex";
 
 export default {
   name: "Me",
@@ -225,7 +311,6 @@ export default {
       baseActiveIndex: 0,
       desc: null,
       tabContents: [],
-      indicatorHeight: 42,
       indicatorFixed: false,
       floatFixed: false,
       floatShowName: false,
@@ -235,8 +320,8 @@ export default {
         header: null,
         headerHeight: 0,
         descHeight: 0,
-        videoSlideRowListHeight: 0,
-        defaultVideoSlideRowListHeight: 0
+        videoSlideHeight: 0,
+        maxSlideHeight: 0
       },
       videoItemHeight: 0,
       startLocationY: 0,
@@ -247,7 +332,8 @@ export default {
       videos: {
         my: {
           list: [],
-          total: -1
+          total: -1,
+          pageNo: 0
         },
         private: {
           list: [],
@@ -258,9 +344,23 @@ export default {
           total: -1
         },
         collect: {
-          list: [],
-          total: -1
+          video: {
+            list: [],
+            total: -1,
+          },
+          audio: {
+            list: [],
+            total: -1,
+          }
         },
+      },
+      pageSize: 15,
+      initSlideHeight: 0,
+      loadings: {
+        loading0: false,
+        loading1: false,
+        loading2: false,
+        loading3: false,
       },
     }
   },
@@ -272,8 +372,11 @@ export default {
       return this.$store.state.bodyWidth
     },
     videoSlideRowListStyle() {
-      return {height: this.refs.videoSlideRowListHeight !== 0 ? this.refs.videoSlideRowListHeight + 'px' : 'calc(100vh - 14.6rem)'}
-    }
+      return {height: this.refs.videoSlideHeight !== 0 ? this.refs.videoSlideHeight + 'px' : 'calc(100vh - 14.6rem)'}
+    },
+    ...mapState({
+      userinfo: 'userinfo',
+    })
   },
   watch: {
     contentIndex(newVal, oldVal) {
@@ -281,69 +384,124 @@ export default {
     },
   },
   mounted() {
+    this.initSlideHeight = this.bodyHeight - 50 - 352 - 50
     setTimeout(() => {
       this.refs.header = this.$refs.header
       this.refs.headerHeight = this.$refs.header.offsetHeight
       this.refs.descHeight = this.$refs.desc.offsetHeight
-      this.refs.defaultVideoSlideRowListHeight = this.$refs.videoSlideRowList.wrapperHeight
-      // this.refs.videoSlideRowListHeight = this.$refs.videoSlideRowList.wrapperHeight
+      this.refs.maxSlideHeight = this.$refs.videoSlideRowList.wrapperHeight
       this.changeIndex(0, null)
     })
     this.videoItemHeight = this.bodyWidth / 3 * 1.2 + 2
-    // console.log('videoItemHeight',this.videoItemHeight)
   },
   methods: {
-    async changeIndex(newVal, oldVal) {
-      // console.log('oldVal',oldVal)
-      if (this.videos[Object.keys(this.videos)[newVal]].total === -1) {
-        let res
-        switch (newVal) {
+    async getScrollAreaHeight(index = this.contentIndex) {
+      let scrollAreaHeight = 0
+      if (index === 3) {
+        await nextTick(async () => {
+          scrollAreaHeight = this.$refs.collect.clientHeight + 60 + 40
+        })
+      } else {
+        scrollAreaHeight = Math.ceil(this.videos[Object.keys(this.videos)[index]].list.length / 3) * this.videoItemHeight
+        switch (index) {
           case 0:
-            res = await this.$api.videos.my()
-            if (res.code === this.SUCCESS_CODE) this.videos.my = res.data
-            this.$console(this.videos)
+            scrollAreaHeight += 60
             break
           case 1:
-            res = await this.$api.videos.private()
-            if (res.code === this.SUCCESS_CODE) this.videos.private = res.data
-            this.$console(this.videos)
+            scrollAreaHeight += 60 + 40
             break
           case 2:
-            res = await this.$api.videos.like()
-            if (res.code === this.SUCCESS_CODE) this.videos.like = res.data
-            this.$console(this.videos)
-            break
-          case 3:
-            res = await this.$api.videos.collect()
-            if (res.code === this.SUCCESS_CODE) this.videos.collect = res.data
-            this.$console(this.videos)
+            scrollAreaHeight += 60 + 40
             break
         }
       }
-      let posterHeight = Math.ceil(this.videos[Object.keys(this.videos)[newVal]].total / 3) * this.videoItemHeight
-      // console.log('posterHeight', posterHeight)
+      // console.log('scrollAreaHeight',scrollAreaHeight)
+      return scrollAreaHeight
+    },
+    async changeIndex(newVal, oldVal) {
+      if (this.loadings['loading' + newVal]) return
+      let videoOb = this.videos[Object.keys(this.videos)[newVal]]
+      if (newVal === 3) {
+        if (videoOb.video.total === -1) {
+          this.loadings['loading' + newVal] = true
+          let res = await this.$api.videos.collect({pageNo: this.videos.collect.pageNo, pageSize: this.pageSize,})
+          this.loadings['loading' + newVal] = false
+          if (res.code === this.SUCCESS_CODE) this.videos.collect = res.data
+        }
+      } else {
+        if (videoOb.total === -1) {
+          this.loadings['loading' + newVal] = true
+          let res
+          switch (newVal) {
+            case 0:
+              res = await this.$api.videos.my({pageNo: this.videos.my.pageNo, pageSize: this.pageSize,})
+              if (res.code === this.SUCCESS_CODE) this.videos.my = res.data
+              break
+            case 1:
+              res = await this.$api.videos.private({pageNo: this.videos.private.pageNo, pageSize: this.pageSize,})
+              if (res.code === this.SUCCESS_CODE) this.videos.private = res.data
+              break
+            case 2:
+              res = await this.$api.videos.like({pageNo: this.videos.like.pageNo, pageSize: this.pageSize,})
+              if (res.code === this.SUCCESS_CODE) this.videos.like = res.data
+              break
+          }
+          this.loadings['loading' + newVal] = false
+        }
+      }
+      let scrollAreaHeight = await this.getScrollAreaHeight(newVal)
 
       if (oldVal !== null) {
         let transformY = this.getTransform(this.$refs.scroll)
         // console.log('transformY', transformY)
-        let slideRowListHeight = this.bodyHeight - 50 - 352 - 50 + Math.abs(transformY)
-        // console.log('slideRowListHeight', slideRowListHeight)
+        let screenSlideHeight = this.initSlideHeight + Math.abs(transformY)
+        // console.log('screenSlideHeight', screenSlideHeight)
+        // console.log('scrollAreaHeight', scrollAreaHeight)
 // debugger
-        if (posterHeight + 60 < slideRowListHeight) {
-          this.refs.videoSlideRowListHeight = slideRowListHeight
-        }
-        if (posterHeight + 60 > slideRowListHeight) {
-          this.refs.videoSlideRowListHeight = posterHeight + 60
-        }
-        if (posterHeight + 60 > this.refs.defaultVideoSlideRowListHeight) {
-          this.refs.videoSlideRowListHeight = this.refs.defaultVideoSlideRowListHeight
+        if (this.indicatorFixed) {
+          this.refs.videoSlideHeight = scrollAreaHeight > screenSlideHeight ? scrollAreaHeight : screenSlideHeight
+
+          if (scrollAreaHeight > this.refs.maxSlideHeight) {
+            this.refs.videoSlideHeight = this.refs.maxSlideHeight
+          }
+        } else {
+          this.refs.videoSlideHeight = scrollAreaHeight
+          if (scrollAreaHeight > this.refs.maxSlideHeight) {
+            this.refs.videoSlideHeight = this.refs.maxSlideHeight
+          }
         }
       } else {
-        if (posterHeight + 60 < this.refs.defaultVideoSlideRowListHeight) {
-          // this.$setCss(this.$refs.videoSlideRowList, 'height', posterHeight + 'px')
-          this.refs.videoSlideRowListHeight = posterHeight + 60
+        if (scrollAreaHeight < this.refs.maxSlideHeight) {
+          this.refs.videoSlideHeight = scrollAreaHeight
         } else {
-          this.refs.videoSlideRowListHeight = this.refs.defaultVideoSlideRowListHeight
+          this.refs.videoSlideHeight = this.refs.maxSlideHeight
+        }
+      }
+    },
+    async loadMoreData() {
+      if (this.loadings['loading' + this.contentIndex]) return
+      let videoOb = this.videos[Object.keys(this.videos)[this.contentIndex]]
+      if (videoOb.total > videoOb.list.length) {
+        videoOb.pageNo++
+        this.loadings['loading' + this.contentIndex] = true
+        let res
+        switch (this.contentIndex) {
+          case 0:
+            res = await this.$api.videos.my({pageNo: videoOb.pageNo, pageSize: this.pageSize,})
+            break
+          case 1:
+            res = await this.$api.videos.private({pageNo: videoOb.pageNo, pageSize: this.pageSize,})
+            break
+          case 2:
+            res = await this.$api.videos.like({pageNo: videoOb.pageNo, pageSize: this.pageSize,})
+            break
+          case 3:
+            res = await this.$api.videos.collect({pageNo: videoOb.pageNo, pageSize: this.pageSize,})
+            break
+        }
+        this.loadings['loading' + this.contentIndex] = false
+        if (res.code === this.SUCCESS_CODE) {
+          videoOb.list = videoOb.list.concat(res.data.list)
         }
       }
     },
@@ -355,176 +513,222 @@ export default {
     move(e) {
       (!this.isScroll) && e.preventDefault();
     },
-    touchMove(e) {
-      //距离顶部的距离
-      let offsetTop = this.refs.descHeight - this.floatHeight
-      // console.log('pageY', e.touches[0].pageY)
-      // console.log('moveYDistance', this.moveYDistance)
-      let moveYDistance = e.touches[0].pageY - this.startLocationY
-      let distance = this.moveYDistance + moveYDistance * 1.2
-      // console.log('distance', distance)
-      //往上划
-      if (distance > 0) {
+    async scroll() {
+      if (this.indicatorFixed) {
+        let scrollAreaHeight = await this.getScrollAreaHeight()
+        let SlideItems = document.querySelectorAll('.SlideItem')
+        let SlideItem = SlideItems[this.contentIndex]
+        if (scrollAreaHeight - this.refs.videoSlideHeight < SlideItem.scrollTop + 60) {
+          this.loadMoreData()
+        }
+      }
+    },
+    async touchMove(e) {
+      let canTransformY = this.refs.descHeight - this.floatHeight
+      let touchMoveDistance = e.touches[0].pageY - this.startLocationY
+      let pageMoveDistance = this.moveYDistance + touchMoveDistance * 1.2
+      // console.log('move-pageMoveDistance', pageMoveDistance)
+      // console.log('move-touchMoveDistance', touchMoveDistance)
+
+      //页面已经滚动到头了，往下划动，要把header图放大
+      if (pageMoveDistance > 0) {
         this.$refs.scroll.style.transform = `translate3d(0,0,0)`
-        if (distance < 400) {
-          // if (this.baseActiveIndex !== 0) return
-          // if (this.refs.header.getBoundingClientRect().top !== 0) return
+        if (pageMoveDistance < 400) {
           this.refs.header.style.transition = 'all 0s'
-          this.refs.header.style.height = this.refs.headerHeight + (distance / 2) + 'px'
+          this.refs.header.style.height = this.refs.headerHeight + (pageMoveDistance / 2) + 'px'
         } else {
           this.startLocationY = e.touches[0].pageY
           this.moveYDistance = 400
         }
-        return
-      }
-      // console.log('s', e.touches[0].pageY - this.startLocationY)
-      // console.log('indicatorFixed', this.indicatorFixed)
-      if (this.indicatorFixed) {
-        let SlideItems = document.querySelectorAll('.SlideItem')
-        let SlideItem = SlideItems[this.contentIndex]
-
-        // console.log(tt.scrollTop)
-        if (!this.isScroll) {
-          SlideItem.style.overflow = 'auto'
-          SlideItem.scrollTop = Math.abs(distance) - this.refs.descHeight + this.floatHeight
-        }
-        if (SlideItem.scrollTop === 0 && (e.touches[0].pageY - this.fixedLocationY) > 0) {
-          this.isScroll = this.indicatorFixed = false
-          SlideItem.style.overflow = 'hidden'
-          this.startLocationY = e.touches[0].pageY
-          this.moveYDistance = -this.refs.descHeight + this.floatHeight
-        }
       } else {
-        this.indicatorFixed = Math.abs(distance) > offsetTop
-        if (this.indicatorFixed) {
-          this.fixedLocationY = e.touches[0].pageY
+        let scrollAreaHeight = await this.getScrollAreaHeight()
+        //往下划动
+        if (touchMoveDistance > 0) {
+          //如果可滚动区的高度大于posterHeight，并且移动超过30，就直接滚到顶
+          if (this.refs.videoSlideHeight > scrollAreaHeight && Math.abs(touchMoveDistance) > 20) {
+            this.$refs.scroll.style.transition = 'all .2s'
+            this.$refs.scroll.style.transform = `translate3d(0,0,0)`
+            this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = false
+            this.moveYDistance = 0
+            this.startLocationY = e.touches[0].pageY
+            this.changeIndex(this.contentIndex, this.contentIndex)
+            let SlideItems = document.querySelectorAll('.SlideItem')
+            SlideItems.forEach(SlideItem => {
+              SlideItem.style.overflow = 'auto'
+              SlideItem.scrollTop = 0
+            })
+            SlideItems.forEach(SlideItem => {
+              SlideItem.style.overflow = 'hidden'
+            })
+            return;
+          }
         }
-        if (this.refs.defaultVideoSlideRowListHeight > this.refs.videoSlideRowListHeight) {
-          let endTransformY = Math.abs(offsetTop) - (this.refs.defaultVideoSlideRowListHeight - this.refs.videoSlideRowListHeight)
-          this.$refs.scroll.style.transform = `translate3d(0,${
-              distance > -endTransformY ? distance : -endTransformY
-          }px,0)`
-          this.floatFixed = Math.abs(distance) > 100
-          this.floatShowName = Math.abs(distance) > 150
+        if (this.indicatorFixed) {
+          let SlideItems = document.querySelectorAll('.SlideItem')
+          let SlideItem = SlideItems[this.contentIndex]
+          if (!this.isScroll) {
+            SlideItem.style.overflow = 'auto'
+            SlideItem.scrollTop = Math.abs(pageMoveDistance) - this.refs.descHeight + this.floatHeight
+          }
+
+          if (scrollAreaHeight - this.refs.videoSlideHeight < SlideItem.scrollTop + 60) {
+            this.loadMoreData()
+          }
+
+          if (SlideItem.scrollTop === 0 && (e.touches[0].pageY - this.fixedLocationY) > 0) {
+            this.isScroll = this.indicatorFixed = false
+            SlideItem.style.overflow = 'hidden'
+            this.startLocationY = e.touches[0].pageY
+            this.moveYDistance = -this.refs.descHeight + this.floatHeight
+          }
         } else {
-          this.floatFixed = Math.abs(distance) > 100
-          this.floatShowName = Math.abs(distance) > 150
-          this.$refs.scroll.style.transform = `translate3d(0,${this.indicatorFixed ? -offsetTop : distance}px,0)`
+          if (this.initSlideHeight > this.refs.videoSlideHeight) return
+          if (this.refs.maxSlideHeight > this.refs.videoSlideHeight) {
+            let endTransformY = Math.abs(canTransformY) - (this.refs.maxSlideHeight - this.refs.videoSlideHeight)
+            // console.log('endTransformY', endTransformY)
+            let moveTransformY = Math.abs(pageMoveDistance) < Math.abs(endTransformY) ? pageMoveDistance : -endTransformY
+            this.$refs.scroll.style.transform = `translate3d(0,${moveTransformY}px,0)`
+            this.floatFixed = Math.abs(moveTransformY) > 100
+            this.floatShowName = Math.abs(moveTransformY) > 150
+          } else {
+            this.indicatorFixed = Math.abs(pageMoveDistance) > canTransformY
+            this.floatFixed = Math.abs(pageMoveDistance) > 100
+            this.floatShowName = Math.abs(pageMoveDistance) > 150
+            this.$refs.scroll.style.transform = `translate3d(0,${this.indicatorFixed ? -canTransformY : pageMoveDistance}px,0)`
+          }
+          if (this.indicatorFixed) {
+            this.fixedLocationY = e.touches[0].pageY
+          }
         }
       }
+
     },
     touchEnd(e) {
-      // console.log('this.startLocationY', this.startLocationY)
-      // debugger
-      let moveYDistance = e.changedTouches[0].pageY - this.startLocationY
-      this.moveYDistance = this.moveYDistance + moveYDistance * 1.2//乘以1.2倍，加速滚动，不然看起来很慢
-      // console.log('end-moveYDistance', this.moveYDistance)
+      let canTransformY = this.refs.descHeight - this.floatHeight
+      let touchMoveDistance = e.changedTouches[0].pageY - this.startLocationY
+      let pageMoveDistance = this.moveYDistance + touchMoveDistance * 1.2
+      // console.log('end-pageMoveDistance', pageMoveDistance)
 
+      let endTransformY = Math.abs(canTransformY) - (this.refs.maxSlideHeight - this.refs.videoSlideHeight)
+      if (this.indicatorFixed) {
+        this.moveYDistance = -canTransformY
+        this.isScroll = true
+      } else {
+        // debugger
+        if (pageMoveDistance > 0) {
+          this.refs.header.style.transition = 'all .3s'
+          this.refs.header.style.height = this.refs.headerHeight + 'px'
+          this.moveYDistance = 0
+          this.floatShowName = this.floatFixed = this.isScroll = false
+        } else {
 
-      //往上划，恢复header
-      if (this.moveYDistance > 0) {
-        // if (this.baseActiveIndex !== 0) return
-        this.refs.header.style.transition = 'all .3s'
-        this.refs.header.style.height = this.refs.headerHeight + 'px'
-        this.moveYDistance = 0
-        this.floatShowName = this.floatFixed = this.isScroll = false
-        return
-      }
-
-      // console.log('header-height', this.refs.descHeight - this.floatHeight)
-      // this.isScroll = Math.abs(this.moveYDistance) > this.refs.descHeight - this.floatHeight
-      //原谅我判断太多
-      //如果没固定，则可以滚动到顶和底
-      if (!this.indicatorFixed) {
-        //算出滚动距离
-        let distance = e.changedTouches[0].pageY - this.startLocationY
-        // console.log('end-distance', distance)
-        let endTime = Date.now()
-        let gapTime = endTime - this.startTime
-
-        //距离太小
-        if (Math.abs(distance) < 20) gapTime = 1000
-        //超过header的1/3
-        if (Math.abs(distance) > (this.refs.descHeight / 2)) gapTime = 50
-        // console.log('时间', gapTime)
-        if (gapTime < 150) {
-          //往上划
-          if (distance > 0) {
-            //时间短，滑动距离长，则应该快速滚动到顶部
-            gapTime = endTime - this.startTime
-            if (gapTime < 100 && Math.abs(distance) > 100) {
-              //用cancelAnimationFrame快速滚动到顶部，要比transition = 'all .3s'快
-              this.$refs.scroll.style.transition = 'none'
-              let transformY = this.getTransform(this.$refs.scroll)
-              //当前的transformY
-              // console.log('transformY', transformY)
-              let timer
-              cancelAnimationFrame(timer);
-              let fn = () => {
-                //说明没到顶
-                if (transformY < 0) {
-                  transformY = transformY + 40
-                  this.$refs.scroll.style.transform = `translate3d(0,${transformY > 0 ? 0 : transformY}px,0)`
-                  timer = requestAnimationFrame(fn);
-                } else {
-                  //transformY === 0说明，本来就在顶部，然后猛的一划,这里要判断下
-                  if (transformY !== 0) {
-                    if (this.$getCss(this.refs.header, 'height') < 400) {
-                      this.refs.header.style.transition = 'none'
-                      this.refs.header.style.height = this.$getCss(this.refs.header, 'height') + 10 + 'px'
-                      timer = requestAnimationFrame(fn);
+          if (this.initSlideHeight > this.refs.videoSlideHeight) {
+            return this.moveYDistance = 0
+          }
+          let endTime = Date.now()
+          let gapTime = endTime - this.startTime
+          //距离太小
+          if (Math.abs(touchMoveDistance) < 20) gapTime = 1000
+          //超过header的1/3
+          if (Math.abs(touchMoveDistance) > (this.refs.descHeight / 2)) gapTime = 50
+          // console.log('时间', gapTime)
+          if (gapTime < 150) {
+            //往上划
+            if (touchMoveDistance > 0) {
+              //时间短，滑动距离长，则应该快速滚动到顶部
+              gapTime = endTime - this.startTime
+              if (gapTime < 100 && Math.abs(touchMoveDistance) > 100) {
+                //用cancelAnimationFrame快速滚动到顶部，要比transition = 'all .3s'快
+                this.$refs.scroll.style.transition = 'none'
+                let transformY = this.getTransform(this.$refs.scroll)
+                //当前的transformY
+                // console.log('transformY', transformY)
+                let timer
+                cancelAnimationFrame(timer);
+                let fn = () => {
+                  //说明没到顶
+                  if (transformY < 0) {
+                    transformY = transformY + 40
+                    this.$refs.scroll.style.transform = `translate3d(0,${transformY > 0 ? 0 : transformY}px,0)`
+                    timer = requestAnimationFrame(fn);
+                  } else {
+                    //transformY === 0说明，本来就在顶部，然后猛的一划,这里要判断下
+                    if (transformY !== 0) {
+                      if (this.$getCss(this.refs.header, 'height') < 400) {
+                        this.refs.header.style.transition = 'none'
+                        this.refs.header.style.height = this.$getCss(this.refs.header, 'height') + 10 + 'px'
+                        timer = requestAnimationFrame(fn);
+                      } else {
+                        this.refs.header.style.transition = 'all .6s'
+                        this.refs.header.style.height = this.refs.headerHeight + 'px'
+                        this.moveYDistance = 0
+                        cancelAnimationFrame(timer);
+                      }
                     } else {
-                      this.refs.header.style.transition = 'all .6s'
-                      this.refs.header.style.height = this.refs.headerHeight + 'px'
+                      //快速动画结束
                       this.moveYDistance = 0
                       cancelAnimationFrame(timer);
                     }
-                  } else {
-                    //快速动画结束
-                    this.moveYDistance = 0
-                    cancelAnimationFrame(timer);
                   }
                 }
+                timer = requestAnimationFrame(fn);
+              } else {
+                //正常回弹动画
+                this.$refs.scroll.style.transition = 'all .3s'
+                this.$refs.scroll.style.transform = `translate3d(0,${touchMoveDistance > 0 ? 0 : -this.refs.descHeight}px,0)`
+                this.moveYDistance = touchMoveDistance > 0 ? 0 : -this.refs.descHeight
               }
-              timer = requestAnimationFrame(fn);
+              this.moveYDistance = 0
+              this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = false
+              let SlideItems = document.querySelectorAll('.SlideItem')
+              SlideItems.forEach(SlideItem => {
+                SlideItem.style.overflow = 'auto'
+                SlideItem.scrollTop = 0
+              })
+              SlideItems.forEach(SlideItem => {
+                SlideItem.style.overflow = 'hidden'
+              })
             } else {
-              //正常回弹动画
+              //往下划
               this.$refs.scroll.style.transition = 'all .3s'
-              this.$refs.scroll.style.transform = `translate3d(0,${distance > 0 ? 0 : -this.refs.descHeight}px,0)`
-              this.moveYDistance = distance > 0 ? 0 : -this.refs.descHeight
+              if (this.refs.maxSlideHeight > this.refs.videoSlideHeight) {
+                this.$refs.scroll.style.transform = `translate3d(0,${-endTransformY}px,0)`
+                // this.floatShowName = this.floatFixed = true
+                this.floatFixed = Math.abs(endTransformY) > 100
+                this.floatShowName = Math.abs(endTransformY) > 150
+                this.moveYDistance = -endTransformY
+              } else {
+                this.$refs.scroll.style.transform = `translate3d(0,${-this.refs.descHeight + this.floatHeight}px,0)`
+                this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = true
+                this.moveYDistance = -this.refs.descHeight + this.floatHeight
+                this.moveYDistance = pageMoveDistance
+              }
             }
-            this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = false
-            this.changeIndex(this.contentIndex, this.contentIndex)
           } else {
-            //往下划
-            this.$refs.scroll.style.transition = 'all .3s'
-            let offsetTop = this.refs.descHeight - this.floatHeight
-            if (this.refs.defaultVideoSlideRowListHeight > this.refs.videoSlideRowListHeight) {
-              let endTransformY = Math.abs(offsetTop) - (this.refs.defaultVideoSlideRowListHeight - this.refs.videoSlideRowListHeight)
-              this.$refs.scroll.style.transform = `translate3d(0,${-endTransformY}px,0)`
-              // this.floatShowName = this.floatFixed = true
-              this.floatFixed = Math.abs(endTransformY) > 100
-              this.floatShowName = Math.abs(endTransformY) > 150
+            if (this.refs.maxSlideHeight > this.refs.videoSlideHeight) {
+              let endTransformY = Math.abs(canTransformY) - (this.refs.maxSlideHeight - this.refs.videoSlideHeight)
               this.moveYDistance = -endTransformY
             } else {
-              this.$refs.scroll.style.transform = `translate3d(0,${-this.refs.descHeight + this.floatHeight}px,0)`
-              this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = true
-              this.moveYDistance = -this.refs.descHeight + this.floatHeight
+              this.moveYDistance = pageMoveDistance
             }
           }
         }
-      } else {
-        this.isScroll = true
       }
+      this.changeIndex(this.contentIndex, this.contentIndex)
     },
     getTransform(el) {
       let transform = el.style.transform
-      // console.log(transform)
+      if (!transform) return 0
+      // console.log('transform',transform)
       let transformY = transform.substring(transform.indexOf('0px') + 5, transform.lastIndexOf('0px') - 4)
-      // console.log(transformY)
+      // console.log('transformY',transformY)
       //当前的transformY
       transformY = parseInt(transformY)
       return transformY
+    },
+    filterAge(age) {
+      let date = new Date(age)
+      return new Date().getFullYear() - date.getFullYear()
     }
   }
 }
@@ -548,12 +752,147 @@ export default {
   background: $main-bg;
   height: 100%;
   width: 100%;
+  font-size: 1.4rem;
 
-  .no-more {
-    font-size: 1.4rem;
-    padding: 10px;
-    color: gray;
-    text-align: center;
+  .scroll {
+
+    .notice {
+      font-size: 1.2rem;
+      height: 4rem;
+      color: $second-text-color;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        height: 1.2rem;
+        margin-right: .5rem;
+      }
+    }
+
+    .collect {
+      padding: .7rem;
+
+      .video {
+        background: $active-main-bg;
+        border-radius: .5rem;
+        padding: 1rem;
+        margin-bottom: .7rem;
+
+        .top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1rem;
+
+          .left {
+            display: flex;
+            align-items: center;
+            color: gainsboro;
+
+            img {
+              height: 2rem;
+              margin-right: .5rem;
+            }
+          }
+
+          .right {
+            display: flex;
+            align-items: center;
+            color: $second-text-color;
+          }
+        }
+
+        .list {
+          display: grid;
+          grid-template-columns: 33.33% 33.33% 33.33%;
+
+          .item {
+            height: calc(33.33vw * 1.3);
+            padding: .2rem;
+            overflow: hidden;
+            position: relative;
+
+            .poster {
+              border-radius: .4rem;
+              width: 100%;
+              height: 100%;
+              display: block;
+            }
+
+            .num {
+              color: white;
+              position: absolute;
+              bottom: .5rem;
+              left: .5rem;
+              display: flex;
+              align-items: center;
+              font-size: 1.4rem;
+
+              .love {
+                width: 1.4rem;
+                height: 1.4rem;
+                margin-right: .5rem;
+              }
+            }
+          }
+        }
+      }
+
+      .audio {
+        background: $active-main-bg;
+        border-radius: .5rem;
+        padding: 1rem;
+
+        .top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1rem;
+
+          .left {
+            display: flex;
+            align-items: center;
+            color: gainsboro;
+
+            img {
+              height: 1.5rem;
+              margin-right: .5rem;
+            }
+          }
+
+          .right {
+            display: flex;
+            align-items: center;
+            color: $second-text-color;
+          }
+        }
+
+        .list {
+          display: grid;
+          grid-template-columns: 33.33% 33.33% 33.33%;
+
+          .item {
+            padding: .2rem;
+            overflow: hidden;
+            position: relative;
+
+            .poster {
+              border-radius: .4rem;
+              width: 100%;
+              height: calc((100vw - 3.4rem) / 3);
+              display: block;
+            }
+
+            .title {
+              margin-top: .5rem;
+              color: $second-text-color;
+            }
+          }
+        }
+      }
+    }
+
   }
 
   .float {
@@ -624,7 +963,7 @@ export default {
 
     .detail {
       background: $main-bg;
-      padding: 0 20px;
+      padding: 0 2rem;
 
       .head {
         width: 100%;
@@ -632,47 +971,48 @@ export default {
         justify-content: space-between;
         align-items: center;
         box-sizing: border-box;
-        transform: translateY(-20px);
+        transform: translateY(-2rem);
 
         .head-image {
           background: black;
           padding: 2px;
           border-radius: 50%;
-          width: 80px;
-          height: 80px;
+          width: 8rem;
+          height: 8rem;
         }
 
-        .my-buttons {
-          div {
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            float: left;
-            border-radius: 2px;
-            background: $second-btn-color;
-            margin-left: 5px;
-            padding: 0 10px;
-            height: 30px;
+        .heat {
+          margin-top: 1rem;
+          width: calc(100% - 12rem);
+          color: $second-text-color;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .num {
+            margin-top: .5rem;
             color: white;
-
-            &:nth-child(1) {
-              padding: 0 25px;
-            }
-
-            img {
-              padding: 0 .6rem;
-              height: 1.2rem;
-            }
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-right: 3px;
           }
 
+          .text {
+            font-size: 1.2rem;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+          }
         }
+
       }
 
       .description {
         font-size: 1.2rem;
         color: white;
-        transform: translateY(-20px);
+        transform: translateY(-2rem);
 
         .number {
           color: $second-text-color;
@@ -682,29 +1022,61 @@ export default {
           align-items: center;
 
           img {
-            width: 18px;
-            margin-left: 5px;
+            width: 1.6rem;
+            margin-left: .5rem;
           }
-
         }
 
-        .heat {
-          color: darkgray;
+      }
+
+      .signature {
+        color: $second-text-color;
+        display: flex;
+        align-items: center;
+        margin-bottom: .5rem;
+
+        img {
+          height: 1.2rem;
+          margin-left: .6rem;
+        }
+      }
+
+      .more {
+        color: $second-text-color;
+        display: flex;
+
+        .item {
+          padding: .2rem .5rem;
+          border-radius: .2rem;
+          background: $second-btn-color-tran;
+          font-size: 1rem;
           display: flex;
           align-items: center;
+          margin-right: .5rem;
 
-          .num {
-            color: white;
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-right: 3px;
-          }
-
-          .text {
-            font-size: 1.4rem;
-            margin-right: 10px;
+          img {
+            height: 1rem;
+            margin-right: .2rem;
           }
         }
+      }
+
+      .my-buttons {
+        display: flex;
+        justify-content: space-between;
+
+        div {
+          width: 49%;
+          font-size: 1.2rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: .2rem;
+          background: $second-btn-color;
+          height: 3rem;
+          color: white;
+        }
+
       }
     }
   }
