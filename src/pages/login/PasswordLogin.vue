@@ -1,5 +1,5 @@
 <template>
-  <div class="other-login">
+  <div class="PasswordLogin">
     <BaseHeader>
       <template v-slot:right>
         <span class="f16">帮助</span>
@@ -16,11 +16,10 @@
           <span>+86</span>
           <div class="arrow"></div>
         </div>
-        <input v-model="phone" type="text" class="right" placeholder="请输入手机号">
+        <input type="text" class="right" placeholder="请输入手机号">
       </div>
 
-      <div class="protocol" :class="showAnim?'anim-bounce':''">
-        <Tooltip style="top: -150%;left: -1rem;" v-model="showTooltip"/>
+      <div class="protocol">
         <div class="left">
           <Check v-model="isAgree"/>
         </div>
@@ -33,12 +32,10 @@
         </div>
       </div>
 
-      <div class="button primary no-active" :class="phone.length>10?'':'disabled'" @click="getCode">
-        获取短信验证码
-      </div>
+      <div class="button primary no-active disabled">获取短信验证码</div>
 
       <div class="options">
-        <span class="link" @click="$nav('/login/password')">密码登录</span>
+        <span class="link">密码登录</span>
         <span class="link">其他方式登录</span>
       </div>
 
@@ -47,47 +44,28 @@
 </template>
 <script>
 import Check from "../../components/Check";
-import Tooltip from "./components/Tooltip";
 
 export default {
-  name: "OtherLogin",
+  name: "PasswordLogin",
   components: {
-    Check,
-    Tooltip
+    Check
   },
   data() {
     return {
-      isAgree: false,
-      phone: '',
-      isOtherLogin: false,
-      showAnim: false,
-      showTooltip: false  ,
+      isAgree:false
     }
   },
   computed: {},
   created() {
   },
-  methods: {
-    getCode() {
-      if (!this.isAgree && !this.showAnim && !this.showTooltip && this.phone.length > 10) {
-        this.showAnim = true
-        setTimeout(() => {
-          this.showAnim = false
-          this.showTooltip = true
-        }, 500)
-        setTimeout(() => {
-          this.showTooltip = false
-        }, 3000)
-      }
-    }
-  }
+  methods: {}
 }
 </script>
 
 <style scoped lang="scss">
 @import "../../assets/scss/index";
 
-.other-login {
+.PasswordLogin {
   position: fixed;
   left: 0;
   right: 0;
@@ -132,7 +110,6 @@ export default {
         margin-right: 1rem;
         padding-right: 1rem;
         position: relative;
-
         .arrow {
           margin-top: .4rem;
           margin-left: .5rem;
@@ -142,7 +119,7 @@ export default {
           border-top: .5rem solid black;
         }
 
-        &::before {
+        &::before{
           content: ' ';
           position: absolute;
           width: 1px;
@@ -158,7 +135,7 @@ export default {
         outline: none;
         border: none;
         background: whitesmoke;
-        caret-color: red;
+        caret-color:red;
         //background: red;
       }
     }
@@ -168,7 +145,6 @@ export default {
     }
 
     .protocol {
-      position: relative;
       color: gray;
       margin-top: 2rem;
       margin-bottom: 2rem;
@@ -181,7 +157,7 @@ export default {
       }
     }
 
-    .options {
+    .options{
       font-size: 1.2rem;
       margin-top: 2rem;
       display: flex;

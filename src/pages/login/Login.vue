@@ -12,12 +12,14 @@
         <div class="sub-title">认证服务由中国移动提供</div>
       </div>
 
-      <div class="button primary no-active">一键登录</div>
-      <div class="button white" @click="$nav('/other-login')">其他手机号码登录</div>
+      <div class="button primary no-active" @click="login">一键登录</div>
+      <div class="button white" @click="$nav('/login/other')">其他手机号码登录</div>
 
-      <div class="protocol">
-        <!--      TODO -->
-        <div class="left"></div>
+      <div class="protocol" :class="showAnim?'anim-bounce':''">
+        <Tooltip style="top: -100%;left: -1rem;" v-model="showTooltip"/>
+        <div class="left">
+          <Check v-model="isAgree"/>
+        </div>
         <div class="right">
           我已阅读并同意
           <span class="link" @click="$nav('/service-protocol',{type:'“抖音”用户服务协议'})">用户协议</span>
@@ -31,25 +33,57 @@
         </div>
       </div>
 
-
-<!--      TODO -->
       <div class="other-login">
-        <span class="link">其他方式登录</span>
+        <transition name="fade">
+          <div v-if="isOtherLogin" class="icons">
+            <img src="../../assets/img/icon/login/toutiao-round.png" alt="">
+            <img src="../../assets/img/icon/login/qq-round.webp" alt="">
+            <img src="../../assets/img/icon/login/wechat-round.png" alt="">
+            <img src="../../assets/img/icon/login/weibo-round.webp" alt="">
+          </div>
+        </transition>
       </div>
-
+      <transition name="fade">
+        <span v-if="!isOtherLogin" class="other-login-text link" @click="isOtherLogin = !isOtherLogin">其他方式登录</span>
+      </transition>
     </div>
   </div>
 </template>
 <script>
+import Check from "../../components/Check";
+import Tooltip from "./components/Tooltip";
+
 export default {
   name: "login",
+  components: {
+    Check,
+    Tooltip
+  },
   data() {
-    return {}
+    return {
+      isAgree: false,
+      isOtherLogin: false,
+      showAnim: false,
+      showTooltip: false,
+    }
   },
   computed: {},
   created() {
   },
-  methods: {}
+  methods: {
+    login() {
+      if (!this.isAgree && !this.showAnim && !this.showTooltip) {
+        this.showAnim = true
+        setTimeout(() => {
+          this.showAnim = false
+          this.showTooltip = true
+        }, 500)
+        setTimeout(() => {
+          this.showTooltip = false
+        }, 3000)
+      }
+    }
+  }
 }
 </script>
 
@@ -69,7 +103,6 @@ export default {
 
   .content {
     padding: 6rem 3rem;
-    //padding-top: 6rem;
 
     .notice {
       margin-bottom: 8rem;
@@ -95,24 +128,53 @@ export default {
     }
 
     .button {
+      width: 100%;
       margin-bottom: .5rem;
     }
 
-    .protocol{
+    .protocol {
+      position: relative;
       color: gray;
       margin-top: 2rem;
       font-size: 1.2rem;
+      display: flex;
+
+      .left {
+        padding-top: .1rem;
+        margin-right: .5rem;
+      }
     }
 
-    .other-login{
+
+    .other-login {
       position: absolute;
       bottom: 4rem;
       font-size: 1.2rem;
-      left: 50%;
+      display: flex;
+      justify-content: center;
+      width: calc(100vw - 6rem);
       transform: translateX(-50%);
+      left: 50%;
+
+      .icons {
+        img {
+          width: 4rem;
+          margin-right: 1.5rem;
+
+          &:nth-last-child(1) {
+            margin-right: 0;
+          }
+        }
+      }
     }
 
-
+    .other-login-text {
+      position: absolute;
+      bottom: 5.5rem;
+      font-size: 1.2rem;
+      transform: translateX(-50%);
+      left: 50%;
+    }
   }
 }
 </style>

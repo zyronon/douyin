@@ -1,0 +1,12 @@
+.anim-bounce {
+  animation: bounce .1s ease-in-out 5 alternate;
+}
+
+@keyframes bounce {
+  from {
+    transform: translateX(-1rem);
+  }
+  to {
+    transform: translateX(1rem);
+  }
+}
