@@ -70,6 +70,7 @@ export default {
         '/me/right-menu/minor-protection/trigger-time',
         '/me/right-menu/setting',
         '/login',
+        '/other-login',
 
 
         '/service-protocol',
