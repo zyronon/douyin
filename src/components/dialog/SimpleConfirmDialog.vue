@@ -1,5 +1,5 @@
 <template>
-  <div class="ConfirmDialog " @click="$emit('dismiss')">
+  <div class="SimpleConfirmDialog " @click="$emit('dismiss')">
     <div class="content" @click.stop="null">
       <div class="item">{{ title }}</div>
       <div class="footer">
@@ -11,7 +11,7 @@
 </template>
 <script>
 export default {
-  name: "ConfirmDialog",
+  name: "SimpleConfirmDialog",
   props: {
     visible: {
       type: Boolean,
@@ -32,7 +32,7 @@ export default {
 
 <style scoped lang="scss">
 
-.ConfirmDialog {
+.SimpleConfirmDialog {
   z-index: 10;
   position: absolute;
   top: 0;

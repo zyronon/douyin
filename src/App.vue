@@ -72,6 +72,7 @@ export default {
         '/login',
         '/login/other',
         '/login/password',
+        '/login/verification-code',
 
 
         '/service-protocol',

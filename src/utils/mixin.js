@@ -11,6 +11,7 @@ import Mask from "../components/Mask";
 import NoMore from "../components/NoMore";
 import Back from "../components/Back";
 import Loading from "../components/Loading";
+import BaseButton from "../components/BaseButton";
 
 export default {
   components: {
@@ -25,7 +26,8 @@ export default {
     Mask,
     NoMore,
     Back,
-    Loading
+    Loading,
+    'b-button':BaseButton
   },
   data() {
     return {
