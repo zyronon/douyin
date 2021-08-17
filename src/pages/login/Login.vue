@@ -13,7 +13,7 @@
       </div>
 
       <div class="button primary no-active">一键登录</div>
-      <div class="button white">其他手机号码登录</div>
+      <div class="button white" @click="$nav('/other-login')">其他手机号码登录</div>
 
       <div class="protocol">
         <!--      TODO -->
@@ -22,14 +22,15 @@
           我已阅读并同意
           <span class="link" @click="$nav('/service-protocol',{type:'“抖音”用户服务协议'})">用户协议</span>
           和
-          <span class="link" @click="$nav('/service-protocol',{type:'“抖音”用户服务协议'})">隐私政策</span>
+          <span class="link" @click="$nav('/service-protocol',{type:'“抖音”隐私政策'})">隐私政策</span>
           <div>
             以及
-            <span class="link" @click="$nav('/service-protocol',{type:'“抖音”用户服务协议'})">《中国移动认证服务条款》</span>
+            <span class="link" @click="$nav('/service-protocol',{type:'中国移动认证服务协议'})">《中国移动认证服务条款》</span>
             ，同时登录并使用抖音火山版（原“火山小视频”）和抖音
           </div>
         </div>
       </div>
+
 
 <!--      TODO -->
       <div class="other-login">
@@ -82,6 +83,7 @@ export default {
       }
 
       .phone-number {
+        letter-spacing: .3rem;
         font-size: 3rem;
         margin-bottom: 1rem;
       }
@@ -97,6 +99,7 @@ export default {
     }
 
     .protocol{
+      color: gray;
       margin-top: 2rem;
       font-size: 1.2rem;
     }
