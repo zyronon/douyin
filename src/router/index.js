@@ -39,6 +39,7 @@ import Me2 from "../pages/me/Me2";
 import Login from "../pages/login/Login";
 import OtherLogin from "../pages/login/OtherLogin";
 import PasswordLogin from "../pages/login/PasswordLogin";
+import VerificationCode from "../pages/login/VerificationCode";
 
 const routes = [
   // {path: '', component: Music},
@@ -82,6 +83,7 @@ const routes = [
   {path: '/login', component: Login},
   {path: '/login/other', component: OtherLogin},
   {path: '/login/password', component: PasswordLogin},
+  {path: '/login/verification-code', component: VerificationCode},
 ]
 
 export default VueRouter.createRouter({

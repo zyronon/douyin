@@ -1,7 +1,10 @@
 <template>
-  <div id='BaseHeader'>
+  <div id='BaseHeader' :class="mode">
     <div class="header">
-      <back @click="back()" mode="white" class="left" scale="1.8" direction="left"></back>
+      <back :isClose="isClose" :mode="isClose?'black':'gray'"
+            @click="back()"
+            class="left"
+            direction="left"/>
       <slot name="center"><span></span></slot>
       <slot name="right"><span></span></slot>
     </div>
@@ -12,7 +15,16 @@
 export default {
   name: "BaseHeader",
   components: {},
-  props: {},
+  props: {
+    mode: {
+      type: String,
+      default: 'dark',//light
+    },
+    isClose: {
+      type: Boolean,
+      default: false,
+    }
+  },
   data() {
     return {}
   },
@@ -37,8 +49,17 @@ export default {
 #BaseHeader {
   width: 100%;
   position: fixed;
-  background: $main-bg;
   z-index: 2;
+
+  &.light {
+    background: white;
+    color: black;
+  }
+
+  &.dark {
+    background: $main-bg;
+    color: white;
+  }
 
   .header {
     display: flex;
@@ -47,7 +68,6 @@ export default {
     height: 6rem;
     border-bottom: 1px solid #cccccc11;
     position: relative;
-    color: white;
 
     .left {
       position: absolute;

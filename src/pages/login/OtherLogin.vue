@@ -1,22 +1,20 @@
 <template>
   <div class="other-login">
-    <BaseHeader>
+    <BaseHeader mode="light" :isClose="true">
       <template v-slot:right>
         <span class="f16">帮助</span>
       </template>
     </BaseHeader>
     <div class="content">
-      <div class="notice">
+      <div class="desc">
         <div class="title">登录看朋友内容</div>
         <div class="sub-title">未注册的手机号验证通过后将自动注册</div>
       </div>
 
-      <div class="input-number">
-        <div class="left">
-          <span>+86</span>
-          <div class="arrow"></div>
-        </div>
-        <input v-model="phone" type="text" class="right" placeholder="请输入手机号">
+      <LoginInput autofocus type="phone" v-model="phone" placeholder="请输入手机号"/>
+
+      <div class="notice">
+        {{ notice }}
       </div>
 
       <div class="protocol" :class="showAnim?'anim-bounce':''">
@@ -33,9 +31,9 @@
         </div>
       </div>
 
-      <div class="button primary no-active" :class="phone.length>10?'':'disabled'" @click="getCode">
+      <b-button :loading="loading" :active="false" :disabled="phone.length < 10" @click="getCode">
         获取短信验证码
-      </div>
+      </b-button>
 
       <div class="options">
         <span class="link" @click="$nav('/login/password')">密码登录</span>
@@ -48,12 +46,14 @@
 <script>
 import Check from "../../components/Check";
 import Tooltip from "./components/Tooltip";
+import LoginInput from "./components/LoginInput";
 
 export default {
   name: "OtherLogin",
   components: {
     Check,
-    Tooltip
+    Tooltip,
+    LoginInput
   },
   data() {
     return {
@@ -61,7 +61,9 @@ export default {
       phone: '',
       isOtherLogin: false,
       showAnim: false,
-      showTooltip: false  ,
+      showTooltip: false,
+      loading: false,
+      notice: ''
     }
   },
   computed: {},
@@ -69,15 +71,22 @@ export default {
   },
   methods: {
     getCode() {
-      if (!this.isAgree && !this.showAnim && !this.showTooltip && this.phone.length > 10) {
-        this.showAnim = true
-        setTimeout(() => {
-          this.showAnim = false
-          this.showTooltip = true
-        }, 500)
-        setTimeout(() => {
-          this.showTooltip = false
-        }, 3000)
+      if (this.isAgree) {
+        this.loading = true
+        setTimeout(()=>{
+          this.$nav('/login/verification-code')
+        },2000)
+      } else {
+        if (!this.showAnim && !this.showTooltip) {
+          this.showAnim = true
+          setTimeout(() => {
+            this.showAnim = false
+            this.showTooltip = true
+          }, 500)
+          setTimeout(() => {
+            this.showTooltip = false
+          }, 3000)
+        }
       }
     }
   }
@@ -102,7 +111,7 @@ export default {
     padding: 6rem 3rem;
     //padding-top: 6rem;
 
-    .notice {
+    .desc {
       margin-bottom: 2rem;
       margin-top: 4rem;
       display: flex;
@@ -120,47 +129,10 @@ export default {
       }
     }
 
-    .input-number {
-      display: flex;
-      background: whitesmoke;
-      padding: 1.5rem 1rem;
-
-      .left {
-        font-size: 1.2rem;
-        display: flex;
-        align-items: center;
-        margin-right: 1rem;
-        padding-right: 1rem;
-        position: relative;
-
-        .arrow {
-          margin-top: .4rem;
-          margin-left: .5rem;
-          width: 0;
-          height: 0;
-          border: .3rem solid transparent;
-          border-top: .5rem solid black;
-        }
-
-        &::before {
-          content: ' ';
-          position: absolute;
-          width: 1px;
-          height: .8rem;
-          top: 4px;
-          right: 0;
-          background: gainsboro;
-        }
-      }
-
-      .right {
-        flex: 1;
-        outline: none;
-        border: none;
-        background: whitesmoke;
-        caret-color: red;
-        //background: red;
-      }
+    .notice {
+      margin-top: 1rem;
+      font-size: 1.3rem;
+      color: $primary-btn-color;
     }
 
     .button {

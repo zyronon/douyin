@@ -1,23 +1,17 @@
 <template>
   <div class="PasswordLogin">
-    <BaseHeader>
+    <BaseHeader mode="light" :isClose="true">
       <template v-slot:right>
         <span class="f16">帮助</span>
       </template>
     </BaseHeader>
     <div class="content">
       <div class="notice">
-        <div class="title">登录看朋友内容</div>
-        <div class="sub-title">未注册的手机号验证通过后将自动注册</div>
+        <div class="title">手机号密码登录</div>
       </div>
 
-      <div class="input-number">
-        <div class="left">
-          <span>+86</span>
-          <div class="arrow"></div>
-        </div>
-        <input type="text" class="right" placeholder="请输入手机号">
-      </div>
+      <LoginInput autofocus type="phone" v-model="phone" placeholder="请输入手机号"/>
+      <LoginInput autofocus class="mt1r" type="password" v-model="password" placeholder="请输入密码"/>
 
       <div class="protocol">
         <div class="left">
@@ -32,11 +26,14 @@
         </div>
       </div>
 
-      <div class="button primary no-active disabled">获取短信验证码</div>
+      <b-button :loading="loading" :active="false" :disabled="disabled" @click="login">
+        {{ loading ? '登录中' : '登录' }}
+      </b-button>
 
       <div class="options">
-        <span class="link">密码登录</span>
-        <span class="link">其他方式登录</span>
+        <span>
+          忘记了？<span class="link">找回密码</span>
+        </span>
       </div>
 
     </div>
@@ -44,21 +41,50 @@
 </template>
 <script>
 import Check from "../../components/Check";
+import LoginInput from "./components/LoginInput";
 
 export default {
   name: "PasswordLogin",
   components: {
-    Check
+    Check,
+    LoginInput
   },
   data() {
     return {
-      isAgree:false
+      isAgree: false,
+      showAnim: false,
+      showTooltip: false,
+      loading: false,
+      phone: '',
+      password: '',
+      code: '',
     }
   },
-  computed: {},
+  computed: {
+    disabled() {
+      return !(this.phone && this.password);
+    }
+  },
   created() {
   },
-  methods: {}
+  methods: {
+    login() {
+      if (this.isAgree) {
+        this.loading = true
+      } else {
+        if (!this.showAnim && !this.showTooltip) {
+          this.showAnim = true
+          setTimeout(() => {
+            this.showAnim = false
+            this.showTooltip = true
+          }, 500)
+          setTimeout(() => {
+            this.showTooltip = false
+          }, 3000)
+        }
+      }
+    }
+  }
 }
 </script>
 
@@ -98,48 +124,6 @@ export default {
       }
     }
 
-    .input-number {
-      display: flex;
-      background: whitesmoke;
-      padding: 1.5rem 1rem;
-
-      .left {
-        font-size: 1.2rem;
-        display: flex;
-        align-items: center;
-        margin-right: 1rem;
-        padding-right: 1rem;
-        position: relative;
-        .arrow {
-          margin-top: .4rem;
-          margin-left: .5rem;
-          width: 0;
-          height: 0;
-          border: .3rem solid transparent;
-          border-top: .5rem solid black;
-        }
-
-        &::before{
-          content: ' ';
-          position: absolute;
-          width: 1px;
-          height: .8rem;
-          top: 4px;
-          right: 0;
-          background: gainsboro;
-        }
-      }
-
-      .right {
-        flex: 1;
-        outline: none;
-        border: none;
-        background: whitesmoke;
-        caret-color:red;
-        //background: red;
-      }
-    }
-
     .button {
       margin-bottom: .5rem;
     }
@@ -157,7 +141,7 @@ export default {
       }
     }
 
-    .options{
+    .options {
       font-size: 1.2rem;
       margin-top: 2rem;
       display: flex;

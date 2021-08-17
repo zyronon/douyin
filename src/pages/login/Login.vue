@@ -1,19 +1,21 @@
 <template>
   <div class="login">
-    <BaseHeader>
+    <BaseHeader mode="light" :isClose="true">
       <template v-slot:right>
         <span class="f16">帮助</span>
       </template>
     </BaseHeader>
     <div class="content">
-      <div class="notice">
+      <div class="desc">
         <div class="title">登录看朋友内容</div>
         <div class="phone-number">138****8000</div>
         <div class="sub-title">认证服务由中国移动提供</div>
       </div>
 
-      <div class="button primary no-active" @click="login">一键登录</div>
-      <div class="button white" @click="$nav('/login/other')">其他手机号码登录</div>
+      <b-button :loading="loading" :active="false" :loadingWithText="true" @click="login">
+        {{ loading ? '登录中' : '一键登录' }}
+      </b-button>
+      <b-button :active="false" type="white" @click="$nav('/login/other')">其他手机号码登录</b-button>
 
       <div class="protocol" :class="showAnim?'anim-bounce':''">
         <Tooltip style="top: -100%;left: -1rem;" v-model="showTooltip"/>
@@ -65,6 +67,7 @@ export default {
       isOtherLogin: false,
       showAnim: false,
       showTooltip: false,
+      loading: false
     }
   },
   computed: {},
@@ -72,15 +75,19 @@ export default {
   },
   methods: {
     login() {
-      if (!this.isAgree && !this.showAnim && !this.showTooltip) {
-        this.showAnim = true
-        setTimeout(() => {
-          this.showAnim = false
-          this.showTooltip = true
-        }, 500)
-        setTimeout(() => {
-          this.showTooltip = false
-        }, 3000)
+      if (this.isAgree) {
+        this.loading = true
+      } else {
+        if (!this.showAnim && !this.showTooltip) {
+          this.showAnim = true
+          setTimeout(() => {
+            this.showAnim = false
+            this.showTooltip = true
+          }, 500)
+          setTimeout(() => {
+            this.showTooltip = false
+          }, 3000)
+        }
       }
     }
   }
@@ -104,8 +111,8 @@ export default {
   .content {
     padding: 6rem 3rem;
 
-    .notice {
-      margin-bottom: 8rem;
+    .desc {
+      margin-bottom: 6rem;
       margin-top: 12rem;
       display: flex;
       align-items: center;
