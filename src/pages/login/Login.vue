@@ -1,8 +1,8 @@
 <template>
   <div class="login">
-    <BaseHeader mode="light" :isClose="true">
+    <BaseHeader mode="light" backMode="dark" backImg="close">
       <template v-slot:right>
-        <span class="f16">帮助</span>
+        <span class="f16" @click="$nav('/login/help')">帮助</span>
       </template>
     </BaseHeader>
     <div class="content">

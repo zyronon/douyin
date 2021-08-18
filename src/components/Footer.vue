@@ -1,15 +1,18 @@
 <template>
   <div class="footer f16 " @touchmove.stop="false">
-    <div class="l-button" @click="refresh()">
-      <span v-if="!isRefresh" :class="{active:currentTab===1}">首页</span>
-      <img v-else src="../assets/img/icon/refresh.png" alt="" class="refresh">
+    <div class="l-button" @click="refresh(1)">
+      <span v-if="!isRefresh1" :class="{active:currentTab===1}">首页</span>
+      <img v-if="isRefresh1 " src="../assets/img/icon/refresh1.png" alt="" class="refresh">
     </div>
-    <div class="l-button" @click="tab(2)"><span :class="{active:currentTab===2}">关注</span></div>
+    <div class="l-button" @click="refresh(2)">
+      <span v-if="!isRefresh2" :class="{active:currentTab === 2}">关注</span>
+      <img v-if="isRefresh2" src="../assets/img/icon/refresh1.png" alt="" class="refresh">
+    </div>
     <div class="l-button" @click="tab(3)">
       <div class="add-ctn">
-        <div class="add-one"></div>
-        <div class="add-two"></div>
-        <img src="../assets/img/icon/add.svg" alt="" class="add">
+        <div class="add-one">
+          <img src="../assets/img/icon/add-light.png" alt="" class="add">
+        </div>
       </div>
     </div>
     <div class="l-button" @click="tab(4)"><span :class="{active:currentTab===4}">消息</span></div>
@@ -24,7 +27,8 @@ export default {
   props: ['initTab'],
   data() {
     return {
-      isRefresh: false,
+      isRefresh1: false,
+      isRefresh2: false,
       currentTab: this.initTab,
     }
   },
@@ -49,15 +53,14 @@ export default {
           break
       }
     },
-    refresh() {
-      if (location.hash === '#/') {
-        this.isRefresh = !this.isRefresh
+    refresh(index) {
+      if (this.currentTab === index) {
+        this['isRefresh' + index] = !this['isRefresh' + index]
         setTimeout(() => {
-          this.isRefresh = false
+          this['isRefresh' + index] = !this['isRefresh' + index]
         }, 2000)
       } else {
-        this.currentTab = 1
-        this.$router.push('/')
+        this.tab(index)
       }
     }
   }
@@ -89,60 +92,42 @@ export default {
 
     .refresh {
       width: 25%;
-      animation: rotate .8s linear infinite;
+      animation: rotate .5s linear infinite;
     }
 
     @keyframes rotate {
-      0% {
-        -webkit-transform: rotate(0deg);
+      from {
+        transform: rotate(0deg);
       }
 
-      45% {
-        -webkit-transform: rotate(-180deg);
-      }
-
-      55% {
-        -webkit-transform: rotate(-180deg);
-      }
-
-      100% {
-        -webkit-transform: rotate(-360deg);
+      to {
+        transform: rotate(-360deg);
       }
     }
 
     .add-ctn {
-      width: 70%;
-      height: 55%;
-      //background: white;
-      position: relative;
-      display: flex;
-      justify-content: center;
+      $height: 2.7rem;
+      $width: 4rem;
+      height: $height;
+      width: $width;
+      background: linear-gradient(to right, #59dcdf, #ff5f75);
+      border-radius: .5rem;
+      box-sizing: border-box;
+      padding: 0 .2rem;
 
       .add-one {
-        position: absolute;
-        width: 100%;
+        box-sizing: border-box;
         height: 100%;
-        background: linear-gradient(to right, #59dcdf, #ff5f75);
-        border-radius: 5px;
-      }
-
-      .add-two {
-        border-radius: 5px;
-        position: relative;
-        width: 90%;
-        height: 100%;
-        background: white;
+        border-radius: .5rem;
+        border: 2px solid white;
+        background: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       img {
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        margin: auto;
-        position: absolute;
-        width: 50%;
-        height: 50%;
+        width: 2rem;
       }
     }
 

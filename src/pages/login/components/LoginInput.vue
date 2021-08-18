@@ -157,7 +157,7 @@ export default {
       margin-left: .5rem;
       width: 0;
       height: 0;
-      border: .3rem solid transparent;
+      border: .4rem solid transparent;
       border-top: .5rem solid black;
     }
 

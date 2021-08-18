@@ -1,6 +1,6 @@
 <template>
   <div class="other-login">
-    <BaseHeader mode="light" :isClose="true">
+    <BaseHeader mode="light" backMode="dark" backImg="back">
       <template v-slot:right>
         <span class="f16">帮助</span>
       </template>
@@ -37,8 +37,35 @@
 
       <div class="options">
         <span class="link" @click="$nav('/login/password')">密码登录</span>
-        <span class="link">其他方式登录</span>
+        <span class="link" @click="otherLogin">其他方式登录</span>
       </div>
+
+      <from-bottom-dialog
+          v-model="isOtherLogin"
+          :show-heng-gang="false"
+          height="27rem"
+          mode="white">
+        <div class="block-dialog">
+          <div class="item">
+            <img src="../../assets/img/icon/login/toutiao-round.png" alt="">
+            <span>今日头条登录</span>
+          </div>
+          <div class="item">
+            <img src="../../assets/img/icon/login/qq.webp" alt="">
+            <span>QQ登录</span>
+          </div>
+          <div class="item">
+            <img src="../../assets/img/icon/login/wechat.webp" alt="">
+            <span>微信登录</span>
+          </div>
+          <div class="item">
+            <img src="../../assets/img/icon/login/weibo.webp" alt="">
+            <span>微博登录</span>
+          </div>
+          <div class="space"></div>
+          <div class="item" @click="isOtherLogin = false">取消</div>
+        </div>
+      </from-bottom-dialog>
 
     </div>
   </div>
@@ -48,6 +75,7 @@ import Check from "../../components/Check";
 import Tooltip from "./components/Tooltip";
 import LoginInput from "./components/LoginInput";
 import Base from "./Base.js";
+import FromBottomDialog from "../../components/dialog/FromBottomDialog";
 
 export default {
   name: "OtherLogin",
@@ -55,7 +83,8 @@ export default {
   components: {
     Check,
     Tooltip,
-    LoginInput
+    LoginInput,
+    FromBottomDialog
   },
   data() {
     return {
@@ -69,11 +98,17 @@ export default {
   methods: {
     async getCode() {
       let res = await this.check()
-      if (res){
+      if (res) {
         this.loading = true
         setTimeout(() => {
           this.$nav('/login/verification-code')
         }, 2000)
+      }
+    },
+    async otherLogin() {
+      let res = await this.check()
+      if (res) {
+        this.isOtherLogin = true
       }
     }
   }
@@ -94,6 +129,32 @@ export default {
   color: black;
   font-size: 1.4rem;
   background: white;
+
+  .block-dialog {
+    color: black;
+
+    .item {
+      height: 5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-top: 1px solid gainsboro;
+
+      img {
+        height: 2.5rem;
+        margin-right: 1rem;
+      }
+
+      &:nth-last-child(1) {
+        border-top: none;
+      }
+    }
+
+    .space {
+      height: 1rem;
+      background: whitesmoke;
+    }
+  }
 
 }
 </style>

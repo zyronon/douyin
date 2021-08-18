@@ -1,6 +1,6 @@
 <template>
   <div class="RetrievePassword">
-    <BaseHeader mode="light" :isClose="true"></BaseHeader>
+    <BaseHeader mode="light" backMode="dark" backImg="back"/>
     <div class="content">
       <div class="desc">
         <div class="title">找回密码</div>

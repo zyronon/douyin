@@ -1,10 +1,12 @@
 <template>
   <div id='BaseHeader' :class="mode">
     <div class="header">
-      <back :isClose="isClose" :mode="isClose?'black':'gray'"
-            @click="back()"
-            class="left"
-            direction="left"/>
+      <back
+          :mode="backMode"
+          :img="backImg"
+          @click="back()"
+          class="left"
+          direction="left"/>
       <slot name="center"><span></span></slot>
       <slot name="right"><span></span></slot>
     </div>
@@ -18,7 +20,15 @@ export default {
   props: {
     mode: {
       type: String,
-      default: 'dark',//light
+      default: 'dark'
+    },
+    backMode:{
+      type: String,
+      default: 'gray'
+    },
+    backImg:{
+      type: String,
+      default: 'back',
     },
     isClose: {
       type: Boolean,
@@ -72,7 +82,7 @@ export default {
     .left {
       position: absolute;
       left: 1rem;
-      top: 1.5rem;
+      top: 2rem;
     }
 
     & > :nth-last-child(1) {
