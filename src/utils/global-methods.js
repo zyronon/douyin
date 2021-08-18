@@ -4,6 +4,7 @@ import SimpleConfirmDialog from "../components/dialog/SimpleConfirmDialog";
 import ConfirmDialog from "../components/dialog/ConfirmDialog";
 import Loading from "../components/Loading";
 import Config from '../config'
+import NoticeDialog from "../components/dialog/NoticeDialog";
 
 export default {
   $showLoading() {
@@ -69,7 +70,7 @@ export default {
     document.body.append(parent)
     app.mount(parent)
   },
-  $showConfirmDialog(title, subtitle, okCb, cancelCb) {
+  $showConfirmDialog(title, subtitle, subtitleColor, okCb, cancelCb, okText, cancelText, cancelTextColor) {
     let remove = () => {
       let parent = document.querySelector('.dialog-ctn')
       parent.classList.replace('fade-in', 'fade-out')
@@ -79,11 +80,11 @@ export default {
     }
     let tempOkCb = e => {
       remove()
-      okCb(e)
+      okCb && okCb(e)
     }
     let tempCancelCb = e => {
       remove()
-      cancelCb(e)
+      cancelCb && cancelCb(e)
     }
     const app = Vue.createApp({
       render() {
@@ -91,7 +92,38 @@ export default {
                               onDismiss={remove}
                               title={title}
                               subtitle={subtitle}
+                              subtitleColor={subtitleColor}
+                              cancelTextColor={cancelTextColor}
+                              okText={okText}
+                              cancelText={cancelText}
                               onOk={tempOkCb}/>
+      },
+    })
+    let parent = document.createElement('div')
+    parent.classList.add(...['dialog-ctn', 'fade-in'])
+    document.body.append(parent)
+    app.mount(parent)
+  },
+  $showNoticeDialog(title, subtitle, subtitleColor, cancelCb, cancelText) {
+    let remove = () => {
+      let parent = document.querySelector('.dialog-ctn')
+      parent.classList.replace('fade-in', 'fade-out')
+      setTimeout(() => {
+        parent.remove()
+      }, 300)
+    }
+    let tempCancelCb = e => {
+      remove()
+      cancelCb(e)
+    }
+    const app = Vue.createApp({
+      render() {
+        return <NoticeDialog onCancel={tempCancelCb}
+                             onDismiss={remove}
+                             title={title}
+                             subtitleColor={subtitleColor}
+                             cancelText={cancelText}
+                             subtitle={subtitle}/>
       },
     })
     let parent = document.createElement('div')

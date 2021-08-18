@@ -1,6 +1,6 @@
 <template>
   <div class="button" :class="class1" @click.capture.stop="check">
-    <img v-if="loading" src="../assets/img/icon/loading-white.png" alt="">
+    <img v-show="loading" src="../assets/img/icon/loading-white.png" alt="">
     <slot v-if="showText"></slot>
   </div>
 </template>

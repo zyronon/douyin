@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     clear() {
-      this.$showConfirmDialog('确定清空？', '清空后，以往观看记录不再展示', () => {
+      this.$showConfirmDialog('确定清空？', '清空后，以往观看记录不再展示', 'gray',() => {
         this.list = 0
         console.log(this.list)
       })
