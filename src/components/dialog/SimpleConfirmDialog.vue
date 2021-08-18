@@ -1,6 +1,6 @@
 <template>
   <div class="SimpleConfirmDialog " @click="$emit('dismiss')">
-    <div class="content" @click.stop="null">
+    <div class="content" @click.stop="stop">
       <div class="item">{{ title }}</div>
       <div class="footer">
         <div class="cancel" @click.stop="$emit('cancel')">放弃</div>
@@ -26,6 +26,9 @@ export default {
   },
   data() {
     return {}
+  },
+  methods:{
+    stop(){}
   }
 }
 </script>

@@ -4,7 +4,7 @@
       <span @click="$nav('/country-choose')">双流</span>
       <div class="arrow"></div>
     </header>
-    <div class="ad">
+    <div class="ad" v-if="false">
       <div class="title">超值卖场 次日达</div>
       <div class="good-ctn">
         <div class="left">
@@ -48,34 +48,117 @@
     <div class="content">
       <div class="left">
         <div class="item" v-for="item in left">
-          <img class="poster" :src="item.src"/>
-          <div class="location">
-            <div class="top">
-              <img class="logo" src="../../assets/img/icon/msg-icon2.png" alt="">
-              <div class="name">电子科技大学沙河校区</div>
+          <template v-if="item.type === 0">
+            <div class="wrapper">
+              <img class="poster" :src="item.src"/>
+              <img :src="item.author" alt="" class="author">
             </div>
-            <div class="bottom">
-              <div class="type">大学</div>
-              <div class="line"></div>
-              <div class="other">1399人想去</div>
+            <div class="location" v-if="item.address">
+              <div class="top">
+                <img class="logo" src="../../assets/img/icon/msg-icon2.png" alt="">
+                <div class="name">{{ item.address.name }}</div>
+              </div>
+              <div class="bottom">
+                <div class="type">{{ item.address.type }}</div>
+                <div class="line"></div>
+                <div class="other">{{ item.address.number }}人想去</div>
+              </div>
             </div>
-          </div>
+          </template>
+          <template v-if="item.type === 1">
+            <div class="wrapper" style="height: 49vw;overflow:hidden;">
+              <img class="poster" :src="item.src"/>
+            </div>
+          </template>
+          <template v-if="item.type === 2">
+            <div class="ranking-list">
+              <div class="desc">
+                <div class="top">
+                  <img class="logo" src="../../assets/img/icon/msg-icon2.png" alt="">
+                  <div class="name">{{ item.desc }}</div>
+                </div>
+                <div class="bottom">
+                  基于6亿抖音用户真实数据...
+                </div>
+              </div>
+              <div class="ads">
+                <div class="ad" v-for="(ad,index) in item.ads">
+                  <div class="left">
+                    <img class="ad-logo" :src="ad.src"/>
+                  </div>
+                  <div class="right">
+                    <div class="rank">TOP{{ index + 1 }}</div>
+                    <div class="name">{{ ad.name }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+          <template v-if="item.type === 3">
+            <div class="wrapper">
+              <img class="poster" :src="item.src"/>
+              <img :src="item.author" alt="" class="author">
+              <div class="live">直播中</div>
+            </div>
+          </template>
         </div>
+
       </div>
       <div class="right">
         <div class="item" v-for="item in right">
-          <img class="poster" :src="item.src"/>
-          <div class="location">
-            <div class="top">
-              <img class="logo" src="../../assets/img/icon/msg-icon2.png" alt="">
-              <div class="name">电子科技大学沙河校区</div>
+          <template v-if="item.type === 0">
+            <div class="wrapper">
+              <img class="poster" :src="item.src"/>
+              <img :src="item.author" alt="" class="author">
             </div>
-            <div class="bottom">
-              <div class="type">大学</div>
-              <div class="line"></div>
-              <div class="other">1399人想去</div>
+            <div class="location" v-if="item.address">
+              <div class="top">
+                <img class="logo" src="../../assets/img/icon/msg-icon2.png" alt="">
+                <div class="name">{{ item.address.name }}</div>
+              </div>
+              <div class="bottom">
+                <div class="type">{{ item.address.type }}</div>
+                <div class="line"></div>
+                <div class="other">{{ item.address.number }}人想去</div>
+              </div>
             </div>
-          </div>
+          </template>
+          <template v-if="item.type === 1">
+            <div class="wrapper" style="height: 49vw;overflow:hidden;">
+              <img class="poster" :src="item.src"/>
+            </div>
+          </template>
+          <template v-if="item.type === 2">
+            <div class="ranking-list">
+              <div class="desc">
+                <div class="top">
+                  <img class="logo" src="../../assets/img/icon/msg-icon2.png" alt="">
+                  <div class="name">{{ item.desc }}</div>
+                </div>
+                <div class="bottom">
+                  基于6亿抖音用户真实数据...
+                </div>
+              </div>
+              <div class="ads">
+                <div class="ad" v-for="(ad,index) in item.ads">
+                  <div class="left">
+                    <img class="ad-logo" :src="ad.src"/>
+                  </div>
+                  <div class="right">
+                    <div class="rank">TOP{{ index + 1 }}</div>
+                    <div class="name">{{ ad.name }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+          <template v-if="item.type === 3">
+            <div class="wrapper">
+              <img class="poster" :src="item.src"/>
+              <img :src="item.author" alt="" class="author">
+              <div class="live">直播中</div>
+            </div>
+          </template>
         </div>
       </div>
     </div>
@@ -98,7 +181,13 @@ export default {
       items: [],
       height: 0,
       width: 0,
-      footerHeight: 0
+      footerHeight: 0,
+      itemType: {
+        VIDEO: 0,
+        AD: 1,
+        RANKING_LIST: 2,
+        LIVE: 3,
+      }
     }
   },
   created() {
@@ -120,15 +209,46 @@ export default {
   },
   mounted() {
     for (let i = 1; i < 12; i++) {
-      this.items.push({
-        src: require(`../../assets/img/poster/${i}.jpg`)
-      })
+      let temp = {
+        src: require(`../../assets/img/poster/${i}.jpg`),
+        author: require(`../../assets/img/avatar.png`),
+      }
+      temp.type = i - 1 > 3 ? 3 : i - 1
+      if (temp.type === 2) {
+        temp.desc = '成都市好友聚会美食榜'
+        temp.ads = [
+          {
+            src: require(`../../assets/img/poster/${i}.jpg`),
+            name: '烧江南烧肉'
+          },
+          {
+            src: require(`../../assets/img/poster/${i}.jpg`),
+            name: '欧叶无国界料理餐厅'
+          },
+          {
+            src: require(`../../assets/img/poster/${i}.jpg`),
+            name: '陆派玛歌庄园'
+          }
+        ]
+      }
+
+      if (i % 2 === 0) {
+        temp.address = {
+          name: '大源中央公园',
+          type: '综合商场',
+          number: 150
+        }
+      }
+      this.items.push(temp)
     }
+    // this.$console(this.items)
   }
 }
 </script>
 
 <style scoped lang="scss">
+@import "../../assets/scss/index";
+
 #attention {
   /*background: rgb(22，24，34);*/
   /*background: #161822;*/
@@ -159,7 +279,7 @@ export default {
     }
   }
 
-  .ad {
+  > .ad {
     padding: 10px;
     color: white;
 
@@ -243,7 +363,7 @@ export default {
             justify-content: space-between;
             background: linear-gradient(to bottom right, #6b267d 10%, #3f445c 50%);
 
-            &:nth-child(2){
+            &:nth-child(2) {
               background: linear-gradient(to bottom right, #283b53 5%, #3f445c 50%);
             }
 
@@ -251,6 +371,7 @@ export default {
               display: flex;
               justify-content: center;
               flex-direction: column;
+
               .ad-name {
                 font-weight: bold;
               }
@@ -283,7 +404,7 @@ export default {
     box-sizing: border-box;
     padding: 0 3px;
 
-    .left, .right {
+    > .left, > .right {
       width: calc(50% - 1.5px);
     }
 
@@ -292,10 +413,32 @@ export default {
       box-sizing: border-box;
       margin-bottom: 3px;
 
-      .poster {
-        width: 100%;
-        max-height: 50vh;
-        display: block;
+      .wrapper {
+        position: relative;
+
+        .poster {
+          width: 100%;
+          max-height: 50vh;
+          display: block;
+        }
+
+        .author {
+          position: absolute;
+          border-radius: 50%;
+          height: 3rem;
+          bottom: 1rem;
+          left: 1rem;
+        }
+
+        .live {
+          position: absolute;
+          padding: .2rem .5rem;
+          border-radius: .2rem;
+          top: 1rem;
+          left: 1rem;
+          color: white;
+          background: $primary-btn-color;
+        }
       }
 
       .location {
@@ -329,6 +472,60 @@ export default {
           margin-top: 2px;
           font-size: 1rem;
         }
+      }
+
+      .ranking-list {
+        padding: 2rem 1rem;
+        background: $douyin-bg;
+
+        .desc {
+          .top {
+            margin-bottom: .2rem;
+            display: flex;
+            align-items: center;
+            font-size: 1.4rem;
+
+            .logo {
+              margin-right: .5rem;
+              height: 1.4rem;
+            }
+
+            .name {
+              //background: linear-gradient(to bottom right, #bd5959 5%, #3f445c 50%);
+            }
+          }
+        }
+
+        .ads {
+          font-size: 1.2rem;
+
+          .ad {
+            background: $second-btn-color;
+            display: flex;
+            margin-top: 1rem;
+
+            .left {
+              margin-right: 1rem;
+
+              .ad-logo {
+                height: 4rem;
+                width: 4rem;
+              }
+            }
+
+            .right {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+
+              .rank {
+                color: $second-text-color;
+                margin-bottom: .2rem;
+              }
+            }
+          }
+        }
+
       }
     }
   }

@@ -40,7 +40,7 @@ export default {
 }
 
 .Tooltip {
-  z-index: 9;
+  z-index: 2;
   position: absolute;
   font-size: 1.2rem;
   color: white;

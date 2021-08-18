@@ -1,6 +1,6 @@
 <template>
   <div class="ConfirmDialog " @click="$emit('dismiss')">
-    <div class="content" @click.stop="null">
+    <div class="content" @click.stop="stop">
       <div class="body">
         <div class="title" v-if="title">{{ title }}</div>
         <div class="subtitle" :class="subtitleColor" v-if="subtitle">{{ subtitle }}</div>
@@ -59,6 +59,10 @@ export default {
   },
   data() {
     return {}
+  },
+  methods: {
+    stop() {
+    }
   }
 }
 </script>

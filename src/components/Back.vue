@@ -7,11 +7,11 @@ export default {
   props: {
     mode: {
       type: String,
-      default: 'gray',//white
+      default: 'gray'
     },
-    isClose: {
-      type: Boolean,
-      default: false
+    img: {
+      type: String,
+      default: 'back'
     },
     direction: {
       type: String,
@@ -23,16 +23,11 @@ export default {
     },
   },
   data() {
-    return {
-      // src: require(`../assets/img/icon/components/back-${this.mode}.png`)
-    }
+    return {}
   },
   computed: {
     src() {
-      if (this.isClose) {
-        return require(`../assets/img/icon/components/close-${this.mode}.png`)
-      }
-      return require(`../assets/img/icon/components/back-${this.mode}.png`)
+      return require(`../assets/img/icon/components/${this.mode}-${this.img}.png`)
     }
   },
   mounted() {

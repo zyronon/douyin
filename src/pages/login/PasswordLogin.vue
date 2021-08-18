@@ -1,6 +1,6 @@
 <template>
   <div class="PasswordLogin">
-    <BaseHeader mode="light" :isClose="true">
+    <BaseHeader mode="light" backMode="dark" backImg="back">
       <template v-slot:right>
         <span class="f16">帮助</span>
       </template>

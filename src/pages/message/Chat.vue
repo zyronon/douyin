@@ -2,7 +2,7 @@
   <div class="Chat">
     <div class="header">
       <div class="left">
-        <back scale="1.8" @click="$back"></back>
+        <back @click="$back"></back>
         <div class="badge">12</div>
         <span>zzzz</span>
       </div>

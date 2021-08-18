@@ -18,7 +18,7 @@ export default {
 <style scoped lang="scss">
 
 .Mask {
-  z-index: 2;
+  z-index: 3;
   position: fixed;
   top: 0;
   bottom: 0;

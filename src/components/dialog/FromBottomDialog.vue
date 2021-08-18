@@ -40,7 +40,7 @@ export default {
       // default: 'light'
       // default: 'white'
     },
-    maskMode:{
+    maskMode: {
       type: String,
       default: 'dark'
     },
@@ -166,6 +166,7 @@ export default {
   overflow: auto;
   padding-top: 2.4rem;
   bottom: 0;
+  left: 0;
   box-sizing: border-box;
   border-radius: .5rem .5rem 0 0;
 

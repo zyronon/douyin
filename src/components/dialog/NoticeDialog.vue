@@ -1,6 +1,6 @@
 <template>
   <div class="NoticeDialog" @click="$emit('dismiss')">
-    <div class="content" @click.stop="null">
+    <div class="content" @click.stop="stop">
       <div class="body">
         <div class="title">{{ title }}</div>
         <div class="subtitle" :class="subtitleColor" v-if="subtitle">{{ subtitle }}</div>
@@ -46,6 +46,9 @@ export default {
   },
   data() {
     return {}
+  },
+  methods:{
+    stop(){}
   }
 }
 </script>
