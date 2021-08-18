@@ -40,6 +40,7 @@ import Login from "../pages/login/Login";
 import OtherLogin from "../pages/login/OtherLogin";
 import PasswordLogin from "../pages/login/PasswordLogin";
 import VerificationCode from "../pages/login/VerificationCode";
+import RetrievePassword from "../pages/login/RetrievePassword";
 
 const routes = [
   // {path: '', component: Music},
@@ -84,6 +85,7 @@ const routes = [
   {path: '/login/other', component: OtherLogin},
   {path: '/login/password', component: PasswordLogin},
   {path: '/login/verification-code', component: VerificationCode},
+  {path: '/login/retrieve-password', component: RetrievePassword},
 ]
 
 export default VueRouter.createRouter({

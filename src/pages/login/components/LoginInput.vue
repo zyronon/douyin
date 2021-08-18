@@ -6,20 +6,39 @@
         <div class="arrow"></div>
       </div>
       <div class="right flex1">
-        <input :autofocus="autofocus" v-model="value" type="text" :placeholder="placeholder">
-        <img v-if="value" src="../../../assets/img/icon/login/close-full-gray.png" alt="" @click="value=''">
+        <input
+            @click="isTyping = true"
+            @blur="delaySetTypingFalse"
+            :autofocus="autofocus"
+            v-model="value"
+            type="text"
+            :placeholder="placeholder">
+        <img v-if="value && isTyping" src="../../../assets/img/icon/login/close-full-gray.png" alt="" @click="value=''">
       </div>
     </div>
     <div class="input-number" v-if="type === 'password'">
       <div class="right flex1">
-        <input :autofocus="autofocus" v-model="value" type="password" :placeholder="placeholder">
-        <img v-if="value" src="../../../assets/img/icon/login/close-full-gray.png" alt="" @click="value=''">
+        <input
+            @click="isTyping = true"
+            @blur="delaySetTypingFalse"
+            :autofocus="autofocus"
+            v-model="value"
+            type="password"
+            autocomplete="new-password"
+            :placeholder="placeholder">
+        <img v-if="value && isTyping" src="../../../assets/img/icon/login/close-full-gray.png" alt="" @click="value=''">
       </div>
     </div>
     <div class="input-number" v-if="type === 'code'">
       <div class="left no-border flex1">
-        <input :autofocus="autofocus" v-model="value" type="text" :placeholder="placeholder">
-        <img v-if="value" src="../../../assets/img/icon/login/close-full-gray.png" alt="" @click="value=''">
+        <input
+            @click="isTyping = true"
+            @blur="delaySetTypingFalse"
+            :autofocus="autofocus"
+            v-model="value"
+            type="text"
+            :placeholder="placeholder">
+        <img v-if="value && isTyping" src="../../../assets/img/icon/login/close-full-gray.png" alt="" @click="value=''">
       </div>
       <div class="right" @click="send">
         <span :class="isSendVerificationCode && 'disabled'">{{ verificationCodeBtnText }}</span>
@@ -48,6 +67,7 @@ export default {
   },
   data() {
     return {
+      isTyping: false,
       verificationCodeBtnText: 60
     }
   },
@@ -81,8 +101,13 @@ export default {
     }
   },
   methods: {
-    send(){
-      if (!this.isSendVerificationCode){
+    delaySetTypingFalse() {
+      setTimeout(() => {
+        this.isTyping = false
+      })
+    },
+    send() {
+      if (!this.isSendVerificationCode) {
         this.$emit('send')
       }
     }
@@ -174,6 +199,10 @@ export default {
     border: none;
     background: whitesmoke;
     caret-color: red;
+
+    &[type="password"] {
+      //letter-spacing: 1rem;
+    }
   }
 }
 </style>

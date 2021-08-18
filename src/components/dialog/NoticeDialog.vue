@@ -1,20 +1,19 @@
 <template>
-  <div class="ConfirmDialog " @click="$emit('dismiss')">
+  <div class="NoticeDialog" @click="$emit('dismiss')">
     <div class="content" @click.stop="null">
       <div class="body">
-        <div class="title" v-if="title">{{ title }}</div>
+        <div class="title">{{ title }}</div>
         <div class="subtitle" :class="subtitleColor" v-if="subtitle">{{ subtitle }}</div>
       </div>
       <div class="footer">
-        <div class="cancel" :class="cancelTextColor" @click.stop="$emit('cancel')">{{ cancelText }}</div>
-        <div class="ok" @click.stop="$emit('ok')">{{ okText }}</div>
+        <div class="cancel" @click.stop="$emit('cancel')">{{ cancelText }}</div>
       </div>
     </div>
   </div>
 </template>
 <script>
 export default {
-  name: "ConfirmDialog",
+  name: "NoticeDialog",
   props: {
     visible: {
       type: Boolean,
@@ -38,24 +37,12 @@ export default {
         return 'gray'
       }
     },
-    okText: {
-      type: String,
-      default() {
-        return '确定'
-      }
-    },
     cancelText: {
       type: String,
       default() {
         return '取消'
       }
-    },
-    cancelTextColor: {
-      type: String,
-      default() {
-        return 'gray'
-      }
-    },
+    }
   },
   data() {
     return {}
@@ -66,7 +53,7 @@ export default {
 <style scoped lang="scss">
 @import "../../assets/scss/index";
 
-.ConfirmDialog {
+.NoticeDialog {
   z-index: 10;
   position: absolute;
   top: 0;
@@ -94,13 +81,13 @@ export default {
       .title {
         font-size: 1.5rem;
         font-weight: bold;
-        margin-bottom: 1rem;
       }
 
       .subtitle {
+        margin-top: 1rem;
         font-size: 1.3rem;
 
-        &.gray {
+        &.gray{
           color: $second-text-color;
         }
       }
@@ -109,26 +96,14 @@ export default {
     .footer {
       height: 4.6rem;
       display: flex;
+      justify-content: center;
+      align-items: center;
       border-top: 1px solid whitesmoke;
       font-size: 1.4rem;
 
-      .cancel, .ok {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 49%;
-      }
-
-      .ok {
-        font-weight: bold;
-      }
 
       .cancel {
-        border-right: 1px solid whitesmoke;
-
-        &.gray {
-          color: $second-text-color;
-        }
+        font-weight: bold;
       }
 
     }

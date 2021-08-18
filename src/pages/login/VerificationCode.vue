@@ -6,7 +6,7 @@
       </template>
     </BaseHeader>
     <div class="content">
-      <div class="notice">
+      <div class="desc">
         <div class="title">请输入验证码</div>
         <div class="sub-title">验证码已通过短信发送到+86 13800138000</div>
       </div>
@@ -17,7 +17,7 @@
                   v-model:isSendVerificationCode="isSendVerificationCode"
                   @send="sendCode"
       />
-      <div class="options">
+      <div class="options" v-if="showVoiceCode">
         <span>
           收不到短信？<span class="link" @click="getVoiceCode">获取语音验证码</span>
         </span>
@@ -27,21 +27,18 @@
         {{ loading ? '登录中' : '登录' }}
       </b-button>
 
-<!--      <ConfirmDialog></ConfirmDialog>-->
     </div>
   </div>
 </template>
 <script>
 import Check from "../../components/Check";
 import LoginInput from "./components/LoginInput";
-import ConfirmDialog from "../../components/dialog/ConfirmDialog";
 
 export default {
   name: "VerificationCode",
   components: {
     Check,
     LoginInput,
-    ConfirmDialog
   },
   data() {
     return {
@@ -52,13 +49,28 @@ export default {
       password: '',
       code: '',
       isSendVerificationCode: true,
+      showVoiceCode: false
     }
   },
   created() {
+    setTimeout(() => {
+      this.showVoiceCode = true
+    }, 3000)
   },
   methods: {
-    getVoiceCode(){
-      this.$showConfirmDialog('','语音验证码')
+    getVoiceCode() {
+      return this.$showNoticeDialog('语音验证码',
+          '我们将以电话的方式告知你验证码，请注意接听',
+          '',
+          () => {
+            setTimeout(() => {
+              this.$showConfirmDialog('', '您的手机可能由于空号/欠费/停机无法收到验证码，请恢复手机号状态，如果' +
+                  '您因为换号无法收到验证码，可以尝试找回账号', '', () => {
+              }, null, '找回账号', '返回', '')
+            }, 2000)
+          },
+          '知道了'
+      )
     },
     //TODO loading样式不对
     async sendCode() {
@@ -80,6 +92,7 @@ export default {
 
 <style scoped lang="scss">
 @import "../../assets/scss/index";
+@import "Base.scss";
 
 .VerificationCode {
   position: fixed;
@@ -92,39 +105,13 @@ export default {
   font-size: 1.4rem;
   background: white;
 
-  .content {
-    padding: 6rem 3rem;
-    //padding-top: 6rem;
-
-    .notice {
-      margin-bottom: 2rem;
-      margin-top: 4rem;
-      display: flex;
-      align-items: flex-start;
-      flex-direction: column;
-
-      .title {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-      }
-
-      .sub-title {
-        font-size: 1.2rem;
-        color: $second-text-color;
-      }
-    }
-
-    .button {
-      margin-bottom: .5rem;
-    }
-
-    .options {
-      font-size: 1.2rem;
-      margin-top: 2rem;
-      margin-bottom: 2rem;
-      display: flex;
-      justify-content: space-between;
-    }
+  .options{
+    margin-top: 1rem;
   }
+
+  .button{
+    margin-top: 2rem;
+  }
+
 }
 </style>

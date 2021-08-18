@@ -13,7 +13,7 @@
 
       <LoginInput autofocus type="phone" v-model="phone" placeholder="请输入手机号"/>
 
-      <div class="notice">
+      <div class="notice" v-if="notice">
         {{ notice }}
       </div>
 
@@ -47,9 +47,11 @@
 import Check from "../../components/Check";
 import Tooltip from "./components/Tooltip";
 import LoginInput from "./components/LoginInput";
+import Base from "./Base.js";
 
 export default {
   name: "OtherLogin",
+  extends: Base,
   components: {
     Check,
     Tooltip,
@@ -57,12 +59,7 @@ export default {
   },
   data() {
     return {
-      isAgree: false,
       phone: '',
-      isOtherLogin: false,
-      showAnim: false,
-      showTooltip: false,
-      loading: false,
       notice: ''
     }
   },
@@ -70,23 +67,13 @@ export default {
   created() {
   },
   methods: {
-    getCode() {
-      if (this.isAgree) {
+    async getCode() {
+      let res = await this.check()
+      if (res){
         this.loading = true
-        setTimeout(()=>{
+        setTimeout(() => {
           this.$nav('/login/verification-code')
-        },2000)
-      } else {
-        if (!this.showAnim && !this.showTooltip) {
-          this.showAnim = true
-          setTimeout(() => {
-            this.showAnim = false
-            this.showTooltip = true
-          }, 500)
-          setTimeout(() => {
-            this.showTooltip = false
-          }, 3000)
-        }
+        }, 2000)
       }
     }
   }
@@ -95,6 +82,7 @@ export default {
 
 <style scoped lang="scss">
 @import "../../assets/scss/index";
+@import "Base.scss";
 
 .other-login {
   position: fixed;
@@ -107,58 +95,5 @@ export default {
   font-size: 1.4rem;
   background: white;
 
-  .content {
-    padding: 6rem 3rem;
-    //padding-top: 6rem;
-
-    .desc {
-      margin-bottom: 2rem;
-      margin-top: 4rem;
-      display: flex;
-      align-items: flex-start;
-      flex-direction: column;
-
-      .title {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-      }
-
-      .sub-title {
-        font-size: 1.2rem;
-        color: $second-text-color;
-      }
-    }
-
-    .notice {
-      margin-top: 1rem;
-      font-size: 1.3rem;
-      color: $primary-btn-color;
-    }
-
-    .button {
-      margin-bottom: .5rem;
-    }
-
-    .protocol {
-      position: relative;
-      color: gray;
-      margin-top: 2rem;
-      margin-bottom: 2rem;
-      font-size: 1.2rem;
-      display: flex;
-
-      .left {
-        padding-top: .1rem;
-        margin-right: .5rem;
-      }
-    }
-
-    .options {
-      font-size: 1.2rem;
-      margin-top: 2rem;
-      display: flex;
-      justify-content: space-between;
-    }
-  }
 }
 </style>
