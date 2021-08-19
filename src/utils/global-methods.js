@@ -260,4 +260,14 @@ export default {
       return parseInt(num / 10000) + 'w'
     }
   },
+  $getTransform(el) {
+    let transform = el.style.transform
+    if (!transform) return 0
+    // console.log('transform',transform)
+    let transformY = transform.substring(transform.indexOf('0px') + 5, transform.lastIndexOf('0px') - 4)
+    // console.log('transformY',transformY)
+    //当前的transformY
+    transformY = parseInt(transformY)
+    return transformY
+  }
 }

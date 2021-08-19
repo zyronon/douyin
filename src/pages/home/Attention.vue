@@ -4,161 +4,172 @@
       <span @click="$nav('/country-choose')">双流</span>
       <div class="arrow"></div>
     </header>
-    <div class="ad" v-if="false">
-      <div class="title">超值卖场 次日达</div>
-      <div class="good-ctn">
+    <div class="scroll-wrapper"
+         ref="scroll-wrapper"
+         @touchstart="start"
+         @touchmove="move"
+         @touchend="end"
+         @scroll="scroll"
+    >
+      <div class="header" ref="header">
+        <Loading :isFullScreen="false"></Loading>
+      </div>
+      <div class="ad" v-if="false">
+        <div class="title">超值卖场 次日达</div>
+        <div class="good-ctn">
+          <div class="left">
+            <div class="left-title">
+              <span>限量秒杀</span>
+              <div>低至0.99元</div>
+            </div>
+            <div class="goods">
+              <div class="good">
+                <img class="good-img" src="../../assets/img/poster/1.jpg"/>
+                <div class="name">每日坚果5包</div>
+                <div class="price">￥0.99</div>
+              </div>
+              <div class="good">
+                <img class="good-img" src="../../assets/img/poster/1.jpg"/>
+                <div class="name">每日坚果5包</div>
+                <div class="price">￥0.99</div>
+              </div>
+            </div>
+          </div>
+          <div class="right">
+            <div class="goods">
+              <div class="good">
+                <div class="notice">
+                  <div class="ad-name">低价疯抢</div>
+                  <div class="ad-desc">统一方便面</div>
+                </div>
+                <img class="good-img" src="../../assets/img/poster/1.jpg"/>
+              </div>
+              <div class="good">
+                <div class="notice">
+                  <div class="ad-name">低价疯抢</div>
+                  <div class="ad-desc">统一方便面</div>
+                </div>
+                <img class="good-img" src="../../assets/img/poster/1.jpg"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ref="content" class="content">
         <div class="left">
-          <div class="left-title">
-            <span>限量秒杀</span>
-            <div>低至0.99元</div>
+          <div class="item" v-for="item in left">
+            <template v-if="item.type === 0">
+              <div class="wrapper">
+                <img class="poster" :src="item.src"/>
+                <img :src="item.author" alt="" class="author">
+              </div>
+              <div class="location" v-if="item.address">
+                <div class="top">
+                  <img class="logo" src="../../assets/img/icon/msg-icon2.png" alt="">
+                  <div class="name">{{ item.address.name }}</div>
+                </div>
+                <div class="bottom">
+                  <div class="type">{{ item.address.type }}</div>
+                  <div class="line"></div>
+                  <div class="other">{{ item.address.number }}人想去</div>
+                </div>
+              </div>
+            </template>
+            <template v-if="item.type === 1">
+              <div class="wrapper" style="height: 49vw;overflow:hidden;">
+                <img class="poster" :src="item.src"/>
+              </div>
+            </template>
+            <template v-if="item.type === 2">
+              <div class="ranking-list">
+                <div class="desc">
+                  <div class="top">
+                    <img class="logo" src="../../assets/img/icon/msg-icon2.png" alt="">
+                    <div class="name">{{ item.desc }}</div>
+                  </div>
+                  <div class="bottom">
+                    基于6亿抖音用户真实数据...
+                  </div>
+                </div>
+                <div class="ads">
+                  <div class="ad" v-for="(ad,index) in item.ads">
+                    <div class="left">
+                      <img class="ad-logo" :src="ad.src"/>
+                    </div>
+                    <div class="right">
+                      <div class="rank">TOP{{ index + 1 }}</div>
+                      <div class="name">{{ ad.name }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </template>
+            <template v-if="item.type === 3">
+              <div class="wrapper">
+                <img class="poster" :src="item.src"/>
+                <img :src="item.author" alt="" class="author">
+                <div class="live">直播中</div>
+              </div>
+            </template>
           </div>
-          <div class="goods">
-            <div class="good">
-              <img class="good-img" src="../../assets/img/poster/1.jpg"/>
-              <div class="name">每日坚果5包</div>
-              <div class="price">￥0.99</div>
-            </div>
-            <div class="good">
-              <img class="good-img" src="../../assets/img/poster/1.jpg"/>
-              <div class="name">每日坚果5包</div>
-              <div class="price">￥0.99</div>
-            </div>
-          </div>
+
         </div>
         <div class="right">
-          <div class="goods">
-            <div class="good">
-              <div class="notice">
-                <div class="ad-name">低价疯抢</div>
-                <div class="ad-desc">统一方便面</div>
+          <div class="item" v-for="item in right">
+            <template v-if="item.type === 0">
+              <div class="wrapper">
+                <img class="poster" :src="item.src"/>
+                <img :src="item.author" alt="" class="author">
               </div>
-              <img class="good-img" src="../../assets/img/poster/1.jpg"/>
-            </div>
-            <div class="good">
-              <div class="notice">
-                <div class="ad-name">低价疯抢</div>
-                <div class="ad-desc">统一方便面</div>
+              <div class="location" v-if="item.address">
+                <div class="top">
+                  <img class="logo" src="../../assets/img/icon/msg-icon2.png" alt="">
+                  <div class="name">{{ item.address.name }}</div>
+                </div>
+                <div class="bottom">
+                  <div class="type">{{ item.address.type }}</div>
+                  <div class="line"></div>
+                  <div class="other">{{ item.address.number }}人想去</div>
+                </div>
               </div>
-              <img class="good-img" src="../../assets/img/poster/1.jpg"/>
-            </div>
+            </template>
+            <template v-if="item.type === 1">
+              <div class="wrapper" style="height: 49vw;overflow:hidden;">
+                <img class="poster" :src="item.src"/>
+              </div>
+            </template>
+            <template v-if="item.type === 2">
+              <div class="ranking-list">
+                <div class="desc">
+                  <div class="top">
+                    <img class="logo" src="../../assets/img/icon/msg-icon2.png" alt="">
+                    <div class="name">{{ item.desc }}</div>
+                  </div>
+                  <div class="bottom">
+                    基于6亿抖音用户真实数据...
+                  </div>
+                </div>
+                <div class="ads">
+                  <div class="ad" v-for="(ad,index) in item.ads">
+                    <div class="left">
+                      <img class="ad-logo" :src="ad.src"/>
+                    </div>
+                    <div class="right">
+                      <div class="rank">TOP{{ index + 1 }}</div>
+                      <div class="name">{{ ad.name }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </template>
+            <template v-if="item.type === 3">
+              <div class="wrapper">
+                <img class="poster" :src="item.src"/>
+                <img :src="item.author" alt="" class="author">
+                <div class="live">直播中</div>
+              </div>
+            </template>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="content">
-      <div class="left">
-        <div class="item" v-for="item in left">
-          <template v-if="item.type === 0">
-            <div class="wrapper">
-              <img class="poster" :src="item.src"/>
-              <img :src="item.author" alt="" class="author">
-            </div>
-            <div class="location" v-if="item.address">
-              <div class="top">
-                <img class="logo" src="../../assets/img/icon/msg-icon2.png" alt="">
-                <div class="name">{{ item.address.name }}</div>
-              </div>
-              <div class="bottom">
-                <div class="type">{{ item.address.type }}</div>
-                <div class="line"></div>
-                <div class="other">{{ item.address.number }}人想去</div>
-              </div>
-            </div>
-          </template>
-          <template v-if="item.type === 1">
-            <div class="wrapper" style="height: 49vw;overflow:hidden;">
-              <img class="poster" :src="item.src"/>
-            </div>
-          </template>
-          <template v-if="item.type === 2">
-            <div class="ranking-list">
-              <div class="desc">
-                <div class="top">
-                  <img class="logo" src="../../assets/img/icon/msg-icon2.png" alt="">
-                  <div class="name">{{ item.desc }}</div>
-                </div>
-                <div class="bottom">
-                  基于6亿抖音用户真实数据...
-                </div>
-              </div>
-              <div class="ads">
-                <div class="ad" v-for="(ad,index) in item.ads">
-                  <div class="left">
-                    <img class="ad-logo" :src="ad.src"/>
-                  </div>
-                  <div class="right">
-                    <div class="rank">TOP{{ index + 1 }}</div>
-                    <div class="name">{{ ad.name }}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </template>
-          <template v-if="item.type === 3">
-            <div class="wrapper">
-              <img class="poster" :src="item.src"/>
-              <img :src="item.author" alt="" class="author">
-              <div class="live">直播中</div>
-            </div>
-          </template>
-        </div>
-
-      </div>
-      <div class="right">
-        <div class="item" v-for="item in right">
-          <template v-if="item.type === 0">
-            <div class="wrapper">
-              <img class="poster" :src="item.src"/>
-              <img :src="item.author" alt="" class="author">
-            </div>
-            <div class="location" v-if="item.address">
-              <div class="top">
-                <img class="logo" src="../../assets/img/icon/msg-icon2.png" alt="">
-                <div class="name">{{ item.address.name }}</div>
-              </div>
-              <div class="bottom">
-                <div class="type">{{ item.address.type }}</div>
-                <div class="line"></div>
-                <div class="other">{{ item.address.number }}人想去</div>
-              </div>
-            </div>
-          </template>
-          <template v-if="item.type === 1">
-            <div class="wrapper" style="height: 49vw;overflow:hidden;">
-              <img class="poster" :src="item.src"/>
-            </div>
-          </template>
-          <template v-if="item.type === 2">
-            <div class="ranking-list">
-              <div class="desc">
-                <div class="top">
-                  <img class="logo" src="../../assets/img/icon/msg-icon2.png" alt="">
-                  <div class="name">{{ item.desc }}</div>
-                </div>
-                <div class="bottom">
-                  基于6亿抖音用户真实数据...
-                </div>
-              </div>
-              <div class="ads">
-                <div class="ad" v-for="(ad,index) in item.ads">
-                  <div class="left">
-                    <img class="ad-logo" :src="ad.src"/>
-                  </div>
-                  <div class="right">
-                    <div class="rank">TOP{{ index + 1 }}</div>
-                    <div class="name">{{ ad.name }}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </template>
-          <template v-if="item.type === 3">
-            <div class="wrapper">
-              <img class="poster" :src="item.src"/>
-              <img :src="item.author" alt="" class="author">
-              <div class="live">直播中</div>
-            </div>
-          </template>
         </div>
       </div>
     </div>
@@ -170,11 +181,13 @@
 
 //TODO 还差个点击，返回后，定位到当前item最高点
 import Footer from '../../components/Footer.vue';
+import Loading from "../../components/Loading";
 
 export default {
   name: "Attention",
   components: {
-    Footer
+    Footer,
+    Loading
   },
   data() {
     return {
@@ -187,7 +200,9 @@ export default {
         AD: 1,
         RANKING_LIST: 2,
         LIVE: 3,
-      }
+      },
+      isTop: false,
+      startLocationY: 0
     }
   },
   created() {
@@ -205,7 +220,13 @@ export default {
         return i % 2 !== 0
 
       })
-    }
+    },
+    bodyHeight() {
+      return this.$store.state.bodyHeight
+    },
+    bodyWidth() {
+      return this.$store.state.bodyWidth
+    },
   },
   mounted() {
     for (let i = 1; i < 12; i++) {
@@ -242,6 +263,47 @@ export default {
       this.items.push(temp)
     }
     // this.$console(this.items)
+
+  },
+  methods: {
+    start(e) {
+      let wrapper = this.$refs["scroll-wrapper"]
+      wrapper.style.transition = `none`
+      this.startLocationY = e.touches[0].pageY
+    },
+    move(e) {
+      let wrapper = this.$refs["scroll-wrapper"]
+      let header = this.$refs["header"]
+      this.isTop = wrapper.scrollTop === 0
+      console.log('scrollTop', wrapper.scrollTop)
+      let touchMoveDistance = e.touches[0].pageY - this.startLocationY
+      console.log('touchMoveDistance', touchMoveDistance)
+
+      if (this.isTop) {
+        // this.$setCss(wrapper,'tr')
+        if (touchMoveDistance > 0) {
+          let transformY = this.$getTransform(header)
+          header.style.transform = `translate3d(0,${touchMoveDistance > 40 ? 40 : touchMoveDistance}px,0)`
+          wrapper.style.transform = `translate3d(0,${touchMoveDistance > 40 ? 40 : touchMoveDistance}px,0)`
+        }else {
+          wrapper.style.transform = `translate3d(0,${touchMoveDistance < -40 ? -40 : touchMoveDistance}px,0)`
+        }
+      } else {
+        // wrapper.style.height = '100vh'
+        this.startLocationY = e.touches[0].pageY
+      }
+      console.log('isTop', this.isTop)
+    },
+    end() {
+      let wrapper = this.$refs["scroll-wrapper"]
+      // wrapper.style.transition = `all .3s`
+      // wrapper.style.transform = `translate3d(0,0,0)`
+    },
+    scroll(e) {
+      if (this.isTop) {
+        e.preventDefault();
+      }
+    }
   }
 }
 </script>
@@ -256,6 +318,26 @@ export default {
   $douyin-bg: #2e3244;
   background: $douyin-bg;
   color: #b8b9c1;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  //overflow: auto;
+
+  .scroll-wrapper {
+    height: calc(100vh - 10rem);
+    position: relative;
+    overflow: scroll;
+
+    .header {
+      position: absolute;
+      top: -4rem;
+      left: 0;
+      width: 100%;
+      z-index: 2;
+    }
+  }
 
   header {
     font-size: 1.5rem;
