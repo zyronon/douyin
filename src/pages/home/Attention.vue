@@ -1,6 +1,6 @@
 <template>
   <div id="attention">
-    <header>
+    <header ref="header1">
       <span @click="$nav('/country-choose')">双流</span>
       <div class="arrow"></div>
     </header>
@@ -10,7 +10,8 @@
          @touchmove="move"
          @touchend="end"
     >
-      <div ref="wrapper" class="wrapper">
+      <div ref="wrapper" class="wrapper"
+      >
         <div class="header" ref="header">
           <Loading :isFullScreen="false"></Loading>
         </div>
@@ -204,7 +205,13 @@ export default {
         LIVE: 3,
       },
       isTop: false,
-      startLocationY: 0
+      isFixed: true,
+      startLocationY: 0,
+      ref: {
+        scroller: null,
+        wrapper: null,
+        header1: null,
+      }
     }
   },
   created() {
@@ -264,44 +271,66 @@ export default {
       }
       this.items.push(temp)
     }
+    this.items = this.items.concat(this.items)
     // this.$console(this.items)
 
+    setTimeout(() => {
+      this.ref.scroller = this.$refs["scroller"]
+      this.ref.wrapper = this.$refs["wrapper"]
+      this.ref.header1 = this.$refs["header1"]
+    })
   },
   methods: {
     start(e) {
-      let wrapper = this.$refs["wrapper"]
-      wrapper.style.transition = `none`
+      this.ref.header1.style.transition = this.ref.scroller.style.transition = this.ref.wrapper.style.transition = `none`
       this.startLocationY = e.touches[0].pageY
     },
     move(e) {
-      let scroller = this.$refs["scroller"]
-      let wrapper = this.$refs["wrapper"]
-      let header = this.$refs["header"]
-      this.isTop = scroller.scrollTop === 0
+      this.isTop = this.ref.scroller.scrollTop === 0
       // console.log('scrollTop', scroller.scrollTop)
       let touchMoveDistance = e.touches[0].pageY - this.startLocationY
-      console.log('touchMoveDistance', touchMoveDistance)
-      //
+      // console.log('touchMoveDistance', touchMoveDistance)
+      // let transformY = this.$getTransform(header)
+
+
       let headerHeight = 80
-      if (this.isTop) {
-        // this.$setCss(wrapper,'tr')
-        if (touchMoveDistance > 0) {
-          let transformY = this.$getTransform(header)
-          // header.style.transform = `translate3d(0,${touchMoveDistance > 40 ? 40 : touchMoveDistance}px,0)`
-          wrapper.style.transform = `translate3d(0,${touchMoveDistance > headerHeight ? headerHeight : touchMoveDistance}px,0)`
+      let header1Height = 50
+      if (touchMoveDistance > 0) {
+        if (!this.isFixed) {
+          if (Math.abs(touchMoveDistance) < header1Height) {
+            this.ref.header1.style.transform = this.ref.scroller.style.transform = `translate3d(0,${touchMoveDistance - header1Height}px,0)`
+          } else {
+            this.ref.header1.style.transform = this.ref.scroller.style.transform = `translate3d(0,${0}px,0)`
+          }
+        }
+        if (this.isTop) {
+          this.ref.wrapper.style.transform = `translate3d(0,${touchMoveDistance > headerHeight ? headerHeight : touchMoveDistance}px,0)`
         } else {
-          wrapper.style.transform = `translate3d(0,${touchMoveDistance < -headerHeight ? -headerHeight : touchMoveDistance}px,0)`
+          // this.startLocationY = e.touches[0].pageY
         }
       } else {
-        // wrapper.style.height = '100vh'
-        this.startLocationY = e.touches[0].pageY
+        if (this.isFixed) {
+          if (Math.abs(touchMoveDistance) < header1Height) {
+            this.ref.header1.style.transform = this.ref.scroller.style.transform = `translate3d(0,${touchMoveDistance}px,0)`
+          } else {
+            this.ref.header1.style.transform = this.ref.scroller.style.transform = `translate3d(0,${-header1Height}px,0)`
+          }
+        }
       }
-      console.log('isTop', this.isTop)
+      // console.log('isTop', this.isTop)
     },
     end() {
-      let wrapper = this.$refs["wrapper"]
-      // wrapper.style.transition = `all .3s`
-      // wrapper.style.transform = `translate3d(0,0,0)`
+      let header1Height = 50
+      this.ref.header1.style.transition = this.ref.scroller.style.transition = this.ref.wrapper.style.transition = `all .3s`
+      this.ref.wrapper.style.transform = `translate3d(0,0,0)`
+      let transformY = this.$getTransform(this.ref.header1)
+      if (Math.abs(transformY) > header1Height / 2) {
+        this.isFixed = false
+        this.ref.header1.style.transform = this.ref.scroller.style.transform = `translate3d(0,${-header1Height}px,0)`
+      } else {
+        this.isFixed = true
+        this.ref.header1.style.transform = this.ref.scroller.style.transform = `translate3d(0,${0}px,0)`
+      }
     },
     scroll(e) {
       if (this.isTop) {
@@ -330,7 +359,8 @@ export default {
   //overflow: auto;
 
   .scroller {
-    height: calc(100vh - 10rem);
+    //transform: translate3d(0, -5rem, 0);
+    height: calc(100vh - 5rem);
     position: relative;
     overflow: scroll;
     background: black;
@@ -349,8 +379,11 @@ export default {
   }
 
   header {
+    //transform: translate3d(0, -5rem, 0);
+    background: @douyin-bg;
+    width: 100%;
     font-size: 1.5rem;
-    height: 50px;
+    height: 5rem;
     display: flex;
     justify-content: center;
     align-items: center;
