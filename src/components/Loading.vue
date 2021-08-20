@@ -16,7 +16,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../assets/scss/index";
 
 .Loading {
@@ -52,7 +52,7 @@ export default {
   }
 
   .red {
-    background: $primary-btn-color;
+    background: @primary-btn-color;
     animation: anim-red .4s ease-in-out 0s infinite alternate;
   }
 

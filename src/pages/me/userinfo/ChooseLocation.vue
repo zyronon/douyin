@@ -1205,7 +1205,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../../assets/scss/index";
 
 .choose-location {
@@ -1226,7 +1226,7 @@ export default {
     .title {
       font-size: 1.2rem;
       padding: 1rem 1.5rem;
-      color: $second-text-color;
+      color: @second-text-color;
 
       img {
         width: 1rem;
@@ -1243,13 +1243,13 @@ export default {
       height: 5rem;
       font-size: 1.4rem;
       transition: all .1s;
-      background: $main-bg;
+      background: @main-bg;
 
       .right {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        color: $second-text-color;
+        color: @second-text-color;
 
         img {
           margin-left: 1rem;
@@ -1258,8 +1258,8 @@ export default {
       }
 
       &:active {
-        background: $active-main-bg;
-        color: $second-text-color;
+        background: @active-main-bg;
+        color: @second-text-color;
       }
     }
   }

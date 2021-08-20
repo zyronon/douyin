@@ -99,7 +99,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 #attention {
   /*background: rgb(22，24，34);*/
   /*background: #161822;*/
@@ -114,7 +114,7 @@ export default {
     justify-content: center;
     align-items: center;
 
-    $arrow-width: 5px;
+    @arrow-width: 5px;
 
     .arrow {
       position: relative;
@@ -122,10 +122,10 @@ export default {
       left: 5px;
       width: 0;
       height: 0;
-      border-top: $arrow-width solid white;
-      border-right: $arrow-width solid transparent;
-      border-bottom: $arrow-width solid transparent;
-      border-left: $arrow-width solid transparent;
+      border-top: @arrow-width solid white;
+      border-right: @arrow-width solid transparent;
+      border-bottom: @arrow-width solid transparent;
+      border-left: @arrow-width solid transparent;
     }
   }
 

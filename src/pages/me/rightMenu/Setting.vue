@@ -197,7 +197,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../../assets/scss/index";
 
 .Setting {
@@ -214,13 +214,13 @@ export default {
     padding-top: 6rem;
 
     .title {
-      color: $second-text-color;
+      color: @second-text-color;
       font-size: 1.3rem;
       margin: 2rem 0 0 2rem;
     }
 
     .version {
-      color: $second-text-color;
+      color: @second-text-color;
       font-size: 1.3rem;
       margin: 4rem;
       text-align: center;
@@ -229,7 +229,7 @@ export default {
     .line {
       width: calc(100% - 3rem);
       margin-left: 1.5rem;
-      background: $line-color;
+      background: @line-color;
     }
   }
 }

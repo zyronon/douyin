@@ -68,7 +68,7 @@
     }
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="less">
     .Music {
         header {
             background: #454b66;

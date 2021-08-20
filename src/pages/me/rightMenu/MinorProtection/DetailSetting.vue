@@ -85,7 +85,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../../../assets/scss/index";
 
 .DetailSetting {
@@ -99,7 +99,7 @@ export default {
   font-size: 1.4rem;
 
   .content {
-    padding-top: $header-height;
+    padding-top: @header-height;
   }
 
   .footer {
@@ -122,7 +122,7 @@ export default {
       align-items: center;
       flex-direction: column;
       font-size: 1.6rem;
-      color: $second-text-color;
+      color: @second-text-color;
 
       img {
         width: 1.5rem;

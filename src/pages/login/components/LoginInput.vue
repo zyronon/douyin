@@ -115,7 +115,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../../assets/scss/index";
 
 .input-number {
@@ -189,7 +189,7 @@ export default {
     }
 
     .disabled {
-      color: $second-text-color;
+      color: @second-text-color;
     }
   }
 

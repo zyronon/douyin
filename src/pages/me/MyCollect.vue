@@ -137,7 +137,7 @@
     }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
     #MyCollect {
         width: 100vw;
         height: 100%;

@@ -53,7 +53,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../assets/scss/index";
 
 .NoticeDialog {
@@ -91,7 +91,7 @@ export default {
         font-size: 1.3rem;
 
         &.gray{
-          color: $second-text-color;
+          color: @second-text-color;
         }
       }
     }

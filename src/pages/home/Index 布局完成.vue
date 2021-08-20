@@ -587,7 +587,7 @@ export default {
 
 }
 </script>
-<style scoped lang="scss">
+<style scoped lang="less">
 #home-index {
   height: 100%;
   width: 100%;

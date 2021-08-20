@@ -370,7 +370,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../assets/scss/index";
 
 
@@ -405,8 +405,8 @@ export default {
   }
 
   .share-to-friend {
-    color: $second-text-color;
-    height: $footer-height;
+    color: @second-text-color;
+    height: @footer-height;
     z-index: 9;
     position: fixed;
     bottom: 0;
@@ -427,8 +427,8 @@ export default {
   }
 
   .permission-setting {
-    color: $second-text-color;
-    height: $footer-height;
+    color: @second-text-color;
+    height: @footer-height;
     z-index: 9;
     position: fixed;
     bottom: 0;
@@ -516,7 +516,7 @@ export default {
             font-size: 1.4rem;
             color: white;
             padding: 5px 20px;
-            background: $primary-btn-color;
+            background: @primary-btn-color;
             border-radius: 2px;
           }
         }
@@ -559,7 +559,7 @@ export default {
           font-size: 1.4rem;
           color: white;
           padding: 5px 20px;
-          background: $primary-btn-color;
+          background: @primary-btn-color;
           border-radius: 2px;
         }
       }

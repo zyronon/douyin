@@ -159,15 +159,15 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../../assets/scss/index";
 
 .ChatMessage {
   padding: 0 1rem;
   margin-bottom: 2rem;
   display: flex;
-  //$chat-bg-color: dodgerblue;
-  $chat-bg-color: rgb(105, 143, 244);
+  //@chat-bg-color: dodgerblue;
+  @chat-bg-color: rgb(105, 143, 244);
 
   &.right {
     justify-content: flex-end;
@@ -199,7 +199,7 @@ export default {
 
   .time {
     width: 100%;
-    color: $second-text-color;
+    color: @second-text-color;
     text-align: center;
     height: 4rem;
     line-height: 4rem;
@@ -207,16 +207,16 @@ export default {
 
   .red_packet {
     border-radius: .3rem;
-    $not-received: rgb(253, 92, 72);
-    $received: rgba(253, 92, 72, .8);
+    @not-received: rgb(253, 92, 72);
+    @received: rgba(253, 92, 72, .8);
     width: 60vw;
-    background: $not-received;
+    background: @not-received;
     display: flex;
     flex-direction: column;
     color: rgb(255, 231, 206);
 
     &.invalid {
-      background: $received;
+      background: @received;
     }
 
     .top {
@@ -267,7 +267,7 @@ export default {
     display: flex;
     align-items: center;
     font-size: 1.4rem;
-    background: $chat-bg-color;
+    background: @chat-bg-color;
 
     .resolve {
       display: flex;
@@ -315,7 +315,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     font-size: 1.4rem;
-    background: $chat-bg-color;
+    background: @chat-bg-color;
 
     .horn {
       width: 5rem;
@@ -390,7 +390,7 @@ export default {
     display: flex;
     align-items: center;
     font-size: 1.4rem;
-    background: $chat-bg-color;
+    background: @chat-bg-color;
   }
 
 

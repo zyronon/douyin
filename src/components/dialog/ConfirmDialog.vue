@@ -67,7 +67,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../assets/scss/index";
 
 .ConfirmDialog {
@@ -105,7 +105,7 @@ export default {
         font-size: 1.3rem;
 
         &.gray {
-          color: $second-text-color;
+          color: @second-text-color;
         }
       }
     }
@@ -131,7 +131,7 @@ export default {
         border-right: 1px solid whitesmoke;
 
         &.gray {
-          color: $second-text-color;
+          color: @second-text-color;
         }
       }
 

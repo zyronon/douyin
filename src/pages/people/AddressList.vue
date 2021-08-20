@@ -43,7 +43,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../assets/scss/index";
 
 .AddressList {
@@ -66,7 +66,7 @@ export default {
         align-items: center;
 
         .left {
-          color: $second-text-color;
+          color: @second-text-color;
 
           img {
             width: 10px;
@@ -76,7 +76,7 @@ export default {
 
         .right {
           border-radius: 50%;
-          background: $second-text-color;
+          background: @second-text-color;
           padding: 5px;
           width: 10px;
           height: 10px;
@@ -88,7 +88,7 @@ export default {
       text-align: center;
       line-height: 6rem;
       height: 6rem;
-      color: $second-text-color;
+      color: @second-text-color;
 
     }
 

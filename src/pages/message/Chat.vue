@@ -386,7 +386,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../assets/scss/index";
 
 .Chat {
@@ -400,16 +400,16 @@ export default {
 
   .header {
     z-index: 2;
-    background: $main-bg;
+    background: @main-bg;
     position: fixed;
     width: 100%;
     box-sizing: border-box;
-    height: $header-height;
+    height: @header-height;
     padding: 0 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid $line-color;
+    border-bottom: 1px solid @line-color;
 
     img {
       height: 2rem;
@@ -429,7 +429,7 @@ export default {
         padding: 1px 6px;
         border-radius: 10px;
         color: white;
-        background: $second-btn-color;
+        background: @second-btn-color;
       }
     }
   }
@@ -445,22 +445,22 @@ export default {
   }
 
   .footer {
-    $chat-bg-color: rgb(105, 143, 244);
-    $typing-bg-color: whitesmoke;
-    background: $main-bg;
-    $normal-bg-color: rgb(35, 38, 47);
+    @chat-bg-color: rgb(105, 143, 244);
+    @typing-bg-color: whitesmoke;
+    background: @main-bg;
+    @normal-bg-color: rgb(35, 38, 47);
     padding: 1rem 0;
-    border-top: 1px solid $second-btn-color-tran;
+    border-top: 1px solid @second-btn-color-tran;
 
     &.typing {
       background: white;
 
       .toolbar {
-        background: $typing-bg-color;
+        background: @typing-bg-color;
       }
 
       input {
-        background: $typing-bg-color !important;
+        background: @typing-bg-color !important;
       }
     }
 
@@ -469,7 +469,7 @@ export default {
       height: 4.4rem;
       margin: 0 1rem;
       padding: .5rem;
-      background: $normal-bg-color;
+      background: @normal-bg-color;
       border-radius: 2rem;
       display: flex;
       align-items: center;
@@ -484,7 +484,7 @@ export default {
         flex: 1;
         outline: none;
         border: none;
-        background: $normal-bg-color;
+        background: @normal-bg-color;
       }
 
       .camera {
@@ -493,7 +493,7 @@ export default {
         width: 1.4rem;
         padding: .5rem;
         border-radius: 50%;
-        background: $chat-bg-color;
+        background: @chat-bg-color;
       }
 
     }
@@ -503,7 +503,7 @@ export default {
       height: 4.4rem;
       margin: 0 1rem;
       padding: 1rem .5rem;
-      background: $normal-bg-color;
+      background: @normal-bg-color;
       border-radius: 2rem;
       display: flex;
       align-items: center;
@@ -528,10 +528,10 @@ export default {
 
       .option-wrapper {
         box-sizing: border-box;
-        $grid-width: calc((100vw - 3rem) / 4);
+        @grid-width: calc((100vw - 3rem) / 4);
         color: black;
         display: grid;
-        grid-template-columns:$grid-width $grid-width $grid-width $grid-width;
+        grid-template-columns:@grid-width @grid-width @grid-width @grid-width;
 
         .option {
           display: flex;

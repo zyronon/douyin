@@ -413,7 +413,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../assets/scss/index";
 
 #base-slide-wrapper {
@@ -506,7 +506,7 @@ export default {
     left: 0;
     right: 0;
     z-index: 999;
-    background: $main-bg;
+    background: @main-bg;
 
     .tabs {
       display: flex;

@@ -397,7 +397,7 @@ export default {
 
 }
 </script>
-<style scoped lang="scss">
+<style scoped lang="less">
 #home-index {
   position: fixed;
   width: 100%;
@@ -553,7 +553,7 @@ export default {
   }
 }
 </style>
-<style scoped lang="scss">
+<style scoped lang="less">
 
 .pause-enter-active {
   transition: all .3s ease;

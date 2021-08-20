@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../assets/scss/index";
 
 .NoMore {
@@ -24,6 +24,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: $second-text-color;
+  color: @second-text-color;
 }
 </style>

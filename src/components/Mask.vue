@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 
 .Mask {
   z-index: 3;

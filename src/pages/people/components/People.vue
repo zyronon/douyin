@@ -70,7 +70,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../../assets/scss/index";
 
 .scale-enter-active,
@@ -103,7 +103,7 @@ export default {
   }
 
   .add {
-    background: $second-btn-color-tran;
+    background: @second-btn-color-tran;
     margin-right: 1.5rem;
     padding: 1.5rem;
     width: 1.8rem;
@@ -124,7 +124,7 @@ export default {
       }
 
       .detail {
-        color: $second-text-color;
+        color: @second-text-color;
         font-size: 1.2rem;
         margin-top: 4px;
       }
@@ -145,7 +145,7 @@ export default {
         }
 
         &.red {
-          background: $primary-btn-color;
+          background: @primary-btn-color;
         }
 
       }
@@ -163,7 +163,7 @@ export default {
     bottom: -100%;
     right: 1rem;
     border-radius: .8rem;
-    background: $second-btn-color;
+    background: @second-btn-color;
 
     .item {
       font-size: 1.4rem;
@@ -171,11 +171,11 @@ export default {
       display: flex;
       height: 4rem;
       align-items: center;
-      border-bottom: 1px solid $line-color;
+      border-bottom: 1px solid @line-color;
 
       &:nth-last-child(1) {
         border-bottom: none;
-        color: $primary-btn-color;
+        color: @primary-btn-color;
       }
 
       img {
@@ -188,7 +188,7 @@ export default {
       width: 0;
       height: 0;
       border: .7rem solid transparent;
-      border-bottom: .7rem solid $second-btn-color;
+      border-bottom: .7rem solid @second-btn-color;
       position: absolute;
       right: 1rem;
       top: -1.4rem;

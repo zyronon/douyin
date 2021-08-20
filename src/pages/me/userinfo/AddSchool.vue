@@ -161,7 +161,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../../assets/scss/index";
 
 .school {
@@ -179,11 +179,11 @@ export default {
 }
 
 .save-yes {
-  color: $primary-btn-color;
+  color: @primary-btn-color;
 }
 
 .save-no {
-  color: $disable-primary-btn-color;
+  color: @disable-primary-btn-color;
 }
 
 

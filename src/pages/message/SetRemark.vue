@@ -62,7 +62,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../assets/scss/index";
 
 .edit-item {
@@ -73,11 +73,11 @@ export default {
   top: 0;
 
   .save-yes {
-    color: $primary-btn-color;
+    color: @primary-btn-color;
   }
 
   .save-no {
-    color: $disable-primary-btn-color;
+    color: @disable-primary-btn-color;
   }
 
   .content {
@@ -86,12 +86,12 @@ export default {
 
     .notice, .num {
       font-size: 1.2rem;
-      color: $second-text-color;
+      color: @second-text-color;
     }
 
     .input-ctn {
       position: relative;
-      border-bottom: 1px solid $line-color;
+      border-bottom: 1px solid @line-color;
       display: flex;
       align-items: center;
 
@@ -105,7 +105,7 @@ export default {
         background: transparent;
 
         &::placeholder {
-          color: $second-text-color;
+          color: @second-text-color;
         }
       }
 

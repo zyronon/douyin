@@ -57,7 +57,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../../assets/scss/index";
 
 .declare-school {
@@ -89,7 +89,7 @@ export default {
         border-top: none;
         border-right: none;
         border-left: none;
-        border-bottom: 1px solid $line-color;
+        border-bottom: 1px solid @line-color;
         color: white;
       }
     }
@@ -109,7 +109,7 @@ export default {
         padding: 1.2rem 0;
         display: flex;
         align-items: center;
-        color: $second-text-color;
+        color: @second-text-color;
 
         img {
           margin-left: 5px;
@@ -122,7 +122,7 @@ export default {
 
     .notice {
       margin-top: 2rem;
-      color: $second-text-color;
+      color: @second-text-color;
     }
 
     .btn {
@@ -132,7 +132,7 @@ export default {
       right: 2rem;
       color: white;
       font-size: 1.6rem;
-      background: $primary-btn-color;
+      background: @primary-btn-color;
       text-align: center;
       padding: 1rem 0;
       border-radius: 2px;

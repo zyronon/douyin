@@ -37,7 +37,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../assets/scss/index";
 
 .Scan {
@@ -71,7 +71,7 @@ export default {
 
       img {
         border-radius: 50%;
-        background: $second-btn-color-tran;
+        background: @second-btn-color-tran;
         padding: 1.6rem;
         height: 2.4rem;
         margin-bottom: 1rem;

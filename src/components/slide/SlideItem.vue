@@ -10,7 +10,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 .base-slide-item {
   min-width: 100vw;
   //min-height: 100vh;

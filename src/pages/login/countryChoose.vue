@@ -2432,7 +2432,7 @@ export default {
 }
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="less">
 @import "../../assets/scss/index";
 
 .countryChoose {
@@ -2464,7 +2464,7 @@ export default {
       justify-content: space-between;
 
       div {
-        color: $second-text-color;
+        color: @second-text-color;
         //transition: all .3s;
         font-size: 1rem;
         padding: .1rem;
@@ -2475,7 +2475,7 @@ export default {
         width: 0;
         height: 0;
         border: .5rem solid transparent;
-        border-bottom: 1rem solid $second-text-color;
+        border-bottom: 1rem solid @second-text-color;
       }
     }
   }
@@ -2498,7 +2498,7 @@ export default {
 
     .top {
       padding-bottom: 1rem;
-      border-bottom: 1px solid $line-color;
+      border-bottom: 1px solid @line-color;
 
       .cities {
         .city {
@@ -2507,7 +2507,7 @@ export default {
           border-radius: .2rem;
           height: 4rem;
           line-height: 4rem;
-          background: $second-btn-color-tran;
+          background: @second-btn-color-tran;
           display: inline-block;
           width: 32%;
           text-align: center;
@@ -2519,7 +2519,7 @@ export default {
       //padding-right: 2.5rem;
 
       .row {
-        background: $main-bg;
+        background: @main-bg;
       }
     }
   }

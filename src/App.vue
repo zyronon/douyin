@@ -87,7 +87,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="less">
 
 .base-slide-item {
   min-width: 100vw;
@@ -136,5 +136,4 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
-
 </style>

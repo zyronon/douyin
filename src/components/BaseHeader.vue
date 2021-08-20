@@ -53,7 +53,7 @@ export default {
 }
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="less">
 @import "../assets/scss/index";
 
 #BaseHeader {
@@ -67,7 +67,7 @@ export default {
   }
 
   &.dark {
-    background: $main-bg;
+    background: @main-bg;
     color: white;
   }
 
