@@ -156,7 +156,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../assets/scss/index";
 
 .FromBottomDialog {
@@ -171,7 +171,7 @@ export default {
   border-radius: .5rem .5rem 0 0;
 
   &.dark {
-    background: $main-bg;
+    background: @main-bg;
   }
 
   &.light {
@@ -198,10 +198,10 @@ export default {
     align-items: center;
 
     &.dark {
-      background: $main-bg;
+      background: @main-bg;
 
       .content {
-        background: $second-btn-color;
+        background: @second-btn-color;
       }
     }
 

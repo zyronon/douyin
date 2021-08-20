@@ -1,0 +1,140 @@
+@use "sass:math";
+
+
+///*
+//
+//width
+//
+//*/
+//$width: 500;
+//@while $width >= 0 {
+//  .w#{$width}p {
+//    width: #{$width}px !important;
+//  }
+//  $width: $width - 10;
+//}
+//
+//
+//$width: 100;
+//@while $width >= 0 {
+//  .w#{$width} {
+//    //width: math.percentage($width / 100) !important;
+//  }
+//  $width: $width - 1;
+//}
+//
+///*
+//
+//$height
+//
+//*/
+//$height: 500;
+//@while $height >= 0 {
+//  .h#{$height}p {
+//    height: #{$height}px !important;
+//  }
+//  $height: $height - 10;
+//}
+//
+//
+//$height: 100;
+//@while $height >= 0 {
+//  .h#{$height} {
+//    //height: math.percentage($height / 100) !important;
+//  }
+//  $height: $height - 1;
+//}
+//
+
+/*
+
+margin
+
+*/
+
+
+.ml(5);
+.ml(@n, @i: 1) when (@i =< @n) {
+  .ml@{i}r {
+    margin-left: (1rem * @i) !important;
+  }
+  .ml(@n, (@i + 1));
+}
+
+.mr(5);
+.mr(@n, @i: 1) when (@i =< @n) {
+  .mr@{i}r {
+    margin-left: (1rem * @i) !important;
+  }
+  .mr(@n, (@i + 1));
+}
+
+.mt(5);
+.mt(@n, @i: 1) when (@i =< @n) {
+  .mt@{i}r {
+    margin-left: (1rem * @i) !important;
+  }
+  .mt(@n, (@i + 1));
+}
+
+.mb(5);
+.mb(@n, @i: 1) when (@i =< @n) {
+  .mb@{i}r {
+    margin-left: (1rem * @i) !important;
+  }
+  .mb(@n, (@i + 1));
+}
+
+
+/*
+padding
+*/
+
+
+.pb(5);
+.pb(@n, @i: 1) when (@i =< @n) {
+  .pb@{i}r {
+    margin-left: (1rem * @i) !important;
+  }
+  .pb(@n, (@i + 1));
+}
+
+.pt(5);
+.pt(@n, @i: 1) when (@i =< @n) {
+  .pt@{i}r {
+    margin-left: (1rem * @i) !important;
+  }
+  .pt(@n, (@i + 1));
+}
+
+.pl(5);
+.pl(@n, @i: 1) when (@i =< @n) {
+  .pl@{i}r {
+    margin-left: (1rem * @i) !important;
+  }
+  .pl(@n, (@i + 1));
+}
+
+.pr(5);
+.pr(@n, @i: 1) when (@i =< @n) {
+  .pr@{i}r {
+    margin-left: (1rem * @i) !important;
+  }
+  .pr(@n, (@i + 1));
+}
+
+
+/*
+
+font
+
+*/
+
+.f(40);
+.f(@n, @i: 10) when (@i =< @n) {
+  .f@{i} {
+    margin-left: (1px * @i) !important;
+  }
+  .f(@n, (@i + 1));
+}
+

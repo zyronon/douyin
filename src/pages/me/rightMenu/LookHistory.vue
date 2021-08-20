@@ -63,7 +63,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../../assets/scss/index";
 
 .lookHistory {
@@ -94,7 +94,7 @@ export default {
       .subtitle {
         font-size: 1.3rem;
         margin-top: 1rem;
-        color: $second-text-color;
+        color: @second-text-color;
       }
     }
   }

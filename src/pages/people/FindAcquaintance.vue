@@ -200,7 +200,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../assets/scss/index";
 
 .from-bottom-enter-active,
@@ -229,7 +229,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid $line-color;
+    border-bottom: 1px solid @line-color;
 
     img {
       height: 2rem;
@@ -242,7 +242,7 @@ export default {
 
     .title {
       margin-top: 2rem;
-      color: $second-text-color;
+      color: @second-text-color;
       font-size: 1.2rem;
     }
   }
@@ -253,7 +253,7 @@ export default {
       align-items: center;
       margin-top: 2rem;
       margin-bottom: 1rem;
-      color: $second-text-color;
+      color: @second-text-color;
       font-size: 1.2rem;
 
       img {
@@ -271,7 +271,7 @@ export default {
         align-items: center;
 
         .left {
-          background: $second-btn-color;
+          background: @second-btn-color;
           border-radius: 50%;
           padding: 1rem;
           width: 2.4rem;
@@ -297,7 +297,7 @@ export default {
 
             .text2 {
               font-size: 1.2rem;
-              color: $second-text-color;
+              color: @second-text-color;
             }
           }
         }
@@ -312,7 +312,7 @@ export default {
         margin-top: 2rem;
         display: flex;
         align-items: center;
-        color: $second-text-color;
+        color: @second-text-color;
 
         img {
           margin-right: 1rem;
@@ -368,13 +368,13 @@ export default {
       }
     }
 
-    $footer-border-color: #eaeaf1;
+    @footer-border-color: #eaeaf1;
 
     .footer {
       width: 100%;
       display: flex;
       height: 4rem;
-      border-top: 1px solid $footer-border-color;
+      border-top: 1px solid @footer-border-color;
       font-size: 1.4rem;
 
       div {
@@ -383,7 +383,7 @@ export default {
         justify-content: center;
         width: 49%;
         text-align: center;
-        border-right: 1px solid $footer-border-color;
+        border-right: 1px solid @footer-border-color;
         opacity: .5;
 
         &:nth-last-child(1) {
@@ -441,7 +441,7 @@ export default {
       top: 1rem;
       right: 1rem;
       position: absolute;
-      background: $second-btn-color-tran;
+      background: @second-btn-color-tran;
       padding: .4rem;
       width: 1rem;
       border-radius: 50%;
@@ -457,7 +457,7 @@ export default {
       margin-top: 2rem;
       display: flex;
       align-items: center;
-      color: $second-text-color;
+      color: @second-text-color;
 
       img {
         margin-right: 1rem;

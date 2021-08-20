@@ -51,7 +51,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../../assets/scss/index";
 
 .choose-school {
@@ -75,11 +75,11 @@ export default {
       justify-content: space-between;
       align-items: center;
       transition: all .1s;
-      background: $main-bg;
+      background: @main-bg;
 
       &:active {
-        background: $active-main-bg;
-        color: $second-text-color;
+        background: @active-main-bg;
+        color: @second-text-color;
       }
     }
   }

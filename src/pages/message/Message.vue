@@ -236,7 +236,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../assets/scss/index";
 
 #Message {
@@ -248,7 +248,7 @@ export default {
   //height: 100%;
   //width: 100%;
   overflow: auto;
-  background: $main-bg;
+  background: @main-bg;
   padding-bottom: 6rem;
   color: white;
 
@@ -256,7 +256,7 @@ export default {
     padding-bottom: 6rem;
 
     .joined-chat {
-      border-bottom: 1px solid $line-color;
+      border-bottom: 1px solid @line-color;
       height: 5rem;
       padding: 0 2rem;
       display: flex;
@@ -327,7 +327,7 @@ export default {
       bottom: 0;
       left: 0;
       right: 0;
-      background: $main-bg;
+      background: @main-bg;
       //background: red;
       display: flex;
       align-items: center;
@@ -345,7 +345,7 @@ export default {
         border-radius: .2rem;
 
         &.primary {
-          background: $primary-btn-color;
+          background: @primary-btn-color;
         }
       }
     }
@@ -386,7 +386,7 @@ export default {
 
             .account {
               font-size: 1.3rem;
-              color: $second-text-color;
+              color: @second-text-color;
             }
           }
 
@@ -411,7 +411,7 @@ export default {
       .notice-h2 {
         margin-top: 1rem;
         font-size: 1.4rem;
-        color: $second-text-color;
+        color: @second-text-color;
       }
 
     }
@@ -472,7 +472,7 @@ export default {
 
             .num {
               margin-left: .5rem;
-              color: $second-text-color;
+              color: @second-text-color;
             }
           }
 
@@ -543,7 +543,7 @@ export default {
 
 
       span {
-        color: $second-text-color;
+        color: @second-text-color;
         display: block;
         text-align: center;
         word-break: break-all;
@@ -552,7 +552,7 @@ export default {
   }
 
   .line {
-    border-top: 1px solid $line-color;
+    border-top: 1px solid @line-color;
   }
 
   .requests {
@@ -562,7 +562,7 @@ export default {
     padding: 20px 0;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid $line-color;
+    border-bottom: 1px solid @line-color;
 
     .right {
       display: flex;
@@ -627,7 +627,7 @@ export default {
         display: flex;
         justify-content: space-between;
         padding: 15px 0 15px 0;
-        border-bottom: 1px solid $line-color;
+        border-bottom: 1px solid @line-color;
 
         .left {
           .name {
@@ -639,14 +639,14 @@ export default {
             .tag {
               margin-left: 5px;
               font-size: 1rem;
-              background: $line-color;
+              background: @line-color;
               padding: 2px 5px;
               border-radius: 2px;
             }
           }
 
           .detail {
-            color: $second-text-color;
+            color: @second-text-color;
             font-size: 1.2rem;
             margin-top: 4px;
 
@@ -693,7 +693,7 @@ export default {
     }
 
     .not-more {
-      color: $second-text-color;
+      color: @second-text-color;
       text-align: center;
       padding: 20px;
     }
@@ -707,7 +707,7 @@ export default {
       align-items: center;
 
       .left {
-        color: $second-text-color;
+        color: @second-text-color;
 
         img {
           width: 10px;
@@ -717,7 +717,7 @@ export default {
 
       .right {
         border-radius: 50%;
-        background: $second-text-color;
+        background: @second-text-color;
         padding: 5px;
         width: 10px;
         height: 10px;
@@ -757,7 +757,7 @@ export default {
           }
 
           .detail {
-            color: $second-text-color;
+            color: @second-text-color;
             font-size: 1.2rem;
             margin-top: 4px;
           }
@@ -769,7 +769,7 @@ export default {
           align-items: center;
 
           .button {
-            background: $primary-btn-color;
+            background: @primary-btn-color;
             margin-left: 8px;
             padding: 8px 20px;
             border-radius: 3px;

@@ -94,7 +94,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../assets/scss/index";
 
 .login {
@@ -130,7 +130,7 @@ export default {
 
       .sub-title {
         font-size: 1.2rem;
-        color: $second-text-color;
+        color: @second-text-color;
       }
     }
 

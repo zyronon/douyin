@@ -99,7 +99,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .share {
   position: fixed;
   /*top: 200px;*/

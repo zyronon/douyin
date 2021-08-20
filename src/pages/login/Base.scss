@@ -19,14 +19,14 @@
 
     .sub-title {
       font-size: 1.2rem;
-      color: $second-text-color;
+      color: @second-text-color;
     }
   }
 
   .notice {
     margin-top: 1rem;
     font-size: 1.3rem;
-    color: $primary-btn-color;
+    color: @primary-btn-color;
   }
 
   .button {

@@ -100,7 +100,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../assets/scss/index";
 
 .ChatDetail {
@@ -120,7 +120,7 @@ export default {
       padding: 0 2rem;
 
       .People {
-        border-bottom: 1px solid $second-btn-color-tran;
+        border-bottom: 1px solid @second-btn-color-tran;
       }
     }
 
@@ -146,7 +146,7 @@ export default {
     color: black;
 
     .notice {
-      color: $second-text-color;
+      color: @second-text-color;
       font-size: 1.2rem;
       height: 4rem;
       display: flex;
@@ -166,7 +166,7 @@ export default {
       }
 
       &.red{
-        color: $primary-btn-color;
+        color: @primary-btn-color;
       }
     }
 

@@ -60,7 +60,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../assets/scss/color";
 
 .search-ctn {
@@ -100,7 +100,7 @@ export default {
       background: transparent;
 
       &::-webkit-input-placeholder {
-        color: $second-text-color;
+        color: @second-text-color;
       }
     }
 

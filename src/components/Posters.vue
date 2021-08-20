@@ -69,7 +69,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 .posters {
   display: grid;
   grid-template-columns: 33.33vw 33.33vw 33.33vw;

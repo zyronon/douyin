@@ -298,7 +298,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../assets/scss/color";
 
 .fade-enter-active,
@@ -573,7 +573,7 @@ export default {
 
               .right {
                 margin: 0 10px;
-                color: $second-text-color;
+                color: @second-text-color;
 
                 .name {
                   margin-right: 10px;

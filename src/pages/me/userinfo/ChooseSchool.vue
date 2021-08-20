@@ -96,7 +96,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../../assets/scss/index";
 
 .choose-school {
@@ -134,11 +134,11 @@ export default {
       justify-content: space-between;
       align-items: center;
       transition: all .1s;
-      background: $main-bg;
+      background: @main-bg;
 
       &:active {
-        background: $active-main-bg;
-        color: $second-text-color;
+        background: @active-main-bg;
+        color: @second-text-color;
       }
     }
 
@@ -151,7 +151,7 @@ export default {
       }
 
       .sub-title {
-        color: $second-text-color;
+        color: @second-text-color;
         margin-top: 2rem;
         font-size: 1.4rem;
       }
@@ -165,7 +165,7 @@ export default {
       .btn {
         margin-top: 15rem;
         display: inline-block;
-        background: $second-btn-color;
+        background: @second-btn-color;
         padding: 1.5rem 4rem;
         border-radius: 2px;
       }

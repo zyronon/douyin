@@ -26,7 +26,7 @@
 
   &.no-active {
     &:active {
-      background: $main-bg;
+      background: @main-bg;
     }
   }
 
@@ -35,11 +35,11 @@
   }
 
   &.border {
-    border-bottom: 1px solid $line-color;
+    border-bottom: 1px solid @line-color;
   }
 
   &:active {
-    background: $active-main-bg;
+    background: @active-main-bg;
   }
 
   .left {
@@ -58,7 +58,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: $second-text-color;
+    color: @second-text-color;
 
     img {
       margin-left: .5rem;
@@ -77,21 +77,21 @@
   font-size: 1.4rem;
 
   &.primary {
-    background: $primary-btn-color;
+    background: @primary-btn-color;
 
     &:active {
-      background: $disable-primary-btn-color;
+      background: @disable-primary-btn-color;
     }
   }
 
   &.no-active {
     &:active {
       &.primary {
-        background: $primary-btn-color;
+        background: @primary-btn-color;
       }
 
       &.dark {
-        background: $second-btn-color;
+        background: @second-btn-color;
       }
 
       &.white {
@@ -113,10 +113,10 @@
   }
 
   &.dark {
-    background: $second-btn-color;
+    background: @second-btn-color;
 
     &:active {
-      background: $second-btn-color-tran;
+      background: @second-btn-color-tran;
     }
   }
 
@@ -134,7 +134,7 @@ p {
 
 .line {
   height: 1px;
-  background: $line-color;
+  background: @line-color;
   width: 100%;
 }
 

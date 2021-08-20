@@ -42,6 +42,7 @@ import PasswordLogin from "../pages/login/PasswordLogin";
 import VerificationCode from "../pages/login/VerificationCode";
 import RetrievePassword from "../pages/login/RetrievePassword";
 import Help from "../pages/login/Help";
+import Attention2 from "../pages/home/Attention2";
 
 const routes = [
   // {path: '', component: Music},
@@ -49,6 +50,7 @@ const routes = [
   {path: '/', component: Index2},
   {path: '/home', component: Index},
   {path: '/attention', component: Attention},
+  // {path: '/attention', component: Attention2},
   {path: '/publish', component: Publish},
   {path: '/test', component: Test},
   {path: '/message', component: Message},

@@ -45,7 +45,7 @@ export default {
 }
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="less">
 @import "../../assets/scss/index";
 
 #MyCard {
@@ -59,7 +59,7 @@ export default {
 
 
   .content {
-    padding-top: $header-height;
+    padding-top: @header-height;
 
     .card {
       margin: 3rem;
@@ -127,6 +127,5 @@ export default {
     }
   }
 }
-
 
 </style>

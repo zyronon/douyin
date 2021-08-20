@@ -84,7 +84,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../assets/scss/index";
 
 .Publish {
@@ -100,7 +100,7 @@ export default {
   .footer {
     font-size: 1.5rem;
     font-weight: bold;
-    color: $second-text-color;
+    color: @second-text-color;
 
     .base-slide-item {
       display: flex;

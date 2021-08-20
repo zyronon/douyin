@@ -301,7 +301,7 @@ export default {
 }
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="less">
 @import "../../assets/scss/index";
 
 .fade-enter-active,
@@ -316,7 +316,7 @@ export default {
 }
 
 .Me {
-  background: $main-bg;
+  background: @main-bg;
   height: 100%;
   width: 100%;
 
@@ -370,7 +370,7 @@ export default {
     }
 
     .detail {
-      background: $main-bg;
+      background: @main-bg;
       padding: 0 20px;
 
       .head {
@@ -397,7 +397,7 @@ export default {
             justify-content: center;
             float: left;
             border-radius: 2px;
-            background: $second-btn-color;
+            background: @second-btn-color;
             margin-left: 5px;
             padding: 0 10px;
             height: 30px;
@@ -422,9 +422,9 @@ export default {
         transform: translateY(-20px);
 
         .number {
-          color: $second-text-color;
+          color: @second-text-color;
           padding-bottom: 2rem;
-          border-bottom: 1px solid $line-color;
+          border-bottom: 1px solid @line-color;
           display: flex;
           align-items: center;
 
@@ -466,7 +466,7 @@ export default {
     margin: 0;
     position: absolute;
     color: white;
-    background: $main-bg;
+    background: @main-bg;
 
     .line {
       height: 1px;
@@ -477,7 +477,7 @@ export default {
 
     .li {
       box-sizing: border-box;
-      background: $main-bg;
+      background: @main-bg;
       width: 100%;
       padding: 1rem 2rem;
       list-style: none;
@@ -506,7 +506,7 @@ export default {
     font-size: 1.2rem;
     width: 100%;
     position: absolute;
-    background: $main-bg;
+    background: @main-bg;
 
     .title {
       padding: 2rem 0 1rem 2rem;
@@ -528,7 +528,7 @@ export default {
 
         img {
           border-radius: 50%;
-          background: $second-btn-color-tran;
+          background: @second-btn-color-tran;
           padding: .6rem;
           height: 1.6rem;
           margin-bottom: 15px;
@@ -543,12 +543,12 @@ export default {
     width: 70vw;
     position: absolute;
     bottom: 0;
-    background: $main-bg;
+    background: @main-bg;
 
     .button {
       box-sizing: border-box;
       width: calc(100% - 4rem);
-      background: $second-btn-color;
+      background: @second-btn-color;
       margin: 2rem;
       height: 4.5rem;
       border-radius: 3px;

@@ -55,7 +55,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../assets/scss/index";
 
 .button {
@@ -85,21 +85,21 @@ export default {
   }
 
   &.primary {
-    background: $primary-btn-color;
+    background: @primary-btn-color;
 
     &:active {
-      background: $disable-primary-btn-color;
+      background: @disable-primary-btn-color;
     }
   }
 
   &.no-active {
     &:active {
       &.primary {
-        background: $primary-btn-color;
+        background: @primary-btn-color;
       }
 
       &.dark {
-        background: $second-btn-color;
+        background: @second-btn-color;
       }
 
       &.white {
@@ -122,10 +122,10 @@ export default {
   }
 
   &.dark {
-    background: $second-btn-color;
+    background: @second-btn-color;
 
     &:active {
-      background: $second-btn-color-tran;
+      background: @second-btn-color-tran;
     }
   }
 

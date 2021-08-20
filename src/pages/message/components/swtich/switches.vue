@@ -91,4 +91,4 @@ export default {
 
 </script>
 
-<style src="./switches.scss" lang="scss"></style>
+<!--<style src="./switches.less" lang="less"></style>-->

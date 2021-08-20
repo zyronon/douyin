@@ -146,7 +146,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 @import "../../../assets/scss/index";
 
 .edit {
@@ -165,7 +165,7 @@ export default {
   align-items: center;
 
   .sub {
-    color: $second-text-color;
+    color: @second-text-color;
   }
 }
 
@@ -179,7 +179,7 @@ export default {
     align-items: center;
     flex-direction: column;
     margin: 3rem 0;
-    $avatar-width: 7rem;
+    @avatar-width: 7rem;
 
     .avatar-ctn {
       position: relative;
@@ -188,14 +188,14 @@ export default {
       align-items: center;
       margin-bottom: 1rem;
 
-      width: $avatar-width;
-      height: $avatar-width;
+      width: @avatar-width;
+      height: @avatar-width;
 
       .avatar {
         opacity: .5;
         position: absolute;
-        width: $avatar-width;
-        height: $avatar-width;
+        width: @avatar-width;
+        height: @avatar-width;
         border-radius: 50%;
       }
 

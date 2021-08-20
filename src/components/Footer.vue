@@ -66,7 +66,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 
 .footer {
   font-size: 1.5rem;
@@ -105,10 +105,10 @@ export default {
     }
 
     .add-ctn {
-      $height: 2.7rem;
-      $width: 4rem;
-      height: $height;
-      width: $width;
+      @height: 2.7rem;
+      @width: 4rem;
+      height: @height;
+      width: @width;
       background: linear-gradient(to right, #59dcdf, #ff5f75);
       border-radius: .5rem;
       box-sizing: border-box;
