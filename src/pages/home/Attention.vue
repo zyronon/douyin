@@ -1,6 +1,6 @@
 <template>
   <div id="attention">
-    <header ref="header1">
+    <header ref="header">
       <span @click="$nav('/country-choose')">双流</span>
       <div class="arrow"></div>
     </header>
@@ -13,7 +13,7 @@
     >
       <div ref="wrapper" class="wrapper"
       >
-        <div class="header" ref="header">
+        <div class="refresh" ref="refresh">
           <Loading :isFullScreen="false"></Loading>
         </div>
         <div class="ad" v-if="false">
@@ -59,7 +59,7 @@
         </div>
         <div ref="content" class="content">
           <div class="left">
-            <div class="item" v-for="item in left">
+            <div class="item" v-for="item in left" @click="scrollToTop">
               <template v-if="item.type === 0">
                 <div class="wrapper">
                   <img class="poster" :src="item.src"/>
@@ -199,6 +199,8 @@ export default {
       height: 0,
       width: 0,
       footerHeight: 0,
+      refreshHeight: 80,
+      headerHeight: 50,
       itemType: {
         VIDEO: 0,
         AD: 1,
@@ -215,8 +217,8 @@ export default {
       refs: {
         scroller: null,
         wrapper: null,
-        header1: null,
-      }
+        header: null,
+      },
     }
   },
   created() {
@@ -281,12 +283,18 @@ export default {
     setTimeout(() => {
       this.refs.scroller = this.$refs["scroller"]
       this.refs.wrapper = this.$refs["wrapper"]
-      this.refs.header1 = this.$refs["header1"]
+      this.refs.header = this.$refs["header"]
     })
   },
   methods: {
+    scrollToTop(e) {
+      let current = e.currentTarget;
+      console.log(current.getBoundingClientRect())
+      console.log(current.offsetTop)
+      this.refs.scroller.scrollTop = current.offsetTop - this.headerHeight - 30
+    },
     start(e) {
-      this.refs.header1.style.transition = this.refs.scroller.style.transition = this.refs.wrapper.style.transition = `none`
+      this.refs.header.style.transition = this.refs.scroller.style.transition = this.refs.wrapper.style.transition = `none`
       this.topStartLocationY = this.startLocationY = e.touches[0].pageY
     },
     move(e) {
@@ -297,28 +305,28 @@ export default {
       // console.log('touchMoveDistance', touchMoveDistance)
       // let transformY = this.$getTransform(header)
 
-      let headerHeight = 80
-      let header1Height = 50
+      let refreshHeight = 80
+      let headerHeight = 50
       if (touchMoveDistance > 0) {
         if (!this.isFixed) {
-          if (Math.abs(touchMoveDistance) < header1Height) {
-            this.refs.header1.style.transform = this.refs.scroller.style.transform = `translate3d(0,${touchMoveDistance - header1Height}px,0)`
+          if (Math.abs(touchMoveDistance) < headerHeight) {
+            this.refs.header.style.transform = this.refs.scroller.style.transform = `translate3d(0,${touchMoveDistance - headerHeight}px,0)`
           } else {
-            this.refs.header1.style.transform = this.refs.scroller.style.transform = `translate3d(0,${0}px,0)`
+            this.refs.header.style.transform = this.refs.scroller.style.transform = `translate3d(0,${0}px,0)`
           }
         }
         if (this.isTop && (!this.isRefresh)) {
           let wrapperTouchMoveDistance = e.touches[0].pageY - this.topStartLocationY
-          this.refs.wrapper.style.transform = `translate3d(0,${wrapperTouchMoveDistance > headerHeight ? headerHeight : wrapperTouchMoveDistance}px,0)`
+          this.refs.wrapper.style.transform = `translate3d(0,${wrapperTouchMoveDistance > refreshHeight ? refreshHeight : wrapperTouchMoveDistance}px,0)`
         } else {
           this.topStartLocationY = e.touches[0].pageY
         }
       } else {
         if (this.isFixed) {
-          if (Math.abs(touchMoveDistance) < header1Height) {
-            this.refs.header1.style.transform = this.refs.scroller.style.transform = `translate3d(0,${touchMoveDistance}px,0)`
+          if (Math.abs(touchMoveDistance) < headerHeight) {
+            this.refs.header.style.transform = this.refs.scroller.style.transform = `translate3d(0,${touchMoveDistance}px,0)`
           } else {
-            this.refs.header1.style.transform = this.refs.scroller.style.transform = `translate3d(0,${-header1Height}px,0)`
+            this.refs.header.style.transform = this.refs.scroller.style.transform = `translate3d(0,${-headerHeight}px,0)`
           }
         }
         let wrapperHeight = this.refs.wrapper.offsetHeight
@@ -332,12 +340,12 @@ export default {
       // console.log('isTop', this.isTop)
     },
     end(e) {
-      this.refs.header1.style.transition = this.refs.scroller.style.transition = this.refs.wrapper.style.transition = `all .3s`
-      let header1Height = 50
-      let headerHeight = 80
+      this.refs.header.style.transition = this.refs.scroller.style.transition = this.refs.wrapper.style.transition = `all .3s`
+      let headerHeight = 50
+      let refreshHeight = 80
       let touchMoveDistance = e.changedTouches[0].pageY - this.startLocationY
-      if (this.isTop && Math.abs(touchMoveDistance) > headerHeight / 2) {
-        this.refs.wrapper.style.transform = `translate3d(0,${headerHeight}px,0)`
+      if (this.isTop && Math.abs(touchMoveDistance) > refreshHeight / 2) {
+        this.refs.wrapper.style.transform = `translate3d(0,${refreshHeight}px,0)`
         this.refresh(() => {
           console.log('refresh-done')
           this.refs.wrapper.style.transform = `translate3d(0,0,0)`
@@ -345,13 +353,13 @@ export default {
       } else {
         this.refs.wrapper.style.transform = `translate3d(0,${0}px,0)`
       }
-      let transformY = this.$getTransform(this.refs.header1)
-      if (Math.abs(transformY) > header1Height / 2) {
+      let transformY = this.$getTransform(this.refs.header)
+      if (Math.abs(transformY) > headerHeight / 2) {
         this.isFixed = false
-        this.refs.header1.style.transform = this.refs.scroller.style.transform = `translate3d(0,${-header1Height}px,0)`
+        this.refs.header.style.transform = this.refs.scroller.style.transform = `translate3d(0,${-headerHeight}px,0)`
       } else {
         this.isFixed = true
-        this.refs.header1.style.transform = this.refs.scroller.style.transform = `translate3d(0,${0}px,0)`
+        this.refs.header.style.transform = this.refs.scroller.style.transform = `translate3d(0,${0}px,0)`
       }
     },
     scroll(e) {
@@ -417,7 +425,7 @@ export default {
       width: 100%;
       z-index: 2;
 
-      > .header {
+      > .refresh {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -582,6 +590,7 @@ export default {
     > .left {
       .item {
         padding: 0 2px 3px 3px;
+
         &:nth-last-child(1) {
           padding-bottom: 0;
         }
