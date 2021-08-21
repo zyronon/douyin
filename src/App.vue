@@ -1,12 +1,15 @@
 <template>
-  <router-view v-slot="{ Component }">
-    <transition name="fade">
-      <Mask v-if="maskDialog" @click="hideMaskDialog" :mode="maskDialogMode"></Mask>
-    </transition>
-    <transition :name="transitionName">
-      <component :is="Component"/>
-    </transition>
-  </router-view>
+    <router-view v-slot="{ Component }">
+      <transition name="fade">
+        <Mask v-if="maskDialog" @click="hideMaskDialog" :mode="maskDialogMode"></Mask>
+      </transition>
+      <transition :name="transitionName">
+        <keep-alive>
+          <component :is="Component"/>
+        </keep-alive>
+      </transition>
+    </router-view>
+
 </template>
 
 <script>
