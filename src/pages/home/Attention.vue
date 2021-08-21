@@ -9,6 +9,7 @@
          @touchstart="start"
          @touchmove="move"
          @touchend="end"
+         @scroll="scroll"
     >
       <div ref="wrapper" class="wrapper"
       >
@@ -173,7 +174,7 @@
             </div>
           </div>
         </div>
-        <Loading :isFullScreen="false"></Loading>
+        <Loading v-if="loading" :isFullScreen="false"></Loading>
       </div>
     </div>
     <Footer v-bind:init-tab="2" style="position: fixed;"/>
@@ -206,8 +207,12 @@ export default {
       },
       isTop: false,
       isFixed: true,
+      isMove: false,
+      loading: false,
+      isRefresh: false,
       startLocationY: 0,
-      ref: {
+      topStartLocationY: 0,
+      refs: {
         scroller: null,
         wrapper: null,
         header1: null,
@@ -271,71 +276,112 @@ export default {
       }
       this.items.push(temp)
     }
-    this.items = this.items.concat(this.items)
     // this.$console(this.items)
 
     setTimeout(() => {
-      this.ref.scroller = this.$refs["scroller"]
-      this.ref.wrapper = this.$refs["wrapper"]
-      this.ref.header1 = this.$refs["header1"]
+      this.refs.scroller = this.$refs["scroller"]
+      this.refs.wrapper = this.$refs["wrapper"]
+      this.refs.header1 = this.$refs["header1"]
     })
   },
   methods: {
     start(e) {
-      this.ref.header1.style.transition = this.ref.scroller.style.transition = this.ref.wrapper.style.transition = `none`
-      this.startLocationY = e.touches[0].pageY
+      this.refs.header1.style.transition = this.refs.scroller.style.transition = this.refs.wrapper.style.transition = `none`
+      this.topStartLocationY = this.startLocationY = e.touches[0].pageY
     },
     move(e) {
-      this.isTop = this.ref.scroller.scrollTop === 0
+      let scrollTop = this.refs.scroller.scrollTop
+      this.isTop = scrollTop === 0
       // console.log('scrollTop', scroller.scrollTop)
       let touchMoveDistance = e.touches[0].pageY - this.startLocationY
       // console.log('touchMoveDistance', touchMoveDistance)
       // let transformY = this.$getTransform(header)
-
 
       let headerHeight = 80
       let header1Height = 50
       if (touchMoveDistance > 0) {
         if (!this.isFixed) {
           if (Math.abs(touchMoveDistance) < header1Height) {
-            this.ref.header1.style.transform = this.ref.scroller.style.transform = `translate3d(0,${touchMoveDistance - header1Height}px,0)`
+            this.refs.header1.style.transform = this.refs.scroller.style.transform = `translate3d(0,${touchMoveDistance - header1Height}px,0)`
           } else {
-            this.ref.header1.style.transform = this.ref.scroller.style.transform = `translate3d(0,${0}px,0)`
+            this.refs.header1.style.transform = this.refs.scroller.style.transform = `translate3d(0,${0}px,0)`
           }
         }
-        if (this.isTop) {
-          this.ref.wrapper.style.transform = `translate3d(0,${touchMoveDistance > headerHeight ? headerHeight : touchMoveDistance}px,0)`
+        if (this.isTop && (!this.isRefresh)) {
+          let wrapperTouchMoveDistance = e.touches[0].pageY - this.topStartLocationY
+          this.refs.wrapper.style.transform = `translate3d(0,${wrapperTouchMoveDistance > headerHeight ? headerHeight : wrapperTouchMoveDistance}px,0)`
         } else {
-          // this.startLocationY = e.touches[0].pageY
+          this.topStartLocationY = e.touches[0].pageY
         }
       } else {
         if (this.isFixed) {
           if (Math.abs(touchMoveDistance) < header1Height) {
-            this.ref.header1.style.transform = this.ref.scroller.style.transform = `translate3d(0,${touchMoveDistance}px,0)`
+            this.refs.header1.style.transform = this.refs.scroller.style.transform = `translate3d(0,${touchMoveDistance}px,0)`
           } else {
-            this.ref.header1.style.transform = this.ref.scroller.style.transform = `translate3d(0,${-header1Height}px,0)`
+            this.refs.header1.style.transform = this.refs.scroller.style.transform = `translate3d(0,${-header1Height}px,0)`
           }
         }
+        let wrapperHeight = this.refs.wrapper.offsetHeight
+        if (scrollTop + this.bodyHeight + 50 > wrapperHeight) {
+          this.loadMore()
+          this.refs.scroller.scrollTop = wrapperHeight
+        }
+        // let s = wrapperHeight - scrollTop
+        // console.log(s)
       }
       // console.log('isTop', this.isTop)
     },
-    end() {
+    end(e) {
+      this.refs.header1.style.transition = this.refs.scroller.style.transition = this.refs.wrapper.style.transition = `all .3s`
       let header1Height = 50
-      this.ref.header1.style.transition = this.ref.scroller.style.transition = this.ref.wrapper.style.transition = `all .3s`
-      this.ref.wrapper.style.transform = `translate3d(0,0,0)`
-      let transformY = this.$getTransform(this.ref.header1)
+      let headerHeight = 80
+      let touchMoveDistance = e.changedTouches[0].pageY - this.startLocationY
+      if (this.isTop && Math.abs(touchMoveDistance) > headerHeight / 2) {
+        this.refs.wrapper.style.transform = `translate3d(0,${headerHeight}px,0)`
+        this.refresh(() => {
+          console.log('refresh-done')
+          this.refs.wrapper.style.transform = `translate3d(0,0,0)`
+        })
+      } else {
+        this.refs.wrapper.style.transform = `translate3d(0,${0}px,0)`
+      }
+      let transformY = this.$getTransform(this.refs.header1)
       if (Math.abs(transformY) > header1Height / 2) {
         this.isFixed = false
-        this.ref.header1.style.transform = this.ref.scroller.style.transform = `translate3d(0,${-header1Height}px,0)`
+        this.refs.header1.style.transform = this.refs.scroller.style.transform = `translate3d(0,${-header1Height}px,0)`
       } else {
         this.isFixed = true
-        this.ref.header1.style.transform = this.ref.scroller.style.transform = `translate3d(0,${0}px,0)`
+        this.refs.header1.style.transform = this.refs.scroller.style.transform = `translate3d(0,${0}px,0)`
       }
     },
     scroll(e) {
       if (this.isTop) {
         e.preventDefault();
+      } else {
+        let scrollTop = this.refs.scroller.scrollTop
+        let wrapperHeight = this.refs.wrapper.offsetHeight
+        if (scrollTop + this.bodyHeight + 50 > wrapperHeight) {
+          this.loadMore()
+          this.refs.scroller.scrollTop = wrapperHeight
+        }
       }
+    },
+    async loadMore() {
+      console.log('loadMore-start')
+      if (this.loading) return
+      this.loading = true
+      await this.$sleep(1500)
+      this.items = this.items.concat(this.items)
+      this.loading = false
+    },
+    async refresh(done) {
+      console.log('refresh-start')
+      if (this.isRefresh) return
+      this.isRefresh = true
+      await this.$sleep(1500)
+      this.isRefresh = false
+      // this.items = []
+      done()
     }
   }
 }
@@ -363,7 +409,6 @@ export default {
     height: calc(100vh - 5rem);
     position: relative;
     overflow: scroll;
-    background: black;
 
     > .wrapper {
       position: absolute;
@@ -373,6 +418,9 @@ export default {
       z-index: 2;
 
       > .header {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
         height: 8rem;
       }
     }
@@ -524,18 +572,36 @@ export default {
     justify-content: space-between;
     flex-direction: row;
     overflow: auto;
-    background: black;
+    //background: black;
     box-sizing: border-box;
-    padding: 0 3px;
 
     > .left, > .right {
-      width: calc(50% - 1.5px);
+      width: calc(50%);
+    }
+
+    > .left {
+      .item {
+        padding: 0 2px 3px 3px;
+        &:nth-last-child(1) {
+          padding-bottom: 0;
+        }
+      }
+    }
+
+    > .right {
+      .item {
+        padding: 0 3px 3px 2px;
+
+        &:nth-last-child(1) {
+          padding-bottom: 0;
+        }
+      }
     }
 
     .item {
+      background: black;
       width: 100%;
       box-sizing: border-box;
-      margin-bottom: 3px;
 
       .wrapper {
         position: relative;
