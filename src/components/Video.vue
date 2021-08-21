@@ -1,5 +1,5 @@
 <!--<template>-->
-<!--  <video style="height: 100vh;width: 100vw;" :src="video.videoUrl" :poster="video.poster" ref="video" muted :autoplay="!disabled" loop>-->
+<!--  <video style="height: 100vh;width: 100vw;" :src="video.videoUrl" :poster="video.poster" refs="video" muted :autoplay="!disabled" loop>-->
 <!--    <p> 您的浏览器不支持 video 标签。</p>-->
 <!--  </video>-->
 <!--</template>-->
