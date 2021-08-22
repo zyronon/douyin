@@ -172,124 +172,15 @@ import Share from "../../components/Share";
 import SlideColumnList from "../../components/slide/SlideColumnList";
 import SlideRowList from "../../components/slide/SlideRowList";
 import Me from '../me/Me'
+
 export default {
   name: "HomeIndex",
-  components: {SlideColumnList, SlideRowList, Video1, Comment, Share,Me},
+  components: {SlideColumnList, SlideRowList, Video1, Comment, Share, Me},
   data() {
     return {
-      videos1: [
-        {
-          // videoUrl: mp40,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/0.mp4',
-          videoPoster: src1Bg,
-          isLoved: true,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp41,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/1.mp4',
-          videoPoster: src1Bg,
-          isLoved: true,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp42,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/2.mp4',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp43,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/3.mp4',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp44,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/4.mp4',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp45,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/5.mp4',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp46,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/6.mp4',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp47,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/7.mp4',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp48,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/8.mp4',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp49,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/9.mp4',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp410,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/10.mp4',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-      ],
-      videos: [
+      webVideos: [],
+      videos: [],
+      localVideos: [
         {
           videoUrl: mp40,
           // videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/0.mp4',
@@ -406,6 +297,10 @@ export default {
       videoActiveIndex: 0,
       baseActiveIndex: 0,
       activeIndex: 1,
+      totalSize: 52,
+      pageSize: 10,
+      pageNo: 1,
+      loading: false,
       render: (item, itemIndex) => {
         return (
             <div className="base-slide-item video-slide-item" data-index={itemIndex}>
@@ -424,7 +319,7 @@ export default {
   },
   watch: {
     videoActiveIndex(newVal) {
-      // console.log(newVal)
+      console.log(newVal)
       $(".video-slide-item").each(function () {
         let video = $(this).find('video')
         if ($(this).data('index') === newVal) {
@@ -436,142 +331,39 @@ export default {
           }, 100)
         }
       })
-      // if (newVal >= this.videos.length - 3) {
-      if (false) {
-        [
-          {
-            videoUrl: mp40,
-            // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-            videoPoster: src1Bg,
-            isLoved: true,
-            loves: 1234,
-            comments: 666,
-            shared: 999,
-            duration: 99
-          },
-          {
-            videoUrl: mp41,
-            // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-            videoPoster: src1Bg,
-            isLoved: true,
-            loves: 1234,
-            comments: 666,
-            shared: 999,
-            duration: 99
-          },
-          {
-            videoUrl: mp42,
-            // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-            videoPoster: src1Bg,
-            isLoved: false,
-            loves: 1234,
-            comments: 666,
-            shared: 999,
-            duration: 99
-          },
-          {
-            videoUrl: mp43,
-            // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-            videoPoster: src1Bg,
-            isLoved: false,
-            loves: 1234,
-            comments: 666,
-            shared: 999,
-            duration: 99
-          },
-          {
-            videoUrl: mp44,
-            // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-            videoPoster: src1Bg,
-            isLoved: false,
-            loves: 1234,
-            comments: 666,
-            shared: 999,
-            duration: 99
-          },
-        ].map(v => {
-          this.videos.push(v)
-        })
-
+      if (newVal >= this.videos.length - 3 && newVal < this.totalSize) {
+        if (this.loading) return
+        this.pageNo++
+        this.getData()
       }
     }
   },
   created() {
-    if (process.env.NODE_ENV !== 'development') {
-      this.videos = this.$clone(this.videos1)
-    }
+    this.getData()
   },
   mounted() {
     this.height = document.body.clientHeight
     this.width = document.body.clientWidth
   },
   methods: {
+    async getData() {
+      this.loading = true
+      let res = await this.$api.videos.recommended({pageNo: this.pageNo, pageSize: this.pageSize})
+      this.loading = false
+      if (res.code === this.SUCCESS_CODE) {
+        this.totalSize = res.data.count
+        this.videos = this.videos.concat(res.data.list)
+        // this.videos = this.$clone(this.localVideos)
+      } else {
+        this.pageNo--
+      }
+    },
     t(e) {
       console.log(e)
     },
     end() {
       console.log('end')
-      setTimeout(() => {
-        [
-          {
-            videoUrl: mp40,
-            // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-            videoPoster: src1Bg,
-            isLoved: true,
-            loves: 1234,
-            comments: 666,
-            shared: 999,
-            duration: 99
-          },
-          // {
-          //   videoUrl: mp41,
-          //   // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-          //   videoPoster: src1Bg,
-          //   isLoved: true,
-          //   loves: 1234,
-          //   comments: 666,
-          //   shared: 999,
-          //   duration: 99
-          // },
-          // {
-          //   videoUrl: mp42,
-          //   // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-          //   videoPoster: src1Bg,
-          //   isLoved: false,
-          //   loves: 1234,
-          //   comments: 666,
-          //   shared: 999,
-          //   duration: 99
-          // },
-          // {
-          //   videoUrl: mp43,
-          //   // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-          //   videoPoster: src1Bg,
-          //   isLoved: false,
-          //   loves: 1234,
-          //   comments: 666,
-          //   shared: 999,
-          //   duration: 99
-          // },
-          // {
-          //   videoUrl: mp44,
-          //   // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-          //   videoPoster: src1Bg,
-          //   isLoved: false,
-          //   loves: 1234,
-          //   comments: 666,
-          //   shared: 999,
-          //   duration: 99
-          // },
-        ].map(v => {
-          this.videos.push(v)
-        })
-        this.$refs.slideList.checkChildren()
-
-        console.log('ok')
-      }, 1000)
     }
-
   }
 }
 </script>

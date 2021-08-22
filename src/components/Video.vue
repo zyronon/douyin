@@ -5,13 +5,12 @@
 <!--</template>-->
 <template>
   <div class="bg-video" v-bind:style="{'height':height+'px'}">
-    <video :src="video.videoUrl" :poster="video.poster" ref="video" muted :autoplay="!disabled" loop>
+    <video :src="video.videoUrl"  ref="video" muted :autoplay="!disabled" loop>
       <p> 您的浏览器不支持 video 标签。</p>
     </video>
     <div class="float-container" v-if="true" @click.stop="togglePlayVideo">
       <transition name="pause">
-        <img src="../assets/img/icon/play.svg" class="pause" v-show="!isPlaying"
-        >
+        <img src="../assets/img/icon/play.svg" class="pause" v-show="!isPlaying">
       </transition>
       <div class="float">
         <div :style="{opacity:isMove?0:1}" class="normal">

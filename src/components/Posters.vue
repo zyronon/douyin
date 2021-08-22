@@ -1,7 +1,7 @@
 <template>
   <div class="posters">
-    <div class="poster-item" v-for="i in list">
-      <img class="poster" :src="$imgPreview(i.poster)" alt="">
+    <div class="poster-item" v-for="i in list" @click="$nav('/video-detail')">
+      <img class="poster" :src="$imgPreview(i.posterUrl)" alt="">
       <div class="num" v-if="mode === 'normal'">
         <img class="love" src="../assets/img/icon/love.svg" alt="">
         <span>{{ $likeNum(i.likeNum) }}</span>

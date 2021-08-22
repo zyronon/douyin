@@ -115,7 +115,7 @@
       </div>
       <div class="joined-chat-wrapper" v-show="showJoinedChat">
         <div class="nav">
-          <back @click="showJoinedChat = false" mode="white" scale="1.8"></back>
+          <back @click="showJoinedChat = false" mode="light" scale="1.8"></back>
           <span>已加入的群聊</span>
           <span>&nbsp;</span>
         </div>
@@ -229,7 +229,8 @@ export default {
       }
     }
   },
-  mounted() {
+  created() {
+    console.log(22)
   },
   methods: {
   }

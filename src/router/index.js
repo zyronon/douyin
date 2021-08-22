@@ -18,7 +18,6 @@ import DeclareSchool from "../pages/me/userinfo/DeclareSchool";
 import ChooseDepartment from "../pages/me/userinfo/ChooseDepartment";
 import DisplayType from "../pages/me/userinfo/DisplayType";
 import Publish from "../pages/home/Publish";
-import Test from "../pages/home/Test";
 import ChooseLocation from "../pages/me/userinfo/ChooseLocation";
 import ChooseProvince from "../pages/me/userinfo/ChooseProvince";
 import ChooseCity from "../pages/me/userinfo/ChooseCity";
@@ -35,7 +34,6 @@ import MinorProtectionIndex from "../pages/me/rightMenu/MinorProtection/Index";
 import MinorProtectionDetailSetting from "../pages/me/rightMenu/MinorProtection/DetailSetting";
 import TriggerTime from "../pages/me/rightMenu/MinorProtection/TriggerTime";
 import Setting from "../pages/me/rightMenu/Setting";
-import Me2 from "../pages/me/Me2";
 import Login from "../pages/login/Login";
 import OtherLogin from "../pages/login/OtherLogin";
 import PasswordLogin from "../pages/login/PasswordLogin";
@@ -50,10 +48,8 @@ const routes = [
   {path: '/home', component: Index},
   {path: '/attention', component: Attention},
   {path: '/publish', component: Publish},
-  {path: '/test', component: Test},
   {path: '/message', component: Message},
-  // {path: '/me', component: Me},
-  {path: '/me', component: Me2},
+  {path: '/me', component: Me},
   {path: '/edit-userinfo', component: EditUserInfo},
   {path: '/edit-userinfo-item', component: EditUserInfoItem},
   {path: '/music', component: Music},

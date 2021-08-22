@@ -53,6 +53,14 @@ margin
 */
 
 
+.m(5);
+.m(@n, @i: 1) when (@i =< @n) {
+  .m@{i}r {
+    margin: (1rem * @i) !important;
+  }
+  .m(@n, (@i + 1));
+}
+
 .ml(5);
 .ml(@n, @i: 1) when (@i =< @n) {
   .ml@{i}r {
@@ -64,7 +72,7 @@ margin
 .mr(5);
 .mr(@n, @i: 1) when (@i =< @n) {
   .mr@{i}r {
-    margin-left: (1rem * @i) !important;
+    margin-right: (1rem * @i) !important;
   }
   .mr(@n, (@i + 1));
 }
@@ -72,7 +80,7 @@ margin
 .mt(5);
 .mt(@n, @i: 1) when (@i =< @n) {
   .mt@{i}r {
-    margin-left: (1rem * @i) !important;
+    margin-top: (1rem * @i) !important;
   }
   .mt(@n, (@i + 1));
 }
@@ -80,7 +88,7 @@ margin
 .mb(5);
 .mb(@n, @i: 1) when (@i =< @n) {
   .mb@{i}r {
-    margin-left: (1rem * @i) !important;
+    margin-bottom: (1rem * @i) !important;
   }
   .mb(@n, (@i + 1));
 }
@@ -91,10 +99,18 @@ padding
 */
 
 
+.p(5);
+.p(@n, @i: 1) when (@i =< @n) {
+  .p@{i}r {
+    padding: (1rem * @i) !important;
+  }
+  .p(@n, (@i + 1));
+}
+
 .pb(5);
 .pb(@n, @i: 1) when (@i =< @n) {
   .pb@{i}r {
-    margin-left: (1rem * @i) !important;
+    padding-bottom: (1rem * @i) !important;
   }
   .pb(@n, (@i + 1));
 }
@@ -102,7 +118,7 @@ padding
 .pt(5);
 .pt(@n, @i: 1) when (@i =< @n) {
   .pt@{i}r {
-    margin-left: (1rem * @i) !important;
+    padding-top: (1rem * @i) !important;
   }
   .pt(@n, (@i + 1));
 }
@@ -110,7 +126,7 @@ padding
 .pl(5);
 .pl(@n, @i: 1) when (@i =< @n) {
   .pl@{i}r {
-    margin-left: (1rem * @i) !important;
+    padding-left: (1rem * @i) !important;
   }
   .pl(@n, (@i + 1));
 }
@@ -118,7 +134,7 @@ padding
 .pr(5);
 .pr(@n, @i: 1) when (@i =< @n) {
   .pr@{i}r {
-    margin-left: (1rem * @i) !important;
+    padding-right: (1rem * @i) !important;
   }
   .pr(@n, (@i + 1));
 }
