@@ -2,12 +2,12 @@
   <div id="video-detail">
     <SlideList key1="父" style="width: 100vw;" v-model:can-move="canMove">
       <SlideItem>
-        <div class="search-ctn">
-          <img src="../../assets/img/icon/back.png" alt="" class="back" @click="$back">
+        <div class="search-wrapper">
+          <back class="back" @click="$back"/>
           <Search></Search>
         </div>
         <SlideList key1="子" direction="column" v-model:active-index="videoActiveIndex">
-          <SlideItem :style="itemTop" v-for="(item,index)  of videos">
+          <SlideItem :style="itemTop" v-for="(item,index)  of videos2">
             <Video1
                 :disabled="videoActiveIndex !== addCount + index"
                 v-model:video="videos[index]"
@@ -103,7 +103,6 @@
         </div>
       </div>
     </from-bottom-dialog>
-
     <from-bottom-dialog
         v-model="dialog.permissionDialog"
         height="40vh"
@@ -139,9 +138,7 @@
             <img src="../../assets/img/icon/head-image.jpeg" alt="">
           </div>
         </div>
-        <div class="space">
-
-        </div>
+        <div class="space"></div>
         <div class="setting pb4r">
           <img src="../../assets/img/icon/head-image.jpeg" alt="">
           <div class="right">
@@ -340,6 +337,7 @@ export default {
           duration: 99
         },
       ],
+      videos2: [],
       addCount: 0,
       total: 10,
       baseActiveIndex: 0,
@@ -358,15 +356,26 @@ export default {
       return {top: this.addCount * 812 + 'px'}
     },
   },
-  mounted() {
+  created() {
     // this.height = document.body.clientHeight
     // this.width = document.body.clientWidth
-  },
-  created() {
-    if (process.env.NODE_ENV !== 'development') {
-      this.videos = this.$clone(this.videos1)
+    for (let i = 0; i < 53; i++) {
+      this.videos2.push(
+          {
+            // videoUrl: mp40,
+            videoUrl: `http://douyin.ttentau.top/${i}.mp4`,
+            videoPoster: src1Bg,
+            isLoved: true,
+            loves: 1234,
+            comments: 666,
+            shared: 999,
+            duration: 99
+          })
     }
-  },
+    // if (process.env.NODE_ENV !== 'development') {
+    //   this.videos = this.$clone(this.videos1)
+    // }
+  }
 }
 </script>
 
@@ -383,24 +392,23 @@ export default {
   height: 100%;
   width: 100%;
 
-  .search-ctn {
+  .search-wrapper {
     z-index: 9;
     position: fixed;
-    top: 10px;
-    left: 20px;
-    right: 20px;
+    top: 1rem;
+    left: 1.5rem;
+    right: 1.5rem;
     display: flex;
     align-items: center;
 
     .back {
-      width: 20px;
-      height: 20px;
-      margin-right: 20px;
+      width: 2rem;
+      height: 2rem;
+      margin-right: 1rem;
     }
 
-    .search {
+    .search-ctn {
       width: 100%;
-      background: rgba(50, 50, 50, .8);
     }
   }
 
@@ -459,7 +467,6 @@ export default {
     }
 
   }
-
 
   .share-dialog {
     .collection {
@@ -527,7 +534,7 @@ export default {
 
   .permission-dialog {
     .space {
-      height: 10px;
+      height: 1rem;
       background: whitesmoke;
     }
 
@@ -543,12 +550,12 @@ export default {
 
       img {
         border-radius: 50%;
-        width: 30px;
-        height: 30px;
+        width: 3rem;
+        height: 3rem;
       }
 
       .right {
-        margin: 0 5px 0 15px;
+        margin: 0 .5rem 0 1.5rem;
         font-size: 1.4rem;
         width: 100%;
         display: flex;
@@ -558,9 +565,9 @@ export default {
         .share-btn {
           font-size: 1.4rem;
           color: white;
-          padding: 5px 20px;
+          padding: .5rem 2rem;
           background: @primary-btn-color;
-          border-radius: 2px;
+          border-radius: .2rem;
         }
       }
     }

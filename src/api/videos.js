@@ -17,4 +17,7 @@ export default {
   collect(params, data) {
     return request({url: '/me/collect', method: 'get', params, data})
   },
+  recommended(params, data) {
+    return request({url: '/video/recommended', method: 'get', params, data})
+  },
 }

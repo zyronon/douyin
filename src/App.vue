@@ -4,9 +4,9 @@
         <Mask v-if="maskDialog" @click="hideMaskDialog" :mode="maskDialogMode"></Mask>
       </transition>
       <transition :name="transitionName">
-        <keep-alive>
+<!--        <keep-alive>-->
           <component :is="Component"/>
-        </keep-alive>
+<!--        </keep-alive>-->
       </transition>
     </router-view>
 

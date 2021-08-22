@@ -278,8 +278,6 @@ export default {
       }
       this.items.push(temp)
     }
-    // this.$console(this.items)
-
     setTimeout(() => {
       this.refs.scroller = this.$refs["scroller"]
       this.refs.wrapper = this.$refs["wrapper"]
@@ -288,9 +286,7 @@ export default {
   },
   methods: {
     scrollToTop(e) {
-      let current = e.currentTarget;
-      console.log(current.getBoundingClientRect())
-      console.log(current.offsetTop)
+      let current = e.currentTarget
       this.refs.scroller.scrollTop = current.offsetTop - this.headerHeight - 30
     },
     start(e) {

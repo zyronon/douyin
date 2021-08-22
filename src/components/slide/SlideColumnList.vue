@@ -64,24 +64,33 @@ export default {
     watchList: {
       handler(newVal, oldVal) {
         if (!this.virtual) return
-        // console.log(this.currentSlideItemIndex)
-        let endLength = newVal.length
-        if (newVal.length - oldVal.length > (this.defaultVirtualItemTotal - 1) / 2) {
-          endLength = oldVal.length + (this.defaultVirtualItemTotal - 1) / 2
-        }
-        let that = this
-        newVal.slice(oldVal.length, endLength).map((item, index) => {
-          this.slideList.appendChild(this.getInsEl(item, oldVal.length + index))
-          this.appInsMap.get($("#base-slide-list .base-slide-item:first").data('index')).unmount()
-          // $("#base-slide-list .base-slide-item:first").remove()
-          $(".base-slide-item").each(function () {
-            $(this).css('top',
-                ((endLength - oldVal.length) > 1 ?
-                    (that.currentSlideItemIndex - 2) :
-                    (that.currentSlideItemIndex - 3)) *
-                that.wrapperHeight)
+        if (oldVal.length === 0) {
+          this.list.slice(0, (this.defaultVirtualItemTotal + 1) / 2).map((item, index) => {
+            this.slideList.appendChild(this.getInsEl(item, index))
           })
-        })
+        } else {
+          // console.log(this.currentSlideItemIndex)
+          let endLength = newVal.length
+          if (newVal.length - oldVal.length > (this.defaultVirtualItemTotal - 1) / 2) {
+            endLength = oldVal.length + (this.defaultVirtualItemTotal - 1) / 2
+          }
+          let that = this
+          // newVal.slice(oldVal.length, endLength).map((item, index) => {
+          //   this.slideList.appendChild(this.getInsEl(item, oldVal.length + index))
+          //   let appIns = this.appInsMap.get($("#base-slide-list .base-slide-item:first").data('index'))
+          //   if (appIns) {
+          //     appIns.unmount()
+          //   }
+          //   // $("#base-slide-list .base-slide-item:first").remove()
+          //   $(".base-slide-item").each(function () {
+          //     $(this).css('top',
+          //         ((endLength - oldVal.length) > 1 ?
+          //             (that.currentSlideItemIndex - 2) :
+          //             (that.currentSlideItemIndex - 3)) *
+          //         that.wrapperHeight)
+          //   })
+          // })
+        }
       },
       deep: true
     }
@@ -185,13 +194,11 @@ export default {
         if (Math.abs(this.moveYDistance) < 20) gapTime = 1000
         if (Math.abs(this.moveYDistance) > (this.wrapperHeight / 3)) gapTime = 100
         if (gapTime < 150) {
-
           if (this.isDrawDown) {
             this.currentSlideItemIndex += 1
           } else {
             this.currentSlideItemIndex -= 1
           }
-
           // console.log(this.slideItems.length)
           let that = this
           if (this.virtual) {
@@ -204,7 +211,7 @@ export default {
                   && this.currentSlideItemIndex >= (this.defaultVirtualItemTotal + 1) / 2
                   && this.currentSlideItemIndex <= this.list.length - 3
               ) {
-                let videos = $(`#base-slide-list .video-slide-item[data-index=${addItemIndex}]`)
+                let res = $(`#base-slide-list .video-slide-item[data-index=${addItemIndex}]`)
                 // console.log(videos)
                 if (res.length === 0) {
                   this.slideList.appendChild(this.getInsEl(this.list[addItemIndex], addItemIndex))

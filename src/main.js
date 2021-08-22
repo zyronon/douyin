@@ -10,6 +10,7 @@ import mixin from "./utils/mixin";
 
 const app = Vue.createApp(App)
 app.config.globalProperties.$api = {...api}
+// app.config.compilerOptions.isCustomElement = tag => tag.startsWith('video1')
 app.provide('mitt', mitt())
 
 app.mixin(mixin)

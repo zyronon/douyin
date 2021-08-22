@@ -78,7 +78,7 @@ export default {
     flex: 1;
     position: relative;
     height: 3.6rem;
-    background: rgb(59, 59, 71);
+    background: @second-btn-color-tran;
     border-radius: 2px;
     display: flex;
     align-items: center;
