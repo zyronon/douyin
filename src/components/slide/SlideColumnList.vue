@@ -73,17 +73,28 @@ export default {
           if (this.currentSlideItemIndex >= this.defaultVirtualItemTotal) {
             startIndex = this.currentSlideItemIndex - (this.defaultVirtualItemTotal + 1) / 2
           }
+          console.log('start',startIndex)
           this.list.slice(startIndex, startIndex + 5).map(
               (item, index) => {
-                this.slideList.appendChild(this.getInsEl(item, startIndex + index))
+                let el = null
+                //自动播放，当前条（可能是0，可能是其他），试了下用jq来找元素，然后trigger play事件，要慢点样
+                if (startIndex + index === this.currentSlideItemIndex) {
+                  el = this.getInsEl(item, startIndex + index, true)
+                } else {
+                  el = this.getInsEl(item, startIndex + index)
+                }
+                this.slideList.appendChild(el)
               })
           let that = this
-          // $(".video-slide-item").each(function () {
-          //   $(this).css('top',
-          //       ((that.currentSlideItemIndex) > 1 ? (that.currentSlideItemIndex - 2) : (that.currentSlideItemIndex - 3))
-          //       *
-          //       that.wrapperHeight)
-          // })
+          if (that.currentSlideItemIndex > 2) {
+            this.checkChildren()
+            this.$setCss(this.slideList, 'transform', `translate3d(0px,
+             ${-this.currentSlideItemIndex * this.wrapperHeight}px,  0px)`)
+            $(".video-slide-item").each(function () {
+              $(this).css('top', (that.currentSlideItemIndex - 2) * that.wrapperHeight)
+            })
+          }
+
         } else {
           let endLength = oldVal.length + 3
           newVal.slice(oldVal.length, endLength).map((item, index) => {
@@ -102,6 +113,7 @@ export default {
     }
   },
   mounted: async function () {
+    await this.checkChildren()
     if (this.virtual) {
       this.currentSlideItemIndex = this.activeIndex
       this.list.slice(this.currentSlideItemIndex, (this.defaultVirtualItemTotal + 1) / 2).map((item, index) => {
@@ -111,8 +123,8 @@ export default {
     await this.checkChildren()
   },
   methods: {
-    getInsEl(item, index) {
-      let slideVNode = this.renderSlide(item, index)
+    getInsEl(item, index, play = false) {
+      let slideVNode = this.renderSlide(item, index, play)
       const app = Vue.createApp({
         render() {
           return slideVNode
