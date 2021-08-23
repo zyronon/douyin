@@ -90,14 +90,14 @@
             </SlideList>
           </SlideItem>
           <SlideItem>
-            <SlideColumnList
+            <SlideList
                 direction="column"
                 ref="slideList"
                 v-model:active-index="videoActiveIndex"
-                :virtual="true"
+                :virtual="false"
                 :total="total"
                 @slide="slide">
-              <SlideItem :style="itemTop" v-for="(item,index)  of videos">
+              <SlideItem :style="itemTop" v-for="(item,index)  of videos" :key="index">
                 <Video
                     :disabled="videoActiveIndex !== addCount + index"
                     v-model:video="videos[index]"
@@ -106,7 +106,7 @@
                     @goUserInfo="baseActiveIndex = 1"
                 ></Video>
               </SlideItem>
-            </SlideColumnList>
+            </SlideList>
           </SlideItem>
         </SlideList>
         <Footer v-bind:init-tab="1"/>

@@ -319,7 +319,6 @@ export default {
   },
   watch: {
     videoActiveIndex(newVal) {
-      console.log(newVal)
       $(".video-slide-item").each(function () {
         let video = $(this).find('video')
         if ($(this).data('index') === newVal) {
