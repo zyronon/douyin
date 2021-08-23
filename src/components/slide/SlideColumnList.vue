@@ -35,6 +35,10 @@ export default {
       type: Number,
       default: () => 5
     },
+    activeIndex: {
+      type: Number,
+      default: () => 0
+    },
   },
   data() {
     return {
@@ -65,31 +69,27 @@ export default {
       handler(newVal, oldVal) {
         if (!this.virtual) return
         if (oldVal.length === 0) {
-          this.list.slice(0, (this.defaultVirtualItemTotal + 1) / 2).map((item, index) => {
-            this.slideList.appendChild(this.getInsEl(item, index))
-          })
-        } else {
-          // console.log(this.currentSlideItemIndex)
-          let endLength = newVal.length
-          if (newVal.length - oldVal.length > (this.defaultVirtualItemTotal - 1) / 2) {
-            endLength = oldVal.length + (this.defaultVirtualItemTotal - 1) / 2
+          let startIndex = 0
+          if (this.currentSlideItemIndex >= this.defaultVirtualItemTotal) {
+            startIndex = this.currentSlideItemIndex - (this.defaultVirtualItemTotal + 1) / 2
           }
+          this.list.slice(startIndex, startIndex + 5).map(
+              (item, index) => {
+                this.slideList.appendChild(this.getInsEl(item, startIndex + index))
+              })
           let that = this
-          // newVal.slice(oldVal.length, endLength).map((item, index) => {
-          //   this.slideList.appendChild(this.getInsEl(item, oldVal.length + index))
-          //   let appIns = this.appInsMap.get($("#base-slide-list .base-slide-item:first").data('index'))
-          //   if (appIns) {
-          //     appIns.unmount()
-          //   }
-          //   // $("#base-slide-list .base-slide-item:first").remove()
-          //   $(".base-slide-item").each(function () {
-          //     $(this).css('top',
-          //         ((endLength - oldVal.length) > 1 ?
-          //             (that.currentSlideItemIndex - 2) :
-          //             (that.currentSlideItemIndex - 3)) *
-          //         that.wrapperHeight)
-          //   })
+          // $(".video-slide-item").each(function () {
+          //   $(this).css('top',
+          //       ((that.currentSlideItemIndex) > 1 ? (that.currentSlideItemIndex - 2) : (that.currentSlideItemIndex - 3))
+          //       *
+          //       that.wrapperHeight)
           // })
+        } else {
+          let endLength = oldVal.length + 3
+          newVal.slice(oldVal.length, endLength).map((item, index) => {
+            this.slideList.appendChild(this.getInsEl(item, oldVal.length + index))
+          })
+          this.checkChildren()
         }
       },
       deep: true
@@ -103,8 +103,8 @@ export default {
   },
   mounted: async function () {
     if (this.virtual) {
-      this.slideList = this.$refs.slideList
-      this.list.slice(0, (this.defaultVirtualItemTotal + 1) / 2).map((item, index) => {
+      this.currentSlideItemIndex = this.activeIndex
+      this.list.slice(this.currentSlideItemIndex, (this.defaultVirtualItemTotal + 1) / 2).map((item, index) => {
         this.slideList.appendChild(this.getInsEl(item, index))
       })
     }
@@ -142,6 +142,29 @@ export default {
       this.startLocationX = e.touches[0].pageX
       this.startLocationY = e.touches[0].pageY
       this.startTime = Date.now()
+
+      if (this.virtual) {
+        let that = this
+        let items = $(".video-slide-item")
+        if (items.length > this.defaultVirtualItemTotal) {
+          let middle = (this.defaultVirtualItemTotal - 1) / 2
+          let removeNum = 0
+          items.each(function (index) {
+            if ($(this).data('index') === that.currentSlideItemIndex) {
+              console.log('start-index', index)
+              if (index !== middle) {
+                removeNum = index - middle
+              }
+            }
+          })
+          items.each(function (index) {
+            $(this).css('top', (that.currentSlideItemIndex - 2) * that.wrapperHeight)
+          })
+          for (let i = 0; i < removeNum; i++) {
+            $(items[i]).remove()
+          }
+        }
+      }
     },
     touchMove(e) {
       this.moveXDistance = e.touches[0].pageX - this.startLocationX
@@ -205,9 +228,12 @@ export default {
             if (this.isDrawDown) {
               let addItemIndex = this.currentSlideItemIndex + 2
               if (this.slideItems.length < this.defaultVirtualItemTotal) {
-                this.slideList.appendChild(this.getInsEl(this.list[addItemIndex], addItemIndex))
+                let res = $(`#base-slide-list .video-slide-item[data-index=${addItemIndex}]`)
+                if (res.length === 0) {
+                  this.slideList.appendChild(this.getInsEl(this.list[addItemIndex], addItemIndex))
+                }
               }
-              if (this.slideItems.length >= this.defaultVirtualItemTotal
+              if (this.slideItems.length === this.defaultVirtualItemTotal
                   && this.currentSlideItemIndex >= (this.defaultVirtualItemTotal + 1) / 2
                   && this.currentSlideItemIndex <= this.list.length - 3
               ) {
@@ -221,6 +247,12 @@ export default {
                     $(this).css('top', (that.currentSlideItemIndex - 2) * that.wrapperHeight)
                   })
                 }
+              }
+              if (this.slideItems.length > this.defaultVirtualItemTotal) {
+                this.appInsMap.get($("#base-slide-list .video-slide-item:first").data('index')).unmount()
+                $(".video-slide-item").each(function () {
+                  $(this).css('top', (that.currentSlideItemIndex - 2) * that.wrapperHeight)
+                })
               }
             } else {
               if (this.currentSlideItemIndex > 1 && this.currentSlideItemIndex <= this.list.length - 4) {
@@ -291,7 +323,6 @@ export default {
     height: 100%;
     width: 100%;
     position: relative;
-
   }
 }
 </style>
