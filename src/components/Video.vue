@@ -5,7 +5,7 @@
 <!--</template>-->
 <template>
   <div class="bg-video" v-bind:style="{'height':height+'px'}">
-    <video :src="video.videoUrl"  ref="video" muted :autoplay="!disabled" loop>
+    <video :src="video.videoUrl" poster="../assets/img/poster/1.jpg" ref="video" muted :autoplay="play" loop>
       <p> 您的浏览器不支持 video 标签。</p>
     </video>
     <div class="float-container" v-if="true" @click.stop="togglePlayVideo">
@@ -125,7 +125,7 @@ export default {
         return -1
       }
     },
-    disabled: {
+    play: {
       type: Boolean,
       default: () => {
         return true
@@ -143,40 +143,6 @@ export default {
       return {left: this.pageX + 'px'}
     }
   },
-  watch: {
-    disabled: {
-      immediate: true,
-      handler(v) {
-        // console.log('disabled', this.currentVideoId, v)
-        this.isPlaying = !v
-        if (!v) {
-          // this.$store.commit('setCurrentVideoId', this.currentVideoId)
-          setTimeout(() => {
-            let video = this.$refs.video
-            video.currentTime = 0
-            // let fun = e => {
-            //   this.currentTime = Math.ceil(e.target.currentTime)
-            //   this.pageX = this.currentTime * this.step
-            // }
-            // video.addEventListener('timeupdate', fun)
-            // video.addEventListener('loadedmetadata', e => {
-            //   this.duration = video.duration
-            //   if (this.duration > 60) {
-            //     this.step = this.width / Math.floor(this.duration)
-            //   } else {
-            //     video.removeEventListener('timeupdate', fun)
-            //   }
-            // })
-            video.play()
-          })
-        } else {
-          if (this.$refs.video) {
-            this.$refs.video.pause()
-          }
-        }
-      }
-    }
-  },
   data() {
     return {
       duration: 0,
@@ -185,7 +151,7 @@ export default {
       pageX: 0,
       height: 0,
       width: 0,
-      isPlaying: !this.disabled,
+      isPlaying: !this.play,
       isAttention: false,
       line: null,
       point: null,
@@ -223,6 +189,29 @@ export default {
     })
   },
   methods: {
+    $duration(v) {
+      if (!v) return
+      let m = Math.floor(v / 60)
+      // let s = v % 60
+      let s = Math.round(v % 60)
+      let str = ''
+      if (m === 0) {
+        str = '00'
+      } else if (m > 0 && m < 10) {
+        str = '0' + m
+      } else {
+        str = m
+      }
+      str += ':'
+      if (s === 0) {
+        str += '00'
+      } else if (s > 0 && s < 10) {
+        str += '0' + s
+      } else {
+        str += s
+      }
+      return str
+    },
     attention() {
       let option = this.$refs['attention-option']
       option.classList.add('attention')
@@ -275,23 +264,29 @@ export default {
       this.lVideo.isLoved = !this.lVideo.isLoved
       this.$emit('update:video', this.lVideo)
     },
+    start(e) {
+      this.pageX = e.touches[0].pageX
+    },
     move(e) {
+      if (this.isPlaying)return
       this.isMove = true
       let video = this.$refs.video
       video.pause()
       this.pageX = e.touches[0].pageX
       // console.log(this.step)
       this.currentTime = Math.ceil(Math.ceil(e.touches[0].pageX) / this.step)
-      this.$stopPropagation(e)
+      globalMethods.$stopPropagation(e)
     },
     end(e) {
+      if (this.isPlaying)return
+      console.log('end', e)
       setTimeout(() => {
         this.isMove = false
       }, 1000)
       let video = this.$refs.video
-      video.currentTime = this.currentTime
+      video.currentTime = this.currentTime = Math.ceil(Math.ceil(e.changedTouches[0].pageX) / this.step)
       video.play()
-      // this.$stopPropagation(e)
+      globalMethods.$stopPropagation(e)
     }
   }
 }

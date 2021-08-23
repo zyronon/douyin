@@ -40,11 +40,13 @@ import PasswordLogin from "../pages/login/PasswordLogin";
 import VerificationCode from "../pages/login/VerificationCode";
 import RetrievePassword from "../pages/login/RetrievePassword";
 import Help from "../pages/login/Help";
+import Test from "../pages/Test";
 
 const routes = [
   // {path: '', component: Music},
   // {path: '/', component: Index},
   {path: '/', component: Index2},
+  {path: '/test', component: Test},
   {path: '/home', component: Index},
   {path: '/attention', component: Attention},
   {path: '/publish', component: Publish},

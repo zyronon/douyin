@@ -178,7 +178,23 @@ export default {
   components: {SlideColumnList, SlideRowList, Video1, Comment, Share, Me},
   data() {
     return {
-      webVideos: [],
+      webVideos: [
+        {
+          "id": "d2f55373-80dd-4c14-93a7-7a40e9cbf049",
+          "posterUrl": "images/20210815/0.png",
+          "videoUrl": "http://qy9rc9xff.hn-bkt.clouddn.com/9.mp4",
+          "title": "",
+          "likeNum": null,
+          "commentNum": null,
+          "sharedNum": null,
+          "duration": null,
+          "musicId": "126f9654-450b-466c-8003-085199a7f9b9",
+          "browseCount": 0,
+          "createTime": "1629683008",
+          "createBy": "3e301843-e8bb-41c0-8240-9c4b42a17341",
+          "status": 1
+        }
+      ],
       videos: [],
       localVideos: [
         {
@@ -301,16 +317,17 @@ export default {
       pageSize: 10,
       pageNo: 1,
       loading: false,
-      render: (item, itemIndex) => {
+      render: (item, itemIndex, play) => {
         return (
             <div className="base-slide-item video-slide-item" data-index={itemIndex}>
-              <Video1 disabled={itemIndex !== 0}
-                      video={item}
-                      index={itemIndex}
-                      onShowComments={e => this.isCommenting = true}
-                      onShowShare={e => this.isSharing = true}
-                      onGoUserInfo={e => this.baseActiveIndex = 1}
-                      v-model={[this.videos[itemIndex], 'video']}
+              <Video1
+                  play={play}
+                  video={item}
+                  index={itemIndex}
+                  onShowComments={e => this.isCommenting = true}
+                  onShowShare={e => this.isSharing = true}
+                  onGoUserInfo={e => this.baseActiveIndex = 1}
+                  v-model={[this.videos[itemIndex], 'video']}
               />
             </div>
         )
@@ -352,6 +369,7 @@ export default {
       if (res.code === this.SUCCESS_CODE) {
         this.totalSize = res.data.count
         this.videos = this.videos.concat(res.data.list)
+
         // this.videos = this.$clone(this.localVideos)
       } else {
         this.pageNo--

@@ -197,29 +197,6 @@ export default {
         break;
     }
   },
-  $duration(v) {
-    if (!v) return
-    let m = Math.floor(v / 60)
-    // let s = v % 60
-    let s = Math.round(v % 60)
-    let str = ''
-    if (m === 0) {
-      str = '00'
-    } else if (m > 0 && m < 10) {
-      str = '0' + m
-    } else {
-      str = m
-    }
-    str += ':'
-    if (s === 0) {
-      str += '00'
-    } else if (s > 0 && s < 10) {
-      str += '0' + s
-    } else {
-      str += s
-    }
-    return str
-  },
   $sleep(duration) {
     return new Promise((resolve, reject) => {
       setTimeout(resolve, duration)
