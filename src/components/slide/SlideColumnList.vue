@@ -71,9 +71,8 @@ export default {
         if (oldVal.length === 0) {
           let startIndex = 0
           if (this.currentSlideItemIndex >= this.defaultVirtualItemTotal) {
-            startIndex = this.currentSlideItemIndex - (this.defaultVirtualItemTotal + 1) / 2
+            startIndex = this.currentSlideItemIndex - (this.defaultVirtualItemTotal - 1) / 2
           }
-          console.log('start',startIndex)
           this.list.slice(startIndex, startIndex + 5).map(
               (item, index) => {
                 let el = null
@@ -87,14 +86,13 @@ export default {
               })
           let that = this
           if (that.currentSlideItemIndex > 2) {
-            this.checkChildren()
             this.$setCss(this.slideList, 'transform', `translate3d(0px,
              ${-this.currentSlideItemIndex * this.wrapperHeight}px,  0px)`)
             $(".video-slide-item").each(function () {
               $(this).css('top', (that.currentSlideItemIndex - 2) * that.wrapperHeight)
             })
           }
-
+          setTimeout(this.checkChildren, 100)
         } else {
           let endLength = oldVal.length + 3
           newVal.slice(oldVal.length, endLength).map((item, index) => {
@@ -141,16 +139,19 @@ export default {
       this.slideItems = this.slideList.children
       this.wrapperHeight = this.$getCss(this.slideList, 'height')
 
-      for (let i = 0; i < this.slideItems.length; i++) {
-        let el = this.slideItems[i]
-        this.slideItemsHeights.push(this.$getCss(el, 'height'))
+      if (!this.virtual){
+        for (let i = 0; i < this.slideItems.length; i++) {
+          let el = this.slideItems[i]
+          this.slideItemsHeights.push(this.$getCss(el, 'height'))
+        }
       }
     },
     touchStart(e) {
+      console.log('this.slideItemsHeights',this.slideItemsHeights)
+
       this.$setCss(this.slideList, 'transition-duration', `0ms`)
       this.showIndicator && this.$setCss(this.indicatorRef, 'transition-duration', `0ms`)
       this.toolbarStyleTransitionDuration = 0
-
       this.startLocationX = e.touches[0].pageX
       this.startLocationY = e.touches[0].pageY
       this.startTime = Date.now()
