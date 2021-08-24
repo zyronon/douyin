@@ -15,71 +15,78 @@
           <span>更多</span>
         </div>
       </div>
+
       <div class="line"></div>
       <div class="shares pl1r pb2r">
-        <div class="share-to pr1r pl1r"
-             v-for="item in 5"
-        >
-          <img src="../assets/img/icon/friend_circle.svg" alt="">
+        <div class="share-to pr1r pl1r">
+          <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
+          <span>分享到日常</span>
+        </div>
+        <div class="share-to pr1r pl1r">
+          <img src="../assets/img/icon/components/video/towechat.webp" alt="">
           <span>朋友圈</span>
         </div>
         <div class="share-to pr1r pl1r">
-          <img src="../assets/img/icon/wechat.svg" alt="">
-          <span>微信</span>
+          <img src="../assets/img/icon/components/video/towechatchat.webp" alt="">
+          <span>微信好友</span>
         </div>
         <div class="share-to pr1r pl1r">
-          <img src="../assets/img/icon/sq-share-qqzone-01.svg">
+          <img src="../assets/img/icon/components/video/tozone.webp" alt="">
           <span>QQ空间</span>
         </div>
         <div class="share-to pr1r pl1r">
-          <img src="../assets/img/icon/QQ.svg">
-          <span>QQ</span>
+          <img src="../assets/img/icon/components/video/toqq.webp" alt="">
+          <span>QQ好友</span>
         </div>
         <div class="share-to pr1r pl1r">
-          <img src="../assets/img/icon/sina.svg">
+          <img src="../assets/img/icon/components/video/totoutiao.webp" alt="">
+          <span>今日头条</span>
+        </div>
+        <div class="share-to pr1r pl1r">
+          <img src="../assets/img/icon/components/video/toweibo.webp" alt="">
           <span>微博</span>
-        </div>
-        <div class="share-to pr1r pl1r">
-          <img src="../assets/img/icon/more.svg">
-          <span>更多</span>
         </div>
       </div>
       <div class="toolbar pl1r pb2r">
         <div class="tool pr1r pl1r ">
-          <img src="../assets/img/icon/举报.svg" alt="">
+          <img src="../assets/img/icon/components/video/comeonlook.webp" alt="">
+          <span>一起看视频</span>
+        </div>
+        <div class="tool pr1r pl1r ">
+          <img src="../assets/img/icon/components/video/warring.png" alt="">
           <span>举报</span>
         </div>
         <div class="tool pr1r pl1r ">
-          <img src="../assets/img/icon/download.svg" alt="">
+          <img src="../assets/img/icon/components/video/download.png" alt="">
           <span>保存本地</span>
         </div>
         <div class="tool pr1r pl1r ">
-          <img src="../assets/img/icon/collect.svg" alt="">
+          <img src="../assets/img/icon/components/video/star.png" alt="">
           <span>收藏</span>
         </div>
         <div class="tool pr1r pl1r ">
-          <img src="../assets/img/icon/qiangjing.svg" alt="">
-          <span>抢镜</span>
+          <img src="../assets/img/icon/components/video/comeonplay.webp" alt="">
+          <span>合拍</span>
         </div>
         <div class="tool pr1r pl1r">
-          <img src="../assets/img/icon/qr_code.svg" alt="">
-          <span>二维码</span>
-        </div>
-        <div class="tool pr1r pl1r">
-          <img src="../assets/img/icon/dongtaibizhi.svg" alt="">
+          <img src="../assets/img/icon/components/video/bizhi.webp" alt="">
           <span>动态壁纸</span>
+        </div>
+        <div class="tool pr1r pl1r">
+          <img src="../assets/img/icon/components/video/dislike.png" alt="">
+          <span>不感兴趣</span>
+        </div>
+        <div class="tool pr1r pl1r">
+          <img src="../assets/img/icon/components/video/link.png" alt="">
+          <span>复制链接</span>
+        </div>
+        <div class="tool pr1r pl1r">
+          <img src="../assets/img/icon/components/video/qrcode.png" alt="">
+          <span>二维码</span>
         </div>
         <div class="tool pr1r pl1r">
           <img src="../assets/img/icon/hepai.svg" alt="">
           <span>合拍</span>
-        </div>
-        <div class="tool pr1r pl1r">
-          <img src="../assets/img/icon/dislike.svg" alt="">
-          <span>不感兴趣</span>
-        </div>
-        <div class="tool pr1r pl1r">
-          <img src="../assets/img/icon/href.svg" alt="">
-          <span>复制链接</span>
         </div>
       </div>
     </div>
@@ -100,6 +107,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import "../assets/scss/index";
+
 .share {
   position: fixed;
   /*top: 200px;*/
@@ -158,17 +167,16 @@ export default {
     display: flex;
 
     .share-to {
-      width: 50px;
 
       img {
-        width: 30px;
-        height: 30px;
-        padding: 10px;
+        width: 5rem;
+        height: 5rem;
         border-radius: 50%;
-        background: #1ace04;
       }
 
       span {
+        color: @second-text-color;
+        font-size: 1rem;
         display: block;
         text-align: center;
       }
@@ -184,14 +192,16 @@ export default {
       float: left;
 
       img {
-        width: 30px;
-        height: 30px;
-        padding: 10px;
+        width: 3rem;
+        height: 3rem;
+        padding: 1rem;
         border-radius: 50%;
-        background: #eaeaea;
+        background: @second-btn-color;
       }
 
       span {
+        color: @second-text-color;
+        font-size: 1rem;
         display: block;
         text-align: center;
       }
