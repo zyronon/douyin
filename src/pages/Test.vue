@@ -6,27 +6,23 @@
       </template>
     </BaseHeader>
     <div class="content">
-      <SlideColumnList
-          ref="slideList"
-          direction="column"
-      >
-        <SlideItem v-for="(item,index)  of videos" :key="index">
-          <Video1
-              v-model:video="videos[index]"
-              @showComments="isCommenting = !isCommenting"
-              @showShare="isSharing = !isSharing"
-              @goUserInfo="baseActiveIndex = 1"
-          ></Video1>
-        </SlideItem>
-      </SlideColumnList>
+      <Share :is-sharing="true" ref="share"/>
 
     </div>
   </div>
 </template>
 <script>
+import SlideColumnList from "../components/slide/SlideColumnList";
+import SlideRowList from "../components/slide/SlideRowList";
+import Video1 from "../components/Video";
+import Comment from "../components/Comment";
+import Share from "../components/Share";
+import Me from "./me/Me";
+
 export default {
   name: "Test",
   props: {},
+  components: {SlideColumnList, SlideRowList, Video1, Comment, Share, Me},
   data() {
     return {
       videos: [

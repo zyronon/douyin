@@ -5,7 +5,14 @@
 <!--</template>-->
 <template>
   <div class="bg-video" v-bind:style="{'height':height+'px'}">
-    <video :src="video.videoUrl" poster="../assets/img/poster/1.jpg" ref="video" muted :autoplay="play" loop>
+<!--    <video :src="video.videoUrl" poster="../assets/img/icon/components/video/loading.gif" ref="video" muted :autoplay="play" loop>-->
+<!--    poster="../assets/img/poster/1.jpg"-->
+
+    <video :src="video.videoUrl"
+           ref="video"
+           muted
+           preload
+           :autoplay="play" loop>
       <p> 您的浏览器不支持 video 标签。</p>
     </video>
     <div class="float-container" v-if="true" @click.stop="togglePlayVideo">
@@ -172,13 +179,11 @@ export default {
       this.currentTime = Math.ceil(e.target.currentTime)
       this.pageX = this.currentTime * this.step
     }
-    video.addEventListener('timeupdate', fun)
     video.addEventListener('loadedmetadata', e => {
       this.duration = video.duration
       if (this.duration > 60) {
         this.step = this.width / Math.floor(this.duration)
-      } else {
-        video.removeEventListener('timeupdate', fun)
+        video.addEventListener('timeupdate', fun)
       }
     })
     video.addEventListener('play', e => {
