@@ -6,8 +6,7 @@
       </template>
     </BaseHeader>
     <div class="content">
-      <Share :is-sharing="true" ref="share"/>
-
+      <Comment :is-commenting="true"/>
     </div>
   </div>
 </template>
@@ -61,7 +60,6 @@ export default {
   bottom: 0;
   top: 0;
   overflow: auto;
-  color: white;
   font-size: 1.4rem;
 
   .content {
