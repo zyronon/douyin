@@ -3,7 +3,7 @@
     <div class="comment f14" v-if="isCommenting">
       <div class="title mt1r">
         <p>2.7w条评论</p>
-        <img src="../assets/img/icon/close.svg" @click.stop="$emit('update:is-commenting',false)">
+        <back mode="dark" img="close" direction="right" @click.stop="$emit('update:is-commenting',false)"/>
       </div>
       <div class="items">
         <div class="item pl1r pr1r mb1r  oh"
@@ -54,7 +54,7 @@ export default {
     //     this.isCommenting = !this.isCommenting;
     //     console.log(666)
     // }
-    call(){
+    call() {
       console.log(this.commit)
     }
   }
@@ -127,7 +127,7 @@ export default {
       }
     }
 
-    .no-more{
+    .no-more {
       margin: 10px;
       text-align: center;
       color: #ccc;
