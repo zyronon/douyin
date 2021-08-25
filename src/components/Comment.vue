@@ -65,7 +65,7 @@
 
       <div class="input-toolbar">
         <div class="call-friend">
-          <div class="friend" v-for="item in friends" @click="item.select = !item.select">
+          <div class="friend" v-for="item in friends" @click="toggleCall(item)">
             <img :style="item.select?'opacity: .5;':''" class="avatar" :src="item.avatar" alt="">
             <span>{{ item.name }}</span>
             <img v-if="item.select" class="checked" src="../assets/img/icon/components/check/check-red-share.png">
@@ -73,13 +73,13 @@
         </div>
         <div class="toolbar">
           <div class="input-wrapper">
-            <AutoInput v-model="commit"></AutoInput>
+            <AutoInput v-model="comment"></AutoInput>
             <div class="right">
               <img src="../assets/img/icon/message/call.png" alt="" class="camera">
               <img src="../assets/img/icon/message/emoji-black.png" alt="">
             </div>
           </div>
-          <img v-if="commit" src="../assets/img/icon/message/up.png" alt="">
+          <img v-if="comment" src="../assets/img/icon/message/up.png" alt="">
         </div>
       </div>
       <ConfirmDialog
@@ -109,7 +109,7 @@ export default {
   },
   data() {
     return {
-      commit: '',
+      comment: '123',
       comments: [
         {
           id: '1',
@@ -202,10 +202,20 @@ export default {
       ],
       selectRow: {},
       showPrivateChat: false,
-      isInput: true
+      isInput: true,
+      isCall: true,
     }
   },
   methods: {
+    toggleCall(item) {
+      item.select = !item.select
+      let name = item.name
+      if (this.comment.includes('@' + name)) {
+        this.comment = this.comment.replace(`@${name} `, '')
+      } else {
+        this.comment += `@${name} `
+      }
+    },
     loved(row) {
       if (row.isLoved) {
         row.loveNum--
