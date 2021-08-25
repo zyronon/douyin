@@ -232,10 +232,11 @@ export default {
     return Config.filePreview + url
   },
   $likeNum(num) {
-    if (num < 1000) {
+    if (!num) return
+    if (num < 10000) {
       return num
     } else {
-      return parseInt(num / 10000) + 'w'
+      return (num / 10000).toFixed(1) + 'w'
     }
   },
   $getTransform(el) {
