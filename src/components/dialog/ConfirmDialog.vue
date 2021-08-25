@@ -1,13 +1,14 @@
 <template>
-  <div class="ConfirmDialog " @click="$emit('dismiss')">
+  <div class="ConfirmDialog " @click="$emit('dismiss')" v-if="visible">
     <div class="content" @click.stop="stop">
       <div class="body">
         <div class="title" v-if="title">{{ title }}</div>
         <div class="subtitle" :class="subtitleColor" v-if="subtitle">{{ subtitle }}</div>
       </div>
+      <slot></slot>
       <div class="footer">
-        <div class="cancel" :class="cancelTextColor" @click.stop="$emit('cancel')">{{ cancelText }}</div>
-        <div class="ok" @click.stop="$emit('ok')">{{ okText }}</div>
+        <div class="cancel" :class="cancelTextColor" @click.stop="cancel">{{ cancelText }}</div>
+        <div class="ok" @click.stop="ok">{{ okText }}</div>
       </div>
     </div>
   </div>
@@ -18,7 +19,7 @@ export default {
   props: {
     visible: {
       type: Boolean,
-      default: false
+      default: true
     },
     title: {
       type: String,
@@ -62,6 +63,14 @@ export default {
   },
   methods: {
     stop() {
+    },
+    ok() {
+      this.$emit('ok')
+      this.$emit('update:visible', false)
+    },
+    cancel() {
+      this.$emit('cancel')
+      this.$emit('update:visible', false)
     }
   }
 }

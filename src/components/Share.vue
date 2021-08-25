@@ -6,9 +6,9 @@
         <back mode="light" img="close" direction="right" @click="closeShare"></back>
       </div>
       <div class="friends  ">
-        <div class="friend " v-for="item in 10">
-          <img src="../assets/img/icon/head-image.jpeg" alt="">
-          <span>ttenu</span>
+        <div class="friend " v-for="item in friends">
+          <img :src="item.avatar" alt="">
+          <span>{{ item.name }}</span>
         </div>
         <div class="more">
           <back mode="light" direction="right"></back>
@@ -101,9 +101,14 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
   name: "Share",
   props: ['isSharing'],
+  computed: {
+    ...mapState(['friends'])
+  },
   methods: {
     closeShare() {
       this.$emit("update:is-sharing", false)

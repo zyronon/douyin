@@ -1,5 +1,10 @@
 <template>
-  <div class="edit" contenteditable @input="changeText">{{ innerText }}</div>
+  <div ref="input"
+       :placeholder="placeholder"
+       class="auto-input"
+       contenteditable
+       @input="changeText">{{ innerText }}
+  </div>
 </template>
 
 <script>
@@ -7,6 +12,13 @@ export default {
   name: "AutoInput",
   props: {
     modelValue: String,
+    placeholder: {
+      type: String,
+      default: '留下你的精彩评论吧'
+    }
+  },
+  mounted() {
+    // this.$refs.input.setAttribute("placeholder", "改变")
   },
   data: function () {
     return {
@@ -21,27 +33,27 @@ export default {
 }
 </script>
 
-<style scoped>
-.edit {
+<style scoped lang="less">
+
+.auto-input {
   width: 100%;
-  max-height: 70px;
-  background: #eee;
+  max-height: 7rem;
   overflow-y: scroll;
-  padding: 8px 10px;
-  border-radius: 30px;
+  padding: 0 .5rem;
   outline: none;
 }
 
-.edit::-webkit-scrollbar {
+.auto-input::-webkit-scrollbar {
   width: 0 !important
 }
 
-.edit:empty::before {
-  content: "留下你的精彩评论吧";
+.auto-input:empty::before {
+  /*content: "留下你的精彩评论吧";*/
+  content: attr(placeholder);
   color: #999999;
 }
 
-.edit:focus::before {
+.auto-input:focus::before {
   content: none;
 }
 </style>
