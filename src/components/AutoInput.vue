@@ -3,7 +3,8 @@
        :placeholder="placeholder"
        class="auto-input"
        contenteditable
-       @input="changeText">{{ innerText }}
+       @input="changeText">
+    {{ modelValue }}
   </div>
 </template>
 
@@ -20,10 +21,9 @@ export default {
   mounted() {
     // this.$refs.input.setAttribute("placeholder", "改变")
   },
+  computed: {},
   data: function () {
-    return {
-      innerText: this.modelValue,
-    }
+    return {}
   },
   methods: {
     changeText(e) {

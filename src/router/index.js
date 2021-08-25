@@ -41,12 +41,16 @@ import VerificationCode from "../pages/login/VerificationCode";
 import RetrievePassword from "../pages/login/RetrievePassword";
 import Help from "../pages/login/Help";
 import Test from "../pages/Test";
+import Test2 from "../pages/Test2";
+import Test3 from "../pages/Test3";
 
 const routes = [
   // {path: '', component: Music},
   // {path: '/', component: Index},
   {path: '/', component: Index2},
   {path: '/test', component: Test},
+  {path: '/test2', component: Test2},
+  {path: '/test3', component: Test3},
   {path: '/home', component: Index},
   {path: '/attention', component: Attention},
   {path: '/publish', component: Publish},
