@@ -6,7 +6,7 @@
       </template>
     </BaseHeader>
     <div class="content">
-      <Comment :is-commenting="true"/>
+      <Share :isSharing="true"/>
     </div>
   </div>
 </template>
