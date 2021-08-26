@@ -120,6 +120,7 @@ export default {
 
     hide(val = false) {
       this.$emit('update:modelValue', val)
+      this.$emit('cancel')
     },
     start(e) {
       if (this.$refs.dialog.scrollTop !== 0) return

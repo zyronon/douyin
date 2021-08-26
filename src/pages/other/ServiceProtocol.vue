@@ -11,6 +11,7 @@
         <span class="f16" v-if="type === '《帐号及信息同步授权协议》'">《帐号及信息同步授权协议》</span>
         <span class="f16" v-if="type === '中国移动认证服务协议'">中国移动认证服务协议</span>
         <span class="f16" v-if="type === '抖音注销须知'">抖音注销须知</span>
+        <span class="f16" v-if="type === '多闪权限申请与使用情况说明'">多闪权限申请与使用情况说明</span>
       </template>
     </BaseHeader>
     <div class="content" v-if="type === '“抖音”隐私政策'">
@@ -1598,6 +1599,113 @@
         <p><strong>12.NSMotionUsageDescription（仅抖音极速版）</strong></p>
         <p>权限功能说明：访问运动与健身数据</p>
         <p>使用场景和目的：用于访问你的行走数据，帮助你正常使用走路赚音符功能</p></div>
+    </div>
+
+    <div class="content" v-if="type === '多闪权限申请与使用情况说明'">
+      <ul>
+        <li class="text">1. 为保障多闪App功能实现与安全稳定运行之目的，我们可能会申请或使用操作系统的相关权限；</li>
+        <li class="text">2. 为保障您的知情权，我们通过下列列表将产品可能申请、使用的相关操作系统权限进行展示，您可以根据实际需要对相关权限进行管理；</li>
+        <li class="text">3. 根据产品的升级，申请、使用权限的类型与目的可能会有变动，我们将及时根据这些变动对列表进行调整，以确保您及时获悉权限的申请与使用情况；</li>
+        <li class="text">4. 请您知悉，我们为业务与产品的功能与安全需要，我们可能也会使用第三方SDK，这些第三方也可能会申请或使用相关操作系统权限；</li>
+        <li class="text">5. 在使用产品的过程中，您可能会使用第三方开发的H5页面或小程序，这些第三方开发开发的插件或小程序也可能因业务功能所必需而申请或使用相关操作系统权限。</li>
+      </ul>
+      <h3>安卓操作系统应用权限列表</h3>
+      <div class="table-header-wrapper">
+        <div class="table-header">权限名称</div>
+        <div class="table-header">权限功能说明</div>
+        <div class="table-header">使用场景或目的</div>
+      </div>
+      <div class="table-body-wrapper">
+        <div class="table-body strong">1.读取SD卡中的内容（读取存储空间/照片权限）android.permission.READ_EXTERNAL_STORAGE</div>
+        <div class="table-body">提供读取手机储存空间内数据的功能</div>
+        <div class="table-body">允许App或小程序读取存储中的图片、文件等内容，主要用于帮助您发布信息，上传头像等图片、文件、在本地记录崩溃日志信息（如有）等功能</div>
+      </div>
+      <div class="table-body-wrapper">
+        <div class="table-body strong">2.写入/删除SD卡中的内容（写入/删除/存储空间/照片权限）android.permission.WRITE_EXTERNAL_STORAGE</div>
+        <div class="table-body">提供写入外部储存功能</div>
+        <div class="table-body">允许App写入/下载/保存/缓存/修改/删除图片、文件、崩溃日志等信息</div>
+      </div>
+      <div class="table-body-wrapper">
+        <div class="table-body strong">3.读取手机状态和身份（电话权限、设备权限）android.permission.READ_PHONE_STATE</div>
+        <div class="table-body">提供读取手机设备标识等信息，请您放心该权限无法监听、获取您的任何通话内容与信息</div>
+        <div class="table-body">读取设备通话状态和识别码，识别手机设备ID，保证运营商网络免流服务，用于完成音视频、信息展示、账号登录、安全保障等主要功能</div>
+      </div>
+      <div class="table-body-wrapper">
+        <div class="table-body strong">4.访问大致地理位置信息 android.permission.ACCESS_COARSE_LOCATION</div>
+        <div class="table-body">通过网络位置信息（例如基站和WLAN）获取大致地理位置信息</div>
+        <div class="table-body">用于完成安全保障服务及基于地理位置的服务（LBS）等相关功能</div>
+      </div>
+      <div class="table-body-wrapper">
+        <div class="table-body strong">5. 访问精确地理位置信息 android.permission.ACCESS_FINE_LOCATION</div>
+        <div class="table-body">通过全球定位系统（GPS）或网络位置信息（例如基站和WLAN）获取精准地理位置信息</div>
+        <div class="table-body">用于完成安全保障服务及包括但不限于发布作品时添加坐标定位等相关功能</div>
+      </div>
+      <div class="table-body-wrapper">
+        <div class="table-body strong">6.获取已知账户 android.permission.GET_ACCOUNTS</div>
+        <div class="table-body">获取设备上已安装的应用创建的账号，请您放心，该权限仅获取应用相关的信息，无法获取您的账号密码等个人敏感信息</div>
+        <div class="table-body">用于帮助您登录App以及管理、验证账户</div>
+      </div>
+      <div class="table-body-wrapper">
+        <div class="table-body strong">7.录音 android.permission.RECORD_AUDIO</div>
+        <div class="table-body">使用麦克风录制音频</div>
+        <div class="table-body">用于帮助您完成音视频信息发布、音视频通话等需要使用该权限的相关功能</div>
+      </div>
+      <div class="table-body-wrapper">
+        <div class="table-body strong">8.拍摄照片和视频 android.permission.CAMERA</div>
+        <div class="table-body">使用拍摄照片和视频、完成扫描二维码</div>
+        <div class="table-body">用于帮助您完成音视频信息发布、视频通话、完成扫描二维码等需要使用该权限的相关功能</div>
+      </div>
+      <div class="table-body-wrapper">
+        <div class="table-body strong">9.读取通讯录 android.permission.READ_CONTACTS</div>
+        <div class="table-body">获取系统中的通讯录信息</div>
+        <div class="table-body">用于好友推荐功能</div>
+      </div>
+      <h3>iOS操作系统应用权限列表</h3>
+      <div class="table-header-wrapper">
+        <div class="table-header">权限名称</div>
+        <div class="table-header">权限功能说明</div>
+        <div class="table-header">使用场景或目的</div>
+      </div>
+      <div class="table-body-wrapper">
+        <div class="table-body strong">1.NSPhotoLibraryAddUsageDescription</div>
+        <div class="table-body">向相册中添加内容</div>
+        <div class="table-body">使用场景和目的：允许App写入/下载/保存/修改/删除图片、文件、崩溃日志等信息</div>
+      </div>
+      <div class="table-body-wrapper">
+        <div class="table-body strong">2.NSPhotoLibraryUsageDescription</div>
+        <div class="table-body">读取相册中内容</div>
+        <div class="table-body">使用场景和目的：允许App读取存储中的图片、文件等内容，主要用于帮助您发布信息等功能</div>
+      </div>
+      <div class="table-body-wrapper">
+        <div class="table-body strong">3.NSCameraUsageDescription</div>
+        <div class="table-body">使用摄像头</div>
+        <div class="table-body">使用场景和目的：用于帮助您完成音视频信息发布、视频通话、完成扫描二维码等需要使用该权限的相关功能</div>
+      </div>
+      <div class="table-body-wrapper">
+        <div class="table-body strong">4.NSLocationAlwaysUsageDescription</div>
+        <div class="table-body">持续获取地理位置</div>
+        <div class="table-body">使用场景和目的：用于完成安全保障、推荐信息以及基于地理位置的服务（LBS）等相关功能</div>
+      </div>
+      <div class="table-body-wrapper">
+        <div class="table-body strong">5.NSLocationWhenInUseUsageDescription</div>
+        <div class="table-body">仅App被使用时获取地理位置</div>
+        <div class="table-body">使用场景和目的：用于完成安全保障、推荐信息以及基于地理位置的服务（LBS）等相关功能</div>
+      </div>
+      <div class="table-body-wrapper">
+        <div class="table-body strong">6.NSLocationAlwaysAndWhenInUseUsageDescription</div>
+        <div class="table-body">持续和仅App被使用时获取地理位置</div>
+        <div class="table-body">使用场景和目的：用于完成安全保障、推荐信息以及基于地理位置的服务（LBS）等相关功能</div>
+      </div>
+      <div class="table-body-wrapper">
+        <div class="table-body strong">7.NSContactsUsageDescription</div>
+        <div class="table-body">读取用户通讯录</div>
+        <div class="table-body">使用场景和目的：用于好友推荐功能</div>
+      </div>
+      <div class="table-body-wrapper">
+        <div class="table-body strong">8.NSMicrophoneUsageDescription</div>
+        <div class="table-body">使用麦克风</div>
+        <div class="table-body">使用场景和目的：用于帮助您完成音视频信息发布、音视频通话、完成搜索（语音转语义）等需要使用该权限的相关功能</div>
+      </div>
     </div>
   </div>
 </template>
