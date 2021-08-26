@@ -18,7 +18,7 @@
       </div>
       <div class="line"></div>
       <div class="shares ">
-        <div class="share-to " @click="isOtherLogin = true">
+        <div class="share-to " @click="showShareDialog = true">
           <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
           <span>私信朋友</span>
         </div>
@@ -26,23 +26,23 @@
           <img src="../assets/img/icon/components/video/torichang.png" alt="">
           <span>分享日常</span>
         </div>
-        <div class="share-to ">
+        <div class="share-to" @click="share2WeChatZone">
           <img src="../assets/img/icon/components/video/towechat.webp" alt="">
           <span>朋友圈</span>
         </div>
-        <div class="share-to ">
+        <div class="share-to" @click="share2WeChat">
           <img src="../assets/img/icon/components/video/towechatchat.webp" alt="">
           <span>微信好友</span>
         </div>
-        <div class="share-to ">
+        <div class="share-to" @click="share2QQZone">
           <img src="../assets/img/icon/components/video/tozone.webp" alt="">
           <span>QQ空间</span>
         </div>
-        <div class="share-to ">
+        <div class="share-to" @click="share2QQ">
           <img src="../assets/img/icon/components/video/toqq.webp" alt="">
           <span>QQ好友</span>
         </div>
-        <div class="share-to ">
+        <div class="share-to" @click="showShareDuoshan = true;showShareDialog = false;">
           <img src="../assets/img/icon/components/video/duoshan.png" alt="">
           <span>多闪</span>
         </div>
@@ -50,7 +50,7 @@
           <img src="../assets/img/icon/components/video/totoutiao.webp" alt="">
           <span>今日头条</span>
         </div>
-        <div class="share-to ">
+        <div class="share-to" @click="share2Webo">
           <img src="../assets/img/icon/components/video/toweibo.webp" alt="">
           <span>微博</span>
         </div>
@@ -64,7 +64,7 @@
           <img src="../assets/img/icon/components/video/warring.png" alt="">
           <span>举报</span>
         </div>
-        <div class="tool  ">
+        <div class="tool" @click="download">
           <img src="../assets/img/icon/components/video/download.png" alt="">
           <span>保存本地</span>
         </div>
@@ -112,24 +112,70 @@
             <Check mode="red" v-model="isCreateChat"/>
             <span>创建群聊</span>
           </div>
-          <b-button>{{ selectFriends.length > 1 ? '分别发送' : '发送' }}</b-button>
+          <b-button type="primary">{{ selectFriends.length > 1 ? '分别发送' : '发送' }}</b-button>
         </div>
       </div>
 
-
       <from-bottom-dialog
-          v-model="isOtherLogin"
-          height="50rem"
+          v-model="showShareDialog"
+          @cancel="cancel"
+          maskMode="light"
+          height="50vh"
           mode="white">
         <div class="option-dialog">
           <div class="buttons">
-            <b-button type="green">
+            <b-button v-if="showProgress"
+                      class="mb1r"
+                      :border="false"
+                      :progress="progress">
+              <img src="../assets/img/icon/components/video/download-gray.png" alt="">
+              <span class="second-text-color">下载中 9.2MB/{{ progress }}%</span>
+            </b-button>
+
+            <b-button type="green" v-if="showShare2WeChatZone">
               <template v-slot:prefix>
                 <img src="../assets/img/icon/components/video/wechatzone-white.webp" alt="">
               </template>
-              {{ notice }}
+              发送视频到朋友圈
             </b-button>
-            <b-button class="mt1r" type="white">复制口令发给好友</b-button>
+            <b-button type="green" v-if="showShare2WeChat">
+              <template v-slot:prefix>
+                <img src="../assets/img/icon/components/video/wechat-white.webp" alt="">
+              </template>
+              发送视频到微信
+            </b-button>
+            <b-button type="qqzone" v-if="showShare2QQZone">
+              <template v-slot:prefix>
+                <img src="../assets/img/icon/components/video/qqzone-white.png" alt="">
+              </template>
+              发送视频到QQ空间
+            </b-button>
+            <b-button type="qq" v-if="showShare2QQ">
+              <template v-slot:prefix>
+                <img src="../assets/img/icon/components/video/qq-white.webp" alt="">
+              </template>
+              发送视频到QQ
+            </b-button>
+            <b-button type="webo" v-if="showShare2Webo">
+              <template v-slot:prefix>
+                <img src="../assets/img/icon/components/video/webo-white.webp" alt="">
+              </template>
+              发送视频到微博
+            </b-button>
+
+            <b-button v-if="!showDownload" class="mt1r" type="white">复制口令发给好友</b-button>
+
+            <template v-if="showDownload">
+              <b-button type="primary">
+                去相册查看
+                <back scale="0.7" mode="light" direction="right"></back>
+              </b-button>
+
+              <b-button class="mt1r" type="white">
+                <img src="../assets/img/icon/components/video/wechat.webp" alt="">
+                发送视频到微信
+              </b-button>
+            </template>
           </div>
           <div class="dialog-friends">
             <div class="dialog-friend" v-for="item in friends">
@@ -147,6 +193,31 @@
             </div>
           </div>
         </div>
+      </from-bottom-dialog>
+
+      <from-bottom-dialog
+          v-model="showShareDuoshan"
+          @cancel="cancel"
+          maskMode="light"
+          mode="white">
+        <div class="share-to-duoshan">
+          <img src="../assets/img/icon/components/video/duoshan-logo2.png" class="logo">
+          <div class="wrapper">
+            <div class="title2">多闪</div>
+            <div class="subtitle">开发者：北京拍拍看看科技有限公司；版本：6.8.0</div>
+            <div class="subtitle mb2r">
+              <span class="link" @click="$nav('/service-protocol',{type:'多闪权限申请与使用情况说明'})">应用权限</span>与
+              <span class="link" @click="$nav('/service-protocol',{type:'“抖音”隐私政策'})">隐私政策</span>
+            </div>
+            <b-button type="dark2">
+              <template v-slot:prefix>
+                <img src="../assets/img/icon/components/video/duoshan-logo.webp">
+              </template>
+              下载多闪
+            </b-button>
+          </div>
+        </div>
+
       </from-bottom-dialog>
     </div>
   </transition>
@@ -169,12 +240,73 @@ export default {
   },
   data() {
     return {
-      notice: '发送视频到朋友圈',
+      progress: 0,
       isCreateChat: false,
-      isOtherLogin: false,
+      showShareDialog: false,
+
+      showProgress: false,
+      showDownload: false,
+      showShare2WeChatZone: false,
+      showShare2WeChat: false,
+      showShare2QQZone: false,
+      showShare2QQ: false,
+      showShare2Webo: false,
+      showShareDuoshan: false,
     }
   },
   methods: {
+    download() {
+      this.showShareDialog = true
+      this.showDownload = false
+      this.downloadVideo(e => this.showDownload = true)
+    },
+    share2WeChatZone() {
+      this.showShareDialog = true
+      this.showShare2WeChatZone = false
+      this.downloadVideo(e => this.showShare2WeChatZone = true)
+    },
+    share2WeChat() {
+      this.showShareDialog = true
+      this.showShare2WeChat = false
+      this.downloadVideo(e => this.showShare2WeChat = true)
+    },
+    share2QQZone() {
+      this.showShareDialog = true
+      this.showShare2QQZone = false
+      this.downloadVideo(e => this.showShare2QQZone = true)
+    },
+    share2QQ() {
+      this.showShareDialog = true
+      this.showShare2QQ = false
+      this.downloadVideo(e => this.showShare2QQ = true)
+    },
+    share2Webo() {
+      this.showShareDialog = true
+      this.showShare2Webo = false
+      this.downloadVideo(e => this.showShare2Webo = true)
+    },
+    downloadVideo(cb) {
+      this.showProgress = true
+      this.progress = 0
+      let time = setInterval(() => {
+        if (this.progress >= 100) {
+          clearInterval(time)
+          this.showProgress = false
+          cb()
+        } else {
+          this.progress++
+        }
+      }, 5)
+    },
+    cancel() {
+      this.showProgress = false
+      this.showDownload = false
+      this.showShare2WeChatZone = false
+      this.showShare2WeChat = false
+      this.showShare2QQZone = false
+      this.showShare2QQ = false
+      this.showShare2Webo = false
+    },
     toggleCall(item) {
       item.select = !item.select
       // let name = item.name
@@ -358,7 +490,7 @@ export default {
   .share2friend {
     position: fixed;
     bottom: 0;
-    padding: 1rem;
+    padding: 2rem;
     box-sizing: border-box;
     width: 100vw;
     height: 18rem;
@@ -407,14 +539,13 @@ export default {
 
   .option-dialog {
     .buttons {
-      padding: 1.5rem;
+      padding: 0 1.5rem;
 
       img {
         height: 2.2rem;
         margin-right: .5rem;
       }
     }
-
 
     .dialog-friends {
       color: black;
@@ -454,6 +585,50 @@ export default {
             border-radius: 2px;
           }
         }
+      }
+    }
+  }
+
+  .share-to-duoshan {
+    padding: 3rem 2rem;
+    min-height: calc(50vh - 6rem);
+    //min-height: 50vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+
+    .logo {
+      height: 12rem;
+      width: 12rem;
+    }
+
+    .wrapper {
+      width: 100%;
+    }
+
+    .title2 {
+      margin-bottom: 2rem;
+      text-align: center;
+      font-size: 2rem;
+      color: black;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 1.2rem;
+      color: @second-text-color;
+    }
+
+
+    .button {
+      width: 100%;
+
+      img {
+        height: 2.2rem;
+        margin-right: .5rem;
       }
     }
   }
