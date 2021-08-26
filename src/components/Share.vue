@@ -18,7 +18,7 @@
       </div>
       <div class="line"></div>
       <div class="shares ">
-        <div class="share-to ">
+        <div class="share-to " @click="isOtherLogin = true">
           <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
           <span>私信朋友</span>
         </div>
@@ -115,6 +115,39 @@
           <b-button>{{ selectFriends.length > 1 ? '分别发送' : '发送' }}</b-button>
         </div>
       </div>
+
+
+      <from-bottom-dialog
+          v-model="isOtherLogin"
+          height="50rem"
+          mode="white">
+        <div class="option-dialog">
+          <div class="buttons">
+            <b-button type="green">
+              <template v-slot:prefix>
+                <img src="../assets/img/icon/components/video/wechatzone-white.webp" alt="">
+              </template>
+              {{ notice }}
+            </b-button>
+            <b-button class="mt1r" type="white">复制口令发给好友</b-button>
+          </div>
+          <div class="dialog-friends">
+            <div class="dialog-friend" v-for="item in friends">
+              <img :src="item.avatar" alt="">
+              <div class="right">
+                <span>{{ item.name }}</span>
+                <div class="share-btn">分享</div>
+              </div>
+            </div>
+            <div class="dialog-friend">
+              <img src="../assets/img/icon/head-image.jpeg" alt="">
+              <div class="right">
+                <span>更多好友</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </from-bottom-dialog>
     </div>
   </transition>
 </template>
@@ -122,10 +155,11 @@
 <script>
 import {mapState} from "vuex";
 import Check from "./Check";
+import FromBottomDialog from "./dialog/FromBottomDialog";
 
 export default {
   name: "Share",
-  components: {Check},
+  components: {FromBottomDialog, Check},
   props: ['isSharing'],
   computed: {
     ...mapState(['friends']),
@@ -135,7 +169,9 @@ export default {
   },
   data() {
     return {
-      isCreateChat: false
+      notice: '发送视频到朋友圈',
+      isCreateChat: false,
+      isOtherLogin: false,
     }
   },
   methods: {
@@ -158,6 +194,10 @@ export default {
 
 <style lang="less" scoped>
 @import "../assets/scss/index";
+
+::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
 
 .share {
   position: fixed;
@@ -362,6 +402,59 @@ export default {
 
     .button {
 
+    }
+  }
+
+  .option-dialog {
+    .buttons {
+      padding: 1.5rem;
+
+      img {
+        height: 2.2rem;
+        margin-right: .5rem;
+      }
+    }
+
+
+    .dialog-friends {
+      color: black;
+      margin: 1rem 1rem 0 1rem;
+      width: calc(100% - 2rem);
+      background: white;
+      border-radius: 6px 6px 0 0;
+
+      > .dialog-friend {
+        box-sizing: border-box;
+        padding: 10px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        //border-bottom: 1px solid ghostwhite;
+        border-bottom: 1px solid gainsboro;
+
+        img {
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+        }
+
+        .right {
+          margin: 0 5px 0 15px;
+          font-size: 1.6rem;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .share-btn {
+            font-size: 1.4rem;
+            color: white;
+            padding: 5px 20px;
+            background: @primary-btn-color;
+            border-radius: 2px;
+          }
+        }
+      }
     }
   }
 }

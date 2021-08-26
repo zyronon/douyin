@@ -1,7 +1,9 @@
 <template>
   <div class="button" :class="class1" @click.capture.stop="check">
     <img v-show="loading" src="../assets/img/icon/loading-white.png" alt="">
+    <slot name="prefix"></slot>
     <slot v-if="showText"></slot>
+    <slot name="suffix"></slot>
   </div>
 </template>
 <script>
@@ -133,6 +135,11 @@ export default {
     background: white;
     color: black;
     border: 1px solid gainsboro;
+  }
+
+  &.green {
+    background: rgb(9,184,91);
+    color: white;
   }
 }
 </style>
