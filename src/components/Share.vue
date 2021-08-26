@@ -6,9 +6,10 @@
         <back mode="light" img="close" direction="right" @click="closeShare"></back>
       </div>
       <div class="friends  ">
-        <div class="friend " v-for="item in friends">
-          <img :src="item.avatar" alt="">
+        <div class="friend" v-for="item in friends" @click="toggleCall(item)">
+          <img :style="item.select?'opacity: .5;':''" class="avatar" :src="item.avatar" alt="">
           <span>{{ item.name }}</span>
+          <img v-if="item.select" class="checked" src="../assets/img/icon/components/check/check-red-share.png">
         </div>
         <div class="more">
           <back mode="light" direction="right"></back>
@@ -18,8 +19,12 @@
       <div class="line"></div>
       <div class="shares ">
         <div class="share-to ">
+          <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
+          <span>私信朋友</span>
+        </div>
+        <div class="share-to ">
           <img src="../assets/img/icon/components/video/torichang.png" alt="">
-          <span>分享到日常</span>
+          <span>分享日常</span>
         </div>
         <div class="share-to ">
           <img src="../assets/img/icon/components/video/towechat.webp" alt="">
@@ -53,7 +58,7 @@
       <div class="toolbar ">
         <div class="tool  ">
           <img src="../assets/img/icon/components/video/comeonlook.webp" alt="">
-          <span>一起看视频</span>
+          <span>一起视频</span>
         </div>
         <div class="tool  ">
           <img src="../assets/img/icon/components/video/warring.png" alt="">
@@ -96,20 +101,53 @@
           <span>播放反馈</span>
         </div>
       </div>
+
+      <div class="share2friend" v-if="selectFriends.length">
+        <div class="comment">
+          <textarea placeholder="有什么想和好友说的..."></textarea>
+          <img class="poster" src="../assets/img/poster/1.jpg" alt="">
+        </div>
+        <div class="wrapper">
+          <div class="create-chat" v-if="selectFriends.length>1">
+            <Check mode="red" v-model="isCreateChat"/>
+            <span>创建群聊</span>
+          </div>
+          <b-button>{{ selectFriends.length > 1 ? '分别发送' : '发送' }}</b-button>
+        </div>
+      </div>
     </div>
   </transition>
 </template>
 
 <script>
 import {mapState} from "vuex";
+import Check from "./Check";
 
 export default {
   name: "Share",
+  components: {Check},
   props: ['isSharing'],
   computed: {
-    ...mapState(['friends'])
+    ...mapState(['friends']),
+    selectFriends() {
+      return this.friends.filter(v => v.select)
+    }
+  },
+  data() {
+    return {
+      isCreateChat: false
+    }
   },
   methods: {
+    toggleCall(item) {
+      item.select = !item.select
+      // let name = item.name
+      // if (this.comment.includes('@' + name)) {
+      //   this.comment = this.comment.replace(`@${name} `, '')
+      // } else {
+      //   this.comment += `@${name} `
+      // }
+    },
     closeShare() {
       this.$emit("update:is-sharing", false)
       // this.isSharing = false
@@ -158,12 +196,36 @@ export default {
     padding-right: @space-width * 2;
 
     .friend {
+      width: @icon-width;
+      position: relative;
       margin-left: @space-width;
       margin-bottom: @space-width;
+      font-size: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
-      img {
+      .avatar {
         width: @icon-width;
         height: @icon-width;
+        border-radius: 50%;
+      }
+
+      span {
+        margin-top: .5rem;
+        text-align: center;
+        width: @icon-width;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .checked {
+        position: absolute;
+        top: @icon-width - 1.5;
+        right: -2px;
+        width: 2rem;
+        height: 2rem;
         border-radius: 50%;
       }
     }
@@ -250,6 +312,56 @@ export default {
         display: block;
         text-align: center;
       }
+    }
+  }
+
+  .share2friend {
+    position: fixed;
+    bottom: 0;
+    padding: 1rem;
+    box-sizing: border-box;
+    width: 100vw;
+    height: 18rem;
+    background: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .comment {
+      display: flex;
+      flex: 1;
+
+      textarea {
+        flex: 1;
+        outline: none;
+        border: none;
+        background: transparent;
+        color: #fff;
+      }
+
+      .poster {
+        margin-left: 2rem;
+        height: 4rem;
+        width: 4rem;
+      }
+    }
+
+    .create-chat {
+      margin: 1rem 0;
+      display: flex;
+      align-items: center;
+      color: @second-text-color;
+
+      .check {
+        margin-right: 1rem;
+        width: 1.6rem;
+        height: 1.6rem;
+        //transform: scale(1.2);
+      }
+    }
+
+    .button {
+
     }
   }
 }

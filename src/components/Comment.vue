@@ -71,6 +71,7 @@
             <img v-if="item.select" class="checked" src="../assets/img/icon/components/check/check-red-share.png">
           </div>
         </div>
+
         <div class="toolbar">
           <div class="input-wrapper">
             <AutoInput v-model="comment"></AutoInput>
