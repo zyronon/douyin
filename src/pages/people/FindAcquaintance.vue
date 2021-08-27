@@ -1,7 +1,7 @@
 <template>
   <div class="FindAcquaintance">
     <div class="header">
-      <back scale="1.8" mode="light" @click="back"></back>
+      <back mode="light" @click="back"></back>
       <Indicator
           style="width: 50%;"
           tabStyleWidth="40%"
@@ -327,7 +327,7 @@ export default {
   }
 
   .find-address-list-dialog {
-    z-index: 2;
+    z-index: 4;
     position: fixed;
     left: 50%;
     top: 50%;
@@ -418,7 +418,7 @@ export default {
   }
 
   .out-web-img-account-dialog {
-    z-index: 2;
+    z-index: 4;
     position: fixed;
     left: 50%;
     top: 50%;

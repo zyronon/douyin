@@ -1,6 +1,6 @@
 <template>
   <div class="Scan">
-    <img src="../../assets/img/icon/back.png" @click="$back" class="back">
+    <img src="../../assets/img/icon/components/gray-back.png" @click="$back" class="back">
     <div class="video-ctn">
       <video src="../../assets/video/3.mp4"></video>
     </div>
