@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      SUCCESS_CODE: 200
+      SUCCESS: 200
     }
   },
   methods: {
