@@ -1,25 +1,15 @@
 <template>
   <div class="Test">
-    <BaseHeader>
-      <template v-slot:center>
-        <span class="f16">申报学校信息</span>
-      </template>
-    </BaseHeader>
     <div class="content">
-      <div ref="input"
-           class="auto-input"
-           contenteditable
-           @input="changeText">
-        <span contenteditable="false" class="link">test</span>
-        <img src="../assets/img/icon/message/emoji/4.webp" class="emoji">
-        <img src="../assets/img/icon/message/emoji/2.webp" class="emoji">
-        {{ comment }}
-        <img src="../assets/img/icon/message/emoji/3.webp" class="emoji">
+      <img class="top" src="../assets/img/icon/components/video/douyin-code-bg.png" alt="">
+      <div class="desc">
+        <div class="left">
+          <div class="user">@名字</div>
+          <div class="title">#窃书不能算偷……窃书！……读书人的事，能算偷么？</div>
+        </div>
+        <img class="code" src="../assets/img/icon/components/video/douyin-code.jpg" alt="">
       </div>
-
-      <b-button class="mt1r" @click="call">@</b-button>
-      <b-button class="mt1r" @click="emoji">emoji</b-button>
-      <b-button class="mt1r" @click="get">get</b-button>
+      <img class="bottom" src="../assets/img/icon/components/video/douyin-code-bottom.jpg" alt="">
     </div>
   </div>
 </template>
@@ -43,7 +33,7 @@ export default {
 
     },
     get() {
-     console.log( this.$refs.input)
+      console.log(this.$refs.input)
 
     },
     call() {
@@ -74,37 +64,35 @@ export default {
   top: 0;
   background: #fff;
   overflow: auto;
-  font-size: 2rem;
-  @emoji-width: 4rem;
-
-  .emoji {
-    width: @emoji-width;
-    height: @emoji-width;
-  }
 
   .content {
     padding-top: 6rem;
 
-
-    .auto-input {
+    .top {
       width: 100%;
-      overflow-y: scroll;
-      padding: 0 .5rem;
-      outline: none;
     }
 
-    .auto-input::-webkit-scrollbar {
-      width: 0 !important
+    .desc {
+      display: flex;
+      padding: 1rem;
+
+      .left {
+        font-size: 1.8rem;
+
+        .title {
+          font-size: 1.4rem;
+          color: @second-text-color;
+        }
+
+      }
+
+      .code {
+        width: 12rem;
+      }
     }
 
-    .auto-input:empty::before {
-      /*content: "留下你的精彩评论吧";*/
-      content: attr(placeholder);
-      color: #999999;
-    }
-
-    .auto-input:focus::before {
-      content: none;
+    .bottom {
+      width: 100%;
     }
   }
 }
