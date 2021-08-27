@@ -1,14 +1,14 @@
 <template>
-    <router-view v-slot="{ Component }">
-      <transition name="fade">
-        <Mask v-if="maskDialog" @click="hideMaskDialog" :mode="maskDialogMode"></Mask>
-      </transition>
-      <transition :name="transitionName">
-<!--        <keep-alive>-->
-          <component :is="Component"/>
-<!--        </keep-alive>-->
-      </transition>
-    </router-view>
+  <router-view v-slot="{ Component }">
+    <transition name="fade">
+      <Mask v-if="maskDialog" @click="hideMaskDialog" :mode="maskDialogMode"></Mask>
+    </transition>
+    <transition :name="transitionName">
+      <!--        <keep-alive>-->
+      <component :is="Component"/>
+      <!--        </keep-alive>-->
+    </transition>
+  </router-view>
 
 </template>
 
@@ -46,6 +46,7 @@ export default {
 
       const routeDeep = [
         '/message', '/attention', '/home', '/me', '/publish',
+        '/home/share-to-friend',
         '/country-choose',
         '/edit-userinfo',
         '/edit-userinfo-item',
@@ -87,6 +88,9 @@ export default {
       const fromDepth = routeDeep.indexOf(from.path)
       this.transitionName = toDepth > fromDepth ? 'go' : 'back'
     }
+  },
+  mounted() {
+    this.$store.dispatch('getFriends')
   },
 }
 </script>

@@ -447,7 +447,7 @@ export default {
           this.loadings['loading' + newVal] = true
           let res = await this.$api.videos.collect({pageNo: this.videos.collect.pageNo, pageSize: this.pageSize,})
           this.loadings['loading' + newVal] = false
-          if (res.code === this.SUCCESS_CODE) this.videos.collect = res.data
+          if (res.code === this.SUCCESS) this.videos.collect = res.data
         }
       } else {
         if (videoOb.total === -1) {
@@ -456,15 +456,15 @@ export default {
           switch (newVal) {
             case 0:
               res = await this.$api.videos.my({pageNo: this.videos.my.pageNo, pageSize: this.pageSize,})
-              if (res.code === this.SUCCESS_CODE) this.videos.my = res.data
+              if (res.code === this.SUCCESS) this.videos.my = res.data
               break
             case 1:
               res = await this.$api.videos.private({pageNo: this.videos.private.pageNo, pageSize: this.pageSize,})
-              if (res.code === this.SUCCESS_CODE) this.videos.private = res.data
+              if (res.code === this.SUCCESS) this.videos.private = res.data
               break
             case 2:
               res = await this.$api.videos.like({pageNo: this.videos.like.pageNo, pageSize: this.pageSize,})
-              if (res.code === this.SUCCESS_CODE) this.videos.like = res.data
+              if (res.code === this.SUCCESS) this.videos.like = res.data
               break
           }
           this.loadings['loading' + newVal] = false
@@ -521,7 +521,7 @@ export default {
             break
         }
         this.loadings['loading' + this.contentIndex] = false
-        if (res.code === this.SUCCESS_CODE) {
+        if (res.code === this.SUCCESS) {
           videoOb.list = videoOb.list.concat(res.data.list)
         }
       }

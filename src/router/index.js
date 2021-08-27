@@ -43,6 +43,7 @@ import Help from "../pages/login/Help";
 import Test from "../pages/Test";
 import Test2 from "../pages/Test2";
 import Test3 from "../pages/Test3";
+import Share2Friend from "../pages/home/Share2Friend";
 
 const routes = [
   // {path: '', component: Music},
@@ -52,6 +53,7 @@ const routes = [
   {path: '/test2', component: Test2},
   {path: '/test3', component: Test3},
   {path: '/home', component: Index},
+  {path: '/home/share-to-friend', component: Share2Friend},
   {path: '/attention', component: Attention},
   {path: '/publish', component: Publish},
   {path: '/message', component: Message},

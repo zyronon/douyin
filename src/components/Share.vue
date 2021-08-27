@@ -18,11 +18,11 @@
       </div>
       <div class="line"></div>
       <div class="shares ">
-        <div class="share-to " @click="showShareDialog = true">
+        <div class="share-to " @click="$nav('/home/share-to-friend')">
           <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
           <span>私信朋友</span>
         </div>
-        <div class="share-to ">
+        <div class="share-to" >
           <img src="../assets/img/icon/components/video/torichang.png" alt="">
           <span>分享日常</span>
         </div>

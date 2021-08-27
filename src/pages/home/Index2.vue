@@ -384,7 +384,7 @@ export default {
       this.loading = true
       let res = await this.$api.videos.recommended({pageNo: this.pageNo, pageSize: this.pageSize})
       this.loading = false
-      if (res.code === this.SUCCESS_CODE) {
+      if (res.code === this.SUCCESS) {
         this.totalSize = res.data.count
         this.videos = this.videos.concat(res.data.list)
         // this.videos = this.$clone(this.localVideos)
