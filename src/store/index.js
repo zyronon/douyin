@@ -26,7 +26,7 @@ const store = Vuex.createStore({
         displayType: enums.DISPLAY_TYPE.ALL,
       }
     },
-    friends: []
+    friends: {}
   },
   mutations: {
     setUserinfo(store, val) {

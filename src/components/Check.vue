@@ -1,5 +1,5 @@
 <template>
-  <div class="check" @click="$emit('update:modelValue',!modelValue)">
+  <div class="check" @click.stop="$emit('update:modelValue',!modelValue)">
     <img v-show="!modelValue" src="../assets/img/icon/components/check/round-gray.png" alt="">
     <img v-show="modelValue && mode === 'gray'" src="../assets/img/icon/components/check/check-gray.png" alt="">
     <img v-show="modelValue && mode === 'red'" src="../assets/img/icon/components/check/check-red.png" alt="">

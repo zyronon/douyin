@@ -92,7 +92,7 @@
             <img class="left" src="../../assets/img/icon/people-gray.png" alt="">
             <div class="right">
               <span>已加入的群聊</span>
-              <back direction="right" scale="1.2"></back>
+              <back direction="right" mode="light"></back>
             </div>
           </div>
           <div class="friend-list">
@@ -101,8 +101,7 @@
               <img class="left" src="../../assets/img/icon/head-image.jpeg" alt="">
               <div class="right">
                 <span>{{ item.name }}</span>
-                <img v-if="item.select" src="../../assets/img/icon/message/checked.png" alt="">
-                <img v-if="!item.select" src="../../assets/img/icon/message/no-check2.png" alt="">
+                <Check mode="red" style="height: 2rem;width: 2rem;" v-model="item.select"/>
               </div>
             </div>
           </div>
@@ -115,7 +114,7 @@
       </div>
       <div class="joined-chat-wrapper" v-show="showJoinedChat">
         <div class="nav">
-          <back @click="showJoinedChat = false" mode="light" scale="1.8"></back>
+          <back @click="showJoinedChat = false" mode="light" scale="1.2"></back>
           <span>已加入的群聊</span>
           <span>&nbsp;</span>
         </div>
@@ -128,7 +127,7 @@
                 <div class="name">{{ text.length > 20 ? text.substr(0, 20) + '...' : text }}</div>
                 <div class="num">(3)</div>
               </div>
-              <back direction="right" scale="1.2"></back>
+              <back direction="right" mode="light"></back>
             </div>
           </div>
         </div>
@@ -142,13 +141,15 @@
 import Footer from '../../components/Footer.vue'
 import Search from "../../components/Search";
 import FromBottomDialog from '../../components/dialog/FromBottomDialog'
+import Check from "../../components/Check";
 
 export default {
   name: "Message",
   components: {
     Footer,
     Search,
-    FromBottomDialog
+    FromBottomDialog,
+    Check
   },
   data() {
     return {
@@ -232,8 +233,7 @@ export default {
   created() {
     console.log(22)
   },
-  methods: {
-  }
+  methods: {}
 }
 </script>
 

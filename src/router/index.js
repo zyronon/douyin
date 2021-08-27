@@ -43,7 +43,8 @@ import Help from "../pages/login/Help";
 import Test from "../pages/Test";
 import Test2 from "../pages/Test2";
 import Test3 from "../pages/Test3";
-import Share2Friend from "../pages/home/Share2Friend";
+import Share2Friend from "../pages/message/Share2Friend";
+import JoinedGroupChat from "../pages/message/JoinedGroupChat";
 
 const routes = [
   // {path: '', component: Music},
@@ -53,10 +54,11 @@ const routes = [
   {path: '/test2', component: Test2},
   {path: '/test3', component: Test3},
   {path: '/home', component: Index},
-  {path: '/home/share-to-friend', component: Share2Friend},
   {path: '/attention', component: Attention},
   {path: '/publish', component: Publish},
   {path: '/message', component: Message},
+  {path: '/message/share-to-friend', component: Share2Friend},
+  {path: '/message/joined-group-chat', component: JoinedGroupChat},
   {path: '/me', component: Me},
   {path: '/edit-userinfo', component: EditUserInfo},
   {path: '/edit-userinfo-item', component: EditUserInfoItem},
