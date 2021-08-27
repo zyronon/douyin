@@ -65,8 +65,8 @@
 
       <div class="input-toolbar">
         <div class="call-friend">
-          <div class="friend" v-for="item in friends" @click="toggleCall(item)">
-            <img :style="item.select?'opacity: .5;':''" class="avatar" :src="item.avatar" alt="">
+          <div class="friend" v-for="item in friends.all" @click="toggleCall(item)">
+            <img :style="item.select?'opacity: .5;':''" class="avatar" :src="$imgPreview(item.avatar)" alt="">
             <span>{{ item.name }}</span>
             <img v-if="item.select" class="checked" src="../assets/img/icon/components/check/check-red-share.png">
           </div>

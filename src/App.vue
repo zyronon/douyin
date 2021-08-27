@@ -46,7 +46,8 @@ export default {
 
       const routeDeep = [
         '/message', '/attention', '/home', '/me', '/publish',
-        '/home/share-to-friend',
+        '/message/share-to-friend',
+        '/message/joined-group-chat',
         '/country-choose',
         '/edit-userinfo',
         '/edit-userinfo-item',

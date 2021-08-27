@@ -6,8 +6,8 @@
         <back mode="light" img="close" direction="right" @click="closeShare"></back>
       </div>
       <div class="friends  ">
-        <div class="friend" v-for="item in friends" @click="toggleCall(item)">
-          <img :style="item.select?'opacity: .5;':''" class="avatar" :src="item.avatar" alt="">
+        <div class="friend" v-for="item in friends.all" @click="toggleCall(item)">
+          <img :style="item.select?'opacity: .5;':''" class="avatar" :src="$imgPreview(item.avatar)" alt="">
           <span>{{ item.name }}</span>
           <img v-if="item.select" class="checked" src="../assets/img/icon/components/check/check-red-share.png">
         </div>
@@ -18,11 +18,11 @@
       </div>
       <div class="line"></div>
       <div class="shares ">
-        <div class="share-to " @click="$nav('/home/share-to-friend')">
+        <div class="share-to " @click="$nav('/message/share-to-friend')">
           <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
           <span>私信朋友</span>
         </div>
-        <div class="share-to" >
+        <div class="share-to">
           <img src="../assets/img/icon/components/video/torichang.png" alt="">
           <span>分享日常</span>
         </div>
@@ -68,27 +68,28 @@
           <img src="../assets/img/icon/components/video/download.png" alt="">
           <span>保存本地</span>
         </div>
-        <div class="tool  ">
-          <img src="../assets/img/icon/components/video/star.png" alt="">
+        <div class="tool" @click="toggleCollect">
+          <img v-if="isCollect" src="../assets/img/icon/components/video/star-full.png" alt="">
+          <img v-else src="../assets/img/icon/components/video/star.png" alt="">
           <span>收藏</span>
         </div>
-        <div class="tool  ">
+        <div class="tool">
           <img src="../assets/img/icon/components/video/comeonplay.png" alt="">
           <span>合拍</span>
         </div>
-        <div class="tool ">
+        <div class="tool">
           <img src="../assets/img/icon/components/video/bizhi.webp" alt="">
           <span>动态壁纸</span>
         </div>
-        <div class="tool ">
+        <div class="tool">
           <img src="../assets/img/icon/components/video/dislike.png" alt="">
           <span>不感兴趣</span>
         </div>
-        <div class="tool ">
+        <div class="tool" @click="copyLink">
           <img src="../assets/img/icon/components/video/link.png" alt="">
           <span>复制链接</span>
         </div>
-        <div class="tool ">
+        <div class="tool">
           <img src="../assets/img/icon/components/video/qrcode.png" alt="">
           <span>抖音码</span>
         </div>
@@ -121,7 +122,7 @@
           @cancel="cancel"
           maskMode="light"
           height="50vh"
-          mode="white">
+          mode="light">
         <div class="option-dialog">
           <div class="buttons">
             <b-button v-if="showProgress"
@@ -178,8 +179,8 @@
             </template>
           </div>
           <div class="dialog-friends">
-            <div class="dialog-friend" v-for="item in friends">
-              <img :src="item.avatar" alt="">
+            <div class="dialog-friend" v-for="item in friends.all">
+              <img :src="$imgPreview(item.avatar)" alt="">
               <div class="right">
                 <span>{{ item.name }}</span>
                 <div class="share-btn">分享</div>
@@ -199,7 +200,7 @@
           v-model="showShareDuoshan"
           @cancel="cancel"
           maskMode="light"
-          mode="white">
+          mode="light">
         <div class="share-to-duoshan">
           <img src="../assets/img/icon/components/video/duoshan-logo2.png" class="logo">
           <div class="wrapper">
@@ -235,7 +236,7 @@ export default {
   computed: {
     ...mapState(['friends']),
     selectFriends() {
-      return this.friends.filter(v => v.select)
+      return this.friends.all.filter(v => v.select)
     }
   },
   data() {
@@ -252,9 +253,27 @@ export default {
       showShare2QQ: false,
       showShare2Webo: false,
       showShareDuoshan: false,
+      isCollect: false
     }
   },
   methods: {
+    async copyLink() {
+      this.closeShare()
+      this.$showLoading()
+      await this.$sleep(500)
+      this.$hideLoading()
+      this.$notice('复制成功')
+    },
+    toggleCollect() {
+      this.closeShare()
+      if (this.isCollect) {
+        this.$notice('取消收藏成功')
+      } else {
+        this.$notice('收藏成功')
+      }
+      this.isCollect = !this.isCollect
+
+    },
     download() {
       this.showShareDialog = true
       this.showDownload = false

@@ -1,7 +1,7 @@
 <template>
   <div class="FindAcquaintance">
     <div class="header">
-      <back scale="1.8" mode="white" @click="back"></back>
+      <back scale="1.8" mode="light" @click="back"></back>
       <Indicator
           style="width: 50%;"
           tabStyleWidth="40%"
