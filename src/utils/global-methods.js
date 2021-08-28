@@ -140,6 +140,9 @@ export default {
       document.body.removeChild(div)
     }, 1000)
   },
+  $no(){
+    this.$notice('未实现')
+  },
   $back() {
     window.history.back()
   },
@@ -248,5 +251,22 @@ export default {
     //当前的transformY
     transformY = parseInt(transformY)
     return transformY
-  }
+  },
+  $storageSet(key, value) {
+    localStorage.setItem(key, JSON.stringify(value))
+  },
+  $storageGet(key, defaultValue = '') {
+    let res = localStorage.getItem(key)
+    if (res) {
+      return JSON.parse(res)
+    }
+    return defaultValue
+  },
+  $storageClear(key, isAll = false) {
+    if (isAll) {
+      localStorage.clear()
+    } else {
+      localStorage.removeItem(key)
+    }
+  },
 }

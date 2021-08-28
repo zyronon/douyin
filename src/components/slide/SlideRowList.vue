@@ -16,9 +16,11 @@
           </div>
           <div class="indicator" ref="indicator"></div>
         </div>
-        <div class="right" :style="{opacity:loading ? 0 : 1}">搜索</div>
+        <img src="../../assets/img/icon/search-gray.png" alt=""
+             :style="{opacity:loading ? 0 : 1}"
+             style="margin-top: .5rem;">
       </div>
-      <div class="loading" :style="loadingStyle">AA</div>
+      <Loading class="loading" style="width: 4rem;" :style="loadingStyle" :is-full-screen="false"/>
     </div>
     <div id="base-slide-list" ref="slideList"
          :style="{'flex-direction':'row',marginTop:indicatorFixed?'5rem':'0'}"
@@ -32,9 +34,13 @@
 
 <script>
 import bus from "../../utils/bus";
+import Loading from "../Loading";
 
 export default {
   name: "BaseSlideList",
+  components:{
+    Loading
+  },
   props: {
     canMove: {
       type: Boolean,
@@ -186,7 +192,7 @@ export default {
       this.startTime = Date.now()
     },
     touchMove(e) {
-    //  this.$stopPropagation(e)
+      //  this.$stopPropagation(e)
 
       if (!this.canMove) return;
       this.moveXDistance = e.touches[0].pageX - this.startLocationX
@@ -359,8 +365,8 @@ export default {
 
     .loading {
       opacity: 0;
-      top: 20px;
-      right: 15px;
+      top: 1.3rem;
+      right: 1.5rem;
       position: absolute;
 
     }

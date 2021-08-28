@@ -148,8 +148,34 @@
         <Me></Me>
       </SlideItem>
     </SlideRowList>
-    <Comment v-model:is-commenting="isCommenting"/>
-    <Share v-model:is-sharing="isSharing" ref="share"/>
+
+    <Comment v-model="isCommenting"/>
+
+    <Share v-model="isSharing"
+           ref="share"
+           @dislike="dislike"
+           :videoId="videos[videoActiveIndex]?.id"
+           :canDownload="videos[videoActiveIndex]?.canDownload"
+           @play-feedback="showPlayFeedback = true"
+           @showShareDuoshan="showShareDuoshan = true"
+           @showDouyinCode="showDouyinCode = true"
+           @showShare2WeChatZone="shareType = 2"
+           @share2WeChat="shareType = 3"
+           @share2QQZone="shareType = 4"
+           @share2QQ="shareType = 5"
+           @share2Webo="shareType = 8"
+           @download="shareType = 9"
+    />
+    <PlayFeedback v-model="showPlayFeedback"/>
+
+    <DouyinCode v-model="showDouyinCode"></DouyinCode>
+
+    <Duoshan v-model="showShareDuoshan"/>
+
+    <ShareTo v-model:type="shareType"
+            :videoId="videos[videoActiveIndex]?.id"
+            :canDownload="videos[videoActiveIndex]?.canDownload"
+    />
   </div>
 </template>
 <script>
@@ -171,10 +197,27 @@ import Share from "../../components/Share";
 import SlideColumnList from "../../components/slide/SlideColumnList";
 import SlideRowList from "../../components/slide/SlideRowList";
 import Me from '../me/Me'
+import PlayFeedback from "./components/PlayFeedback";
+import FromBottomDialog from "../../components/dialog/FromBottomDialog";
+import Duoshan from "./components/Duoshan";
+import ShareTo from "./components/ShareTo";
+import DouyinCode from "../../components/DouyinCode";
 
 export default {
   name: "HomeIndex",
-  components: {SlideColumnList, SlideRowList, Video1, Comment, Share, Me},
+  components: {
+    FromBottomDialog,
+    SlideColumnList,
+    SlideRowList,
+    Video1,
+    Comment,
+    Share,
+    Me,
+    PlayFeedback,
+    Duoshan,
+    ShareTo,
+    DouyinCode
+  },
   data() {
     return {
       webVideos: [
@@ -325,6 +368,15 @@ export default {
       ],
       isCommenting: false,
       isSharing: false,
+
+      shareType: -1,
+
+      showPlayFeedback: false,
+      showShareDuoshan: false,
+      showShareDialog: false,
+      showShare2WeChatZone: false,
+      showDouyinCode: false,
+
       videoActiveIndex: 0,
       baseActiveIndex: 0,
       activeIndex: 1,
@@ -380,6 +432,9 @@ export default {
     this.width = document.body.clientWidth
   },
   methods: {
+    dislike() {
+      this.$notice('操作成功，将减少此类视频的推荐')
+    },
     async getData() {
       this.loading = true
       let res = await this.$api.videos.recommended({pageNo: this.pageNo, pageSize: this.pageSize})
@@ -405,6 +460,7 @@ export default {
 #home-index {
   height: 100%;
   width: 100%;
+  //z-index: 4;
   position: relative;
 }
 </style>

@@ -23,7 +23,7 @@
         <div class="row" @click="$nav('/choose-province')">
           <span>中国</span>
           <div class="right">
-            <back scale='1.5' direction="right"></back>
+            <back scale=".8" direction="right"></back>
           </div>
         </div>
         <div v-for="(value, name)  of countryOk">
@@ -1232,34 +1232,6 @@ export default {
         width: 1rem;
         height: 1rem;
         margin-right: .2rem;
-      }
-    }
-
-    .row {
-      padding: 0 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 5rem;
-      font-size: 1.4rem;
-      transition: all .1s;
-      background: @main-bg;
-
-      .right {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        color: @second-text-color;
-
-        img {
-          margin-left: 1rem;
-          width: 15px;
-        }
-      }
-
-      &:active {
-        background: @active-main-bg;
-        color: @second-text-color;
       }
     }
   }

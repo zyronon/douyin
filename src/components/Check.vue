@@ -1,5 +1,5 @@
 <template>
-  <div class="check" @click.stop="$emit('update:modelValue',!modelValue)">
+  <div class="check" @click.stop="change">
     <img v-show="!modelValue" src="../assets/img/icon/components/check/round-gray.png" alt="">
     <img v-show="modelValue && mode === 'gray'" src="../assets/img/icon/components/check/check-gray.png" alt="">
     <img v-show="modelValue && mode === 'red'" src="../assets/img/icon/components/check/check-red.png" alt="">
@@ -24,7 +24,12 @@ export default {
   computed: {},
   created() {
   },
-  methods: {}
+  methods: {
+    change(){
+      this.$emit('update:modelValue',!this.modelValue)
+      this.$emit('change',!this.modelValue)
+    }
+  }
 }
 </script>
 
@@ -36,9 +41,9 @@ export default {
   width: @width;
   height: @width;
 
-  img {
-    width: 100%;
-    height: 100%;
+  >img {
+    width: 100%!important;
+    height: 100%!important;
   }
 
 }

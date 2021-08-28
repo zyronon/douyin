@@ -1,53 +1,105 @@
 <template>
-  <div class="Test">
+  <div class="play-feedback">
+    <div class="feedback-header">
+      <span>&nbsp;</span>
+      <div class="title">播放反馈</div>
+      <back mode="dark" img="close" @click="cancel"></back>
+    </div>
     <div class="content">
-      <img class="top" src="../assets/img/icon/components/video/douyin-code-bg.png" alt="">
-      <div class="desc">
-        <div class="left">
-          <div class="user">@名字</div>
-          <div class="title">#窃书不能算偷……窃书！……读书人的事，能算偷么？</div>
-        </div>
-        <img class="code" src="../assets/img/icon/components/video/douyin-code.jpg" alt="">
+      <div class="notice">请选择要反馈的问题</div>
+      <div class="l-row" @click="falseOther(()=>{this.type1 = true} )">
+        <Check mode="red" :modelValue="type1" @change="falseOther(()=>{this.type1 = true} )"/>
+        <span>网络正常无法播放视频</span>
       </div>
-      <img class="bottom" src="../assets/img/icon/components/video/douyin-code-bottom.jpg" alt="">
+      <div class="l-row" @click="falseOther(()=>{this.type2 = true} )">
+        <Check mode="red" :modelValue="type2" @change="falseOther(()=>{this.type2 = true} )"/>
+        <span>视频画面正常没声音</span>
+      </div>
+      <div class="l-row" @click="falseOther(()=>{this.type3 = true} )">
+        <Check mode="red" :modelValue="type3" @change="falseOther(()=>{this.type3 = true} )"/>
+        <span>播放几秒/中途卡信</span>
+      </div>
+      <div class="l-row" @click="falseOther(()=>{this.type4 = true} )">
+        <Check mode="red" :modelValue="type4" @change="falseOther(()=>{this.type4 = true} )"/>
+        <span>画面内容不全</span>
+      </div>
+      <div class="l-row" @click="falseOther(()=>{this.type5 = true} )">
+        <Check mode="red" :modelValue="type5" @change="falseOther(()=>{this.type5 = true} )"/>
+        <span>播放过程中闪退回桌面</span>
+      </div>
+      <div class="l-row" @click="falseOther(()=>{this.type6 = true} )">
+        <Check mode="red" :modelValue="type6" @change="falseOther(()=>{this.type6 = true} )"/>
+        <span>画面模糊不清晰</span>
+      </div>
+      <div class="l-row" @click="falseOther(()=>{this.type7 = true} )">
+        <Check mode="red" :modelValue="type7" @change="falseOther(()=>{this.type7 = true} )"/>
+        <span>视频播放其他问题或建议</span>
+      </div>
+      <div v-if="type7" class="other">
+        <div class="textarea-ctn">
+          <textarea name="" id="" cols="30" rows="10"
+                    v-model="desc"
+                    placeholder="详输入内容"></textarea>
+        </div>
+        <div class="text-num">{{ desc.length }}/300</div>
+      </div>
+      <b-button type="primary" :disabled="!disabled" @click="submit">提交</b-button>
     </div>
   </div>
 </template>
 <script>
+import FromBottomDialog from "../components/dialog/FromBottomDialog";
+import Check from "../components/Check";
+import BaseButton from "../components/BaseButton";
 
 export default {
   name: "Test",
   props: {},
+  components: {
+    BaseButton,
+    FromBottomDialog,
+    Check
+  },
   data() {
     return {
-      comment: '12'
+      showShareDialog: true,
+      type1: false,
+      type2: false,
+      type3: false,
+      type4: false,
+      type5: false,
+      type6: false,
+      type7: false,
+      disabled: false,
+      desc: ''
     }
   },
-  computed: {},
+  computed: {
+    disabled() {
+      if (this.type7 && this.desc) return true
+      return this.type1 || this.type2 || this.type3 || this.type4 || this.type5 || this.type6
+    }
+  },
   created() {
   },
   methods: {
-    changeText(e) {
-      console.log(e)
-      console.log(this.$el.innerText)
+    falseOther(cb) {
+      this.type1 = false
+      this.type2 = false
+      this.type3 = false
+      this.type4 = false
+      this.type5 = false
+      this.type6 = false
+      this.type7 = false
+      cb()
+    },
+    cancel() {
 
     },
-    get() {
-      console.log(this.$refs.input)
-
-    },
-    call() {
-      let span = document.createElement('span')
-      span.setAttribute('contenteditable', false)
-      span.classList.add('link')
-      span.innerText = Date.now() + ' '
-      this.$refs.input.append(span)
-    },
-    emoji() {
-      let span = document.createElement('img')
-      span.setAttribute('src', require('../assets/img/icon/message/emoji/4.webp'))
-      span.classList.add('emoji')
-      this.$refs.input.append(span)
+    submit() {
+      if (this.disabled) return
+      this.cancel()
+      this.$notice('感谢你的反馈，我们会尽快答复！')
     }
   }
 }
@@ -56,44 +108,91 @@ export default {
 <style scoped lang="less">
 @import "../assets/scss/index";
 
-.Test {
+.play-feedback {
+  max-height: 49rem;
+  overflow: auto;
+  background: #fff;
+  color: black;
   position: fixed;
+  bottom: 5rem;
   left: 0;
   right: 0;
-  bottom: 0;
-  top: 0;
-  background: #fff;
-  overflow: auto;
+
+  .feedback-header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    background: white;
+    height: 3rem;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-weight: bold;
+    font-size: 1.8rem;
+  }
 
   .content {
-    padding-top: 6rem;
+    padding: 6rem 1.5rem 1.5rem 1.5rem;
+  }
 
-    .top {
-      width: 100%;
+  .notice {
+    font-size: 1.2rem;
+    color: @second-text-color;
+  }
+
+  .l-row {
+    display: flex;
+    align-items: center;
+    min-height: 5rem;
+    font-size: 1.4rem;
+    border-bottom: 1px solid #f1f1f1;
+
+
+    .check {
+      width: 2rem;
+      height: 2rem;
+      margin-right: 1rem;
     }
+  }
 
-    .desc {
-      display: flex;
-      padding: 1rem;
+  .no-border {
+    border-bottom: none;
+  }
 
-      .left {
-        font-size: 1.8rem;
+  .other {
+    .textarea-ctn {
+      width: 100%;
+      background: #eae8e8;
+      padding: 1.5rem;
+      box-sizing: border-box;
+      margin-top: 1rem;
+      border-radius: 2px;
 
-        .title {
-          font-size: 1.4rem;
+
+      textarea {
+        font-family: "Microsoft YaHei UI";
+        outline: none;
+        width: 100%;
+        border: none;
+        background: transparent;
+        color: black;
+
+        &::placeholder {
           color: @second-text-color;
         }
-
-      }
-
-      .code {
-        width: 12rem;
       }
     }
 
-    .bottom {
-      width: 100%;
+    .text-num {
+      margin-top: .8rem;
+      margin-bottom: .8rem;
+      font-size: 1rem;
+      color: @second-text-color;
+      text-align: right;
     }
   }
 }
+
+
 </style>

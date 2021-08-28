@@ -10,7 +10,7 @@
         <div class="row" @click="$nav('/choose-city')" v-for="item in list">
           <span>{{ item }}</span>
           <div class="right">
-            <back scale='1.5' direction="right"></back>
+            <back scale=".8" direction="right"></back>
           </div>
         </div>
       </div>
@@ -62,34 +62,6 @@ export default {
         }
       }
 
-    }
-
-    .row {
-      padding: 0 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 5rem;
-      font-size: 1.4rem;
-      transition: all .1s;
-      background: @main-bg;
-
-      .right {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        color: @second-text-color;
-
-        img {
-          margin-left: 1rem;
-          width: 15px;
-        }
-      }
-
-      &:active {
-        background: @active-main-bg;
-        color: @second-text-color;
-      }
     }
   }
 }

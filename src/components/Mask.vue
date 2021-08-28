@@ -34,6 +34,10 @@ export default {
     background: transparent;
   }
 
+  &.lightgray {
+    background: rgba(0, 0, 0, 0.15);
+  }
+
   &.white {
     background: transparent;
   }

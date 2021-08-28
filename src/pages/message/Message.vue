@@ -239,6 +239,9 @@ export default {
 
 <style scoped lang="less">
 @import "../../assets/scss/index";
+::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
 
 #Message {
   position: absolute;

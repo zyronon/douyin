@@ -6,6 +6,7 @@
 
 .global-notice {
   position: fixed;
+  z-index: 999;
   color: white;
   background: black;
   left: 50%;
@@ -21,7 +22,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 5rem;
+  min-height: 5rem;
   font-size: 1.4rem;
 
   &.no-active {
