@@ -20,28 +20,28 @@
         <div class="left">名字</div>
         <div class="right">
           <span>{{ isEmpty(userinfo.name) }}</span>
-          <back direction="right"></back>
+          <back scale=".8" direction="right"></back>
         </div>
       </div>
       <div class="row" @click="$nav('/edit-userinfo-item',{type:2})">
         <div class="left">抖音号</div>
         <div class="right">
           <span>{{ isEmpty(userinfo.account) }}</span>
-          <back direction="right"></back>
+          <back scale=".8" direction="right"></back>
         </div>
       </div>
       <div class="row" @click="$nav('/edit-userinfo-item',{type:3})">
         <div class="left">简介</div>
         <div class="right">
           <span>{{ isEmpty(userinfo.desc) }}</span>
-          <back direction="right"></back>
+          <back scale=".8" direction="right"></back>
         </div>
       </div>
       <div class="row" @click="showSexDialog">
         <div class="left">性别</div>
         <div class="right">
           <span>{{ isEmpty(userinfo.sex) }}</span>
-          <back direction="right"></back>
+          <back scale=".8" direction="right"></back>
         </div>
       </div>
       <div class="row" @click="showBirthdayDialog">
@@ -49,21 +49,21 @@
         <div class="right">
           <span>{{ isEmpty(userinfo.birthday) }}</span>
           <div v-show="false" id="trigger1"></div>
-          <back direction="right"></back>
+          <back scale=".8" direction="right"></back>
         </div>
       </div>
       <div class="row" @click="$nav('/choose-location')">
         <div class="left">所在地</div>
         <div class="right">
           <span>{{ isEmpty(userinfo.location) }}</span>
-          <back direction="right"></back>
+          <back scale=".8" direction="right"></back>
         </div>
       </div>
       <div class="row" @click="$nav('/add-school')">
         <div class="left">学校</div>
         <div class="right">
           <span>{{ isEmpty(userinfo.school.name) }}</span>
-          <back direction="right"></back>
+          <back scale=".8" direction="right"></back>
         </div>
       </div>
     </div>

@@ -1,14 +1,24 @@
 <template>
-  <transition name="comment">
-    <div class="comment" v-if="isCommenting">
-      <div class="wrapper">
-        <div class="title">
-          <p>2.7w条评论</p>
-          <back mode="dark" img="close" direction="right" @click.stop="$emit('update:is-commenting',false)"/>
-        </div>
+  <from-bottom-dialog
+      v-model="modelValue"
+      @cancel="cancel"
+      :show-heng-gang="false"
+      maskMode="light"
+      height="70vh"
+      mode="white">
+    <template v-slot:header>
+      <div class="title">
+        <back mode="dark" img="close" direction="right" style="opacity: 0;"/>
+        <span>2.7w条评论</span>
+        <back mode="dark" img="close" direction="right" @click.stop="cancel"/>
+      </div>
+    </template>
+    <div class="comment">
+      <div class="wrapper" v-if="comments.length">
         <div class="items">
           <div class="item" v-for="item in comments">
-            <div class="main" v-longpress="e => showOptions(item)">
+            <!--             v-longpress="e => showOptions(item)"-->
+            <div class="main">
               <div class="content">
                 <img :src="item.avatar" alt="" class="head-image">
                 <div class="comment-container">
@@ -29,7 +39,8 @@
             </div>
             <div class="replies">
               <div class="reply" v-for="child in item.children">
-                <div class="content" v-longpress="e => showOptions(child)">
+                <!--                 v-longpress="e => showOptions(child)"-->
+                <div class="content">
                   <img :src="child.avatar" alt="" class="head-image">
                   <div class="comment-container">
                     <div class="name">
@@ -58,31 +69,38 @@
               </div>
             </div>
           </div>
-          <p class="no-more">暂时没有更多了</p>
         </div>
+        <no-more/>
       </div>
-      <Mask v-if="isInput"></Mask>
 
+      <Loading v-else style="position:absolute;"/>
+
+      <transition name="fade">
+        <Mask v-if="isCall" mode="lightgray" @click="isCall = false"/>
+      </transition>
       <div class="input-toolbar">
-        <div class="call-friend">
-          <div class="friend" v-for="item in friends.all" @click="toggleCall(item)">
-            <img :style="item.select?'opacity: .5;':''" class="avatar" :src="$imgPreview(item.avatar)" alt="">
-            <span>{{ item.name }}</span>
-            <img v-if="item.select" class="checked" src="../assets/img/icon/components/check/check-red-share.png">
+        <transition name="fade">
+          <div class="call-friend" v-if="isCall">
+            <div class="friend" v-for="item in friends.all" @click="toggleCall(item)">
+              <img :style="item.select?'opacity: .5;':''" class="avatar" :src="$imgPreview(item.avatar)" alt="">
+              <span>{{ item.name }}</span>
+              <img v-if="item.select" class="checked" src="../assets/img/icon/components/check/check-red-share.png">
+            </div>
           </div>
-        </div>
+        </transition>
 
         <div class="toolbar">
           <div class="input-wrapper">
             <AutoInput v-model="comment"></AutoInput>
             <div class="right">
-              <img src="../assets/img/icon/message/call.png" alt="" class="camera">
-              <img src="../assets/img/icon/message/emoji-black.png" alt="">
+              <img src="../assets/img/icon/message/call.png" @click="isCall = !isCall">
+              <img src="../assets/img/icon/message/emoji-black.png">
             </div>
           </div>
-          <img v-if="comment" src="../assets/img/icon/message/up.png" alt="">
+          <img v-if="comment" src="../assets/img/icon/message/up.png" @click="send">
         </div>
       </div>
+
       <ConfirmDialog
           title="私信给"
           ok-text="发送"
@@ -93,25 +111,77 @@
         </div>
       </ConfirmDialog>
     </div>
-  </transition>
+  </from-bottom-dialog>
 </template>
 
 <script>
 import AutoInput from "./AutoInput";
 import ConfirmDialog from "./dialog/ConfirmDialog";
 import {mapState} from "vuex";
+import FromBottomDialog from "./dialog/FromBottomDialog";
+import Loading from "./Loading";
 
 export default {
   name: "Comment",
-  components: {AutoInput, ConfirmDialog},
-  props: ['isCommenting'],
+  components: {
+    AutoInput,
+    ConfirmDialog,
+    FromBottomDialog,
+    Loading
+  },
+  props: {
+    modelValue: false,
+    videoId: {
+      type: String,
+      default: null
+    },
+  },
   computed: {
     ...mapState(['friends'])
   },
+  watch: {
+    modelValue(newVale) {
+      if (newVale) {
+        this.getData()
+      } else {
+        this.comments = []
+      }
+    }
+  },
   data() {
     return {
-      comment: '123',
-      comments: [
+      comment: '',
+      comments: [],
+      options: [
+        {id: 1, name: '私信回复'},
+        {id: 2, name: '复制'},
+        {id: 3, name: '搜一搜'},
+        {id: 4, name: '举报'},
+      ],
+      selectRow: {},
+      showPrivateChat: false,
+      isInput: false,
+      isCall: false,
+    }
+  },
+  methods: {
+    send() {
+      this.comments.push({
+        id: '2',
+        avatar: require('../assets/img/icon/avatar/4.png'),
+        name: '成都旅行',
+        text: this.comment,
+        loveNum: 27,
+        isLoved: false,
+        time: '2021-08-24 20:33',
+        children: []
+      })
+      this.comment = ''
+      this.isCall = false
+    },
+    async getData() {
+      await this.$sleep(500)
+      this.comments = [
         {
           id: '1',
           avatar: require('../assets/img/icon/avatar/1.png'),
@@ -194,20 +264,11 @@ export default {
             },
           ]
         }
-      ],
-      options: [
-        {id: 1, name: '私信回复'},
-        {id: 2, name: '复制'},
-        {id: 3, name: '搜一搜'},
-        {id: 4, name: '举报'},
-      ],
-      selectRow: {},
-      showPrivateChat: false,
-      isInput: true,
-      isCall: true,
-    }
-  },
-  methods: {
+      ]
+    },
+    cancel() {
+      this.$emit("update:modelValue", false)
+    },
     toggleCall(item) {
       item.select = !item.select
       let name = item.name
@@ -247,7 +308,7 @@ export default {
         str = ` ${hour}小时前`
       } else if (day === 1) str = `昨天${date.getHours()}:${date.getMinutes()}`
       else if (day === 2) str = `前天${date.getHours()}:${date.getMinutes()}`
-      else str = date
+      else str = time
       return str
     },
     call() {
@@ -260,39 +321,45 @@ export default {
 <style lang="less" scoped>
 @import "../assets/scss/index";
 
-.comment {
+.title {
+  z-index: 2;
   position: fixed;
-  height: 70vh;
+  left: 0;
+  right: 0;
+  height: 4rem;
+  padding: 0 1.5rem;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 1rem 1rem 0 0;
+
+  span {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  img {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+}
+
+.comment {
   width: 100%;
-  bottom: 0;
+  height: 70vh;
   background: #fff;
   z-index: 5;
   border-radius: 1rem 1rem 0 0;
 
-  .title {
+  .wrapper {
     position: relative;
-    margin: 1.5rem 0;
-
-    p {
-      font-size: 1.2rem;
-      text-align: center;
-    }
-
-    img {
-      width: 1.3rem;
-      height: 1.3rem;
-      position: absolute;
-      right: 2rem;
-      top: 0;
-    }
+    padding-top: 4rem;
+    padding-bottom: 6rem;
   }
 
   .items {
-    overflow-y: scroll;
-    height: 60vh;
-
     .item {
-
       .main {
         padding: .5rem 0;
         display: flex;
@@ -330,6 +397,7 @@ export default {
         }
 
         .more {
+          font-size: 1.2rem;
           margin: .5rem;
           display: flex;
           align-items: center;
@@ -383,6 +451,7 @@ export default {
 
           .time-wrapper {
             display: flex;
+            align-items: center;
 
             .time {
               color: #c4c3c3;
@@ -395,7 +464,6 @@ export default {
           }
         }
       }
-
 
       .love {
         color: @second-text-color;
@@ -413,12 +481,6 @@ export default {
         }
       }
     }
-
-    .no-more {
-      margin: 10px;
-      text-align: center;
-      color: #ccc;
-    }
   }
 
 
@@ -432,12 +494,12 @@ export default {
     width: 100vw;
     bottom: 0;
     z-index: 3;
-    padding-top: 3rem;
 
     @space-width: 1.8rem;
     @icon-width: 4.8rem;
 
     .call-friend {
+      padding-top: 3rem;
       overflow-x: scroll;
       display: flex;
       padding-right: @space-width;

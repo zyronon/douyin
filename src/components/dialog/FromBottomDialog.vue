@@ -18,6 +18,7 @@
          @touchmove="move"
          @touchend="end"
     >
+      <slot name="header"></slot>
       <div class="heng-gang" :class="mode" v-if="showHengGang">
         <div class="content"></div>
       </div>
@@ -52,17 +53,31 @@ export default {
       type: Boolean,
       default: true
     },
+    pageId: {
+      type: String,
+      default: null
+    }
   },
   watch: {
     modelValue(newVal) {
       let app = document.getElementById('app')
       if (newVal) {
-        app.children[0].style.position = 'absolute'
+        if (this.pageId) {
+          let page = document.getElementById(this.pageId)
+          page.style.position = 'absolute'
+        } else {
+          app.children[0].style.position = 'absolute'
+        }
         this.scroll = document.documentElement.scrollTop
         document.body.style.position = 'fixed'
         document.body.style.top = -this.scroll + 'px'
       } else {
-        app.children[1].style.position = 'fixed'
+        if (this.pageId) {
+          let page = document.getElementById(this.pageId)
+          page.style.position = 'fixed'
+        } else {
+          app.children[1].style.position = 'fixed'
+        }
         document.body.style.position = 'static'
         document.documentElement.scrollTop = this.scroll
       }

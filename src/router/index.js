@@ -45,6 +45,8 @@ import Test2 from "../pages/Test2";
 import Test3 from "../pages/Test3";
 import Share2Friend from "../pages/message/Share2Friend";
 import JoinedGroupChat from "../pages/message/JoinedGroupChat";
+import Report from "../pages/home/Report";
+import SubmitReport from "../pages/home/SubmitReport";
 
 const routes = [
   // {path: '', component: Music},
@@ -54,6 +56,8 @@ const routes = [
   {path: '/test2', component: Test2},
   {path: '/test3', component: Test3},
   {path: '/home', component: Index},
+  {path: '/home/report', component: Report},
+  {path: '/home/submit-report', component: SubmitReport},
   {path: '/attention', component: Attention},
   {path: '/publish', component: Publish},
   {path: '/message', component: Message},

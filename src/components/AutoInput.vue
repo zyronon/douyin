@@ -36,6 +36,7 @@ export default {
 <style scoped lang="less">
 
 .auto-input {
+  font-size: 1.2rem;
   width: 100%;
   max-height: 7rem;
   overflow-y: scroll;

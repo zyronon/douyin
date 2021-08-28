@@ -42,16 +42,16 @@
                 <!--                <transition name="loved">-->
                 <!--                </transition>-->
               </div>
-              <span>{{ lVideo.loves }}</span>
+              <span>{{ $likeNum(lVideo.likeNum) }}</span>
             </div>
             <div class="message mb2r" @click.stop="$emit('showComments')">
               <!--            <div class="message mb15p" @click.stop="showComment">-->
               <img src="../assets/img/icon/message.svg" alt="" class="message-image">
-              <span>{{ lVideo.comments }}</span>
+              <span>{{ $likeNum(lVideo.commentNum) }}</span>
             </div>
             <div v-if="!isMy" class="share mb4r" @click.stop="$emit('showShare')">
               <img src="../assets/img/icon/share.svg" alt="" class="share-image">
-              <span>{{ lVideo.shared }}</span>
+              <span>{{ $likeNum(lVideo.sharedNum) }}</span>
             </div>
             <div v-else class="share mb4r" @click.stop="$emit('showShare')">
               <img src="../assets/img/icon/share.svg" alt="" class="share-image">
@@ -60,7 +60,7 @@
               <img class="music1" src="../assets/img/icon/home/music1.png" alt="">
               <img class="music2" src="../assets/img/icon/home/music2.png" alt="">
               <div class="music-bg">
-                <img class="music" src="../assets/img/icon/head-image.jpeg" alt="" @click.stop="$nav('/music')">
+                <img class="music" src="../assets/img/icon/head-image.jpeg" alt="" @click.stop="globalMethods.$nav('/music')">
               </div>
             </div>
           </div>
@@ -152,6 +152,7 @@ export default {
   },
   data() {
     return {
+      globalMethods:globalMethods,
       duration: 0,
       step: 0,
       currentTime: 0,
@@ -194,6 +195,9 @@ export default {
     })
   },
   methods: {
+    $likeNum(v){
+      return globalMethods.$likeNum(v)
+    },
     $duration(v) {
       if (!v) return
       let m = Math.floor(v / 60)

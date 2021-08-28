@@ -6,7 +6,7 @@
       </template>
     </BaseHeader>
     <div class="content">
-      <Share :isSharing="true"/>
+      <Share  v-model="test"/>
     </div>
   </div>
 </template>
@@ -41,6 +41,7 @@ export default {
           "status": 1
         }
       ],
+      test:true
     }
   },
   computed: {},

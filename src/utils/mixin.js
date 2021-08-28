@@ -65,7 +65,7 @@ export default {
             pressTimer = setTimeout(() => {
               // 执行函数
               handler();
-            }, 500)
+            }, 300)
           }
         }
         // 取消计时器
