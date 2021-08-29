@@ -3,6 +3,7 @@
       v-model="modelValue"
       @cancel="closeShare"
       :show-heng-gang="false"
+      :touch-moved="false"
       maskMode="light"
       height="37rem"
       mode="dark">

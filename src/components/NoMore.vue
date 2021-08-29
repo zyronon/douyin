@@ -1,17 +1,12 @@
 <template>
   <div class="NoMore">
-    {{ notice }}
+    <slot v-if="$slots.default"></slot>
+    <span v-else>暂时没有更多了</span>
   </div>
 </template>
 <script>
 export default {
   name: "NoMore",
-  props: {
-    notice: {
-      type: String,
-      default: '暂时没有更多了'
-    }
-  },
 }
 </script>
 

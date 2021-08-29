@@ -41,6 +41,11 @@ export default {
       // default: 'light'
       // default: 'white'
     },
+    //触摸，是否可以滑动
+    touchMoved: {
+      type: Boolean,
+      default:true
+    },
     maskMode: {
       type: String,
       default: 'dark'
@@ -138,11 +143,13 @@ export default {
       this.$emit('cancel')
     },
     start(e) {
+      if (!this.touchMoved)return;
       if (this.$refs.dialog.scrollTop !== 0) return
       this.startLocationY = e.touches[0].pageY
       this.startTime = Date.now()
     },
     move(e) {
+      if (!this.touchMoved)return;
       if (this.$refs.dialog.scrollTop !== 0) return
       this.moveYDistance = e.touches[0].pageY - this.startLocationY
       if (this.moveYDistance > 0) {
@@ -150,6 +157,7 @@ export default {
       }
     },
     end(e) {
+      if (!this.touchMoved)return;
       //点击
       if (Date.now() - this.startTime < 150) return
 

@@ -13,7 +13,9 @@
             </div>
           </transition>
           <div class="right">
-            <img :style="floatFixed?'opacity: 0;':''" src="../../assets/img/icon/me/finger-right.png" alt="">
+            <img @click="$nav('/me/request-update')"
+                 :style="floatFixed?'opacity: 0;':''"
+                 src="../../assets/img/icon/me/finger-right.png" alt="">
             <img src="../../assets/img/icon/me/menu.png" alt="" @click.stop="baseActiveIndex = 1">
           </div>
         </div>
@@ -26,25 +28,22 @@
             <header ref="header"></header>
             <div class="detail">
               <div class="head">
-                <img src="../../assets/img/icon/head-image.jpeg" class="head-image">
-                <div class="other-buttons" v-if="false">
-                  <div class="attention">
-                    关注
+                <img src="../../assets/img/icon/avatar/2.png" class="head-image">
+                <div class="heat">
+                  <div class="text">
+                    <span>获赞</span>
+                    <span class="num">18</span>
                   </div>
-                  <div class="more-attention">
-                    -
+                  <div class="text">
+                    <span>粉丝</span>
+                    <span class="num">62</span>
                   </div>
-                </div>
-                <div class="my-buttons ">
-                  <div class="collect" @click="$nav('/edit-userinfo')">
-                    <span class="mr1r">编辑资料</span>
-                    <!--                    <span class="f10p" style="color: darkgray">85%</span>-->
-                  </div>
-                  <div class="add-friend" @click="$nav('/find-acquaintance')">
-                    <img src="../../assets/img/icon/add-white.png" alt="">
-                    <span class="mr5p">熟人</span>
+                  <div class="text">
+                    <span>关注</span>
+                    <span class="num">8</span>
                   </div>
                 </div>
+
               </div>
               <div class="description">
                 <p class="name f22 mt1r mb1r">ttentau</p>
@@ -53,14 +52,10 @@
                   <span>抖音号：605128307</span>
                   <img src="../../assets/img/icon/me/qrcode-gray.png" alt="" @click.stop="$nav('/my-card')">
                 </div>
-                <div class="signature" @click="$nav('/edit-userinfo-item',{type:3})">
+                <div class="signature f12" @click="$nav('/edit-userinfo-item',{type:3})">
                   <template v-if="!userinfo.desc">
-                    <template v-if="false">
-                      <!--                      有个版本是这样子的，应该是灰度测试-->
-                      <span>点击添加介绍，让大家认识你...</span>
-                      <img src="../../assets/img/icon/me/write-gray.png" alt="">
-                    </template>
-                    <span>你还没有填写个人简介，点击添加...</span>
+                    <span>点击添加介绍，让大家认识你...</span>
+                    <img src="../../assets/img/icon/me/write-gray.png" alt="">
                   </template>
                   <span v-else class="text">{{ userinfo.desc }}</span>
                 </div>
@@ -77,26 +72,14 @@
                     {{ userinfo.school.name }}
                   </div>
                 </div>
-                <div class="heat">
-                  <div class="text"><span class="num">8</span>获赞</div>
-                  <div class="text"><span class="num">8</span>关注</div>
-                  <div class="text"><span class="num">8</span>粉丝</div>
-                </div>
+
               </div>
-              <div class="other">
-                <div class="item">
-                  <img src="../../assets/img/icon/me/shopping-cart-white.png" alt="">
-                  <div class="right">
-                    <div class="top">抖音商城</div>
-                    <div class="bottom">发现超值好物</div>
-                  </div>
+              <div class="my-buttons">
+                <div @click="$nav('/edit-userinfo')">
+                  <span class="mr1r">编辑资料</span>
                 </div>
-                <div class="item">
-                  <img src="../../assets/img/icon/me/music-white.png" alt="">
-                  <div class="right">
-                    <div class="top">我的音乐</div>
-                    <div class="bottom">已收藏20首</div>
-                  </div>
+                <div class="add-friend" @click="$nav('/find-acquaintance')">
+                  <span class="mr5p">添加朋友</span>
                 </div>
               </div>
             </div>
@@ -776,7 +759,7 @@ export default {
   width: 100%;
   font-size: 1.4rem;
 
-  .mask{
+  .mask {
     background: #0000004f;
     position: absolute;
     top: 0;
@@ -980,14 +963,17 @@ export default {
     }
   }
 
+
   .desc {
     header {
       color: white;
       height: 12rem;
       background-image: url('../../assets/img/header-bg.png');
+      //background-image: url('data:image/jpeg;base64,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');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+
       box-sizing: border-box;
     }
 
@@ -1005,86 +991,44 @@ export default {
 
         .head-image {
           background: black;
-          padding: .3rem;
+          padding: 2px;
           border-radius: 50%;
-          width: 80px;
-          height: 80px;
+          width: 8rem;
+          height: 8rem;
         }
 
-        .my-buttons {
-          margin-left: 1rem;
-          flex: 1;
+        .heat {
+          margin-top: 1rem;
+          width: calc(100% - 12rem);
+          color: @second-text-color;
           display: flex;
+          align-items: center;
+          justify-content: space-between;
 
-          div {
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            float: left;
-            border-radius: .2rem;
-            background: @second-btn-color;
-            margin-left: .5rem;
-            padding: 0 1rem;
-            height: 3rem;
+          .num {
+            margin-top: .5rem;
             color: white;
-
-            &:nth-child(0) {
-              flex: 2;
-            }
-
-            &:nth-child(1) {
-              flex: 1;
-              padding: 0 2.5rem;
-            }
-
-            img {
-              padding: 0 .6rem;
-              height: 1.2rem;
-            }
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-right: 3px;
           }
 
+          .text {
+            font-size: 1.2rem;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+          }
         }
+
       }
 
       .description {
         font-size: 1.2rem;
         color: white;
         transform: translateY(-2rem);
-
-        .signature {
-          //color: @second-text-color;
-          color: white;
-          font-size: 1.3rem;
-          display: flex;
-          align-items: center;
-          margin-bottom: .5rem;
-
-          img {
-            height: 1.2rem;
-            margin-left: .6rem;
-          }
-        }
-
-        .more {
-          color: @second-text-color;
-          display: flex;
-
-          .item {
-            padding: .2rem .5rem;
-            border-radius: .2rem;
-            background: @second-btn-color-tran;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            margin-right: .5rem;
-
-            img {
-              height: 1rem;
-              margin-right: .2rem;
-            }
-          }
-        }
 
         .number {
           color: @second-text-color;
@@ -1099,61 +1043,60 @@ export default {
           }
         }
 
-        .heat {
-          margin-top: 1rem;
-          color: darkgray;
+      }
+
+      .signature {
+        color: @second-text-color;
+        display: flex;
+        align-items: center;
+        margin-bottom: .5rem;
+
+        img {
+          height: 1.2rem;
+          margin-left: .6rem;
+        }
+      }
+
+      .more {
+        color: @second-text-color;
+        display: flex;
+
+        .item {
+          padding: .2rem .5rem;
+          border-radius: .2rem;
+          background: @second-btn-color-tran;
+          font-size: 1rem;
           display: flex;
           align-items: center;
+          margin-right: .5rem;
 
-          .num {
-            color: white;
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-right: .3rem;
-          }
-
-          .text {
-            font-size: 1.2rem;
-            margin-right: 1rem;
+          img {
+            height: 1rem;
+            margin-right: .2rem;
           }
         }
       }
 
-      .other {
+      .my-buttons {
         display: flex;
-        margin-bottom: 1rem;
+        justify-content: space-between;
 
-        .item {
-          margin-right: 2.5rem;
+        div {
+          width: 49%;
+          font-size: 1.2rem;
           display: flex;
-
-          img {
-            margin-right: .8rem;
-            border-radius: .4rem;
-            background: @second-btn-color-tran;
-            padding: .8rem;
-            height: 2.2rem;
-          }
-
-          .right {
-            display: flex;
-            justify-content: space-between;
-            flex-direction: column;
-
-            .top {
-              color: white;
-              font-size: 1.4rem;
-            }
-
-            .bottom {
-              color: @second-text-color;
-              font-size: 1.2rem;
-            }
-          }
+          align-items: center;
+          justify-content: center;
+          border-radius: .2rem;
+          background: @second-btn-color;
+          height: 3rem;
+          color: white;
         }
+
       }
     }
   }
+
 
   .ul {
     font-size: 1.4rem;
