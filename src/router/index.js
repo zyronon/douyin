@@ -47,6 +47,8 @@ import Share2Friend from "../pages/message/Share2Friend";
 import JoinedGroupChat from "../pages/message/JoinedGroupChat";
 import Report from "../pages/home/Report";
 import SubmitReport from "../pages/home/SubmitReport";
+import Me3 from "../pages/me/Me3";
+import RequestUpdate from "../pages/me/RequestUpdate";
 
 const routes = [
   // {path: '', component: Music},
@@ -64,6 +66,8 @@ const routes = [
   {path: '/message/share-to-friend', component: Share2Friend},
   {path: '/message/joined-group-chat', component: JoinedGroupChat},
   {path: '/me', component: Me},
+  {path: '/me/request-update', component: RequestUpdate},
+  // {path: '/me', component: Me3},
   {path: '/edit-userinfo', component: EditUserInfo},
   {path: '/edit-userinfo-item', component: EditUserInfoItem},
   {path: '/music', component: Music},

@@ -5,7 +5,7 @@ import ConfirmDialog from "../components/dialog/ConfirmDialog";
 import Loading from "../components/Loading";
 import Config from '../config'
 import NoticeDialog from "../components/dialog/NoticeDialog";
-
+import dayjs from 'dayjs'
 export default {
   $showLoading() {
     const app = Vue.createApp({
@@ -267,6 +267,32 @@ export default {
       localStorage.clear()
     } else {
       localStorage.removeItem(key)
+    }
+  },
+
+  $dateFormat(val, type) {
+    if (!val) return
+    if (val.length === 10){
+      val+='000'
+    }
+    if (typeof val === 'string' && (val.length === 10 || val.length === 13)) {
+      val = Number(val)
+    }
+    switch (type) {
+      case 'Y':
+        return dayjs(val).format('YYYY')
+      case 'M':
+        return dayjs(val).format('YYYY-MM')
+      case 'M_CN':
+        return dayjs(val).format('YYYY年MM月')
+      case 'D':
+        return dayjs(val).format('YYYY-MM-DD')
+      case 'm':
+        return dayjs(val).format('YYYY-MM-DD HH:mm')
+      case 'S':
+        return dayjs(val).format('YYYY-MM-DD HH:mm:ss')
+      default:
+        return dayjs(val).format('YYYY-MM-DD HH:mm:ss')
     }
   },
 }

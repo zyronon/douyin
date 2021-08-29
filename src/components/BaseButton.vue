@@ -223,7 +223,7 @@ export default {
   }
 
   &.no-border {
-    border: none;
+    border: none!important;
     background: rgb(212 212 212 / 36%);
   }
 }

@@ -71,6 +71,7 @@ export default {
         '/chat',
         '/chat-detail',
         '/set-remark',
+        '/me/request-update',
         '/me/right-menu/look-history',
         '/me/right-menu/minor-protection/index',
         '/me/right-menu/minor-protection/detail-setting',
