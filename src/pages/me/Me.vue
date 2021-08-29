@@ -25,10 +25,11 @@
              @touchmove="touchMove($event)"
              @touchend="touchEnd($event)">
           <div ref="desc" class="desc">
-            <header ref="header"></header>
+            <header ref="header" @click="previewImg = require('../../assets/img/header-bg.png')"></header>
             <div class="detail">
               <div class="head">
-                <img src="../../assets/img/icon/avatar/2.png" class="head-image">
+                <img src="../../assets/img/icon/avatar/2.png" class="head-image"
+                     @click="previewImg = require('../../assets/img/icon/avatar/2.png')">
                 <div class="heat">
                   <div class="text">
                     <span>获赞</span>
@@ -290,6 +291,12 @@
         </div>
       </SlideItem>
     </SlideRowList>
+    <transition name="fade">
+      <div class="preview-img" v-if="previewImg" @click="previewImg = ''">
+        <img class="resource" :src="previewImg" alt="">
+        <img class="download" src="../../assets/img/icon/components/video/download.png" alt="" @click.stop="$no">
+      </div>
+    </transition>
   </div>
 </template>
 <script>
@@ -304,6 +311,7 @@ export default {
   components: {Posters, Footer, Indicator},
   data() {
     return {
+      previewImg: '',
       contentIndex: 0,
       baseActiveIndex: 0,
       tabContents: [],
@@ -758,6 +766,32 @@ export default {
   height: 100%;
   width: 100%;
   font-size: 1.4rem;
+
+  .preview-img {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .resource {
+      width: 100vw;
+      max-height: 100vw;
+    }
+
+    .download {
+      position: absolute;
+      bottom: 2rem;
+      right: 2rem;
+      padding: .3rem;
+      background: @second-btn-color-tran;
+      width: 2rem;
+    }
+  }
 
   .mask {
     background: #0000004f;
