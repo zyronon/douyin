@@ -273,18 +273,21 @@ export default {
     },
     checkDirection() {
       if (!this.isNeedCheck) return
-      let angle = (Math.abs(this.moveXDistance) * 10) / (Math.abs(this.moveYDistance) * 10)
-      if (angle < 0.6) {
-        //上下划
-        this.isCanDownWiping = true
-        this.isNeedCheck = false
-        return
+      if (Math.abs(this.moveXDistance) > this.judgeValue || Math.abs(this.moveYDistance) > this.judgeValue) {
+        let angle = (Math.abs(this.moveXDistance) * 10) / (Math.abs(this.moveYDistance) * 10)
+        if (angle > 1) {
+          this.isCanDownWiping = false
+          this.isCanRightWiping = true
+          // console.log('横划')
+        } else {
+          this.isCanDownWiping = true
+          this.isCanRightWiping = false
+          // console.log('竖划')
+        }
+        // console.log(angle)
+        return this.isNeedCheck = false
       }
-      if (angle > 5) {
-        //左右划
-        this.isCanDownWiping = false
-        this.isNeedCheck = false
-      }
+      return this.isNeedCheck = true
     }
   }
 }

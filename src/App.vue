@@ -13,6 +13,11 @@
 </template>
 
 <script>
+
+/*
+* try {navigator.control.gesture(false);} catch (e) {} //UC浏览器关闭默认手势事件
+try {navigator.control.longpressMenu(false);} catch (e) {} //关闭长按弹出菜单
+* */
 export default {
   name: 'App',
   data() {
@@ -95,6 +100,15 @@ export default {
   },
   mounted() {
     this.$store.dispatch('getFriends')
+    try {
+      navigator.control.gesture(false);
+    } catch (e) {
+    }
+    try {
+      navigator.control.longpressMenu(false);
+    } catch (e) {
+    }
+    document.onselectstart = new Function("return false")//禁止选中文字
   },
 }
 </script>

@@ -53,8 +53,8 @@ export default {
   computed: {},
   mounted() {
     this.initTabs()
-    bus.on(this.name + 'move', this.move)
-    bus.on(this.name + 'end', this.end)
+    bus.on(this.name + '-moved', this.move)
+    bus.on(this.name + '-end', this.end)
   },
   methods: {
     changeIndex(index) {

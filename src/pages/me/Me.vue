@@ -1,6 +1,8 @@
 <template>
   <div class="Me">
-    <SlideRowList style="width: 100vw;" v-model:active-index="baseActiveIndex">
+    <SlideRowList
+        name="baseSlide"
+        style="width: 100vw;" v-model:active-index="baseActiveIndex">
       <SlideItem>
         <div ref="float" class="float" :class="floatFixed?'fixed':''">
           <div class="left" style="opacity: 0;">
@@ -175,7 +177,6 @@
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
               <Loading v-if="loadings.loading3" :is-full-screen="false"></Loading>
@@ -187,6 +188,106 @@
         <transition name="fade">
           <div class="mask" v-if="baseActiveIndex === 1" @click="baseActiveIndex = 0"></div>
         </transition>
+      </SlideItem>
+      <SlideItem style="min-width: 70vw; overflow:auto;">
+        <transition name="fade1">
+          <div class="ul" v-if="!isMoreFunction">
+            <div class="li" @click="$nav('/my-card')">
+              <img src="../../assets/img/icon/newicon/left_menu/shopping.png" alt="">
+              <span>我的订单</span>
+            </div>
+            <div class="li" @click="$nav('MyCard')">
+              <img src="../../assets/img/icon/newicon/left_menu/wallet.png" alt="">
+              <span>钱包</span>
+            </div>
+            <div class="line"></div>
+
+            <div class="li" @click="$nav('/me/right-menu/look-history')">
+              <img src="../../assets/img/icon/newicon/left_menu/clock.png" alt="">
+              <span>观看历史</span>
+            </div>
+            <div class="li" @click="$nav('/my-card')">
+              <img src="../../assets/img/icon/newicon/left_menu/qrcode.png" alt="">
+              <span>我的二维码</span>
+            </div>
+            <div class="li" @click="$nav('')">
+              <img src="../../assets/img/icon/newicon/left_menu/workbench.png" alt="">
+              <span>创作者服务中心</span>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="li" @click="$nav('MyCard')">
+              <img src="../../assets/img/icon/newicon/left_menu/bytedance-mini-app.png" alt="">
+              <span>小程序</span>
+            </div>
+            <div class="li" @click="$nav('MyCard')">
+              <img src="../../assets/img/icon/newicon/left_menu/gongyi.png" alt="">
+              <span>抖音公益</span>
+            </div>
+            <div class="li" @click="$nav('/me/right-menu/minor-protection/index')">
+              <img src="../../assets/img/icon/newicon/left_menu/umbrella.png" alt="">
+              <span>未成年保护工具</span>
+            </div>
+            <div class="li" @click="$nav('MyCard')">
+              <img src="../../assets/img/icon/newicon/left_menu/headset.png" alt="">
+              <span>我的客服</span>
+            </div>
+            <div class="li" @click="$nav('/me/right-menu/setting')">
+              <img src="../../assets/img/icon/newicon/left_menu/setting-one.png" alt="">
+              <span>设置</span>
+            </div>
+          </div>
+          <div v-else class="more-function">
+            <div class="title">生活服务</div>
+            <div class="functions">
+              <div class="function">
+                <img src="../../assets/img/icon/newicon/left_menu/quan.png" alt="">
+                <span>卡券</span>
+              </div>
+              <div class="function">
+                <img src="../../assets/img/icon/newicon/left_menu/sd-card.png" alt="">
+                <span>免流量</span>
+              </div>
+              <div class="function" @click="$nav('MyCollect')">
+                <img src="../../assets/img/icon/newicon/left_menu/alarmmmmmmmmmmmm.png" alt="">
+                <span>视频彩铃</span>
+              </div>
+            </div>
+            <div class="title">拓展功能</div>
+            <div class="functions">
+              <div class="function" @click="$nav('MyCard')">
+                <img src="../../assets/img/icon/newicon/left_menu/sun-one.png" alt="">
+                <span>我的动态</span>
+              </div>
+              <div class="function">
+                <img src="../../assets/img/icon/newicon/left_menu/download.png" alt="">
+                <span>我的缓存</span>
+              </div>
+              <div class="function" @click="$nav('MyCard')">
+                <img src="../../assets/img/icon/newicon/left_menu/hot.png" alt="">
+                <span>上热门</span>
+              </div>
+              <div class="function" @click="$nav('MyCollect')">
+                <img src="../../assets/img/icon/newicon/left_menu/shop.png" alt="">
+                <span>小店随心推</span>
+              </div>
+              <div class="function" @click="$nav('MyCollect')">
+                <img src="../../assets/img/icon/newicon/left_menu/yuandi.png" alt="">
+                <span>投教园地</span>
+              </div>
+            </div>
+          </div>
+        </transition>
+        <div class="button-ctn">
+          <div class="button" v-if="!isMoreFunction" @click="isMoreFunction = true">
+            <img src="../../assets/img/icon/newicon/left_menu/more.png" alt="">
+            <span>更多功能</span>
+          </div>
+          <div class="button" v-if="isMoreFunction" @click="isMoreFunction = false">
+            <span>返回</span>
+          </div>
+        </div>
       </SlideItem>
     </SlideRowList>
     <transition name="fade">
@@ -203,6 +304,7 @@ import Footer from "../../components/Footer";
 import Indicator from '../../components/Indicator'
 import {nextTick} from 'vue'
 import {mapState} from "vuex";
+import bus from "../../utils/bus";
 
 export default {
   name: "Me",
@@ -213,7 +315,6 @@ export default {
       contentIndex: 0,
       baseActiveIndex: 0,
       tabContents: [],
-      indicatorFixed: false,
       floatFixed: false,
       floatShowName: false,
       isScroll: false,
@@ -268,6 +369,7 @@ export default {
       tempScroll: false,
       acceleration: 1.2,
       sprint: 15,
+      canScroll: true
     }
   },
   computed: {
@@ -304,6 +406,8 @@ export default {
       this.changeIndex(0, null)
     })
     this.videoItemHeight = this.bodyWidth / 3 * 1.2 + 2
+    bus.on('baseSlide-moved', () => this.canScroll = false)
+    bus.on('baseSlide-end', () => this.canScroll = true)
   },
   methods: {
     click(e) {
@@ -435,6 +539,7 @@ export default {
       }
     },
     async touchMove(e) {
+      if (!this.canScroll) return
       let moveDistance = e.touches[0].pageY - this.startLocationY
       let pageMoveDistance = this.lastMoveYDistance + moveDistance * this.acceleration
       // console.log('move-pageMoveDistance', pageMoveDistance)
@@ -468,7 +573,7 @@ export default {
               SlideItems.forEach(SlideItem => {
                 SlideItem.scrollTop = 0
               })
-              this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = false
+              this.floatShowName = this.floatFixed = this.isScroll = false
               this.lastMoveYDistance = 0
               this.startLocationY = e.touches[0].pageY
               this.changeIndex(this.contentIndex, this.contentIndex)
@@ -522,11 +627,12 @@ export default {
       }
     },
     async touchEnd(e) {
+      if (!this.canScroll) return
       let moveDistance = e.changedTouches[0].pageY - this.startLocationY
       let pageMoveDistance = this.lastMoveYDistance + moveDistance * this.acceleration
 
       // console.log('end-pageMoveDistance', pageMoveDistance)
-      console.log('end-moveDistance', moveDistance)
+      // console.log('end-moveDistance', moveDistance)
 
       if (this.isScroll) {
         this.tempScroll = false
@@ -535,7 +641,7 @@ export default {
         let endTime = Date.now()
         let gapTime = endTime - this.startTime
 
-        console.log('end-gapTime', gapTime)
+        // console.log('end-gapTime', gapTime)
         let endTransformY = Math.abs(this.canTransformY) - (this.refs.maxSlideHeight - this.refs.videoSlideHeight)
 
 
@@ -549,7 +655,7 @@ export default {
           } else {
             //猛的划一下
             if ((Math.abs(moveDistance) > 100) && gapTime > 100 && gapTime < 150) {
-              this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = false
+              this.floatShowName = this.floatFixed = this.isScroll = false
 
               //用cancelAnimationFrame快速滚动到顶部，要比transition = 'all .3s'快
               this.$refs.scroll.style.transition = 'none'
@@ -591,7 +697,7 @@ export default {
               this.$refs.scroll.style.transition = 'all .3s'
               this.$refs.scroll.style.transform = `translate3d(0,0,0)`
               this.lastMoveYDistance = 0
-              this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = false
+              this.floatShowName = this.floatFixed = this.isScroll = false
               let SlideItems = document.querySelectorAll('.SlideItem')
               SlideItems.forEach(SlideItem => {
                 SlideItem.scrollTop = 0
@@ -613,7 +719,7 @@ export default {
               this.lastMoveYDistance = -endTransformY
             } else {
               this.$refs.scroll.style.transform = `translate3d(0,${-this.canTransformY}px,0)`
-              this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = true
+              this.floatShowName = this.floatFixed = this.isScroll = true
               this.tempScroll = false
               this.lastMoveYDistance = -this.canTransformY
             }
