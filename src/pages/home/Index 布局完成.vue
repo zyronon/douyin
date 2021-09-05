@@ -356,7 +356,7 @@ export default {
         }
 
         // console.log('x------------', moveXDistance)
-        // console.log('y------------', moveYDistance)
+        // console.log('y------------', lastMoveYDistance)
         // console.log('角度------------', angle)
 
         if (angle < 0.6) {
@@ -463,10 +463,10 @@ export default {
       if (this.isCanDownWiping) {
         if (this.isDrawDown) {
           this.contentListTop = -this.currentIndex * this.height + this.moveYDistance + this.judgeValue + 'px'
-          // contentList.css({top: -(currentIndex + 0) * height + moveYDistance + judgeValue})
+          // contentList.css({top: -(currentIndex + 0) * height + lastMoveYDistance + judgeValue})
         } else {
           this.contentListTop = -this.currentIndex * this.height + this.moveYDistance - this.judgeValue + 'px'
-          // contentList.css({top: -(currentIndex + 0) * height + moveYDistance - judgeValue})
+          // contentList.css({top: -(currentIndex + 0) * height + lastMoveYDistance - judgeValue})
         }
       }
     },

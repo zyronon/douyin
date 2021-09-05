@@ -8,7 +8,8 @@
 <!--    <video :src="video.videoUrl" poster="../assets/img/icon/components/video/loading.gif" ref="video" muted :autoplay="play" loop>-->
 <!--    poster="../assets/img/poster/1.jpg"-->
 
-    <video :src="video.videoUrl"
+    <video :src="video.video"
+           :poster="video.origin_cover"
            ref="video"
            muted
            preload

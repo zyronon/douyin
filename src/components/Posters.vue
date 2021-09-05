@@ -1,14 +1,16 @@
 <template>
   <div class="posters">
-    <div class="poster-item" v-for="i in list" @click="$nav('/video-detail')">
-      <img class="poster" :src="$imgPreview(i.posterUrl)" alt="">
+    <div class="poster-item" v-for="i in list">
+<!--       @click="$nav('/video-detail')"-->
+<!--      <img class="poster" :src="$imgPreview(i.video.cover.url_list[3])" alt="">-->
+      <img class="poster" :src="$imgPreview(i.cover)" alt="">
       <div class="num" v-if="mode === 'normal'">
         <img class="love" src="../assets/img/icon/love.svg" alt="">
-        <span>{{ $likeNum(i.likeNum) }}</span>
+        <span>{{ $likeNum(i.digg_count) }}</span>
       </div>
       <div v-else class="date">
-        <div class="day">{{ getDay(i.createTime) }}</div>
-        <div class="month">{{ getMonth(i.createTime) }}</div>
+        <div class="day">{{ getDay(i.create_time) }}</div>
+        <div class="month">{{ getMonth(i.create_time) }}</div>
       </div>
     </div>
   </div>
@@ -77,7 +79,7 @@ export default {
 
 .poster-item {
   height: calc(33.33vw * 1.2);
-  border: 1px solid black;
+  border: .5px solid black;
   overflow: hidden;
   position: relative;
 

@@ -87,8 +87,8 @@
           </div>
           <Indicator
               name="videoList"
-              tabStyleWidth="25%"
-              :tabTexts="['作品','私密','喜欢','收藏']"
+              tabStyleWidth="50%"
+              :tabTexts="['作品','私密']"
               v-model:active-index="contentIndex">
           </Indicator>
           <SlideRowList
@@ -99,9 +99,11 @@
             <SlideItem class="SlideItem"
                        @scroll="scroll"
                        :style="SlideItemStyle">
-              <Posters v-if="videos.my.total !== -1" :list="videos.my.list"></Posters>
-              <Loading v-if="loadings.loading0" :is-full-screen="false"></Loading>
-              <no-more v-else/>
+              <div class="posterWrapper">
+                <Posters v-if="videos.my.total !== -1" :list="videos.my.list"></Posters>
+                <Loading v-if="loadings.loading0" :is-full-screen="false"></Loading>
+                <no-more v-else/>
+              </div>
             </SlideItem>
             <SlideItem class="SlideItem"
                        @scroll="scroll"
@@ -112,73 +114,6 @@
               </div>
               <Posters v-if="videos.private.total !== -1" mode="private" :list="videos.private.list"></Posters>
               <Loading v-if="loadings.loading1" :is-full-screen="false"></Loading>
-              <no-more v-else/>
-            </SlideItem>
-            <SlideItem class="SlideItem"
-                       @scroll="scroll"
-                       :style="SlideItemStyle">
-              <div class="notice">
-                <img src="../../assets/img/icon/me/lock-gray.png" alt="">
-                <span>只有你能看到自己的喜欢列表</span>
-              </div>
-              <Posters v-if="videos.like.total !== -1" :list="videos.like.list"></Posters>
-              <Loading v-if="loadings.loading2" :is-full-screen="false"></Loading>
-              <no-more v-else/>
-            </SlideItem>
-            <SlideItem class="SlideItem"
-                       @scroll="scroll"
-                       :style="SlideItemStyle">
-              <div class="notice">
-                <img src="../../assets/img/icon/me/lock-gray.png" alt="">
-                <span>只有你能看到自己的收藏列表</span>
-              </div>
-              <div class="collect" ref="collect">
-                <div class="video" v-if=" videos.collect.video.list.length">
-                  <div class="top">
-                    <div class="left">
-                      <img src="../../assets/img/icon/me/video-whitegray.png" alt="">
-                      <span>视频</span>
-                    </div>
-                    <div class="right">
-                      <span>全部</span>
-                      <back direction="right"></back>
-                    </div>
-                  </div>
-                  <div class="list">
-                    <div class="item"
-                         v-for="i in videos.collect.video.list.length>3?videos.collect.video.list.slice(0,3):videos.collect.video.list">
-                      <img class="poster" :src="$imgPreview(i.poster)" alt="">
-                      <div class="num">
-                        <img class="love" src="../../assets/img/icon/love.svg" alt="">
-                        <span>{{ $likeNum(i.likeNum) }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="audio" v-if=" videos.collect.video.list.length">
-                  <div class="top">
-                    <div class="left">
-                      <img src="../../assets/img/icon/me/music-whitegray.png" alt="">
-                      <span>音乐</span>
-                    </div>
-                    <div class="right">
-                      <span>全部</span>
-                      <back direction="right"></back>
-                    </div>
-                  </div>
-                  <div class="list">
-                    <div class="item"
-                         v-for="i in videos.collect.video.list.length>3?videos.collect.video.list.slice(0,3):videos.collect.video.list">
-                      <img class="poster" :src="$imgPreview(i.poster)" alt="">
-                      <div class="title">用户创作的原声用户创作的原声用户创作的原声
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-              <Loading v-if="loadings.loading3" :is-full-screen="false"></Loading>
               <no-more v-else/>
             </SlideItem>
           </SlideRowList>
@@ -333,6 +268,7 @@ export default {
             break
         }
       }
+      // console.log('scrollAreaHeight',scrollAreaHeight)
       return scrollAreaHeight
     },
     async changeIndex(newVal, oldVal) {
@@ -429,6 +365,9 @@ export default {
       if (this.isScroll) {
         let SlideItems = document.querySelectorAll('.SlideItem')
         let SlideItem = SlideItems[this.contentIndex]
+        // console.log('scrollHeight', SlideItem.scrollHeight)
+        // console.log('clientHeight', SlideItem.clientHeight)
+        // console.log('scrollTop', SlideItem.scrollTop)
         if (SlideItem.scrollHeight - SlideItem.clientHeight < SlideItem.scrollTop + 60) {
           this.loadMoreData()
         }
@@ -441,46 +380,40 @@ export default {
       // console.log('move-moveDistance', moveDistance)
       //手指往上划，是负
 
+
       if (this.isScroll) {
         let SlideItems = document.querySelectorAll('.SlideItem')
         let SlideItem = SlideItems[this.contentIndex]
         if (SlideItem.scrollTop === 0) {
           this.tempScroll = this.isScroll = false
           this.startLocationY = e.touches[0].pageY
-          this.lastMoveYDistance = -this.canTransformY
+          this.lastMoveYDistance = -this.canTransformY + 10
         }
       } else {
         //手指往下划，页面向上动
         if (moveDistance > 0) {
+          let scrollAreaHeight = await this.getScrollAreaHeight()
+          //如果可滚动区的高度大于posterHeight，并且移动超过30，就直接滚到顶
+          if (this.refs.videoSlideHeight > scrollAreaHeight && Math.abs(moveDistance) > 20) {
+            this.$refs.scroll.style.transition = 'all .2s'
+            this.$refs.scroll.style.transform = `translate3d(0,0,0)`
+            this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = false
+            this.lastMoveYDistance = 0
+            this.startLocationY = e.touches[0].pageY
+            this.changeIndex(this.contentIndex, this.contentIndex)
+            return;
+          }
+
           if (pageMoveDistance > 0) {
             this.$refs.scroll.style.transform = `translate3d(0,0,0)`
             if (pageMoveDistance < 400) {
               this.refs.header.style.transition = 'all 0s'
               this.refs.header.style.height = this.refs.headerHeight + (pageMoveDistance / 2) + 'px'
+            } else {
+              this.startLocationY = e.touches[0].pageY
+              this.lastMoveYDistance = 400
             }
           } else {
-            let scrollAreaHeight = await this.getScrollAreaHeight()
-            //如果可滚动区的高度大于posterHeight，并且移动超过30，就直接滚到顶
-            if (this.refs.videoSlideHeight > scrollAreaHeight && Math.abs(moveDistance) > 20) {
-              this.$refs.scroll.style.transition = 'all .2s'
-              this.$refs.scroll.style.transform = `translate3d(0,0,0)`
-              let SlideItems = document.querySelectorAll('.SlideItem')
-              SlideItems.forEach(SlideItem => {
-                SlideItem.scrollTop = 0
-              })
-              this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = false
-              this.lastMoveYDistance = 0
-              this.startLocationY = e.touches[0].pageY
-              this.changeIndex(this.contentIndex, this.contentIndex)
-              return;
-            }
-            if (Math.abs(pageMoveDistance) < this.canTransformY) {
-              let SlideItems = document.querySelectorAll('.SlideItem')
-              SlideItems.forEach(SlideItem => {
-                SlideItem.scrollTop = 0
-              })
-              this.tempScroll = false
-            }
             this.floatFixed = Math.abs(pageMoveDistance) > 100
             this.floatShowName = Math.abs(pageMoveDistance) > 150
             this.$refs.scroll.style.transform = `translate3d(0,${pageMoveDistance}px,0)`
@@ -488,7 +421,7 @@ export default {
         } else {
           //手指往上划，页面向下动
           if (Math.abs(pageMoveDistance) < this.canTransformY) {
-
+            this.tempScroll = false
             if (this.refs.videoSlideHeight < this.refs.maxSlideHeight) {
               let endTransformY = Math.abs(this.canTransformY) - (this.refs.maxSlideHeight - this.refs.videoSlideHeight)
               let moveTransformY = Math.abs(pageMoveDistance) < Math.abs(endTransformY) ? pageMoveDistance : -endTransformY
@@ -521,125 +454,61 @@ export default {
         }
       }
     },
-    async touchEnd(e) {
+    touchEnd(e) {
       let moveDistance = e.changedTouches[0].pageY - this.startLocationY
       let pageMoveDistance = this.lastMoveYDistance + moveDistance * this.acceleration
 
-      // console.log('end-pageMoveDistance', pageMoveDistance)
-      console.log('end-moveDistance', moveDistance)
+      // console.log('move-pageMoveDistance', pageMoveDistance)
+      // console.log('move-moveDistance', moveDistance)
 
       if (this.isScroll) {
         this.tempScroll = false
         this.lastMoveYDistance = -this.canTransformY
       } else {
-        let endTime = Date.now()
-        let gapTime = endTime - this.startTime
-
-        console.log('end-gapTime', gapTime)
-        let endTransformY = Math.abs(this.canTransformY) - (this.refs.maxSlideHeight - this.refs.videoSlideHeight)
-
-
-        //手指往下划，页面向上动
-        if (moveDistance >= 0) {
-          if (pageMoveDistance > 0) {
-            this.refs.header.style.transition = 'all .3s'
-            this.refs.header.style.height = this.refs.headerHeight + 'px'
-            this.lastMoveYDistance = 0
-            this.floatShowName = this.floatFixed = this.isScroll = this.tempScroll = false
-          } else {
-            //猛的划一下
-            if ((Math.abs(moveDistance) > 100) && gapTime > 100 && gapTime < 150) {
-              this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = false
-
-              //用cancelAnimationFrame快速滚动到顶部，要比transition = 'all .3s'快
-              this.$refs.scroll.style.transition = 'none'
-              let transformY = this.getTransform(this.$refs.scroll)
-              //当前的transformY
-              // console.log('transformY', transformY)
-              let timer
-              cancelAnimationFrame(timer);
-              let fn = () => {
-                //说明没到顶
-                if (transformY < 0) {
-                  transformY = transformY + 40
-                  this.$refs.scroll.style.transform = `translate3d(0,${transformY > 0 ? 0 : transformY}px,0)`
-                  timer = requestAnimationFrame(fn);
-                } else {
-                  //transformY === 0说明，本来就在顶部，然后猛的一划,这里要判断下
-                  if (transformY !== 0) {
-                    if (this.$getCss(this.refs.header, 'height') < 400) {
-                      this.refs.header.style.transition = 'none'
-                      this.refs.header.style.height = this.$getCss(this.refs.header, 'height') + 10 + 'px'
-                      timer = requestAnimationFrame(fn);
-                    } else {
-                      this.refs.header.style.transition = 'all .6s'
-                      this.refs.header.style.height = this.refs.headerHeight + 'px'
-                      this.lastMoveYDistance = 0
-                      cancelAnimationFrame(timer);
-                    }
-                  } else {
-                    //快速动画结束
-                    this.lastMoveYDistance = 0
-                    cancelAnimationFrame(timer);
-                  }
-                }
-              }
-              timer = requestAnimationFrame(fn);
-
-            } else if ((Math.abs(moveDistance) > 100) && gapTime > 150 && gapTime < 300) {
-              //   //用cancelAnimationFrame快速滚动到顶部，要比transition = 'all .3s'快
-              this.$refs.scroll.style.transition = 'all .3s'
-              this.$refs.scroll.style.transform = `translate3d(0,0,0)`
-              this.lastMoveYDistance = 0
-              this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = false
-              let SlideItems = document.querySelectorAll('.SlideItem')
-              SlideItems.forEach(SlideItem => {
-                SlideItem.scrollTop = 0
-              })
-              this.tempScroll = this.isScroll = false
-            } else {
-              this.lastMoveYDistance = pageMoveDistance
-            }
-          }
+        if (pageMoveDistance > 0) {
+          this.refs.header.style.transition = 'all .3s'
+          this.refs.header.style.height = this.refs.headerHeight + 'px'
+          this.lastMoveYDistance = 0
+          this.floatShowName = this.floatFixed = this.isScroll = this.tempScroll = false
         } else {
-          if ((Math.abs(moveDistance) > 100) && gapTime < 250) {
-            //往下划
-            this.$refs.scroll.style.transition = 'all .3s'
+          let endTime = Date.now()
+          let gapTime = endTime - this.startTime
+          //距离太小
+          if (Math.abs(moveDistance) < 20) gapTime = 1000
+          //超过header的1/3
+          if (Math.abs(moveDistance) > (this.refs.descHeight / 2)) gapTime = 50
+
+          if (gapTime < 150) {
+
+          } else {
+
+          }
+          // console.log('时间', gapTime)
+          if (Math.abs(pageMoveDistance) < this.canTransformY) {
             if (this.refs.videoSlideHeight < this.refs.maxSlideHeight) {
-              this.$refs.scroll.style.transform = `translate3d(0,${-endTransformY}px,0)`
-              // this.floatShowName = this.floatFixed = true
-              this.floatFixed = Math.abs(endTransformY) > 100
-              this.floatShowName = Math.abs(endTransformY) > 150
-              this.lastMoveYDistance = -endTransformY
+              let endTransformY = Math.abs(this.canTransformY) - (this.refs.maxSlideHeight - this.refs.videoSlideHeight)
+              let moveTransformY = Math.abs(pageMoveDistance) < Math.abs(endTransformY) ? pageMoveDistance : -endTransformY
+              this.$refs.scroll.style.transition = 'all .3s'
+              this.$refs.scroll.style.transform = `translate3d(0,${moveTransformY}px,0)`
+              this.lastMoveYDistance = moveTransformY
+
             } else {
-              this.$refs.scroll.style.transform = `translate3d(0,${-this.canTransformY}px,0)`
-              this.indicatorFixed = this.floatShowName = this.floatFixed = this.isScroll = true
-              this.tempScroll = false
-              this.lastMoveYDistance = -this.canTransformY
+              let endDistance = pageMoveDistance
+              if (Math.abs(moveDistance) > 20) {
+                if (moveDistance > 0) {
+                  endDistance += this.sprint
+                } else {
+                  endDistance -= this.sprint
+                }
+              }
+              this.lastMoveYDistance = endDistance
+              this.$refs.scroll.style.transition = 'all .3s'
+              this.$refs.scroll.style.transform = `translate3d(0,${endDistance}px,0)`
             }
           } else {
-            //手指往上划，页面向下动
-            if (Math.abs(pageMoveDistance) < this.canTransformY) {
-              if (this.refs.videoSlideHeight < this.refs.maxSlideHeight) {
-                this.lastMoveYDistance = Math.abs(pageMoveDistance) < Math.abs(endTransformY) ? pageMoveDistance : -endTransformY
-              } else {
-                let endDistance = pageMoveDistance
-                if (Math.abs(moveDistance) > 20) {
-                  if (moveDistance > 0) {
-                    endDistance += this.sprint
-                  } else {
-                    endDistance -= this.sprint
-                  }
-                }
-                this.lastMoveYDistance = endDistance
-                this.$refs.scroll.style.transition = 'all .3s'
-                this.$refs.scroll.style.transform = `translate3d(0,${endDistance}px,0)`
-              }
-            } else {
-              this.isScroll = true
-              this.tempScroll = false
-              this.lastMoveYDistance = -this.canTransformY
-            }
+            this.isScroll = true
+            this.tempScroll = false
+            this.lastMoveYDistance = -this.canTransformY
           }
         }
       }

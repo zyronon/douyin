@@ -195,7 +195,7 @@ export default {
       //todo 太卡了，后面考虑用原生js来写
       // this.$attrs['onMove'] && this.$emit('move', {
       //   x: {distance: this.moveXDistance, isDrawRight: this.isDrawRight},
-      //   y: {distance: this.moveYDistance, isDrawDown: this.isDrawDown},
+      //   y: {distance: this.lastMoveYDistance, isDrawDown: this.isDrawDown},
       // })
 
       if (this.isCanDownWiping) {

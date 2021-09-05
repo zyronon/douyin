@@ -247,7 +247,7 @@ export default {
       //todo 太卡了，后面考虑用原生js来写
       // this.$attrs['onMove'] && this.$emit('move', {
       //   x: {distance: this.moveXDistance, isDrawRight: this.isDrawRight},
-      //   y: {distance: this.moveYDistance, isDrawDown: this.isDrawDown},
+      //   y: {distance: this.lastMoveYDistance, isDrawDown: this.isDrawDown},
       // })
 
 
@@ -273,7 +273,7 @@ export default {
           } else {
             if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawDown) return
           }
-          // this.$attrs.moveYDistance && this.$emit('moveYDistance', this.moveYDistance)
+          // this.$attrs.lastMoveYDistance && this.$emit('lastMoveYDistance', this.lastMoveYDistance)
           this.$stopPropagation(e)
           this.$setCss(this.slideList, 'transform', `translate3d(0px, ${-this.getHeight(this.currentSlideItemIndex) + this.moveYDistance}px, 0px)`)
         }
@@ -333,7 +333,7 @@ export default {
         } else {
           if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawDown) return
         }
-        // console.log('column-end', this.moveYDistance)
+        // console.log('column-end', this.lastMoveYDistance)
 
         // this.$stopPropagation(e)
         if (Math.abs(this.moveYDistance) < 20) gapTime = 1000
