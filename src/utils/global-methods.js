@@ -147,7 +147,7 @@ export default {
     window.history.back()
   },
   $stopPropagation(e) {
-    e.stopImmediatePropagation()
+    // e.stopImmediatePropagation()
     e.stopPropagation()
     e.preventDefault()
   },

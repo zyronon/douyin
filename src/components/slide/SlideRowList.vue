@@ -1,6 +1,6 @@
 <template>
   <div id="base-slide-wrapper" ref="slideWrapper">
-    <div class="indicator-home" v-if="showIndicator && indicatorType === 'home'">
+    <div class="indicator-home" v-if="showIndicator ">
       <div class="notice" :style="noticeStyle"><span>下拉刷新内容</span></div>
       <div class="toolbar" ref="toolbar" :style="toolbarStyle">
         <div class="left">直播</div>
@@ -38,7 +38,7 @@ import Loading from "../Loading";
 
 export default {
   name: "BaseSlideList",
-  components:{
+  components: {
     Loading
   },
   props: {
@@ -53,10 +53,6 @@ export default {
     indicatorFixed: {
       type: Boolean,
       default: () => false
-    },
-    indicatorType: {
-      type: String,
-      default: () => 'home'
     },
     useHomeLoading: {
       type: Boolean,
@@ -193,7 +189,6 @@ export default {
     },
     touchMove(e) {
       //  this.$stopPropagation(e)
-
       if (!this.canMove) return;
       this.moveXDistance = e.touches[0].pageX - this.startLocationX
       this.moveYDistance = e.touches[0].pageY - this.startLocationY
@@ -203,15 +198,6 @@ export default {
 
       this.checkDirection()
 
-      //me页面，需要获取向下滑动的时候
-      if (!this.isDrawDown) {
-        this.$attrs['onFirst'] && this.$emit('first', this.moveYDistance)
-      }
-
-      //todo 太卡了，后面考虑用原生js来写
-      // this.$attrs['onMove'] && this.$emit('move', {
-      //   x: {distance: this.moveXDistance, isDrawRight: this.isDrawRight},
-      // })
 
       //多重判断，this.isCanDownWiping 这个判断是为了，只能在一个方向上，进行页面更新，比如说，我斜着画，就会出现toolbar又在下移，
       //slideitem同时在左右移的情况，所以不能直接使用moveYDistance
@@ -225,14 +211,16 @@ export default {
         //禁止在最后页面的时候，向右划
         if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawRight) return
 
-        bus.emit(this.name + 'move', {
+        bus.emit(this.name + '-moved', {
           x: {distance: this.moveXDistance, isDrawRight: this.isDrawRight},
         })
 
         this.$stopPropagation(e)
-        this.$setCss(this.slideList, 'transform', `translate3d(${-this.getWidth(this.currentSlideItemIndex) +
-        this.moveXDistance +
-        (this.isDrawRight ? this.judgeValue : -this.judgeValue)}px, 0px, 0px)`)
+        this.$setCss(this.slideList, 'transform',
+            `translate3d(${-this.getWidth(this.currentSlideItemIndex) +
+            this.moveXDistance +
+            (this.isDrawRight ? this.judgeValue : -this.judgeValue)}px, 0px, 0px)`)
+
         this.showIndicator && this.$setCss(this.indicatorRef, 'left',
             this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] -
             this.moveXDistance / (this.$store.state.bodyWidth / this.indicatorSpace) + 'px')
@@ -279,7 +267,7 @@ export default {
       this.resetConfig()
       this.$attrs['onUpdate:active-index'] && this.$emit('update:active-index', this.currentSlideItemIndex)
       this.$attrs['onEnd'] && this.$emit('end')
-      bus.emit(this.name + 'end', this.currentSlideItemIndex)
+      bus.emit(this.name + '-end', this.currentSlideItemIndex)
     },
     resetConfig() {
       this.isCanRightWiping = false
@@ -308,20 +296,21 @@ export default {
     },
     checkDirection() {
       if (!this.isNeedCheck) return
-      let angle = (Math.abs(this.moveXDistance) * 10) / (Math.abs(this.moveYDistance) * 10)
-      if (angle < 0.6) {
-        //上下划
-        this.isCanDownWiping = true
-        this.isCanRightWiping = false
-        this.isNeedCheck = false
-        return
+      if (Math.abs(this.moveXDistance) > this.judgeValue || Math.abs(this.moveYDistance) > this.judgeValue) {
+        let angle = (Math.abs(this.moveXDistance) * 10) / (Math.abs(this.moveYDistance) * 10)
+        if (angle > 1) {
+          this.isCanDownWiping = false
+          this.isCanRightWiping = true
+          // console.log('横划')
+        } else {
+          this.isCanDownWiping = true
+          this.isCanRightWiping = false
+          // console.log('竖划')
+        }
+        // console.log(angle)
+        return this.isNeedCheck = false
       }
-      if (angle > 5) {
-        //左右划
-        this.isCanDownWiping = false
-        this.isCanRightWiping = true
-        this.isNeedCheck = false
-      }
+      return this.isNeedCheck = true
     }
   }
 }
