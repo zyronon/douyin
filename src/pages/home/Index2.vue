@@ -103,49 +103,7 @@
         <Footer v-bind:init-tab="1"/>
       </SlideItem>
       <SlideItem style="font-size: 40px;overflow:auto;">
-        <div v-if="false">
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-        </div>
-        <Me></Me>
+        <Uploader></Uploader>
       </SlideItem>
     </SlideRowList>
 
@@ -179,7 +137,6 @@
   </div>
 </template>
 <script>
-import src1Bg from '../../assets/img/poster/src1-bg.png'
 import Video1 from "../../components/Video.vue";
 import mp40 from "../../assets/video/0.mp4";
 import mp41 from "../../assets/video/1.mp4";
@@ -196,12 +153,12 @@ import Comment from "../../components/Comment";
 import Share from "../../components/Share";
 import SlideColumnList from "../../components/slide/SlideColumnList";
 import SlideRowList from "../../components/slide/SlideRowList";
-import Me from '../me/Me'
 import PlayFeedback from "./components/PlayFeedback";
 import FromBottomDialog from "../../components/dialog/FromBottomDialog";
 import Duoshan from "./components/Duoshan";
 import ShareTo from "./components/ShareTo";
 import DouyinCode from "../../components/DouyinCode";
+import Uploader from "../me/Uploader";
 
 export default {
   name: "HomeIndex",
@@ -212,7 +169,7 @@ export default {
     Video1,
     Comment,
     Share,
-    Me,
+    Uploader,
     PlayFeedback,
     Duoshan,
     ShareTo,

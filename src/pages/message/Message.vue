@@ -239,6 +239,7 @@ export default {
 
 <style scoped lang="less">
 @import "../../assets/scss/index";
+
 ::-webkit-scrollbar {
   display: none; /* Chrome Safari */
 }
@@ -577,12 +578,6 @@ export default {
         height: 15px;
       }
 
-      .not-read {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: yellow;
-      }
     }
   }
 

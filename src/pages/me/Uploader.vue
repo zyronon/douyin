@@ -1,190 +1,212 @@
 <template>
-  <div class="Me">
-    <SlideRowList style="width: 100vw;" v-model:active-index="baseActiveIndex">
-      <SlideItem>
-        <div ref="float" class="float" :class="floatFixed?'fixed':''">
-          <div class="left" style="opacity: 0;">
-            <img src="../../assets/img/icon/next.svg" alt="">
-            <span>切换账号</span>
-          </div>
-          <transition name="fade">
-            <div class="center" v-if="floatShowName">
-              <p class="name f22 mt1r mb1r">ttentau</p>
-            </div>
-          </transition>
-          <div class="right">
-            <img @click="$nav('/me/request-update')"
-                 :style="floatFixed?'opacity: 0;':''"
-                 src="../../assets/img/icon/me/finger-right.png" alt="">
-            <img src="../../assets/img/icon/me/menu.png" alt="" @click.stop="baseActiveIndex = 1">
-          </div>
+  <div class="Uploader">
+    <div ref="float" class="float" :class="floatFixed?'fixed':''">
+      <div class="left" style="opacity: 0;">
+        <img src="../../assets/img/icon/next.svg" alt="">
+        <span>切换账号</span>
+      </div>
+      <transition name="fade">
+        <div class="center" v-if="floatShowName">
+          <p class="name f22 mt1r mb1r">ttentau</p>
         </div>
-        <div class="scroll"
-             ref="scroll">
-          <div ref="desc" class="desc">
-            <header ref="header" @click="previewImg = require('../../assets/img/header-bg.png')"></header>
-            <div class="detail">
-              <div class="head">
-                <img src="../../assets/img/icon/avatar/2.png" class="head-image"
-                     @click="previewImg = require('../../assets/img/icon/avatar/2.png')">
-                <div class="heat">
-                  <div class="text">
-                    <span>获赞</span>
-                    <span class="num">18</span>
-                  </div>
-                  <div class="text">
-                    <span>粉丝</span>
-                    <span class="num">62</span>
-                  </div>
-                  <div class="text">
-                    <span>关注</span>
-                    <span class="num">8</span>
-                  </div>
-                </div>
-
+      </transition>
+      <div class="right">
+        <img @click="$nav('/me/request-update')"
+             :style="floatFixed?'opacity: 0;':''"
+             src="../../assets/img/icon/me/finger-right.png" alt="">
+        <img src="../../assets/img/icon/me/menu.png" alt="" @click.stop="baseActiveIndex = 1">
+      </div>
+    </div>
+    <div class="scroll"
+         ref="scroll"
+         @touchstart="touchStart($event)"
+         @touchmove="touchMove($event)"
+         @touchend="touchEnd($event)">
+      <div ref="desc" class="desc">
+        <header ref="header" @click="previewImg = require('../../assets/img/header-bg.png')"></header>
+        <div class="detail">
+          <div class="head">
+            <img src="../../assets/img/icon/avatar/2.png" class="head-image"
+                 @click="previewImg = require('../../assets/img/icon/avatar/2.png')">
+            <div class="heat">
+              <div class="text">
+                <span>获赞</span>
+                <span class="num">18</span>
               </div>
-              <div class="description">
-                <p class="name f22 mt1r mb1r">ttentau</p>
-                <div class="number mb1r">
-                  <span class="mr1r">私密账号</span>
-                  <span>抖音号：605128307</span>
-                  <img src="../../assets/img/icon/me/qrcode-gray.png" alt="" @click.stop="$nav('/my-card')">
-                </div>
-                <div class="signature f12" @click="$nav('/edit-userinfo-item',{type:3})">
-                  <template v-if="!userinfo.desc">
-                    <span>点击添加介绍，让大家认识你...</span>
-                    <img src="../../assets/img/icon/me/write-gray.png" alt="">
-                  </template>
-                  <span v-else class="text">{{ userinfo.desc }}</span>
-                </div>
-                <div class="more">
-                  <div class="age item" v-if="userinfo.birthday">
-                    <img v-if="userinfo.sex === '女'" src="../../assets/img/icon/me/woman.png" alt="">
-                    <img v-if="userinfo.sex === '男'" src="../../assets/img/icon/me/man.png" alt="">
-                    <span>{{ filterAge(userinfo.birthday) }}岁</span>
-                  </div>
-                  <div class="item" v-if="userinfo.location">
-                    {{ userinfo.location }}
-                  </div>
-                  <div class="item" v-if="userinfo.school.name">
-                    {{ userinfo.school.name }}
-                  </div>
-                </div>
-
+              <div class="text">
+                <span>粉丝</span>
+                <span class="num">62</span>
               </div>
-              <div class="my-buttons">
-                <div @click="$nav('/edit-userinfo')">
-                  <span class="mr1r">编辑资料</span>
-                </div>
-                <div class="add-friend" @click="$nav('/find-acquaintance')">
-                  <span class="mr5p">添加朋友</span>
-                </div>
+              <div class="text">
+                <span>关注</span>
+                <span class="num">8</span>
               </div>
             </div>
-          </div>
-          <Indicator
-              name="videoList"
-              tabStyleWidth="25%"
-              :tabTexts="['作品','私密','喜欢','收藏']"
-              v-model:active-index="contentIndex">
-          </Indicator>
-          <SlideRowList
-              ref="videoSlideRowList"
-              name="videoList"
-              :style="videoSlideRowListStyle"
-              v-model:active-index="contentIndex">
-            <SlideItem class="SlideItem"
-                       @scroll="scroll"
-                       :style="SlideItemStyle">
-              <Posters v-if="videos.my.total !== -1" :list="videos.my.list"></Posters>
-              <Loading v-if="loadings.loading0" :is-full-screen="false"></Loading>
-              <no-more v-else/>
-            </SlideItem>
-            <SlideItem class="SlideItem"
-                       @scroll="scroll"
-                       :style="SlideItemStyle">
-              <div class="notice">
-                <img src="../../assets/img/icon/me/lock-gray.png" alt="">
-                <span>只有你能看到设为私密的作品和日常</span>
-              </div>
-              <Posters v-if="videos.private.total !== -1" mode="private" :list="videos.private.list"></Posters>
-              <Loading v-if="loadings.loading1" :is-full-screen="false"></Loading>
-              <no-more v-else/>
-            </SlideItem>
-            <SlideItem class="SlideItem"
-                       @scroll="scroll"
-                       :style="SlideItemStyle">
-              <div class="notice">
-                <img src="../../assets/img/icon/me/lock-gray.png" alt="">
-                <span>只有你能看到自己的喜欢列表</span>
-              </div>
-              <Posters v-if="videos.like.total !== -1" :list="videos.like.list"></Posters>
-              <Loading v-if="loadings.loading2" :is-full-screen="false"></Loading>
-              <no-more v-else/>
-            </SlideItem>
-            <SlideItem class="SlideItem"
-                       @scroll="scroll"
-                       :style="SlideItemStyle">
-              <div class="notice">
-                <img src="../../assets/img/icon/me/lock-gray.png" alt="">
-                <span>只有你能看到自己的收藏列表</span>
-              </div>
-              <div class="collect" ref="collect">
-                <div class="video" v-if=" videos.collect.video.list.length">
-                  <div class="top">
-                    <div class="left">
-                      <img src="../../assets/img/icon/me/video-whitegray.png" alt="">
-                      <span>视频</span>
-                    </div>
-                    <div class="right">
-                      <span>全部</span>
-                      <back direction="right"></back>
-                    </div>
-                  </div>
-                  <div class="list">
-                    <div class="item"
-                         v-for="i in videos.collect.video.list.length>3?videos.collect.video.list.slice(0,3):videos.collect.video.list">
-                      <img class="poster" :src="$imgPreview(i.poster)" alt="">
-                      <div class="num">
-                        <img class="love" src="../../assets/img/icon/love.svg" alt="">
-                        <span>{{ $likeNum(i.likeNum) }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
 
-                <div class="audio" v-if=" videos.collect.video.list.length">
-                  <div class="top">
-                    <div class="left">
-                      <img src="../../assets/img/icon/me/music-whitegray.png" alt="">
-                      <span>音乐</span>
-                    </div>
-                    <div class="right">
-                      <span>全部</span>
-                      <back direction="right"></back>
-                    </div>
-                  </div>
-                  <div class="list">
-                    <div class="item"
-                         v-for="i in videos.collect.video.list.length>3?videos.collect.video.list.slice(0,3):videos.collect.video.list">
-                      <img class="poster" :src="$imgPreview(i.poster)" alt="">
-                      <div class="title">用户创作的原声用户创作的原声用户创作的原声
-                      </div>
-                    </div>
+          </div>
+          <div class="description">
+            <p class="name f22 mt1r mb1r">ttentau</p>
+            <div class="number mb1r">
+              <span class="mr1r">私密账号</span>
+              <span>抖音号：605128307</span>
+              <img src="../../assets/img/icon/me/qrcode-gray.png" alt="" @click.stop="$nav('/my-card')">
+            </div>
+            <div class="signature f12" @click="$nav('/edit-userinfo-item',{type:3})">
+              <template v-if="!userinfo.desc">
+                <span>点击添加介绍，让大家认识你...</span>
+                <img src="../../assets/img/icon/me/write-gray.png" alt="">
+              </template>
+              <span v-else class="text">{{ userinfo.desc }}</span>
+            </div>
+            <div class="more">
+              <div class="age item" v-if="userinfo.birthday">
+                <img v-if="userinfo.sex === '女'" src="../../assets/img/icon/me/woman.png" alt="">
+                <img v-if="userinfo.sex === '男'" src="../../assets/img/icon/me/man.png" alt="">
+                <span>{{ filterAge(userinfo.birthday) }}岁</span>
+              </div>
+              <div class="item" v-if="userinfo.location">
+                {{ userinfo.location }}
+              </div>
+              <div class="item" v-if="userinfo.school.name">
+                {{ userinfo.school.name }}
+              </div>
+            </div>
+
+          </div>
+          <div class="other">
+            <div class="item">
+              <img src="../../assets/img/icon/me/shopping-cart-white.png" alt="">
+              <div class="right">
+                <div class="top">抖音商城</div>
+                <div class="bottom">发现超值好物</div>
+              </div>
+            </div>
+            <div class="item">
+              <img src="../../assets/img/icon/me/music-white.png" alt="">
+              <div class="right">
+                <div class="top">我的音乐</div>
+                <div class="bottom">已收藏20首</div>
+              </div>
+            </div>
+          </div>
+          <div class="my-buttons">
+            <div class="">
+              <div class="button" @click="$nav('/edit-userinfo')">
+                <img src="../../assets/img/icon/add-white.png" alt="">
+              </div>
+<!--              <div class="button" @click="$nav('/edit-userinfo')">-->
+<!--                <span>编辑资料</span>-->
+<!--              </div>-->
+<!--              <div class="button" @click="$nav('/edit-userinfo')">-->
+<!--                <span>主页访客</span>-->
+<!--              </div>-->
+            </div>
+            <div class="button" @click="$nav('/find-acquaintance')">
+              <img src="../../assets/img/icon/arrow-up-white.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <Indicator
+          name="videoList"
+          tabStyleWidth="25%"
+          :tabTexts="['作品','私密','喜欢','收藏']"
+          v-model:active-index="contentIndex">
+      </Indicator>
+      <SlideRowList
+          ref="videoSlideRowList"
+          name="videoList"
+          :style="videoSlideRowListStyle"
+          v-model:active-index="contentIndex">
+        <SlideItem class="SlideItem"
+                   @scroll="scroll"
+                   :style="SlideItemStyle">
+          <Posters v-if="videos.my.total !== -1" :list="videos.my.list"></Posters>
+          <Loading v-if="loadings.loading0" :is-full-screen="false"></Loading>
+          <no-more v-else/>
+        </SlideItem>
+        <SlideItem class="SlideItem"
+                   @scroll="scroll"
+                   :style="SlideItemStyle">
+          <div class="notice">
+            <img src="../../assets/img/icon/me/lock-gray.png" alt="">
+            <span>只有你能看到设为私密的作品和日常</span>
+          </div>
+          <Posters v-if="videos.private.total !== -1" mode="private" :list="videos.private.list"></Posters>
+          <Loading v-if="loadings.loading1" :is-full-screen="false"></Loading>
+          <no-more v-else/>
+        </SlideItem>
+        <SlideItem class="SlideItem"
+                   @scroll="scroll"
+                   :style="SlideItemStyle">
+          <div class="notice">
+            <img src="../../assets/img/icon/me/lock-gray.png" alt="">
+            <span>只有你能看到自己的喜欢列表</span>
+          </div>
+          <Posters v-if="videos.like.total !== -1" :list="videos.like.list"></Posters>
+          <Loading v-if="loadings.loading2" :is-full-screen="false"></Loading>
+          <no-more v-else/>
+        </SlideItem>
+        <SlideItem class="SlideItem"
+                   @scroll="scroll"
+                   :style="SlideItemStyle">
+          <div class="notice">
+            <img src="../../assets/img/icon/me/lock-gray.png" alt="">
+            <span>只有你能看到自己的收藏列表</span>
+          </div>
+          <div class="collect" ref="collect">
+            <div class="video" v-if=" videos.collect.video.list.length">
+              <div class="top">
+                <div class="left">
+                  <img src="../../assets/img/icon/me/video-whitegray.png" alt="">
+                  <span>视频</span>
+                </div>
+                <div class="right">
+                  <span>全部</span>
+                  <back direction="right"></back>
+                </div>
+              </div>
+              <div class="list">
+                <div class="item"
+                     v-for="i in videos.collect.video.list.length>3?videos.collect.video.list.slice(0,3):videos.collect.video.list">
+                  <img class="poster" :src="$imgPreview(i.poster)" alt="">
+                  <div class="num">
+                    <img class="love" src="../../assets/img/icon/love.svg" alt="">
+                    <span>{{ $likeNum(i.likeNum) }}</span>
                   </div>
                 </div>
               </div>
-              <Loading v-if="loadings.loading3" :is-full-screen="false"></Loading>
-              <no-more v-else/>
-            </SlideItem>
-          </SlideRowList>
-        </div>
-        <Footer v-bind:init-tab="5"/>
-        <transition name="fade">
-          <div class="mask" v-if="baseActiveIndex === 1" @click="baseActiveIndex = 0"></div>
-        </transition>
-      </SlideItem>
-    </SlideRowList>
+            </div>
+
+            <div class="audio" v-if=" videos.collect.video.list.length">
+              <div class="top">
+                <div class="left">
+                  <img src="../../assets/img/icon/me/music-whitegray.png" alt="">
+                  <span>音乐</span>
+                </div>
+                <div class="right">
+                  <span>全部</span>
+                  <back direction="right"></back>
+                </div>
+              </div>
+              <div class="list">
+                <div class="item"
+                     v-for="i in videos.collect.video.list.length>3?videos.collect.video.list.slice(0,3):videos.collect.video.list">
+                  <img class="poster" :src="$imgPreview(i.poster)" alt="">
+                  <div class="title">用户创作的原声用户创作的原声用户创作的原声
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <Loading v-if="loadings.loading3" :is-full-screen="false"></Loading>
+          <no-more v-else/>
+        </SlideItem>
+      </SlideRowList>
+    </div>
+    <transition name="fade">
+      <div class="mask" v-if="baseActiveIndex === 1" @click="baseActiveIndex = 0"></div>
+    </transition>
     <transition name="fade">
       <div class="preview-img" v-if="previewImg" @click="previewImg = ''">
         <img class="resource" :src="previewImg" alt="">
@@ -195,14 +217,14 @@
 </template>
 <script>
 import Posters from '../../components/Posters'
-import Footer from "../../components/Footer";
 import Indicator from '../../components/Indicator'
 import {nextTick} from 'vue'
 import {mapState} from "vuex";
+import bus from "../../utils/bus";
 
 export default {
   name: "Me",
-  components: {Posters, Footer, Indicator},
+  components: {Posters, Indicator},
   data() {
     return {
       previewImg: '',
@@ -263,6 +285,7 @@ export default {
       tempScroll: false,
       acceleration: 1.2,
       sprint: 15,
+      canScroll: true
     }
   },
   computed: {
@@ -285,7 +308,7 @@ export default {
   },
   watch: {
     contentIndex(newVal, oldVal) {
-      // this.changeIndex(newVal, oldVal)
+      this.changeIndex(newVal, oldVal)
     },
   },
   mounted() {
@@ -299,6 +322,8 @@ export default {
       this.changeIndex(0, null)
     })
     this.videoItemHeight = this.bodyWidth / 3 * 1.2 + 2
+    bus.on('baseSlide-moved', () => this.canScroll = false)
+    bus.on('baseSlide-end', () => this.canScroll = true)
   },
   methods: {
     click(e) {
@@ -421,9 +446,16 @@ export default {
       // (!this.isScroll) && e.preventDefault();
     },
     async scroll() {
-
+      if (this.isScroll) {
+        let SlideItems = document.querySelectorAll('.SlideItem')
+        let SlideItem = SlideItems[this.contentIndex]
+        if (SlideItem.scrollHeight - SlideItem.clientHeight < SlideItem.scrollTop + 60) {
+          this.loadMoreData()
+        }
+      }
     },
     async touchMove(e) {
+      if (!this.canScroll) return
       let moveDistance = e.touches[0].pageY - this.startLocationY
       let pageMoveDistance = this.lastMoveYDistance + moveDistance * this.acceleration
       // console.log('move-pageMoveDistance', pageMoveDistance)
@@ -511,11 +543,12 @@ export default {
       }
     },
     async touchEnd(e) {
+      if (!this.canScroll) return
       let moveDistance = e.changedTouches[0].pageY - this.startLocationY
       let pageMoveDistance = this.lastMoveYDistance + moveDistance * this.acceleration
 
       // console.log('end-pageMoveDistance', pageMoveDistance)
-      console.log('end-moveDistance', moveDistance)
+      // console.log('end-moveDistance', moveDistance)
 
       if (this.isScroll) {
         this.tempScroll = false
@@ -524,7 +557,7 @@ export default {
         let endTime = Date.now()
         let gapTime = endTime - this.startTime
 
-        console.log('end-gapTime', gapTime)
+        // console.log('end-gapTime', gapTime)
         let endTransformY = Math.abs(this.canTransformY) - (this.refs.maxSlideHeight - this.refs.videoSlideHeight)
 
 
@@ -652,5 +685,5 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "Me";
+@import "Uploader";
 </style>

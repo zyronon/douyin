@@ -77,12 +77,32 @@
                 </div>
 
               </div>
-              <div class="my-buttons">
-                <div @click="$nav('/edit-userinfo')">
-                  <span class="mr1r">编辑资料</span>
+              <div class="other">
+                <div class="item">
+                  <img src="../../assets/img/icon/me/shopping-cart-white.png" alt="">
+                  <div class="right">
+                    <div class="top">抖音商城</div>
+                    <div class="bottom">发现超值好物</div>
+                  </div>
                 </div>
-                <div class="add-friend" @click="$nav('/find-acquaintance')">
-                  <span class="mr5p">添加朋友</span>
+                <div class="item">
+                  <img src="../../assets/img/icon/me/music-white.png" alt="">
+                  <div class="right">
+                    <div class="top">我的音乐</div>
+                    <div class="bottom">已收藏20首</div>
+                  </div>
+                </div>
+              </div>
+              <div class="my-buttons">
+                <div class="button" @click="$nav('/edit-userinfo')">
+                  <span>编辑资料</span>
+                </div>
+                <div class="button" @click="$nav('/edit-userinfo')">
+                  <span>主页访客</span>
+                </div>
+                <div class="button" @click="$nav('/find-acquaintance')">
+                  <span>添加朋友</span>
+                  <div class="not-read"></div>
                 </div>
               </div>
             </div>

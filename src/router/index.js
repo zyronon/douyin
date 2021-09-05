@@ -51,8 +51,8 @@ import RequestUpdate from "../pages/me/RequestUpdate";
 
 const routes = [
   // {path: '', component: Music},
-  {path: '/', component: Index},
-  // {path: '/', component: Index2},
+  // {path: '/', component: Index},
+  {path: '/', component: Index2},
   {path: '/test', component: Test},
   {path: '/test2', component: Test2},
   {path: '/test3', component: Test3},
