@@ -101,11 +101,12 @@
     }
   }
 
-  &.disabled{
+  &.disabled {
     &.primary {
       background: gainsboro;
       color: white;
     }
+
     &:active {
       &.primary {
         background: gainsboro;
@@ -126,6 +127,14 @@
     color: black;
     border: 1px solid gainsboro;
   }
+}
+
+.not-read {
+  @width: .7rem;
+  width: @width;
+  height: @width;
+  border-radius: 50%;
+  background: yellow;
 }
 
 p {
