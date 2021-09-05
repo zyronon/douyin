@@ -232,6 +232,9 @@ export default {
     }
   },
   $imgPreview(url) {
+    if (url.includes('http')){
+      return url
+    }
     return Config.filePreview + url
   },
   $likeNum(num) {
