@@ -360,24 +360,71 @@
       .my-buttons {
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        @width: 3.6rem;
 
-        .button {
+        .no-follow {
+          color: white;
+          border-radius: .2rem;
+          background: @primary-btn-color;
+          flex: 1;
+          height: @width;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: .5rem;
+          box-sizing: border-box;
+
+          span {
+            margin-left: .2rem;
+          }
+        }
+
+        .followed {
+          flex: 1;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+
+          .l-button {
+            color: white;
+            border-radius: .2rem;
+            background: @second-btn-color;
+            height: @width;
+            width: 50%;
+            margin-right: .5rem;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            span {
+              margin-left: .2rem;
+            }
+
+            img {
+              transform: rotate(180deg);
+            }
+          }
+        }
+
+        .option {
           position: relative;
-          width: 32%;
+          width: @width;
+          height: @width;
           font-size: 1.2rem;
           display: flex;
           align-items: center;
           justify-content: center;
           border-radius: .2rem;
           background: @second-btn-color;
-          height: 3rem;
           color: white;
+        }
 
-          img {
-            @width: 1.6rem;
-            width: @width;
-            height: @width;
-          }
+        img {
+          @width: 1.6rem;
+          width: @width;
+          height: @width;
         }
 
       }
