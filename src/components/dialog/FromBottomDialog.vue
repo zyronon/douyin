@@ -44,7 +44,7 @@ export default {
     //触摸，是否可以滑动
     touchMoved: {
       type: Boolean,
-      default:true
+      default: true
     },
     maskMode: {
       type: String,
@@ -69,8 +69,10 @@ export default {
       if (newVal) {
         if (this.pageId) {
           let page = document.getElementById(this.pageId)
+          this.pagePosition = this.$getCss2(page, 'position')
           page.style.position = 'absolute'
         } else {
+          this.pagePosition = this.$getCss2(app.children[0], 'position')
           app.children[0].style.position = 'absolute'
         }
         this.scroll = document.documentElement.scrollTop
@@ -79,9 +81,9 @@ export default {
       } else {
         if (this.pageId) {
           let page = document.getElementById(this.pageId)
-          page.style.position = 'fixed'
+          page.style.position = this.pagePosition || 'fixed'
         } else {
-          app.children[1].style.position = 'fixed'
+          app.children[1].style.position = this.pagePosition || 'fixed'
         }
         document.body.style.position = 'static'
         document.documentElement.scrollTop = this.scroll
@@ -100,6 +102,7 @@ export default {
       startLocationY: 0,
       moveYDistance: 0,
       startTime: 0,
+      pagePosition: null
     }
   },
   computed: {
@@ -143,13 +146,13 @@ export default {
       this.$emit('cancel')
     },
     start(e) {
-      if (!this.touchMoved)return;
+      if (!this.touchMoved) return;
       if (this.$refs.dialog.scrollTop !== 0) return
       this.startLocationY = e.touches[0].pageY
       this.startTime = Date.now()
     },
     move(e) {
-      if (!this.touchMoved)return;
+      if (!this.touchMoved) return;
       if (this.$refs.dialog.scrollTop !== 0) return
       this.moveYDistance = e.touches[0].pageY - this.startLocationY
       if (this.moveYDistance > 0) {
@@ -157,7 +160,7 @@ export default {
       }
     },
     end(e) {
-      if (!this.touchMoved)return;
+      if (!this.touchMoved) return;
       //点击
       if (Date.now() - this.startTime < 150) return
 

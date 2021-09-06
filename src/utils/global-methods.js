@@ -6,6 +6,7 @@ import Loading from "../components/Loading";
 import Config from '../config'
 import NoticeDialog from "../components/dialog/NoticeDialog";
 import dayjs from 'dayjs'
+
 export default {
   $showLoading() {
     const app = Vue.createApp({
@@ -140,7 +141,7 @@ export default {
       document.body.removeChild(div)
     }, 1000)
   },
-  $no(){
+  $no() {
     this.$notice('未实现')
   },
   $back() {
@@ -168,6 +169,24 @@ export default {
     // reg = /^(-?\d+(\.\d)?)(px|pt|em|rem)?$/i
     // return reg.test(val) ? parseFloat(val) : val
     return parseFloat(val)
+  },
+  $getCss2(curEle, attr) {
+    let val = null, reg = null
+    if ("getComputedStyle" in window) {
+      val = window.getComputedStyle(curEle, null)[attr]
+    } else {   //ie6~8不支持上面属性
+      //不兼容
+      if (attr === "opacity") {
+        val = curEle.currentStyle["filter"]   //'alpha(opacity=12,345)'
+        reg = /^alphaopacity=(\d+(?:\.\d+)?)opacity=(\d+(?:\.\d+)?)$/i
+        val = reg.test(val) ? reg.exec(val)[1] / 100 : 1
+      } else {
+        val = curEle.currentStyle[attr]
+      }
+    }
+    // reg = /^(-?\d+(\.\d)?)(px|pt|em|rem)?$/i
+    // return reg.test(val) ? parseFloat(val) : val
+    return val
   },
   $setCss(el, key, value) {
     // console.log(value)
@@ -232,7 +251,8 @@ export default {
     }
   },
   $imgPreview(url) {
-    if (url.includes('http')){
+    if (!url) return
+    if (url.includes('http')) {
       return url
     }
     return Config.filePreview + url
@@ -275,8 +295,8 @@ export default {
 
   $dateFormat(val, type) {
     if (!val) return
-    if (val.length === 10){
-      val+='000'
+    if (val.length === 10) {
+      val += '000'
     }
     if (typeof val === 'string' && (val.length === 10 || val.length === 13)) {
       val = Number(val)

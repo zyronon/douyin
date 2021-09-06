@@ -2,6 +2,7 @@
   <div id="home-index">
     <SlideRowList
         name="baseSlide"
+        :canMove="canMove"
         v-model:active-index="baseActiveIndex">
       <SlideItem>
         <SlideRowList
@@ -105,7 +106,12 @@
         <Footer v-bind:init-tab="1"/>
       </SlideItem>
       <SlideItem style="font-size: 40px;overflow:auto;">
-        <Uploader/>
+        <Uploader
+            @toggleCanMove="e => this.canMove = e"
+            @back="baseActiveIndex = 0"
+            @showFollowSetting="showFollowSetting = true"
+            @showFollowSetting2="showFollowSetting2 = true"
+        />
       </SlideItem>
     </SlideRowList>
 
@@ -126,9 +132,10 @@
            @share2Webo="shareType = 8"
            @download="shareType = 9"
     />
+
     <PlayFeedback v-model="showPlayFeedback"/>
 
-    <DouyinCode v-model="showDouyinCode"></DouyinCode>
+    <DouyinCode v-model="showDouyinCode"/>
 
     <Duoshan v-model="showShareDuoshan"/>
 
@@ -136,6 +143,26 @@
              :videoId="videos[videoActiveIndex]?.id"
              :canDownload="videos[videoActiveIndex]?.canDownload"
     />
+
+    <FollowSetting
+        @showChangeNote="delayShowDialog( e => this.showChangeNote = true)"
+        @showBlockDialog="delayShowDialog(e => this.showBlockDialog = true)"
+        @showShare="delayShowDialog( e => this.isSharing = true)"
+        v-model="showFollowSetting"/>
+
+
+    <FollowSetting2
+        v-model="showFollowSetting2"/>
+
+    <BlockDialog v-model="showBlockDialog"/>
+
+    <ConfirmDialog
+        title="设置备注名"
+        ok-text="确认"
+        v-model:visible="showChangeNote"
+    >
+      <Search mode="light" v-model="test" :isShowSearchIcon="false"/>
+    </ConfirmDialog>
   </div>
 </template>
 <script>
@@ -161,6 +188,11 @@ import Duoshan from "./components/Duoshan";
 import ShareTo from "./components/ShareTo";
 import DouyinCode from "../../components/DouyinCode";
 import Uploader from "../me/Uploader";
+import FollowSetting from "./components/FollowSetting";
+import BlockDialog from "../message/components/BlockDialog";
+import Search from "../../components/Search";
+import ConfirmDialog from "../../components/dialog/ConfirmDialog";
+import FollowSetting2 from "./components/FollowSetting2";
 
 export default {
   name: "HomeIndex",
@@ -175,7 +207,12 @@ export default {
     PlayFeedback,
     Duoshan,
     ShareTo,
-    DouyinCode
+    DouyinCode,
+    FollowSetting,
+    FollowSetting2,
+    BlockDialog,
+    Search,
+    ConfirmDialog
   },
   data() {
     return {
@@ -393,6 +430,7 @@ export default {
       ],
       isCommenting: false,
       isSharing: false,
+      canMove: true,
 
       shareType: -1,
 
@@ -401,6 +439,13 @@ export default {
       showShareDialog: false,
       showShare2WeChatZone: false,
       showDouyinCode: false,
+      showFollowSetting: false,
+      showFollowSetting2: false,
+      showBlockDialog: false,
+      showChangeNote: false,
+
+      test: '',
+
 
       videoActiveIndex: 0,
       baseActiveIndex: 0,
@@ -454,6 +499,11 @@ export default {
     this.width = document.body.clientWidth
   },
   methods: {
+    delayShowDialog(cb) {
+      setTimeout(() => {
+        cb()
+      }, 500)
+    },
     dislike() {
       this.$notice('操作成功，将减少此类视频的推荐')
     },
@@ -474,7 +524,7 @@ export default {
       }
     },
     t(e) {
-      console.log(e)
+      console.log('ttttt', e)
     },
     end() {
       this.$notice('暂时没有更多了')

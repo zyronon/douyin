@@ -8,7 +8,7 @@
       </div>
       <div class="right">
         <img style="transform: scale(1.1)" src="../../assets/img/icon/message/video-white.png" alt="">
-        <img src="../../assets/img/icon/menu-white.png" alt="" @click="$nav('/chat-detail')">
+        <img src="../../assets/img/icon/menu-white.png" alt="" @click="$nav('/message/chat-detail')">
       </div>
     </div>
     <div class="message-wrapper" :class="isExpand ? 'expand' : ''">
@@ -397,6 +397,7 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
+  font-size: 1.4rem;
 
   .header {
     z-index: 2;
