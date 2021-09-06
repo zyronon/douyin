@@ -6,42 +6,39 @@
       </template>
     </BaseHeader>
     <div class="content">
-      <Share  v-model="test"/>
+      <div class="my-buttons">
+        <div class="follow-display">
+          <div class="follow-wrapper" :class="isFollowed ? 'follow-wrapper-followed' : ''">
+            <div class="no-follow" @click="isFollowed = true">
+              <img src="../assets/img/icon/add-white.png" alt="">
+              <span>关注</span>
+            </div>
+            <div class="followed">
+              <div class="l-button" @click="isFollowed = false">
+                <span>已关注</span>
+                <img src="../assets/img/icon/arrow-up-white.png" alt="">
+              </div>
+              <div class="l-button">
+                <span>私信</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="option" @click="isFollowed = !isFollowed">
+          <img src="../assets/img/icon/arrow-up-white.png" alt="">
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
-import SlideColumnList from "../components/slide/SlideColumnList";
-import SlideRowList from "../components/slide/SlideRowList";
-import Video1 from "../components/Video";
-import Comment from "../components/Comment";
-import Share from "../components/Share";
-import Me from "./me/Me";
 
 export default {
   name: "Test",
   props: {},
-  components: {SlideColumnList, SlideRowList, Video1, Comment, Share, Me},
   data() {
     return {
-      videos: [
-        {
-          "id": "d2f55373-80dd-4c14-93a7-7a40e9cbf049",
-          "posterUrl": "images/20210815/0.png",
-          "videoUrl": "http://qy9rc9xff.hn-bkt.clouddn.com/9.mp4",
-          "title": "",
-          "likeNum": null,
-          "commentNum": null,
-          "sharedNum": null,
-          "duration": null,
-          "musicId": "126f9654-450b-466c-8003-085199a7f9b9",
-          "browseCount": 0,
-          "createTime": "1629683008",
-          "createBy": "3e301843-e8bb-41c0-8240-9c4b42a17341",
-          "status": 1
-        }
-      ],
-      test:true
+      isFollowed: true
     }
   },
   computed: {},
@@ -65,6 +62,103 @@ export default {
 
   .content {
     padding-top: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .my-buttons {
+      margin-top: 2rem;
+      overflow: hidden;
+      width: 80%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      @width: 3.6rem;
+
+      .follow-display {
+        flex: 1;
+        overflow: hidden;
+
+        .follow-wrapper {
+          width: 200%;
+          display: flex;
+          flex-wrap: nowrap;
+          transition: all .3s ease;
+
+          &.follow-wrapper-followed {
+            transform: translate3d(-50%, 0, 0);
+          }
+
+          .no-follow {
+            width: calc(100% - 0.5rem);
+            color: white;
+            border-radius: .2rem;
+            background: @primary-btn-color;
+            height: @width;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: .5rem;
+            box-sizing: border-box;
+
+            span {
+              margin-left: .2rem;
+            }
+          }
+
+          .followed {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            .l-button {
+              color: white;
+              border-radius: .2rem;
+              background: @second-btn-color;
+              height: @width;
+              width: 50%;
+              margin-right: .5rem;
+              box-sizing: border-box;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              span {
+                margin-left: .2rem;
+              }
+
+              img {
+                transform: rotate(180deg);
+              }
+            }
+          }
+        }
+
+      }
+
+
+      .option {
+        position: relative;
+        width: @width;
+        height: @width;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: .2rem;
+        background: @second-btn-color;
+        color: white;
+      }
+
+      img {
+        @width: 1.6rem;
+        width: @width;
+        height: @width;
+      }
+
+    }
+
   }
 }
 </style>

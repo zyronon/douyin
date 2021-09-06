@@ -1,6 +1,8 @@
 <template>
   <div id="home-index">
-    <SlideRowList v-model:active-index="baseActiveIndex">
+    <SlideRowList
+        name="baseSlide"
+        v-model:active-index="baseActiveIndex">
       <SlideItem>
         <SlideRowList
             v-model:active-index="activeIndex"
@@ -103,7 +105,7 @@
         <Footer v-bind:init-tab="1"/>
       </SlideItem>
       <SlideItem style="font-size: 40px;overflow:auto;">
-        <Uploader></Uploader>
+        <Uploader/>
       </SlideItem>
     </SlideRowList>
 
