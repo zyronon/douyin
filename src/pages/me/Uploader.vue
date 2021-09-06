@@ -52,10 +52,7 @@
               <img src="../../assets/img/icon/me/qrcode-gray.png" alt="" @click.stop="$nav('/my-card')">
             </div>
             <div class="signature f12">
-              <template v-if="!userinfo.desc">
-                <span>点击添加介绍，让大家认识你...</span>
-                <img src="../../assets/img/icon/me/write-gray.png" alt="">
-              </template>
+              <span class="text">{{ userinfo.desc }}</span>
             </div>
             <div class="more">
               <div class="age item" v-if="userinfo.birthday">
@@ -89,20 +86,24 @@
             </div>
           </div>
           <div class="my-buttons">
-            <div class="no-follow" v-if="false">
-              <img src="../../assets/img/icon/add-white.png" alt="">
-              <span>关注</span>
-            </div>
-            <div class="followed" v-else>
-              <div class="l-button">
-                <span>已关注</span>
-                <img src="../../assets/img/icon/arrow-up-white.png" alt="">
+            <div class="follow-display">
+              <div class="follow-wrapper" :class="isFollowed ? 'follow-wrapper-followed' : ''">
+                <div class="no-follow" @click="isFollowed = true">
+                  <img src="../../assets/img/icon/add-white.png" alt="">
+                  <span>关注</span>
+                </div>
+                <div class="followed">
+                  <div class="l-button" @click="isFollowed = false">
+                    <span>已关注</span>
+                    <img src="../../assets/img/icon/arrow-up-white.png" alt="">
+                  </div>
+                  <div class="l-button">
+                    <span>私信</span>
+                  </div>
+                </div>
               </div>
-              <div class="l-button">
-                <span>私信</span>
-              </div>
             </div>
-            <div class="option">
+            <div class="option" @click="isFollowed = !isFollowed">
               <img src="../../assets/img/icon/arrow-up-white.png" alt="">
             </div>
           </div>
@@ -162,6 +163,7 @@ export default {
   components: {Posters, Indicator},
   data() {
     return {
+      isFollowed: false,
       previewImg: '',
       contentIndex: 0,
       baseActiveIndex: 0,
@@ -231,7 +233,7 @@ export default {
       return this.$store.state.bodyWidth
     },
     videoSlideRowListStyle() {
-      return {height: this.refs.videoSlideHeight !== 0 ? this.refs.videoSlideHeight + 'px' : 'calc(100vh - 14.6rem)'}
+      return {height: this.refs.videoSlideHeight !== 0 ? this.refs.videoSlideHeight + 'px' : 'calc(100vh - 9.6rem)'}
     },
     SlideItemStyle() {
       if (this.tempScroll || this.isScroll) return {overflow: 'auto'}
@@ -252,7 +254,7 @@ export default {
       this.refs.headerHeight = this.$refs.header.offsetHeight
       this.refs.descHeight = this.$refs.desc.offsetHeight
       this.refs.maxSlideHeight = this.$refs.videoSlideRowList.wrapperHeight
-      this.initSlideHeight = this.bodyHeight - 50 - this.refs.descHeight - 50
+      this.initSlideHeight = this.bodyHeight - 50 - this.refs.descHeight
       this.canTransformY = this.refs.descHeight - this.floatHeight
       this.changeIndex(0, null)
     })
@@ -261,6 +263,12 @@ export default {
     bus.on('baseSlide-end', () => this.canScroll = true)
   },
   methods: {
+    setLoadingFalse() {
+      this.loadings.loading0 = false
+      this.loadings.loading1 = false
+      this.loadings.loading2 = false
+      this.loadings.loading3 = false
+    },
     click(e) {
       if (this.baseActiveIndex === 0) return
       if (this.baseActiveIndex === 1) {
@@ -298,7 +306,6 @@ export default {
         if (videoOb.video.total === -1) {
           this.loadings['loading' + newVal] = true
           let res = await this.$api.videos.collect({pageNo: this.videos.collect.pageNo, pageSize: this.pageSize,})
-          this.loadings['loading' + newVal] = false
           if (res.code === this.SUCCESS) this.videos.collect = res.data
         }
       } else {
@@ -319,9 +326,10 @@ export default {
               if (res.code === this.SUCCESS) this.videos.like = res.data
               break
           }
-          this.loadings['loading' + newVal] = false
         }
       }
+      this.setLoadingFalse()
+
       let scrollAreaHeight = await this.getScrollAreaHeight(newVal)
 
       if (oldVal !== null) {

@@ -430,6 +430,12 @@ export default {
     bus.on('baseSlide-end', () => this.canScroll = true)
   },
   methods: {
+    setLoadingFalse() {
+      this.loadings.loading0 = false
+      this.loadings.loading1 = false
+      this.loadings.loading2 = false
+      this.loadings.loading3 = false
+    },
     click(e) {
       if (this.baseActiveIndex === 0) return
       if (this.baseActiveIndex === 1) {
@@ -467,7 +473,6 @@ export default {
         if (videoOb.video.total === -1) {
           this.loadings['loading' + newVal] = true
           let res = await this.$api.videos.collect({pageNo: this.videos.collect.pageNo, pageSize: this.pageSize,})
-          this.loadings['loading' + newVal] = false
           if (res.code === this.SUCCESS) this.videos.collect = res.data
         }
       } else {
@@ -488,9 +493,9 @@ export default {
               if (res.code === this.SUCCESS) this.videos.like = res.data
               break
           }
-          this.loadings['loading' + newVal] = false
         }
       }
+      this.setLoadingFalse()
       let scrollAreaHeight = await this.getScrollAreaHeight(newVal)
 
       if (oldVal !== null) {

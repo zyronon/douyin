@@ -11,6 +11,10 @@
   opacity: 0;
 }
 
+
+
+
+
 .Uploader {
   position: fixed;
   background: @main-bg;
@@ -358,55 +362,75 @@
       }
 
       .my-buttons {
+        margin-top: 2rem;
+        overflow: hidden;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
         @width: 3.6rem;
 
-        .no-follow {
-          color: white;
-          border-radius: .2rem;
-          background: @primary-btn-color;
+        .follow-display {
           flex: 1;
-          height: @width;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-right: .5rem;
-          box-sizing: border-box;
+          overflow: hidden;
 
-          span {
-            margin-left: .2rem;
-          }
-        }
-
-        .followed {
-          flex: 1;
-          display: flex;
-          justify-content: space-around;
-          align-items: center;
-
-          .l-button {
-            color: white;
-            border-radius: .2rem;
-            background: @second-btn-color;
-            height: @width;
-            width: 50%;
-            margin-right: .5rem;
-            box-sizing: border-box;
+          .follow-wrapper {
+            width: 200%;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-wrap: nowrap;
+            transition: all .3s ease;
 
-            span {
-              margin-left: .2rem;
+            &.follow-wrapper-followed {
+              transform: translate3d(-50%, 0, 0);
             }
 
-            img {
-              transform: rotate(180deg);
+            .no-follow {
+              width: calc(100% - 0.5rem);
+              color: white;
+              border-radius: .2rem;
+              background: @primary-btn-color;
+              height: @width;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-right: .5rem;
+              box-sizing: border-box;
+
+              span {
+                margin-left: .2rem;
+              }
+            }
+
+            .followed {
+              width: 100%;
+              display: flex;
+              justify-content: space-around;
+              align-items: center;
+
+              .l-button {
+                color: white;
+                border-radius: .2rem;
+                background: @second-btn-color;
+                height: @width;
+                width: 50%;
+                margin-right: .5rem;
+                box-sizing: border-box;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                span {
+                  margin-left: .2rem;
+                }
+
+                img {
+                  transform: rotate(180deg);
+                }
+              }
             }
           }
+
         }
+
 
         .option {
           position: relative;
