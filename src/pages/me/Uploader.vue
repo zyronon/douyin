@@ -1,20 +1,27 @@
 <template>
-  <div class="Uploader">
+  <div id="Uploader">
     <div ref="float" class="float" :class="floatFixed?'fixed':''">
-      <div class="left" style="opacity: 0;">
+      <div class="left" @click="$emit('back')">
         <img src="../../assets/img/icon/next.svg" alt="">
-        <span>切换账号</span>
       </div>
       <transition name="fade">
         <div class="center" v-if="floatShowName">
           <p class="name f22 mt1r mb1r">ttentau</p>
         </div>
       </transition>
+      <transition name="fade">
+        <div class="follow-btn" :class="{followed:isFollowed}" v-if="floatFixed" @click="followButton">
+          {{ isFollowed ? '私信' : '关注' }}
+        </div>
+      </transition>
       <div class="right">
-        <img @click="$nav('/me/request-update')"
-             :style="floatFixed?'opacity: 0;':''"
-             src="../../assets/img/icon/me/finger-right.png" alt="">
-        <img src="../../assets/img/icon/me/menu.png" alt="" @click.stop="baseActiveIndex = 1">
+        <transition name="fade">
+          <div class="request" v-if="!floatFixed">
+            <img @click="$nav('/me/request-update')" src="../../assets/img/icon/me/finger-right.png" alt="">
+            <span>求更新</span>
+          </div>
+        </transition>
+        <img class="menu" src="../../assets/img/icon/more.svg" alt="" @click.stop="$emit('showFollowSetting')">
       </div>
     </div>
     <div class="scroll"
@@ -25,88 +32,125 @@
       <div ref="desc" class="desc">
         <header ref="header" @click="previewImg = require('../../assets/img/header-bg.png')"></header>
         <div class="detail">
-          <div class="head">
-            <img src="../../assets/img/icon/avatar/2.png" class="head-image"
-                 @click="previewImg = require('../../assets/img/icon/avatar/2.png')">
-            <div class="heat">
-              <div class="text">
-                <span>获赞</span>
-                <span class="num">18</span>
-              </div>
-              <div class="text">
-                <span>粉丝</span>
-                <span class="num">62</span>
-              </div>
-              <div class="text">
-                <span>关注</span>
-                <span class="num">8</span>
-              </div>
-            </div>
-
-          </div>
-          <div class="description">
-            <p class="name f22 mt1r mb1r">ttentau</p>
-            <div class="number mb1r">
-              <span class="mr1r">私密账号</span>
-              <span>抖音号：605128307</span>
-              <img src="../../assets/img/icon/me/qrcode-gray.png" alt="" @click.stop="$nav('/my-card')">
-            </div>
-            <div class="signature f12">
-              <span class="text">{{ userinfo.desc }}</span>
-            </div>
-            <div class="more">
-              <div class="age item" v-if="userinfo.birthday">
-                <img v-if="userinfo.sex === '女'" src="../../assets/img/icon/me/woman.png" alt="">
-                <img v-if="userinfo.sex === '男'" src="../../assets/img/icon/me/man.png" alt="">
-                <span>{{ filterAge(userinfo.birthday) }}岁</span>
-              </div>
-              <div class="item" v-if="userinfo.location">
-                {{ userinfo.location }}
-              </div>
-              <div class="item" v-if="userinfo.school.name">
-                {{ userinfo.school.name }}
-              </div>
-            </div>
-
-          </div>
-          <div class="other">
-            <div class="item">
-              <img src="../../assets/img/icon/me/shopping-cart-white.png" alt="">
-              <div class="right">
-                <div class="top">抖音商城</div>
-                <div class="bottom">发现超值好物</div>
-              </div>
-            </div>
-            <div class="item">
-              <img src="../../assets/img/icon/me/music-white.png" alt="">
-              <div class="right">
-                <div class="top">我的音乐</div>
-                <div class="bottom">已收藏20首</div>
-              </div>
-            </div>
-          </div>
-          <div class="my-buttons">
-            <div class="follow-display">
-              <div class="follow-wrapper" :class="isFollowed ? 'follow-wrapper-followed' : ''">
-                <div class="no-follow" @click="isFollowed = true">
-                  <img src="../../assets/img/icon/add-white.png" alt="">
+          <div class="detail-wrapper">
+            <div class="head">
+              <img src="../../assets/img/icon/avatar/2.png" class="head-image"
+                   @click="previewImg = require('../../assets/img/icon/avatar/2.png')">
+              <div class="heat">
+                <div class="text">
+                  <span>获赞</span>
+                  <span class="num">18</span>
+                </div>
+                <div class="text">
+                  <span>粉丝</span>
+                  <span class="num">62</span>
+                </div>
+                <div class="text">
                   <span>关注</span>
+                  <span class="num">8</span>
                 </div>
-                <div class="followed">
-                  <div class="l-button" @click="isFollowed = false">
-                    <span>已关注</span>
-                    <img src="../../assets/img/icon/arrow-up-white.png" alt="">
+              </div>
+
+            </div>
+            <div class="description">
+              <p class="name f22 mt1r mb1r">ttentau</p>
+              <div class="number mb1r">
+                <span class="mr1r">私密账号</span>
+                <span>抖音号：605128307</span>
+                <img src="../../assets/img/icon/me/qrcode-gray.png" alt="" @click.stop="$nav('/my-card')">
+              </div>
+              <div class="signature f12">
+                <span class="text">{{ userinfo.desc }}</span>
+              </div>
+              <div class="more">
+                <div class="age item" v-if="userinfo.birthday">
+                  <img v-if="userinfo.sex === '女'" src="../../assets/img/icon/me/woman.png" alt="">
+                  <img v-if="userinfo.sex === '男'" src="../../assets/img/icon/me/man.png" alt="">
+                  <span>{{ filterAge(userinfo.birthday) }}岁</span>
+                </div>
+                <div class="item" v-if="userinfo.location">
+                  {{ userinfo.location }}
+                </div>
+                <div class="item" v-if="userinfo.school.name">
+                  {{ userinfo.school.name }}
+                </div>
+              </div>
+
+            </div>
+            <div class="other">
+              <div class="item">
+                <img src="../../assets/img/icon/me/shopping-cart-white.png" alt="">
+                <div class="right">
+                  <div class="top">抖音商城</div>
+                  <div class="bottom">发现超值好物</div>
+                </div>
+              </div>
+              <div class="item">
+                <img src="../../assets/img/icon/me/music-white.png" alt="">
+                <div class="right">
+                  <div class="top">我的音乐</div>
+                  <div class="bottom">已收藏20首</div>
+                </div>
+              </div>
+            </div>
+            <div class="my-buttons">
+              <div class="follow-display">
+                <div class="follow-wrapper" :class="isFollowed ? 'follow-wrapper-followed' : ''">
+                  <div class="no-follow" @click="isFollowed = true">
+                    <img src="../../assets/img/icon/add-white.png" alt="">
+                    <span>关注</span>
                   </div>
-                  <div class="l-button">
-                    <span>私信</span>
+                  <div class="followed">
+                    <div class="l-button" @click="$emit('showFollowSetting2')">
+                      <span>已关注</span>
+                      <img src="../../assets/img/icon/arrow-up-white.png" alt="">
+                    </div>
+                    <div class="l-button" @click="$nav('/message/chat')">
+                      <span>私信</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="option"
+                   :class="isShowRecommend?'option-recommend':''"
+                   @click="toggleRecommend">
+                <img src="../../assets/img/icon/arrow-up-white.png" alt="">
+              </div>
+            </div>
+          </div>
+          <transition name="recommend">
+            <div class="recommend" v-if="isShowRecommend">
+              <div class="title">
+                <div class="left">
+                  <span>你可能感兴趣</span>
+                  <img src="../../assets/img/icon/about-gray.png">
+                </div>
+                <div class="right" @click="$nav('/find-acquaintance')">
+                  <span>查看更多</span>
+                  <back direction="right"></back>
+                </div>
+              </div>
+              <div class="friends"
+                   @touchstart="friendsTouchStart"
+                   @touchend="friendsTouchEnd">
+                <div class="friend" v-for="item in friends.all">
+                  <img :style="item.select?'opacity: .5;':''" class="avatar" :src="$imgPreview(item.avatar)" alt="">
+                  <span class="name">{{ item.name }}</span>
+                  <span class="tips">可能感兴趣的人</span>
+                  <b-button type="primary">关注</b-button>
+                  <div class="close">
+                    <back img="close" scale=".6"></back>
+                  </div>
+                </div>
+                <div class="more" @click="$nav('/find-acquaintance')">
+                  <div class="notice">
+                    <div>点击查看</div>
+                    <div>更多好友</div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="option" @click="isFollowed = !isFollowed">
-              <img src="../../assets/img/icon/arrow-up-white.png" alt="">
-            </div>
-          </div>
+          </transition>
         </div>
       </div>
       <Indicator
@@ -149,6 +193,7 @@
         <img class="download" src="../../assets/img/icon/components/video/download.png" alt="" @click.stop="$no">
       </div>
     </transition>
+
   </div>
 </template>
 <script>
@@ -157,13 +202,15 @@ import Indicator from '../../components/Indicator'
 import {nextTick} from 'vue'
 import {mapState} from "vuex";
 import bus from "../../utils/bus";
+import FromBottomDialog from "../../components/dialog/FromBottomDialog";
 
 export default {
   name: "Me",
-  components: {Posters, Indicator},
+  components: {FromBottomDialog, Posters, Indicator},
   data() {
     return {
       isFollowed: false,
+      isShowRecommend: false,
       previewImg: '',
       contentIndex: 0,
       baseActiveIndex: 0,
@@ -172,6 +219,7 @@ export default {
       floatShowName: false,
       isScroll: false,
       isMoreFunction: false,
+      showFollowSetting: false,
       refs: {
         header: null,
         headerHeight: 0,
@@ -226,6 +274,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['friends']),
     bodyHeight() {
       return this.$store.state.bodyHeight
     },
@@ -263,6 +312,22 @@ export default {
     bus.on('baseSlide-end', () => this.canScroll = true)
   },
   methods: {
+    toggleRecommend() {
+      this.isShowRecommend = !this.isShowRecommend
+    },
+    friendsTouchStart() {
+      this.$emit('toggleCanMove', false)
+    },
+    friendsTouchEnd() {
+      this.$emit('toggleCanMove', true)
+    },
+    followButton() {
+      if (this.isFollowed) {
+        this.$nav('/message/chat')
+      } else {
+        this.isFollowed = true
+      }
+    },
     setLoadingFalse() {
       this.loadings.loading0 = false
       this.loadings.loading1 = false

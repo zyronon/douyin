@@ -4,8 +4,8 @@
       <div class="body">
         <div class="title" v-if="title">{{ title }}</div>
         <div class="subtitle" :class="subtitleColor" v-if="subtitle">{{ subtitle }}</div>
+        <slot></slot>
       </div>
-      <slot></slot>
       <div class="footer">
         <div class="cancel" :class="cancelTextColor" @click.stop="cancel">{{ cancelText }}</div>
         <div class="ok" @click.stop="ok">{{ okText }}</div>

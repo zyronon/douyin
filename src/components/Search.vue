@@ -1,7 +1,7 @@
 <template>
-  <div class="search-ctn">
+  <div class="search-ctn" :class="mode">
     <div class="search">
-      <img class="search-icon" src="../assets/img/icon/search-gray.png" alt="">
+      <img v-if="isShowSearchIcon" class="search-icon" src="../assets/img/icon/search-gray.png" alt="">
       <input type="text" :placeholder="placeholder" v-model="value">
       <div class="suffix">
         <slot v-if="$slots.default"></slot>
@@ -32,9 +32,17 @@ export default {
       type: Boolean,
       default: false
     },
-    showText:{
-      type:String,
-      default:'搜索'
+    isShowSearchIcon: {
+      type: Boolean,
+      default: true
+    },
+    showText: {
+      type: String,
+      default: '搜索'
+    },
+    mode: {
+      type: String,
+      default: 'dark'
     }
   },
   methods: {
@@ -67,6 +75,22 @@ export default {
   display: flex;
   align-items: center;
 
+  &.dark {
+    .search {
+      background: @second-btn-color-tran;
+    }
+  }
+
+  &.light {
+    .search {
+      background: whitesmoke;
+
+      input {
+        color: black;
+      }
+    }
+  }
+
   .notice {
     margin-left: 2rem;
     font-size: 1.6rem;
@@ -78,7 +102,6 @@ export default {
     flex: 1;
     position: relative;
     height: 3.6rem;
-    background: @second-btn-color-tran;
     border-radius: 2px;
     display: flex;
     align-items: center;
@@ -86,7 +109,7 @@ export default {
     .search-icon {
       height: 2rem;
       width: 2rem;
-      margin: 0 1rem;
+      margin-left: 1rem;
     }
 
     input {
@@ -96,7 +119,7 @@ export default {
       width: 100%;
       outline: none;
       border: none;
-      padding: 0;
+      padding: 0 0 0 1rem;
       background: transparent;
 
       &::-webkit-input-placeholder {

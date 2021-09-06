@@ -195,10 +195,6 @@ export default {
 <style lang="less" scoped>
 @import "../assets/scss/index";
 
-::-webkit-scrollbar {
-  display: none; /* Chrome Safari */
-}
-
 .share {
   width: 100%;
   background: black;

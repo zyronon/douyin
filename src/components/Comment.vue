@@ -100,15 +100,12 @@
           <img v-if="comment" src="../assets/img/icon/message/up.png" @click="send">
         </div>
       </div>
-
       <ConfirmDialog
           title="私信给"
           ok-text="发送"
           v-model:visible="showPrivateChat"
       >
-        <div class="private-chat">
-
-        </div>
+        <Search mode="light" v-model="test" :isShowSearchIcon="false"/>
       </ConfirmDialog>
     </div>
   </from-bottom-dialog>
@@ -120,6 +117,7 @@ import ConfirmDialog from "./dialog/ConfirmDialog";
 import {mapState} from "vuex";
 import FromBottomDialog from "./dialog/FromBottomDialog";
 import Loading from "./Loading";
+import Search from "./Search";
 
 export default {
   name: "Comment",
@@ -127,7 +125,8 @@ export default {
     AutoInput,
     ConfirmDialog,
     FromBottomDialog,
-    Loading
+    Loading,
+    Search
   },
   props: {
     modelValue: false,
@@ -151,6 +150,7 @@ export default {
   data() {
     return {
       comment: '',
+      test: '',
       comments: [],
       options: [
         {id: 1, name: '私信回复'},

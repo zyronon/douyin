@@ -6,39 +6,33 @@
       </template>
     </BaseHeader>
     <div class="content">
-      <div class="my-buttons">
-        <div class="follow-display">
-          <div class="follow-wrapper" :class="isFollowed ? 'follow-wrapper-followed' : ''">
-            <div class="no-follow" @click="isFollowed = true">
-              <img src="../assets/img/icon/add-white.png" alt="">
-              <span>关注</span>
-            </div>
-            <div class="followed">
-              <div class="l-button" @click="isFollowed = false">
-                <span>已关注</span>
-                <img src="../assets/img/icon/arrow-up-white.png" alt="">
-              </div>
-              <div class="l-button">
-                <span>私信</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="option" @click="isFollowed = !isFollowed">
-          <img src="../assets/img/icon/arrow-up-white.png" alt="">
-        </div>
-      </div>
+      <ConfirmDialog
+          title="设置备注名"
+          ok-text="确认"
+          v-model:visible="showFollowSetting"
+      >
+        <Search mode="light" v-model="t" :isShowSearchIcon="false"/>
+      </ConfirmDialog>
     </div>
   </div>
 </template>
 <script>
 
+import ConfirmDialog from "../components/dialog/ConfirmDialog";
+import Search from "../components/Search";
+
 export default {
   name: "Test",
+  components: {
+    ConfirmDialog,
+    Search
+  },
   props: {},
   data() {
     return {
-      isFollowed: true
+      showFollowSetting: true,
+      switches1: true,
+      t: ''
     }
   },
   computed: {},
@@ -51,6 +45,7 @@ export default {
 <style scoped lang="less">
 @import "../assets/scss/index";
 
+
 .Test {
   position: fixed;
   left: 0;
@@ -62,103 +57,12 @@ export default {
 
   .content {
     padding-top: 6rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
-    .my-buttons {
-      margin-top: 2rem;
-      overflow: hidden;
-      width: 80%;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      @width: 3.6rem;
-
-      .follow-display {
-        flex: 1;
-        overflow: hidden;
-
-        .follow-wrapper {
-          width: 200%;
-          display: flex;
-          flex-wrap: nowrap;
-          transition: all .3s ease;
-
-          &.follow-wrapper-followed {
-            transform: translate3d(-50%, 0, 0);
-          }
-
-          .no-follow {
-            width: calc(100% - 0.5rem);
-            color: white;
-            border-radius: .2rem;
-            background: @primary-btn-color;
-            height: @width;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: .5rem;
-            box-sizing: border-box;
-
-            span {
-              margin-left: .2rem;
-            }
-          }
-
-          .followed {
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-
-            .l-button {
-              color: white;
-              border-radius: .2rem;
-              background: @second-btn-color;
-              height: @width;
-              width: 50%;
-              margin-right: .5rem;
-              box-sizing: border-box;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-
-              span {
-                margin-left: .2rem;
-              }
-
-              img {
-                transform: rotate(180deg);
-              }
-            }
-          }
-        }
-
-      }
-
-
-      .option {
-        position: relative;
-        width: @width;
-        height: @width;
-        font-size: 1.2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: .2rem;
-        background: @second-btn-color;
-        color: white;
-      }
-
-      img {
-        @width: 1.6rem;
-        width: @width;
-        height: @width;
-      }
+    .private-chat {
 
     }
-
   }
+
+
 }
 </style>

@@ -10,7 +10,7 @@
     <div class="line mb2r"></div>
     <div class="friends  pl1r ">
       <div class="friend pr1r pl1r"
-           @click="$nav('/chat')"
+           @click="$nav('/message/chat')"
            v-for="item in 10">
         <div class="avatar on-line">
           <img src="../../assets/img/icon/head-image.jpeg" alt="">

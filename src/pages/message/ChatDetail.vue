@@ -43,34 +43,22 @@
         </div>
       </div>
     </div>
-    <from-bottom-dialog
-        v-model="blockDialog"
-        :show-heng-gang="false"
-        height="20rem"
-        mode="white">
-      <div class="block-dialog">
-        <div class="notice">
-          拉黑后，对方将无法搜索到你，也不能再给你发私信
-        </div>
-        <div class="row red">确认拉黑</div>
-        <div class="row">不让 TA 看</div>
-        <div class="space"></div>
-        <div class="row" @click="blockDialog = false">取消</div>
-      </div>
-    </from-bottom-dialog>
+    <BlockDialog v-model="blockDialog"/>
   </div>
 </template>
 <script>
 import Switches from './components/swtich/switches';
 import People from "../people/components/People";
 import FromBottomDialog from "../../components/dialog/FromBottomDialog";
+import BlockDialog from "./components/BlockDialog";
 
 export default {
   name: "ChatDetail",
   components: {
     Switches,
     People,
-    FromBottomDialog
+    FromBottomDialog,
+    BlockDialog
   },
   data() {
     return {
@@ -142,39 +130,6 @@ export default {
     }
   }
 
-  .block-dialog {
-    color: black;
-
-    .notice {
-      color: @second-text-color;
-      font-size: 1.2rem;
-      height: 4rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .row {
-      height: 5rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-top: 1px solid gainsboro;
-
-      &:nth-last-child(1) {
-        border-top: none;
-      }
-
-      &.red{
-        color: @primary-btn-color;
-      }
-    }
-
-    .space {
-      height: 1rem;
-      background: whitesmoke;
-    }
-  }
 
 }
 </style>

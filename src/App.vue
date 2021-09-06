@@ -73,8 +73,8 @@ export default {
         '/my-card',
         '/scan',
         '/face-to-face',
-        '/chat',
-        '/chat-detail',
+        '/message/chat',
+        '/message/chat-detail',
         '/set-remark',
         '/me/request-update',
         '/me/right-menu/look-history',
@@ -99,7 +99,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('getFriends')
+    // this.$store.dispatch('getFriends')
     try {
       navigator.control.gesture(false);
     } catch (e) {
