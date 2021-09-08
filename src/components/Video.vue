@@ -5,8 +5,8 @@
 <!--</template>-->
 <template>
   <div class="bg-video" v-bind:style="{'height':height+'px'}">
-<!--    <video :src="video.videoUrl" poster="../assets/img/icon/components/video/loading.gif" ref="video" muted :autoplay="play" loop>-->
-<!--    poster="../assets/img/poster/1.jpg"-->
+    <!--    <video :src="video.videoUrl" poster="../assets/img/icon/components/video/loading.gif" ref="video" muted :autoplay="play" loop>-->
+    <!--    poster="../assets/img/poster/1.jpg"-->
 
     <video :src="video.video"
            :poster="video.origin_cover"
@@ -24,7 +24,7 @@
         <div :style="{opacity:isMove?0:1}" class="normal">
           <div class="toolbar mb1r">
             <div class="avatar-ctn mb2r">
-              <img class="avatar" src="../assets/img/icon/head-image.jpeg" alt=""
+              <img class="avatar" :src="lVideo.author.avatar"  alt=""
                    @click.stop="$emit('goUserInfo')">
               <transition name="fade">
                 <div v-if="!isAttention" @click.stop="attention" class="options" ref="attention-option">
@@ -43,16 +43,16 @@
                 <!--                <transition name="loved">-->
                 <!--                </transition>-->
               </div>
-              <span>{{ $likeNum(lVideo.likeNum) }}</span>
+              <span>{{ $likeNum(lVideo.digg_count) }}</span>
             </div>
             <div class="message mb2r" @click.stop="$emit('showComments')">
               <!--            <div class="message mb15p" @click.stop="showComment">-->
               <img src="../assets/img/icon/message.svg" alt="" class="message-image">
-              <span>{{ $likeNum(lVideo.commentNum) }}</span>
+              <span>{{ $likeNum(lVideo.comment_count) }}</span>
             </div>
             <div v-if="!isMy" class="share mb4r" @click.stop="$emit('showShare')">
               <img src="../assets/img/icon/share.svg" alt="" class="share-image">
-              <span>{{ $likeNum(lVideo.sharedNum) }}</span>
+              <span>{{ $likeNum(lVideo.share_count) }}</span>
             </div>
             <div v-else class="share mb4r" @click.stop="$emit('showShare')">
               <img src="../assets/img/icon/share.svg" alt="" class="share-image">
@@ -61,19 +61,20 @@
               <img class="music1" src="../assets/img/icon/home/music1.png" alt="">
               <img class="music2" src="../assets/img/icon/home/music2.png" alt="">
               <div class="music-bg">
-                <img class="music" src="../assets/img/icon/head-image.jpeg" alt="" @click.stop="globalMethods.$nav('/music')">
+                <img class="music" :src="lVideo.music.cover" alt=""
+                     @click.stop="globalMethods.$nav('/music')">
               </div>
             </div>
           </div>
           <div class="content ml1r mb1r" v-if="!isMy">
-            <div class="name mb1r">@TTentau</div>
+            <div class="name mb1r">{{ lVideo.author.name }}</div>
             <div class="description mb1r">
-              吴三二的光年之外, 您的浏览器不支持 video 标签。 您的浏览器不支持 video 标签。
+              {{ lVideo.desc }}
             </div>
             <div class="music " @click.stop="$nav('/music')">
               <img src="../assets/img/icon/music.svg" alt="" class="music-image">
               <!--              <marquee behavior=scroll direction=left align=middle scrollamount=4> 吴三二 - 光年之外</marquee>-->
-              <div behavior=scroll direction=left align=middle scrollamount=4> 吴三二 - 光年之外</div>
+              <div behavior=scroll direction=left align=middle scrollamount=4> {{ lVideo.music.title }}</div>
             </div>
           </div>
           <div v-else class="comment-status">
@@ -153,7 +154,7 @@ export default {
   },
   data() {
     return {
-      globalMethods:globalMethods,
+      globalMethods: globalMethods,
       duration: 0,
       step: 0,
       currentTime: 0,
@@ -196,7 +197,7 @@ export default {
     })
   },
   methods: {
-    $likeNum(v){
+    $likeNum(v) {
       return globalMethods.$likeNum(v)
     },
     $duration(v) {
@@ -278,7 +279,7 @@ export default {
       this.pageX = e.touches[0].pageX
     },
     move(e) {
-      if (this.isPlaying)return
+      if (this.isPlaying) return
       this.isMove = true
       let video = this.$refs.video
       video.pause()
@@ -288,7 +289,7 @@ export default {
       globalMethods.$stopPropagation(e)
     },
     end(e) {
-      if (this.isPlaying)return
+      if (this.isPlaying) return
       console.log('end', e)
       setTimeout(() => {
         this.isMove = false

@@ -107,6 +107,8 @@
       </SlideItem>
       <SlideItem style="font-size: 40px;overflow:auto;">
         <Uploader
+            :isOnThisPage="baseActiveIndex === 1"
+            :author="this.videos[this.videoActiveIndex]?.author"
             @toggleCanMove="e => this.canMove = e"
             @back="baseActiveIndex = 0"
             @showFollowSetting="showFollowSetting = true"
@@ -445,7 +447,6 @@ export default {
       showChangeNote: false,
 
       test: '',
-
 
       videoActiveIndex: 0,
       baseActiveIndex: 0,
