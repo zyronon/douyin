@@ -176,13 +176,15 @@
         <SlideItem class="SlideItem"
                    @scroll="scroll"
                    :style="SlideItemStyle">
-          <div class="notice">
+          <div class="notice" v-if="localAuthor.is_private === 1">
             <img src="../../assets/img/icon/me/lock-gray.png" alt="">
-            <span>只有你能看到自己的喜欢列表</span>
+            <span>喜欢内容不可见</span>
           </div>
-          <Posters v-if="videos.like.total !== -1" :list="videos.like.list"></Posters>
-          <Loading v-if="loadings.loading2" :is-full-screen="false"></Loading>
-          <no-more v-else/>
+          <template v-else>
+            <Posters v-if="videos.like.total !== -1" :list="videos.like.list"></Posters>
+            <Loading v-if="loadings.loading2" :is-full-screen="false"></Loading>
+            <no-more v-else/>
+          </template>
         </SlideItem>
       </SlideRowList>
     </div>
@@ -233,7 +235,10 @@ export default {
                    onClick={e => this.changeIndicatorIndex(1)}
                    style="width:50%">
                 <span>喜欢</span>
-                <img src={require('../../assets/img/icon/components/follow/lock.png')} alt=""/>
+                {
+                  this.localAuthor.is_private === 1 &&
+                  <img src={require('../../assets/img/icon/components/follow/lock.png')} alt=""/>
+                }
               </div>
             </div>
         )
@@ -377,13 +382,16 @@ export default {
     bus.on('baseSlide-end', () => this.canScroll = true)
   },
   methods: {
+    cancelFollow(){
+      this.localAuthor.is_follow = false
+    },
     changeIndicatorIndex(index) {
       this.$refs.Indicator.changeIndex(index)
     },
     async getAuthor() {
       this.changeIndex(0, null)
-      // let res = await this.$api.user.author({id: this.author.id})
-      let res = await this.$api.user.author({id: '54884802577'})
+      let res = await this.$api.user.author({id: this.author.id})
+      // let res = await this.$api.user.author({id: '54884802577'})
       if (res.code === this.SUCCESS) {
         this.localAuthor = {...this.localAuthor, ...res.data}
         this.refreshDescHeight()
@@ -451,7 +459,7 @@ export default {
             scrollAreaHeight += 60
             break
           case 1:
-            scrollAreaHeight += 60 + 40
+            scrollAreaHeight += 60 + this.localAuthor.is_private === 1 ? 0 : 40
             break
           case 2:
             scrollAreaHeight += 60 + 40

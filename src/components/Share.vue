@@ -380,6 +380,7 @@ export default {
     }
 
     .create-chat {
+      font-size: 1.1rem;
       margin: 1rem 0;
       display: flex;
       align-items: center;
