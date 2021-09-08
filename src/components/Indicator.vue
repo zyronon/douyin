@@ -59,7 +59,9 @@ export default {
                   this.tabTexts.map((item, index) => {
                     return (
                         <div className={this.currentSlideItemIndex === index ? 'active tab' : 'tab'}
-                             style={{width: this.tabStyleWidth}}>
+                             style={{width: this.tabStyleWidth}}
+                             onClick={e => this.changeIndex(index)}
+                        >
                           < span> {item}</span>
                         </div>
                     )
