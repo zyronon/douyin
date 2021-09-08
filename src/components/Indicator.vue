@@ -1,19 +1,3 @@
-<template>
-  <div class="indicator-ctn" :class="fixed?'fixed':''">
-    <div class="tabs" ref="tabs">
-      <div class="tab"
-           :style="{width : tabStyleWidth}"
-           v-for="(item,index) in tabTexts"
-           :class="currentSlideItemIndex === index?'active':''"
-           @click="changeIndex(index)">
-        <span>{{ item }}</span></div>
-    </div>
-    <div class="indicator"
-         ref="indicator"
-         :style="{width : tabStyleWidth}"
-    ></div>
-  </div>
-</template>
 <script>
 import bus from "../utils/bus";
 
@@ -36,6 +20,10 @@ export default {
       type: Array,
       default: () => []
     },
+    tabRender: {
+      type: Function,
+      default: null
+    },
     //用于和slidList绑定，因为一个页面可能有多个slidList，但只有一个indicator组件
     name: {
       type: String,
@@ -51,6 +39,38 @@ export default {
     }
   },
   computed: {},
+  render() {
+    /*
+    *   <div class="tabs" ref="tabs">
+            <div class="tab"
+            style="{width : tabStyleWidth}"
+            v-for="(item,index) in tabTexts"
+            :class="currentSlideItemIndex === index?'active':''"
+            @click="changeIndex(index)">
+            <span>{{ item }}</span></div>
+        </div>
+    * */
+    return (
+        <div className={this.fixed ? 'fixed indicator-ctn' : 'indicator-ctn'}>
+          {this.tabRender ?
+              this.tabRender() :
+              <div className="tabs" ref="tabs">
+                {
+                  this.tabTexts.map((item, index) => {
+                    return (
+                        <div className={this.currentSlideItemIndex === index ? 'active tab' : 'tab'}
+                             style={{width: this.tabStyleWidth}}>
+                          < span> {item}</span>
+                        </div>
+                    )
+                  })
+                }
+              </div>
+          }
+          <div className="indicator" ref="indicator" style={{width: this.tabStyleWidth}}/>
+        </div>
+    )
+  },
   mounted() {
     this.initTabs()
     bus.on(this.name + '-moved', this.move)
@@ -124,6 +144,13 @@ export default {
 
       &.active {
         color: white;
+      }
+
+      img {
+        margin-left: .5rem;
+        @width: 1.2rem;
+        width: @width;
+        height: @width;
       }
     }
   }

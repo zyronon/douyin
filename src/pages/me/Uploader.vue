@@ -10,8 +10,8 @@
         </div>
       </transition>
       <transition name="fade">
-        <div class="follow-btn" :class="{followed:isFollowed}" v-if="floatFixed" @click="followButton">
-          {{ isFollowed ? '私信' : '关注' }}
+        <div class="follow-btn" :class="{followed:localAuthor.is_follow}" v-if="floatFixed" @click="followButton">
+          {{ localAuthor.is_follow ? '私信' : '关注' }}
         </div>
       </transition>
       <div class="right">
@@ -30,49 +30,50 @@
          @touchmove="touchMove($event)"
          @touchend="touchEnd($event)">
       <div ref="desc" class="desc">
-        <header ref="header" @click="previewImg = require('../../assets/img/header-bg.png')"></header>
+        <header ref="header"
+                :style='{backgroundImage: `url(${localAuthor.cover})`}'
+                @click="previewImg = localAuthor.cover"></header>
         <div class="detail">
           <div class="detail-wrapper">
             <div class="head">
-              <img src="../../assets/img/icon/avatar/2.png" class="head-image"
-                   @click="previewImg = require('../../assets/img/icon/avatar/2.png')">
+              <img :src="localAuthor.avatar" class="head-image"
+                   @click="previewImg = localAuthor.avatar">
               <div class="heat">
                 <div class="text">
                   <span>获赞</span>
-                  <span class="num">18</span>
+                  <span class="num">{{ localAuthor.favoriting_count }}</span>
                 </div>
                 <div class="text">
                   <span>粉丝</span>
-                  <span class="num">62</span>
+                  <span class="num">{{ localAuthor.follower_count }}</span>
                 </div>
                 <div class="text">
                   <span>关注</span>
-                  <span class="num">8</span>
+                  <span class="num">{{ localAuthor.following_count }}</span>
                 </div>
               </div>
 
             </div>
             <div class="description">
-              <p class="name f22 mt1r mb1r">ttentau</p>
+              <p class="name f22 mt1r mb1r">{{ localAuthor.nickname }}</p>
               <div class="number mb1r">
-                <span class="mr1r">私密账号</span>
-                <span>抖音号：605128307</span>
+                <span>抖音号：{{ localAuthor.unique_id }}</span>
                 <img src="../../assets/img/icon/me/qrcode-gray.png" alt="" @click.stop="$nav('/my-card')">
               </div>
-              <div class="signature f12">
-                <span class="text">{{ userinfo.desc }}</span>
+              <div class="signature f12" v-if="localAuthor.desc">
+                <span class="text">{{ localAuthor.desc }}</span>
               </div>
               <div class="more">
-                <div class="age item" v-if="userinfo.birthday">
-                  <img v-if="userinfo.sex === '女'" src="../../assets/img/icon/me/woman.png" alt="">
-                  <img v-if="userinfo.sex === '男'" src="../../assets/img/icon/me/man.png" alt="">
-                  <span>{{ filterAge(userinfo.birthday) }}岁</span>
+                <div class="age item" v-if="localAuthor.birthday">
+                  <img v-if="localAuthor.sex === '0'" src="../../assets/img/icon/me/woman.png" alt="">
+                  <img v-if="localAuthor.sex === '1'" src="../../assets/img/icon/me/man.png" alt="">
+                  <span>{{ filterAge(localAuthor.birthday) }}岁</span>
                 </div>
-                <div class="item" v-if="userinfo.location">
-                  {{ userinfo.location }}
+                <div class="item" v-if="localAuthor.location">
+                  {{ localAuthor.location }}
                 </div>
-                <div class="item" v-if="userinfo.school.name">
-                  {{ userinfo.school.name }}
+                <div class="item" v-if="localAuthor.school?.name">
+                  {{ localAuthor.school?.name }}
                 </div>
               </div>
 
@@ -95,8 +96,8 @@
             </div>
             <div class="my-buttons">
               <div class="follow-display">
-                <div class="follow-wrapper" :class="isFollowed ? 'follow-wrapper-followed' : ''">
-                  <div class="no-follow" @click="isFollowed = true">
+                <div class="follow-wrapper" :class="localAuthor.is_follow ? 'follow-wrapper-followed' : ''">
+                  <div class="no-follow" @click="localAuthor.is_follow = true">
                     <img src="../../assets/img/icon/add-white.png" alt="">
                     <span>关注</span>
                   </div>
@@ -114,49 +115,49 @@
               <div class="option"
                    :class="isShowRecommend?'option-recommend':''"
                    @click="toggleRecommend">
-                <img src="../../assets/img/icon/arrow-up-white.png" alt="">
+                <img v-if="loadings.showRecommend" class="loading" src="../../assets/img/icon/loading-gray.png" alt="">
+                <img v-else class="arrow" src="../../assets/img/icon/arrow-up-white.png" alt="">
               </div>
             </div>
           </div>
-          <transition name="recommend">
-            <div class="recommend" v-if="isShowRecommend">
-              <div class="title">
-                <div class="left">
-                  <span>你可能感兴趣</span>
-                  <img src="../../assets/img/icon/about-gray.png">
-                </div>
-                <div class="right" @click="$nav('/find-acquaintance')">
-                  <span>查看更多</span>
-                  <back direction="right"></back>
+          <div class="recommend" :class="{hidden:!isShowRecommend}">
+            <div class="title">
+              <div class="left">
+                <span>你可能感兴趣</span>
+                <img src="../../assets/img/icon/about-gray.png">
+              </div>
+              <div class="right" @click="$nav('/find-acquaintance')">
+                <span>查看更多</span>
+                <back direction="right"></back>
+              </div>
+            </div>
+            <div class="friends"
+                 @touchstart="friendsTouchStart"
+                 @touchend="friendsTouchEnd">
+              <div class="friend" v-for="item in friends.all">
+                <img :style="item.select?'opacity: .5;':''" class="avatar" :src="$imgPreview(item.avatar)" alt="">
+                <span class="name">{{ item.name }}</span>
+                <span class="tips">可能感兴趣的人</span>
+                <b-button type="primary">关注</b-button>
+                <div class="close">
+                  <back img="close" scale=".6"></back>
                 </div>
               </div>
-              <div class="friends"
-                   @touchstart="friendsTouchStart"
-                   @touchend="friendsTouchEnd">
-                <div class="friend" v-for="item in friends.all">
-                  <img :style="item.select?'opacity: .5;':''" class="avatar" :src="$imgPreview(item.avatar)" alt="">
-                  <span class="name">{{ item.name }}</span>
-                  <span class="tips">可能感兴趣的人</span>
-                  <b-button type="primary">关注</b-button>
-                  <div class="close">
-                    <back img="close" scale=".6"></back>
-                  </div>
-                </div>
-                <div class="more" @click="$nav('/find-acquaintance')">
-                  <div class="notice">
-                    <div>点击查看</div>
-                    <div>更多好友</div>
-                  </div>
+              <div class="more" @click="$nav('/find-acquaintance')">
+                <div class="notice">
+                  <div>点击查看</div>
+                  <div>更多好友</div>
                 </div>
               </div>
             </div>
-          </transition>
+          </div>
+
         </div>
       </div>
       <Indicator
           name="videoList"
           tabStyleWidth="50%"
-          :tabTexts="['作品','喜欢']"
+          :tabRender="tabRender"
           v-model:active-index="contentIndex">
       </Indicator>
       <SlideRowList
@@ -207,10 +208,33 @@ import FromBottomDialog from "../../components/dialog/FromBottomDialog";
 export default {
   name: "Me",
   components: {FromBottomDialog, Posters, Indicator},
+  props: {
+    author: {
+      type: Object,
+      default: {}
+    },
+    isOnThisPage: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
-      isFollowed: false,
-      isShowRecommend: false,
+      tabRender: () => {
+        return (
+            <div className="tabs" ref="tabs">
+              <div className={this.contentIndex === 0 ? 'active tab' : 'tab'} style="width:50%">
+                <span>作品 {this.localAuthor.video_count}</span>
+              </div>
+              <div className={this.contentIndex === 1 ? 'active tab' : 'tab'} style="width:50%">
+                <span>喜欢</span>
+                <img src={require('../../assets/img/icon/components/follow/lock.png')} alt=""/>
+              </div>
+            </div>
+        )
+      },
+      isShowRecommend: false,//是否显示推荐
+      isLoadRecommendFriends: false,//是否已经加载了显示推荐，直接判断friends.all数据长度的话，没有一开始的加载动画
       previewImg: '',
       contentIndex: 0,
       baseActiveIndex: 0,
@@ -266,11 +290,13 @@ export default {
         loading1: false,
         loading2: false,
         loading3: false,
+        showRecommend: false
       },
       tempScroll: false,
       acceleration: 1.2,
       sprint: 15,
-      canScroll: true
+      canScroll: true,
+      localAuthor: {}
     }
   },
   computed: {
@@ -296,6 +322,40 @@ export default {
     contentIndex(newVal, oldVal) {
       this.changeIndex(newVal, oldVal)
     },
+    'author.id'(newVal) {
+      this.localAuthor = this.author
+      console.log('变了', newVal)
+      this.videos = {
+        my: {
+          list: [],
+          total: -1,
+          pageNo: 0
+        },
+        private: {
+          list: [],
+          total: -1
+        },
+        like: {
+          list: [],
+          total: -1
+        },
+        collect: {
+          video: {
+            list: [],
+            total: -1,
+          },
+          audio: {
+            list: [],
+            total: -1,
+          }
+        },
+      }
+    },
+    isOnThisPage(newVal) {
+      if (newVal) {
+        this.getAuthor()
+      }
+    }
   },
   mounted() {
     setTimeout(() => {
@@ -305,15 +365,44 @@ export default {
       this.refs.maxSlideHeight = this.$refs.videoSlideRowList.wrapperHeight
       this.initSlideHeight = this.bodyHeight - 50 - this.refs.descHeight
       this.canTransformY = this.refs.descHeight - this.floatHeight
-      this.changeIndex(0, null)
+      this.getAuthor()
     })
     this.videoItemHeight = this.bodyWidth / 3 * 1.2 + 2
     bus.on('baseSlide-moved', () => this.canScroll = false)
     bus.on('baseSlide-end', () => this.canScroll = true)
   },
   methods: {
+    async getAuthor() {
+      this.changeIndex(0, null)
+      // let res = await this.$api.user.author({id: this.author.id})
+      let res = await this.$api.user.author({id: '54884802577'})
+      if (res.code === this.SUCCESS) {
+        this.localAuthor = {...this.localAuthor, ...res.data}
+        this.refreshDescHeight()
+      }
+    },
     toggleRecommend() {
-      this.isShowRecommend = !this.isShowRecommend
+      if (this.isLoadRecommendFriends) {
+        this.isShowRecommend = !this.isShowRecommend
+        this.refreshDescHeight()
+      } else {
+        this.loadings.showRecommend = true
+        setTimeout(() => {
+          this.loadings.showRecommend = false
+          this.isLoadRecommendFriends = true
+          this.isShowRecommend = !this.isShowRecommend
+          this.refreshDescHeight()
+        }, 1000)
+      }
+    },
+    refreshDescHeight() {
+      //这里nextTick不生效
+      setTimeout(() => {
+        let desc = $('.desc')
+        this.refs.descHeight = desc.height()
+        this.initSlideHeight = this.bodyHeight - 50 - this.refs.descHeight
+        this.canTransformY = this.refs.descHeight - this.floatHeight
+      }, 300)
     },
     friendsTouchStart() {
       this.$emit('toggleCanMove', false)
@@ -322,10 +411,10 @@ export default {
       this.$emit('toggleCanMove', true)
     },
     followButton() {
-      if (this.isFollowed) {
+      if (this.localAuthor.is_follow) {
         this.$nav('/message/chat')
       } else {
-        this.isFollowed = true
+        this.localAuthor.is_follow = true
       }
     },
     setLoadingFalse() {
@@ -685,6 +774,7 @@ export default {
       return transformY
     },
     filterAge(age) {
+      if (!age) return
       let date = new Date(age)
       return new Date().getFullYear() - date.getFullYear()
     }

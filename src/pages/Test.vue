@@ -1,31 +1,18 @@
 <template>
   <div class="Test">
-    <BaseHeader>
-      <template v-slot:center>
-        <span class="f16">申报学校信息</span>
-      </template>
-    </BaseHeader>
-    <div class="content">
-      <ConfirmDialog
-          title="设置备注名"
-          ok-text="确认"
-          v-model:visible="showFollowSetting"
-      >
-        <Search mode="light" v-model="t" :isShowSearchIcon="false"/>
-      </ConfirmDialog>
-    </div>
+    <Uploader/>
   </div>
 </template>
 <script>
 
 import ConfirmDialog from "../components/dialog/ConfirmDialog";
 import Search from "../components/Search";
+import Uploader from "./me/Uploader";
 
 export default {
   name: "Test",
   components: {
-    ConfirmDialog,
-    Search
+    Uploader
   },
   props: {},
   data() {
