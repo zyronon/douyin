@@ -107,6 +107,7 @@
       </SlideItem>
       <SlideItem style="font-size: 40px;overflow:auto;">
         <Uploader
+            ref="uploader"
             :isOnThisPage="baseActiveIndex === 1"
             :author="this.videos[this.videoActiveIndex]?.author"
             @toggleCanMove="e => this.canMove = e"
@@ -154,6 +155,7 @@
 
 
     <FollowSetting2
+        @cancelFollow="$refs.uploader.cancelFollow()"
         v-model="showFollowSetting2"/>
 
     <BlockDialog v-model="showBlockDialog"/>
