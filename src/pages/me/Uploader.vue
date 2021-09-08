@@ -155,6 +155,7 @@
         </div>
       </div>
       <Indicator
+          ref="Indicator"
           name="videoList"
           tabStyleWidth="50%"
           :tabRender="tabRender"
@@ -223,10 +224,14 @@ export default {
       tabRender: () => {
         return (
             <div className="tabs" ref="tabs">
-              <div className={this.contentIndex === 0 ? 'active tab' : 'tab'} style="width:50%">
+              <div className={this.contentIndex === 0 ? 'active tab' : 'tab'}
+                   onClick={e => this.changeIndicatorIndex(0)}
+                   style="width:50%">
                 <span>作品 {this.localAuthor.video_count}</span>
               </div>
-              <div className={this.contentIndex === 1 ? 'active tab' : 'tab'} style="width:50%">
+              <div className={this.contentIndex === 1 ? 'active tab' : 'tab'}
+                   onClick={e => this.changeIndicatorIndex(1)}
+                   style="width:50%">
                 <span>喜欢</span>
                 <img src={require('../../assets/img/icon/components/follow/lock.png')} alt=""/>
               </div>
@@ -372,6 +377,9 @@ export default {
     bus.on('baseSlide-end', () => this.canScroll = true)
   },
   methods: {
+    changeIndicatorIndex(index) {
+      this.$refs.Indicator.changeIndex(index)
+    },
     async getAuthor() {
       this.changeIndex(0, null)
       // let res = await this.$api.user.author({id: this.author.id})
