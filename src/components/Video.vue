@@ -1,13 +1,7 @@
-<!--<template>-->
-<!--  <video style="height: 100vh;width: 100vw;" :src="video.videoUrl" :poster="video.poster" refs="video" muted :autoplay="!disabled" loop>-->
-<!--    <p> 您的浏览器不支持 video 标签。</p>-->
-<!--  </video>-->
-<!--</template>-->
 <template>
-  <div class="bg-video" v-bind:style="{'height':height+'px'}">
+  <div class="bg-video">
     <!--    <video :src="video.videoUrl" poster="../assets/img/icon/components/video/loading.gif" ref="video" muted :autoplay="play" loop>-->
     <!--    poster="../assets/img/poster/1.jpg"-->
-
     <video :src="video.video"
            :poster="video.origin_cover"
            ref="video"
@@ -24,7 +18,7 @@
         <div :style="{opacity:isMove?0:1}" class="normal">
           <div class="toolbar mb1r">
             <div class="avatar-ctn mb2r">
-              <img class="avatar" :src="lVideo.author.avatar"  alt=""
+              <img class="avatar" :src="lVideo.author.avatar" alt=""
                    @click.stop="$emit('goUserInfo')">
               <transition name="fade">
                 <div v-if="!isAttention" @click.stop="attention" class="options" ref="attention-option">
@@ -71,10 +65,15 @@
             <div class="description mb1r">
               {{ lVideo.desc }}
             </div>
-            <div class="music " @click.stop="$nav('/music')">
+            <div class="music" @click.stop="$nav('/music')">
               <img src="../assets/img/icon/music.svg" alt="" class="music-image">
-              <!--              <marquee behavior=scroll direction=left align=middle scrollamount=4> 吴三二 - 光年之外</marquee>-->
-              <div behavior=scroll direction=left align=middle scrollamount=4> {{ lVideo.music.title }}</div>
+              <!--              <marquee behavior=scroll direction=left align=middle scrollamount=4>{{ lVideo.music.title }}</marquee>-->
+              <!--              <div class="marquee" behavior=scroll direction=left align=middle scrollamount=4>-->
+              <!--                {{ lVideo.music.title }}-->
+              <!--              </div>-->
+              <div class="marquee">
+                <p> {{ lVideo.music.title }}{{ lVideo.music.title }}</p>
+              </div>
             </div>
           </div>
           <div v-else class="comment-status">
@@ -99,8 +98,8 @@
           </div>
         </div>
         <div class="process"
-             :class="isMove ? '' : isPlaying && 'stop'"
              v-if="duration > 60"
+             :class="isMove ? '' : isPlaying && 'stop'"
              @touchmove="move"
              @touchend="end"
         >
@@ -334,6 +333,8 @@ export default {
   position: relative;
   background: black;
   font-size: 1.4rem;
+  width: 100%;
+  height: 100%;
 
   video {
     width: 100%;
@@ -551,9 +552,35 @@ export default {
             }
 
             marquee {
-              margin-left: 10px;
+              margin-left: 1rem;
             }
 
+            .marquee {
+              color: white;
+              width: 100%;
+              overflow: hidden;
+              position: relative;
+            }
+
+            .marquee p {
+              margin: 0;
+              padding-left: 100%;
+              display: inline-block;
+              white-space: nowrap;
+              animation-name: marquee;
+              animation-timing-function: linear;
+              animation-duration: 5s;
+              animation-iteration-count: infinite;
+            }
+
+            @keyframes marquee {
+              from {
+                transform: translate(0%);
+              }
+              to {
+                transform: translate(-100%);
+              }
+            }
           }
         }
 

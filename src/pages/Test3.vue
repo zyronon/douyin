@@ -1,6 +1,5 @@
 <template>
-  <div class="test" @click="click">
-    <img class="left" src="../assets/img/icon/loved.svg" alt="">
+  <div class="test" v-top-love>
   </div>
 </template>
 <script>
@@ -10,6 +9,36 @@ export default {
   name: "Test",
   props: {},
   components: {},
+  directives: {
+    topLove: {
+      beforeMount(el, binding, vNode) {
+        let click = function (e) {
+          let id = 'a' + Date.now()
+          let elWidth = 80
+          let rotate = randomNum(0, 1)
+          let template = `<img class="${rotate ? 'left' : 'right'}" id="${id}" src="${require('../assets/img/icon/loved.svg')}" alt="">`
+          let el = new Dom().create(template)
+          el.css({top: e.y - elWidth, left: e.x - elWidth / 2,})
+          new Dom().find('.test').append(el)
+
+          setTimeout(() => {
+            new Dom().find(`#${id}`).remove()
+          }, 1000)
+        }
+        let randomNum = function (minNum, maxNum) {
+          switch (arguments.length) {
+            case 1:
+              return parseInt(Math.random() * minNum + 1, 10);
+            case 2:
+              return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+            default:
+              return 0;
+          }
+        }
+        el.addEventListener('click', click)
+      }
+    }
+  },
   data() {
     return {
       showShareDialog: true,
@@ -93,7 +122,7 @@ export default {
         transform: @scale rotate(0-@rotate);
       }
       100% {
-        transform: translateY(-10rem) scale(2) rotate(0-@rotate);
+        transform: translateY(-12rem) scale(2) rotate(0-@rotate);
         opacity: 0;
       }
     }
@@ -115,7 +144,7 @@ export default {
         transform: @scale rotate(0+@rotate);
       }
       100% {
-        transform: translateY(-10rem) scale(2) rotate(0+@rotate);
+        transform: translateY(-12rem) scale(2) rotate(0+@rotate);
         opacity: 0;
       }
     }
