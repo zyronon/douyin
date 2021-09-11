@@ -9,7 +9,7 @@
 </template>
 <script>
 
-import mp40 from "../assets/video/0.mp4";
+import mp40 from "../assets/video/1.mp4";
 
 export default {
   name: "Test",

@@ -113,12 +113,12 @@ export default {
 }
 </script>
 <style lang="less">
-
-.base-slide-item {
-  min-width: 100vw;
-  min-height: 100vh;
-  position: relative;
-}
+//
+//.base-slide-item {
+//  min-width: 100vw;
+//  min-height: 100vh;
+//  position: relative;
+//}
 
 #app {
   height: 100%;
