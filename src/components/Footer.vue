@@ -1,5 +1,5 @@
 <template>
-  <div class="footer f16 " @touchmove.stop="false">
+  <div class="footer f16 ">
     <div class="l-button" @click="refresh(1)">
       <span v-if="!isRefresh1" :class="{active:currentTab===1}">首页</span>
       <img v-if="isRefresh1 " src="../assets/img/icon/refresh1.png" alt="" class="refresh">
@@ -32,6 +32,9 @@ export default {
     }
   },
   methods: {
+    stop() {
+
+    },
     tab(index) {
       this.currentTab = index
       switch (index) {

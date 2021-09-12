@@ -1,11 +1,26 @@
 export default class Dom {
+  els = []
 
-  constructor() {
-
+  constructor(arg) {
+    if (typeof arg === 'string') {
+      return this.find(arg)
+    }
+    if (typeof arg === 'object') {
+      this.els.push(arg)
+    }
+    if (typeof arg === 'function') {
+      document.addEventListener("DOMContentLoaded", arg);
+    }
+    return this
   }
 
   find(tag) {
-    let els = document.querySelectorAll(tag)
+    let els = []
+    if (this.els.length) {
+      els = this.els[0].querySelectorAll(tag)
+    } else {
+      els = document.querySelectorAll(tag)
+    }
     if (els.length) {
       this.els = els
     }
@@ -21,7 +36,7 @@ export default class Dom {
 
   append(that) {
     this.els.forEach(el => {
-      that.els.map(v => {
+      that.els.forEach(v => {
         el.appendChild(v)
       })
     })
@@ -35,20 +50,55 @@ export default class Dom {
     return this
   }
 
-  css(style, value = null) {
-    if (!value) {
-      Object.keys(style).map(key => {
-          this.els.map(el => {
-            el.style[key] = this.getStyleValue(key, style[key])
-          })
-        }
-      )
+  css(...args) {
+    if (args.length === 1) {
+      //情况一：获取样式
+      if (typeof args[0] === 'string') {
+        return this.els[0].style[args[0]]
+      } else {
+        //情况三：设置多个样式
+        Object.keys(args[0]).map(key => {
+            this.els.forEach(el => {
+              el.style[key] = this.getStyleValue(key, args[0][key])
+            })
+          }
+        )
+      }
     } else {
-      this.els.map(el => {
-        el.style[style] = this.getStyleValue(style, value)
+      //情况二，设置一对css样式
+      this.els.forEach(el => {
+        el.style[args[0]] = this.getStyleValue(args[0], args[1])
       })
     }
     return this
+  }
+
+  on(eventName, fn) {
+    let eventArray = eventName.split(" ");
+    this.els.forEach(el => {
+      eventArray.map(event => {
+        el.addEventListener(event, fn);
+      })
+    })
+    return this;
+  }
+
+  trigger(eventName) {
+    let eventArray = eventName.split(" ");
+    this.els.forEach(el => {
+      eventArray.map(event => {
+        el.dispatchEvent(new Event(event));
+      })
+    })
+    return this;
+  }
+
+  getWidth() {
+    return this.els[0].getBoundingClientRect().width
+  }
+
+  getHeight() {
+    return this.els[0].getBoundingClientRect().height
   }
 
   getStyleValue(key, value) {

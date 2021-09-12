@@ -118,6 +118,7 @@ export default {
   },
   methods: {
     getInsEl(item, index, play = false) {
+      // console.log('index',index,play)
       let slideVNode = this.renderSlide(item, index, play)
       const app = Vue.createApp({
         render() {
