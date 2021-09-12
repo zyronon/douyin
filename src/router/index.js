@@ -4,7 +4,7 @@ import Index from "../pages/home/Index";
 import Attention from "../pages/home/Attention";
 import Message from "../pages/message/Message";
 import Me from "../pages/me/Me";
-import Music from "../components/common/Music";
+import Music from "../pages/home/Music";
 import countryChoose from "../pages/login/countryChoose";
 import MyCard from "../pages/me/MyCard";
 import MyCollect from "../pages/me/MyCollect";
@@ -61,6 +61,7 @@ const routes = [
   {path: '/home', component: Index},
   {path: '/home/report', component: Report},
   {path: '/home/submit-report', component: SubmitReport},
+  {path: '/home/music', component: Music},
   {path: '/attention', component: Attention},
   {path: '/publish', component: Publish},
   {path: '/message', component: Message},
@@ -72,7 +73,6 @@ const routes = [
   {path: '/me/request-update', component: RequestUpdate},
   {path: '/edit-userinfo', component: EditUserInfo},
   {path: '/edit-userinfo-item', component: EditUserInfoItem},
-  {path: '/music', component: Music},
   {path: '/country-choose', component: countryChoose},
   {path: '/my-card', component: MyCard},
   {path: '/my-collect', component: MyCollect},

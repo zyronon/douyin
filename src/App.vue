@@ -53,6 +53,7 @@ export default {
         '/message', '/attention', '/home', '/me', '/publish',
         '/home/report',
         '/home/submit-report',
+        '/home/music',
         '/message/share-to-friend',
         '/message/joined-group-chat',
         '/country-choose',
