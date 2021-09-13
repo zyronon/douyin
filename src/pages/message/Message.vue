@@ -11,11 +11,11 @@
     <div class="friends  pl1r ">
       <div class="friend pr1r pl1r"
            @click="$nav('/message/chat')"
-           v-for="item in 10">
+           v-for="item in friends.all">
         <div class="avatar on-line">
-          <img src="../../assets/img/icon/head-image.jpeg" alt="">
+          <img :src="$imgPreview(item.avatar)" alt="">
         </div>
-        <span>ttenu</span>
+        <span>{{ item.name }}</span>
       </div>
       <div class="friend pr10p">
         <img src="../../assets/img/icon/next.svg" alt="">
@@ -97,8 +97,8 @@
           </div>
           <div class="friend-list">
             <div class="index">Z</div>
-            <div class="friend-item" v-for="item in friends" @click="item.select = !item.select">
-              <img class="left" src="../../assets/img/icon/head-image.jpeg" alt="">
+            <div class="friend-item" v-for="item in friends.all" @click="item.select = !item.select">
+              <img class="left" :src="$imgPreview(item.avatar)" alt="">
               <div class="right">
                 <span>{{ item.name }}</span>
                 <Check mode="red" style="height: 2rem;width: 2rem;" v-model="item.select"/>
@@ -142,6 +142,7 @@ import Footer from '../../components/Footer.vue'
 import Search from "../../components/Search";
 import FromBottomDialog from '../../components/dialog/FromBottomDialog'
 import Check from "../../components/Check";
+import {mapState} from "_vuex@4.0.2@vuex";
 
 export default {
   name: "Message",
@@ -158,63 +159,63 @@ export default {
       createChatDialog: false,
       isShowText: false,
       text: 'AAAAAAAAA、BBBBBBBBBBBBB、CCCCCCCC',
-      friends: [
-        {
-          avatar: '',
-          name: '11',
-          account: '173123141231qoqo',
-          select: false
-        },
-        {
-          avatar: '',
-          name: 'Boooo',
-          account: '234242ooo',
-          select: false
-        },
-        {
-          avatar: '',
-          name: '三分钟情、',
-          account: '3029342',
-          select: false
-        },
-        {
-          avatar: '',
-          name: 'zzzzz',
-          account: '6034592',
-          select: false
-        },
-        {
-          avatar: '',
-          name: 'zzzzz',
-          account: '6034592',
-          select: false
-        },
-        {
-          avatar: '',
-          name: 'zzzzz',
-          account: '6034592',
-          select: false
-        },
-        {
-          avatar: '',
-          name: 'zzzzz',
-          account: '6034592',
-          select: false
-        },
-        {
-          avatar: '',
-          name: 'zzzzz',
-          account: '6034592',
-          select: false
-        },
-      ],
+      // friends: [
+      //   {
+      //     avatar: '',
+      //     name: '11',
+      //     account: '173123141231qoqo',
+      //     select: false
+      //   },
+      //   {
+      //     avatar: '',
+      //     name: 'Boooo',
+      //     account: '234242ooo',
+      //     select: false
+      //   },
+      //   {
+      //     avatar: '',
+      //     name: '三分钟情、',
+      //     account: '3029342',
+      //     select: false
+      //   },
+      //   {
+      //     avatar: '',
+      //     name: 'zzzzz',
+      //     account: '6034592',
+      //     select: false
+      //   },
+      //   {
+      //     avatar: '',
+      //     name: 'zzzzz',
+      //     account: '6034592',
+      //     select: false
+      //   },
+      //   {
+      //     avatar: '',
+      //     name: 'zzzzz',
+      //     account: '6034592',
+      //     select: false
+      //   },
+      //   {
+      //     avatar: '',
+      //     name: 'zzzzz',
+      //     account: '6034592',
+      //     select: false
+      //   },
+      //   {
+      //     avatar: '',
+      //     name: 'zzzzz',
+      //     account: '6034592',
+      //     select: false
+      //   },
+      // ],
       searchFriends: []
     }
   },
   computed: {
+    ...mapState(['friends']),
     selectFriends() {
-      let res = this.friends.filter(v => v.select)
-      return res.length
+      return this.friends.all.filter(v => v.select).length
     }
   },
   watch: {

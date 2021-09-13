@@ -32,26 +32,22 @@ export default {
     }
   },
   methods: {
-    stop() {
-
-    },
     tab(index) {
-      this.currentTab = index
       switch (index) {
         case 1:
-          this.$router.push('/')
+          this.$nav('/')
           break
         case 2:
-          this.$router.push('/attention')
+          this.$nav('/attention')
           break
         case 3:
           this.$nav('/publish')
           break
         case 4:
-          this.$router.push('/message')
+          this.$nav('/message')
           break
         case 5:
-          this.$router.push('/me')
+          this.$nav('/me')
           break
       }
     },

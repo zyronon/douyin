@@ -252,6 +252,11 @@ export default {
   },
   $imgPreview(url) {
     if (!url) return
+    //本地图片
+    if (url.includes('img')) {
+      return url
+    }
+    //网络，全路径图片
     if (url.includes('http')) {
       return url
     }

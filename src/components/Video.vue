@@ -203,22 +203,17 @@ export default {
   },
   methods: {
     dbClick(e) {
-      console.log('dbclick')
+      // console.log('dbclick')
+      let id = 'a' + Date.now()
+      let elWidth = 80
+      let rotate = this.randomNum(0, 1)
+      let template = `<img class="${rotate ? 'left love-dbclick' : 'right love-dbclick'}" id="${id}" src="${require('../assets/img/icon/loved.svg')}" alt="">`
+      let el = new Dom().create(template)
+      el.css({top: e.y - elWidth, left: e.x - elWidth / 2,})
+      new Dom('#home-index').append(el)
       setTimeout(() => {
-        let id = 'a' + Date.now()
-        let elWidth = 80
-        let rotate = this.randomNum(0, 1)
-        // let rotate = 1
-        let template = `<img class="${rotate ? 'left love-dbclick' : 'right love-dbclick'}" id="${id}" src="${require('../assets/img/icon/loved.svg')}" alt="">`
-        let el = new Dom().create(template)
-        el.css({top: e.y - elWidth, left: e.x - elWidth / 2,})
-        // new Dom().find('#home-index').append(el)
-        document.querySelector('#home-index').appendChild(el.els[0])
-        //
-        setTimeout(() => {
-          new Dom().find(`#${id}`).remove()
-        }, 1000)
-      })
+        new Dom(`#${id}`).remove()
+      }, 1000)
     },
     randomNum(minNum, maxNum) {
       switch (arguments.length) {
@@ -234,7 +229,7 @@ export default {
       let checkTime = 400
       if (this.isDbClick) {
         this.dbClick(e)
-        console.log('checkDbClick-dbclick1')
+        // console.log('checkDbClick-dbclick1')
         clearTimeout(this.dbClickTimer);
         this.dbClickTimer = setTimeout(() => {
           this.isDbClick = false
@@ -243,7 +238,7 @@ export default {
       let nowTime = new Date().getTime();
       if (nowTime - this.lastClickTime < checkTime) {
         this.dbClick(e)
-        console.log('checkDbClick-dbclick2')
+        // console.log('checkDbClick-dbclick2')
 
         this.lastClickTime = 0;
         this.clickTimer && clearTimeout(this.clickTimer);
@@ -254,7 +249,7 @@ export default {
       } else {
         this.lastClickTime = nowTime;
         this.clickTimer = setTimeout(() => {
-          console.log('单击')
+          // console.log('单击')
           this.togglePlayVideo()
         }, checkTime);
       }
