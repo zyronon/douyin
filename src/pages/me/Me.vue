@@ -132,7 +132,7 @@
                 <img src="../../assets/img/icon/me/lock-gray.png" alt="">
                 <span>只有你能看到设为私密的作品和日常</span>
               </div>
-              <Posters v-if="videos.private.total !== -1" mode="private" :list="videos.private.list"></Posters>
+              <Posters v-if="videos.private.total !== -1" mode="date" :list="videos.private.list"></Posters>
               <Loading v-if="loadings.loading1" :is-full-screen="false"></Loading>
               <no-more v-else/>
             </SlideItem>

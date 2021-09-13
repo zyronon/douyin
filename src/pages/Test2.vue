@@ -1,7 +1,7 @@
 <template>
   <div class="Test">
     <Video1
-        :play="true"
+        :is-play="false"
         :video="item"
         :index="0"
     />

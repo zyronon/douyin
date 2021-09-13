@@ -27,11 +27,7 @@
           <div class="love mb2r" @click.stop="loved($event)">
             <div>
               <img src="../assets/img/icon/love.svg" class="love-image" v-if="!lVideo.isLoved">
-              <img src="../assets/img/icon/loved.svg" class="love-image" v-else>
-              <!--                <transition name="love">-->
-              <!--                </transition>-->
-              <!--                <transition name="loved">-->
-              <!--                </transition>-->
+              <img src="../assets/img/icon/loved.svg" class="love-image" v-if="lVideo.isLoved">
             </div>
             <span>{{ $likeNum(lVideo.digg_count) }}</span>
           </div>
@@ -41,11 +37,11 @@
             <span>{{ $likeNum(lVideo.comment_count) }}</span>
           </div>
           <div v-if="!isMy" class="share mb4r" @click.stop="$emit('showShare')">
-            <img src="../assets/img/icon/share.svg" alt="" class="share-image">
+            <img src="../assets/img/icon/share-white-full.png" alt="" class="share-image">
             <span>{{ $likeNum(lVideo.share_count) }}</span>
           </div>
           <div v-else class="share mb4r" @click.stop="$emit('showShare')">
-            <img src="../assets/img/icon/share.svg" alt="" class="share-image">
+            <img src="../assets/img/icon/share-white-full.png" alt="" class="share-image">
           </div>
           <BaseMusic
               :cover="lVideo.music.cover"
@@ -364,19 +360,6 @@ export default {
   transform: scale(0);
 }
 
-.comment-status-enter-active,
-.comment-status-leave-active {
-  transition: transform 0.5s linear;
-}
-
-.comment-status-move {
-  transition: transform 0.5s ease;
-}
-
-.comment-status-enter-from,
-.comment-status-leave-to {
-  transform: scale(0);
-}
 
 .video-wrapper {
   position: relative;

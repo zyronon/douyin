@@ -8,7 +8,7 @@
         <img class="love" src="../assets/img/icon/love.svg" alt="">
         <span>{{ $likeNum(i.digg_count) }}</span>
       </div>
-      <div v-else class="date">
+      <div class="date"  v-if="mode === 'date'">
         <div class="day">{{ getDay(i.create_time) }}</div>
         <div class="month">{{ getMonth(i.create_time) }}</div>
       </div>
@@ -29,7 +29,7 @@ export default {
     },
     mode: {
       type: String,
-      default: 'normal'
+      default: 'normal'//date,none
     }
   },
   methods: {
