@@ -54,6 +54,9 @@ export default {
         '/home/report',
         '/home/submit-report',
         '/home/music',
+        '/home/music-rank-list',
+
+
         '/message/share-to-friend',
         '/message/joined-group-chat',
         '/country-choose',

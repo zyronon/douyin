@@ -10,7 +10,7 @@
       <div class="right">
 <!--        TODO　没有淡入淡出的特效-->
         <img class="star" v-if="isFixed" src="../../assets/img/icon/star-white.png" alt="">
-        <div class="logo" v-if="!isFixed">抖音音乐榜</div>
+        <div class="logo" v-if="!isFixed" @click="$nav('/home/music-rank-list')">抖音音乐榜</div>
         <img class="share" src="../../assets/img/icon/share-white.png" alt="">
       </div>
     </div>
@@ -49,7 +49,7 @@ export default {
   components: {Scroll, Posters, Loading},
   data() {
     return {
-      isFixed: true,
+      isFixed: false,
       loading: false,
       videos: [
         {
