@@ -17,7 +17,7 @@
              v-if="message.type ===  MESSAGE_TYPE.DOUYIN_VIDEO">
           <img class="poster" :src="message.data.poster" alt=""/>
           <div class="title">{{ message.data.title }}</div>
-          <img src="../../../assets/img/icon/play.svg" class="pause"/>
+          <img src="../../../assets/img/icon/play-white.png" class="pause"/>
           <div class="author">
             <img class="video-avatar" :src="message.data.author.avatar" alt="">
             <span class="name">{{ message.data.author.name }}</span>
@@ -27,7 +27,7 @@
         <div class="douyin_video"
              v-if="message.type ===  MESSAGE_TYPE.VIDEO">
           <img class="poster" :src="message.data.poster" alt=""/>
-          <img src="../../../assets/img/icon/play.svg" class="pause"/>
+          <img src="../../../assets/img/icon/play-white.png" class="pause"/>
         </div>
 
         <div class="audio"

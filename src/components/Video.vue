@@ -8,7 +8,7 @@
            :autoplay="isPlay" loop>
       <p> 您的浏览器不支持 video 标签。</p>
     </video>
-    <img src="../assets/img/icon/play.svg" class="pause" v-if="!isPlaying">
+    <img src="../assets/img/icon/play-white.png" class="pause" v-if="!isPlaying">
     <div class="float" @click.stop="checkDbClick">
       <!--       @click.stop="togglePlayVideo" -->
       <div :style="{opacity:isMove ? 0:1}" class="normal">
@@ -279,27 +279,7 @@ export default {
       return globalMethods.$likeNum(v)
     },
     $duration(v) {
-      if (!v) return
-      let m = Math.floor(v / 60)
-      // let s = v % 60
-      let s = Math.round(v % 60)
-      let str = ''
-      if (m === 0) {
-        str = '00'
-      } else if (m > 0 && m < 10) {
-        str = '0' + m
-      } else {
-        str = m
-      }
-      str += ':'
-      if (s === 0) {
-        str += '00'
-      } else if (s > 0 && s < 10) {
-        str += '0' + s
-      } else {
-        str += s
-      }
-      return str
+      return globalMethods.$duration(v)
     },
     attention() {
       let option = this.$refs['attention-option']
