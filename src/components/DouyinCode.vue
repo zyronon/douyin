@@ -14,7 +14,7 @@
 
         <div class="video-poster">
           <img src="../assets/img/poster/1.jpg" class="poster">
-          <img src="../assets/img/icon/play.svg" class="play">
+          <img src="../assets/img/icon/play-white.png" class="play">
         </div>
       </div>
       <div class="toolbar">

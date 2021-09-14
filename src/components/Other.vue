@@ -21,7 +21,7 @@
               </div>
               <div class="my-buttons ">
                 <div class="collect">
-                  <img src="../assets/img/icon/collect-white.svg" alt="">
+                  <img src="../assets/img/icon/star-white.png" alt="">
                   <span class="mr5p">收藏</span>
                 </div>
                 <div class="add-friend">

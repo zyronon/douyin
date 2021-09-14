@@ -28,7 +28,7 @@
               <div class="peoples">>1 人使用</div>
             </div>
             <div class="collection">
-              <img src="../../assets/img/icon/collect-white.svg" alt="">
+              <img src="../../assets/img/icon/star-white.png" alt="">
               <span>收藏</span>
             </div>
           </div>

@@ -23,7 +23,7 @@
         </div>
         <div class="permission-setting" v-if="isMy">
           <div class="right">
-            <img src="../../assets/img/icon/play.svg" alt="">
+            <img src="../../assets/img/icon/play-white.png" alt="">
             <span>3030浏览</span>
           </div>
           <div class="share-btn" @click="dialog.permissionDialog = true">权限设置</div>

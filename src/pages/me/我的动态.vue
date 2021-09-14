@@ -23,7 +23,7 @@
           <div class="music">
             <img src="../../assets/img/icon/music.svg" alt="" class="music-image">
             <marquee behavior=scroll direction=left align=middle scrollamount=4> 吴三二 - 光年之外</marquee>
-            <img src="../../assets/img/icon/play.svg" alt="" class="play">
+            <img src="../../assets/img/icon/play-white.png" alt="" class="play">
             <img src="../../assets/img/icon/pause.svg" alt="" class="pause" v-if="false">
           </div>
         </div>
