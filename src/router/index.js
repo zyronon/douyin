@@ -5,6 +5,7 @@ import Attention from "../pages/home/Attention";
 import Message from "../pages/message/Message";
 import Me from "../pages/me/Me";
 import Music from "../pages/home/Music";
+import MusicRankList from "../pages/home/MusicRankList";
 import countryChoose from "../pages/login/countryChoose";
 import MyCard from "../pages/me/MyCard";
 import MyCollect from "../pages/me/MyCollect";
@@ -62,6 +63,7 @@ const routes = [
   {path: '/home/report', component: Report},
   {path: '/home/submit-report', component: SubmitReport},
   {path: '/home/music', component: Music},
+  {path: '/home/music-rank-list', component: MusicRankList},
   {path: '/attention', component: Attention},
   {path: '/publish', component: Publish},
   {path: '/message', component: Message},
