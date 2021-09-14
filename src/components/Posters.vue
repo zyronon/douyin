@@ -3,7 +3,8 @@
     <div class="poster-item" v-for="i in list">
 <!--       @click="$nav('/video-detail')"-->
 <!--      <img class="poster" :src="$imgPreview(i.video.cover.url_list[3])" alt="">-->
-      <img class="poster" :src="$imgPreview(i.cover)" alt="">
+      <img class="poster"  v-lazy="$imgPreview(i.cover)" alt="">
+<!--      <img class="poster" :src="$imgPreview(i.cover)" alt="">-->
       <div class="num" v-if="mode === 'normal'">
         <img class="love" src="../assets/img/icon/love.svg" alt="">
         <span>{{ $likeNum(i.digg_count) }}</span>
