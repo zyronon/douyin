@@ -1,6 +1,7 @@
 <template>
   <div class="ConfirmDialog " @click="$emit('dismiss')" v-if="visible">
     <div class="content" @click.stop="stop">
+      <slot name="header"></slot>
       <div class="body">
         <div class="title" v-if="title">{{ title }}</div>
         <div class="subtitle" :class="subtitleColor" v-if="subtitle">{{ subtitle }}</div>
@@ -14,6 +15,7 @@
   </div>
 </template>
 <script>
+/*TODO 单独使用时，没有mark*/
 export default {
   name: "ConfirmDialog",
   props: {

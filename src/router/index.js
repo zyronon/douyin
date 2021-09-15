@@ -60,10 +60,12 @@ const routes = [
   {path: '/test3', component: Test3},
   {path: '/test4', component: Test4},
   {path: '/home', component: Index},
-  {path: '/home/report', component: Report},
   {path: '/home/submit-report', component: SubmitReport},
   {path: '/home/music', component: Music},
   {path: '/home/music-rank-list', component: MusicRankList},
+  {path: '/home/report', component: Report},
+
+
   {path: '/attention', component: Attention},
   {path: '/publish', component: Publish},
   {path: '/message', component: Message},

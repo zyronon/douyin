@@ -14,7 +14,7 @@
           <img class="star" v-else src="../../assets/img/icon/star-white.png" @click.stop="toggleCollect()">
         </template>
         <div class="logo" v-if="!isFixed" @click="$nav('/home/music-rank-list')">抖音音乐榜</div>
-        <img class="share" src="../../assets/img/icon/share-white.png" alt="">
+        <img class="share" src="../../assets/img/icon/share-white.png" @click="isSharing = true">
       </div>
     </div>
     <div class="content">
@@ -23,16 +23,21 @@
               @fixed="e => this.isFixed = e"
               @pulldown="loadData">
         <div class="desc">
-          <img class="logo" src="../../assets/img/poster/src1-bg.png" alt="">
+          <div class="cover-wrapper" @click="togglePlay()">
+            <img class="cover" src="../../assets/img/poster/src1-bg.png" alt="">
+            <img v-if="!isPlay" src="../../assets/img/icon/play-white.png" alt="" class="play">
+            <img v-if="isPlay" src="../../assets/img/icon/pause-white.png" alt="" class="play">
+          </div>
           <div class="info">
             <div class="name">MT创作的原声</div>
             <div>
-              <div class="user">NT ></div>
-              <div class="peoples">>1 人使用</div>
+              <div class="user">NT</div>
+              <div class="peoples">>5585 人使用</div>
             </div>
-            <div class="collection">
-              <img src="../../assets/img/icon/star-white.png" alt="">
-              <span>收藏</span>
+            <div class="collection" @click.stop="toggleCollect()">
+              <img v-if="isCollect" src="../../assets/img/icon/star-yellow.png">
+              <img v-else src="../../assets/img/icon/star-white.png">
+              <span>{{ isCollect ? '已' : '' }}收藏</span>
             </div>
           </div>
         </div>
@@ -50,21 +55,75 @@
         <span>拍同款</span>
       </div>
     </div>
+
+    <Share v-model="isSharing"
+           mode="music"
+           ref="share"
+           @showDouyinCode="showDouyinCode = true"
+           @showShare2WeChatZone="shareType = 2"
+           @share2WeChat="shareType = 3"
+           @share2QQZone="shareType = 4"
+           @share2QQ="shareType = 5"
+           @share2Webo="shareType = 8"
+    />
+
+    <DouyinCode v-model="showDouyinCode"/>
+
+
+    <ConfirmDialog
+        v-model:visible="showSharePassword"
+        title="你的口令已复制"
+        subtitle="0F.:/ a【风就应该自由要什么归宿】长按复制此条消息，打开抖音搜索，聆听音乐##kwu3VCixHl8##[抖音口令]"
+        :okText="okText"
+        cancelText="不分享了"
+    >
+      <template v-slot:header>
+        <img style="width: 100%;" src="../../assets/img/icon/share-password.webp" alt="">
+      </template>
+    </ConfirmDialog>
+
   </div>
 </template>
 <script>
 import Posters from "../../components/Posters";
 import Scroll from "../../components/Scroll";
 import Loading from "../../components/Loading";
+import Share from "../../components/Share";
+import DouyinCode from "../../components/DouyinCode";
+import ConfirmDialog from "../../components/dialog/ConfirmDialog";
 
 export default {
   name: "Music",
-  components: {Scroll, Posters, Loading},
+  components: {
+    Scroll,
+    Posters,
+    Loading,
+    Share,
+    DouyinCode,
+    ConfirmDialog
+  },
   data() {
     return {
+      loading: false,
       isFixed: false,
       isCollect: false,
-      loading: false,
+      isPlay: false,
+      isSharing: false,
+      okText: '',
+
+      showSharePassword: false,
+      shareType: -1,
+
+      showPlayFeedback: false,
+      showShareDuoshan: false,
+      showShareDialog: false,
+      showShare2WeChatZone: false,
+      showDouyinCode: false,
+      showFollowSetting: false,
+      showFollowSetting2: false,
+      showBlockDialog: false,
+      showChangeNote: false,
+
       videos: [
         {
           "id": "ac78850c-1497-43bb-bdf8-219f3262b690",
@@ -2423,6 +2482,22 @@ export default {
       ]
     }
   },
+  watch: {
+    shareType(newVal, oldVal) {
+      if (newVal === -1) return
+      this.showSharePassword = true
+      switch (newVal) {
+        case 2:
+        case 3:
+          return this.okText = '去微信粘贴'
+        case 4:
+        case 5:
+          return this.okText = '去QQ粘贴'
+        case 8:
+          return this.okText = '去微博粘贴'
+      }
+    }
+  },
   created() {
     this.videos = this.videos.concat(this.videos2).concat(this.videos3)
   },
@@ -2436,6 +2511,9 @@ export default {
       await this.$sleep(1500)
       this.videos = this.videos.concat(this.videos2)
       this.loading = false
+    },
+    togglePlay() {
+      this.isPlay = !this.isPlay
     }
   },
   mounted() {
@@ -2509,14 +2587,27 @@ export default {
     }
 
     .desc {
-      padding: 3rem 1.5rem;
+      padding: 1rem 1.5rem 3rem 1.5rem;
       display: flex;
       height: 12rem;
 
-      .logo {
-        width: 12rem;
-        height: 100%;
-        border-radius: .3rem;
+      .cover-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .play {
+          width: 4rem;
+          height: 4rem;
+          position: absolute;
+        }
+
+        .cover {
+          width: 12rem;
+          height: 100%;
+          border-radius: .3rem;
+        }
       }
 
       .info {

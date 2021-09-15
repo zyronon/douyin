@@ -25,13 +25,15 @@
       </div>
       <div class="line"></div>
       <div class="shares ">
+        <template v-if="mode === 'video'">
+          <div class="share-to" @click="$no">
+            <img src="../assets/img/icon/components/video/torichang.png" alt="">
+            <span>分享日常</span>
+          </div>
+        </template>
         <div class="share-to" @click="closeShare($nav('/message/share-to-friend'))">
           <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
-          <span>私信朋友</span>
-        </div>
-        <div class="share-to" @click="$no">
-          <img src="../assets/img/icon/components/video/torichang.png" alt="">
-          <span>分享日常</span>
+          <span>站内私信</span>
         </div>
         <div class="share-to" @click="closeShare($emit('showShare2WeChatZone'))">
           <img src="../assets/img/icon/components/video/towechat.webp" alt="">
@@ -49,67 +51,85 @@
           <img src="../assets/img/icon/components/video/toqq.webp" alt="">
           <span>QQ好友</span>
         </div>
-        <div class="share-to" @click="closeShare($emit('showShareDuoshan'))">
-          <img src="../assets/img/icon/components/video/duoshan.png" alt="">
-          <span>多闪</span>
-        </div>
-        <div class="share-to" @click="$no">
-          <img src="../assets/img/icon/components/video/totoutiao.webp" alt="">
-          <span>今日头条</span>
-        </div>
+        <template v-if="mode === 'video'">
+          <div class="share-to" @click="closeShare($emit('showShareDuoshan'))">
+            <img src="../assets/img/icon/components/video/duoshan.png" alt="">
+            <span>多闪</span>
+          </div>
+          <div class="share-to" @click="$no">
+            <img src="../assets/img/icon/components/video/totoutiao.webp" alt="">
+            <span>今日头条</span>
+          </div>
+        </template>
         <div class="share-to" @click="closeShare($emit('share2Webo'))">
           <img src="../assets/img/icon/components/video/toweibo.webp" alt="">
           <span>微博</span>
         </div>
       </div>
       <div class="toolbar ">
-        <div class="tool" @click="$no">
-          <img src="../assets/img/icon/components/video/comeonlook.webp" alt="">
-          <span>一起视频</span>
-        </div>
-        <div class="tool" @click="$nav('/home/report')">
-          <img src="../assets/img/icon/components/video/warring.png" alt="">
-          <span>举报</span>
-        </div>
-        <div class="tool" @click="canDownload && closeShare($emit('download'))"
-             :style="{ opacity : canDownload ? '1' : '0.5' }">
-          <img src="../assets/img/icon/components/video/download.png" alt="">
-          <span>保存本地</span>
-        </div>
-        <div class="tool" @click="toggleCollect">
-          <img v-if="isCollect" src="../assets/img/icon/components/video/star-full.png" alt="">
-          <img v-else src="../assets/img/icon/components/video/star.png" alt="">
-          <span>收藏</span>
-        </div>
-        <div class="tool" @click="$no">
-          <img src="../assets/img/icon/components/video/comeonplay.png" alt="">
-          <span>合拍</span>
-        </div>
-        <div class="tool" @click="$no">
-          <img src="../assets/img/icon/components/video/bizhi.webp" alt="">
-          <span>动态壁纸</span>
-        </div>
-        <!--        todo-->
-        <div class="tool" @click="$emit('dislike')">
-          <img src="../assets/img/icon/components/video/dislike.png" alt="">
-          <span>不感兴趣</span>
-        </div>
-        <div class="tool" @click="copyLink">
-          <img src="../assets/img/icon/components/video/link.png" alt="">
-          <span>复制链接</span>
-        </div>
-        <div class="tool" @click="closeShare($emit('showDouyinCode'))">
-          <img src="../assets/img/icon/components/video/qrcode.png" alt="">
-          <span>抖音码</span>
-        </div>
-        <div class="tool" @click="$no">
-          <img src="../assets/img/icon/components/video/dou.webp" alt="">
-          <span>帮上热门</span>
-        </div>
-        <div class="tool" @click="closeShare($emit('play-feedback'))">
-          <img src="../assets/img/icon/components/video/feedback.webp" alt="">
-          <span>播放反馈</span>
-        </div>
+        <template v-if="mode === 'music'">
+          <div class="tool" @click="copyLink">
+            <img src="../assets/img/icon/components/video/link.png" alt="">
+            <span>复制链接</span>
+          </div>
+          <div class="tool" @click="$nav('/home/report',{type:this.mode})">
+            <img src="../assets/img/icon/components/video/warring.png" alt="">
+            <span>举报音乐</span>
+          </div>
+          <div class="tool" @click="closeShare($emit('showDouyinCode'))">
+            <img src="../assets/img/icon/components/video/qrcode.png" alt="">
+            <span>抖音码</span>
+          </div>
+        </template>
+        <template v-if="mode === 'video'">
+          <div class="tool" @click="$no">
+            <img src="../assets/img/icon/components/video/comeonlook.webp" alt="">
+            <span>一起视频</span>
+          </div>
+          <div class="tool" @click="$nav('/home/report',{type:this.mode})">
+            <img src="../assets/img/icon/components/video/warring.png" alt="">
+            <span>举报</span>
+          </div>
+          <div class="tool" @click="canDownload && closeShare($emit('download'))"
+               :style="{ opacity : canDownload ? '1' : '0.5' }">
+            <img src="../assets/img/icon/components/video/download.png" alt="">
+            <span>保存本地</span>
+          </div>
+          <div class="tool" @click="toggleCollect">
+            <img v-if="isCollect" src="../assets/img/icon/components/video/star-full.png" alt="">
+            <img v-else src="../assets/img/icon/components/video/star.png" alt="">
+            <span>收藏</span>
+          </div>
+          <div class="tool" @click="$no">
+            <img src="../assets/img/icon/components/video/comeonplay.png" alt="">
+            <span>合拍</span>
+          </div>
+          <div class="tool" @click="$no">
+            <img src="../assets/img/icon/components/video/bizhi.webp" alt="">
+            <span>动态壁纸</span>
+          </div>
+          <!--        todo-->
+          <div class="tool" @click="$emit('dislike')">
+            <img src="../assets/img/icon/components/video/dislike.png" alt="">
+            <span>不感兴趣</span>
+          </div>
+          <div class="tool" @click="copyLink">
+            <img src="../assets/img/icon/components/video/link.png" alt="">
+            <span>复制链接</span>
+          </div>
+          <div class="tool" @click="closeShare($emit('showDouyinCode'))">
+            <img src="../assets/img/icon/components/video/qrcode.png" alt="">
+            <span>抖音码</span>
+          </div>
+          <div class="tool" @click="$no">
+            <img src="../assets/img/icon/components/video/dou.webp" alt="">
+            <span>帮上热门</span>
+          </div>
+          <div class="tool" @click="closeShare($emit('play-feedback'))">
+            <img src="../assets/img/icon/components/video/feedback.webp" alt="">
+            <span>播放反馈</span>
+          </div>
+        </template>
       </div>
 
       <div class="share2friend" v-if="selectFriends.length">
@@ -151,6 +171,10 @@ export default {
     canDownload: {
       type: Boolean,
       default: true
+    },
+    mode: {
+      type: String,
+      default: 'video'//music
     },
   },
   computed: {
