@@ -8,8 +8,11 @@
         </div>
       </transition>
       <div class="right">
-<!--        TODO　没有淡入淡出的特效-->
-        <img class="star" v-if="isFixed" src="../../assets/img/icon/star-white.png" alt="">
+        <!--        TODO　没有淡入淡出的特效-->
+        <template v-if="isFixed">
+          <img class="star" v-if="isCollect" src="../../assets/img/icon/star-yellow.png" @click.stop="toggleCollect()">
+          <img class="star" v-else src="../../assets/img/icon/star-white.png" @click.stop="toggleCollect()">
+        </template>
         <div class="logo" v-if="!isFixed" @click="$nav('/home/music-rank-list')">抖音音乐榜</div>
         <img class="share" src="../../assets/img/icon/share-white.png" alt="">
       </div>
@@ -33,9 +36,19 @@
             </div>
           </div>
         </div>
-        <Posters mode="none" :list="videos"/>
+        <Posters mode="music" :list="videos"/>
         <Loading :is-full-screen="false" v-if="loading"/>
       </Scroll>
+    </div>
+    <div class="options">
+      <div class="l-button white" @click="$no">
+        <img src="../../assets/img/icon/home/music3.png" alt="">
+        <span>分享到日常</span>
+      </div>
+      <div class="l-button primary" @click="$no">
+        <img src="../../assets/img/icon/home/record.png" alt="">
+        <span>拍同款</span>
+      </div>
     </div>
   </div>
 </template>
@@ -50,6 +63,7 @@ export default {
   data() {
     return {
       isFixed: false,
+      isCollect: false,
       loading: false,
       videos: [
         {
@@ -2414,6 +2428,9 @@ export default {
   },
   computed: {},
   methods: {
+    toggleCollect() {
+      this.isCollect = !this.isCollect
+    },
     async loadData() {
       this.loading = true
       await this.$sleep(1500)
@@ -2542,6 +2559,42 @@ export default {
       }
     }
 
+  }
+
+  .options {
+    font-size: 1.4rem;
+    width: 100vw;
+    position: fixed;
+    bottom: 2rem;
+    display: flex;
+    justify-content: center;
+
+    img {
+      width: 2rem;
+      height: 2rem;
+      margin-right: .5rem;
+    }
+
+    .l-button {
+      margin-left: .5rem;
+      margin-right: .5rem;
+      width: 14rem;
+      border-radius: 5rem;
+      display: flex;
+      padding: 1.5rem 0;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .white {
+      color: black;
+      background: white;
+    }
+
+    .primary {
+      background: @primary-btn-color;
+      color: white;
+    }
   }
 }
 

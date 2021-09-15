@@ -251,9 +251,10 @@ export default {
     }
   },
   $imgPreview(url) {
+    // console.log(url)
     if (!url) return
     //本地图片
-    if (url.includes('img')) {
+    if (url.includes('img') ||url.includes('data:image')) {
       return url
     }
     //网络，全路径图片
