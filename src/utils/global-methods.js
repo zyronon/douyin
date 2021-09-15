@@ -300,11 +300,15 @@ export default {
 
   $dateFormat(val, type) {
     if (!val) return
-    if (val.length === 10) {
-      val += '000'
-    }
-    if (typeof val === 'string' && (val.length === 10 || val.length === 13)) {
-      val = Number(val)
+    if (typeof val === 'number') {
+
+    }else {
+      if (val.length === 10) {
+        val += '000'
+      }
+      if (typeof val === 'string' && (val.length === 10 || val.length === 13)) {
+        val = Number(val)
+      }
     }
     switch (type) {
       case 'Y':
