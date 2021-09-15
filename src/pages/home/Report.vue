@@ -2,7 +2,9 @@
   <div class="Report">
     <BaseHeader backMode="light">
       <template v-slot:center>
-        <span class="f16">视频举报</span>
+        <span class="f16">
+          <template v-if="type === 'video'">视频</template>
+          <template v-if="type === 'music'">音乐</template>举报</span>
       </template>
     </BaseHeader>
     <div class="content">
@@ -50,7 +52,7 @@
         <back scale=".8" direction="right"></back>
       </div>
       <div class="line"></div>
-<!--todo 没做详细的举报      -->
+      <!--todo 没做详细的举报      -->
       <div class="title">
         <span>侵犯名誉</span>
       </div>
@@ -106,10 +108,15 @@ export default {
   name: "Report",
   props: {},
   data() {
-    return {}
+    return {
+      type: 'video'
+    }
   },
   computed: {},
   created() {
+  },
+  activated() {
+    this.type = this.$route.query.type
   },
   methods: {}
 }

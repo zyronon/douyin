@@ -1,21 +1,19 @@
 <template>
   <div class="Test">
-    <div class="content1">
-      <BaseMarquee :is-play="true" :text="text" style="width: 150px;"/>
-      <BaseButton @click="triggerPause">pause</BaseButton>
-      <BaseButton @click="triggerStart">start</BaseButton>
-    </div>
+    <base-button type="primary" @click="t = true">test</base-button>
+    <ShareToFriend v-model="t"/>
   </div>
 </template>
 <script>
-
+import ShareToFriend from "./home/components/ShareToFriend";
 import BaseButton from "../components/BaseButton";
-import BaseMarquee from "../components/BaseMarquee";
-import Dom from "../utils/dom";
 
 export default {
   name: "Test4",
-  components: {BaseButton, BaseMarquee},
+  components: {
+    BaseButton,
+    ShareToFriend
+  },
   props: {
     text: {
       type: String,
@@ -24,20 +22,10 @@ export default {
   },
   data() {
     return {
-      timer: null,
-      contentWidth: 0,
-      transformX: 0,
-      $marqueeContent: null,
+      t: false,
     }
   },
-  methods: {
-    triggerPause() {
-      new Dom('.text').trigger('pause')
-    },
-    triggerStart() {
-      new Dom('.text').trigger('start')
-    },
-  },
+  methods: {},
   mounted() {
   }
 }
@@ -55,12 +43,5 @@ export default {
   overflow: auto;
   font-size: 1.4rem;
   color: white;
-
-  .content1 {
-    padding-top: 6rem;
-
-  }
-
-
 }
 </style>

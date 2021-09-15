@@ -4,9 +4,10 @@
       <Mask v-if="maskDialog" @click="hideMaskDialog" :mode="maskDialogMode"></Mask>
     </transition>
     <transition :name="transitionName">
-      <keep-alive>
-        <component :is="Component"/>
-      </keep-alive>
+<!--      <keep-alive>-->
+<!--      </keep-alive>-->
+      <component :is="Component"/>
+
     </transition>
   </router-view>
 
@@ -51,10 +52,10 @@ export default {
 
       const routeDeep = [
         '/message', '/attention', '/home', '/me', '/publish',
-        '/home/report',
         '/home/submit-report',
         '/home/music',
         '/home/music-rank-list',
+        '/home/report',
 
 
         '/message/share-to-friend',
