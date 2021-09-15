@@ -1,16 +1,21 @@
 <template>
   <div class="posters">
-    <div class="poster-item" v-for="i in list">
-<!--       @click="$nav('/video-detail')"-->
-      <img class="poster"  v-lazy="$imgPreview(i.cover)" alt="">
+    <div class="poster-item" v-for="(i,index) in list">
+      <!--       @click="$nav('/video-detail')"-->
+      <img class="poster" v-lazy="$imgPreview(i.cover)" alt="">
       <div class="num" v-if="mode === 'normal'">
         <img class="love" src="../assets/img/icon/love.svg" alt="">
         <span>{{ $likeNum(i.digg_count) }}</span>
       </div>
-      <div class="date"  v-if="mode === 'date'">
+      <div class="date" v-if="mode === 'date'">
         <div class="day">{{ getDay(i.create_time) }}</div>
         <div class="month">{{ getMonth(i.create_time) }}</div>
       </div>
+      <template v-if="mode === 'music'">
+        <div class="music" v-if="index === 0">
+          首发
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -28,7 +33,7 @@ export default {
     },
     mode: {
       type: String,
-      default: 'normal'//date,none
+      default: 'normal'//date,music
     }
   },
   methods: {
@@ -88,6 +93,17 @@ export default {
     display: block;
   }
 
+  .music {
+    position: absolute;
+    font-size: 1.2rem;
+    background: gold;
+    color: black;
+    padding: .2rem .3rem;
+    border-radius: .2rem;
+    top: .7rem;
+    left: .7rem;
+  }
+
   .num {
     color: white;
     position: absolute;
@@ -117,10 +133,11 @@ export default {
     padding: .6rem;
     border-radius: .6rem;
 
-    .day{
+    .day {
       font-weight: bold;
     }
-    .month{
+
+    .month {
       font-size: 1rem;
     }
   }
