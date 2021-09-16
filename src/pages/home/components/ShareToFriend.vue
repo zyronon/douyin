@@ -3,12 +3,15 @@
       v-model="modelValue"
       @cancel="cancel"
       height="70vh">
-    <div class="create-chat-wrapper" v-if="!showJoinedChat">
-      <Search :isShowText="isShowText"
-              @click="isShowText = true"
-              @notice="isShowText = false;"
-              @clear="isShowText = false"
-              class="ml2r mr2r" placeholder="搜索" v-model="createChatSearchKey"></Search>
+    <div class="create-chat-wrapper" v-show="!showJoinedChat">
+      <Search
+          :isShowText="isShowText"
+          @click="isShowText = true"
+          @notice="isShowText = false;"
+          @clear="isShowText = false"
+          class="ml2r mr2r"
+          placeholder="搜索"
+          v-model="createChatSearchKey"/>
       <template v-if="createChatSearchKey">
         <div class="search-result" v-if="searchFriends.length">
           <div class="search-result-item" v-for="item in searchFriends"
@@ -52,9 +55,9 @@
         </div>
       </template>
     </div>
-    <div class="joined-chat-wrapper" v-if="showJoinedChat">
+    <div class="joined-chat-wrapper" v-show="showJoinedChat">
       <div class="nav">
-        <back @click="showJoinedChat = false" mode="light" scale="1.2"></back>
+        <back @click="showJoinedChat = false" mode="light" scale="1"></back>
         <span>已加入的群聊</span>
         <span>&nbsp;</span>
       </div>
@@ -64,14 +67,13 @@
           <img class="left" src="../../../assets/img/icon/head-image.jpeg" alt="">
           <div class="right">
             <div class="title">
-              <div class="name">{{ text.length > 20 ? text.substr(0, 20) + '...' : text }}</div>
+              <div class="name">{{ text }}</div>
               <div class="num">(3)</div>
             </div>
-            <back direction="right" mode="light"></back>
+            <b-button type="primary">分享</b-button>
           </div>
         </div>
       </div>
-      <NoMore></NoMore>
     </div>
   </from-bottom-dialog>
 </template>
@@ -80,7 +82,9 @@ import FromBottomDialog from "../../../components/dialog/FromBottomDialog";
 import {mapState} from "vuex";
 import Search from "../../../components/Search";
 import Check from "../../../components/Check";
+/*
 
+* */
 export default {
   name: "ShareTo",
   components: {
@@ -97,6 +101,7 @@ export default {
       showJoinedChat: false,
       isShowText: false,
       createChatSearchKey: '',
+      text: 'AAAAAAAAA、BBBBBBBBBBBBB、CCCCCCCC',
       localFriends: [],
       searchFriends: []
     }
@@ -105,7 +110,7 @@ export default {
     createChatSearchKey(newVal) {
       if (newVal) {
         //TODO　搜索时仅仅判断是否包含了对应字符串，抖音做了拼音判断的
-        this.searchFriends = this.friends.filter(v => {
+        this.searchFriends = this.friends.all.filter(v => {
           if (v.name.includes(newVal)) return true
           return v.account.includes(newVal);
         })
@@ -305,14 +310,10 @@ export default {
   background: @main-bg;
 
   .nav {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
     padding: 2rem;
     display: flex;
     justify-content: space-between;
-
-    img {
-      height: 2rem;
-    }
   }
 
   .chat-list {
@@ -334,8 +335,8 @@ export default {
       }
 
       .left {
-        width: 4.8rem;
-        height: 4.8rem;
+        width: 3.8rem;
+        height: 3.8rem;
         border-radius: 50%;
         margin-right: 1rem;
       }
@@ -348,11 +349,16 @@ export default {
         justify-content: space-between;
 
         .title {
+          width: 55vw;
+          overflow: hidden;
           box-sizing: border-box;
           display: flex;
           align-items: center;
 
           .name {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
           }
 
           .num {
