@@ -1,7 +1,9 @@
 <template>
   <from-bottom-dialog
+      page-id="Music"
       v-model="modelValue"
       @cancel="cancel"
+      maskMode="light"
       :height="height">
     <div class="content" :style="{minHeight:height}">
       <div class="create-chat" v-show="!showJoinedChat">
@@ -97,7 +99,7 @@ import {mapState} from "vuex";
 import Search from "../../../components/Search";
 import Check from "../../../components/Check";
 /*
-
+分享给朋友
 * */
 export default {
   name: "ShareTo",

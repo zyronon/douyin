@@ -1,5 +1,5 @@
 <template>
-  <div class="Music">
+  <div  id="Music">
     <div class="header">
       <back mode="light" @click="$back"/>
       <transition name="fade">
@@ -65,10 +65,10 @@
            @share2QQZone="shareType = 4"
            @share2QQ="shareType = 5"
            @share2Webo="shareType = 8"
+           @ShareToFriend="shareToFriend = true"
     />
 
     <DouyinCode v-model="showDouyinCode"/>
-
 
     <ConfirmDialog
         v-model:visible="showSharePassword"
@@ -82,6 +82,8 @@
       </template>
     </ConfirmDialog>
 
+    <ShareToFriend v-model="shareToFriend"/>
+
   </div>
 </template>
 <script>
@@ -91,6 +93,7 @@ import Loading from "../../components/Loading";
 import Share from "../../components/Share";
 import DouyinCode from "../../components/DouyinCode";
 import ConfirmDialog from "../../components/dialog/ConfirmDialog";
+import ShareToFriend from "./components/ShareToFriend";
 
 export default {
   name: "Music",
@@ -100,7 +103,8 @@ export default {
     Loading,
     Share,
     DouyinCode,
-    ConfirmDialog
+    ConfirmDialog,
+    ShareToFriend
   },
   data() {
     return {
@@ -112,17 +116,10 @@ export default {
       okText: '',
 
       showSharePassword: false,
+      shareToFriend: false,
       shareType: -1,
 
-      showPlayFeedback: false,
-      showShareDuoshan: false,
-      showShareDialog: false,
-      showShare2WeChatZone: false,
       showDouyinCode: false,
-      showFollowSetting: false,
-      showFollowSetting2: false,
-      showBlockDialog: false,
-      showChangeNote: false,
 
       videos: [
         {
@@ -2525,7 +2522,7 @@ export default {
 
 @import "../../assets/scss/index";
 
-.Music {
+#Music {
   position: fixed;
   left: 0;
   right: 0;

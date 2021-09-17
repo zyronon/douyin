@@ -31,7 +31,7 @@
             <span>分享日常</span>
           </div>
         </template>
-        <div class="share-to" @click="closeShare($nav('/message/share-to-friend'))">
+        <div class="share-to" @click="closeShare($emit('ShareToFriend'))">
           <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
           <span>站内私信</span>
         </div>

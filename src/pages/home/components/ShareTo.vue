@@ -117,7 +117,9 @@
 <script>
 import FromBottomDialog from "../../../components/dialog/FromBottomDialog";
 import {mapState} from "vuex";
-
+/*
+* 分享到各种工具
+* */
 export default {
   name: "ShareTo",
   components: {
