@@ -28,6 +28,8 @@
 
 </template>
 <script>
+import Dom from "../../utils/dom";
+
 export default {
   name: "FromBottomDialog",
   props: {
@@ -122,7 +124,7 @@ export default {
         this.$setCss(el, 'transform', `translate3d(0,0,0)`)
       }, 0)
       setTimeout(() => {
-        this.$setCss(el, 'transition-duration', `0ms`)
+        // this.$setCss(el, 'transition-duration', `0ms`)
         this.$setCss(el, 'transform', `none`)
         done()
       }, 200)
@@ -134,7 +136,9 @@ export default {
       this.$setCss(el, 'transform', `translate3d(0,0,0)`)
     },
     leave(el, done) {
-      this.$setCss(el, 'transform', `translate3d(0,${this.height},0)`)
+      //ref获取不到
+      let maxHeight = new Dom('.FromBottomDialog').css('max-height')
+      this.$setCss(el, 'transform', `translate3d(0,${maxHeight},0)`)
       setTimeout(done, 200)
     },
     afterLeave() {
@@ -156,12 +160,14 @@ export default {
       if (this.$refs.dialog.scrollTop !== 0) return
       this.moveYDistance = e.touches[0].pageY - this.startLocationY
       if (this.moveYDistance > 0) {
+        this.$setCss(this.$refs.dialog, 'transition-duration', `0ms`)
         this.$setCss(this.$refs.dialog, 'transform', `translate3d(0,${this.moveYDistance}px,0)`)
       }
     },
     end(e) {
       if (!this.touchMoved) return;
       //点击
+
       if (Date.now() - this.startTime < 150) return
 
       //滑动
@@ -175,7 +181,7 @@ export default {
         this.$setCss(this.$refs.dialog, 'transform', `translate3d(0,0,0)`)
         setTimeout(() => {
           this.$setCss(this.$refs.dialog, 'transform', 'none')
-          this.$setCss(this.$refs.dialog, 'transition-duration', `0ms`)
+          // this.$setCss(this.$refs.dialog, 'transition-duration', `0ms`)
         }, 300)
       }
     }
@@ -196,6 +202,7 @@ export default {
   left: 0;
   box-sizing: border-box;
   border-radius: .5rem .5rem 0 0;
+  transition: all .3s;
 
   &.dark {
     background: @main-bg;

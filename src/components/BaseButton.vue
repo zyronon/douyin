@@ -117,6 +117,7 @@ export default {
 
   &.dark {
     background: @second-btn-color;
+    color: @second-text-color;
   }
 
   &.dark2 {
