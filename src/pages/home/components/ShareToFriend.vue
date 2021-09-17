@@ -4,21 +4,20 @@
       @cancel="cancel"
       :height="height">
     <div class="content" :style="{minHeight:height}">
-      <div class="create-chat-wrapper" v-show="!showJoinedChat">
+      <div class="create-chat" v-show="!showJoinedChat">
         <Search
             :isShowText="isShowText"
             @click="isShowText = true;height = '100vh';"
             @notice="isShowText = false;height = '70vh';"
             showText="取消"
             notice="gray"
-            class="ml2r mr2r"
             placeholder="搜索"
             v-model="searchKey"/>
         <template v-if="searchKey">
           <div class="friend-list" v-if="searchResult.length">
             <div class="friend-item" v-for="item in searchResult"
                  @click="item.select = !item.select;searchKey = ''">
-              <img class="left"  v-lazy="$imgPreview(item.avatar)" alt="">
+              <img class="left" v-lazy="$imgPreview(item.avatar)" alt="">
               <div class="right">
                 <div class="info">
                   <span class="name">
@@ -46,7 +45,7 @@
           </div>
         </template>
         <template v-else>
-          <div class="joined-chat" @click="showJoinedChat = true">
+          <div class="joined-chat-group-nav" @click="showJoinedChat = true">
             <img class="left" src="../../../assets/img/icon/people-gray.png" alt="">
             <div class="right">
               <span>已加入的群聊</span>
@@ -56,7 +55,7 @@
           <div class="friend-list">
             <div class="index">所有朋友</div>
             <div class="friend-item" v-for="item in localFriends">
-              <img class="left"  v-lazy="$imgPreview(item.avatar)" alt="">
+              <img class="left" v-lazy="$imgPreview(item.avatar)" alt="">
               <div class="right">
                 <span>{{ item.name }}</span>
                 <b-button :type="item.shared?'dark':'primary'" @click="item.shared = true">
@@ -67,7 +66,7 @@
           </div>
         </template>
       </div>
-      <div class="joined-chat-wrapper" v-show="showJoinedChat">
+      <div class="joined-chat-group" v-show="showJoinedChat">
         <div class="nav">
           <back @click="showJoinedChat = false" mode="light" scale="1"></back>
           <span>已加入的群聊</span>
@@ -76,7 +75,7 @@
 
         <div class="chat-list">
           <div class="chat-item" v-for="item in localFriends">
-            <img class="left"  v-lazy="$imgPreview(item.avatar)" alt="">
+            <img class="left" v-lazy="$imgPreview(item.avatar)" alt="">
             <div class="right">
               <div class="title">
                 <div class="name">{{ text }}</div>
@@ -115,7 +114,7 @@ export default {
       height: '70vh',
       showJoinedChat: false,
       isShowText: false,
-      text:'AAAAAAA、BBBBBBBB、CCCCCCCCCCCCC',
+      text: 'AAAAAAA、BBBBBBBB、CCCCCCCCCCCCC',
       localFriends: [],
       searchResult: [],
       searchKey: '',
@@ -170,8 +169,10 @@ export default {
   height: 2.6rem;
 }
 
+@avatar-width: 3.8rem;
+
 .friend-list {
-  padding: 0 2rem;
+  padding: 0 1.5rem;
 
   .index {
     color: @second-text-color;
@@ -191,10 +192,10 @@ export default {
     }
 
     .left {
-      width: 3.8rem;
-      height: 3.8rem;
+      width: @avatar-width;
+      height: @avatar-width;
       border-radius: 50%;
-      margin-right: 1rem;
+      margin-right: 1.5rem;
     }
 
     .right {
@@ -213,22 +214,25 @@ export default {
 
 .content {
 
-  .create-chat-wrapper {
+  .create-chat {
     padding-bottom: 4rem;
     background: @main-bg;
 
-    .joined-chat {
+    .search-ctn {
+      padding: 0 1.5rem;
+    }
+
+    .joined-chat-group-nav {
       border-bottom: 1px solid @line-color;
       height: 5rem;
-      padding: 0 2rem;
+      padding: 0 1.5rem;
       display: flex;
       align-items: center;
 
       .left {
         width: 2.2rem;
         height: 2.2rem;
-        margin-left: 1rem;
-        margin-right: 2rem;
+        margin-right: 1rem;
       }
 
       .right {
@@ -239,7 +243,6 @@ export default {
         justify-content: space-between;
       }
     }
-
 
     .btn-wrapper {
       position: fixed;
@@ -289,18 +292,18 @@ export default {
     }
   }
 
-  .joined-chat-wrapper {
+  .joined-chat-group {
     background: @main-bg;
 
     .nav {
       font-size: 1.6rem;
-      padding: 2rem;
+      padding: 1.5rem;
       display: flex;
       justify-content: space-between;
     }
 
     .chat-list {
-      padding: 0 2rem;
+      padding: 0 1.5rem;
 
       .chat-item {
         margin-bottom: 2rem;
@@ -318,10 +321,10 @@ export default {
         }
 
         .left {
-          width: 3.8rem;
-          height: 3.8rem;
+          width: @avatar-width;
+          height: @avatar-width;
           border-radius: 50%;
-          margin-right: 1rem;
+          margin-right: 1.5rem;
         }
 
         .right {
