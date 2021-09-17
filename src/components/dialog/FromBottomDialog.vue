@@ -166,9 +166,11 @@ export default {
     },
     end(e) {
       if (!this.touchMoved) return;
-      //点击
 
-      if (Date.now() - this.startTime < 150) return
+      //点击
+      if (Date.now() - this.startTime < 150 && Math.abs(this.moveYDistance) < 30) {
+        return
+      }
 
       //滑动
       if (this.$refs.dialog.scrollTop !== 0) return
@@ -184,6 +186,7 @@ export default {
           // this.$setCss(this.$refs.dialog, 'transition-duration', `0ms`)
         }, 300)
       }
+      this.moveYDistance = 0
     }
   }
 }

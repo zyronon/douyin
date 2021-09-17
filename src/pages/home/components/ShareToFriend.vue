@@ -18,7 +18,7 @@
           <div class="friend-list" v-if="searchResult.length">
             <div class="friend-item" v-for="item in searchResult"
                  @click="item.select = !item.select;searchKey = ''">
-              <img class="left" :src="$imgPreview(item.avatar)" alt="">
+              <img class="left"  v-lazy="$imgPreview(item.avatar)" alt="">
               <div class="right">
                 <div class="info">
                   <span class="name">
@@ -56,7 +56,7 @@
           <div class="friend-list">
             <div class="index">所有朋友</div>
             <div class="friend-item" v-for="item in localFriends">
-              <img class="left" :src="$imgPreview(item.avatar)" alt="">
+              <img class="left"  v-lazy="$imgPreview(item.avatar)" alt="">
               <div class="right">
                 <span>{{ item.name }}</span>
                 <b-button :type="item.shared?'dark':'primary'" @click="item.shared = true">
@@ -76,7 +76,7 @@
 
         <div class="chat-list">
           <div class="chat-item" v-for="item in localFriends">
-            <img class="left" :src="$imgPreview(item.avatar)" alt="">
+            <img class="left"  v-lazy="$imgPreview(item.avatar)" alt="">
             <div class="right">
               <div class="title">
                 <div class="name">{{ text }}</div>
@@ -126,7 +126,8 @@ export default {
       if (newVal) {
         let temp = this.$clone(this.localFriends)
         this.searchResult = temp.filter(v => {
-          return v.name.includes(newVal) || v.account.includes(newVal);
+          // return v.name.includes(newVal) || v.account.includes(newVal);
+          return v.name.includes(newVal);
         })
       } else {
         this.searchResult = []
