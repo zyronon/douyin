@@ -1,13 +1,7 @@
 <template>
   <div class="Test">
     <base-button type="primary" @click="t = true">test</base-button>
-    <Search
-        class="ml2r mr2r"
-        placeholder="搜索"
-        v-model="createChatSearchKey"/>
     <ShareToFriend v-model="t"/>
-
-    {{createChatSearchKey}}
   </div>
 </template>
 <script>
@@ -31,7 +25,6 @@ export default {
   data() {
     return {
       t: false,
-      createChatSearchKey: ''
     }
   },
   methods: {},

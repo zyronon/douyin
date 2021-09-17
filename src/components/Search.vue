@@ -2,7 +2,7 @@
   <div class="search-ctn" :class="mode">
     <div class="search">
       <img v-if="isShowSearchIcon" class="search-icon" src="../assets/img/icon/search-gray.png" alt="">
-      <input type="text" :placeholder="placeholder" v-model="value">
+      <input type="text" :placeholder="placeholder" v-model="value" >
       <div class="suffix">
         <slot v-if="$slots.default"></slot>
         <img v-if="value.length && (!$slots.default)" src="../assets/img/icon/close.svg" @click.stop="clear">
