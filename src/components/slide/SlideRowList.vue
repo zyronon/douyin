@@ -18,6 +18,7 @@
         </div>
         <img src="../../assets/img/icon/search-gray.png" alt=""
              :style="{opacity:loading ? 0 : 1}"
+             @click="$nav('/home/search')"
              style="margin-top: .5rem;">
       </div>
       <Loading class="loading" style="width: 4rem;" :style="loadingStyle" :is-full-screen="false"/>

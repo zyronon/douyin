@@ -36,7 +36,7 @@
         <div class="detail">
           <div class="detail-wrapper">
             <div class="head">
-              <img :src="localAuthor.avatar" class="head-image"
+              <img v-lazy="$imgPreview(localAuthor.avatar)" class="head-image"
                    @click="previewImg = localAuthor.avatar">
               <div class="heat">
                 <div class="text">
@@ -52,7 +52,6 @@
                   <span class="num">{{ localAuthor.following_count }}</span>
                 </div>
               </div>
-
             </div>
             <div class="description">
               <p class="name f22 mt1r mb1r">{{ localAuthor.nickname }}</p>
@@ -382,7 +381,7 @@ export default {
     bus.on('baseSlide-end', () => this.canScroll = true)
   },
   methods: {
-    cancelFollow(){
+    cancelFollow() {
       this.localAuthor.is_follow = false
     },
     changeIndicatorIndex(index) {

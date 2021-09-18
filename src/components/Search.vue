@@ -92,7 +92,7 @@ export default {
   }
 
   .notice {
-    margin-left: 2rem;
+    margin-left: 1.5rem;
     font-size: 1.6rem;
   }
 
@@ -107,9 +107,9 @@ export default {
     align-items: center;
 
     .search-icon {
-      height: 2rem;
-      width: 2rem;
-      margin-left: 1rem;
+      height: 2.2rem;
+      width: 2.2rem;
+      margin-left: .7rem;
     }
 
     input {
@@ -119,7 +119,7 @@ export default {
       width: 100%;
       outline: none;
       border: none;
-      padding: 0 0 0 1rem;
+      padding: 0 0 0 .7rem;
       background: transparent;
 
       &::-webkit-input-placeholder {

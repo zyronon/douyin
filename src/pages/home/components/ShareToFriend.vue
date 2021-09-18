@@ -1,6 +1,5 @@
 <template>
   <from-bottom-dialog
-      page-id="Music"
       v-model="modelValue"
       @cancel="cancel"
       maskMode="light"
@@ -168,7 +167,7 @@ export default {
 
 .button {
   width: 6.4rem;
-  height: 2.6rem;
+  height: 2.6rem!important;
 }
 
 @avatar-width: 3.8rem;
@@ -215,6 +214,7 @@ export default {
 }
 
 .content {
+  color: white;
 
   .create-chat {
     padding-bottom: 4rem;

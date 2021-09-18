@@ -25,7 +25,6 @@
       <slot></slot>
     </div>
   </transition>
-
 </template>
 <script>
 import Dom from "../../utils/dom";

@@ -45,7 +45,11 @@ export default {
     document.body.append(parent)
     app.mount(parent)
   },
-  $showSimpleConfirmDialog(title, okCb, cancelCb) {
+  $showSimpleConfirmDialog(title, okCb, cancelCb, okText, cancelText,) {
+    if (!cancelCb) {
+      cancelCb = () => {
+      }
+    }
     let remove = () => {
       let parent = document.querySelector('.dialog-ctn')
       parent.classList.replace('fade-in', 'fade-out')
@@ -63,7 +67,13 @@ export default {
     }
     const app = Vue.createApp({
       render() {
-        return <SimpleConfirmDialog onCancel={tempCancelCb} onDismiss={remove} title={title} onOk={tempOkCb}/>
+        return <SimpleConfirmDialog
+          onCancel={tempCancelCb}
+          onDismiss={remove}
+          title={title}
+          okText={okText}
+          cancelText={cancelText}
+          onOk={tempOkCb}/>
       },
     })
     let parent = document.createElement('div')
@@ -254,7 +264,7 @@ export default {
     // console.log(url)
     if (!url) return
     //本地图片
-    if (url.includes('img') ||url.includes('data:image')) {
+    if (url.includes('img') || url.includes('data:image')) {
       return url
     }
     //网络，全路径图片
@@ -303,7 +313,7 @@ export default {
     if (!val) return
     if (typeof val === 'number') {
 
-    }else {
+    } else {
       if (val.length === 10) {
         val += '000'
       }
