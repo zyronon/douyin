@@ -258,6 +258,7 @@ export default {
       if (this.currentTime !== -1) {
         this.$refs.video.currentTime = this.currentTime
       }
+      this.$refs.video.volume = 1
       this.$refs.video.play()
     },
     stop() {
