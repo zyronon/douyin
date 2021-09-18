@@ -50,6 +50,7 @@ import Report from "../pages/home/Report";
 import SubmitReport from "../pages/home/SubmitReport";
 import RequestUpdate from "../pages/me/RequestUpdate";
 import Test4 from "../pages/Test4";
+import Search from "../pages/home/Search";
 
 const routes = [
   // {path: '', component: Music},
@@ -64,6 +65,7 @@ const routes = [
   {path: '/home/music', component: Music},
   {path: '/home/music-rank-list', component: MusicRankList},
   {path: '/home/report', component: Report},
+  {path: '/home/search', component: Search},
 
 
   {path: '/attention', component: Attention},

@@ -1,5 +1,5 @@
 <template>
-  <div  id="Music">
+  <div id="Music">
     <div class="header">
       <back mode="light" @click="$back"/>
       <transition name="fade">
@@ -65,7 +65,7 @@
            @share2QQZone="shareType = 4"
            @share2QQ="shareType = 5"
            @share2Webo="shareType = 8"
-           @ShareToFriend="shareToFriend = true"
+           @ShareToFriend="delayShowDialog( e => this.shareToFriend = true)"
     />
 
     <DouyinCode v-model="showDouyinCode"/>
@@ -120,6 +120,7 @@ export default {
       shareType: -1,
 
       showDouyinCode: false,
+      audio: new Audio(),
 
       videos: [
         {
@@ -2510,10 +2511,34 @@ export default {
       this.loading = false
     },
     togglePlay() {
+      let src = 'https://m3.8js.net:99/2014/211204142150965.mp3'
       this.isPlay = !this.isPlay
+      if (this.isPlay) {
+        this.audio.pause()
+        this.audio.src = src
+        this.audio.currentTime = 0
+        this.audio.play();
+        this.audio.addEventListener('ended', () => this.isPlay = false)
+      } else {
+        this.stopPlay()
+      }
+    },
+    delayShowDialog(cb) {
+      setTimeout(() => {
+        cb()
+      }, 100)
+    },
+    stopPlay() {
+      this.audio.pause()
+      this.audio.currentTime = 0
+      this.audio.removeEventListener('ended', null)
     }
   },
-  mounted() {
+  unmounted() {
+    this.stopPlay()
+  },
+  deactivated() {
+    this.stopPlay()
   }
 }
 </script>

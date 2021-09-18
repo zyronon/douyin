@@ -127,7 +127,8 @@
            :videoId="videos[videoActiveIndex]?.id"
            :canDownload="videos[videoActiveIndex]?.canDownload"
            @play-feedback="showPlayFeedback = true"
-           @showShareDuoshan="showShareDuoshan = true"
+           @showShareDuoshan="delayShowDialog(e => this.showShareDuoshan = true)"
+           @shareToFriend="delayShowDialog(e => this.shareToFriend = true)"
            @showDouyinCode="showDouyinCode = true"
            @showShare2WeChatZone="shareType = 2"
            @share2WeChat="shareType = 3"
@@ -167,6 +168,9 @@
     >
       <Search mode="light" v-model="test" :isShowSearchIcon="false"/>
     </ConfirmDialog>
+
+    <ShareToFriend v-model="shareToFriend"/>
+
   </div>
 </template>
 <script>
@@ -198,6 +202,7 @@ import Search from "../../components/Search";
 import ConfirmDialog from "../../components/dialog/ConfirmDialog";
 import FollowSetting2 from "./components/FollowSetting2";
 import Dom from "../../utils/dom";
+import ShareToFriend from "./components/ShareToFriend";
 
 export default {
   name: "HomeIndex",
@@ -217,7 +222,8 @@ export default {
     FollowSetting2,
     BlockDialog,
     Search,
-    ConfirmDialog
+    ConfirmDialog,
+    ShareToFriend
   },
   data() {
     return {
@@ -1167,6 +1173,7 @@ export default {
       showFollowSetting2: false,
       showBlockDialog: false,
       showChangeNote: false,
+      shareToFriend: false,
 
       test: '',
 
@@ -1220,7 +1227,7 @@ export default {
     delayShowDialog(cb) {
       setTimeout(() => {
         cb()
-      }, 500)
+      }, 400)
     },
     dislike() {
       this.$notice('操作成功，将减少此类视频的推荐')

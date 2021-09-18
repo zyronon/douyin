@@ -3,8 +3,8 @@
     <div class="content" @click.stop="stop">
       <div class="item">{{ title }}</div>
       <div class="footer">
-        <div class="cancel" @click.stop="$emit('cancel')">放弃</div>
-        <div class="ok" @click.stop="$emit('ok')">保存</div>
+        <div class="cancel" @click.stop="$emit('cancel')">{{ cancelText }}</div>
+        <div class="ok" @click.stop="$emit('ok')">{{ okText }}</div>
       </div>
     </div>
   </div>
@@ -22,13 +22,26 @@ export default {
       default() {
         return ''
       }
-    }
+    },
+    okText: {
+      type: String,
+      default() {
+        return '保存'
+      }
+    },
+    cancelText: {
+      type: String,
+      default() {
+        return '放弃'
+      }
+    },
   },
   data() {
     return {}
   },
-  methods:{
-    stop(){}
+  methods: {
+    stop() {
+    }
   }
 }
 </script>

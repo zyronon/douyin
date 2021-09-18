@@ -62,7 +62,7 @@
             <div class="item" v-for="item in left" @click="scrollToTop">
               <template v-if="item.type === 0">
                 <div class="wrapper">
-                  <img class="poster" :src="item.src"/>
+                  <img class="poster" v-lazy="$imgPreview(item.src)"/>
                   <img :src="item.author" alt="" class="author">
                 </div>
                 <div class="location" v-if="item.address">
@@ -120,7 +120,7 @@
             <div class="item" v-for="item in right">
               <template v-if="item.type === 0">
                 <div class="wrapper">
-                  <img class="poster" :src="item.src"/>
+                  <img class="poster" v-lazy="$imgPreview(item.src)"/>
                   <img :src="item.author" alt="" class="author">
                 </div>
                 <div class="location" v-if="item.address">
