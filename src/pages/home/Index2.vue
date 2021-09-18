@@ -175,17 +175,6 @@
 </template>
 <script>
 import Video1 from "../../components/Video.vue";
-import mp40 from "../../assets/video/0.mp4";
-import mp41 from "../../assets/video/1.mp4";
-import mp42 from "../../assets/video/2.mp4";
-import mp43 from "../../assets/video/3.mp4";
-import mp44 from "../../assets/video/4.mp4";
-import mp45 from "../../assets/video/5.mp4";
-import mp46 from "../../assets/video/6.mp4";
-import mp47 from "../../assets/video/7.mp4";
-import mp48 from "../../assets/video/8.mp4";
-import mp49 from "../../assets/video/9.mp4";
-import mp410 from "../../assets/video/10.mp4";
 import Comment from "../../components/Comment";
 import Share from "../../components/Share";
 import SlideColumnList from "../../components/slide/SlideColumnList";
@@ -233,7 +222,7 @@ export default {
           "cover": "https://p11.douyinpic.com/img/tos-cn-p-0015/48e513ae1df94a6cb0e23eabdacfdb64~c5_300x400.webp?from=4257465056_large",
           "dynamic_cover": "https://p3.douyinpic.com/obj/tos-cn-p-0015/80e3288d63094603beaaf2f0e1568e19_1577426215?from=4257465056_large",
           "origin_cover": "https://p3.douyinpic.com/tos-cn-p-0015/be6a2e67b69646778749e932c6d456b6_1577426215~tplv-dy-360p.webp?from=4257465056&s=&se=false&sh=&sc=&l=202108311459040102120742003404DFC4&biz_tag=feed_cover",
-          video: mp40,
+          video: 'http://qy9rc9xff.hn-bkt.clouddn.com/0.mp4',
           "video_data_size": 26829508,
           "duration": 427780,
           "desc": "几人到深山探险，发现里面一只动物昆虫都没有，知道原因后都怕了 #看电影",
@@ -305,7 +294,7 @@ export default {
           "cover": "https://p3.douyinpic.com/img/tos-cn-p-0015/9208072278a34d01b3836cce1e0fca9a~c5_300x400.jpeg?from=4257465056_large",
           "dynamic_cover": "https://p9.douyinpic.com/obj/tos-cn-p-0015/9208072278a34d01b3836cce1e0fca9a?from=4257465056_large",
           "origin_cover": "https://p3.douyinpic.com/tos-cn-p-0015/9ecfae1dda2141d19f3e2396d18c4f52_1610439608~tplv-dy-360p.jpeg?from=4257465056&s=&se=false&sh=&sc=&l=202108311440160102120461454502506A&biz_tag=feed_cover",
-          video: mp41,
+          video: 'http://qy9rc9xff.hn-bkt.clouddn.com/1.mp4',
           "video_data_size": 6038796,
           "duration": 90927,
           "desc": "几分钟看科幻片《寄生异种》 #我的观影报告  #抖音电影",
@@ -384,7 +373,7 @@ export default {
           "cover": "https://p11.douyinpic.com/img/tos-cn-p-0015/3d6a0342b7f247ed999a13bd566b360e~c5_300x400.jpeg?from=4257465056_large",
           "dynamic_cover": "https://p26.douyinpic.com/obj/tos-cn-p-0015/3d6a0342b7f247ed999a13bd566b360e?from=4257465056_large",
           "origin_cover": "https://p5-ipv6.douyinpic.com/tos-cn-p-0015/48891e08b43e47e2a3af9f3945cf941f_1607739586~tplv-dy-360p.jpeg?from=4257465056&s=&se=false&sh=&sc=&l=202108311440220102120691615D029CD1&biz_tag=feed_cover",
-          video: mp42,
+          video: 'http://qy9rc9xff.hn-bkt.clouddn.com/2.mp4',
           "video_data_size": 8996120,
           "duration": 118703,
           "desc": "美女失去记忆，被囚禁在密室内，没想到逃出去后才是她噩梦的开始 #我的观影报告",
@@ -456,7 +445,7 @@ export default {
           "cover": "https://p11.douyinpic.com/img/tos-cn-p-0015/c3bbe172b24844eb8e576a1897e04435~c5_300x400.webp?from=4257465056_large",
           "dynamic_cover": "https://p11.douyinpic.com/obj/tos-cn-p-0015/12fc583b6eaa49b4a0086664c8f54a5d?from=4257465056_large",
           "origin_cover": "https://p26.douyinpic.com/tos-cn-p-0015/e7db9fba822c4d81b4ec4614f5c60cae~tplv-dy-360p.webp?from=4257465056&s=&se=false&sh=&sc=&l=202108311459170102040221632C04B06F&biz_tag=feed_cover",
-          video: mp43,
+          video: 'http://qy9rc9xff.hn-bkt.clouddn.com/3.mp4',
           "video_data_size": 37824020,
           "duration": 312474,
           "desc": "夫妇二人来到一个诡异小镇，看到一个孩子的手，被吓到了 #看电影 ",
@@ -528,7 +517,7 @@ export default {
           "cover": "https://p29.douyinpic.com/img/tos-cn-p-0015/1ce2018b919d49cfbdc380e9b7bc17ce~c5_300x400.jpeg?from=4257465056_large",
           "dynamic_cover": "https://p11.douyinpic.com/obj/tos-cn-p-0015/1ce2018b919d49cfbdc380e9b7bc17ce?from=4257465056_large",
           "origin_cover": "https://p5-ipv6.douyinpic.com/tos-cn-p-0015/697621dc8ff247aba499fdaedcf172fb_1606272887~tplv-dy-360p.jpeg?from=4257465056&s=&se=false&sh=&sc=&l=2021083114402801021219919632028316&biz_tag=feed_cover",
-          video: mp44,
+          video: 'http://qy9rc9xff.hn-bkt.clouddn.com/4.mp4',
           "video_data_size": 12371092,
           "duration": 139652,
           "desc": "茂密森林中却没有一个动物或昆虫，专家进去研究，被吓得转身就跑 #我的观影报告",
@@ -600,7 +589,7 @@ export default {
           "cover": "https://p3.douyinpic.com/img/tos-cn-p-0015/3099e1f9facb4f11a8d07221b39b9ffb_1575186937~c5_300x400.webp?from=4257465056_large",
           "dynamic_cover": "https://p11.douyinpic.com/obj/tos-cn-p-0015/f80ce3457bf34f66be9254df9544f9d8_1575186867?from=4257465056_large",
           "origin_cover": "https://p11.douyinpic.com/tos-cn-p-0015/af2ef1dd2e864379a7a475b1db005b62_1575186867~tplv-dy-360p.webp?from=4257465056&s=&se=false&sh=&sc=&l=202108311459070102112011425F04ED8F&biz_tag=feed_cover",
-          video: mp45,
+          video: 'http://qy9rc9xff.hn-bkt.clouddn.com/5.mp4',
           "video_data_size": 16916839,
           "duration": 384068,
           "desc": "男子在沙漠无意中召唤出可怕怪物，怪物的能力让他很绝望 #看电影",
@@ -672,7 +661,7 @@ export default {
           "cover": "https://p11.douyinpic.com/img/tos-cn-i-0004/b8d9811844d14f28a5d71b13ea30d89a~c5_300x400.jpeg?from=4257465056_large",
           "dynamic_cover": "https://p29.douyinpic.com/obj/tos-cn-i-0004/b8d9811844d14f28a5d71b13ea30d89a?from=4257465056_large",
           "origin_cover": "https://p11.douyinpic.com/tos-cn-p-0015/ac6b1eb1b6994ee1a284401f422f4d93_1627866958~tplv-dy-360p.jpeg?from=4257465056&s=&se=false&sh=&sc=&l=202108301444360102111780824E10113C&biz_tag=feed_cover",
-          video: mp46,
+          video: 'http://qy9rc9xff.hn-bkt.clouddn.com/6.mp4',
           "video_data_size": 26944285,
           "duration": 276000,
           "desc": "2100年人口锐减，文明疯狂倒退，现今科技成了神话般的存在  #抖音电影#我的观影报告 ",
@@ -744,7 +733,7 @@ export default {
           "cover": "https://p3.douyinpic.com/img/tos-cn-p-0015/bffc96dac41548d99a23e555d2bd3d62~c5_300x400.jpeg?from=4257465056_large",
           "dynamic_cover": "https://p11.douyinpic.com/obj/tos-cn-p-0015/bffc96dac41548d99a23e555d2bd3d62?from=4257465056_large",
           "origin_cover": "https://p1.douyinpic.com/tos-cn-p-0015/813c7bded67f4e3da0972f85be32eb3f_1608893061~tplv-dy-360p.jpeg?from=4257465056&s=&se=false&sh=&sc=&l=202108311440220102120691615D029CD1&biz_tag=feed_cover",
-          video: mp47,
+          video: 'http://qy9rc9xff.hn-bkt.clouddn.com/7.mp4',
           "video_data_size": 9321536,
           "duration": 129583,
           "desc": "几分钟看科幻片《登月先锋》 #我的观影报告  #抖音电影",
@@ -823,7 +812,7 @@ export default {
           "cover": "https://p9.douyinpic.com/img/tos-cn-p-0015/9f47c686c9224036b82f5c7b147e6119~c5_300x400.webp?from=4257465056_large",
           "dynamic_cover": "https://p26.douyinpic.com/obj/tos-cn-p-0015/fde5131f00e54106877d06f775cd21ca_1572239688?from=4257465056_large",
           "origin_cover": "https://p11.douyinpic.com/tos-cn-p-0015/8a757ad4df69407f8d0d443eaa0b60a2_1572239690~tplv-dy-360p.webp?from=4257465056&s=&se=false&sh=&sc=&l=202108311459110102112011425F04EF3F&biz_tag=feed_cover",
-          video: mp48,
+          video: 'http://qy9rc9xff.hn-bkt.clouddn.com/8.mp4',
           "video_data_size": 25251313,
           "duration": 449263,
           "desc": "",
@@ -895,7 +884,7 @@ export default {
           "cover": "https://p5-ipv6.douyinpic.com/img/tos-cn-p-0015/1941731e18714268a52855ce869e3092_1572771120~c5_300x400.webp?from=4257465056_large",
           "dynamic_cover": "https://p11.douyinpic.com/obj/tos-cn-p-0015/55b40ca5368a49eca282fb868c8fb98b_1572771083?from=4257465056_large",
           "origin_cover": "https://p5-ipv6.douyinpic.com/tos-cn-p-0015/cd59468a8d0149aeb5291966004ae4e0_1572771088~tplv-dy-360p.webp?from=4257465056&s=&se=false&sh=&sc=&l=202108311459110102112011425F04EF3F&biz_tag=feed_cover",
-          video: mp49,
+          video: 'http://qy9rc9xff.hn-bkt.clouddn.com/9.mp4',
           "video_data_size": 17839401,
           "duration": 262127,
           "desc": "灰姑娘被前男友羞辱，霸道总裁看不下去充当男友，瞬间让渣男无地自容#西瓜放映厅",

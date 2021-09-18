@@ -2,7 +2,7 @@
   <div class="Scan">
     <img src="../../assets/img/icon/components/gray-back.png" @click="$back" class="back">
     <div class="video-ctn">
-      <video src="../../assets/video/3.mp4"></video>
+      <video src="http://qy9rc9xff.hn-bkt.clouddn.com/0.mp4"></video>
     </div>
     <div class="float">
       <div class="open-light">
