@@ -36,15 +36,15 @@
       </div>
       <div class="rank-list">
         <div class="indicator">
-          <div class="tab" :class="{active:slideIndex === 0}">抖音热榜</div>
-          <div class="tab" :class="{active:slideIndex === 1}">直播榜</div>
-          <div class="tab" :class="{active:slideIndex === 2}">音乐榜</div>
-          <div class="tab" :class="{active:slideIndex === 3}">品牌榜</div>
+          <div class="tab" :class="{active:slideIndex === 0}" @click="slideIndex = 0">抖音热榜</div>
+          <div class="tab" :class="{active:slideIndex === 1}" @click="slideIndex = 1">直播榜</div>
+          <div class="tab" :class="{active:slideIndex === 2}" @click="slideIndex = 2">音乐榜</div>
+          <div class="tab" :class="{active:slideIndex === 3}" @click="slideIndex = 3">品牌榜</div>
         </div>
         <SlideRowList v-model:active-index="slideIndex">
           <SlideItem>
             <div class="slide1">
-              <div class="l-row" v-for="(item,index) in 50">
+              <div class="l-row" v-for="(item,index) in hotRankList">
                 <div class="rank-wrapper">
                   <img v-if="index === 0" src="../../assets/img/icon/rank1.webp" alt="" class="rank">
                   <img v-else-if="index === 1" src="../../assets/img/icon/rank2.webp" alt="" class="rank">
@@ -53,8 +53,10 @@
                 </div>
                 <div class="right">
                   <div class="center">
-                    <div class="desc">下撒打发手动阀手动阀压下撒打发手动阀手动阀压顶发撒打发打法顶发撒打发打法</div>
-                    <div class="type">热</div>
+                    <div class="desc">{{ item.name }}</div>
+                    <div v-if="item.type !== -1" class="type" :class="item.type === 0 ?'hot':'new'">
+                      {{ item.type === 0 ? '热' : '新' }}
+                    </div>
                   </div>
                   <div class="hot-count">999w</div>
                 </div>
@@ -124,6 +126,41 @@ export default {
         '成都新全优教育倒闭',
         '当代女生社交现状',
         '恒大集团凌晨发公告',
+      ],
+      hotRankList: [
+        {name: '国内手机厂商最大的软肋就是 android 系统！', type: 0},
+        {name: '大家的官网订单现在什么状态', type: -1},
+        {name: '库克不愧是供应链管理大师， A15 一鱼三吃', type: -1},
+        {name: '找到了 iOS 被怀疑淘宝窃听的可能原因', type: 1},
+        {name: 'rebase 还是 merge？', type: -1},
+        {name: '十一出游西安，西安的大佬们能给些建议吗？', type: 0},
+        {name: '领克 01，燃油还是 phev？', type: 1},
+        {name: '为什么要抢购新手机呢？', type: -1},
+        {name: '拼多多官方处理问题跟京东真的没法比', type: -1},
+        {name: '百度输入法 VS 搜狗输入法', type: -1},
+        {name: '关于 ios 上 app 检测代理', type: 0},
+        {name: 'iPadmini6 到货以后，要不要换路由器', type: 1},
+        {name: '现在有推荐的同步盘么？', type: -1},
+        {name: '大哥们， mac 电池鼓包你们都咋修的。。', type: -1},
+        {name: '发现一个特别赞的同步盘方案 Resilio Sync', type:-1},
+        {name: '得鼻炎了, 说下症状和应对吧', type: 1},
+        {name: '打翻了一瓶矿泉水在 MacBook Pro 上，赶紧用鼠标关机了，等多久可以尝试开机？', type: 0},
+        {name: '筋膜枪哪个牌子好啊？', type: -1},
+        {name: '最近在学理财小白基础知识，然后请教大家办哪个证券账户比较好呀', type: -1},
+        {name: '有没有长期使用 sidecar 功能的 V 友，这个东西长期的稳定性如何？', type: 0},
+        {name: '犹豫是否要年年焕新', type: -1},
+        {name: '请问如何在国内给 AppStore HK/TW 区充值.', type: 0},
+        {name: '最近感觉一个妹子不错，不过我比她大 5 岁', type: 1},
+        {name: '12mini 1 月 20 号购入，现在电池健康 92%，正常现象？', type:-1},
+        {name: '现在新 iphone12/128 啥价格比较合适啊？', type: -1},
+        {name: 'iOS 15 不改地区就能看到全球所有交通卡', type: -1},
+        {name: '求推荐拼车/打车软件', type: 1},
+        {name: '如何比较方便的杀死 nohup 起的进程及其所有子进程?', type: 0},
+        {name: '换了新工作，好像又掉坑里了。', type: 0},
+        {name: '有没有这样一款记账软件？', type: 1},
+        {name: '个人第二款 Flutter 应用今天终于上架了： 小声音', type: -1},
+        {name: 'apple store 明天早上还会放货吗？', type: 0},
+        {name: '有办法在 root 后的安卓设备上面运行 OpenWRT 吗？', type: 1},
       ],
       randomGuess: [],
       slideIndex: 0,
@@ -303,25 +340,33 @@ export default {
             justify-content: space-between;
 
             .center {
-              width: calc(100vw - 13rem);
+              width: calc(100vw - 14rem);
               box-sizing: border-box;
               //padding: 0 1rem;
               //flex: 1;
               display: flex;
               font-size: 1.2rem;
+              color: white;
 
 
               .desc {
-                color: white;
+                max-width: 85%;
                 font-size: 1.4rem;
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
               }
-              .type{
+
+              .type {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 1.8rem;
+                width: 1.8rem;
+                line-height: 1.8rem;
+                margin-left: 1rem;
                 border-radius: .2rem;
-                padding: .2rem;
-                background: red;
+                background: @primary-btn-color;
               }
             }
 
