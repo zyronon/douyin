@@ -156,11 +156,6 @@ import Other from '../../components/Other.vue'
 import Share from '../../components/Share.vue'
 import Footer from "../../components/Footer.vue"
 import src1Bg from '../../assets/img/poster/src1-bg.png'
-import mp41 from "../../assets/video/1.mp4";
-import mp42 from "../../assets/video/2.mp4";
-import mp43 from "../../assets/video/3.mp4";
-import mp44 from "../../assets/video/4.mp4";
-import mp45 from "../../assets/video/5.mp4";
 import Search from "../../components/Search";
 import FromBottomDialog from "../../components/dialog/FromBottomDialog";
 
@@ -175,7 +170,7 @@ export default {
       list: [1, 2, 3, 4, 5],
       videos: [
         {
-          videoUrl: mp41,
+          videoUrl: 'http://qy9rc9xff.hn-bkt.clouddn.com/0.mp4',
           // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
           videoPoster: src1Bg,
           isLoved: true,
@@ -185,7 +180,7 @@ export default {
           duration: 99
         },
         {
-          videoUrl: mp42,
+          videoUrl: 'http://qy9rc9xff.hn-bkt.clouddn.com/1.mp4',
           // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
           videoPoster: src1Bg,
           isLoved: false,
@@ -195,7 +190,7 @@ export default {
           duration: 99
         },
         {
-          videoUrl: mp43,
+          videoUrl: 'http://qy9rc9xff.hn-bkt.clouddn.com/2.mp4',
           // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
           videoPoster: src1Bg,
           isLoved: false,
@@ -205,7 +200,7 @@ export default {
           duration: 99
         },
         {
-          videoUrl: mp44,
+          videoUrl: 'http://qy9rc9xff.hn-bkt.clouddn.com/3.mp4',
           // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
           videoPoster: src1Bg,
           isLoved: false,
@@ -215,7 +210,7 @@ export default {
           duration: 99
         },
         {
-          videoUrl: mp45,
+          videoUrl: 'http://qy9rc9xff.hn-bkt.clouddn.com/4.mp4',
           // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
           videoPoster: src1Bg,
           isLoved: false,

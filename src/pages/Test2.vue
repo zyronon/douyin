@@ -9,8 +9,6 @@
 </template>
 <script>
 
-import mp40 from "../assets/video/1.mp4";
-
 export default {
   name: "Test",
   props: {},
@@ -22,7 +20,7 @@ export default {
         "cover": "https://p11.douyinpic.com/img/tos-cn-p-0015/48e513ae1df94a6cb0e23eabdacfdb64~c5_300x400.webp?from=4257465056_large",
         "dynamic_cover": "https://p3.douyinpic.com/obj/tos-cn-p-0015/80e3288d63094603beaaf2f0e1568e19_1577426215?from=4257465056_large",
         "origin_cover": "https://p3.douyinpic.com/tos-cn-p-0015/be6a2e67b69646778749e932c6d456b6_1577426215~tplv-dy-360p.webp?from=4257465056&s=&se=false&sh=&sc=&l=202108311459040102120742003404DFC4&biz_tag=feed_cover",
-        video: mp40,
+        video:  'http://qy9rc9xff.hn-bkt.clouddn.com/0.mp4',
         "video_data_size": 26829508,
         "duration": 427780,
         "desc": "几人到深山探险，发现里面一只动物昆虫都没有，知道原因后都怕了 #看电影",
