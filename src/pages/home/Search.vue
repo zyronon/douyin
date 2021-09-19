@@ -31,7 +31,10 @@
           </div>
         </div>
         <div class="keys">
-          <div class="key" v-for="(item,index ) in randomGuess">{{ item }}</div>
+          <div class="key" v-for="(item,index ) in randomGuess">
+            <span class="desc">{{ item.name }}</span>
+            <img v-if="item.type === 1" src="../../assets/img/icon/home/new.webp" alt="" class="type">
+          </div>
         </div>
       </div>
       <div class="rank-list">
@@ -44,41 +47,114 @@
         <SlideRowList v-model:active-index="slideIndex">
           <SlideItem>
             <div class="slide1">
+              <div class="l-row">
+                <div class="rank-wrapper">
+                  <img src="../../assets/img/icon/home/to-top-yellow.png" class="rank">
+                </div>
+                <div class="right">
+                  <div class="center">
+                    <div class="desc">专题：嘻嘻嘻哈哈瞄瞄嘻嘻嘻</div>
+                  </div>
+                </div>
+              </div>
               <div class="l-row" v-for="(item,index) in hotRankList">
                 <div class="rank-wrapper">
-                  <img v-if="index === 0" src="../../assets/img/icon/rank1.webp" alt="" class="rank">
-                  <img v-else-if="index === 1" src="../../assets/img/icon/rank2.webp" alt="" class="rank">
-                  <img v-else-if="index === 2" src="../../assets/img/icon/rank3.webp" alt="" class="rank">
+                  <img v-if="index === 0" src="../../assets/img/icon/home/hot1.webp" alt="" class="rank">
+                  <img v-else-if="index === 1" src="../../assets/img/icon/home/hot2.webp" alt="" class="rank">
+                  <img v-else-if="index === 2" src="../../assets/img/icon/home/hot3.webp" alt="" class="rank">
                   <div v-else class="rank">{{ index + 1 }}</div>
                 </div>
                 <div class="right">
                   <div class="center">
                     <div class="desc">{{ item.name }}</div>
-                    <div v-if="item.type !== -1" class="type" :class="item.type === 0 ?'hot':'new'">
-                      {{ item.type === 0 ? '热' : '新' }}
-                    </div>
+                    <img v-if="item.type === 1" src="../../assets/img/icon/home/new.webp" alt="" class="type">
+                    <img v-if="item.type === 0" src="../../assets/img/icon/home/hot.webp" alt="" class="type">
                   </div>
-                  <div class="hot-count">999w</div>
+                  <div class="count">999w</div>
                 </div>
               </div>
-              <div class="more">查看完整热点榜 ></div>
+              <div class="more" @click="$no">查看完整热点榜 ></div>
             </div>
           </SlideItem>
           <SlideItem>
-            <div class="slide1">
-              <div class="l-row" v-for="(item,index) in 15">
+            <div class="slide2">
+              <div class="l-row" v-for="(item,index) in liveRankList">
                 <div class="rank-wrapper">
-                  <img v-if="index === 0" src="../../assets/img/icon/rank1.webp" alt="" class="rank">
-                  <img v-else-if="index === 1" src="../../assets/img/icon/rank2.webp" alt="" class="rank">
-                  <img v-else-if="index === 2" src="../../assets/img/icon/rank3.webp" alt="" class="rank">
-                  <div v-else class="rank">{{ index + 1 }}</div>
+                  <div class="rank" :class="{top:index<3}">{{ index + 1 }}</div>
                 </div>
-                <div class="center">
-                  <span>下撒打发手动阀手动阀压顶发撒打发打法</span>
-                  <div class="type">热</div>
+                <div class="right">
+                  <div class="center">
+                    <div class="avatar-wrapper">
+                      <img src="../../assets/img/icon/avatar/1.png" alt="" class="avatar">
+                    </div>
+                    <div class="desc">{{ item.name }}</div>
+                    <div v-if="item.type === 0" class="live-type">
+                      <img class="type1" src="../../assets/img/icon/home/pk.webp">
+                      <span>PK</span>
+                    </div>
+                    <div v-if="item.type === 1" class="live-type">
+                      <img class="type2" src="../../assets/img/icon/home/redpack.png">
+                      <span>红包</span>
+                    </div>
+                  </div>
+                  <div class="count">999w人气</div>
                 </div>
-                <div class="hot-count">999w</div>
               </div>
+              <div class="more" @click="$no">查看完整直播榜 ></div>
+            </div>
+          </SlideItem>
+          <SlideItem>
+            <div class="slide3">
+              <div class="l-row" v-for="(item,index) in musicRankList">
+                <div class="rank-wrapper">
+                  <div class="rank" :class="{top:index < 3}">{{ index + 1 }}</div>
+                </div>
+                <div class="right">
+                  <div class="center">
+                    <div class="avatar-wrapper">
+                      <img v-lazy="$imgPreview(item.cover)" alt="" class="avatar">
+                    </div>
+                    <div class="desc">{{ item.name }}</div>
+                  </div>
+                  <div class="count">
+                    <img src="../../assets/img/icon/home/hot-gray.png" alt="">
+                    <span>{{ $likeNum(item.use_count) }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="more" @click="$nav('/home/music-rank-list')">查看完整音乐榜 ></div>
+            </div>
+          </SlideItem>
+          <SlideItem>
+            <div class="slide4">
+              <div class="brands">
+                <div class="brand"
+                     @click="toggleKey(key)"
+                     :class="{active:key === selectBrandKey}"
+                     v-for="key in Object.keys(brandRankList)">
+                  {{ key }}
+                </div>
+              </div>
+              <div class="l-row" v-for="(item,index) in selectBrandList">
+                <div class="rank-wrapper">
+                  <div class="rank" :class="{top:index < 3}">{{ index + 1 }}</div>
+                </div>
+                <div class="right">
+                  <div class="center">
+                    <div class="avatar-wrapper" :class="item.living ? 'living':''">
+                      <div class="avatar-out-line"></div>
+                      <img v-lazy="$imgPreview(item.logo)" alt="" class="avatar">
+                      <!--                      <img :src="item.logo" class="avatar">-->
+                    </div>
+                    <div class="desc">{{ item.name }}</div>
+                  </div>
+                  <div class="count">
+                    <img src="../../assets/img/icon/home/hot-gray.png" alt="">
+                    <span>{{ $likeNum(item.hot_count) }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="more" @click="$no">查看完整品牌榜 ></div>
             </div>
           </SlideItem>
         </SlideRowList>
@@ -112,20 +188,20 @@ export default {
         '历史记录10',
       ],
       guess: [
-        '少年透明人',
-        '花呗分批次接入征信',
-        '新娘婚礼上跪求悔婚',
-        '当你想换iPhone13时',
-        'Ling OS灵犀系统',
-        '桑塔纳2022款',
-        '透明人',
-        '恒大集团凌晨发公告',
-        '2022款日产GT-R',
-        '四川双一流大学名单',
-        '一公司放假通知走红',
-        '成都新全优教育倒闭',
-        '当代女生社交现状',
-        '恒大集团凌晨发公告',
+        {name: '少年透明人', type: -1},
+        {name: '花呗分批次接入征信', type: -1},
+        {name: '新娘婚礼上跪求悔婚', type: -1},
+        {name: '当你想换iPhone13时', type: -1},
+        {name: 'Ling OS灵犀系统', type: -1},
+        {name: '桑塔纳2022款', type: -1},
+        {name: '透明人', type: -1},
+        {name: '恒大集团凌晨发公告', type: 0},
+        {name: '2022款日产GT-R', type: 1},
+        {name: '四川双一流大学名单', type: -1},
+        {name: '一公司放假通知走红', type: -1},
+        {name: '成都新全优教育倒闭', type: -1},
+        {name: '当代女生社交现状', type: -1},
+        {name: '恒大集团凌晨发公告', type: -1},
       ],
       hotRankList: [
         {name: '国内手机厂商最大的软肋就是 android 系统！', type: 0},
@@ -142,7 +218,7 @@ export default {
         {name: 'iPadmini6 到货以后，要不要换路由器', type: 1},
         {name: '现在有推荐的同步盘么？', type: -1},
         {name: '大哥们， mac 电池鼓包你们都咋修的。。', type: -1},
-        {name: '发现一个特别赞的同步盘方案 Resilio Sync', type:-1},
+        {name: '发现一个特别赞的同步盘方案 Resilio Sync', type: -1},
         {name: '得鼻炎了, 说下症状和应对吧', type: 1},
         {name: '打翻了一瓶矿泉水在 MacBook Pro 上，赶紧用鼠标关机了，等多久可以尝试开机？', type: 0},
         {name: '筋膜枪哪个牌子好啊？', type: -1},
@@ -151,21 +227,333 @@ export default {
         {name: '犹豫是否要年年焕新', type: -1},
         {name: '请问如何在国内给 AppStore HK/TW 区充值.', type: 0},
         {name: '最近感觉一个妹子不错，不过我比她大 5 岁', type: 1},
-        {name: '12mini 1 月 20 号购入，现在电池健康 92%，正常现象？', type:-1},
+        {name: '12mini 1 月 20 号购入，现在电池健康 92%，正常现象？', type: -1},
         {name: '现在新 iphone12/128 啥价格比较合适啊？', type: -1},
         {name: 'iOS 15 不改地区就能看到全球所有交通卡', type: -1},
         {name: '求推荐拼车/打车软件', type: 1},
         {name: '如何比较方便的杀死 nohup 起的进程及其所有子进程?', type: 0},
         {name: '换了新工作，好像又掉坑里了。', type: 0},
         {name: '有没有这样一款记账软件？', type: 1},
-        {name: '个人第二款 Flutter 应用今天终于上架了： 小声音', type: -1},
-        {name: 'apple store 明天早上还会放货吗？', type: 0},
-        {name: '有办法在 root 后的安卓设备上面运行 OpenWRT 吗？', type: 1},
       ],
+      liveRankList: [
+        {name: '毛三岁（收女徒弟）', type: 0},
+        {name: '广州表哥', type: -1},
+        {name: '一只扬儿', type: -1},
+        {name: '沈酒', type: -1},
+        {name: '客家婷子', type: 1},
+        {name: '三斤.（9237）', type: -1},
+        {name: '虎哥说车', type: -1},
+        {name: '爆笑三江锅（永不言败）', type: -1},
+        {name: '子豪(尊师胜仔）5点扛把子', type: 1},
+        {name: '琪琪', type: -1},
+        {name: '战神土牛（征战全网）', type: 0},
+        {name: '小鲁班下午5点直播', type: -1},
+        {name: '惠子ssica', type: -1},
+        {name: '大狼狗郑建鹏&言真夫妇', type: -1},
+        {name: '一条小团团', type: -1},
+        {name: '高火火', type: -1},
+        {name: '郭聪明', type: -1},
+        {name: '罗永浩', type: 1},
+        {name: '陈赫', type: 0},
+        {name: '摩登兄弟', type: -1},
+        {name: '浪老师', type: -1},
+        {name: '陈死狗cnh', type: -1},
+        {name: '杨驴驴y', type: -1},
+        {name: 'imxiaoxin', type: 0},
+        {name: '丶才子欧巴', type: -1},
+        {name: '旭旭宝宝', type: -1},
+        {name: 'pigff', type: -1},
+        {name: '正经人令北', type: -1},
+        {name: '雨神丶', type: -1},
+        {name: '智勋勋勋勋', type: 0},
+      ],
+      musicRankList: [
+        {
+          name: '龙卷风',
+          "mp3": "http://im5.tongbu.com/rings/singerring/zt_uunGo_1/5605.mp3",
+          cover: require('../../assets/img/music-cover/1.png'),
+          author: '周杰伦',
+          duration: 99,
+          use_count: 37441000,
+          is_collect: false,
+          is_play: false,
+        },
+        {
+          name: '爱在西元前',
+          mp3: 'https://m3.8js.net:99/1916/501204165042405.mp3',
+          cover: require('../../assets/img/music-cover/2.png'),
+          author: '周杰伦',
+          duration: 60,
+          use_count: 37441000,
+          is_collect: false,
+          is_play: false,
+        },
+        {
+          name: '蜗牛',
+          mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/3684.mp3',
+          cover: require('../../assets/img/music-cover/3.png'),
+          author: '周杰伦',
+          duration: 60,
+          use_count: 37441000,
+          is_collect: false,
+          is_play: false,
+        },
+        {
+          name: '半岛铁盒',
+          mp3: 'https://m3.8js.net:99/2016n/46/94745.mp3',
+          cover: require('../../assets/img/music-cover/4.png'),
+          author: '周杰伦',
+          duration: 60,
+          use_count: 37441000,
+          is_collect: false,
+          is_play: false,
+        },
+        {
+          name: '轨迹',
+          mp3: 'https://m3.8js.net:99/1832/411204324135934.mp3',
+          cover: require('../../assets/img/music-cover/5.png'),
+          author: '周杰伦',
+          duration: 60,
+          use_count: 37441000,
+          is_collect: false,
+          is_play: false,
+        },
+        {
+          name: '七里香',
+          mp3: 'https://m3.8js.net:99/2016n/14/53717.mp3',
+          cover: require('../../assets/img/music-cover/6.png'),
+          author: '周杰伦',
+          duration: 60,
+          use_count: 37441000,
+          is_collect: false,
+          is_play: false,
+        },
+        {
+          name: '发如雪',
+          mp3: 'https://m3.8js.net:99/2014/211204142150965.mp3',
+          cover: require('../../assets/img/music-cover/7.png'),
+          author: '周杰伦',
+          duration: 60,
+          use_count: 37441000,
+          is_collect: false,
+          is_play: false,
+        },
+        {
+          name: '霍元甲',
+          mp3: 'https://m3.8js.net:99/1921/261204212643140.mp3',
+          cover: require('../../assets/img/music-cover/8.png'),
+          author: '周杰伦',
+          duration: 60,
+          use_count: 37441000,
+          is_collect: false,
+          is_play: false,
+        },
+        {
+          name: '千里之外(周杰伦/费玉清)',
+          mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/121.mp3',
+          cover: require('../../assets/img/music-cover/9.png'),
+          author: '周杰伦',
+          duration: 60,
+          use_count: 37441000,
+          is_collect: false,
+          is_play: false,
+        },
+        {
+          name: '菊花台',
+          mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/2022.mp3',
+          cover: require('../../assets/img/music-cover/10.png'),
+          author: '周杰伦',
+          duration: 60,
+          use_count: 37441000,
+          is_collect: false,
+          is_play: false,
+        },
+        {
+          name: '不能说的秘密',
+          mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/165.mp3',
+          cover: require('../../assets/img/music-cover/11.png'),
+          author: '周杰伦',
+          duration: 60,
+          use_count: 37441000,
+          is_collect: false,
+          is_play: false,
+        },
+        {
+          name: '牛仔很忙',
+          mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/219.mp3',
+          cover: require('../../assets/img/music-cover/12.png'),
+          author: '周杰伦',
+          duration: 60,
+          use_count: 37441000,
+          is_collect: false,
+          is_play: false,
+        },
+        {
+          name: '给我一首歌的时间',
+          mp3: 'https://m3.8js.net:99/1938/041204380445445.mp3',
+          cover: require('../../assets/img/music-cover/13.jpg'),
+          author: '周杰伦',
+          duration: 60,
+          use_count: 37441000,
+          is_collect: false,
+          is_play: false,
+        },
+        {
+          name: '烟花易冷',
+          mp3: 'https://m3.8js.net:99/1828/051204280535192.mp3',
+          cover: require('../../assets/img/music-cover/14.jpg'),
+          author: '周杰伦',
+          duration: 60,
+          use_count: 37441000,
+          is_collect: false,
+          is_play: false,
+        },
+        {
+          name: '惊叹号',
+          mp3: 'https://m3.8js.net:99/20111103/150.mp3',
+          cover: require('../../assets/img/music-cover/15.jpg'),
+          author: '周杰伦',
+          duration: 60,
+          use_count: 37441000,
+          is_collect: false,
+          is_play: false,
+        },
+        {
+          name: '明明就',
+          mp3: 'https://m3.8js.net:99/2016n/27/96537.mp3',
+          cover: require('../../assets/img/music-cover/16.jpg'),
+          author: '周杰伦',
+          duration: 60,
+          use_count: 37441000,
+          is_collect: false,
+          is_play: false,
+        },
+        {
+          name: '算什么男人',
+          mp3: 'https://m3.8js.net:99/20150107/429.mp3',
+          cover: require('../../assets/img/music-cover/17.jpg'),
+          author: '周杰伦',
+          duration: 60,
+          use_count: 37441000,
+          is_collect: false,
+          is_play: false,
+        },
+        {
+          name: '告白气球',
+          mp3: 'https://m3.8js.net:99/20161016/481.mp3',
+          cover: require('../../assets/img/music-cover/18.jpg'),
+          author: '周杰伦',
+          duration: 60,
+          use_count: 37441000,
+          is_collect: false,
+          is_play: false,
+        },
+      ],
+      brandRankList: {
+        '汽车': [
+          {
+            name: '五菱汽车',
+            logo: 'https://www.wuling.com/favicon.ico',
+            hot_count: 1395,
+            living: false
+          },
+          {
+            name: '宝马',
+            logo: 'https://www.bmw.com.cn/etc/clientlibs/digitals2/clientlib/media/img/BMW_Grey_Logo.svg',
+            hot_count: 1395,
+            living: true
+          },
+          {
+            name: '吉利汽车',
+            logo: 'http://www.cargc.com/uploads/allimg/200828/1401364511-2.jpg',
+            hot_count: 1395,
+            living: false
+          },
+          {
+            name: '一汽大众-奥迪',
+            logo: 'https://www.audi.cn/bin/nemo.static.20210916063431/cms4i-nemo/assets/icons/favicon/favicon-v4.ico',
+            hot_count: 1395,
+            living: false
+          },
+          {
+            name: '一汽-大众',
+            logo: 'https://www.vw.com.cn/favicon.ico',
+            hot_count: 1395,
+            living: false
+          },
+        ],
+        '手机': [
+          {
+            name: '华为',
+            logo: 'https://isesglobal.com/wp-content/uploads/2021/01/Huawei.jpg',
+            hot_count: 1395,
+            living: false
+          },
+          {
+            name: '小米',
+            logo: 'https://s01.mifile.cn/favicon.ico',
+            hot_count: 1395,
+            living: true
+          },
+          {
+            name: 'vivo',
+            logo: 'http://wwwstatic.vivo.com.cn/vivoportal/web/dist/img/common/favicon_ecf768e.ico',
+            hot_count: 1395,
+            living: false
+          },
+          {
+            name: 'oppo',
+            logo: 'https://code.oppo.com/etc.clientlibs/global-site/clientlibs/clientlib-design/resources/icons/favicon.ico',
+            hot_count: 1395,
+            living: false
+          },
+          {
+            name: '三星',
+            logo: 'https://www.samsung.com/etc.clientlibs/samsung/clientlibs/consumer/global/clientlib-common/resources/images/Favicon.png',
+            hot_count: 1395,
+            living: false
+          },
+        ],
+        '美妆': [
+          {
+            name: '巴黎欧莱雅',
+            logo: 'https://oap-cn-prd-cd.e-loreal.cn/-/media/project/loreal/brand-sites/oap/apac/cn/identity/image-2020-06-19-20-48-00-996.png',
+            hot_count: 1395,
+            living: false
+          },
+          {
+            name: '花西子',
+            logo: 'https://www.haoyunbb.com/img/allimg/210607/001I43462-0.png',
+            hot_count: 1395,
+            living: false
+          },
+          {
+            name: '完美日记',
+            logo: 'http://5b0988e595225.cdn.sohucs.com/images/20200412/9c6caafca79e438f98d98d3986ebce4d.png',
+            hot_count: 1395,
+            living: false
+          },
+          {
+            name: '雅诗兰黛',
+            logo: 'https://vipyidiancom.oss-cn-beijing.aliyuncs.com/vipyidian.com/article/1_150918143107_1.png',
+            hot_count: 1395,
+            living: false
+          },
+          {
+            name: 'COLORKEY珂拉琪',
+            logo: 'https://www.80wzbk.com/uploads/logo/20210129/20210129104015_541.jpg',
+            hot_count: 1395,
+            living: false
+          },
+        ]
+      },
+      selectBrandKey: '汽车',
+      selectBrandKeyIndex: 0,
       randomGuess: [],
       slideIndex: 0,
       list1: [],
       list2: [],
+      timer: null
     }
   },
   computed: {
@@ -177,6 +565,28 @@ export default {
         if (this.history.length > 2) return this.history.slice(0, 2)
         return this.history
       }
+    },
+    selectBrandList() {
+      return this.brandRankList[this.selectBrandKey]
+    },
+    brandListKeys() {
+      return Object.keys(this.brandRankList)
+    },
+  },
+  watch: {
+    slideIndex(newVal) {
+      if (newVal === 3) {
+        this.timer = setInterval(() => {
+          if (this.selectBrandKeyIndex === this.brandListKeys.length - 1) {
+            this.selectBrandKeyIndex = 0
+          } else {
+            this.selectBrandKeyIndex++
+          }
+          this.selectBrandKey = this.brandListKeys[this.selectBrandKeyIndex]
+        }, 3000)
+      } else {
+        clearInterval(this.timer)
+      }
     }
   },
   created() {
@@ -184,6 +594,10 @@ export default {
     this.refresh()
   },
   methods: {
+    toggleKey(key) {
+      this.selectBrandKey = key
+      clearInterval(this.timer)
+    },
     refresh() {
       this.randomGuess = _.sampleSize(this.guess, 6)
     },
@@ -213,7 +627,28 @@ export default {
   color: white;
   font-size: 1.4rem;
 
+  .type {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.6rem;
+    width: 1.6rem;
+    font-size: 1.2rem;
+    margin-left: .5rem;
+    border-radius: .2rem;
+
+    &.hot {
+      background: @primary-btn-color;
+    }
+
+    &.new {
+      background: rgb(186, 51, 226);
+    }
+  }
+
   .header {
+    z-index: 4;
+    background: @main-bg;
     height: 6rem;
     font-size: 1.4rem;
     padding: 0 @padding-page;
@@ -241,6 +676,10 @@ export default {
     padding-top: 6rem;
 
     .history {
+      .row {
+        min-height: 4rem;
+      }
+
       .history-expand {
         text-align: center;
         padding: 1rem;
@@ -280,6 +719,17 @@ export default {
           box-sizing: border-box;
           padding: .8rem 0;
           width: 49%;
+          display: flex;
+          align-items: center;
+
+          .desc {
+            max-width: 80%;
+            font-size: 1.4rem;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
+
         }
       }
     }
@@ -320,11 +770,14 @@ export default {
         .l-row {
           font-size: 1.4rem;
           display: flex;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1.6rem;
           align-items: center;
           color: @second-text-color;
 
           .rank-wrapper {
+            display: flex;
+            align-items: center;
+
             .rank {
               width: 1.8rem;
               height: 1.8rem;
@@ -337,6 +790,7 @@ export default {
           .right {
             flex: 1;
             display: flex;
+            align-items: center;
             justify-content: space-between;
 
             .center {
@@ -345,9 +799,9 @@ export default {
               //padding: 0 1rem;
               //flex: 1;
               display: flex;
-              font-size: 1.2rem;
+              align-items: center;
+              font-size: 1.4rem;
               color: white;
-
 
               .desc {
                 max-width: 85%;
@@ -356,32 +810,371 @@ export default {
                 text-overflow: ellipsis;
                 overflow: hidden;
               }
-
-              .type {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 1.8rem;
-                width: 1.8rem;
-                line-height: 1.8rem;
-                margin-left: 1rem;
-                border-radius: .2rem;
-                background: @primary-btn-color;
-              }
             }
 
-            .hot-count {
+            .count {
               font-size: 1.2rem;
             }
           }
         }
+      }
 
-        .more {
-          font-size: 1.2rem;
-          padding: 1rem 1rem 0 1rem;
-          text-align: center;
-          color: yellow;
+      .slide2 {
+        margin: 0 @padding-page 5rem @padding-page;
+        background: rgb(20, 22, 34);
+        border: 1px solid rgba(31, 34, 52, 0.5);
+        padding: @padding-page;
+        border-radius: 1rem;
+
+        .l-row {
+          font-size: 1.4rem;
+          display: flex;
+          margin-bottom: 1rem;
+          align-items: center;
+          color: @second-text-color;
+
+          &:active {
+            opacity: .5;
+          }
+
+          .rank-wrapper {
+            display: flex;
+            align-items: center;
+
+            .rank {
+              width: 1.8rem;
+              height: 1.8rem;
+              line-height: 1.8rem;
+              text-align: center;
+              margin-right: 1.5rem;
+
+              &.top {
+                color: yellow;
+              }
+            }
+          }
+
+          .right {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .center {
+              width: calc(100vw - 16rem);
+              box-sizing: border-box;
+              //padding: 0 1rem;
+              //flex: 1;
+              display: flex;
+              align-items: center;
+              font-size: 1.4rem;
+              color: white;
+
+              .avatar-wrapper {
+                @width: 3.5rem;
+                margin-right: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: @width;
+                height: @width;
+                border-radius: 50%;
+                background: @primary-btn-color;
+
+                .avatar {
+                  width: @width - 0.3;
+                  border-radius: 50%;
+                  padding: .1rem;
+                  background: black;
+                }
+              }
+
+              .desc {
+                max-width: 55%;
+                font-size: 1.4rem;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+              }
+
+              .live-type {
+                height: 2.2rem;
+                padding: 0 .5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1rem;
+                color: @second-text-color;
+                margin-left: .5rem;
+                border-radius: .2rem;
+                background: @second-btn-color-tran;
+
+                .type2 {
+                  margin-right: .2rem;
+                  width: 1rem;
+                  height: 1rem;
+                }
+
+                .type1 {
+                  margin-right: .2rem;
+                  width: 1.5rem;
+                  height: 1rem;
+                }
+
+              }
+            }
+
+            .count {
+              font-size: 1.2rem;
+            }
+          }
         }
+      }
+
+      .slide3 {
+        margin: 0 @padding-page 5rem @padding-page;
+        background: rgb(20, 22, 34);
+        border: 1px solid rgba(31, 34, 52, 0.5);
+        padding: @padding-page;
+        border-radius: 1rem;
+
+        .l-row {
+          font-size: 1.4rem;
+          display: flex;
+          margin-bottom: 1rem;
+          align-items: center;
+          color: @second-text-color;
+
+          &:active {
+            opacity: .5;
+          }
+
+          .rank-wrapper {
+            display: flex;
+            align-items: center;
+
+            .rank {
+              width: 1.8rem;
+              height: 1.8rem;
+              line-height: 1.8rem;
+              text-align: center;
+              margin-right: 1.5rem;
+
+              &.top {
+                color: yellow;
+              }
+            }
+          }
+
+          .right {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .center {
+              width: calc(100vw - 15rem);
+              box-sizing: border-box;
+              //padding: 0 1rem;
+              //flex: 1;
+              display: flex;
+              align-items: center;
+              font-size: 1.4rem;
+              color: white;
+
+              .avatar-wrapper {
+                margin-right: 1rem;
+
+                .avatar {
+                  width: 3rem;
+                  height: 3rem;
+                  border-radius: .2rem;
+                }
+              }
+
+              .desc {
+                max-width: 95%;
+                font-size: 1.4rem;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+              }
+
+            }
+
+            .count {
+              display: flex;
+              align-items: center;
+              font-size: 1.2rem;
+
+              img {
+                margin-right: .2rem;
+                width: 1.5rem;
+                height: 1.5rem;
+              }
+            }
+          }
+        }
+      }
+
+      .slide4 {
+        margin: 0 @padding-page 5rem @padding-page;
+        padding: .5rem @padding-page;
+        border-radius: 1rem;
+
+        .brands {
+          color: @second-text-color;
+          font-size: 1.2rem;
+          margin-bottom: 1.5rem;
+          display: flex;
+
+          .brand {
+            border-radius: .2rem;
+            margin-right: 1rem;
+            padding: .5rem 1rem;
+            background: @second-btn-color-tran;
+
+            &.active {
+              color: white;
+              background: @second-btn-color;
+            }
+          }
+        }
+
+        .l-row {
+          font-size: 1.4rem;
+          display: flex;
+          margin-bottom: 1rem;
+          align-items: center;
+          color: @second-text-color;
+
+          &:active {
+            opacity: .5;
+          }
+
+          .rank-wrapper {
+            display: flex;
+            align-items: center;
+
+            .rank {
+              width: 1.8rem;
+              height: 1.8rem;
+              line-height: 1.8rem;
+              text-align: center;
+              margin-right: 1.5rem;
+
+              &.top {
+                color: yellow;
+              }
+            }
+          }
+
+          .right {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .center {
+              width: calc(100vw - 15rem);
+              box-sizing: border-box;
+              //padding: 0 1rem;
+              //flex: 1;
+              display: flex;
+              align-items: center;
+              font-size: 1.4rem;
+              color: white;
+
+              .avatar-wrapper {
+                @width: 3.5rem;
+                margin-right: 1rem;
+
+                &.living {
+                  position: relative;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: @width;
+                  height: @width;
+                  border-radius: 50%;
+                  background: @primary-btn-color;
+
+                  .avatar-out-line {
+                    width: @width;
+                    height: @width;
+                    position: absolute;
+                    background: transparent;
+                    border-radius: 50%;
+                    border: .2rem solid @primary-btn-color;
+                    animation: avatar-out-line 1s infinite;
+
+                    @keyframes avatar-out-line {
+                      from {
+                        padding: 0;
+                      }
+                      to {
+                        opacity: 0;
+                        padding: .2rem;
+                      }
+                    }
+                  }
+
+                  .avatar {
+                    padding: .1rem;
+                    animation: avatar 1s infinite alternate;
+                  }
+                }
+
+                .avatar {
+                  position: relative;
+                  z-index: 2;
+                  width: @width - 0.3;
+                  height: @width - 0.3;
+                  border-radius: 50%;
+                  background: black;
+                  box-sizing: border-box;
+
+                  @keyframes avatar {
+                    from {
+                      padding: .1rem;
+                    }
+                    to {
+                      padding: .2rem;
+                    }
+                  }
+                }
+              }
+
+              .desc {
+                max-width: 95%;
+                font-size: 1.4rem;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+              }
+
+            }
+
+            .count {
+              display: flex;
+              align-items: center;
+              font-size: 1.2rem;
+
+              img {
+                margin-right: .2rem;
+                width: 1.5rem;
+                height: 1.5rem;
+              }
+            }
+          }
+        }
+      }
+
+      .more {
+        font-size: 1.2rem;
+        padding: 1rem 1rem 0 1rem;
+        text-align: center;
+        color: yellow;
       }
     }
   }
