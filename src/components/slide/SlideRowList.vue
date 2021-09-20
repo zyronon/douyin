@@ -24,8 +24,8 @@
       <Loading class="loading" style="width: 4rem;" :style="loadingStyle" :is-full-screen="false"/>
     </div>
 
-    <div class="indicator-bullets" v-if="indicatorType === 'bullets'">
-      <div class="bullet" :class="{active:currentSlideItemIndex === item}" v-for="item in slideItems.length-1"></div>
+    <div class="indicator-bullets" v-if="indicatorType === 'bullets' && slideItems.length">
+      <div class="bullet" :class="{active:currentSlideItemIndex === item-1}" v-for="item in slideItems.length"></div>
     </div>
 
     <div id="base-slide-list" ref="slideList"
@@ -141,7 +141,7 @@ export default {
       isNeedCheck: true,
 
       slideList: null,
-      slideItems: null,
+      slideItems: [],
       indicatorRef: null,
       slideItemsWidths: [],
       tabIndicatorRelationActiveIndexLefts: [],//指标和slideItem的index的对应left,
