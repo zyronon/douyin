@@ -142,7 +142,7 @@ import Footer from '../../components/Footer.vue'
 import Search from "../../components/Search";
 import FromBottomDialog from '../../components/dialog/FromBottomDialog'
 import Check from "../../components/Check";
-import {mapState} from "_vuex@4.0.2@vuex";
+import {mapState} from "vuex";
 
 export default {
   name: "Message",

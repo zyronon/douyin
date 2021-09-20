@@ -1,6 +1,6 @@
 <template>
   <div id="base-slide-wrapper" ref="slideWrapper">
-    <div class="indicator-home" v-if="showIndicator ">
+    <div class="indicator-home" v-if="showIndicator">
       <div class="notice" :style="noticeStyle"><span>下拉刷新内容</span></div>
       <div class="toolbar" ref="toolbar" :style="toolbarStyle">
         <div class="left">直播</div>
@@ -23,6 +23,11 @@
       </div>
       <Loading class="loading" style="width: 4rem;" :style="loadingStyle" :is-full-screen="false"/>
     </div>
+
+    <div class="indicator-bullets" v-if="indicatorType === 'bullets'">
+      <div class="bullet" :class="{active:currentSlideItemIndex === item}" v-for="item in slideItems.length-1"></div>
+    </div>
+
     <div id="base-slide-list" ref="slideList"
          :style="{'flex-direction':'row',marginTop:indicatorFixed?'5rem':'0'}"
          @touchstart="touchStart($event)"
@@ -46,6 +51,18 @@ export default {
     canMove: {
       type: Boolean,
       default: () => true
+    },
+    autoplay: {
+      type: Boolean,
+      default: () => false
+    },
+    indicatorType: {
+      type: String,
+      default: ''
+      //bullets
+      //fraction
+      //progressbar
+      //custom
     },
     showIndicator: {
       type: Boolean,
@@ -143,9 +160,20 @@ export default {
     await this.checkChildren(true)
     this.showIndicator && this.initTabs()
     this.changeIndex(true)
+
+    if (this.autoplay) {
+      setInterval(() => {
+        if (this.currentSlideItemIndex === this.slideItems.length - 1) {
+          this.currentSlideItemIndex = 0
+        } else {
+          this.currentSlideItemIndex++
+        }
+        this.changeIndex(false, this.currentSlideItemIndex)
+      }, 3000)
+    }
   },
   methods: {
-    changeIndex(init = false, index = null, e) {
+    changeIndex(init = false, index = null) {
       this.currentSlideItemIndex = index !== null ? index : this.activeIndex
       !init && this.$setCss(this.slideList, 'transition-duration', `300ms`)
       this.$setCss(this.slideList, 'transform', `translate3d(${-this.getWidth(this.currentSlideItemIndex) + this.moveXDistance}px, 0px, 0px)`)
@@ -324,6 +352,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  position: relative;
 
   #base-slide-list {
     display: flex;
@@ -401,6 +430,29 @@ export default {
           background: #fff;
           border-radius: 5px;
         }
+      }
+    }
+  }
+
+  .indicator-bullets {
+    position: absolute;
+    bottom: 1rem;
+    z-index: 2;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    .bullet {
+      @width: .5rem;
+      width: @width;
+      height: @width;
+      margin: 0 .3rem;
+      border-radius: 50%;
+      background: @second-btn-color;
+
+      &.active {
+        background: white;
       }
     }
   }

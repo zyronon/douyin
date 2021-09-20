@@ -105,7 +105,7 @@
           </SlideItem>
           <SlideItem>
             <div class="slide3">
-              <div class="l-row" v-for="(item,index) in musicRankList">
+              <div class="l-row" v-for="(item,index) in musicRankList" @click="$nav('/home/music-rank-list')">
                 <div class="rank-wrapper">
                   <div class="rank" :class="{top:index < 3}">{{ index + 1 }}</div>
                 </div>
@@ -127,34 +127,66 @@
           </SlideItem>
           <SlideItem>
             <div class="slide4">
-              <div class="brands">
-                <div class="brand"
-                     @click="toggleKey(key)"
-                     :class="{active:key === selectBrandKey}"
-                     v-for="key in Object.keys(brandRankList)">
-                  {{ key }}
+              <div class="slide4-wrapper">
+                <div class="brands">
+                  <div class="brand"
+                       @click="toggleKey(key)"
+                       :class="{active:key === selectBrandKey}"
+                       v-for="key in Object.keys(brandRankList)">
+                    {{ key }}
+                  </div>
                 </div>
-              </div>
-              <div class="l-row" v-for="(item,index) in selectBrandList">
-                <div class="rank-wrapper">
-                  <div class="rank" :class="{top:index < 3}">{{ index + 1 }}</div>
-                </div>
-                <div class="right">
-                  <div class="center">
-                    <div class="avatar-wrapper" :class="item.living ? 'living':''">
-                      <div class="avatar-out-line"></div>
-                      <img v-lazy="$imgPreview(item.logo)" alt="" class="avatar">
-                      <!--                      <img :src="item.logo" class="avatar">-->
+                <div class="l-row" v-for="(item,index) in selectBrandList">
+                  <div class="rank-wrapper">
+                    <div class="rank" :class="{top:index < 3}">{{ index + 1 }}</div>
+                  </div>
+                  <div class="right">
+                    <div class="center">
+                      <div class="avatar-wrapper" :class="item.living ? 'living':''">
+                        <div class="avatar-out-line"></div>
+                        <img v-lazy="$imgPreview(item.logo)" alt="" class="avatar">
+                        <!--                      <img :src="item.logo" class="avatar">-->
+                      </div>
+                      <div class="desc">{{ item.name }}</div>
                     </div>
-                    <div class="desc">{{ item.name }}</div>
-                  </div>
-                  <div class="count">
-                    <img src="../../assets/img/icon/home/hot-gray.png" alt="">
-                    <span>{{ $likeNum(item.hot_count) }}</span>
+                    <div class="count">
+                      <img src="../../assets/img/icon/home/hot-gray.png" alt="">
+                      <span>{{ $likeNum(item.hot_count) }}</span>
+                    </div>
                   </div>
                 </div>
+                <div class="more" @click="$no">查看完整品牌榜 ></div>
               </div>
-              <div class="more" @click="$no">查看完整品牌榜 ></div>
+
+              <SlideRowList
+                  :autoplay="true"
+                  indicatorType="bullets"
+              >
+                <SlideItem>
+                  <div class="ad">AD1</div>
+                </SlideItem>
+                <SlideItem>
+                  <div class="ad">AD2</div>
+                </SlideItem>
+                <SlideItem>
+                  <div class="ad">AD3</div>
+                </SlideItem>
+                <SlideItem>
+                  <div class="ad">AD4</div>
+                </SlideItem>
+                <SlideItem>
+                  <div class="ad">AD5</div>
+                </SlideItem>
+                <SlideItem>
+                  <div class="ad">AD6</div>
+                </SlideItem>
+                <SlideItem>
+                  <div class="ad">AD7</div>
+                </SlideItem>
+                <SlideItem>
+                  <div class="ad">AD8</div>
+                </SlideItem>
+              </SlideRowList>
             </div>
           </SlideItem>
         </SlideRowList>
@@ -550,7 +582,7 @@ export default {
       selectBrandKey: '汽车',
       selectBrandKeyIndex: 0,
       randomGuess: [],
-      slideIndex: 0,
+      slideIndex: 3,
       list1: [],
       list2: [],
       timer: null
@@ -1019,158 +1051,171 @@ export default {
 
       .slide4 {
         margin: 0 @padding-page 5rem @padding-page;
-        padding: .5rem @padding-page;
         border-radius: 1rem;
 
-        .brands {
-          color: @second-text-color;
-          font-size: 1.2rem;
-          margin-bottom: 1.5rem;
-          display: flex;
+        .slide4-wrapper {
+          padding: .5rem @padding-page;
 
-          .brand {
-            border-radius: .2rem;
-            margin-right: 1rem;
-            padding: .5rem 1rem;
-            background: @second-btn-color-tran;
-
-            &.active {
-              color: white;
-              background: @second-btn-color;
-            }
-          }
-        }
-
-        .l-row {
-          font-size: 1.4rem;
-          display: flex;
-          margin-bottom: 1rem;
-          align-items: center;
-          color: @second-text-color;
-
-          &:active {
-            opacity: .5;
-          }
-
-          .rank-wrapper {
+          .brands {
+            color: @second-text-color;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
             display: flex;
-            align-items: center;
 
-            .rank {
-              width: 1.8rem;
-              height: 1.8rem;
-              line-height: 1.8rem;
-              text-align: center;
-              margin-right: 1.5rem;
+            .brand {
+              border-radius: .2rem;
+              margin-right: 1rem;
+              padding: .5rem 1rem;
+              background: @second-btn-color-tran;
 
-              &.top {
-                color: yellow;
+              &.active {
+                color: white;
+                background: @second-btn-color;
               }
             }
           }
 
-          .right {
-            flex: 1;
+          .l-row {
+            font-size: 1.4rem;
             display: flex;
+            margin-bottom: 1rem;
             align-items: center;
-            justify-content: space-between;
+            color: @second-text-color;
 
-            .center {
-              width: calc(100vw - 15rem);
-              box-sizing: border-box;
-              //padding: 0 1rem;
-              //flex: 1;
+            &:active {
+              opacity: .5;
+            }
+
+            .rank-wrapper {
               display: flex;
               align-items: center;
-              font-size: 1.4rem;
-              color: white;
 
-              .avatar-wrapper {
-                @width: 3.5rem;
-                margin-right: 1rem;
+              .rank {
+                width: 1.8rem;
+                height: 1.8rem;
+                line-height: 1.8rem;
+                text-align: center;
+                margin-right: 1.5rem;
 
-                &.living {
-                  position: relative;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  width: @width;
-                  height: @width;
-                  border-radius: 50%;
-                  background: @primary-btn-color;
+                &.top {
+                  color: yellow;
+                }
+              }
+            }
 
-                  .avatar-out-line {
+            .right {
+              flex: 1;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+
+              .center {
+                width: calc(100vw - 15rem);
+                box-sizing: border-box;
+                //padding: 0 1rem;
+                //flex: 1;
+                display: flex;
+                align-items: center;
+                font-size: 1.4rem;
+                color: white;
+
+                .avatar-wrapper {
+                  @width: 3.5rem;
+                  margin-right: 1rem;
+
+                  &.living {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     width: @width;
                     height: @width;
-                    position: absolute;
-                    background: transparent;
                     border-radius: 50%;
-                    border: .2rem solid @primary-btn-color;
-                    animation: avatar-out-line 1s infinite;
+                    background: @primary-btn-color;
 
-                    @keyframes avatar-out-line {
-                      from {
-                        padding: 0;
+                    .avatar-out-line {
+                      width: @width;
+                      height: @width;
+                      position: absolute;
+                      background: transparent;
+                      border-radius: 50%;
+                      border: .2rem solid @primary-btn-color;
+                      animation: avatar-out-line 1s infinite;
+
+                      @keyframes avatar-out-line {
+                        from {
+                          padding: 0;
+                        }
+                        to {
+                          opacity: 0;
+                          padding: .2rem;
+                        }
                       }
-                      to {
-                        opacity: 0;
-                        padding: .2rem;
-                      }
+                    }
+
+                    .avatar {
+                      padding: .1rem;
+                      animation: avatar 1s infinite alternate;
                     }
                   }
 
                   .avatar {
-                    padding: .1rem;
-                    animation: avatar 1s infinite alternate;
-                  }
-                }
+                    position: relative;
+                    z-index: 2;
+                    width: @width - 0.3;
+                    height: @width - 0.3;
+                    border-radius: 50%;
+                    background: black;
+                    box-sizing: border-box;
 
-                .avatar {
-                  position: relative;
-                  z-index: 2;
-                  width: @width - 0.3;
-                  height: @width - 0.3;
-                  border-radius: 50%;
-                  background: black;
-                  box-sizing: border-box;
-
-                  @keyframes avatar {
-                    from {
-                      padding: .1rem;
-                    }
-                    to {
-                      padding: .2rem;
+                    @keyframes avatar {
+                      from {
+                        padding: .1rem;
+                      }
+                      to {
+                        padding: .2rem;
+                      }
                     }
                   }
                 }
+
+                .desc {
+                  max-width: 95%;
+                  font-size: 1.4rem;
+                  white-space: nowrap;
+                  text-overflow: ellipsis;
+                  overflow: hidden;
+                }
+
               }
 
-              .desc {
-                max-width: 95%;
-                font-size: 1.4rem;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                overflow: hidden;
-              }
+              .count {
+                display: flex;
+                align-items: center;
+                font-size: 1.2rem;
 
-            }
-
-            .count {
-              display: flex;
-              align-items: center;
-              font-size: 1.2rem;
-
-              img {
-                margin-right: .2rem;
-                width: 1.5rem;
-                height: 1.5rem;
+                img {
+                  margin-right: .2rem;
+                  width: 1.5rem;
+                  height: 1.5rem;
+                }
               }
             }
           }
         }
+
+
+        .ad {
+          background: @second-btn-color-tran;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 10rem;
+        }
       }
 
       .more {
+        margin-bottom: 2rem;
         font-size: 1.2rem;
         padding: 1rem 1rem 0 1rem;
         text-align: center;
