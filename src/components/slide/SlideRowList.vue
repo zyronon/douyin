@@ -3,7 +3,7 @@
     <div class="indicator-home" v-if="showIndicator">
       <div class="notice" :style="noticeStyle"><span>下拉刷新内容</span></div>
       <div class="toolbar" ref="toolbar" :style="toolbarStyle">
-        <div class="left">直播</div>
+        <div class="left" @click="$nav('/home/live')">直播</div>
         <div class="tab-ctn">
           <div class="tabs" ref="tabs">
             <div class="tab"
