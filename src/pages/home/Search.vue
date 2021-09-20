@@ -4,7 +4,7 @@
       <back mode="light" @click="$back" class="mr1r"></back>
       <BSearch placeholder="搜索用户名字/抖音号"
                :isShowText="true"
-               notice="gray"
+               notice="white"
       >
         <img class="scan" src="../../assets/img/icon/scan-gray.png" @click.stop="$nav('/scan')">
       </BSearch>
@@ -44,9 +44,9 @@
           <div class="tab" :class="{active:slideIndex === 2}" @click="slideIndex = 2">音乐榜</div>
           <div class="tab" :class="{active:slideIndex === 3}" @click="slideIndex = 3">品牌榜</div>
         </div>
-        <SlideRowList v-model:active-index="slideIndex">
+        <SlideRowList v-model:active-index="slideIndex" :style="slideListHeight">
           <SlideItem>
-            <div class="slide1">
+            <div class="slide0" ref="slide0">
               <div class="l-row">
                 <div class="rank-wrapper">
                   <img src="../../assets/img/icon/home/to-top-yellow.png" class="rank">
@@ -77,7 +77,7 @@
             </div>
           </SlideItem>
           <SlideItem>
-            <div class="slide2">
+            <div class="slide1" ref="slide1">
               <div class="l-row" v-for="(item,index) in liveRankList">
                 <div class="rank-wrapper">
                   <div class="rank" :class="{top:index<3}">{{ index + 1 }}</div>
@@ -104,7 +104,7 @@
             </div>
           </SlideItem>
           <SlideItem>
-            <div class="slide3">
+            <div class="slide2" ref="slide2">
               <div class="l-row" v-for="(item,index) in musicRankList" @click="$nav('/home/music-rank-list')">
                 <div class="rank-wrapper">
                   <div class="rank" :class="{top:index < 3}">{{ index + 1 }}</div>
@@ -126,7 +126,7 @@
             </div>
           </SlideItem>
           <SlideItem>
-            <div class="slide4">
+            <div class="slide3" ref="slide3">
               <div class="slide4-wrapper">
                 <div class="brands">
                   <div class="brand"
@@ -197,6 +197,8 @@
 <script>
 import Search from "../../components/Search";
 import _ from 'lodash'
+import Dom from "../../utils/dom";
+import {nextTick} from "vue";
 
 export default {
   name: "SearchPage",
@@ -205,7 +207,6 @@ export default {
   },
   data() {
     return {
-      isShowText: false,
       isExpand: false,
       history: [
         '历史记录1',
@@ -235,6 +236,7 @@ export default {
         {name: '当代女生社交现状', type: -1},
         {name: '恒大集团凌晨发公告', type: -1},
       ],
+      randomGuess: [],
       hotRankList: [
         {name: '国内手机厂商最大的软肋就是 android 系统！', type: 0},
         {name: '大家的官网订单现在什么状态', type: -1},
@@ -581,11 +583,9 @@ export default {
       },
       selectBrandKey: '汽车',
       selectBrandKeyIndex: 0,
-      randomGuess: [],
-      slideIndex: 3,
-      list1: [],
-      list2: [],
-      timer: null
+      slideIndex: 0,
+      timer: null,
+      slideItemHeight: null
     }
   },
   computed: {
@@ -604,21 +604,33 @@ export default {
     brandListKeys() {
       return Object.keys(this.brandRankList)
     },
+    slideListHeight() {
+      return {height: this.slideItemHeight ? (this.slideItemHeight + 'px') : '100%'}
+    }
   },
   watch: {
-    slideIndex(newVal) {
-      if (newVal === 3) {
-        this.timer = setInterval(() => {
-          if (this.selectBrandKeyIndex === this.brandListKeys.length - 1) {
-            this.selectBrandKeyIndex = 0
-          } else {
-            this.selectBrandKeyIndex++
-          }
-          this.selectBrandKey = this.brandListKeys[this.selectBrandKeyIndex]
-        }, 3000)
-      } else {
-        clearInterval(this.timer)
-      }
+    slideIndex: {
+      handler(newVal) {
+        nextTick(() => {
+          // console.log(this.$refs[`slide${newVal}`])
+          this.slideItemHeight = new Dom(`.slide${newVal}`).css('height')
+          // console.log(this.slideItemHeight)
+          this.slideItemHeight = parseFloat(this.slideItemHeight) + 50
+        })
+        if (newVal === 3) {
+          this.timer = setInterval(() => {
+            if (this.selectBrandKeyIndex === this.brandListKeys.length - 1) {
+              this.selectBrandKeyIndex = 0
+            } else {
+              this.selectBrandKeyIndex++
+            }
+            this.selectBrandKey = this.brandListKeys[this.selectBrandKeyIndex]
+          }, 3000)
+        } else {
+          clearInterval(this.timer)
+        }
+      },
+      immediate: true
     }
   },
   created() {
@@ -793,7 +805,8 @@ export default {
         }
       }
 
-      .slide1 {
+      .slide0 {
+        box-sizing: border-box;
         margin: 0 @padding-page 5rem @padding-page;
         background: linear-gradient(to right, rgb(32, 29, 36), rgb(50, 29, 38));
         padding: @padding-page;
@@ -851,7 +864,8 @@ export default {
         }
       }
 
-      .slide2 {
+      .slide1 {
+        box-sizing: border-box;
         margin: 0 @padding-page 5rem @padding-page;
         background: rgb(20, 22, 34);
         border: 1px solid rgba(31, 34, 52, 0.5);
@@ -963,7 +977,8 @@ export default {
         }
       }
 
-      .slide3 {
+      .slide2 {
+        box-sizing: border-box;
         margin: 0 @padding-page 5rem @padding-page;
         background: rgb(20, 22, 34);
         border: 1px solid rgba(31, 34, 52, 0.5);
@@ -1049,7 +1064,8 @@ export default {
         }
       }
 
-      .slide4 {
+      .slide3 {
+        box-sizing: border-box;
         margin: 0 @padding-page 5rem @padding-page;
         border-radius: 1rem;
 
