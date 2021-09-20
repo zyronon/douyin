@@ -4,8 +4,8 @@
       <Mask v-if="maskDialog" @click="hideMaskDialog" :mode="maskDialogMode"></Mask>
     </transition>
     <transition :name="transitionName">
-<!--      <keep-alive>-->
-<!--      </keep-alive>-->
+      <!--      <keep-alive>-->
+      <!--      </keep-alive>-->
       <component :is="Component"/>
 
     </transition>
@@ -45,7 +45,7 @@ export default {
       this.$store.commit('setMaskDialog', {state: false, mode: this.maskDialogMode})
 
       //footer下面的5个按钮，对跳不要用动画
-      let noAnimation = ['/', '/home', '/me', '/attention', '/message', '/publish']
+      let noAnimation = ['/', '/home', '/me', '/attention', '/message', '/publish','/home/live']
       if (noAnimation.indexOf(from.path) !== -1 && noAnimation.indexOf(to.path) !== -1) {
         return this.transitionName = ''
       }
