@@ -1,3 +1,5 @@
+import globalMethods from '../utils/global-methods'
+
 export default class Dom {
   els = []
 
@@ -54,7 +56,9 @@ export default class Dom {
     if (args.length === 1) {
       //情况一：获取样式
       if (typeof args[0] === 'string') {
-        return this.els[0].style[args[0]]
+        return window.getComputedStyle(this.els[0], null)[args[0]]
+        // return globalMethods.$getCss2
+        // return this.els[0].style[args[0]]
       } else {
         //情况三：设置多个样式
         Object.keys(args[0]).map(key => {
