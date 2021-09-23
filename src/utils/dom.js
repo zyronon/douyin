@@ -52,6 +52,12 @@ export default class Dom {
     return this
   }
 
+  attr(...args) {
+    if (args.length === 1) {
+      return this.els[0][args[0]]
+    }
+  }
+
   css(...args) {
     if (args.length === 1) {
       //情况一：获取样式

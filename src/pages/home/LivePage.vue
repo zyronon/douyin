@@ -46,8 +46,8 @@
       </div>
       <div class="bottom">
         <div class="left">
-          <div class="comments">
-            <div class="comments-wrapper">
+          <div class="comments" ref="comments">
+            <div class="comments-wrapper" ref="comments-wrapper">
               <div class="comment notice">
                 <span class="text">欢迎来到直播间！抖音严禁未成年人直播或打赏，直接间内严禁出现违法违规、低俗色情、吸烟酗酒等内容。如主播在直播过程中以不当方式诱导打赏、私下交易，请谨慎判断，以防人身财产损失。请大家注意财产安全，谨防网络诈骗。</span>
               </div>
@@ -63,6 +63,9 @@
               </div>
             </div>
           </div>
+          <div class="options">
+
+          </div>
           <base-button @click="t">点击</base-button>
         </div>
       </div>
@@ -71,6 +74,8 @@
 </template>
 <script>
 import BaseButton from "../../components/BaseButton";
+import Dom from "../../utils/dom";
+import {nextTick} from "vue";
 
 export default {
   name: "LivePage",
@@ -92,6 +97,10 @@ export default {
   methods: {
     t() {
       this.list.push('asdfasdfasdfasdfffasdfasdfffasdfasdfffasdfasdfffff')
+      nextTick(()=>{
+        let comments = this.$refs['comments']
+        comments.scrollTop = comments.scrollHeight - comments.clientHeight
+      })
     }
   }
 }
