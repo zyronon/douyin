@@ -1,7 +1,7 @@
 <template>
   <div class="LivePage">
     <div class="live-wrapper">
-      <img src="../../assets/img/poster/6.jpg" alt="">
+      <img src="../../assets/img/poster/11.jpg" alt="">
     </div>
     <div class="float">
       <div class="top">
@@ -64,12 +64,28 @@
             </div>
           </div>
           <div class="options">
-
+            <div class="input">
+              <span>说点什么</span>
+              <img src="../../assets/img/icon/home/voice.png" alt="">
+            </div>
+            <img src="../../assets/img/icon/home/more.png" alt="" class="more">
+            <img src="../../assets/img/icon/home/love.webp" alt="" class="more">
+            <img src="../../assets/img/icon/home/gift.webp" alt="" class="gift">
           </div>
-          <base-button @click="t">点击</base-button>
+        </div>
+        <div class="right">
+          <div class="avatar-wrapper" :class="{followed:isFollowed}">
+            <img src="../../assets/img/icon/avatar/2.png" alt="" class="avatar">
+            <div v-if="!isFollowed" @click.stop="attention" class="options" ref="attention-option">
+              <img class="no" src="../../assets/img/icon/add-light.png" alt="">
+              <img class="yes" src="../../assets/img/icon/ok-white.png" alt="">
+            </div>
+            <img v-if="isFollowed" src="../../assets/img/icon/home/followed.webp" alt="" class="follow">
+          </div>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 <script>
@@ -85,27 +101,81 @@ export default {
   },
   data() {
     return {
-      list: [
-        '纱纱纱纱纱纱纱纱纱纱纱纱纱纱纱纱纱纱纱纱纱纱纱纱纱纱纱纱纱纱',
-        'asdfasdfasdfasdfffasdfasdfffasdfasdfffasdfasdfffff'
-      ]
+      isFollowed: false,
+      list: [],
+      barrage: []
     }
   },
   computed: {},
   created() {
   },
+  mounted() {
+    nextTick(() => {
+
+      let page = new Dom('.LivePage')
+      console.log(page)
+
+      setInterval(() => {
+
+        let template = `<div class="barrage">
+      <div class="type">管理</div>
+      <div class="text">感谢老铁送的火箭</div>
+    </div>`
+        let barrage = new Dom().create(template)
+        console.log(barrage)
+        page.append(barrage)
+      }, 1000)
+    })
+  },
   methods: {
     t() {
       this.list.push('asdfasdfasdfasdfffasdfasdfffasdfasdfffasdfasdfffff')
-      nextTick(()=>{
+      nextTick(() => {
         let comments = this.$refs['comments']
         comments.scrollTop = comments.scrollHeight - comments.clientHeight
       })
+    },
+    attention() {
+      let option = this.$refs['attention-option']
+      option.classList.toggle('attention')
+      setTimeout(() => {
+        this.isFollowed = true
+      }, 1000)
     }
   }
 }
 </script>
 
+<style lang="less">
+.barrage {
+  position: fixed;
+  top: 50%;
+  transform: translateX(100vw);
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  animation: anim 5s linear;
+
+  @keyframes anim {
+    from {
+      transform: translateX(100vw);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+
+  }
+
+  .type {
+    padding: .1rem .6rem;
+    border: 1px solid white;
+    border-radius: 2rem;
+    margin-right: .5rem;
+  }
+
+}
+
+</style>
 <style scoped lang="less">
 @import "../../assets/scss/index";
 
@@ -119,10 +189,12 @@ export default {
   .live-wrapper {
     width: 100vw;
     height: 100vh;
+    background: black;
 
     img {
       width: 100vw;
       height: 100vh;
+      color: rgb(229, 229, 229);
     }
   }
 
@@ -132,7 +204,7 @@ export default {
     width: 100vw;
     height: 100vh;
 
-    @tag-bg: rgba(58, 58, 70, .3);
+    @tag-bg: rgba(58, 58, 70, 0.3);
 
     .top {
       display: flex;
@@ -273,12 +345,15 @@ export default {
       width: 100vw;
       box-sizing: border-box;
       padding: @padding-page;
+      padding-bottom: 1rem;
+      display: flex;
 
 
       .left {
-        width: 90%;
+        width: 87%;
 
         .comments {
+          margin-bottom: 1rem;
           overflow: auto;
           height: 20vh;
 
@@ -328,13 +403,122 @@ export default {
               font-size: 1.3rem;
               color: @text-color;
             }
-            .text{
+
+            .text {
               word-break: break-all;
             }
           }
         }
+
+        .options {
+          display: flex;
+          align-items: center;
+
+          .input {
+            flex: 1;
+            color: #a2a2a2;
+            font-size: 1.2rem;
+            border-radius: 1.5rem;
+            padding: .4rem 1rem;
+            background: @tag-bg;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            img {
+              width: 2rem;
+            }
+          }
+
+          .more {
+            margin-left: 1rem;
+            width: 2rem;
+            height: 2rem;
+            padding: .5rem;
+            background: @tag-bg;
+            border-radius: 50%;
+          }
+
+          .gift {
+            margin-left: 1rem;
+            width: 3.1rem;
+          }
+        }
+      }
+
+      .right {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+
+        @width: 3.5rem;
+
+        .avatar-wrapper {
+          background: linear-gradient(to bottom, #000000, @primary-btn-color);
+          border-radius: 2rem;
+          width: calc(@width + .2rem);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+
+          &.followed {
+            background: linear-gradient(to bottom, rgba(240, 183, 31, .2), rgb(240, 183, 31));
+          }
+
+          .avatar {
+            width: @width;
+            border-radius: 50%;
+            background: white;
+            padding: .15rem;
+          }
+
+          .follow {
+            width: 3.2rem;
+            margin-top: .5rem;
+            margin-bottom: .5rem;
+          }
+
+          .options {
+            margin-top: .8rem;
+            margin-bottom: .5rem;
+            display: flex;
+            width: 2rem;
+            height: 2rem;
+            justify-content: center;
+            align-items: center;
+
+            img {
+              position: absolute;
+              width: 1.8rem;
+              transition: all .8s;
+            }
+
+            .yes {
+              opacity: 0;
+              transform: rotate(-180deg);
+            }
+
+            &.attention {
+
+              .no {
+                opacity: 0;
+                transform: rotate(180deg);
+              }
+
+              .yes {
+                opacity: 1;
+                transform: rotate(0deg);
+              }
+            }
+          }
+
+        }
       }
     }
+
   }
+
 }
 </style>

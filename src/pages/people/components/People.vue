@@ -1,6 +1,6 @@
 <template>
   <div class="People">
-    <img v-if="people.type === 6" src="../../../assets/img/icon/add.png" alt="" class="add">
+    <img v-if="people.type === 6" src="../../../assets/img/icon/add-light.png" alt="" class="add">
     <img v-else src="../../../assets/img/icon/msg-icon1.png" alt="" class="head-image pull-left">
     <div class="content">
       <div class="left">

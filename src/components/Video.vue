@@ -18,7 +18,7 @@
                  @click.stop="$emit('goUserInfo')">
             <transition name="fade">
               <div v-if="!isAttention" @click.stop="attention" class="options" ref="attention-option">
-                <img class="no" src="../assets/img/icon/add.png" alt="">
+                <img class="no" src="../assets/img/icon/add-light.png" alt="">
                 <img class="yes" src="../assets/img/icon/ok-red.png" alt="">
               </div>
             </transition>
