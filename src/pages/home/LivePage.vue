@@ -1,5 +1,5 @@
 <template>
-  <div class="LivePage">
+  <div class="LivePage" ref="page">
     <div class="live-wrapper">
       <img src="../../assets/img/poster/11.jpg" alt="">
     </div>
@@ -85,8 +85,9 @@
         </div>
       </div>
     </div>
-    <div id="danmu"></div>
 
+
+    <!--    <base-button @click="sendGift">点击</base-button>-->
   </div>
 </template>
 <script>
@@ -97,64 +98,123 @@ import {nextTick} from "vue";
 export default {
   name: "LivePage",
   components: {BaseButton},
-  props: {
-    modelValue: false
-  },
+  props: {},
   data() {
     return {
       isFollowed: false,
-      list: [],
-      barrage: []
+      list: [
+        'asdfasdf',
+        'asdfasdf',
+        'asdfasdf',
+      ],
+      barrage: [],
+      barrageTemplate: () => {
+        return `
+        <div class="barrage">
+          <div class="type">管理</div>
+          <div class="text">感谢老铁送的火箭</div>
+        </div>
+        `
+      },
+      userJoinedTemplate: () => {
+        let src = require('../../assets/img/icon/home/level.webp')
+        return `
+        <div class="user-joined">
+          <div class="level">
+            <div class="wrapper">
+              <img src="${src}" alt="">
+              <span>30</span>
+            </div>
+          </div>
+          <span class="name">嘻嘻哈哈</span>
+          <span class="text">加入了直播间</span>
+        </div>
+        `
+      },
+      sendGiftTemplate: () => {
+        let avatar = require('../../assets/img/icon/avatar/3.png')
+        let gift = require('../../assets/img/icon/home/love.webp')
+        return `
+        <div class="send-gift">
+          <div class="left">
+            <img src="${avatar}" alt="" class="avatar">
+            <div class="desc">
+              <div class="name">哈哈哈哈哈哈哈哈哈</div>
+              <div class="sendto">
+                <span class="send">送</span>
+                <span class="to">嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻</span>
+              </div>
+            </div>
+            <div class="gift-wrapper">
+              <img src="${gift}" alt="" class="gift-icon">
+            </div>
+          </div>
+          <div class="right">
+            x339
+          </div>
+        </div>
+        `
+      },
+      page: null,
     }
   },
   computed: {},
   created() {
   },
   mounted() {
-    nextTick(() => {
-      $("#danmu").danmu({
-        height: 360,  //弹幕区高度
-        width: 300,   //弹幕区宽度
-        zindex :100,   //弹幕区域z-index属性
-        speed:7000,      //滚动弹幕的默认速度，这是数值值得是弹幕滚过每672像素所需要的时间（毫秒）
-        sumTime:65535,   //弹幕流的总时间
-        danmuLoop:false,   //是否循环播放弹幕
-        defaultFontColor:"#FFFFFF",   //弹幕的默认颜色
-        fontSizeSmall:16,     //小弹幕的字号大小
-        FontSizeBig:24,       //大弹幕的字号大小
-        opacity:"0.9",			//默认弹幕透明度
-        topBottonDanmuTime:6000,   // 顶部底部弹幕持续时间（毫秒）
-        SubtitleProtection:false,     //是否字幕保护
-        positionOptimize:false,         //是否位置优化，位置优化是指像AB站那样弹幕主要漂浮于区域上半部分
-
-        maxCountInScreen: 40,   //屏幕上的最大的显示弹幕数目,弹幕数量过多时,优先加载最新的。
-        maxCountPerSec: 10      //每分秒钟最多的弹幕数目,弹幕数量过多时,优先加载最新的。
-      });
-      $("#danmu").danmu("addDanmu",[
-        { text:"这是滚动弹幕" ,color:"white",size:1,position:0,time:2}
-        ,{ text:"这是顶部弹幕" ,color:"yellow" ,size:1,position:1,time:3}
-        ,{ text:"这是底部弹幕" , color:"red" ,size:1,position:2,time:3}
-      ])
-      $('#danmu').danmu('danmuStart');
-      //
-    //   let page = new Dom('.LivePage')
-    //   console.log(page)
-    //
-    //   setInterval(() => {
-    //
-    //     let template = `<div class="barrage">
-    //   <div class="type">管理</div>
-    //   <div class="text">感谢老铁送的火箭</div>
-    // </div>`
-    //     let barrage = new Dom().create(template)
-    //     console.log(barrage)
-    //     page.append(barrage)
-    //   }, 1000)
-    })
+    this.page = this.$refs.page
+    setInterval(async () => {
+      this.sendGift()
+      await this.$sleep(300)
+      this.sendGift()
+      this.joinUser()
+    }, 3000)
+    setInterval(async () => {
+      this.sendBarrage()
+    }, 5100)
+    // setInterval(async () => {
+    //   this.sendComment()
+    // }, 500)
   },
   methods: {
-    t() {
-      this.list.push('asdfasdfasdfasdfffasdfasdfffasdfasdfffasdfasdfffff')
+    sendGift() {
+      let page = new Dom(this.page)
+      let sendGift = new Dom().create(this.sendGiftTemplate())
+      sendGift.on('animationend', () => {
+        sendGift.remove()
+      })
+      let oldSendGift = new Dom('.send-gift')
+      let top = document.body.clientHeight * .6
+      if (oldSendGift.els.length !== 0) {
+        top = sendGift.removePx(oldSendGift.css('top')) - 70
+      }
+      sendGift.css('top', top)
+      page.append(sendGift)
+    },
+    joinUser() {
+      let page = new Dom(this.page)
+      let user = new Dom().create(this.userJoinedTemplate())
+      user.on('animationend', () => {
+        user.remove()
+      })
+      page.append(user)
+    },
+    sendBarrage() {
+      let page = new Dom(this.page)
+      let barrage = new Dom().create(this.barrageTemplate())
+      barrage.on('animationend', () => {
+        barrage.remove()
+      })
+      let oldBarrages = new Dom('.barrage')
+      let top = document.body.clientHeight * .35
+      if (oldBarrages.els.length !== 0) {
+        top = barrage.removePx(oldBarrages.css('top')) + 20
+      }
+      barrage.css('top', top)
+      page.append(barrage)
+    },
+    sendComment() {
+      this.list.push('评论评论评论评论评论评论评论评论评论评论' + this.list.length)
       nextTick(() => {
         let comments = this.$refs['comments']
         comments.scrollTop = comments.scrollHeight - comments.clientHeight
@@ -172,6 +232,84 @@ export default {
 </script>
 
 <style lang="less">
+@import "../../assets/scss/index";
+
+.send-gift {
+  position: fixed;
+  top: 63vh;
+  left: 1.5rem;
+  display: flex;
+  align-items: flex-end;
+  animation: send-gift-anim 2s linear;
+
+  @keyframes send-gift-anim {
+    from {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    10% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    80% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(0);
+    }
+  }
+
+  .left {
+    background: linear-gradient(to right, @primary-btn-color, rgba(252, 47, 86, .2));
+    padding: .5rem;
+    border-radius: 5rem;
+    display: flex;
+    align-items: center;
+
+    .avatar {
+      margin-right: .5rem;
+      width: 4rem;
+      border-radius: 50%;
+    }
+
+    .desc {
+      width: 20vw;
+
+      .name, .sendto {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .name {
+        font-size: 1.4rem;
+      }
+
+      .sendto {
+        font-size: 1.2rem;
+        color: yellow;
+      }
+
+      .to {
+        color: yellow;
+      }
+    }
+
+    .gift-icon {
+      width: 4rem;
+    }
+
+  }
+
+  .right {
+    font-size: 2.3rem;
+    font-weight: bold;
+    font-style: oblique;
+  }
+}
+
 .barrage {
   position: fixed;
   top: 50%;
@@ -188,7 +326,6 @@ export default {
     to {
       transform: translateX(-100%);
     }
-
   }
 
   .type {
@@ -198,6 +335,70 @@ export default {
     margin-right: .5rem;
   }
 
+}
+
+.user-joined {
+  @tag-bg: rgba(58, 58, 70, 0.3);
+  font-size: 1.2rem;
+  position: absolute;
+  top: 70vh;
+  left: 1.5rem;
+  padding: .4rem .8rem;
+  border-radius: 2rem;
+  background: rgba(115, 114, 181, .7);
+  margin-bottom: .5rem;
+  animation: user-joined-anim 3s linear;
+
+  @keyframes user-joined-anim {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    10% {
+      opacity: 1;
+      transform: translateX(3rem);
+    }
+    90% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-100%);
+    }
+  }
+
+  @text-color: rgb(164, 234, 253);
+
+  .level {
+    display: inline-block;
+
+    .wrapper {
+      display: flex;
+      @color: rgb(130, 133, 185);
+      align-items: center;
+      font-size: 1rem;
+      border-radius: 1rem;
+      margin-right: 0.5rem;
+      padding: 0 .6rem;
+      background: @color;
+
+      img {
+        margin-right: 0.3rem;
+        width: 1.2rem;
+      }
+    }
+  }
+
+  .name {
+    margin-right: 0.5rem;
+    font-size: 1.3rem;
+    color: @text-color;
+  }
+
+  .text {
+    word-break: break-all;
+  }
 }
 
 </style>

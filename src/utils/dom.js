@@ -31,7 +31,7 @@ export default class Dom {
 
   create(template) {
     let tempNode = document.createElement('div');
-    tempNode.innerHTML = template;
+    tempNode.innerHTML = template.trim();
     this.els = [tempNode.firstChild]
     return this;
   }
@@ -62,7 +62,7 @@ export default class Dom {
     if (args.length === 1) {
       //情况一：获取样式
       if (typeof args[0] === 'string') {
-        return window.getComputedStyle(this.els[0], null)[args[0]]
+        return window.getComputedStyle(this.els[this.els.length - 1], null)[args[0]]
         // return globalMethods.$getCss2
         // return this.els[0].style[args[0]]
       } else {
@@ -122,8 +122,11 @@ export default class Dom {
       if (typeof value === 'number') {
         return value + 'px'
       }
-    } else {
-      return value
     }
+    return value
+  }
+
+  removePx(val) {
+    return parseInt(val)
   }
 }
