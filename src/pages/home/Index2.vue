@@ -8,8 +8,7 @@
         <SlideRowList
             style="height: calc(100% - 5rem);"
             v-model:active-index="activeIndex"
-            :showIndicator="true"
-            :useHomeLoading="true"
+            indicatorType="home"
         >
           <SlideItem>
             <SlideColumnList>
