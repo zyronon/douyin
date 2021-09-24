@@ -52,6 +52,7 @@ import RequestUpdate from "../pages/me/RequestUpdate";
 import Test4 from "../pages/Test4";
 import Search from "../pages/home/SearchPage";
 import LivePage from "../pages/home/LivePage";
+import Test5 from "../pages/Test5";
 
 const routes = [
   // {path: '', component: Music},
@@ -61,6 +62,7 @@ const routes = [
   {path: '/test2', component: Test2},
   {path: '/test3', component: Test3},
   {path: '/test4', component: Test4},
+  {path: '/test5', component: Test5},
   {path: '/home', component: Index},
   {path: '/home/submit-report', component: SubmitReport},
   {path: '/home/music', component: Music},

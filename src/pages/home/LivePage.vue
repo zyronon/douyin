@@ -1,7 +1,7 @@
 <template>
   <div class="LivePage" ref="page">
     <div class="live-wrapper">
-      <img src="../../assets/img/poster/11.jpg" alt="">
+      <img src="../../assets/img/poster/1.jpg" alt="">
     </div>
     <div class="float">
       <div class="top">
@@ -33,7 +33,7 @@
             <img src="../../assets/img/icon/avatar/2.png" alt="" class="round">
             <img src="../../assets/img/icon/avatar/3.png" alt="" class="round">
             <div class="round count">107</div>
-            <back class="round close" img="close" mode="light"/>
+            <back class="round close" img="close" mode="light" @click="$back"/>
           </div>
           <div class="more">
             <div class="wrapper">
@@ -87,7 +87,7 @@
     </div>
 
 
-    <!--    <base-button @click="sendGift">点击</base-button>-->
+    <base-button @click="sendComment">点击</base-button>
   </div>
 </template>
 <script>
@@ -163,15 +163,15 @@ export default {
   },
   mounted() {
     this.page = this.$refs.page
-    setInterval(async () => {
-      this.sendGift()
-      await this.$sleep(300)
-      this.sendGift()
-      this.joinUser()
-    }, 3000)
-    setInterval(async () => {
-      this.sendBarrage()
-    }, 5100)
+    // setInterval(async () => {
+    //   this.sendGift()
+    //   await this.$sleep(300)
+    //   this.sendGift()
+    //   this.joinUser()
+    // }, 3000)
+    // setInterval(async () => {
+    //   this.sendBarrage()
+    // }, 5100)
     // setInterval(async () => {
     //   this.sendComment()
     // }, 500)
@@ -217,7 +217,8 @@ export default {
       this.list.push('评论评论评论评论评论评论评论评论评论评论' + this.list.length)
       nextTick(() => {
         let comments = this.$refs['comments']
-        comments.scrollTop = comments.scrollHeight - comments.clientHeight
+        comments.scrollTo({top: comments.scrollHeight - comments.clientHeight, behavior: 'smooth'})
+        // comments.scrollTop = comments.scrollHeight - comments.clientHeight
       })
     },
     attention() {

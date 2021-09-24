@@ -147,7 +147,7 @@ export default {
       }
     },
     touchStart(e) {
-      console.log('this.slideItemsHeights',this.slideItemsHeights)
+      // console.log('this.slideItemsHeights',this.slideItemsHeights)
 
       this.$setCss(this.slideList, 'transition-duration', `0ms`)
       this.showIndicator && this.$setCss(this.indicatorRef, 'transition-duration', `0ms`)

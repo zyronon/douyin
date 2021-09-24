@@ -56,6 +56,7 @@ export default {
         '/home/music',
         '/home/music-rank-list',
         '/home/report',
+        '/home/search',
 
 
         '/message/share-to-friend',

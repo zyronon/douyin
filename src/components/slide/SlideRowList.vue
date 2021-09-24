@@ -1,6 +1,6 @@
 <template>
   <div id="base-slide-wrapper" ref="slideWrapper">
-    <div class="indicator-home" v-if="showIndicator">
+    <div class="indicator-home" v-if="indicatorType === 'home'">
       <div class="notice" :style="noticeStyle"><span>下拉刷新内容</span></div>
       <div class="toolbar" ref="toolbar" :style="toolbarStyle">
         <div class="left" @click="$nav('/home/live')">直播</div>
@@ -9,10 +9,12 @@
             <div class="tab"
                  :class="currentSlideItemIndex === 0?'active':''"
                  @click="changeIndex(false,0)">
-              <span>关注</span></div>
+              <span>关注</span>
+            </div>
             <div class="tab"
                  :class="currentSlideItemIndex === 1?'active':''"
-                 @click="changeIndex(false,1)"><span>推荐</span></div>
+                 @click="changeIndex(false,1)"><span>推荐</span>
+            </div>
           </div>
           <div class="indicator" ref="indicator"></div>
         </div>
@@ -29,7 +31,7 @@
     </div>
 
     <div id="base-slide-list" ref="slideList"
-         :style="{'flex-direction':'row',marginTop:indicatorFixed?'5rem':'0'}"
+         :style="{'flex-direction':'row'}"
          @touchstart="touchStart($event)"
          @touchmove="touchMove($event)"
          @touchend="touchEnd($event)">
@@ -64,14 +66,6 @@ export default {
       //progressbar
       //custom
     },
-    showIndicator: {
-      type: Boolean,
-      default: () => false
-    },
-    indicatorFixed: {
-      type: Boolean,
-      default: () => false
-    },
     useHomeLoading: {
       type: Boolean,
       default: () => false
@@ -86,8 +80,11 @@ export default {
     },
   },
   computed: {
+    isHome() {
+      return this.indicatorType === 'home'
+    },
     toolbarStyle() {
-      if (!this.useHomeLoading) return
+      if (!this.isHome) return
       return {
         opacity: 1 - this.homeLoadingMoveYDistance / 20,
         'transition-duration': this.toolbarStyleTransitionDuration + 'ms',
@@ -95,7 +92,7 @@ export default {
       }
     },
     noticeStyle() {
-      if (!this.useHomeLoading) return
+      if (!this.isHome) return
       return {
         opacity: this.homeLoadingMoveYDistance / 60,
         'transition-duration': this.toolbarStyleTransitionDuration + 'ms',
@@ -103,7 +100,7 @@ export default {
       }
     },
     loadingStyle() {
-      if (!this.useHomeLoading) return
+      if (!this.isHome) return
       if (this.loading) {
         return {
           opacity: 1,
@@ -158,7 +155,7 @@ export default {
   },
   mounted: async function () {
     await this.checkChildren(true)
-    this.showIndicator && this.initTabs()
+    this.isHome && this.initTabs()
     this.changeIndex(true)
 
     if (this.autoplay) {
@@ -177,7 +174,7 @@ export default {
       this.currentSlideItemIndex = index !== null ? index : this.activeIndex
       !init && this.$setCss(this.slideList, 'transition-duration', `300ms`)
       this.$setCss(this.slideList, 'transform', `translate3d(${-this.getWidth(this.currentSlideItemIndex) + this.moveXDistance}px, 0px, 0px)`)
-      if (this.showIndicator) {
+      if (this.isHome) {
         this.$setCss(this.indicatorRef, 'left', this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px')
       }
       this.$attrs['onUpdate:active-index'] && this.$emit('update:active-index', this.currentSlideItemIndex)
@@ -189,10 +186,11 @@ export default {
         let item = tabs.children[i]
         this.tabWidth = this.$getCss(item, 'width')
         this.tabIndicatorRelationActiveIndexLefts.push(
-            item.getBoundingClientRect().x - tabs.children[0].getBoundingClientRect().x + (this.indicatorType === 'home' ? this.tabWidth * 0.15 : 0))
+            item.getBoundingClientRect().x - tabs.children[0].getBoundingClientRect().x + (this.isHome ? this.tabWidth * 0.15 : 0))
       }
+      console.log(this.tabIndicatorRelationActiveIndexLefts)
       this.indicatorSpace = this.tabIndicatorRelationActiveIndexLefts[1] - this.tabIndicatorRelationActiveIndexLefts[0]
-      if (this.showIndicator) {
+      if (this.isHome) {
         this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
         this.$setCss(this.indicatorRef, 'left', this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px')
       }
@@ -209,7 +207,7 @@ export default {
     },
     touchStart(e) {
       this.$setCss(this.slideList, 'transition-duration', `0ms`)
-      this.showIndicator && this.$setCss(this.indicatorRef, 'transition-duration', `0ms`)
+      this.isHome && this.$setCss(this.indicatorRef, 'transition-duration', `0ms`)
       this.toolbarStyleTransitionDuration = 0
 
       this.startLocationX = e.touches[0].pageX
@@ -230,7 +228,7 @@ export default {
 
       //多重判断，this.isCanDownWiping 这个判断是为了，只能在一个方向上，进行页面更新，比如说，我斜着画，就会出现toolbar又在下移，
       //slideitem同时在左右移的情况，所以不能直接使用moveYDistance
-      if (this.isCanDownWiping && this.useHomeLoading && !this.loading) {
+      if (this.isCanDownWiping && this.isHome && !this.loading) {
         this.homeLoadingMoveYDistance = this.moveYDistance > 0 ? this.moveYDistance : 0
       }
 
@@ -250,13 +248,13 @@ export default {
             this.moveXDistance +
             (this.isDrawRight ? this.judgeValue : -this.judgeValue)}px, 0px, 0px)`)
 
-        this.showIndicator && this.$setCss(this.indicatorRef, 'left',
+        this.isHome && this.$setCss(this.indicatorRef, 'left',
             this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] -
             this.moveXDistance / (this.$store.state.bodyWidth / this.indicatorSpace) + 'px')
       }
     },
     touchEnd(e) {
-      if (this.useHomeLoading) {
+      if (this.isHome) {
         if (this.homeLoadingMoveYDistance > 60) {
           this.getData()
         }
@@ -269,7 +267,7 @@ export default {
         if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawRight) return
 
         this.$setCss(this.slideList, 'transition-duration', `300ms`)
-        this.showIndicator && this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
+        this.isHome && this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
         let endTime = Date.now()
         let gapTime = endTime - this.startTime
 
@@ -289,7 +287,7 @@ export default {
           }
         }
         this.$setCss(this.slideList, 'transform', `translate3d(${-this.getWidth(this.currentSlideItemIndex)}px, 0px, 0px)`)
-        if (this.showIndicator) {
+        if (this.isHome) {
           this.$setCss(this.indicatorRef, 'left', this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px')
         }
       }
@@ -391,6 +389,7 @@ export default {
     }
 
     .toolbar {
+      z-index: 2;
       position: relative;
       color: white;
       width: 100%;
