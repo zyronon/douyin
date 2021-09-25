@@ -1,7 +1,7 @@
 <template>
   <div class="video-wrapper" ref="videoWrapper" :class="name">
-    <video :src="video.video"
-           :poster="video.origin_cover"
+    <video :src="video.video + '?v=123'"
+           :poster="video.video + videoPoster"
            ref="video"
            muted
            preload
@@ -52,7 +52,7 @@
           />
         </div>
         <div class="content ml1r mb1r" v-if="!isMy">
-          <div class="name mb1r">{{ lVideo.author.name }}</div>
+          <div class="name mb1r" @click="$emit('goUserInfo')">@{{ lVideo.author.nickname }}</div>
           <div class="description mb1r">
             {{ lVideo.desc }}
           </div>
@@ -104,6 +104,7 @@ import globalMethods from '../utils/global-methods'
 import BaseMarquee from "./BaseMarquee";
 import Dom from "../utils/dom";
 import BaseMusic from "./BaseMusic";
+import {mapState} from "vuex";
 
 export default {
   name: "Video",
@@ -148,7 +149,7 @@ export default {
       } else {
         return this.isPlaying ? '' : 'stop'
       }
-    }
+    },
   },
   data() {
     return {
@@ -170,7 +171,9 @@ export default {
       lastClickTime: -1,
       clickTimer: null,
       dbClickTimer: null,
-      isDbClick: false
+      isDbClick: false,
+      videoPoster: `?vframe/jpg/offset/1/w/${document.body.clientWidth}`
+      // videoPoster: `?vframe/jpg/offset/1/w/${document.body.clientWidth}/h/${document.body.clientHeight - 50}`
     }
   },
   mounted() {
