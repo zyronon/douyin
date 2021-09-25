@@ -85,13 +85,12 @@
 
 <script>
 import Comment from '../../components/Comment.vue'
-import Other from '../../components/Other.vue'
 import Share from '../../components/Share.vue'
 import Footer from "../../components/Footer.vue"
 
 export default {
   name: "HomeIndex",
-  components: {Footer, Comment, Share, Other},
+  components: {Footer, Comment, Share,},
   data() {
     return {
       height: 0,

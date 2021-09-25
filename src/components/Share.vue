@@ -109,7 +109,7 @@
             <span>动态壁纸</span>
           </div>
           <!--        todo-->
-          <div class="tool" @click="$emit('dislike')">
+          <div class="tool" @click="closeShare($emit('dislike'))">
             <img src="../assets/img/icon/components/video/dislike.png" alt="">
             <span>不感兴趣</span>
           </div>

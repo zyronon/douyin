@@ -11,8 +11,8 @@
     <div class="userinfo">
       <div class="change-avatar">
         <div class="avatar-ctn" @click="showAvatarDialog">
-          <img class="avatar" src="../../../assets/img/icon/head-image.jpeg" alt="">
-          <img class="change" src="../../../assets/img/icon/back.png" alt="">
+          <img class="avatar" src="../../../assets/img/icon/avatar/6.png" alt="">
+          <img class="change" src="../../../assets/img/icon/me/camera-light.png" alt="">
         </div>
         <span>点击更换头像</span>
       </div>
@@ -179,7 +179,7 @@ export default {
     align-items: center;
     flex-direction: column;
     margin: 3rem 0;
-    @avatar-width: 7rem;
+    @avatar-width: 8rem;
 
     .avatar-ctn {
       position: relative;
@@ -200,6 +200,7 @@ export default {
       }
 
       .change {
+        width: 2.8rem;
         z-index: 9;
         position: relative;
       }

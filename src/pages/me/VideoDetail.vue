@@ -152,7 +152,6 @@
 
 <script>
 import Comment from '../../components/Comment.vue'
-import Other from '../../components/Other.vue'
 import Share from '../../components/Share.vue'
 import Footer from "../../components/Footer.vue"
 import src1Bg from '../../assets/img/poster/src1-bg.png'
@@ -162,7 +161,7 @@ import FromBottomDialog from "../../components/dialog/FromBottomDialog";
 export default {
   name: "VideoDetail",
   components: {
-    Footer, Comment, Share, Other, Search,
+    Footer, Comment, Share, Search,
     FromBottomDialog
   },
   data() {
