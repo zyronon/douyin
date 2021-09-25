@@ -11,6 +11,7 @@
 </template>
 <script>
 import * as Vue from 'vue'
+import Dom from "../../utils/dom";
 
 export default {
   name: "SlideColumnVirtualList",
@@ -117,6 +118,12 @@ export default {
     this.checkChildren()
   },
   methods: {
+    dislike(item) {
+      let currentItem = new Dom(`.video-slide-item-${this.currentSlideItemIndex}`)
+      let replaceItem = this.getInsEl(item, this.currentSlideItemIndex, true)
+      new Dom(replaceItem).css('top', currentItem.css('top'))
+      $(currentItem.els[0]).replaceWith(replaceItem)
+    },
     getInsEl(item, index, play = false) {
       // console.log('index',index,play)
       let slideVNode = this.renderSlide(item, index, play)
@@ -200,7 +207,7 @@ export default {
         if (this.currentSlideItemIndex === 0 && !this.isDrawDown) return
         if (this.currentSlideItemIndex === this.list.length - 1 && this.isDrawDown) return this.$attrs['onEnd'] && this.$emit('end')
 
-        this.$stopPropagation(e)
+        e && this.$stopPropagation(e)
 
         this.$setCss(this.slideList, 'transition-duration', `300ms`)
         let endTime = Date.now()
@@ -214,6 +221,8 @@ export default {
           } else {
             this.currentSlideItemIndex -= 1
           }
+          console.log('gapTime', this.currentSlideItemIndex)
+
           // console.log(this.slideItems.length)
           let that = this
           if (this.isDrawDown) {

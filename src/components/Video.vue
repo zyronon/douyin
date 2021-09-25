@@ -13,7 +13,7 @@
       <!--       @click.stop="togglePlayVideo" -->
       <div :style="{opacity:isMove ? 0:1}" class="normal">
         <div class="toolbar mb1r">
-          <div class="avatar-ctn mb2r">
+          <div class="avatar-ctn mb4r">
             <img class="avatar" :src="lVideo.author.avatar" alt=""
                  @click.stop="$emit('goUserInfo')">
             <transition name="fade">
@@ -52,13 +52,27 @@
           />
         </div>
         <div class="content ml1r mb1r" v-if="!isMy">
-          <div class="name mb1r" @click="$emit('goUserInfo')">@{{ lVideo.author.nickname }}</div>
+          <div class="location-wrapper" v-if=" lVideo.city || lVideo.address">
+            <div class="location">
+              <img src="../assets/img/icon/location.webp" alt="">
+              <span>{{ lVideo.city }}</span>
+              <template v-if="lVideo.address && lVideo.address">
+                <div class="gang"></div>
+              </template>
+              <span>{{ lVideo.address }}</span>
+            </div>
+          </div>
+          <div class="name mb1r fb" @click.stop="$emit('goUserInfo')">@{{ lVideo.author.nickname }}</div>
           <div class="description mb1r">
             {{ lVideo.desc }}
           </div>
           <div class="music" @click.stop="$nav('/music')">
             <img src="../assets/img/icon/music.svg" alt="" class="music-image">
-            <BaseMarquee :key="name" :name="name" :isPlay="isPlay" :text="lVideo.music.title"/>
+            <BaseMarquee :key="name"
+                         :name="name"
+                         :isPlay="isPlay"
+                         :text="lVideo.music.title"
+                         @click.stop="$emit('goMusic')"/>
           </div>
         </div>
         <div v-else class="comment-status">
@@ -172,8 +186,7 @@ export default {
       clickTimer: null,
       dbClickTimer: null,
       isDbClick: false,
-      videoPoster: `?vframe/jpg/offset/1/w/${document.body.clientWidth}`
-      // videoPoster: `?vframe/jpg/offset/1/w/${document.body.clientWidth}/h/${document.body.clientHeight - 50}`
+      videoPoster: `?vframe/jpg/offset/0/w/${document.body.clientWidth}`
     }
   },
   mounted() {
@@ -359,8 +372,8 @@ export default {
   }
 
   .pause {
-    width: 4.5rem;
-    height: 4.5rem;
+    width: 10rem;
+    height: 10rem;
     opacity: 0.5;
     position: absolute;
     margin: auto;
@@ -397,7 +410,7 @@ export default {
 
     .normal {
       position: absolute;
-      bottom: 1rem;
+      bottom: 0;
       width: 100%;
       transition: all .3s;
 
@@ -467,13 +480,15 @@ export default {
           justify-content: center;
           align-items: center;
 
+          @width: 3.5rem;
+
           img {
-            width: 40px;
-            height: 40px;
+            width: @width;
+            height: @width;
           }
 
           span {
-            font-size: 11px;
+            font-size: 1.2rem;
           }
         }
 
@@ -488,6 +503,36 @@ export default {
         position: absolute;
         bottom: 0;
         width: 75%;
+        //display: flex;
+        //flex-direction: column;
+
+        .location-wrapper {
+          display: flex;
+
+          .location {
+            margin-bottom: 1rem;
+
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+            padding: .4rem;
+            border-radius: .3rem;
+            background: @second-btn-color-tran;
+
+            .gang {
+              height: .8rem;
+              width: 1.5px;
+              margin: 0 .5rem;
+              background: gray;
+            }
+
+            img {
+              margin-right: .7rem;
+              width: 1.8rem;
+            }
+          }
+        }
+
 
         .music {
           position: relative;
