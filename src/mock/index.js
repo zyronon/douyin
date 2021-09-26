@@ -1,10 +1,30 @@
 import Mock from 'mockjs'
 import globalMethods from '../utils/global-methods'
-import {da} from "pinyin/data/dict-zi-web";
+import resource from "../assets/data/resource.js";
 
 Mock.setup({
   timeout: '500-1000'
 })
+let allRecommendVideos = []
+
+for (let i = 0; i < 10; i++) {
+  allRecommendVideos = allRecommendVideos.concat(resource.videos)
+}
+
+Mock.mock(/recommended/, options => {
+    let params = globalMethods.$parseURL(options.url).params
+    params.pageNo = ~~params.pageNo
+    params.pageSize = ~~params.pageSize
+    let offset = params.pageNo * params.pageSize
+    let limit = params.pageNo * params.pageSize + params.pageSize
+    return Mock.mock({
+      data: {
+        total: allRecommendVideos.length,
+        list: allRecommendVideos.slice(offset, limit),
+      }, code: 200, msg: '',
+    })
+  }
+)
 
 Mock.Random.extend({
   imgs: function (date) {
@@ -49,32 +69,19 @@ Mock.Random.extend({
   Mock.mock('me', data)
 }())
 
-let pageSize = 15
 Mock.mock(/my/, options => {
   let params = globalMethods.$parseURL(options.url).params
   params.pageNo = ~~params.pageNo
   params.pageSize = ~~params.pageSize
-  params.total = ~~params.total
-  // console.log(params)
-  // let data = {total: Mock.Random.natural(1, 20)}
-  // data[`list|${data.total > pageSize ? pageSize : data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
-  // data[`list|${data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
-  let data = {
-    total: params.total === -1 ? 20 : params.total,
-    pageNo: params.pageNo,
-    pageSize: params.pageSize
-  }
-  let listLength = 0
-  if (params.pageNo !== 0) {
-    let remainder = data.total - (params.pageNo * params.pageSize)
-    listLength = remainder > params.pageSize ? params.pageSize : remainder
-  } else {
-    listLength = data.total > params.pageSize ? params.pageSize : data.total
-  }
-  data[`list|${listLength}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
-  // console.log(data)
-  Mock.mock(/my/, Mock.mock({data, code: 200, msg: '',}))
-  return Mock.mock({data, code: 200, msg: '',})
+  let offset = params.pageNo * params.pageSize
+  let limit = params.pageNo * params.pageSize + params.pageSize
+  return Mock.mock({
+    data: {
+      pageNo: params.pageNo,
+      total: resource.my.length,
+      list: resource.my.slice(offset, limit),
+    }, code: 200, msg: '',
+  })
 })
 
 

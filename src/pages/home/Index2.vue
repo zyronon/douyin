@@ -241,7 +241,7 @@ export default {
       activeIndex: 1,
       totalSize: 52,
       pageSize: 10,
-      pageNo: 1,
+      pageNo: 0,
       loading: false,
       render: (item, itemIndex, play) => {
         return (
@@ -276,11 +276,14 @@ export default {
     }
   },
   created() {
-    this.getData()
   },
   mounted() {
     this.height = document.body.clientHeight
     this.width = document.body.clientWidth
+
+
+
+    this.getData()
   },
   methods: {
     delayShowDialog(cb) {
@@ -290,10 +293,11 @@ export default {
     },
     dislike() {
       this.$refs.virtualList.dislike(this.videos[10])
+      this.videos[this.currentSlideItemIndex] = this.videos[10]
       this.$notice('操作成功，将减少此类视频的推荐')
     },
     async getData() {
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV !== 'development') {
         this.totalSize = 11
         // return this.videos = this.$clone(this.localVideos)
         // await this.$sleep(200)
@@ -302,9 +306,10 @@ export default {
       }
       this.loading = true
       let res = await this.$api.videos.recommended({pageNo: this.pageNo, pageSize: this.pageSize})
+      console.log(res)
       this.loading = false
       if (res.code === this.SUCCESS) {
-        this.totalSize = res.data.count
+        this.totalSize = res.data.total
         this.videos = this.videos.concat(res.data.list)
         // this.videos = this.$clone(this.localVideos)
       } else {
