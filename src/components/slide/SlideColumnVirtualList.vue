@@ -64,6 +64,7 @@ export default {
   watch: {
     watchList: {
       handler(newVal, oldVal) {
+        console.log('watch', newVal.length, oldVal.length)
         let that = this
         if (oldVal.length === 0) {
           let startIndex = 0
@@ -221,7 +222,7 @@ export default {
           } else {
             this.currentSlideItemIndex -= 1
           }
-          console.log('gapTime', this.currentSlideItemIndex)
+          // console.log('gapTime', this.currentSlideItemIndex)
 
           // console.log(this.slideItems.length)
           let that = this
