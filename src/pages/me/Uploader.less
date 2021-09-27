@@ -349,9 +349,9 @@
           color: white;
           transform: translateY(-2rem);
 
-          .number {
-            color: @second-text-color;
-            padding-bottom: 2rem;
+          .number, .certification {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
             border-bottom: 1px solid @line-color;
             display: flex;
             align-items: center;
@@ -362,6 +362,20 @@
             }
           }
 
+          .number {
+            color: @second-text-color;
+
+            img {
+              margin-left: .5rem;
+            }
+          }
+
+          .certification {
+            img {
+              width: 1.6rem;
+              margin-right: .5rem;
+            }
+          }
         }
 
         .signature {
@@ -373,6 +387,10 @@
           img {
             height: 1.2rem;
             margin-left: .6rem;
+          }
+
+          .text {
+            white-space: pre-wrap;
           }
         }
 
