@@ -41,26 +41,30 @@
               <div class="heat">
                 <div class="text">
                   <span>获赞</span>
-                  <span class="num">{{ localAuthor.favoriting_count }}</span>
-                </div>
-                <div class="text">
-                  <span>粉丝</span>
-                  <span class="num">{{ localAuthor.follower_count }}</span>
+                  <span class="num">{{ $likeNum(localAuthor.aweme_count) }}</span>
                 </div>
                 <div class="text">
                   <span>关注</span>
                   <span class="num">{{ localAuthor.following_count }}</span>
                 </div>
+                <div class="text">
+                  <span>粉丝</span>
+                  <span class="num">{{ $likeNum(localAuthor.follower_count) }}</span>
+                </div>
               </div>
             </div>
             <div class="description">
               <p class="name f22 mt1r mb1r">{{ localAuthor.nickname }}</p>
-              <div class="number mb1r">
+              <div class="certification" v-if="localAuthor.certification ">
+                <img src="../../assets/img/icon/me/certification.webp">
+                {{ localAuthor.certification }}
+              </div>
+              <div class="number" v-else>
                 <span>抖音号：{{ localAuthor.unique_id }}</span>
                 <img src="../../assets/img/icon/me/qrcode-gray.png" alt="" @click.stop="$nav('/my-card')">
               </div>
               <div class="signature f12" v-if="localAuthor.desc">
-                <span class="text">{{ localAuthor.desc }}</span>
+                <div class="text" v-html="localAuthor.desc"></div>
               </div>
               <div class="more">
                 <div class="age item" v-if="localAuthor.birthday">
@@ -68,8 +72,12 @@
                   <img v-if="localAuthor.sex === '1'" src="../../assets/img/icon/me/man.png" alt="">
                   <span>{{ filterAge(localAuthor.birthday) }}岁</span>
                 </div>
-                <div class="item" v-if="localAuthor.location">
-                  {{ localAuthor.location }}
+                <div class="item" v-if="localAuthor.province || localAuthor.city">
+                  {{ localAuthor.province }}
+                  <template v-if="localAuthor.province &&  localAuthor.city">
+                    -
+                  </template>
+                  {{ localAuthor.city }}
                 </div>
                 <div class="item" v-if="localAuthor.school?.name">
                   {{ localAuthor.school?.name }}
@@ -362,7 +370,7 @@ export default {
     },
     isOnThisPage(newVal) {
       if (newVal) {
-        this.getAuthor()
+        // this.getAuthor()
       }
     }
   },
@@ -374,7 +382,7 @@ export default {
       this.refs.maxSlideHeight = this.$refs.videoSlideRowList.wrapperHeight
       this.initSlideHeight = this.bodyHeight - 50 - this.refs.descHeight
       this.canTransformY = this.refs.descHeight - this.floatHeight
-      this.getAuthor()
+      // this.getAuthor()
     })
     this.videoItemHeight = this.bodyWidth / 3 * 1.2 + 2
     bus.on('baseSlide-moved', () => this.canScroll = false)

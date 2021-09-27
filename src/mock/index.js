@@ -2,6 +2,20 @@ import Mock from 'mockjs'
 import globalMethods from '../utils/global-methods'
 import resource from "../assets/data/resource.js";
 
+function getParams(options) {
+  let params = globalMethods.$parseURL(options.url).params
+  params.pageNo = ~~params.pageNo
+  params.pageSize = ~~params.pageSize
+  return params
+}
+
+function getPage(options) {
+  let params = getParams(options)
+  let offset = params.pageNo * params.pageSize
+  let limit = params.pageNo * params.pageSize + params.pageSize
+  return {limit, offset, pageNo: params.pageNo}
+}
+
 Mock.setup({
   timeout: '500-1000'
 })
@@ -10,17 +24,12 @@ let allRecommendVideos = []
 for (let i = 0; i < 10; i++) {
   allRecommendVideos = allRecommendVideos.concat(resource.videos)
 }
-
 Mock.mock(/recommended/, options => {
-    let params = globalMethods.$parseURL(options.url).params
-    params.pageNo = ~~params.pageNo
-    params.pageSize = ~~params.pageSize
-    let offset = params.pageNo * params.pageSize
-    let limit = params.pageNo * params.pageSize + params.pageSize
+    let page = getPage(options)
     return Mock.mock({
       data: {
         total: allRecommendVideos.length,
-        list: allRecommendVideos.slice(offset, limit),
+        list: allRecommendVideos.slice(page.offset, page.limit),
       }, code: 200, msg: '',
     })
   }
@@ -69,41 +78,52 @@ Mock.Random.extend({
   Mock.mock('me', data)
 }())
 
+
 Mock.mock(/my/, options => {
-  let params = globalMethods.$parseURL(options.url).params
-  params.pageNo = ~~params.pageNo
-  params.pageSize = ~~params.pageSize
-  let offset = params.pageNo * params.pageSize
-  let limit = params.pageNo * params.pageSize + params.pageSize
+  let page = getPage(options)
   return Mock.mock({
     data: {
-      pageNo: params.pageNo,
+      pageNo: page.pageNo,
       total: resource.my.length,
-      list: resource.my.slice(offset, limit),
+      list: resource.my.slice(page.offset, page.limit),
+    }, code: 200, msg: '',
+  })
+})
+Mock.mock(/like/, options => {
+  let page = getPage(options)
+  return Mock.mock({
+    data: {
+      pageNo: page.pageNo,
+      total: resource.my.length,
+      list: resource.like.slice(page.offset, page.limit),
+    }, code: 200, msg: '',
+  })
+})
+Mock.mock(/private1/, options => {
+  let page = getPage(options)
+  return Mock.mock({
+    data: {
+      pageNo: page.pageNo,
+      total: resource.my.length,
+      list: resource.private1.slice(page.offset, page.limit),
     }, code: 200, msg: '',
   })
 })
 
+Mock.mock(/collect/, options => {
+  let page = getPage(options)
+  return Mock.mock({
+    data: {
+      pageNo: page.pageNo,
+      video: {
+        total: 0,
+        list: [],
+      },
+      audio: {
+        total: 0,
+        list: [],
+      }
+    }, code: 200, msg: '',
+  })
+})
 
-!(function private1() {
-  // let data = {total: Mock.Random.natural(1, 20)}
-  // data[`list|${data.total > pageSize ? pageSize : data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
-  let data = {total: 4}
-  data[`list|${data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
-  Mock.mock(/private/, Mock.mock({data, code: 200, msg: '',}))
-}())
-
-!(function like() {
-  // let data = {total: Mock.Random.natural(1, 20)}
-  // data[`list|${data.total > pageSize ? pageSize : data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
-  let data = {total: 11}
-  data[`list|${data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
-  Mock.mock(/like/, Mock.mock({data, code: 200, msg: '',}))
-}())
-!(function collect() {
-  // let data = {total: Mock.Random.natural(1, 20)}
-  // data[`list|${data.total > pageSize ? pageSize : data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
-  let data = {total: 5}
-  data[`list|${data.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
-  Mock.mock(/collect/, Mock.mock({data, code: 200, msg: '',}))
-}())

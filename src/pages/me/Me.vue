@@ -38,21 +38,21 @@
                     <span class="num">18</span>
                   </div>
                   <div class="text">
-                    <span>粉丝</span>
-                    <span class="num">62</span>
-                  </div>
-                  <div class="text">
                     <span>关注</span>
                     <span class="num">8</span>
+                  </div>
+                  <div class="text">
+                    <span>粉丝</span>
+                    <span class="num">62</span>
                   </div>
                 </div>
 
               </div>
               <div class="description">
-                <p class="name f22 mt1r mb1r">ttentau</p>
+                <p class="name f22 mt1r mb1r">{{ userinfo.nickname }}</p>
                 <div class="number mb1r">
-                  <span class="mr1r">私密账号</span>
-                  <span>抖音号：605128307</span>
+                  <span class="mr1r" v-if="userinfo.is_private">私密账号</span>
+                  <span>抖音号：{{ userinfo.unique_id }}</span>
                   <img src="../../assets/img/icon/me/qrcode-gray.png" alt="" @click.stop="$nav('/my-card')">
                 </div>
                 <div class="signature f12" @click="$nav('/edit-userinfo-item',{type:3})">
@@ -60,16 +60,20 @@
                     <span>点击添加介绍，让大家认识你...</span>
                     <img src="../../assets/img/icon/me/write-gray.png" alt="">
                   </template>
-                  <span v-else class="text">{{ userinfo.desc }}</span>
+                  <div v-else class="text" v-html="userinfo.desc"></div>
                 </div>
                 <div class="more">
                   <div class="age item" v-if="userinfo.birthday">
-                    <img v-if="userinfo.sex === '女'" src="../../assets/img/icon/me/woman.png" alt="">
-                    <img v-if="userinfo.sex === '男'" src="../../assets/img/icon/me/man.png" alt="">
+                    <img v-if="userinfo.sex == 0" src="../../assets/img/icon/me/woman.png" alt="">
+                    <img v-if="userinfo.sex == 1" src="../../assets/img/icon/me/man.png" alt="">
                     <span>{{ filterAge(userinfo.birthday) }}岁</span>
                   </div>
-                  <div class="item" v-if="userinfo.location">
-                    {{ userinfo.location }}
+                  <div class="item" v-if="userinfo.province || userinfo.city">
+                    {{ userinfo.province }}
+                    <template v-if="userinfo.province &&  userinfo.city">
+                      -
+                    </template>
+                    {{ userinfo.city }}
                   </div>
                   <div class="item" v-if="userinfo.school.name">
                     {{ userinfo.school.name }}
@@ -389,7 +393,34 @@ export default {
       tempScroll: false,
       acceleration: 1.2,
       sprint: 15,
-      canScroll: true
+      canScroll: true,
+      localAuthor: {
+        "id": "93864497380",
+        "unique_id_modify_time": "1630393144",
+        "unique_id": "10040050",
+        "favoriting_count": 143,
+        "avatar": require('../../assets/img/icon/avatar/1.png'),
+        "city": "北京",
+        "school": "中央戏剧学院",
+        "province": null,
+        "country": "",
+        "location": "",
+        "birthday": "2002-01-01",
+        "cover": "https://p3.douyinpic.com/obj/c8510002be9a3a61aad2?from=116350172",
+        "following_count": 66,
+        "follower_count": 235000,
+        "aweme_count": 1796000,
+        "nickname": "我是小睿耶",
+        "phone": "",
+        "sex": "",
+        "last_login_time": "1630423555",
+        "create_time": "1630423555",
+        "status": 1,
+        "desc": `一个普普通通学表演的
+        看到的人都能开开心心
+        `,
+        "is_private": 0
+      }
     }
   },
   computed: {
@@ -482,7 +513,7 @@ export default {
           switch (newVal) {
             case 0:
               res = await this.$api.videos.my({pageNo: this.videos.my.pageNo, pageSize: this.pageSize,})
-                console.log(res)
+              console.log(res)
               if (res.code === this.SUCCESS) this.videos.my = res.data
               break
             case 1:
