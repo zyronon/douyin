@@ -1,47 +1,118 @@
 <template>
   <div id='MyCard'>
-    <BaseHeader>
-      <template v-slot:center>
-        <span class="f16">我的抖音码</span>
-      </template>
-    </BaseHeader>
-    <div class="content">
-      <div class="card">
-        <div class="logo-ctn">
-          <img src="../../assets/img/icon/head-image.jpeg" alt="">
-        </div>
-        <span class="name">TTentau</span>
-        <span class="notice">使用抖音扫码，加我好友</span>
-        <img src="../../assets/img/icon/logo2.png" alt="" class="logo">
-      </div>
+    <div class="header">
+      <back mode="light" @click="$back"/>
+<!--      todo 差一-->
+      <img class="share" src="../../assets/img/icon/share-white.png" @click="isSharing = true">
     </div>
-    <div class="notice-two">请使用最新版抖音扫描</div>
-    <div class="footer">
-      <div class="btn">
-        <img src="../../assets/img/icon/download.png" alt="">
-        <span>保存到相册</span>
+    <div class="content">
+      <div class="qrcode">
+        <img class="qrcode-bg" src="../../assets/img/icon/me/code-bg.png" alt="">
+        <img class="avatar" src="../../assets/img/icon/avatar/7.png" alt="">
       </div>
-      <div class="btn" @click="$nav('/scan')">
-        <img src="../../assets/img/icon/scan.png" alt="">
+
+      <span class="name">ZZZZZZZZZZ</span>
+      <span class="notice">抖音扫一扫，立即关注我</span>
+    </div>
+    <div class="footer">
+<!--      <div class="btn" @click="$nav('/scan')">-->
+      <div class="btn" @click="$no">
+        <div class="wrapper">
+          <img src="../../assets/img/icon/scan.png" alt="">
+        </div>
         <span>扫一扫</span>
       </div>
+      <div class="btn" @click="$no">
+        <div class="wrapper">
+          <img src="../../assets/img/icon/download.png" alt="">
+        </div>
+        <span>保存</span>
+      </div>
     </div>
+
+    <Share v-model="isSharing"
+           mode="qrcode"
+           ref="share"
+           @showDouyinCode="showDouyinCode = true"
+           @showShare2WeChatZone="shareType = 2"
+           @share2WeChat="shareType = 3"
+           @share2QQZone="shareType = 4"
+           @share2QQ="shareType = 5"
+           @share2Webo="shareType = 8"
+           @ShareToFriend="delayShowDialog( e => this.shareToFriend = true)"
+    />
+
+
+    <ConfirmDialog
+        v-model:visible="showSharePassword"
+        title="你的口令已复制"
+        subtitle="0F.:/ a【风就应该自由要什么归宿】长按复制此条消息，打开抖音搜索，聆听音乐##kwu3VCixHl8##[抖音口令]"
+        :okText="okText"
+        cancelText="不分享了"
+        @ok="shareType = -1"
+        @cancel="shareType = -1"
+    >
+      <template v-slot:header>
+        <img style="width: 100%;" src="../../assets/img/icon/share-password.webp" alt="">
+      </template>
+    </ConfirmDialog>
+
+    <ShareToFriend v-model="shareToFriend"/>
+
+
   </div>
 </template>
 <script>
+import Share from "../../components/Share";
+import ConfirmDialog from "../../components/dialog/ConfirmDialog";
+import ShareToFriend from "../home/components/ShareToFriend";
+
 export default {
   name: "MyCard",
-  components: {},
+  components: {
+    Share,
+    ConfirmDialog,
+    ShareToFriend
+  },
   data() {
     return {
-      transitionName: 'fade'
+      isSharing: false,
+      okText: '',
+
+      showSharePassword: false,
+      shareToFriend: false,
+      shareType: -1,
+
+      showDouyinCode: false,
+    }
+  },
+  watch: {
+    shareType(newVal, oldVal) {
+      if (newVal === -1) return
+      this.showSharePassword = true
+      switch (newVal) {
+        case 2:
+        case 3:
+          return this.okText = '去微信粘贴'
+        case 4:
+        case 5:
+          return this.okText = '去QQ粘贴'
+        case 8:
+          return this.okText = '去微博粘贴'
+      }
     }
   },
   created() {
 
   },
   computed: {},
-  methods: {}
+  methods: {
+    delayShowDialog(cb) {
+      setTimeout(() => {
+        cb()
+      }, 100)
+    },
+  }
 }
 </script>
 
@@ -49,6 +120,7 @@ export default {
 @import "../../assets/scss/index";
 
 #MyCard {
+  background: rgb(136, 132, 133);
   position: fixed;
   left: 0;
   right: 0;
@@ -57,54 +129,65 @@ export default {
   overflow: auto;
   font-size: 1.4rem;
 
+  .header {
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 1.5rem;
+    height: 6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .share {
+      width: 2.4rem;
+      height: 2.4rem;
+      margin-left: 1.5rem;
+    }
+  }
+
 
   .content {
     padding-top: @header-height;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    .card {
-      margin: 3rem;
-      background: white;
-      border-radius: 1rem;
+    .qrcode {
+      margin-top: 12vh;
       display: flex;
       align-items: center;
-      flex-direction: column;
+      justify-content: center;
+      position: relative;
 
-      .logo-ctn {
-        margin: 2rem 0;
-        width: 40vw;
-        background-image: url("/@/assets/img/icon/logo-bg.png");
-        background-position: center;
-        background-size: 100% 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        img {
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
-        }
+      .qrcode-bg {
+        width: 60vw;
       }
 
-      .notice {
-        font-size: 1.2rem;
-        margin-top: 6rem;
-        opacity: .4;
-      }
-
-      .logo {
-        margin: 2rem 0;
-        width: 40vw;
+      .avatar {
+        border-radius: 50%;
+        position: absolute;
+        width: 25vw;
       }
     }
 
-  }
+    .name {
+      font-weight: bold;
+      margin-top: 2rem;
+      font-size: 1.6rem;
+      color: white;
+    }
 
-  .notice-two {
-    font-size: 1.2rem;
-    color: white;
-    opacity: .4;
-    text-align: center;
+    .notice {
+      color: white;
+      font-size: 1.4rem;
+      margin-top: 2rem;
+      opacity: .4;
+    }
+
+
   }
 
   .footer {
@@ -119,10 +202,20 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: center;
+      font-size: 1.2rem;
+
+      .wrapper {
+        background: rgba(252, 250, 250, 0.3);
+        border-radius: 50%;
+        display: flex;
+        padding: 1.8rem;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
 
       img {
-        width: 3rem;
-        margin-bottom: 1rem;
+        width: 2.6rem;
       }
     }
   }

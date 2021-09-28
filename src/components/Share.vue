@@ -33,7 +33,7 @@
         </template>
         <div class="share-to" @click="closeShare($emit('ShareToFriend'))">
           <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
-          <span>站内私信</span>
+          <span>私信朋友</span>
         </div>
         <div class="share-to" @click="closeShare($emit('showShare2WeChatZone'))">
           <img src="../assets/img/icon/components/video/towechat.webp" alt="">
@@ -67,6 +67,12 @@
         </div>
       </div>
       <div class="toolbar ">
+        <template v-if="mode === 'qrcode'">
+          <div class="tool" @click="copyLink">
+            <img src="../assets/img/icon/components/video/link.png" alt="">
+            <span>复制链接</span>
+          </div>
+        </template>
         <template v-if="mode === 'music'">
           <div class="tool" @click="copyLink">
             <img src="../assets/img/icon/components/video/link.png" alt="">
@@ -174,7 +180,9 @@ export default {
     },
     mode: {
       type: String,
-      default: 'video'//music
+      default: 'video'
+      //music
+      //qrcode
     },
   },
   computed: {
