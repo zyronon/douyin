@@ -61,7 +61,7 @@
               </div>
               <div class="number" v-else>
                 <span>抖音号：{{ localAuthor.unique_id }}</span>
-                <img src="../../assets/img/icon/me/qrcode-gray.png" alt="" @click.stop="$nav('/my-card')">
+                <img src="../../assets/img/icon/me/copy.png" alt="" @click.stop="copy">
               </div>
               <div class="signature f12" v-if="localAuthor.desc">
                 <div class="text" v-html="localAuthor.desc"></div>
@@ -389,6 +389,18 @@ export default {
     bus.on('baseSlide-end', () => this.canScroll = true)
   },
   methods: {
+    copy() {
+      const input = document.createElement('input');
+      input.setAttribute('readonly', 'readonly');
+      input.setAttribute('value', this.localAuthor.unique_id);
+      document.body.appendChild(input);
+      input.setSelectionRange(0, 9999);
+      if (document.execCommand('copy')) {
+        document.execCommand('copy');
+        this.$notice('已复制')
+      }
+      document.body.removeChild(input);
+    },
     cancelFollow() {
       this.localAuthor.is_follow = false
     },

@@ -76,6 +76,8 @@
         subtitle="0F.:/ a【风就应该自由要什么归宿】长按复制此条消息，打开抖音搜索，聆听音乐##kwu3VCixHl8##[抖音口令]"
         :okText="okText"
         cancelText="不分享了"
+        @ok="shareType = -1"
+        @cancel="shareType = -1"
     >
       <template v-slot:header>
         <img style="width: 100%;" src="../../assets/img/icon/share-password.webp" alt="">
