@@ -38,7 +38,7 @@ const store = Vuex.createStore({
       "create_time": "1630423555",
       "status": 1,
       "desc": `一个普普通通学表演的\n看到的人都能开开心心`,
-      "is_private": 0
+      "is_private": 1
     },
     friends: {
       "all": [

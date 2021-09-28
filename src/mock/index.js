@@ -111,17 +111,15 @@ Mock.mock(/private1/, options => {
 })
 
 Mock.mock(/collect/, options => {
-  let page = getPage(options)
   return Mock.mock({
     data: {
-      pageNo: page.pageNo,
       video: {
         total: 0,
-        list: [],
+        list: resource.videos,
       },
-      audio: {
+      music: {
         total: 0,
-        list: [],
+        list: resource.music,
       }
     }, code: 200, msg: '',
   })

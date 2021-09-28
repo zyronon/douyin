@@ -35,18 +35,17 @@
                 <div class="heat">
                   <div class="text">
                     <span>获赞</span>
-                    <span class="num">18</span>
+                    <span class="num">{{ $likeNum(localAuthor.aweme_count) }}</span>
                   </div>
                   <div class="text">
                     <span>关注</span>
-                    <span class="num">8</span>
+                    <span class="num">{{ $likeNum(localAuthor.following_count) }}</span>
                   </div>
                   <div class="text">
                     <span>粉丝</span>
-                    <span class="num">62</span>
+                    <span class="num">{{ $likeNum(localAuthor.follower_count) }}</span>
                   </div>
                 </div>
-
               </div>
               <div class="description">
                 <p class="name f22 mt1r mb1r">{{ userinfo.nickname }}</p>
@@ -160,20 +159,20 @@
               </div>
               <div class="collect" ref="collect">
                 <div class="video" v-if=" videos.collect.video.list.length">
-                  <div class="top">
+                  <div class="top" >
                     <div class="left">
                       <img src="../../assets/img/icon/me/video-whitegray.png" alt="">
                       <span>视频</span>
                     </div>
                     <div class="right">
                       <span>全部</span>
-                      <back direction="right"></back>
+                      <back direction="right" ></back>
                     </div>
                   </div>
                   <div class="list">
                     <div class="item"
                          v-for="i in videos.collect.video.list.length>3?videos.collect.video.list.slice(0,3):videos.collect.video.list">
-                      <img class="poster" :src="$imgPreview(i.poster)" alt="">
+                      <img class="poster" :src="$imgPreview(i.video+videoPoster)" alt="">
                       <div class="num">
                         <img class="love" src="../../assets/img/icon/love.svg" alt="">
                         <span>{{ $likeNum(i.likeNum) }}</span>
@@ -182,7 +181,7 @@
                   </div>
                 </div>
 
-                <div class="audio" v-if=" videos.collect.video.list.length">
+                <div class="music" v-if=" videos.collect.music.list.length">
                   <div class="top">
                     <div class="left">
                       <img src="../../assets/img/icon/me/music-whitegray.png" alt="">
@@ -190,15 +189,14 @@
                     </div>
                     <div class="right">
                       <span>全部</span>
-                      <back direction="right"></back>
+                      <back direction="right" ></back>
                     </div>
                   </div>
                   <div class="list">
                     <div class="item"
-                         v-for="i in videos.collect.video.list.length>3?videos.collect.video.list.slice(0,3):videos.collect.video.list">
-                      <img class="poster" :src="$imgPreview(i.poster)" alt="">
-                      <div class="title">用户创作的原声用户创作的原声用户创作的原声
-                      </div>
+                         v-for="i in videos.collect.music.list.length>3?videos.collect.music.list.slice(0,3):videos.collect.music.list">
+                      <img class="poster" :src="$imgPreview(i.cover)" alt="">
+                      <div class="title">{{ i.name }}</div>
                     </div>
                   </div>
                 </div>
@@ -376,7 +374,7 @@ export default {
             list: [],
             total: -1,
           },
-          audio: {
+          music: {
             list: [],
             total: -1,
           }
@@ -395,16 +393,21 @@ export default {
       sprint: 15,
       canScroll: true,
       localAuthor: {
+        school: {
+          name: '中央戏剧学院',
+          department: null,
+          joinTime: null,
+          education: null,
+          displayType: 1,
+        },
         "id": "93864497380",
         "unique_id_modify_time": "1630393144",
         "unique_id": "10040050",
         "favoriting_count": 143,
         "avatar": require('../../assets/img/icon/avatar/1.png'),
-        "city": "北京",
-        "school": "中央戏剧学院",
-        "province": null,
-        "country": "",
-        "location": "",
+        "city": "成都",
+        "province": '四川',
+        "country": "中国",
         "birthday": "2002-01-01",
         "cover": "https://p3.douyinpic.com/obj/c8510002be9a3a61aad2?from=116350172",
         "following_count": 66,
@@ -416,11 +419,10 @@ export default {
         "last_login_time": "1630423555",
         "create_time": "1630423555",
         "status": 1,
-        "desc": `一个普普通通学表演的
-        看到的人都能开开心心
-        `,
-        "is_private": 0
-      }
+        "desc": `一个普普通通学表演的\n看到的人都能开开心心`,
+        "is_private": 1
+      },
+      videoPoster: `?vframe/jpg/offset/0/w/${document.body.clientWidth}`
     }
   },
   computed: {
@@ -554,7 +556,8 @@ export default {
       if (this.loadings['loading' + this.contentIndex]) return
       console.log('到底了')
       let videoOb = this.videos[Object.keys(this.videos)[this.contentIndex]]
-      if (videoOb.total > videoOb.list.length) {
+
+      if (this.contentIndex !== 3 && videoOb.total > videoOb.list.length) {
         videoOb.pageNo++
         this.loadings['loading' + this.contentIndex] = true
         let res
