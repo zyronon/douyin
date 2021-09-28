@@ -96,9 +96,15 @@
           }
 
           .right {
+            font-size: 1.4rem;
             display: flex;
             align-items: center;
             color: @second-text-color;
+
+            img {
+              height: 1.5rem;
+              width: 1.5rem;
+            }
           }
         }
 
@@ -113,6 +119,7 @@
             position: relative;
 
             .poster {
+              object-fit: cover;
               border-radius: .4rem;
               width: 100%;
               height: 100%;
@@ -138,7 +145,7 @@
         }
       }
 
-      .audio {
+      .music {
         background: @active-main-bg;
         border-radius: .5rem;
         padding: 1rem;
@@ -164,6 +171,11 @@
             display: flex;
             align-items: center;
             color: @second-text-color;
+
+            img {
+              height: 1.5rem;
+              width: 1.5rem;
+            }
           }
         }
 
@@ -263,7 +275,7 @@
       transform: translateY(-1rem);
       background: @main-bg;
       padding: 0 2rem 0 2rem;
-      border-radius: 1rem 1rem 0 0 ;
+      border-radius: 1rem 1rem 0 0;
 
       .head {
         width: 100%;
@@ -340,7 +352,7 @@
           margin-left: .6rem;
         }
 
-        .text{
+        .text {
           white-space: pre-wrap;
         }
       }
