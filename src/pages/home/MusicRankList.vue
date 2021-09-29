@@ -526,6 +526,7 @@ export default {
                   border-radius: .2rem;
                   @width: 6rem;
                   width: @width;
+                  object-fit: cover;
                   height: @width;
                 }
               }

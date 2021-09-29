@@ -4,7 +4,7 @@
       <back mode="light" @click="$back"/>
       <transition name="fade">
         <div class="center" v-if="isFixed">
-          <span class="f16">MT创作的原声</span>
+          <span class="f16">{{ music.name }}</span>
         </div>
       </transition>
       <div class="right">
@@ -24,15 +24,15 @@
               @pulldown="loadData">
         <div class="desc">
           <div class="cover-wrapper" @click="togglePlay()">
-            <img class="cover" src="../../assets/img/poster/src1-bg.png" alt="">
+            <img class="cover" :src="$imgPreview(music.cover)" alt="">
             <img v-if="!isPlay" src="../../assets/img/icon/play-white.png" alt="" class="play">
             <img v-if="isPlay" src="../../assets/img/icon/pause-white.png" alt="" class="play">
           </div>
           <div class="info">
-            <div class="name">MT创作的原声</div>
+            <div class="name">{{ music.name }}</div>
             <div>
-              <div class="user">NT</div>
-              <div class="peoples">>5585 人使用</div>
+              <div class="user">{{ music.author }}</div>
+              <div class="peoples">>{{ $likeNum(music.use_count) }} 人使用</div>
             </div>
             <div class="collection" @click.stop="toggleCollect()">
               <img v-if="isCollect" src="../../assets/img/icon/star-yellow.png">
@@ -2479,7 +2479,18 @@ export default {
             "status": 1
           }
         }
-      ]
+      ],
+
+      music: {
+        name: '发如雪',
+        mp3: 'https://m3.8js.net:99/2014/211204142150965.mp3',
+        cover: require('../../assets/img/music-cover/7.png'),
+        author: '周杰伦',
+        duration: 60,
+        use_count: 37441000,
+        is_collect: false,
+        is_play: false,
+      }
     }
   },
   watch: {
@@ -2499,6 +2510,9 @@ export default {
     }
   },
   created() {
+    if (this.$route.query.name) {
+      this.music = this.$route.query
+    }
     this.videos = this.videos.concat(this.videos2).concat(this.videos3)
   },
   computed: {},
@@ -2513,12 +2527,11 @@ export default {
       this.loading = false
     },
     togglePlay() {
-      let src = 'https://m3.8js.net:99/2014/211204142150965.mp3'
       this.isPlay = !this.isPlay
       if (this.isPlay) {
-        this.audio.pause()
-        this.audio.src = src
-        this.audio.currentTime = 0
+        if (!this.audio.src) {
+          this.audio.src = this.music.mp3
+        }
         this.audio.play();
         this.audio.addEventListener('ended', () => this.isPlay = false)
       } else {
@@ -2532,7 +2545,6 @@ export default {
     },
     stopPlay() {
       this.audio.pause()
-      this.audio.currentTime = 0
       this.audio.removeEventListener('ended', null)
     }
   },
@@ -2629,6 +2641,7 @@ export default {
 
         .cover {
           width: 12rem;
+          object-fit: cover;
           height: 100%;
           border-radius: .3rem;
         }
