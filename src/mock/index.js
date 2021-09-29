@@ -114,11 +114,11 @@ Mock.mock(/collect/, options => {
   return Mock.mock({
     data: {
       video: {
-        total: 0,
+        total: resource.videos.length,
         list: resource.videos,
       },
       music: {
-        total: 0,
+        total: resource.music.length,
         list: resource.music,
       }
     }, code: 200, msg: '',

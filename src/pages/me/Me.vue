@@ -158,20 +158,20 @@
                 <span>只有你能看到自己的收藏列表</span>
               </div>
               <div class="collect" ref="collect">
-                <div class="video" v-if=" videos.collect.video.list.length">
-                  <div class="top" >
+                <div class="video" v-if=" videos.collect.video.total">
+                  <div class="top" @click="$nav('/me/collect/video-collect')">
                     <div class="left">
                       <img src="../../assets/img/icon/me/video-whitegray.png" alt="">
                       <span>视频</span>
                     </div>
                     <div class="right">
                       <span>全部</span>
-                      <back direction="right" ></back>
+                      <back direction="right"></back>
                     </div>
                   </div>
                   <div class="list">
                     <div class="item"
-                         v-for="i in videos.collect.video.list.length>3?videos.collect.video.list.slice(0,3):videos.collect.video.list">
+                         v-for="i in videos.collect.video.total>3?videos.collect.video.list.slice(0,3):videos.collect.video.list">
                       <img class="poster" :src="$imgPreview(i.video+videoPoster)" alt="">
                       <div class="num">
                         <img class="love" src="../../assets/img/icon/love.svg" alt="">
@@ -181,20 +181,20 @@
                   </div>
                 </div>
 
-                <div class="music" v-if=" videos.collect.music.list.length">
-                  <div class="top">
+                <div class="music" v-if=" videos.collect.music.total">
+                  <div class="top" @click="$nav('/me/collect/music-collect')">
                     <div class="left">
                       <img src="../../assets/img/icon/me/music-whitegray.png" alt="">
                       <span>音乐</span>
                     </div>
                     <div class="right">
                       <span>全部</span>
-                      <back direction="right" ></back>
+                      <back direction="right"></back>
                     </div>
                   </div>
                   <div class="list">
                     <div class="item"
-                         v-for="i in videos.collect.music.list.length>3?videos.collect.music.list.slice(0,3):videos.collect.music.list">
+                         v-for="i in videos.collect.music.total>3?videos.collect.music.list.slice(0,3):videos.collect.music.list">
                       <img class="poster" :src="$imgPreview(i.cover)" alt="">
                       <div class="title">{{ i.name }}</div>
                     </div>
@@ -505,7 +505,7 @@ export default {
       if (newVal === 3) {
         if (videoOb.video.total === -1) {
           this.loadings['loading' + newVal] = true
-          let res = await this.$api.videos.collect({pageNo: this.videos.collect.pageNo, pageSize: this.pageSize,})
+          let res = await this.$api.videos.collect()
           if (res.code === this.SUCCESS) this.videos.collect = res.data
         }
       } else {
