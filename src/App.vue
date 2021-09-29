@@ -45,7 +45,7 @@ export default {
       this.$store.commit('setMaskDialog', {state: false, mode: this.maskDialogMode})
 
       //footer下面的5个按钮，对跳不要用动画
-      let noAnimation = ['/', '/home', '/me', '/attention', '/message', '/publish','/home/live']
+      let noAnimation = ['/', '/home', '/me', '/attention', '/message', '/publish', '/home/live']
       if (noAnimation.indexOf(from.path) !== -1 && noAnimation.indexOf(to.path) !== -1) {
         return this.transitionName = ''
       }
@@ -82,12 +82,16 @@ export default {
         '/message/chat',
         '/message/chat-detail',
         '/set-remark',
+
         '/me/request-update',
         '/me/right-menu/look-history',
         '/me/right-menu/minor-protection/index',
         '/me/right-menu/minor-protection/detail-setting',
         '/me/right-menu/minor-protection/trigger-time',
         '/me/right-menu/setting',
+        '/me/collect/video-collect',
+        '/me/collect/music-collect',
+
         '/login',
         '/login/other',
         '/login/password',

@@ -53,6 +53,8 @@ import Test4 from "../pages/Test4";
 import Search from "../pages/home/SearchPage";
 import LivePage from "../pages/home/LivePage";
 import Test5 from "../pages/Test5";
+import MusicCollect from "../pages/me/collect/MusicCollect";
+import VideoCollect from "../pages/me/collect/VideoCollect";
 
 const routes = [
   // {path: '', component: Music},
@@ -101,11 +103,15 @@ const routes = [
   {path: '/scan', component: Scan},
   {path: '/face-to-face', component: FaceToFace},
   {path: '/set-remark', component: SetRemark},
+
   {path: '/me/right-menu/look-history', component: LookHistory},
   {path: '/me/right-menu/minor-protection/index', component: MinorProtectionIndex},
   {path: '/me/right-menu/minor-protection/detail-setting', component: MinorProtectionDetailSetting},
   {path: '/me/right-menu/minor-protection/trigger-time', component: TriggerTime},
   {path: '/me/right-menu/setting', component: Setting},
+  {path: '/me/collect/music-collect', component: MusicCollect},
+  {path: '/me/collect/video-collect', component: VideoCollect},
+
   {path: '/login', component: Login},
   {path: '/login/other', component: OtherLogin},
   {path: '/login/password', component: PasswordLogin},

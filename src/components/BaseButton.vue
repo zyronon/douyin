@@ -39,6 +39,11 @@ export default {
       type: Boolean,
       default: true
     },
+    size: {
+      type: String,
+      default: 'normal'
+      //small
+    },
   },
   data() {
     return {}
@@ -50,6 +55,7 @@ export default {
         this.active ? '' : 'no-active',
         this.border ? '' : 'no-border',
         this.disabled && 'disabled',
+        this.size
       ]
     },
     showText() {
@@ -121,7 +127,7 @@ export default {
   }
 
   &.dark2 {
-    border:1px solid @second-btn-color;
+    border: 1px solid @second-btn-color;
     background: white;
     color: #000;
   }
@@ -140,8 +146,9 @@ export default {
     background: rgb(27, 177, 228);
     color: white;
   }
+
   &.webo {
-    background: rgb(242,95,67);
+    background: rgb(242, 95, 67);
     color: white;
   }
 
@@ -224,8 +231,14 @@ export default {
   }
 
   &.no-border {
-    border: none!important;
+    border: none !important;
     background: rgb(212 212 212 / 36%);
+  }
+
+  &.small {
+    font-size: 1.2rem;
+    width: 6.2rem;
+    height: 2.6rem;
   }
 }
 </style>
