@@ -23,11 +23,12 @@
             </div>
           </div>
           <div class="option">
-            <img src="@/assets/img/icon/menu2-white.png" alt="" @click.stop="$nav('/home/music')">
+            <img src="@/assets/img/icon/menu2-white.png" alt="" @click.stop="$nav('/home/music', item)">
           </div>
         </div>
       </div>
-      <no-more class="mb7r"/>
+      <Loading v-if="loading" :is-full-screen="false"/>
+      <no-more v-else class="mb7r"/>
     </div>
     <div class="float-play-music" v-if="currentItem">
       <div class="process" :style="{width : process + 'px'}"></div>
@@ -46,7 +47,7 @@
           </div>
         </div>
         <div class="option">
-          <b-button type="primary" size="small">使用</b-button>
+          <b-button type="primary" size="small" @click="$no">使用</b-button>
         </div>
       </div>
     </div>
@@ -61,6 +62,7 @@ export default {
   props: {},
   data() {
     return {
+      loading: false,
       list: [],
       audio: new Audio(),
       currentItem: null,
@@ -85,7 +87,9 @@ export default {
   },
   methods: {
     async getData() {
+      this.loading = true
       let res = await this.$api.videos.collect()
+      this.loading = false
       if (res.code === this.SUCCESS) {
         this.list = res.data.music.list
       }
@@ -172,6 +176,7 @@ export default {
               border-radius: .2rem;
               @width: 6rem;
               width: @width;
+              object-fit: cover;
               height: @width;
             }
           }
@@ -260,6 +265,7 @@ export default {
 
           .cover {
             border-radius: .2rem;
+            object-fit: cover;
             @width: 5rem;
             width: @width;
             height: @width;
