@@ -1,6 +1,6 @@
 <template>
   <div class="posters">
-    <div class="poster-item" v-for="(i,index) in list">
+    <div class="poster-item" v-for="(i,index) in list" @click="$no">
       <!--       @click="$nav('/video-detail')"-->
       <img class="poster" v-lazy="$imgPreview(i.cover)" alt="">
       <div class="num" v-if="mode === 'normal'">
