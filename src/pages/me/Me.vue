@@ -158,7 +158,7 @@
                 <span>只有你能看到自己的收藏列表</span>
               </div>
               <div class="collect" ref="collect">
-                <div class="video" v-if=" videos.collect.video.total">
+                <div class="video" v-if=" videos.collect.video.total !== -1">
                   <div class="top" @click="$nav('/me/collect/video-collect')">
                     <div class="left">
                       <img src="../../assets/img/icon/me/video-whitegray.png" alt="">
@@ -171,7 +171,7 @@
                   </div>
                   <div class="list">
                     <div class="item"
-                         v-for="i in videos.collect.video.total>3?videos.collect.video.list.slice(0,3):videos.collect.video.list">
+                         v-for="i in videos.collect.video.list.slice(0,3)">
                       <img class="poster" :src="$imgPreview(i.video+videoPoster)" alt="">
                       <div class="num">
                         <img class="love" src="../../assets/img/icon/love.svg" alt="">
@@ -181,7 +181,7 @@
                   </div>
                 </div>
 
-                <div class="music" v-if=" videos.collect.music.total">
+                <div class="music" v-if=" videos.collect.music.total !== -1">
                   <div class="top" @click="$nav('/me/collect/music-collect')">
                     <div class="left">
                       <img src="../../assets/img/icon/me/music-whitegray.png" alt="">
@@ -194,7 +194,8 @@
                   </div>
                   <div class="list">
                     <div class="item"
-                         v-for="i in videos.collect.music.total>3?videos.collect.music.list.slice(0,3):videos.collect.music.list">
+                         @click.stop="$nav('/home/music', i)"
+                         v-for="i in videos.collect.music.list.slice(0,3)">
                       <img class="poster" :src="$imgPreview(i.cover)" alt="">
                       <div class="title">{{ i.name }}</div>
                     </div>
