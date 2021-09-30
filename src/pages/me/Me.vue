@@ -61,7 +61,7 @@
                   </template>
                   <div v-else class="text" v-html="userinfo.desc"></div>
                 </div>
-                <div class="more">
+                <div class="more" @click="$nav('/edit-userinfo')">
                   <div class="age item" v-if="userinfo.birthday">
                     <img v-if="userinfo.sex == 0" src="../../assets/img/icon/me/woman.png" alt="">
                     <img v-if="userinfo.sex == 1" src="../../assets/img/icon/me/man.png" alt="">
@@ -81,14 +81,14 @@
 
               </div>
               <div class="other">
-                <div class="item">
+                <div class="item" @click="$no">
                   <img src="../../assets/img/icon/me/shopping-cart-white.png" alt="">
                   <div class="right">
                     <div class="top">抖音商城</div>
                     <div class="bottom">发现超值好物</div>
                   </div>
                 </div>
-                <div class="item">
+                <div class="item" @click="$no">
                   <img src="../../assets/img/icon/me/music-white.png" alt="">
                   <div class="right">
                     <div class="top">我的音乐</div>

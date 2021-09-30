@@ -159,7 +159,6 @@ export default {
     if (this.$route.query.name) {
       this.music = this.$route.query
     }
-    this.videos = this.videos.concat(this.videos2).concat(this.videos3)
   },
   computed: {},
   methods: {
