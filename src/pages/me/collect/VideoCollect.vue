@@ -2,23 +2,32 @@
   <div class="VideoCollect">
     <BaseHeader>
       <template v-slot:center>
-        <span class="f16">申报学校信息</span>
+        <span class="f16">视频收藏</span>
       </template>
     </BaseHeader>
     <div class="content">
-
+      <Posters mode="normal" :list="videos"/>
+      <NoMore/>
     </div>
   </div>
 </template>
 <script>
+import resource from "../../../assets/data/resource";
+import Posters from "../../../components/Posters";
+
 export default {
   name: "VideoCollect",
-  components: {},
+  components: {
+    Posters
+  },
   props: {
     modelValue: false
   },
   data() {
-    return {}
+    return {
+      loading: false,
+      videos: resource.my,
+    }
   },
   computed: {},
   created() {
