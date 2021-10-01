@@ -91,6 +91,7 @@ export default {
         '/me/right-menu/setting',
         '/me/collect/video-collect',
         '/me/collect/music-collect',
+        '/me/my-music',
 
         '/login',
         '/login/other',

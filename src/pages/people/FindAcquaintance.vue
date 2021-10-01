@@ -129,7 +129,7 @@
 <script>
 import People from './components/People'
 import Search from '../../components/Search'
-import Indicator from '../../components/Indicator'
+import Indicator from '../../components/slide/Indicator'
 import FromBottomDialog from "../../components/dialog/FromBottomDialog";
 
 export default {

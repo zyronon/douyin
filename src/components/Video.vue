@@ -96,9 +96,9 @@
           </div>
         </div>
       </div>
-      <div class="process"
+      <div class="progress"
            v-if="duration > 60"
-           :class="processClass"
+           :class="progressClass"
            @touchmove="move"
            @touchend="end"
       >
@@ -157,7 +157,7 @@ export default {
     durationStyle() {
       return {left: this.pageX + 'px'}
     },
-    processClass() {
+    progressClass() {
       if (this.isMove) {
         return 'stop'
       } else {
@@ -336,7 +336,7 @@ export default {
       setTimeout(() => {
         this.isMove = false
       }, 1000)
-      this.currentTime = this.currentTime = Math.ceil(Math.ceil(e.changedTouches[0].pageX) / this.step)
+      this.currentTime = Math.ceil(Math.ceil(e.changedTouches[0].pageX) / this.step)
       this.play()
       globalMethods.$stopPropagation(e)
     }
@@ -628,7 +628,7 @@ export default {
       }
     }
 
-    .process {
+    .progress {
       bottom: -1px;
       position: absolute;
       height: 7px;

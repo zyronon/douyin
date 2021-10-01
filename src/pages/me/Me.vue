@@ -88,7 +88,7 @@
                     <div class="bottom">发现超值好物</div>
                   </div>
                 </div>
-                <div class="item" @click="$no">
+                <div class="item" @click="$nav('/me/my-music')">
                   <img src="../../assets/img/icon/me/music-white.png" alt="">
                   <div class="right">
                     <div class="top">我的音乐</div>
@@ -324,7 +324,7 @@
 <script>
 import Posters from '../../components/Posters'
 import Footer from "../../components/Footer";
-import Indicator from '../../components/Indicator'
+import Indicator from '../../components/slide/Indicator'
 import {nextTick} from 'vue'
 import {mapState} from "vuex";
 import bus from "../../utils/bus";
