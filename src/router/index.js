@@ -55,6 +55,7 @@ import LivePage from "../pages/home/LivePage";
 import Test5 from "../pages/Test5";
 import MusicCollect from "../pages/me/collect/MusicCollect";
 import VideoCollect from "../pages/me/collect/VideoCollect";
+import MyMusic from "../pages/me/MyMusic";
 
 const routes = [
   // {path: '', component: Music},
@@ -111,6 +112,7 @@ const routes = [
   {path: '/me/right-menu/setting', component: Setting},
   {path: '/me/collect/music-collect', component: MusicCollect},
   {path: '/me/collect/video-collect', component: VideoCollect},
+  {path: '/me/my-music', component: MyMusic},
 
   {path: '/login', component: Login},
   {path: '/login/other', component: OtherLogin},

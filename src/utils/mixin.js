@@ -5,7 +5,7 @@ import SlideRowList from "../components/slide/SlideRowList";
 import SlideColumnList from "../components/slide/SlideColumnList";
 import SlideColumnVirtualList from "../components/slide/SlideColumnVirtualList";
 import SlideItem from "../components/slide/SlideItem";
-import Indicator from "../components/Indicator";
+import Indicator from "../components/slide/Indicator";
 import Video from "../components/Video";
 import Footer from "../components/Footer";
 import Mask from "../components/Mask";

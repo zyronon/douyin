@@ -209,7 +209,7 @@
 </template>
 <script>
 import Posters from '../../components/Posters'
-import Indicator from '../../components/Indicator'
+import Indicator from '../../components/slide/Indicator'
 import {nextTick} from 'vue'
 import {mapState} from "vuex";
 import bus from "../../utils/bus";

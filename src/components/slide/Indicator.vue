@@ -1,5 +1,5 @@
 <script>
-import bus from "../utils/bus";
+import bus from "../../utils/bus";
 
 export default {
   name: "Indicator",
@@ -118,7 +118,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../assets/scss/index";
+@import "../../assets/scss/index";
 
 .indicator-ctn {
   font-size: 1.4rem;
