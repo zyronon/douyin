@@ -15,16 +15,12 @@
           <div class="cover">
             <img v-lazy="$imgPreview(music.cover)" alt="">
           </div>
-          <div class="lyrics-wrapper">
+          <div class="lyrics-wrapper" ref="lyrics-wrapper">
             <div class="container">
-              <div class="lyrics">111111111111111</div>
-              <div class="lyrics">222222222222222</div>
-              <div class="lyrics">333333333333333</div>
-              <div class="lyrics">444444444444444</div>
-              <div class="lyrics">555555555555555</div>
+              <div class="lyrics" v-for="item in test">{{ item }}</div>
             </div>
           </div>
-
+          <!--          <div class="lyrics-mask"></div>-->
           <div class="bottom">
             <div class="desc">
               <div class="left">
@@ -59,7 +55,7 @@
               <img v-show="isLoop" src="../../assets/img/icon/me/loop.png" @click="isLoop = !isLoop">
               <img v-show="!isLoop" src="../../assets/img/icon/me/play-normal.png" @click="isLoop = !isLoop">
               <div class="center">
-                <img src="../../assets/img/icon/me/previous.png">
+                <img src="../../assets/img/icon/me/previous.png" @click="t">
                 <img v-show="isPlay" class="control" src="../../assets/img/icon/me/pause.png" @click="togglePlay">
                 <img v-show="!isPlay" class="control" src="../../assets/img/icon/me/play.png" @click="togglePlay">
                 <img src="../../assets/img/icon/me/next.png">
@@ -77,6 +73,9 @@
 <script>
 import {mapState} from "vuex";
 import globalMethods from "../../utils/global-methods";
+import {nextTick} from "vue";
+import lyricsFaruxue from '../../assets/data/lyrics/faruxue.txt'
+
 
 export default {
   name: "MyMusic",
@@ -97,6 +96,12 @@ export default {
         is_collect: false,
         is_play: false,
       },
+      s: {
+        0: '',
+      },
+      test: [
+        'sssssssssssssssss'
+      ],
       isPlay: false,
       isLoop: false,
       isMove: false,
@@ -117,6 +122,9 @@ export default {
   },
   mounted() {
     this.audio.src = this.music.mp3
+    if (process.env.NODE_ENV === 'development') {
+      this.audio.volume = .2
+    }
     this.audio.addEventListener('loadedmetadata', e => {
       this.duration = this.audio.duration
       this.slideBarWidth = this.$refs.slideBar.clientWidth
@@ -142,8 +150,69 @@ export default {
         this.isPlay = false
       }
     })
+
+
+    // let s = this.createLrcObj(lyricsFaruxue);
+
+    console.log(lyricsFaruxue)
   },
   methods: {
+    createLrcObj(lrc) {
+      let oLRC = {
+        ti: "", //歌曲名
+        ar: "", //演唱者
+        al: "", //专辑名
+        by: "", //歌词制作人
+        offset: 0, //时间补偿值，单位毫秒，用于调整歌词整体位置
+        ms: [] //歌词数组{t:时间,c:歌词}
+      };
+      if (lrc.length === 0) return;
+      let lrcs = lrc.split('\n');//用回车拆分成数组
+      for (let i in lrcs) {//遍历歌词数组
+        lrcs[i] = lrcs[i].replace(/(^\s*)|(\s*$)/g, ""); //去除前后空格
+        let t = lrcs[i].substring(lrcs[i].indexOf("[") + 1, lrcs[i].indexOf("]"));//取[]间的内容
+        let s = t.split(":");//分离:前后文字
+        if (isNaN(parseInt(s[0]))) { //不是数值
+          for (let i in oLRC) {
+            if (i != "ms" && i == s[0].toLowerCase()) {
+              oLRC[i] = s[1];
+            }
+          }
+        } else { //是数值
+          let arr = lrcs[i].match(/\[(\d+:.+?)\]/g);//提取时间字段，可能有多个
+          let start = 0;
+          for (let k in arr) {
+            start += arr[k].length; //计算歌词位置
+          }
+          let content = lrcs[i].substring(start);//获取歌词内容
+          for (let k in arr) {
+            let t = arr[k].substring(1, arr[k].length - 1);//取[]间的内容
+            let s = t.split(":");//分离:前后文字
+            oLRC.ms.push({//对象{t:时间,c:歌词}加入ms数组
+              t: (parseFloat(s[0]) * 60 + parseFloat(s[1])).toFixed(3),
+              c: content
+            });
+          }
+        }
+      }
+      oLRC.ms.sort(function (a, b) {//按时间顺序排序
+        return a.t - b.t;
+      });
+      return oLRC
+      /*
+      for(let i in oLRC){ //查看解析结果
+          console.log(i,":",oLRC[i]);
+      }*/
+    },
+
+    t() {
+      this.test.push('asdfasssssssss')
+      nextTick(() => {
+        let comments = this.$refs['lyrics-wrapper']
+        comments.scrollTo({top: comments.scrollHeight - comments.clientHeight, behavior: 'smooth'})
+        // comments.scrollTop = comments.scrollHeight - comments.clientHeight
+      })
+    },
     togglePlay() {
       this.isPlay = !this.isPlay
       if (this.isPlay) {
@@ -205,6 +274,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    //position: relative;
 
     .cover {
       margin-top: 4rem;
@@ -238,6 +308,13 @@ export default {
         align-items: center;
         justify-content: center;
       }
+    }
+
+    .lyrics-mask {
+      top: calc(80vw + 7rem);
+      height: 8rem;
+      width: 100vw;
+      position: absolute;
     }
 
     .bottom {
