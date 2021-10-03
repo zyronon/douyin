@@ -392,7 +392,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../../assets/scss/index";
+@import "../../assets/less/index";
 
 #attention {
   /*background: rgb(22，24，34);*/

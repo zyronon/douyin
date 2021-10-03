@@ -74,7 +74,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "../assets/scss/index";
+@import "../assets/less/index";
 
 .test {
   position: fixed;

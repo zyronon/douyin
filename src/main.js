@@ -1,7 +1,7 @@
 import * as Vue from 'vue'
 import App from './App.vue'
 import mitt from 'mitt'
-import './assets/scss/index.less'
+import './assets/less/index.less'
 import './mock'// 导入 mock 数据处理
 import api from './api'
 import router from "./router";

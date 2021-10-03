@@ -31,7 +31,8 @@
     "eslint-plugin-vue": "^7.0.0",
     "less": "^4.1.1",
     "less-loader": "^7.0.0",
-    "mobile-select": "^1.1.2"
+    "mobile-select": "^1.1.2",
+    "raw-loader": "^4.0.2"
   },
   "eslintConfig": {
     "root": false,

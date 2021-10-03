@@ -345,7 +345,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../assets/scss/color";
+@import "../assets/less/color";
 
 .fade-enter-active,
 .fade-leave-active {

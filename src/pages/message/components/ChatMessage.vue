@@ -160,7 +160,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../../../assets/scss/index";
+@import "../../../assets/less/index";
 
 .ChatMessage {
   padding: 0 1rem;

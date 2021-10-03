@@ -163,7 +163,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../../../assets/scss/index";
+@import "../../../assets/less/index";
 
 .button {
   width: 6.4rem;

@@ -117,7 +117,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../../assets/scss/index";
+@import "../../assets/less/index";
 
 #MyCard {
   background: rgb(136, 132, 133);
