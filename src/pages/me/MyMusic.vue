@@ -74,7 +74,8 @@
 import {mapState} from "vuex";
 import globalMethods from "../../utils/global-methods";
 import {nextTick} from "vue";
-import lyricsFaruxue from '../../assets/data/lyrics/faruxue.txt'
+// import lyricsFaruxue from '../../assets/data/lyrics/faruxue.txt'
+import lyricsFaruxue from '../../assets/data/lyrics/faruxue.lrc'
 
 
 export default {
@@ -258,7 +259,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../../assets/scss/index";
+@import "../../assets/less/index";
 
 .MyMusic {
   position: fixed;

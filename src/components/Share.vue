@@ -225,7 +225,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../assets/scss/index";
+@import "../assets/less/index";
 
 .share {
   width: 100%;

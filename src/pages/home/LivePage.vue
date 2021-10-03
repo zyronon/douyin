@@ -233,7 +233,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../assets/scss/index";
+@import "../../assets/less/index";
 
 .send-gift {
   position: fixed;
@@ -404,7 +404,7 @@ export default {
 
 </style>
 <style scoped lang="less">
-@import "../../assets/scss/index";
+@import "../../assets/less/index";
 
 .LivePage {
   width: 100vw;

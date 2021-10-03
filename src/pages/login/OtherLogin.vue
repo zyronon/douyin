@@ -116,8 +116,8 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../../assets/scss/index";
-@import "Base.scss";
+@import "../../assets/less/index";
+@import "Base.less";
 
 .other-login {
   position: fixed;

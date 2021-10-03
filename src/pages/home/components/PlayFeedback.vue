@@ -118,7 +118,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../../../assets/scss/index";
+@import "../../../assets/less/index";
 
 .play-feedback {
   max-height: 49rem;

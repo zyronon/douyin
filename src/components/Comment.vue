@@ -319,7 +319,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../assets/scss/index";
+@import "../assets/less/index";
 
 .title {
   z-index: 2;
