@@ -88,8 +88,8 @@ export default {
     return {
       slideIndex: 0,
       music: {
-        name: '发如雪',
-        mp3: 'https://m3.8js.net:99/2014/211204142150965.mp3',
+        name: '告白气球',
+        mp3: 'https://mp32.9ku.com/upload/128/2017/02/05/858423.mp3',
         cover: require('../../assets/img/music-cover/7.png'),
         author: '周杰伦',
         duration: 60,
@@ -153,9 +153,9 @@ export default {
     })
 
 
-    // let s = this.createLrcObj(lyricsFaruxue);
-
-    console.log(lyricsFaruxue)
+    let s = this.createLrcObj(lyricsFaruxue);
+    console.log(s)
+    // console.log(lyricsFaruxue)
   },
   methods: {
     createLrcObj(lrc) {
