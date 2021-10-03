@@ -12,15 +12,23 @@
         v-model:active-index="slideIndex">
       <SlideItem>
         <div class="music-play">
-          <div class="cover">
-            <img v-lazy="$imgPreview(music.cover)" alt="">
-          </div>
-          <div class="lyrics-wrapper" ref="lyrics-wrapper">
-            <div class="container">
-              <div class="lyrics" v-for="item in test">{{ item }}</div>
+          <template v-show="false">
+            <div class="cover">
+              <img v-lazy="$imgPreview(music.cover)" alt="">
             </div>
+            <div class="lyrics-wrapper" ref="lyrics-wrapper">
+              <div class="container">
+                <div class="lyrics" v-for="item in lyricsTexts">{{ item.c }}</div>
+              </div>
+            </div>
+            <!--          <div class="lyrics-mask"></div>-->
+          </template>
+          <div class="lyrics-full">
+            <div class="list">
+              <div class="item" v-for="item in lyricsTexts">{{ item.c }}</div>
+            </div>
+
           </div>
-          <!--          <div class="lyrics-mask"></div>-->
           <div class="bottom">
             <div class="desc">
               <div class="left">
@@ -75,7 +83,7 @@ import {mapState} from "vuex";
 import globalMethods from "../../utils/global-methods";
 import {nextTick} from "vue";
 // import lyricsFaruxue from '../../assets/data/lyrics/faruxue.txt'
-import lyricsFaruxue from '../../assets/data/lyrics/faruxue.lrc'
+import gaobaiqiqiu from '../../assets/data/lyrics/gaobaiqiqiu.lrc'
 
 
 export default {
@@ -97,12 +105,7 @@ export default {
         is_collect: false,
         is_play: false,
       },
-      s: {
-        0: '',
-      },
-      test: [
-        'sssssssssssssssss'
-      ],
+      lyricsTexts: [],
       isPlay: false,
       isLoop: false,
       isMove: false,
@@ -131,9 +134,27 @@ export default {
       this.slideBarWidth = this.$refs.slideBar.clientWidth
       this.step = this.slideBarWidth / Math.floor(this.duration)
     })
+    let lrcObj = this.createLrcObj(gaobaiqiqiu);
+    this.lyricsTexts.push(lrcObj.ms[0])
+    this.lyricsTexts.push(lrcObj.ms[1])
+    console.log(lrcObj.ms)
     this.audio.addEventListener('timeupdate', e => {
+      let currentTime = Math.ceil(e.target.currentTime)
+      let lastLyricsText = this.lyricsTexts[this.lyricsTexts.length - 1]
+      if (Number(lastLyricsText.t) < currentTime) {
+        for (let i = 0; i < lrcObj.ms.length; i++) {
+          let item = lrcObj.ms[i]
+          if (Number(item.t) > currentTime) {
+            if (item.c) {
+              console.log(item)
+              this.t(item)
+              break
+            }
+          }
+        }
+      }
       if (!this.isMove) {
-        this.currentTime = Math.ceil(e.target.currentTime)
+        this.currentTime = currentTime
         if (Math.ceil(e.target.currentTime) * this.step > this.slideBarWidth - 5) {
           this.pageX = this.slideBarWidth - 5
         } else {
@@ -151,11 +172,6 @@ export default {
         this.isPlay = false
       }
     })
-
-
-    let s = this.createLrcObj(lyricsFaruxue);
-    console.log(s)
-    // console.log(lyricsFaruxue)
   },
   methods: {
     createLrcObj(lrc) {
@@ -205,13 +221,12 @@ export default {
           console.log(i,":",oLRC[i]);
       }*/
     },
-
-    t() {
-      this.test.push('asdfasssssssss')
+    t(txt) {
+      // if (this.test.length === 2) return
+      this.lyricsTexts.push(txt)
       nextTick(() => {
         let comments = this.$refs['lyrics-wrapper']
         comments.scrollTo({top: comments.scrollHeight - comments.clientHeight, behavior: 'smooth'})
-        // comments.scrollTop = comments.scrollHeight - comments.clientHeight
       })
     },
     togglePlay() {
@@ -316,6 +331,15 @@ export default {
       height: 8rem;
       width: 100vw;
       position: absolute;
+    }
+
+    .lyrics-full {
+      .list {
+        .item {
+          height: 4rem;
+        }
+      }
+
     }
 
     .bottom {
