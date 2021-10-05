@@ -12,7 +12,7 @@
         v-model:active-index="slideIndex">
       <SlideItem>
         <div class="music-play">
-          <template v-show="false">
+          <div v-show="!isFullLyrics">
             <div class="cover">
               <img v-lazy="$imgPreview(music.cover)" alt="">
             </div>
@@ -21,13 +21,12 @@
                 <div class="lyrics" v-for="item in lyricsTexts">{{ item.c }}</div>
               </div>
             </div>
-            <!--          <div class="lyrics-mask"></div>-->
-          </template>
-          <div class="lyrics-full">
+            <div class="lyrics-mask" @click="isFullLyrics = true"></div>
+          </div>
+          <div class="lyrics-full" v-show="isFullLyrics" @click="isFullLyrics = false">
             <div class="list">
-              <div class="item" v-for="item in lyricsTexts">{{ item.c }}</div>
+              <div class="item" v-for="item in lyricsFullTexts">{{ item.c }}</div>
             </div>
-
           </div>
           <div class="bottom">
             <div class="desc">
@@ -106,9 +105,11 @@ export default {
         is_play: false,
       },
       lyricsTexts: [],
+      lyricsFullTexts: [],
       isPlay: false,
       isLoop: false,
       isMove: false,
+      isFullLyrics: false,
       lastPageX: 0,
       pageX: 0,
       audio: new Audio(),
@@ -137,22 +138,25 @@ export default {
     let lrcObj = this.createLrcObj(gaobaiqiqiu);
     this.lyricsTexts.push(lrcObj.ms[0])
     this.lyricsTexts.push(lrcObj.ms[1])
+    lrcObj.ms.map(v => {
+      if (v.c) this.lyricsFullTexts.push(v)
+    })
     console.log(lrcObj.ms)
     this.audio.addEventListener('timeupdate', e => {
       let currentTime = Math.ceil(e.target.currentTime)
-      let lastLyricsText = this.lyricsTexts[this.lyricsTexts.length - 1]
-      if (Number(lastLyricsText.t) < currentTime) {
-        for (let i = 0; i < lrcObj.ms.length; i++) {
-          let item = lrcObj.ms[i]
-          if (Number(item.t) > currentTime) {
-            if (item.c) {
-              console.log(item)
-              this.t(item)
-              break
-            }
-          }
-        }
-      }
+      // let lastLyricsText = this.lyricsTexts[this.lyricsTexts.length - 1]
+      // if (Number(lastLyricsText.t) < currentTime) {
+      //   for (let i = 0; i < lrcObj.ms.length; i++) {
+      //     let item = lrcObj.ms[i]
+      //     if (Number(item.t) > currentTime) {
+      //       if (item.c) {
+      //         console.log(item)
+      //         this.t(item)
+      //         break
+      //       }
+      //     }
+      //   }
+      // }
       if (!this.isMove) {
         this.currentTime = currentTime
         if (Math.ceil(e.target.currentTime) * this.step > this.slideBarWidth - 5) {
@@ -334,8 +338,17 @@ export default {
     }
 
     .lyrics-full {
+      width: 100vw;
+      height: 60vh;
+      display: flex;
+      //align-items: center;
+      justify-content: center;
+      overflow: hidden;
+
       .list {
         .item {
+          display: flex;
+          justify-content: center;
           height: 4rem;
         }
       }
