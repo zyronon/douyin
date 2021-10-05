@@ -225,26 +225,30 @@
             </div>
             <div class="line"></div>
 
-            <div class="li" @click="$nav('/me/right-menu/look-history')">
-              <img src="../../assets/img/icon/newicon/left_menu/clock.png" alt="">
-              <span>观看历史</span>
-            </div>
             <div class="li" @click="$nav('/my-card')">
               <img src="../../assets/img/icon/newicon/left_menu/qrcode.png" alt="">
               <span>我的二维码</span>
             </div>
-            <div class="li" @click="$nav('')">
+            <div class="li" @click="$nav('/me/right-menu/look-history')">
+              <img src="../../assets/img/icon/newicon/left_menu/time.png" alt="">
+              <span>观看历史</span>
+            </div>
+            <div class="li" @click="$no">
+              <img src="../../assets/img/icon/newicon/left_menu/clock.png" alt="">
+              <span>时间管理</span>
+            </div>
+            <div class="li" @click="$no">
               <img src="../../assets/img/icon/newicon/left_menu/workbench.png" alt="">
               <span>创作者服务中心</span>
             </div>
 
             <div class="line"></div>
 
-            <div class="li" @click="$nav('MyCard')">
+            <div class="li" @click="$no">
               <img src="../../assets/img/icon/newicon/left_menu/bytedance-mini-app.png" alt="">
               <span>小程序</span>
             </div>
-            <div class="li" @click="$nav('MyCard')">
+            <div class="li" @click="$no">
               <img src="../../assets/img/icon/newicon/left_menu/gongyi.png" alt="">
               <span>抖音公益</span>
             </div>
@@ -252,7 +256,7 @@
               <img src="../../assets/img/icon/newicon/left_menu/umbrella.png" alt="">
               <span>未成年保护工具</span>
             </div>
-            <div class="li" @click="$nav('MyCard')">
+            <div class="li" @click="$no">
               <img src="../../assets/img/icon/newicon/left_menu/headset.png" alt="">
               <span>我的客服</span>
             </div>
@@ -264,38 +268,38 @@
           <div v-else class="more-function">
             <div class="title">生活服务</div>
             <div class="functions">
-              <div class="function">
+              <div class="function" @click="$no">
                 <img src="../../assets/img/icon/newicon/left_menu/quan.png" alt="">
                 <span>卡券</span>
               </div>
-              <div class="function">
+              <div class="function" @click="$no">
                 <img src="../../assets/img/icon/newicon/left_menu/sd-card.png" alt="">
                 <span>免流量</span>
               </div>
-              <div class="function" @click="$nav('MyCollect')">
+              <div class="function" @click="$no">
                 <img src="../../assets/img/icon/newicon/left_menu/alarmmmmmmmmmmmm.png" alt="">
                 <span>视频彩铃</span>
               </div>
             </div>
             <div class="title">拓展功能</div>
             <div class="functions">
-              <div class="function" @click="$nav('MyCard')">
+              <div class="function" @click="$no">
                 <img src="../../assets/img/icon/newicon/left_menu/sun-one.png" alt="">
                 <span>我的动态</span>
               </div>
-              <div class="function">
+              <div class="function" @click="$no">
                 <img src="../../assets/img/icon/newicon/left_menu/download.png" alt="">
                 <span>我的缓存</span>
               </div>
-              <div class="function" @click="$nav('MyCard')">
+              <div class="function" @click="$no">
                 <img src="../../assets/img/icon/newicon/left_menu/hot.png" alt="">
                 <span>上热门</span>
               </div>
-              <div class="function" @click="$nav('MyCollect')">
+              <div class="function" @click="$no">
                 <img src="../../assets/img/icon/newicon/left_menu/shop.png" alt="">
                 <span>小店随心推</span>
               </div>
-              <div class="function" @click="$nav('MyCollect')">
+              <div class="function" @click="$no">
                 <img src="../../assets/img/icon/newicon/left_menu/yuandi.png" alt="">
                 <span>投教园地</span>
               </div>

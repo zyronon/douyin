@@ -19,14 +19,14 @@
       <div class="row" @click="$nav('/edit-userinfo-item',{type:1})">
         <div class="left">名字</div>
         <div class="right">
-          <span>{{ isEmpty(userinfo.name) }}</span>
+          <span>{{ isEmpty(userinfo.nickname) }}</span>
           <back scale=".8" direction="right"></back>
         </div>
       </div>
       <div class="row" @click="$nav('/edit-userinfo-item',{type:2})">
         <div class="left">抖音号</div>
         <div class="right">
-          <span>{{ isEmpty(userinfo.account) }}</span>
+          <span>{{ isEmpty(userinfo.unique_id) }}</span>
           <back scale=".8" direction="right"></back>
         </div>
       </div>

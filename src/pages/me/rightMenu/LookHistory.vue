@@ -75,10 +75,10 @@ export default {
   computed: {
     isClear() {
       if (this.currentSlideItemIndex === 0) {
-        return this.historyVideo.list = []
+        return this.historyVideo.list.length
       }
-      return this.historyOther.list = []
-    }
+      return this.historyOther.list.length
+    },
   },
   created() {
     this.getHistoryVideo(true)
