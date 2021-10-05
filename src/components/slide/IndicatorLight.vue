@@ -2,7 +2,7 @@
 import bus from "../../utils/bus";
 
 export default {
-  name: "Indicator",
+  name: "IndicatorLight",
   props: {
     activeIndex: {
       type: Number,
@@ -64,8 +64,7 @@ export default {
                 }
               </div>
           }
-          <div className="indicator" ref="indicator"
-               style={{width: this.tabStyleWidth || 100 / this.tabTexts.length + '%'}}/>
+          <div className="indicator" ref="indicator"/>
         </div>
     )
   },
@@ -84,12 +83,14 @@ export default {
     initTabs() {
       let tabs = this.$refs.tabs
       this.indicatorRef = this.$refs.indicator
+      let indicatorWidth = this.$getCss(this.indicatorRef, 'width')
       for (let i = 0; i < tabs.children.length; i++) {
         let item = tabs.children[i]
         this.tabWidth = this.$getCss(item, 'width')
         this.tabIndicatorRelationActiveIndexLefts.push(
-            item.getBoundingClientRect().x - tabs.children[0].getBoundingClientRect().x + (this.indicatorType === 'home' ? this.tabWidth * 0.15 : 0))
+            item.getBoundingClientRect().x - tabs.children[0].getBoundingClientRect().x + (this.tabWidth * 0.5 - indicatorWidth / 2))
       }
+
       this.indicatorSpace = this.tabIndicatorRelationActiveIndexLefts[1] - this.tabIndicatorRelationActiveIndexLefts[0]
       this.$setCss(this.indicatorRef, 'transition-duration', `0ms`)
       this.$setCss(this.indicatorRef, 'left', this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px')
@@ -124,7 +125,6 @@ export default {
   left: 0;
   right: 0;
   z-index: 1;
-  background: @main-bg;
 
   .tabs {
     display: flex;
@@ -137,7 +137,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      color: gray;
+      color: @second-text-color;
       transition: color .3s;
 
       &.active {
@@ -154,12 +154,14 @@ export default {
   }
 
   .indicator {
-    height: 2px;
-    background: gold;
-    width: 45%;
+    height: 3px;
+    width: 2.5rem;
+    background: #fff;
+    border-radius: 5px;
     position: relative;
     transition: all .3s;
   }
 }
+
 
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <img ref="img" :src="src"/>
+  <img class="close" ref="img" :src="src"/>
 </template>
 <script>
 export default {
