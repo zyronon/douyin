@@ -1,120 +1,115 @@
 <template>
   <div class="MyMusic">
-    <Indicator
-        name="myMusicList"
-        tabStyleWidth="50%"
-        :tabTexts="['猜你爱听','我的收藏']"
-        v-model:active-index="slideIndex">
-    </Indicator>
+    <div class="header">
+      <back class="back" mode="light" img="back" @click="$back"/>
+      <IndicatorLight
+          name="myMusicList"
+          :tabTexts="['猜你爱听','我的收藏']"
+          v-model:active-index="slideIndex">
+      </IndicatorLight>
+      <back style="opacity: 0;" mode="light" img="back"/>
+    </div>
     <SlideRowList
-        style="height: calc(100vh - 5rem);"
         name="myMusicList"
         v-model:active-index="slideIndex">
       <SlideItem>
-        <div class="music-play">
-          <div v-show="!isFullLyrics">
-            <div class="cover">
-              <img v-lazy="$imgPreview(music.cover)" alt="">
-            </div>
-            <div class="lyrics-wrapper" ref="lyrics-wrapper" @click="isFullLyrics = true">
-              <div class="container">
-                <div class="lyrics" v-for="item in lyricsFullTexts">{{ item.c }}</div>
-              </div>
-            </div>
-            <!--            <div class="lyrics-mask" @click="isFullLyrics = true"></div>-->
-          </div>
-          <div class="lyrics-full" v-show="isFullLyrics" @click="isFullLyrics = false">
-            <div class="list" style="overflow:auto;">
-              <div class="item" v-for="item in lyricsFullTexts">{{ item.c }}</div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="desc">
-              <div class="left">
-                <div class="name">{{ music.name }}</div>
-                <div class="author">{{ music.author }}</div>
-              </div>
-              <div class="right">
-                <div class="btn">
-                  <img src="../../assets/img/icon/star-white.png" v-show="!isCollect" @click="isCollect = !isCollect">
-                  <img src="../../assets/img/icon/star-yellow.png" v-show="isCollect" @click="isCollect = !isCollect">
-                  <span>收藏</span>
-                </div>
-                <div class="btn">
-                  <img src="../../assets/img/icon/share-white-full.png" alt="">
-                  <span>分享</span>
-                </div>
-              </div>
-            </div>
-            <div class="progress">
-              <div class="start">{{ $durationTime(currentTime) }}</div>
-              <div class="bar">
-                <div class="slide-bar"
-                     ref="slideBar"
-                     @touchstart="start"
-                     @touchmove="move"
-                     @touchend="end"></div>
-                <div class="bar-line" :style="durationStyle(1)"></div>
-                <div class="bar-point" :style="durationStyle(2)"></div>
-              </div>
-              <div class="end">{{ $durationTime(duration) }}</div>
-            </div>
-            <div class="options">
-              <img v-show="isLoop" src="../../assets/img/icon/me/loop.png" @click="isLoop = !isLoop">
-              <img v-show="!isLoop" src="../../assets/img/icon/me/play-normal.png" @click="isLoop = !isLoop">
-              <div class="center">
-                <img src="../../assets/img/icon/me/previous.png" @click="t">
-                <img v-show="isPlay" class="control" src="../../assets/img/icon/me/pause.png" @click="togglePlay">
-                <img v-show="!isPlay" class="control" src="../../assets/img/icon/me/play.png" @click="togglePlay">
-                <img src="../../assets/img/icon/me/next.png">
-              </div>
-              <img src="../../assets/img/icon/me/music-list.png">
-            </div>
-          </div>
-        </div>
+        <SlideColumnList>
+          <SlideItemMusic/>
+          <SlideItemMusic/>
+          <SlideItemMusic/>
+        </SlideColumnList>
       </SlideItem>
       <SlideItem style="overflow: auto;">
         <div class="my-collect">
-          <div class="play-all">
-            <div class="left">
-              <img src="../../assets/img/icon/me/play-all.webp" alt="">
-              <span>播放全部</span>
-              <span class="num">(2)</span>
-            </div>
-            <img class="menu" src="../../assets/img/icon/menu-white.png" alt="">
-          </div>
-          <div class="collect-list">
-            <div class="item" v-for="item in collectMusic">
+          <div class="wrapper">
+            <div class="play-all">
               <div class="left">
-                <div class="cover-wrapper">
-                  <img v-lazy="$imgPreview(item.cover)" alt="" class="cover">
+                <img src="../../assets/img/icon/me/play-all.webp" alt="">
+                <span>播放全部</span>
+                <span class="num">(2)</span>
+              </div>
+              <img class="menu" src="../../assets/img/icon/menu-white.png" alt="">
+            </div>
+            <div class="collect-list">
+              <div class="item" v-for="item in collectMusic" @click="playMusic(item)">
+                <div class="left">
+                  <div class="cover-wrapper">
+                    <img v-lazy="$imgPreview(item.cover)" alt="" class="cover">
+                  </div>
+                  <div class="desc">
+                    <span class="name">{{ item.name }}</span>
+                    <div class="author">{{ item.author }}</div>
+                    <div class="desc-bottom">
+                      <div class="tag">完整版</div>
+                      <div class="duration">{{ $duration(item.duration) }}</div>
+                    </div>
+                  </div>
                 </div>
-                <div class="desc">
-                  <span class="name">{{ item.name }}</span>
-                  <div class="author">{{ item.author }}</div>
-                  <div class="desc-bottom">
-                    <div class="tag">完整版</div>
-                    <div class="duration">{{ $duration(item.duration) }}</div>
+                <div class="right">
+                  <img v-if="item.is_play" class="playing-icon" src="../../assets/img/icon/me/pinlv.gif">
+                </div>
+              </div>
+            </div>
+            <div class="recommend">
+              <span>推荐收藏</span>
+              <div class="right">
+                <span class="auto-play">自动播放</span>
+                <switches v-model="isAutoPlay" theme="bootstrap" color="success"></switches>
+              </div>
+            </div>
+            <div class="recommend-list">
+              <div class="item" v-for="item in recommendMusic" @click="playMusic(item)">
+                <div class="left">
+                  <div class="cover-wrapper">
+                    <img v-lazy="$imgPreview(item.cover)" alt="" class="cover">
+                  </div>
+                  <div class="desc">
+                    <span class="name">{{ item.name }}</span>
+                    <div class="author">{{ item.author }}</div>
+                    <div class="desc-bottom">
+                      <div class="tag">完整版</div>
+                      <div class="duration">{{ $duration(item.duration) }}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="right">
+                  <img v-if="item.is_play" class="playing-icon" src="../../assets/img/icon/me/pinlv.gif">
+                  <div class="collect-icon">
+                    <img src="../../assets/img/icon/star-white.png" v-show="!isCollect" @click="isCollect = !isCollect">
+                    <img src="../../assets/img/icon/star-yellow.png" v-show="isCollect" @click="isCollect = !isCollect">
                   </div>
                 </div>
               </div>
-              <div class="right">
-                <div class="collect-icon">
-                  <img src="../../assets/img/icon/star-white.png" v-show="!isCollect" @click="isCollect = !isCollect">
-                  <img src="../../assets/img/icon/star-yellow.png" v-show="isCollect" @click="isCollect = !isCollect">
-                </div>
-              </div>
             </div>
           </div>
-          <div class="recommend">
-            <span>推荐收藏</span>
-            <div class="right">
-              <span>自动播放</span>
+          <div class="playing" @click="isShowCollectDialog = true">
+            <div class="playing-wrapper">
+              <div class="cover-wrapper">
+                <img v-lazy="$imgPreview(currentMusic.cover)" alt="" class="cover">
+              </div>
+              <div class="name">{{ currentMusic.name }}</div>
+              <img class="option" src="../../assets/img/icon/me/float-pause-one.png" alt="">
+              <img class="menu-list" src="../../assets/img/icon/me/music-list.png" alt="">
             </div>
           </div>
         </div>
       </SlideItem>
     </SlideRowList>
+
+    <transition name="my-collect-dialog">
+      <div class="my-collect-dialog" v-if="isShowCollectDialog">
+        <div class="dialog-header">
+          <back class="close" mode="light" img="back" @click="isShowCollectDialog = false"/>
+          <span>我的收藏</span>
+          <back style="opacity: 0;" mode="light" img="back"/>
+        </div>
+        <SlideColumnList>
+          <SlideItemMusic/>
+          <SlideItemMusic/>
+          <SlideItemMusic/>
+        </SlideColumnList>
+      </div>
+    </transition>
   </div>
 </template>
 <script>
@@ -122,14 +117,21 @@ import {mapState} from "vuex";
 import globalMethods from "../../utils/global-methods";
 import {nextTick} from "vue";
 import gaobaiqiqiu from '../../assets/data/lyrics/gaobaiqiqiu.lrc'
+import Switches from "../message/components/swtich/switches";
+import SlideItemMusic from "./components/SlideItemMusic";
+import IndicatorLight from "../../components/slide/IndicatorLight";
 
 export default {
   name: "MyMusic",
-  components: {},
+  components: {
+    Switches,
+    SlideItemMusic,
+    IndicatorLight
+  },
   data() {
     return {
       slideIndex: 1,
-      music: {
+      currentMusic: {
         name: '告白气球',
         mp3: 'https://mp32.9ku.com/upload/128/2017/02/05/858423.mp3',
         cover: require('../../assets/img/music-cover/7.png'),
@@ -141,9 +143,12 @@ export default {
       },
       collectMusic: [],
       recommendMusic: [],
+      guessMusic: [],
       lyricsTexts: [],
       lyricsFullTexts: [],
+      isShowCollectDialog: false,
       isPlay: false,
+      isAutoPlay: true,
       isLoop: false,
       isMove: false,
       isCollect: false,
@@ -165,7 +170,6 @@ export default {
     this.getCollectMusic()
   },
   mounted() {
-    this.audio.src = this.music.mp3
     if (process.env.NODE_ENV === 'development') {
       this.audio.volume = .2
     }
@@ -217,13 +221,29 @@ export default {
     })
   },
   methods: {
+    playMusic(item) {
+      this.collectMusic.map(v => v.is_play = false)
+      this.recommendMusic.map(v => v.is_play = false)
+      item.is_play = true
+      this.currentMusic = item
+      this.audio.src = this.currentMusic.mp3
+      this.togglePlay(true)
+    },
+    togglePlay(state) {
+      this.currentMusic.is_play = state || !this.currentMusic.is_play
+      if (this.currentMusic.is_play) {
+        this.audio.play()
+      } else {
+        this.audio.pause()
+      }
+    },
     async getCollectMusic() {
       this.loading = true
       let res = await this.$api.videos.collect()
       this.loading = false
       if (res.code === this.SUCCESS) {
         this.collectMusic = res.data.music.list.slice(0, 2)
-        this.recommendMusic = res.data.music.list.slice(2, -1)
+        this.guessMusic = this.recommendMusic = res.data.music.list.slice(2, -1)
       }
     },
     createLrcObj(lrc) {
@@ -281,14 +301,6 @@ export default {
         comments.scrollTo({top: comments.scrollHeight - comments.clientHeight, behavior: 'smooth'})
       })
     },
-    togglePlay() {
-      this.isPlay = !this.isPlay
-      if (this.isPlay) {
-        this.audio.play()
-      } else {
-        this.audio.pause()
-      }
-    },
     start(e) {
       this.startX = e.touches[0].pageX
     },
@@ -338,204 +350,37 @@ export default {
   color: white;
   font-size: 1.4rem;
 
-  .base-slide-item {
-    &:nth-child(1) {
-      background: rgb(136, 132, 133);
-    }
-  }
-
-  .music-play {
+  .header {
+    z-index: 9;
+    position: fixed;
+    width: 100vw;
+    top: 0;
+    height: 5rem;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    //position: relative;
+    justify-content: space-between;
+    padding: 0 @padding-page;
+    box-sizing: border-box;
 
-    .cover {
-      margin-top: 4rem;
-      width: 80vw;
-      height: 80vw;
-
-      img {
-        border-radius: 2.5rem;
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-      }
-
+    .back {
+      z-index: 10;
     }
 
-    .lyrics-wrapper {
-      margin-top: 3rem;
-      overflow: auto;
-      height: 8rem;
-
-      .container {
-        min-height: 8rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-      }
-
-      .lyrics {
-        height: 4rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+    .indicator-ctn {
+      width: 60vw;
     }
 
-    .lyrics-mask {
-      top: calc(80vw + 7rem);
-      height: 8rem;
-      width: 100vw;
-      position: absolute;
-    }
-
-    .lyrics-full {
-      width: 100vw;
-      height: 60vh;
-      display: flex;
-      //align-items: center;
-      justify-content: center;
-      overflow: hidden;
-
-      .list {
-        .item {
-          display: flex;
-          justify-content: center;
-          height: 4rem;
-        }
-      }
-
-    }
-
-    .bottom {
-      position: absolute;
-      bottom: 0;
-      width: 100vw;
-
-      .desc {
-        width: 100vw;
-        padding: @padding-page;
-        box-sizing: border-box;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-
-        img {
-          width: 3.5rem;
-        }
-
-        .left {
-          .name {
-            font-size: 1.8rem;
-            margin-bottom: .4rem;
-          }
-
-          .author {
-            font-size: 1.4rem;
-          }
-        }
-
-        .right {
-          .btn {
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            margin-top: 2rem;
-            font-size: 1.2rem;
-          }
-        }
-      }
-
-      .progress {
-        width: 100vw;
-        font-size: 1.2rem;
-        padding: 0 @padding-page;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: gainsboro;
-
-        .bar {
-          margin: 0 .6rem;
-          flex: 1;
-          position: relative;
-
-          .slide-bar {
-            position: absolute;
-            height: 2rem;
-            width: 100%;
-            top: -1rem;
-            z-index: 11;
-          }
-
-          &:before {
-            z-index: 9;
-            content: ' ';
-            height: 1.5px;
-            width: 100%;
-            background: gray;
-            position: absolute;
-            top: 0;
-          }
-
-          .bar-line {
-            z-index: 10;
-            content: '';
-            position: absolute;
-            top: 0;
-            height: 1.5px;
-            width: 50vw;
-            background: white;
-          }
-
-          .bar-point {
-            z-index: 10;
-            position: absolute;
-            left: 50vw;
-            top: -3px;
-            height: .8rem;
-            width: .8rem;
-            border-radius: 50%;
-            background: white;
-          }
-        }
-      }
-
-      .options {
-        width: 100vw;
-        padding: @padding-page;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        img {
-          width: 3.8rem;
-          height: 3.8rem;
-        }
-
-        .center {
-          display: flex;
-          align-items: center;
-
-          img {
-            margin: 0 1rem;
-          }
-
-          .control {
-            width: 5.5rem;
-            height: 5.5rem;
-          }
-        }
-      }
-    }
   }
 
   .my-collect {
-    padding: @padding-page;
+    margin-top: 5rem;
+    color: rgba(88, 88, 96);
+    position: relative;
+
+    .wrapper {
+      padding: @padding-page;
+      padding-bottom: 8rem;
+    }
 
     .play-all {
       margin-bottom: 2rem;
@@ -563,7 +408,7 @@ export default {
       }
     }
 
-    .collect-list {
+    .collect-list, .recommend-list {
       .item {
         display: flex;
         justify-content: space-between;
@@ -628,7 +473,13 @@ export default {
           display: flex;
           align-items: center;
 
+          .playing-icon {
+            width: 2.4rem;
+          }
+
           .collect-icon {
+            margin-left: 3rem;
+
             img {
               width: 2.4rem;
             }
@@ -637,7 +488,117 @@ export default {
 
       }
     }
+
+    .recommend {
+      color: white;
+      margin: 3rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .right {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .auto-play {
+          font-size: 1.3rem;
+          color: @second-text-color;
+          margin-right: 1rem;
+        }
+
+      }
+    }
+
+    .playing {
+      padding: 0 @padding-page;
+      box-sizing: border-box;
+      position: fixed;
+      bottom: 0;
+      width: 100vw;
+      color: white;
+      background: rgba(56, 59, 68);
+
+      .playing-wrapper {
+        transform: translateY(-1rem);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .cover-wrapper {
+        background: rgba(56, 59, 68);
+        padding: .7rem;
+        border-radius: 50%;
+
+        .cover {
+          background: rgba(97, 98, 103);
+          padding: .3rem;
+          @width: 5rem;
+          height: @width;
+          width: @width;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+      }
+
+      .name {
+        margin: 0 1rem;
+        flex: 1;
+
+      }
+
+      .option {
+        width: 3.8rem;
+        height: 3.8rem;
+        margin-right: 2rem;
+      }
+
+      .menu-list {
+        width: 2.8rem;
+        height: 2.8rem;
+      }
+    }
   }
 
+  .my-collect-dialog {
+    position: fixed;
+    z-index: 11;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    background: rgb(136, 132, 133);
+
+    .dialog-header {
+      z-index: 9;
+      font-size: 1.6rem;
+      position: fixed;
+      top: 0;
+      width: 100vw;
+      padding: @padding-page;
+      box-sizing: border-box;
+      height: 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .close {
+        transform: rotate(-90deg) !important;
+      }
+    }
+  }
+
+
+  .my-collect-dialog-enter-active,
+  .my-collect-dialog-leave-active {
+    transition-duration: 300ms;
+    transform: translateY(0);
+  }
+
+  .my-collect-dialog-enter-from,
+  .my-collect-dialog-leave-to {
+    transition-duration: 300ms;
+    transform: translateY(100vh);
+  }
 }
 </style>

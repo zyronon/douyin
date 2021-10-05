@@ -185,6 +185,7 @@ export default {
       for (let i = 0; i < tabs.children.length; i++) {
         let item = tabs.children[i]
         this.tabWidth = this.$getCss(item, 'width')
+        //TODO 这里算得不对，两个字时正常，字一多就会出问题，修改参考IndicatorLight.vue
         this.tabIndicatorRelationActiveIndexLefts.push(
             item.getBoundingClientRect().x - tabs.children[0].getBoundingClientRect().x + (this.isHome ? this.tabWidth * 0.15 : 0))
       }
@@ -395,7 +396,7 @@ export default {
       width: 100%;
       height: 100%;
       box-sizing: border-box;
-      padding: 0 15px;
+      padding: 0 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -423,11 +424,11 @@ export default {
         .indicator {
           //transition: left .3s;
           position: absolute;
-          bottom: -8px;
-          height: 3px;
-          width: 20px;
+          bottom: -0.8rem;
+          height: .3rem;
+          width: 2rem;
           background: #fff;
-          border-radius: 5px;
+          border-radius: .5rem;
         }
       }
     }
