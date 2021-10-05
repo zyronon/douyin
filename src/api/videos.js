@@ -20,4 +20,10 @@ export default {
   recommended(params, data) {
     return request({url: '/video/recommended', method: 'get', params, data})
   },
+  historyVideo(params, data) {
+    return request({url: '/video/historyVideo', method: 'get', params, data})
+  },
+  historyOther(params, data) {
+    return request({url: '/video/historyOther', method: 'get', params, data})
+  },
 }

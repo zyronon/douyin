@@ -43,6 +43,7 @@
         </div>
         <Posters mode="music" :list="videos"/>
         <Loading :is-full-screen="false" v-if="loading"/>
+        <NoMore v-else/>
       </Scroll>
     </div>
     <div class="options">
@@ -124,8 +125,10 @@ export default {
 
       showDouyinCode: false,
       audio: new Audio(),
-
-      videos: resource.my,
+      total: 0,
+      pageNo: 0,
+      pageSize: 15,
+      videos: [],
 
       music: {
         name: '发如雪',
@@ -159,17 +162,28 @@ export default {
     if (this.$route.query.name) {
       this.music = this.$route.query
     }
+    this.loadData(true)
   },
   computed: {},
   methods: {
     toggleCollect() {
       this.isCollect = !this.isCollect
     },
-    async loadData() {
+    async loadData(init = false) {
+      if (this.loading) return
+      if (!init) {
+        if (this.total <= this.videos.length) {
+          return this.$notice('暂时没有更多了')
+        }
+        this.pageNo++
+      }
       this.loading = true
-      await this.$sleep(1500)
-      this.videos = this.videos.concat(this.videos2)
+      let res = await this.$api.videos.my({pageNo: this.pageNo, pageSize: this.pageSize,})
       this.loading = false
+      if (res.code === this.SUCCESS) {
+        this.videos = this.videos.concat(res.data.list)
+        this.total = res.data.total
+      }
     },
     togglePlay() {
       this.isPlay = !this.isPlay

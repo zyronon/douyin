@@ -35,52 +35,53 @@ Mock.mock(/recommended/, options => {
   }
 )
 
-Mock.Random.extend({
-  imgs: function (date) {
-    return this.pick([
-      require('../assets/img/poster/1.jpg'),
-      require('../assets/img/poster/2.jpg'),
-      require('../assets/img/poster/3.jpg'),
-      require('../assets/img/poster/4.jpg'),
-      require('../assets/img/poster/5.jpg'),
-      require('../assets/img/poster/6.jpg'),
-      require('../assets/img/poster/7.jpg'),
-      require('../assets/img/poster/8.jpg'),
-      require('../assets/img/poster/9.jpg'),
-      require('../assets/img/poster/10.jpg'),
-      require('../assets/img/poster/11.jpg'),
-    ])
-  }
-})
-!(function me() {
-  let my = {total: Mock.Random.natural(1, 20)}
-  my[`list|${my.total > 10 ? 10 : my.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
-
-  let private1 = {total: Mock.Random.natural(1, 20)}
-  private1[`list|${private1.total > 10 ? 10 : private1.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
-
-  let like = {total: Mock.Random.natural(1, 20)}
-  like[`list|${like.total > 10 ? 10 : like.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
-
-  let collect = {total: Mock.Random.natural(1, 20)}
-  collect[`list|${collect.total > 10 ? 10 : collect.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
-
-  const data = Mock.mock({
-    'data': {
-      my,
-      private: private1,
-      like,
-      collect
-    },
-    code: 200,
-    msg: '',
-  })
-  Mock.mock('me', data)
-}())
+// Mock.Random.extend({
+//   imgs: function (date) {
+//     return this.pick([
+//       require('../assets/img/poster/1.jpg'),
+//       require('../assets/img/poster/2.jpg'),
+//       require('../assets/img/poster/3.jpg'),
+//       require('../assets/img/poster/4.jpg'),
+//       require('../assets/img/poster/5.jpg'),
+//       require('../assets/img/poster/6.jpg'),
+//       require('../assets/img/poster/7.jpg'),
+//       require('../assets/img/poster/8.jpg'),
+//       require('../assets/img/poster/9.jpg'),
+//       require('../assets/img/poster/10.jpg'),
+//       require('../assets/img/poster/11.jpg'),
+//     ])
+//   }
+// })
+// !(function me() {
+//   let my = {total: Mock.Random.natural(1, 20)}
+//   my[`list|${my.total > 10 ? 10 : my.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
+//
+//   let private1 = {total: Mock.Random.natural(1, 20)}
+//   private1[`list|${private1.total > 10 ? 10 : private1.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
+//
+//   let like = {total: Mock.Random.natural(1, 20)}
+//   like[`list|${like.total > 10 ? 10 : like.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
+//
+//   let collect = {total: Mock.Random.natural(1, 20)}
+//   collect[`list|${collect.total > 10 ? 10 : collect.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
+//
+//   const data = Mock.mock({
+//     'data': {
+//       my,
+//       private: private1,
+//       like,
+//       collect
+//     },
+//     code: 200,
+//     msg: '',
+//   })
+//   Mock.mock('me', data)
+// }())
 
 
 Mock.mock(/my/, options => {
   let page = getPage(options)
+  console.log('mock', page)
   return Mock.mock({
     data: {
       pageNo: page.pageNo,
@@ -94,7 +95,7 @@ Mock.mock(/like/, options => {
   return Mock.mock({
     data: {
       pageNo: page.pageNo,
-      total: resource.my.length,
+      total: resource.like.length,
       list: resource.like.slice(page.offset, page.limit),
     }, code: 200, msg: '',
   })
@@ -104,7 +105,7 @@ Mock.mock(/private1/, options => {
   return Mock.mock({
     data: {
       pageNo: page.pageNo,
-      total: resource.my.length,
+      total: resource.private1.length,
       list: resource.private1.slice(page.offset, page.limit),
     }, code: 200, msg: '',
   })
@@ -125,3 +126,24 @@ Mock.mock(/collect/, options => {
   })
 })
 
+Mock.mock(/historyVideo/, options => {
+  let page = getPage(options)
+  return Mock.mock({
+    data: {
+      pageNo: page.pageNo,
+      // total: resource.my.length,
+      total: 50,
+      list: resource.my.slice(page.offset, page.limit),
+    }, code: 200, msg: '',
+  })
+})
+Mock.mock(/historyOther/, options => {
+  let page = getPage(options)
+  return Mock.mock({
+    data: {
+      pageNo: page.pageNo,
+      total: 0,
+      list: [],
+    }, code: 200, msg: '',
+  })
+})

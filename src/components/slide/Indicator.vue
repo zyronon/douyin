@@ -123,7 +123,7 @@ export default {
 .indicator-ctn {
   font-size: 1.4rem;
   width: 100%;
-  height: 5rem;
+  height: @indicator-height;
   top: 0;
   left: 0;
   right: 0;
