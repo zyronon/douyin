@@ -17,22 +17,22 @@
       <div v-if="type === 1">
         <div class="notice">我的名字</div>
         <div class="input-ctn" style="margin-bottom: 1rem;">
-          <input type="text" v-model="localUserinfo.name" placeholder="记得填写名字哦">
-            <img v-if="localUserinfo.name"
+          <input type="text" v-model="localUserinfo.nickname" placeholder="记得填写名字哦">
+            <img v-if="localUserinfo.nickname"
                style="transform: scale(2)"
                class="close" src="../../../assets/img/icon/newicon/close-and-bg.png" alt=""
-               @click="localUserinfo.name = ''">
+               @click="localUserinfo.nickname = ''">
         </div>
-        <div class="num">{{ localUserinfo.name.length }}/20</div>
+        <div class="num">{{ localUserinfo.nickname.length }}/20</div>
       </div>
       <div class="l-row" v-if="type === 2">
         <div class="notice">我的抖音号</div>
         <div class="input-ctn" style="margin-bottom: 1rem;">
-          <input type="text" v-model="localUserinfo.account">
+          <input type="text" v-model="localUserinfo.unique_id">
           <img
-              v-if="localUserinfo.account" style="transform: scale(2)"
+              v-if="localUserinfo.unique_id" style="transform: scale(2)"
               class="close" src="../../../assets/img/icon/newicon/close-and-bg.png" alt=""
-              @click="localUserinfo.account = ''">
+              @click="localUserinfo.unique_id = ''">
         </div>
         <div class="num">最多16个字，只允许包含字母、数字、下划线和点，30天内仅能修改一次</div>
       </div>
@@ -65,11 +65,11 @@ export default {
   },
   computed: {
     isChanged() {
-      if (this.type === 1) if (!this.localUserinfo.name) return false
+      if (this.type === 1) if (!this.localUserinfo.nickname) return false
       if (this.type === 2) if (!this.localUserinfo.desc) return false
-      if (this.userinfo.name !== this.localUserinfo.name) return true
+      if (this.userinfo.nickname !== this.localUserinfo.nickname) return true
       if (this.userinfo.desc !== this.localUserinfo.desc) return true
-      return this.userinfo.account !== this.localUserinfo.account;
+      return this.userinfo.unique_id !== this.localUserinfo.unique_id;
     },
     ...mapState({
       userinfo: 'userinfo',
@@ -89,7 +89,7 @@ export default {
     async save() {
       if (!this.isChanged) return
       if (this.type === 1) {
-        if (!this.localUserinfo.name) return this.$notice('名字不能为空')
+        if (!this.localUserinfo.nickname) return this.$notice('名字不能为空')
       }
       this.$showLoading()
       this.$store.commit('setUserinfo', this.localUserinfo)

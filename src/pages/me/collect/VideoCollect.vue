@@ -6,33 +6,57 @@
       </template>
     </BaseHeader>
     <div class="content">
-      <Posters mode="normal" :list="videos"/>
-      <NoMore/>
+      <Scroll class="Scroll"
+              @pulldown="loadData">
+        <Posters mode="music" :list="videos"/>
+        <Loading :is-full-screen="false" v-if="loading"/>
+        <NoMore v-else/>
+      </Scroll>
     </div>
   </div>
 </template>
 <script>
 import resource from "../../../assets/data/resource";
 import Posters from "../../../components/Posters";
+import Scroll from "../../../components/Scroll";
 
 export default {
   name: "VideoCollect",
   components: {
-    Posters
-  },
-  props: {
-    modelValue: false
+    Posters,
+    Scroll
   },
   data() {
     return {
       loading: false,
-      videos: resource.my,
+      total: 0,
+      pageNo: 0,
+      pageSize: 15,
+      videos: [],
     }
   },
   computed: {},
   created() {
+    this.loadData(true)
   },
-  methods: {}
+  methods: {
+    async loadData(init = false) {
+      if (this.loading) return
+      if (!init) {
+        if (this.total <= this.videos.length) {
+          return
+        }
+        this.pageNo++
+      }
+      this.loading = true
+      let res = await this.$api.videos.my({pageNo: this.pageNo, pageSize: this.pageSize,})
+      this.loading = false
+      if (res.code === this.SUCCESS) {
+        this.videos = this.videos.concat(res.data.list)
+        this.total = res.data.total
+      }
+    },
+  }
 }
 </script>
 
@@ -50,7 +74,11 @@ export default {
   font-size: 1.4rem;
 
   .content {
-    padding-top: 6rem;
+    padding-top: @header-height;
+
+    .Scroll {
+      height: calc(100vh - @header-height)!important;
+    }
   }
 }
 </style>
