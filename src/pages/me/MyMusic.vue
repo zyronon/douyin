@@ -14,9 +14,7 @@
         v-model:active-index="slideIndex">
       <SlideItem>
         <SlideColumnList>
-          <SlideItemMusic/>
-          <SlideItemMusic/>
-          <SlideItemMusic/>
+          <SlideItemMusic v-for="item in guessMusic"/>
         </SlideColumnList>
       </SlideItem>
       <SlideItem style="overflow: auto;">
@@ -104,8 +102,6 @@
           <back style="opacity: 0;" mode="light" img="back"/>
         </div>
         <SlideColumnList>
-          <SlideItemMusic/>
-          <SlideItemMusic/>
           <SlideItemMusic/>
         </SlideColumnList>
       </div>
