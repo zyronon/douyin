@@ -14,7 +14,7 @@
         v-model:active-index="slideIndex">
       <SlideItem>
         <SlideColumnList>
-          <SlideItemMusic v-for="item in guessMusic"/>
+          <SlideItemMusic v-model="guessMusic[index]" v-for="(item,index) in guessMusic "/>
         </SlideColumnList>
       </SlideItem>
       <SlideItem style="overflow: auto;">
@@ -102,7 +102,7 @@
           <back style="opacity: 0;" mode="light" img="back"/>
         </div>
         <SlideColumnList>
-          <SlideItemMusic/>
+          <SlideItemMusic v-model="guessMusic[index]" v-for="(item,index) in guessMusic "/>
         </SlideColumnList>
       </div>
     </transition>
@@ -126,7 +126,7 @@ export default {
   },
   data() {
     return {
-      slideIndex: 1,
+      slideIndex: 0,
       currentMusic: {
         name: '告白气球',
         mp3: 'https://mp32.9ku.com/upload/128/2017/02/05/858423.mp3',

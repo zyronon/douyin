@@ -2,7 +2,7 @@
   <div class="SlideItemMusic">
     <div v-show="!isFullLyrics">
       <div class="cover">
-        <img v-lazy="$imgPreview(currentMusic.cover)" alt="">
+        <img v-lazy="$imgPreview(modelValue.cover)" alt="">
       </div>
       <div class="lyrics-wrapper" ref="lyrics-wrapper" @click="isFullLyrics = true">
         <div class="container">
@@ -19,8 +19,8 @@
     <div class="bottom">
       <div class="desc">
         <div class="left">
-          <div class="name">{{ currentMusic.name }}</div>
-          <div class="author">{{ currentMusic.author }}</div>
+          <div class="name">{{ modelValue.name }}</div>
+          <div class="author">{{ modelValue.author }}</div>
         </div>
         <div class="right">
           <div class="btn">
@@ -52,11 +52,9 @@
         <img v-show="!isLoop" src="@/assets/img/icon/me/play-normal.png" @click="isLoop = !isLoop">
         <div class="center">
           <img src="@/assets/img/icon/me/previous.png" @click="t">
-          <!--                <img v-show="isPlay" class="control" src="@/assets/img/icon/me/pause.png" @click="togglePlay">-->
-          <!--                <img v-show="!isPlay" class="control" src="@/assets/img/icon/me/play.png" @click="togglePlay">-->
-          <img v-show="currentMusic.is_play" class="control" src="@/assets/img/icon/me/pause.png"
+          <img v-show="modelValue.is_play" class="control" src="@/assets/img/icon/me/pause.png"
                @click="togglePlay()">
-          <img v-show="!currentMusic.is_play" class="control" src="@/assets/img/icon/me/play.png"
+          <img v-show="!modelValue.is_play" class="control" src="@/assets/img/icon/me/play.png"
                @click="togglePlay()">
           <img src="@/assets/img/icon/me/next.png">
         </div>
@@ -68,12 +66,18 @@
 <script>
 import {nextTick} from "_vue@3.2.4@vue";
 import globalMethods from "../../../utils/global-methods";
+import gaobaiqiqiu from "../../../assets/data/lyrics/gaobaiqiqiu.lrc";
 
 export default {
   name: "SlideItemMusic",
   components: {},
   props: {
-    modelValue: false
+    modelValue: {
+      type: Object,
+      default: function () {
+        return {}
+      }
+    }
   },
   data() {
     return {
@@ -113,18 +117,62 @@ export default {
   computed: {},
   created() {
   },
+  mounted() {
+    this.audio.src = this.modelValue.mp3
+    if (process.env.NODE_ENV === 'development') {
+      this.audio.volume = .2
+    }
+    this.audio.addEventListener('loadedmetadata', e => {
+      this.duration = this.audio.duration
+      this.slideBarWidth = this.$refs.slideBar.clientWidth
+      this.step = this.slideBarWidth / Math.floor(this.duration)
+    })
+    let lrcObj = this.createLrcObj(gaobaiqiqiu);
+    this.lyricsTexts.push(lrcObj.ms[0])
+    this.lyricsTexts.push(lrcObj.ms[1])
+    lrcObj.ms.map(v => {
+      if (v.c) this.lyricsFullTexts.push(v)
+    })
+    // console.log(lrcObj.ms)
+    this.audio.addEventListener('timeupdate', e => {
+      let currentTime = Math.ceil(e.target.currentTime)
+      // let lastLyricsText = this.lyricsTexts[this.lyricsTexts.length - 1]
+      // if (Number(lastLyricsText.t) < currentTime) {
+      //   for (let i = 0; i < lrcObj.ms.length; i++) {
+      //     let item = lrcObj.ms[i]
+      //     if (Number(item.t) > currentTime) {
+      //       if (item.c) {
+      //         console.log(item)
+      //         this.t(item)
+      //         break
+      //       }
+      //     }
+      //   }
+      // }
+      if (!this.isMove) {
+        this.currentTime = currentTime
+        if (Math.ceil(e.target.currentTime) * this.step > this.slideBarWidth - 5) {
+          this.pageX = this.slideBarWidth - 5
+        } else {
+          this.pageX = Math.ceil(e.target.currentTime) * this.step
+        }
+      }
+    })
+    this.audio.addEventListener('play', e => this.isPlay = true)
+    this.audio.addEventListener('ended', e => {
+      if (this.isLoop) {
+        this.lastPageX = 0
+        this.audio.currentTime = 0
+        this.audio.play()
+      } else {
+        this.isPlay = false
+      }
+    })
+  },
   methods: {
-    playMusic(item) {
-      this.collectMusic.map(v => v.is_play = false)
-      this.recommendMusic.map(v => v.is_play = false)
-      item.is_play = true
-      this.currentMusic = item
-      this.audio.src = this.currentMusic.mp3
-      this.togglePlay(true)
-    },
     togglePlay(state) {
-      this.currentMusic.is_play = state || !this.currentMusic.is_play
-      if (this.currentMusic.is_play) {
+      this.modelValue.is_play = state || !this.modelValue.is_play
+      if (this.modelValue.is_play) {
         this.audio.play()
       } else {
         this.audio.pause()
@@ -287,6 +335,7 @@ export default {
   }
 
   .lyrics-full {
+    margin-top: 8rem;
     width: 100vw;
     height: 60vh;
     display: flex;
