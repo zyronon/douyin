@@ -1,5 +1,6 @@
 <template>
   <from-bottom-dialog
+      page-id="home-index"
       v-model="modelValue"
       :show-heng-gang="false"
       maskMode="dark"

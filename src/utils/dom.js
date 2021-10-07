@@ -16,6 +16,27 @@ export default class Dom {
     return this
   }
 
+  addClass(class1) {
+    if (typeof class1 === 'string') {
+      this.els.forEach(el => {
+        el.classList.add(class1)
+      })
+    } else {
+      this.els.forEach(el => {
+        el.classList.add(...class1)
+      })
+    }
+    return this
+  }
+
+  replaceClass(class1, class2) {
+    this.els.forEach(el => {
+      el.classList.replace(class1, class2)
+    })
+    return this
+  }
+
+
   find(tag) {
     let els = []
     if (this.els.length) {

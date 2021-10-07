@@ -1,5 +1,5 @@
 <template>
-  <div class="other-login">
+  <div class="other-login" id="other-login">
     <BaseHeader mode="light" backMode="dark" backImg="back">
       <template v-slot:right>
         <span class="f16">帮助</span>
@@ -41,6 +41,7 @@
       </div>
 
       <from-bottom-dialog
+          page-id="other-login"
           v-model="isOtherLogin"
           :show-heng-gang="false"
           height="27rem"

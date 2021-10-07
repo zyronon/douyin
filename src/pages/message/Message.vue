@@ -57,7 +57,7 @@
     </div>
     <Footer v-bind:init-tab="4"/>
 
-    <from-bottom-dialog v-model="createChatDialog">
+    <from-bottom-dialog page-id="Message" v-model="createChatDialog">
       <div class="create-chat-wrapper" v-show="!showJoinedChat">
         <Search :isShowText="isShowText"
                 @click="isShowText = true"

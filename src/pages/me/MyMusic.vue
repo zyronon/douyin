@@ -9,13 +9,9 @@
       </IndicatorLight>
       <back style="opacity: 0;" mode="light" img="back"/>
     </div>
-    <SlideRowList
-        name="myMusicList"
-        v-model:active-index="slideIndex">
+    <SlideRowList name="myMusicList" v-model:active-index="slideIndex">
       <SlideItem>
-        <SlideColumnList>
-          <SlideItemMusic v-model="guessMusic[index]" v-for="(item,index) in guessMusic "/>
-        </SlideColumnList>
+        <GuessMusic :list="guessMusic"/>
       </SlideItem>
       <SlideItem style="overflow: auto;">
         <div class="my-collect">
@@ -29,7 +25,7 @@
               <img class="menu" src="../../assets/img/icon/menu-white.png" alt="">
             </div>
             <div class="collect-list">
-              <div class="item" v-for="item in collectMusic" @click="playMusic(item)">
+              <div class="item" v-for="(item,index) in collectMusic" @click="page2PlayMusic(item)">
                 <div class="left">
                   <div class="cover-wrapper">
                     <img v-lazy="$imgPreview(item.cover)" alt="" class="cover">
@@ -44,7 +40,8 @@
                   </div>
                 </div>
                 <div class="right">
-                  <img v-if="item.is_play" class="playing-icon" src="../../assets/img/icon/me/pinlv.gif">
+                  <img v-if="page2SlideIndex === index" class="playing-icon"
+                       src="../../assets/img/icon/me/pinlv.gif">
                 </div>
               </div>
             </div>
@@ -56,7 +53,7 @@
               </div>
             </div>
             <div class="recommend-list">
-              <div class="item" v-for="item in recommendMusic" @click="playMusic(item)">
+              <div class="item" v-for="(item,index) in recommendMusic" @click="page2PlayMusic(item)">
                 <div class="left">
                   <div class="cover-wrapper">
                     <img v-lazy="$imgPreview(item.cover)" alt="" class="cover">
@@ -71,39 +68,46 @@
                   </div>
                 </div>
                 <div class="right">
-                  <img v-if="item.is_play" class="playing-icon" src="../../assets/img/icon/me/pinlv.gif">
+                  <img v-if="page2SlideIndex - collectMusic.length === index" class="playing-icon"
+                       src="../../assets/img/icon/me/pinlv.gif">
                   <div class="collect-icon">
-                    <img src="../../assets/img/icon/star-white.png" v-show="!isCollect" @click="isCollect = !isCollect">
-                    <img src="../../assets/img/icon/star-yellow.png" v-show="isCollect" @click="isCollect = !isCollect">
+                    <img src="../../assets/img/icon/star-white.png" v-show="!item.isCollect"
+                         @click.stop="item.isCollect = !item.isCollect">
+                    <img src="../../assets/img/icon/star-yellow.png" v-show="item.isCollect"
+                         @click.stop="item.isCollect = !item.isCollect">
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="playing" @click="isShowCollectDialog = true">
-            <div class="playing-wrapper">
-              <div class="cover-wrapper">
-                <img v-lazy="$imgPreview(currentMusic.cover)" alt="" class="cover">
+          <transition name="float-play">
+            <div v-if="isShowFloatPlay" class="playing" @click="isShowCollectDialog = true">
+              <div class="playing-wrapper">
+                <div class="cover-wrapper">
+                  <img v-lazy="$imgPreview(currentMusic.cover)" alt="" class="cover">
+                </div>
+                <div class="name">{{ currentMusic.name }}</div>
+                <img v-show="page2IsPlay" @click.stop="togglePage2Play" class="option"
+                     src="../../assets/img/icon/me/float-pause-one.png" alt="">
+                <img v-show="!page2IsPlay" @click.stop="togglePage2Play" class="option"
+                     src="../../assets/img/icon/me/float-play.png" alt="">
+                <img @click.stop="$no" class="menu-list" src="../../assets/img/icon/me/music-list.png" alt="">
               </div>
-              <div class="name">{{ currentMusic.name }}</div>
-              <img class="option" src="../../assets/img/icon/me/float-pause-one.png" alt="">
-              <img class="menu-list" src="../../assets/img/icon/me/music-list.png" alt="">
             </div>
-          </div>
+          </transition>
         </div>
       </SlideItem>
     </SlideRowList>
 
+
     <transition name="my-collect-dialog">
-      <div class="my-collect-dialog" v-if="isShowCollectDialog">
+      <div class="my-collect-dialog" v-show="isShowCollectDialog">
         <div class="dialog-header">
           <back class="close" mode="light" img="back" @click="isShowCollectDialog = false"/>
           <span>我的收藏</span>
           <back style="opacity: 0;" mode="light" img="back"/>
         </div>
-        <SlideColumnList>
-          <SlideItemMusic v-model="guessMusic[index]" v-for="(item,index) in guessMusic "/>
-        </SlideColumnList>
+        <CollectMusic ref="CollectMusic" :list="page2Music" v-model:page2SlideIndex="page2SlideIndex"/>
       </div>
     </transition>
   </div>
@@ -116,17 +120,24 @@ import gaobaiqiqiu from '../../assets/data/lyrics/gaobaiqiqiu.lrc'
 import Switches from "../message/components/swtich/switches";
 import SlideItemMusic from "./components/SlideItemMusic";
 import IndicatorLight from "../../components/slide/IndicatorLight";
+import FromBottomDialog from "../../components/dialog/FromBottomDialog";
+import GuessMusic from "./components/GuessMusic";
+import CollectMusic from "./components/CollectMusic";
 
+//TODO 两个page页面的播放冲突未做
 export default {
   name: "MyMusic",
   components: {
+    FromBottomDialog,
     Switches,
     SlideItemMusic,
-    IndicatorLight
+    IndicatorLight,
+    GuessMusic,
+    CollectMusic
   },
   data() {
     return {
-      slideIndex: 0,
+      slideIndex: 1,
       currentMusic: {
         name: '告白气球',
         mp3: 'https://mp32.9ku.com/upload/128/2017/02/05/858423.mp3',
@@ -140,98 +151,42 @@ export default {
       collectMusic: [],
       recommendMusic: [],
       guessMusic: [],
-      lyricsTexts: [],
-      lyricsFullTexts: [],
+
       isShowCollectDialog: false,
-      isPlay: false,
+      isShowFloatPlay: false,
+
       isAutoPlay: true,
-      isLoop: false,
-      isMove: false,
       isCollect: false,
-      isFullLyrics: false,
-      lastPageX: 0,
-      pageX: 0,
-      audio: new Audio(),
-      duration: 0,
-      currentTime: 0,
-      step: 0,
-      startX: 0,
-      slideBarWidth: 0
+
+      page2SlideIndex: -1,
+      page2IsPlay: false
     }
   },
   computed: {
-    ...mapState(['bodyWidth'])
+    ...mapState(['bodyWidth']),
+    page2Music() {
+      return this.collectMusic.concat(this.recommendMusic)
+    }
   },
   created() {
     this.getCollectMusic()
   },
-  mounted() {
-    if (process.env.NODE_ENV === 'development') {
-      this.audio.volume = .2
-    }
-    this.audio.addEventListener('loadedmetadata', e => {
-      this.duration = this.audio.duration
-      this.slideBarWidth = this.$refs.slideBar.clientWidth
-      this.step = this.slideBarWidth / Math.floor(this.duration)
-    })
-    let lrcObj = this.createLrcObj(gaobaiqiqiu);
-    this.lyricsTexts.push(lrcObj.ms[0])
-    this.lyricsTexts.push(lrcObj.ms[1])
-    lrcObj.ms.map(v => {
-      if (v.c) this.lyricsFullTexts.push(v)
-    })
-    console.log(lrcObj.ms)
-    this.audio.addEventListener('timeupdate', e => {
-      let currentTime = Math.ceil(e.target.currentTime)
-      // let lastLyricsText = this.lyricsTexts[this.lyricsTexts.length - 1]
-      // if (Number(lastLyricsText.t) < currentTime) {
-      //   for (let i = 0; i < lrcObj.ms.length; i++) {
-      //     let item = lrcObj.ms[i]
-      //     if (Number(item.t) > currentTime) {
-      //       if (item.c) {
-      //         console.log(item)
-      //         this.t(item)
-      //         break
-      //       }
-      //     }
-      //   }
-      // }
-      if (!this.isMove) {
-        this.currentTime = currentTime
-        if (Math.ceil(e.target.currentTime) * this.step > this.slideBarWidth - 5) {
-          this.pageX = this.slideBarWidth - 5
-        } else {
-          this.pageX = Math.ceil(e.target.currentTime) * this.step
-        }
-      }
-    })
-    this.audio.addEventListener('play', e => this.isPlay = true)
-    this.audio.addEventListener('ended', e => {
-      if (this.isLoop) {
-        this.lastPageX = 0
-        this.audio.currentTime = 0
-        this.audio.play()
-      } else {
-        this.isPlay = false
-      }
-    })
-  },
   methods: {
-    playMusic(item) {
-      this.collectMusic.map(v => v.is_play = false)
-      this.recommendMusic.map(v => v.is_play = false)
-      item.is_play = true
-      this.currentMusic = item
-      this.audio.src = this.currentMusic.mp3
-      this.togglePlay(true)
-    },
-    togglePlay(state) {
-      this.currentMusic.is_play = state || !this.currentMusic.is_play
-      if (this.currentMusic.is_play) {
-        this.audio.play()
+    togglePage2Play() {
+      this.page2IsPlay = !this.page2IsPlay
+      if (this.page2IsPlay) {
+        this.$refs.CollectMusic.play(this.page2SlideIndex)
       } else {
-        this.audio.pause()
+        this.$refs.CollectMusic.pause()
       }
+    },
+    page2PlayMusic(item) {
+      this.currentMusic = item
+      this.isShowFloatPlay = true
+      this.page2IsPlay = true
+      this.page2SlideIndex = this.page2Music.findIndex(v => v.name === item.name)
+      this.isShowCollectDialog = true
+      this.$refs.CollectMusic.play(this.page2SlideIndex)
     },
     async getCollectMusic() {
       this.loading = true
@@ -241,93 +196,6 @@ export default {
         this.collectMusic = res.data.music.list.slice(0, 2)
         this.guessMusic = this.recommendMusic = res.data.music.list.slice(2, -1)
       }
-    },
-    createLrcObj(lrc) {
-      let oLRC = {
-        ti: "", //歌曲名
-        ar: "", //演唱者
-        al: "", //专辑名
-        by: "", //歌词制作人
-        offset: 0, //时间补偿值，单位毫秒，用于调整歌词整体位置
-        ms: [] //歌词数组{t:时间,c:歌词}
-      };
-      if (lrc.length === 0) return;
-      let lrcs = lrc.split('\n');//用回车拆分成数组
-      for (let i in lrcs) {//遍历歌词数组
-        lrcs[i] = lrcs[i].replace(/(^\s*)|(\s*$)/g, ""); //去除前后空格
-        let t = lrcs[i].substring(lrcs[i].indexOf("[") + 1, lrcs[i].indexOf("]"));//取[]间的内容
-        let s = t.split(":");//分离:前后文字
-        if (isNaN(parseInt(s[0]))) { //不是数值
-          for (let i in oLRC) {
-            if (i != "ms" && i == s[0].toLowerCase()) {
-              oLRC[i] = s[1];
-            }
-          }
-        } else { //是数值
-          let arr = lrcs[i].match(/\[(\d+:.+?)\]/g);//提取时间字段，可能有多个
-          let start = 0;
-          for (let k in arr) {
-            start += arr[k].length; //计算歌词位置
-          }
-          let content = lrcs[i].substring(start);//获取歌词内容
-          for (let k in arr) {
-            let t = arr[k].substring(1, arr[k].length - 1);//取[]间的内容
-            let s = t.split(":");//分离:前后文字
-            oLRC.ms.push({//对象{t:时间,c:歌词}加入ms数组
-              t: (parseFloat(s[0]) * 60 + parseFloat(s[1])).toFixed(3),
-              c: content
-            });
-          }
-        }
-      }
-      oLRC.ms.sort(function (a, b) {//按时间顺序排序
-        return a.t - b.t;
-      });
-      return oLRC
-      /*
-      for(let i in oLRC){ //查看解析结果
-          console.log(i,":",oLRC[i]);
-      }*/
-    },
-    t(txt) {
-      // if (this.test.length === 2) return
-      this.lyricsTexts.push(txt)
-      nextTick(() => {
-        let comments = this.$refs['lyrics-wrapper']
-        comments.scrollTo({top: comments.scrollHeight - comments.clientHeight, behavior: 'smooth'})
-      })
-    },
-    start(e) {
-      this.startX = e.touches[0].pageX
-    },
-    move(e) {
-      this.isMove = true
-      this.pageX = this.lastPageX + (e.touches[0].pageX - this.startX)
-      if (this.pageX < 0) this.pageX = 0
-      if (this.pageX > this.slideBarWidth) this.pageX = this.slideBarWidth - 5
-      this.currentTime = Math.ceil(this.pageX / this.step)
-      globalMethods.$stopPropagation(e)
-    },
-    end(e) {
-      this.lastPageX = this.pageX
-      this.currentTime = Math.ceil(this.pageX / this.step)
-      this.audio.currentTime = this.currentTime
-      this.audio.play()
-      this.isMove = false
-      globalMethods.$stopPropagation(e)
-    },
-    $durationTime(time) {
-      if (time === 0) return '00:00'
-      else {
-        return this.$duration(time)
-      }
-    },
-    durationStyle(type) {
-      // return {}
-      if (type === 1) {
-        return {width: this.pageX + 'px'}
-      }
-      return {left: this.pageX + 'px'}
     },
   }
 }
@@ -383,6 +251,7 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      color: white;
 
       .left {
         display: flex;
@@ -394,6 +263,7 @@ export default {
         }
 
         .num {
+          font-size: 1.3rem;
           color: gray;
           margin-left: .5rem;
         }
@@ -406,6 +276,7 @@ export default {
 
     .collect-list, .recommend-list {
       .item {
+        color: white;
         display: flex;
         justify-content: space-between;
         margin-bottom: 1.5rem;
@@ -584,7 +455,6 @@ export default {
     }
   }
 
-
   .my-collect-dialog-enter-active,
   .my-collect-dialog-leave-active {
     transition-duration: 300ms;
@@ -595,6 +465,18 @@ export default {
   .my-collect-dialog-leave-to {
     transition-duration: 300ms;
     transform: translateY(100vh);
+  }
+
+  .float-play-enter-active,
+  .float-play-leave-active {
+    transition-duration: 200ms;
+    transform: translateY(0);
+  }
+
+  .float-play-enter-from,
+  .float-play-leave-to {
+    transition-duration: 200ms;
+    transform: translateY(100%);
   }
 }
 </style>

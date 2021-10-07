@@ -42,11 +42,6 @@ export default {
       // default: 'light'
       // default: 'white'
     },
-    //触摸，是否可以滑动
-    touchMoved: {
-      type: Boolean,
-      default: true
-    },
     maskMode: {
       type: String,
       default: 'dark'
@@ -61,41 +56,40 @@ export default {
     },
     pageId: {
       type: String,
-      default: null
-    }
+      default: null,
+      required: true
+    },
+    borderRadius: {
+      type: String,
+      default: '.5rem .5rem 0 0'
+    },
   },
   watch: {
     modelValue(newVal) {
-      let app = document.getElementById('app')
+      let page = document.getElementById(this.pageId)
       if (newVal) {
-        if (this.pageId) {
-          let page = document.getElementById(this.pageId)
-          this.pagePosition = this.$getCss2(page, 'position')
-          page.style.position = 'absolute'
-        } else {
-          this.pagePosition = this.$getCss2(app.children[0], 'position')
-          app.children[0].style.position = 'absolute'
-        }
+        this.pagePosition = this.$getCss2(page, 'position')
+        page.style.position = 'absolute'
         this.scroll = document.documentElement.scrollTop
         document.body.style.position = 'fixed'
         document.body.style.top = -this.scroll + 'px'
+
+        let maskTemplate = `<div class="Mask fade-in ${this.maskMode}"></div>`
+        let mask = new Dom().create(maskTemplate)
+        mask.on('click', () => this.hide(false))
+        page.appendChild(mask.els[0])
       } else {
-        if (this.pageId) {
-          let page = document.getElementById(this.pageId)
-          page.style.position = this.pagePosition || 'fixed'
-        } else {
-          app.children[1].style.position = this.pagePosition || 'fixed'
-        }
+        let page = document.getElementById(this.pageId)
+        page.style.position = this.pagePosition || 'fixed'
         document.body.style.position = 'static'
         document.documentElement.scrollTop = this.scroll
+
+        let mask = new Dom('.Mask').replaceClass('fade-in', 'fade-out')
+        setTimeout(() => {
+          mask.remove()
+        }, 300)
       }
-      this.$store.commit('setMaskDialog', {state: newVal, mode: this.maskMode})
     },
-    maskDialog(newVal) {
-      if (!newVal) {
-        this.hide(newVal)
-      }
-    }
   },
   data() {
     return {
@@ -106,11 +100,7 @@ export default {
       pagePosition: null
     }
   },
-  computed: {
-    maskDialog() {
-      return this.$store.state.maskDialog
-    },
-  },
+  computed: {},
   created() {
   },
   methods: {
@@ -149,13 +139,11 @@ export default {
       this.$emit('cancel')
     },
     start(e) {
-      if (!this.touchMoved) return;
       if (this.$refs.dialog.scrollTop !== 0) return
       this.startLocationY = e.touches[0].pageY
       this.startTime = Date.now()
     },
     move(e) {
-      if (!this.touchMoved) return;
       if (this.$refs.dialog.scrollTop !== 0) return
       this.moveYDistance = e.touches[0].pageY - this.startLocationY
       if (this.moveYDistance > 0) {
@@ -164,7 +152,6 @@ export default {
       }
     },
     end(e) {
-      if (!this.touchMoved) return;
 
       //点击
       if (Date.now() - this.startTime < 150 && Math.abs(this.moveYDistance) < 30) {
@@ -203,7 +190,7 @@ export default {
   bottom: 0;
   left: 0;
   box-sizing: border-box;
-  border-radius: .5rem .5rem 0 0;
+  border-radius: v-bind(borderRadius);
   transition: all .3s;
 
   &.dark {

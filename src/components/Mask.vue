@@ -4,6 +4,8 @@
   ></div>
 </template>
 <script>
+//未以组件的方式使用，FromBottomDialog.vue里面是用js append到dom里面去的，
+//以组件的方式使用，不好随意插位置，插到app下面，又会出现定位覆盖的问题
 export default {
   name: "Mask",
   props: {
@@ -15,7 +17,7 @@ export default {
 }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
 
 .Mask {
   z-index: 3;
@@ -35,7 +37,7 @@ export default {
   }
 
   &.lightgray {
-    background: rgba(0, 0, 0, 0.15);
+    background: rgba(0, 0, 0, 0.25);
   }
 
   &.white {

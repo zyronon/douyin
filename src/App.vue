@@ -1,8 +1,5 @@
 <template>
   <router-view v-slot="{ Component }">
-    <transition name="fade">
-      <Mask v-if="maskDialog" @click="hideMaskDialog" :mode="maskDialogMode"></Mask>
-    </transition>
     <transition :name="transitionName">
       <!--      <keep-alive>-->
       <!--      </keep-alive>-->
@@ -19,26 +16,22 @@
 * try {navigator.control.gesture(false);} catch (e) {} //UC浏览器关闭默认手势事件
 try {navigator.control.longpressMenu(false);} catch (e) {} //关闭长按弹出菜单
 * */
+import * as Vue from "vue";
+import Loading from "./components/Loading";
+import Mask from "./components/Mask";
+
 export default {
   name: 'App',
+  components: {
+    Mask
+  },
   data() {
     return {
       transitionName: 'go',
     }
   },
-  computed: {
-    maskDialog() {
-      return this.$store.state.maskDialog
-    },
-    maskDialogMode() {
-      return this.$store.state.maskDialogMode
-    },
-  },
-  methods: {
-    hideMaskDialog() {
-      this.$store.commit('setMaskDialog', {state: false, mode: this.maskDialogMode})
-    }
-  },
+  computed: {},
+  methods: {},
   // watch $route 决定使用哪种过渡
   watch: {
     '$route'(to, from) {
@@ -107,7 +100,7 @@ export default {
       const toDepth = routeDeep.indexOf(to.path)
       const fromDepth = routeDeep.indexOf(from.path)
       this.transitionName = toDepth > fromDepth ? 'go' : 'back'
-    }
+    },
   },
   mounted() {
     // this.$store.dispatch('getFriends')

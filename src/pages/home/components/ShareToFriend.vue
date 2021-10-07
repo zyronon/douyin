@@ -1,5 +1,6 @@
 <template>
   <from-bottom-dialog
+      :page-id="pageId"
       v-model="modelValue"
       @cancel="cancel"
       maskMode="light"
@@ -108,7 +109,11 @@ export default {
     Check
   },
   props: {
-    modelValue: false
+    modelValue: false,
+    pageId: {
+      type: String,
+      default: 'home-index'
+    },
   },
   data() {
     return {
@@ -167,7 +172,7 @@ export default {
 
 .button {
   width: 6.4rem;
-  height: 2.6rem!important;
+  height: 2.6rem !important;
 }
 
 @avatar-width: 3.8rem;
