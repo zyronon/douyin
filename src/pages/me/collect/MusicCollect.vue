@@ -34,7 +34,7 @@
       <div class="process" :style="{width : process + 'px'}"></div>
       <div class="music-wrapper">
         <div class="music">
-          <div class="cover-wrapper">
+          <div class="cover-wrapper"  @click="togglePlay(currentItem,list)">
             <img v-lazy="$imgPreview(currentItem.cover)" alt="" class="cover">
             <img v-if="!currentItem.is_play" src="@/assets/img/icon/play-white.png" alt="" class="play">
             <img v-if="currentItem.is_play" src="@/assets/img/icon/pause-white.png" alt="" class="play">

@@ -133,7 +133,7 @@
                 <span>你可能感兴趣</span>
                 <img src="../../assets/img/icon/about-gray.png">
               </div>
-              <div class="right" @click="$nav('/find-acquaintance')">
+              <div class="right" @click="$nav('/people/find-acquaintance')">
                 <span>查看更多</span>
                 <back direction="right"></back>
               </div>
@@ -150,7 +150,7 @@
                   <back img="close" scale=".6"></back>
                 </div>
               </div>
-              <div class="more" @click="$nav('/find-acquaintance')">
+              <div class="more" @click="$nav('/people/find-acquaintance')">
                 <div class="notice">
                   <div>点击查看</div>
                   <div>更多好友</div>

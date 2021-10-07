@@ -66,7 +66,10 @@ export default {
         '/choose-location',
         '/choose-province',
         '/choose-city',
-        '/find-acquaintance',
+
+        '/people/follow-and-fans',
+        '/people/find-acquaintance',
+
         '/address-list',
         '/video-detail',
         '/my-card',

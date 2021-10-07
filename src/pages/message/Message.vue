@@ -222,7 +222,7 @@ export default {
     createChatSearchKey(newVal) {
       if (newVal) {
         //TODO　搜索时仅仅判断是否包含了对应字符串，抖音做了拼音判断的
-        this.searchFriends = this.friends.filter(v => {
+        this.searchFriends = this.friends.all.filter(v => {
           if (v.name.includes(newVal)) return true
           return v.account.includes(newVal);
         })
@@ -259,6 +259,7 @@ export default {
   color: white;
 
   .create-chat-wrapper {
+    min-height: 70vh;
     padding-bottom: 6rem;
 
     .joined-chat {
@@ -424,6 +425,7 @@ export default {
   }
 
   .joined-chat-wrapper {
+    min-height: 70vh;
 
     .nav {
       font-size: 1.7rem;

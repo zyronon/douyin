@@ -122,6 +122,7 @@
 
     <Share v-model="isSharing"
            ref="share"
+           page-id="home-index"
            @dislike="dislike"
            :videoId="videos[videoActiveIndex]?.id"
            :canDownload="videos[videoActiveIndex]?.canDownload"
