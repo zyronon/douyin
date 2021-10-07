@@ -60,6 +60,7 @@
     <Share v-model="isSharing"
            mode="music"
            ref="share"
+           pageId="Music"
            @showDouyinCode="showDouyinCode = true"
            @showShare2WeChatZone="shareType = 2"
            @share2WeChat="shareType = 3"
@@ -85,7 +86,7 @@
       </template>
     </ConfirmDialog>
 
-    <ShareToFriend v-model="shareToFriend"/>
+    <ShareToFriend pageId="Music" v-model="shareToFriend"/>
 
   </div>
 </template>

@@ -10,12 +10,23 @@
   </div>
 </template>
 <script>
+import {nextTick} from "vue";
+
 export default {
   name: "BaseSlideList",
   props: {
     activeIndex: {
       type: Number,
       default: () => 0
+    },
+    //改变index，是否使用动画
+    changeActiveIndexUseAnim: {
+      type: Boolean,
+      default: true
+    },
+    canMove: {
+      type: Boolean,
+      default: true
     },
   },
   data() {
@@ -42,8 +53,7 @@ export default {
     }
   },
   watch: {
-    activeIndex() {
-      // console.log('activeIndex')
+    activeIndex(newVal) {
       this.changeIndex()
     },
   },
@@ -52,14 +62,29 @@ export default {
     await this.checkChildren()
   },
   methods: {
-    checkChildren() {
-      this.slideList = this.$refs.slideList
-      this.slideItems = this.slideList.children
-      this.wrapperHeight = this.$getCss(this.slideList, 'height')
-      for (let i = 0; i < this.slideItems.length; i++) {
-        let el = this.slideItems[i]
-        this.slideItemsHeights.push(this.$getCss(el, 'height'))
+    async changeIndex() {
+      await this.checkChildren()
+      this.currentSlideItemIndex = this.activeIndex
+      if (this.changeActiveIndexUseAnim) {
+        this.$setCss(this.slideList, 'transition-duration', `300ms`)
       }
+      this.$setCss(this.slideList, 'transform', `translate3d(0px, ${-this.getHeight(this.currentSlideItemIndex) + this.moveYDistance}px, 0px)`)
+      this.$attrs['onUpdate:active-index'] && this.$emit('update:active-index', this.currentSlideItemIndex)
+    },
+    checkChildren() {
+      return new Promise(resolve => {
+        nextTick(() => {
+          this.slideList = this.$refs.slideList
+          this.slideItems = this.slideList.children
+          this.wrapperHeight = this.$getCss(this.slideList, 'height')
+          this.slideItemsHeights = []
+          for (let i = 0; i < this.slideItems.length; i++) {
+            let el = this.slideItems[i]
+            this.slideItemsHeights.push(this.$getCss(el, 'height'))
+          }
+          resolve()
+        })
+      })
     },
     touchStart(e) {
       this.checkChildren()
@@ -70,6 +95,7 @@ export default {
       this.startTime = Date.now()
     },
     touchMove(e) {
+      if (!this.canMove) return;
       this.moveXDistance = e.touches[0].pageX - this.startLocationX
       this.moveYDistance = e.touches[0].pageY - this.startLocationY
 
@@ -90,6 +116,7 @@ export default {
       }
     },
     touchEnd(e) {
+      if (!this.canMove) return;
       if (this.isCanDownWiping) {
         if (this.currentSlideItemIndex === 0 && !this.isDrawDown) return
         if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawDown) return this.$attrs['onEnd'] && this.$emit('end')

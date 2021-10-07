@@ -1,5 +1,6 @@
 <template>
   <from-bottom-dialog
+      :page-id="pageId"
       v-model="modelValue"
       @cancel="closeShare"
       :show-heng-gang="false"
@@ -24,34 +25,32 @@
         </div>
       </div>
       <div class="line"></div>
-      <div class="shares ">
+      <div class="shares">
         <template v-if="mode === 'video'">
           <div class="share-to" @click="$no">
             <img src="../assets/img/icon/components/video/torichang.png" alt="">
             <span>分享日常</span>
           </div>
-        </template>
-        <div class="share-to" @click="closeShare($emit('ShareToFriend'))">
-          <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
-          <span>私信朋友</span>
-        </div>
-        <div class="share-to" @click="closeShare($emit('showShare2WeChatZone'))">
-          <img src="../assets/img/icon/components/video/towechat.webp" alt="">
-          <span>朋友圈</span>
-        </div>
-        <div class="share-to" @click="closeShare($emit('share2WeChat'))">
-          <img src="../assets/img/icon/components/video/towechatchat.webp" alt="">
-          <span>微信好友</span>
-        </div>
-        <div class="share-to" @click="closeShare($emit('share2QQZone'))">
-          <img src="../assets/img/icon/components/video/tozone.webp" alt="">
-          <span>QQ空间</span>
-        </div>
-        <div class="share-to" @click="closeShare($emit('share2QQ'))">
-          <img src="../assets/img/icon/components/video/toqq.webp" alt="">
-          <span>QQ好友</span>
-        </div>
-        <template v-if="mode === 'video'">
+          <div class="share-to" @click="closeShare($emit('ShareToFriend'))">
+            <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
+            <span>私信朋友</span>
+          </div>
+          <div class="share-to" @click="closeShare($emit('showShare2WeChatZone'))">
+            <img src="../assets/img/icon/components/video/towechat.webp" alt="">
+            <span>朋友圈</span>
+          </div>
+          <div class="share-to" @click="closeShare($emit('share2WeChat'))">
+            <img src="../assets/img/icon/components/video/towechatchat.webp" alt="">
+            <span>微信好友</span>
+          </div>
+          <div class="share-to" @click="closeShare($emit('share2QQZone'))">
+            <img src="../assets/img/icon/components/video/tozone.webp" alt="">
+            <span>QQ空间</span>
+          </div>
+          <div class="share-to" @click="closeShare($emit('share2QQ'))">
+            <img src="../assets/img/icon/components/video/toqq.webp" alt="">
+            <span>QQ好友</span>
+          </div>
           <div class="share-to" @click="closeShare($emit('showShareDuoshan'))">
             <img src="../assets/img/icon/components/video/duoshan.png" alt="">
             <span>多闪</span>
@@ -60,11 +59,47 @@
             <img src="../assets/img/icon/components/video/totoutiao.webp" alt="">
             <span>今日头条</span>
           </div>
+          <div class="share-to" @click="closeShare($emit('share2Webo'))">
+            <img src="../assets/img/icon/components/video/toweibo.webp" alt="">
+            <span>微博</span>
+          </div>
         </template>
-        <div class="share-to" @click="closeShare($emit('share2Webo'))">
-          <img src="../assets/img/icon/components/video/toweibo.webp" alt="">
-          <span>微博</span>
-        </div>
+        <template v-if="mode === 'music'">
+          <div class="share-to" @click="closeShare($emit('ShareToFriend'))">
+            <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
+            <span>私信朋友</span>
+          </div>
+          <div class="share-to" @click="closeShare($emit('showShare2WeChatZone'))">
+            <img src="../assets/img/icon/components/video/towechat.webp" alt="">
+            <span>朋友圈</span>
+          </div>
+          <div class="share-to" @click="closeShare($emit('share2WeChat'))">
+            <img src="../assets/img/icon/components/video/towechatchat.webp" alt="">
+            <span>微信好友</span>
+          </div>
+          <div class="share-to" @click="closeShare($emit('share2QQZone'))">
+            <img src="../assets/img/icon/components/video/tozone.webp" alt="">
+            <span>QQ空间</span>
+          </div>
+          <div class="share-to" @click="closeShare($emit('share2QQ'))">
+            <img src="../assets/img/icon/components/video/toqq.webp" alt="">
+            <span>QQ好友</span>
+          </div>
+          <div class="share-to" @click="closeShare($emit('share2Webo'))">
+            <img src="../assets/img/icon/components/video/toweibo.webp" alt="">
+            <span>微博</span>
+          </div>
+        </template>
+        <template v-if="mode === 'my-music'">
+          <div class="share-to" @click="$no">
+            <img src="../assets/img/icon/components/video/torichang.png" alt="">
+            <span>转发到日常</span>
+          </div>
+          <div class="share-to" @click="closeShare($emit('ShareToFriend'))">
+            <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
+            <span>私信朋友</span>
+          </div>
+        </template>
       </div>
       <div class="toolbar ">
         <template v-if="mode === 'qrcode'">
@@ -173,6 +208,10 @@ export default {
     videoId: {
       type: String,
       default: null
+    },
+    pageId: {
+      type: String,
+      default: 'home-index'
     },
     canDownload: {
       type: Boolean,

@@ -1,5 +1,5 @@
 <template>
-  <div class="RequestUpdate">
+  <div class="RequestUpdate" id="RequestUpdate">
     <BaseHeader>
       <template v-slot:center>
         <span class="f16">求更新</span>
@@ -37,6 +37,7 @@
     </div>
 
     <from-bottom-dialog
+        page-id="RequestUpdate"
         height="16rem"
         :show-heng-gang="false"
         mode="white"

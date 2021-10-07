@@ -12,7 +12,10 @@
       <!--            <div class="lyrics-mask" @click="isFullLyrics = true"></div>-->
     </div>
     <div class="lyrics-full" v-show="isFullLyrics" @click="isFullLyrics = false">
-      <div class="list" style="overflow:auto;">
+      <div class="list" style="overflow:auto;"
+           @touchmove="$emit('slideCanMove', false)"
+           @touchend="$emit('slideCanMove', true)"
+      >
         <div class="item" v-for="item in lyricsFullTexts">{{ item.c }}</div>
       </div>
     </div>
@@ -28,7 +31,7 @@
             <img src="@/assets/img/icon/star-yellow.png" v-show="isCollect" @click="isCollect = !isCollect">
             <span>收藏</span>
           </div>
-          <div class="btn">
+          <div class="btn" @click="$emit('showShare')">
             <img src="@/assets/img/icon/share-white-full.png" alt="">
             <span>分享</span>
           </div>
@@ -48,17 +51,17 @@
         <div class="end">{{ $durationTime(duration) }}</div>
       </div>
       <div class="options">
-        <img v-show="isLoop" src="@/assets/img/icon/me/loop.png" @click="isLoop = !isLoop">
-        <img v-show="!isLoop" src="@/assets/img/icon/me/play-normal.png" @click="isLoop = !isLoop">
+        <img v-show="isLoop" src="@/assets/img/icon/me/loop.png" @click="$emit('update:isLoop',false)">
+        <img v-show="!isLoop" src="@/assets/img/icon/me/play-normal.png" @click="$emit('update:isLoop',true)">
         <div class="center">
-          <img src="@/assets/img/icon/me/previous.png" @click="t">
-          <img v-show="modelValue.is_play" class="control" src="@/assets/img/icon/me/pause.png"
+          <img src="@/assets/img/icon/me/previous.png" @click="slide('previous')">
+          <img v-show="isPlay" class="control" src="@/assets/img/icon/me/pause.png"
                @click="togglePlay()">
-          <img v-show="!modelValue.is_play" class="control" src="@/assets/img/icon/me/play.png"
+          <img v-show="!isPlay" class="control" src="@/assets/img/icon/me/play.png"
                @click="togglePlay()">
-          <img src="@/assets/img/icon/me/next.png">
+          <img src="@/assets/img/icon/me/next.png" @click="slide('next')">
         </div>
-        <img src="@/assets/img/icon/me/music-list.png">
+        <img src="@/assets/img/icon/me/music-list.png" @click="$emit('showList')">
       </div>
     </div>
   </div>
@@ -77,30 +80,19 @@ export default {
       default: function () {
         return {}
       }
-    }
+    },
+    isLoop: {
+      type: Boolean,
+      default: false
+    },
   },
   data() {
     return {
       slideIndex: 1,
-      currentMusic: {
-        name: '告白气球',
-        mp3: 'https://mp32.9ku.com/upload/128/2017/02/05/858423.mp3',
-        cover: require('../../../assets/img/music-cover/7.png'),
-        author: '周杰伦',
-        duration: 60,
-        use_count: 37441000,
-        is_collect: false,
-        is_play: false,
-      },
-      collectMusic: [],
-      recommendMusic: [],
-      guessMusic: [],
       lyricsTexts: [],
       lyricsFullTexts: [],
-      isShowCollectDialog: false,
       isPlay: false,
       isAutoPlay: true,
-      isLoop: false,
       isMove: false,
       isCollect: false,
       isFullLyrics: false,
@@ -127,12 +119,14 @@ export default {
       this.slideBarWidth = this.$refs.slideBar.clientWidth
       this.step = this.slideBarWidth / Math.floor(this.duration)
     })
+
     let lrcObj = this.createLrcObj(gaobaiqiqiu);
     this.lyricsTexts.push(lrcObj.ms[0])
     this.lyricsTexts.push(lrcObj.ms[1])
     lrcObj.ms.map(v => {
       if (v.c) this.lyricsFullTexts.push(v)
     })
+
     // console.log(lrcObj.ms)
     this.audio.addEventListener('timeupdate', e => {
       let currentTime = Math.ceil(e.target.currentTime)
@@ -170,10 +164,19 @@ export default {
     })
   },
   methods: {
-    togglePlay(state) {
-      this.modelValue.is_play = state || !this.modelValue.is_play
-      if (this.modelValue.is_play) {
-        this.audio.play()
+    slide(state) {
+      this.togglePlay(false)
+      this.$emit(state)
+    },
+    //TODO DOMException: The play() request was interrupted by a call to pause()
+    //TODO page2会报错，能放歌但是进度条不动
+    async togglePlay(state, reStart = false) {
+      this.isPlay = state !== undefined ? state : !this.isPlay
+      if (reStart) {
+        this.audio.currentTime = 0
+      }
+      if (this.isPlay) {
+        await this.audio.play()
       } else {
         this.audio.pause()
       }
@@ -303,6 +306,7 @@ export default {
       object-fit: cover;
       width: 100%;
       height: 100%;
+      box-shadow: 0 0 1.5rem .5rem #514f4f;
     }
 
   }
@@ -412,11 +416,11 @@ export default {
           height: 2rem;
           width: 100%;
           top: -1rem;
-          z-index: 11;
+          z-index: 9;
         }
 
         &:before {
-          z-index: 9;
+          z-index: 8;
           content: ' ';
           height: 1.5px;
           width: 100%;
@@ -426,7 +430,7 @@ export default {
         }
 
         .bar-line {
-          z-index: 10;
+          z-index: 9;
           content: '';
           position: absolute;
           top: 0;
@@ -436,7 +440,7 @@ export default {
         }
 
         .bar-point {
-          z-index: 10;
+          z-index: 9;
           position: absolute;
           left: 50vw;
           top: -3px;

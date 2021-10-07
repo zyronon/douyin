@@ -1,5 +1,5 @@
 <template>
-  <div class="FindAcquaintance">
+  <div class="FindAcquaintance" id="FindAcquaintance">
     <div class="header">
       <back mode="light" @click="back"></back>
       <Indicator
@@ -80,6 +80,7 @@
     </transition>
 
     <from-bottom-dialog
+        page-id="FindAcquaintance"
         v-model="moreOptionDialog"
         :show-heng-gang="false"
         height="21rem"
