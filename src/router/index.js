@@ -56,6 +56,7 @@ import Test5 from "../pages/Test5";
 import MusicCollect from "../pages/me/collect/MusicCollect";
 import VideoCollect from "../pages/me/collect/VideoCollect";
 import MyMusic from "../pages/me/MyMusic";
+import FollowAndFans from "../pages/people/FollowAndFans";
 
 const routes = [
   // {path: '', component: Music},
@@ -98,7 +99,10 @@ const routes = [
   {path: '/choose-location', component: ChooseLocation},
   {path: '/choose-province', component: ChooseProvince},
   {path: '/choose-city', component: ChooseCity},
-  {path: '/find-acquaintance', component: FindAcquaintance},
+
+  {path: '/people/find-acquaintance', component: FindAcquaintance},
+  {path: '/people/follow-and-fans', component: FollowAndFans},
+
   {path: '/service-protocol', component: ServiceProtocol},
   {path: '/address-list', component: AddressList},
   {path: '/scan', component: Scan},

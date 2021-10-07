@@ -1,0 +1,208 @@
+<template>
+  <div class="FollowAndFans" id="FollowAndFans">
+    <BaseHeader backMode="light">
+      <template v-slot:center>
+        <span class="f14">{{ userinfo.nickname }}</span>
+      </template>
+      <template v-slot:right>
+        <div>
+          <img src="../../assets/img/icon/people/add-user.png" style="width: 2rem;"
+               @click="$nav('/people/find-acquaintance')">
+        </div>
+      </template>
+    </BaseHeader>
+    <div class="content">
+      <div class="indicator-wrapper">
+        <Indicator
+            tabStyleWidth="50%"
+            :tabTexts="['关注','粉丝']"
+            v-model:active-index="currentSlideItemIndex">
+        </Indicator>
+      </div>
+      <SlideRowList v-model:active-index="currentSlideItemIndex" style="height: calc(100vh - 11.1rem)">
+        <SlideItem class="tab1">
+          <Search v-model="searchKey" placeholder="搜索用户备注或名字" :is-show-text="false"/>
+          <div class="is-search" v-if="searchKey">
+            <div class="search-result" v-if="searchFriends.length">
+              <People v-for="item in searchFriends " :people="item"></People>
+            </div>
+            <div class="no-result" v-else>
+              <img src="../../assets/img/icon/no-result.png" alt="">
+              <span class="n1">搜索结果为空</span>
+              <span class="n2">没有搜索到相关内容</span>
+            </div>
+          </div>
+          <div class="no-search" v-else>
+            <div class="title">我的关注</div>
+            <People v-for="item in friends.all" :people="item"></People>
+          </div>
+
+        </SlideItem>
+        <SlideItem class="tab2">
+          <People v-for="item in friends.all" :people="item"></People>
+          <NoMore/>
+        </SlideItem>
+      </SlideRowList>
+    </div>
+  </div>
+</template>
+<script>
+import People from './components/People'
+import Search from '../../components/Search'
+import Indicator from '../../components/slide/Indicator'
+import FromBottomDialog from "../../components/dialog/FromBottomDialog";
+import {mapState} from "_vuex@4.0.2@vuex";
+
+export default {
+  name: "FindAcquaintance",
+  components: {
+    People,
+    Search,
+    Indicator,
+    FromBottomDialog
+  },
+  data() {
+    return {
+      findAddressListDialog: false,
+      moreOptionDialog: false,
+      outWebImgAccountDialog: false,
+      indicatorFixed: false,
+      isShowText: false,
+      isSearch: false,
+      searchKey: '',
+
+      currentSlideItemIndex: 0,
+      list: [
+        {
+          type: 1,
+        },
+        {
+          type: 2,
+        },
+        {
+          type: 3,
+        },
+        {
+          type: 4,
+        },
+        {
+          type: 5,
+        },
+      ],
+      searchFriends: []
+    }
+  },
+  computed: {
+    ...mapState(['userinfo', 'friends'])
+  },
+  watch: {
+    searchKey(newVal) {
+      if (newVal) {
+        //TODO　搜索时仅仅判断是否包含了对应字符串，抖音做了拼音判断的
+        this.searchFriends = this.friends.all.filter(v => {
+          if (v.name.includes(newVal)) return true
+          return v.account.includes(newVal);
+        })
+      } else {
+        this.searchFriends = []
+      }
+    }
+  },
+  mounted() {
+  },
+  methods: {
+    async search() {
+      this.$showLoading()
+      await this.$sleep(500)
+      this.$hideLoading()
+      this.isSearch = true
+    },
+    back() {
+      if (this.isShowText) {
+        this.isShowText = false
+      } else {
+        this.$back()
+      }
+    }
+  }
+}
+</script>
+
+<style scoped lang="less">
+@import "../../assets/less/index";
+
+.FollowAndFans {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  color: white;
+  font-size: 1.4rem;
+
+  .content {
+    padding-top: @header-height;
+
+    .indicator-wrapper {
+      padding: 0 @padding-page;
+    }
+
+    .search-ctn {
+      z-index: 9;
+      left: 0;
+      background: @main-bg;
+      position: fixed;
+      width: 100vw;
+      box-sizing: border-box;
+      padding: 1rem @padding-page 0 @padding-page;
+    }
+  }
+
+  .tab1, .tab2 {
+    overflow: auto;
+    padding: 0 @padding-page;
+    box-sizing: border-box;
+  }
+
+  .tab1 {
+    .title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      color: @second-text-color;
+      font-size: 1.2rem;
+    }
+
+    .no-search {
+      padding-top: 6rem;
+    }
+
+    .is-search {
+      padding-top: 5rem;
+
+      .no-result {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+          margin-top: 15rem;
+          height: 15rem;
+        }
+
+        .n1 {
+          margin-top: 4rem;
+          font-size: 1.6rem;
+        }
+
+        .n2 {
+          margin-top: 2rem;
+          font-size: 1.2rem;
+          color: @second-text-color;
+        }
+      }
+    }
+  }
+
+}
+</style>

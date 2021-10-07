@@ -2,7 +2,7 @@
   <div id='MyCard'>
     <div class="header">
       <back mode="light" @click="$back"/>
-<!--      todo 差一-->
+      <!--      todo 差一-->
       <img class="share" src="../../assets/img/icon/share-white.png" @click="isSharing = true">
     </div>
     <div class="content">
@@ -15,7 +15,7 @@
       <span class="notice">抖音扫一扫，立即关注我</span>
     </div>
     <div class="footer">
-<!--      <div class="btn" @click="$nav('/scan')">-->
+      <!--      <div class="btn" @click="$nav('/scan')">-->
       <div class="btn" @click="$no">
         <div class="wrapper">
           <img src="../../assets/img/icon/scan.png" alt="">
@@ -33,32 +33,8 @@
     <Share v-model="isSharing"
            mode="qrcode"
            ref="share"
-           @showDouyinCode="showDouyinCode = true"
-           @showShare2WeChatZone="shareType = 2"
-           @share2WeChat="shareType = 3"
-           @share2QQZone="shareType = 4"
-           @share2QQ="shareType = 5"
-           @share2Webo="shareType = 8"
-           @ShareToFriend="delayShowDialog( e => this.shareToFriend = true)"
+           page-id="MyCard"
     />
-
-
-    <ConfirmDialog
-        v-model:visible="showSharePassword"
-        title="你的口令已复制"
-        subtitle="0F.:/ a【风就应该自由要什么归宿】长按复制此条消息，打开抖音搜索，聆听音乐##kwu3VCixHl8##[抖音口令]"
-        :okText="okText"
-        cancelText="不分享了"
-        @ok="shareType = -1"
-        @cancel="shareType = -1"
-    >
-      <template v-slot:header>
-        <img style="width: 100%;" src="../../assets/img/icon/share-password.webp" alt="">
-      </template>
-    </ConfirmDialog>
-
-    <ShareToFriend v-model="shareToFriend"/>
-
 
   </div>
 </template>
@@ -71,8 +47,6 @@ export default {
   name: "MyCard",
   components: {
     Share,
-    ConfirmDialog,
-    ShareToFriend
   },
   data() {
     return {

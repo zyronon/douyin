@@ -33,17 +33,17 @@
                 <img src="../../assets/img/icon/avatar/2.png" class="head-image"
                      @click="previewImg = require('../../assets/img/icon/avatar/2.png')">
                 <div class="heat">
-                  <div class="text">
+                  <div class="text" @click="isShowStarCount = true">
                     <span>获赞</span>
-                    <span class="num">{{ $likeNum(localAuthor.aweme_count) }}</span>
+                    <span class="num">{{ $likeNum(userinfo.aweme_count) }}</span>
                   </div>
-                  <div class="text">
+                  <div class="text" @click="$nav('/people/follow-and-fans',{type:0})">
                     <span>关注</span>
-                    <span class="num">{{ $likeNum(localAuthor.following_count) }}</span>
+                    <span class="num">{{ $likeNum(userinfo.following_count) }}</span>
                   </div>
-                  <div class="text">
+                  <div class="text" @click="$nav('/people/follow-and-fans',{type:1})">
                     <span>粉丝</span>
-                    <span class="num">{{ $likeNum(localAuthor.follower_count) }}</span>
+                    <span class="num">{{ $likeNum(userinfo.follower_count) }}</span>
                   </div>
                 </div>
               </div>
@@ -103,7 +103,7 @@
                 <div class="button" @click="$nav('/edit-userinfo')">
                   <span>主页访客</span>
                 </div>
-                <div class="button" @click="$nav('/find-acquaintance')">
+                <div class="button" @click="$nav('/people/find-acquaintance')">
                   <span>添加朋友</span>
                   <div class="not-read"></div>
                 </div>
@@ -323,6 +323,19 @@
         <img class="download" src="../../assets/img/icon/components/video/download.png" alt="" @click.stop="$no">
       </div>
     </transition>
+
+    <ConfirmDialog
+        v-model:visible="isShowStarCount"
+        :subtitle='`"${userinfo.nickname}"共获得${this.$likeNum(userinfo.aweme_count)}个赞`'
+        okText="确认"
+        cancelText="取消"
+        @ok="isShowStarCount = false"
+        @cancel="isShowStarCount = false"
+    >
+      <template v-slot:header>
+        <img style="width: 100%;" src="../../assets/img/icon/star-bg.png" alt="">
+      </template>
+    </ConfirmDialog>
   </div>
 </template>
 <script>
@@ -332,16 +345,18 @@ import Indicator from '../../components/slide/Indicator'
 import {nextTick} from 'vue'
 import {mapState} from "vuex";
 import bus from "../../utils/bus";
+import ConfirmDialog from "../../components/dialog/ConfirmDialog";
 
 export default {
   name: "Me",
-  components: {Posters, Footer, Indicator},
+  components: {Posters, Footer, Indicator, ConfirmDialog},
   data() {
     return {
       previewImg: '',
       contentIndex: 0,
       baseActiveIndex: 0,
       tabContents: [],
+      isShowStarCount: false,
       floatFixed: false,
       floatShowName: false,
       isScroll: false,
