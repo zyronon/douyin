@@ -16,10 +16,10 @@
         <Indicator
             tabStyleWidth="50%"
             :tabTexts="['关注','粉丝']"
-            v-model:active-index="currentSlideItemIndex">
+            v-model:active-index="slideIndex">
         </Indicator>
       </div>
-      <SlideRowList v-model:active-index="currentSlideItemIndex" style="height: calc(100vh - 11.1rem)">
+      <SlideRowList v-model:active-index="slideIndex" style="height: calc(100vh - 11.1rem)">
         <SlideItem class="tab1">
           <Search v-model="searchKey" placeholder="搜索用户备注或名字" :is-show-text="false"/>
           <div class="is-search" v-if="searchKey">
@@ -63,32 +63,10 @@ export default {
   },
   data() {
     return {
-      findAddressListDialog: false,
-      moreOptionDialog: false,
-      outWebImgAccountDialog: false,
-      indicatorFixed: false,
-      isShowText: false,
       isSearch: false,
       searchKey: '',
 
-      currentSlideItemIndex: 0,
-      list: [
-        {
-          type: 1,
-        },
-        {
-          type: 2,
-        },
-        {
-          type: 3,
-        },
-        {
-          type: 4,
-        },
-        {
-          type: 5,
-        },
-      ],
+      slideIndex: 0,
       searchFriends: []
     }
   },
@@ -108,7 +86,8 @@ export default {
       }
     }
   },
-  mounted() {
+  created() {
+    this.slideIndex = ~~this.$route.query.type
   },
   methods: {
     async search() {
