@@ -7,14 +7,15 @@
       <template v-if="mode === 'fans'">
         <div class="left">
           <div class="name">{{ people.name }}</div>
-          <div class="detail">
+          <div class="name">
             <template v-if="people.type === RELATE_ENUM.REQUEST_FOLLOW">
               发来一个关注请求
             </template>
             <template v-else>
-              该用户关注了你
+              关注了你
             </template>
           </div>
+          <div class="detail">07-23</div>
         </div>
         <div class="right">
           <!--   他关注我   -->
@@ -37,8 +38,29 @@
         </div>
       </template>
 
+      <template v-if="mode === 'recommend'">
+        <div class="left">
+          <div class="name">{{ people.name }}</div>
+          <div class="detail">可能认识的人</div>
+        </div>
+        <div class="right">
+          <div class="l-button ">移除</div>
+          <div class="l-button red">关注</div>
+        </div>
+      </template>
 
+      <template v-if="mode === 'friend'">
+        <div class="left">
+          <div class="name">{{ people.name }}</div>
+          <div class="detail">4小时之内在线</div>
+        </div>
+        <div class="right">
+          <div class="l-button">发私信</div>
+          <img src="../../../assets/img/icon/menu-white.png" alt="" @click="showPopover = !showPopover">
+        </div>
+      </template>
     </div>
+    <!--   TODO 点了不消失，内容也变了 -->
     <transition name="scale">
       <div class="popover" v-if="people.type === 4 && showPopover">
         <div class="arrow"></div>
@@ -112,8 +134,8 @@ export default {
 
   .head-image {
     margin-right: 1.5rem;
-    width: 4.8rem;
-    height: 4.8rem;
+    width: 4.5rem;
+    height: 4.5rem;
     border-radius: 50%;
   }
 
@@ -134,7 +156,8 @@ export default {
 
     .left {
       .name {
-        font-size: 1.6rem;
+        font-size: 1.2rem;
+        margin-bottom: .2rem;
         color: white;
       }
 
@@ -151,16 +174,17 @@ export default {
 
       .l-button {
         margin-left: .8rem;
-        padding: .5rem 2rem;
         border-radius: .2rem;
         background: rgb(58, 58, 67);
+        font-size: 1.2rem;
+        padding: .4rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 5.5rem;
 
         &:only-child {
-          background: yellow;
-        }
-
-        &.address-list {
-          padding: .7rem 3rem;
+          width: 7rem;
         }
 
         &.red {

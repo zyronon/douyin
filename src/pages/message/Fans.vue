@@ -6,7 +6,14 @@
       </template>
     </BaseHeader>
     <div class="content">
-      <People v-for="item in friends.all" :people="item"></People>
+      <People v-for="item in friends.all" :people="item" mode="fans"></People>
+      <div class="line mt1r"></div>
+      <div class="title">
+        <span>朋友推荐</span>
+        <img src="../../assets/img/icon/about-gray.png" alt="">
+
+      </div>
+      <People v-for="item in friends.all" :people="item" mode="recommend"></People>
     </div>
   </div>
 </template>
@@ -50,6 +57,19 @@ export default {
   .content {
     padding: @padding-page;
     padding-top: 6rem;
+
+    .title {
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+
+      img {
+        margin-left: .5rem;
+        width: 1.3rem;
+      }
+    }
   }
 }
 </style>

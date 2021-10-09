@@ -5,13 +5,13 @@
       <Indicator
           style="width: 50%;"
           tabStyleWidth="40%"
-          :tabTexts="['发现熟人','熟人列表']"
+          :tabTexts="['发现朋友','熟人列表']"
           v-model:active-index="currentSlideItemIndex">
       </Indicator>
       <img src="../../assets/img/icon/menu-gray.png" alt="" class="option" @click="moreOptionDialog = true">
     </div>
     <SlideRowList v-model:active-index="currentSlideItemIndex">
-      <SlideItem class="tab1">
+      <SlideItem class="tab1" style="overflow: auto;">
         <div class="mr2r ml2r mt1r">
           <Search v-if="!isShowText"
                   placeholder="搜索用户名字/抖音号"
@@ -24,13 +24,13 @@
         </div>
         <div class="no-search" v-if="!isShowText">
           <div class="look-address-list" @click="findAddressListDialog = true">
-            <img class="left" src="../../assets/img/icon/head-image.jpeg" alt="">
+            <img class="left" src="../../assets/img/icon/people/address-book.png" alt="">
             <div class="right">
               <div class="notice">
                 <div class="text1">查看通讯录朋友</div>
-                <div class="text2">看看谁在抖音</div>
+                <div class="text2">看看有谁在抖音</div>
               </div>
-              <back scale="1" direction="right"></back>
+              <back direction="right"></back>
             </div>
           </div>
           <div class="line"></div>
@@ -38,21 +38,22 @@
             朋友推荐
             <img src="../../assets/img/icon/about-gray.png" style="width: 1rem;margin-left: .2rem;">
           </div>
-          <People v-for="item in list " :people="item"></People>
+          <People v-for="item in friends.all " :people="item" mode="recommend"></People>
         </div>
         <div class="is-search" v-else>
           <div class="tooltip" v-if="searchKey && !isSearch">
             <img src="../../assets/img/icon/close.svg" style="width: 1rem;">
             搜索用户名字/抖音号：<span class="searchKey">{{ searchKey }}</span>
           </div>
-          <People v-if="isSearch" v-for="item in list " :people="item"></People>
+          <!--          TODO -->
+          <People v-if="isSearch" v-for="item in friends.all " :people="item" mode="recommend"></People>
         </div>
       </SlideItem>
-      <SlideItem class="tab2">
+      <SlideItem class="tab2" style="overflow: auto;">
         <Search placeholder="搜索用户备注或名字" class="mr20p ml20p mt10p"></Search>
-        <div class="title">我的好友（互相关注）</div>
-        <People v-for="item in list " :people="item"></People>
-        <NoMore></NoMore>
+        <div class="title">{{ friends.all.length }} 位朋友</div>
+        <People v-for="item in friends.all " :people="item" mode="friend"></People>
+        <NoMore class="mb5r"/>
       </SlideItem>
     </SlideRowList>
 
@@ -132,6 +133,7 @@ import People from './components/People'
 import Search from '../../components/Search'
 import Indicator from '../../components/slide/Indicator'
 import FromBottomDialog from "../../components/dialog/FromBottomDialog";
+import {mapState} from "vuex";
 
 export default {
   name: "FindAcquaintance",
@@ -179,7 +181,8 @@ export default {
       set() {
         this.findAddressListDialog = this.outWebImgAccountDialog = false
       }
-    }
+    },
+    ...mapState(['friends'])
   },
   mounted() {
   },
@@ -242,7 +245,8 @@ export default {
     padding: 2rem;
 
     .title {
-      margin-top: 2rem;
+      margin-top: @padding-page;
+      margin-bottom: 1rem;
       color: @second-text-color;
       font-size: 1.2rem;
     }
@@ -272,11 +276,11 @@ export default {
         align-items: center;
 
         .left {
-          background: @second-btn-color;
+          background: @second-btn-color-tran;
           border-radius: 50%;
-          padding: 1rem;
-          width: 2.4rem;
-          margin-right: 1.8rem;
+          padding: 1.2rem;
+          width: 2.2rem;
+          margin-right: 1.5rem;
         }
 
         .right {
@@ -286,13 +290,12 @@ export default {
           align-items: center;
 
           img {
-            height: 2rem;
+            width: 1.4rem;
           }
 
           .notice {
-
             .text1 {
-              font-size: 1.6rem;
+              font-size: 1.4rem;
               margin-bottom: .5rem;
             }
 
