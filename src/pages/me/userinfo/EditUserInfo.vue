@@ -11,7 +11,7 @@
     <div class="userinfo">
       <div class="change-avatar">
         <div class="avatar-ctn" @click="showAvatarDialog">
-          <img class="avatar" src="../../../assets/img/icon/avatar/6.png" alt="">
+          <img class="avatar" :src="$imgPreview(userinfo.avatar)" alt="">
           <img class="change" src="../../../assets/img/icon/me/camera-light.png" alt="">
         </div>
         <span>点击更换头像</span>
@@ -67,7 +67,12 @@
         </div>
       </div>
     </div>
-
+    <transition name="fade">
+      <div class="preview-img" v-if="previewImg" @click="previewImg = ''">
+        <img class="resource" :src="previewImg" alt="">
+        <img class="download" src="../../../assets/img/icon/components/video/download.png" alt="" @click.stop="$no">
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -89,8 +94,9 @@ export default {
         {id: 1, name: '拍一张'},
         {id: 2, name: '从相册选择'},
         {id: 3, name: '查看大图'},
-        {id: 4, name: '查看大图'},
-      ]
+        {id: 4, name: '取消'},
+      ],
+      previewImg: '',
     }
   },
   computed: {
@@ -113,7 +119,14 @@ export default {
     },
     showAvatarDialog() {
       this.$showSelectDialog(this.avatarList, e => {
-        console.log(e)
+        switch (e.id) {
+          case 1:
+          case 2:
+            return this.$no()
+          case 3:
+            this.previewImg = this.userinfo.avatar
+            break
+        }
       })
     },
     showBirthdayDialog() {
@@ -166,6 +179,33 @@ export default {
 
   .sub {
     color: @second-text-color;
+  }
+}
+
+.preview-img {
+  z-index: 9;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .resource {
+    width: 100vw;
+    max-height: 100vw;
+  }
+
+  .download {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    padding: .3rem;
+    background: @second-btn-color-tran;
+    width: 2rem;
   }
 }
 
