@@ -8,7 +8,7 @@
     <div class="content">
       <div class="qrcode">
         <img class="qrcode-bg" src="../../assets/img/icon/me/code-bg.png" alt="">
-        <img class="avatar" src="../../assets/img/icon/avatar/7.png" alt="">
+        <img class="avatar" :src="$imgPreview(userinfo.avatar)" alt="">
       </div>
 
       <span class="name">ZZZZZZZZZZ</span>
@@ -42,12 +42,14 @@
 import Share from "../../components/Share";
 import ConfirmDialog from "../../components/dialog/ConfirmDialog";
 import ShareToFriend from "../home/components/ShareToFriend";
+import {mapState} from "vuex";
 
 export default {
   name: "MyCard",
   components: {
     Share,
   },
+
   data() {
     return {
       isSharing: false,
@@ -79,7 +81,9 @@ export default {
   created() {
 
   },
-  computed: {},
+  computed: {
+    ...mapState(['userinfo'])
+  },
   methods: {
     delayShowDialog(cb) {
       setTimeout(() => {

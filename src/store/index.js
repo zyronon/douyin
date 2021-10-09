@@ -22,7 +22,7 @@ const store = Vuex.createStore({
       "unique_id_modify_time": "1630393144",
       "unique_id": "10040050",
       "favoriting_count": 143,
-      "avatar": require('../assets/img/icon/avatar/1.png'),
+      "avatar": require('../assets/img/icon/avatar/2.png'),
       "city": "成都",
       "province": '四川',
       "country": "中国",

@@ -14,7 +14,8 @@
         <GuessMusic :list="guessMusic"/>
       </SlideItem>
       <SlideItem style="overflow: auto;">
-        <div class="my-collect">
+        <Loading style="left: 150%;" v-if="loading"/>
+        <div v-else class="my-collect">
           <div class="wrapper">
             <div class="play-all">
               <div class="left">
@@ -98,8 +99,6 @@
         </div>
       </SlideItem>
     </SlideRowList>
-
-
     <transition name="my-collect-dialog">
       <div class="my-collect-dialog" v-show="isShowCollectDialog">
         <div class="dialog-header">
@@ -114,15 +113,13 @@
 </template>
 <script>
 import {mapState} from "vuex";
-import globalMethods from "../../utils/global-methods";
-import {nextTick} from "vue";
-import gaobaiqiqiu from '../../assets/data/lyrics/gaobaiqiqiu.lrc'
 import Switches from "../message/components/swtich/switches";
 import SlideItemMusic from "./components/SlideItemMusic";
 import IndicatorLight from "../../components/slide/IndicatorLight";
 import FromBottomDialog from "../../components/dialog/FromBottomDialog";
 import GuessMusic from "./components/GuessMusic";
 import CollectMusic from "./components/CollectMusic";
+import Loading from "../../components/Loading";
 
 //TODO 两个page页面的播放冲突未做
 export default {
@@ -133,10 +130,12 @@ export default {
     SlideItemMusic,
     IndicatorLight,
     GuessMusic,
-    CollectMusic
+    CollectMusic,
+    Loading
   },
   data() {
     return {
+      loading: false,
       slideIndex: 1,
       currentMusic: {
         name: '告白气球',
@@ -159,7 +158,7 @@ export default {
       isCollect: false,
 
       page2SlideIndex: -1,
-      page2IsPlay: false
+      page2IsPlay: false,
     }
   },
   computed: {
