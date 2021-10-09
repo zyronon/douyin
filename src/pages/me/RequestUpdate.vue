@@ -6,7 +6,7 @@
       </template>
       <template v-slot:right>
         <div>
-          <img src="../../assets/img/icon/menu-gray.png" style="width: 2rem;" @click="showOption = true">
+          <img src="../../assets/img/icon/menu-gray.png" style="width: 2rem;" @click="isShowOption = true">
         </div>
       </template>
     </BaseHeader>
@@ -25,7 +25,7 @@
               <img :src='$imgPreview(item.avatar)'>
               <span class="name">{{ item.name }}</span>
             </div>
-            <span class="time">{{ $dateFormat(item.lastLoginTime) }}</span>
+            <span class="time">{{ $dateFormat(item.lastLoginTime,'D') }}</span>
           </div>
         </div>
         <no-more>最多展示100位粉丝的历史求更新记录</no-more>
@@ -41,15 +41,15 @@
         height="16rem"
         :show-heng-gang="false"
         mode="white"
-        v-model="showOption">
-      <div class="l-row" @click="$no">
-        关闭求更新提醒
+        v-model="isShowOption">
+      <div class="l-row" @click="toggleRequestUpdate">
+        {{ openRequestUpdate ? '关闭' : '开启' }}求更新提醒
       </div>
-      <div class="l-row" @click="$no">
+      <div class="l-row" @click="$nav('/me/my-request-update')">
         我的求更新提醒
       </div>
       <div class="space"></div>
-      <div class="l-row" @click="showOption = false">
+      <div class="l-row" @click="isShowOption = false">
         取消
       </div>
     </from-bottom-dialog>
@@ -64,7 +64,8 @@ export default {
   components: {FromBottomDialog},
   data() {
     return {
-      showOption: false
+      isShowOption: false,
+      openRequestUpdate: true,
     }
   },
   computed: {
@@ -72,7 +73,17 @@ export default {
   },
   created() {
   },
-  methods: {}
+  methods: {
+    toggleRequestUpdate() {
+      this.openRequestUpdate = !this.openRequestUpdate
+      this.isShowOption = false
+      if (this.openRequestUpdate) {
+        this.$notice('提醒已开启，再次点击可关闭')
+      } else {
+        this.$notice('提醒已关闭，再次点击可开启')
+      }
+    }
+  }
 }
 </script>
 
@@ -126,6 +137,11 @@ export default {
               border-radius: 50%;
               margin-right: 1rem;
             }
+          }
+
+          .time{
+            font-size: 1.2rem;
+            color: @second-text-color;
           }
         }
       }

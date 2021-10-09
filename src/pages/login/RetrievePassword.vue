@@ -45,6 +45,7 @@
       </div>
 
       <b-button
+          type="primary"
           :loading="loading"
           :active="false"
           :loadingWithText="true"

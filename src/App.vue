@@ -79,7 +79,6 @@ export default {
         '/message/chat-detail',
         '/set-remark',
 
-        '/me/request-update',
         '/me/right-menu/look-history',
         '/me/right-menu/minor-protection/index',
         '/me/right-menu/minor-protection/detail-setting',
@@ -88,6 +87,8 @@ export default {
         '/me/collect/video-collect',
         '/me/collect/music-collect',
         '/me/my-music',
+        '/me/request-update',
+        '/me/my-request-update',
 
         '/login',
         '/login/other',

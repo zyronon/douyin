@@ -11,7 +11,7 @@
           </div>
           <transition name="fade">
             <div class="center" v-if="floatShowName">
-              <p class="name f22 mt1r mb1r">ttentau</p>
+              <p class="name f20 mt1r mb1r">{{ userinfo.nickname }}</p>
             </div>
           </transition>
           <div class="right">
@@ -99,9 +99,6 @@
               <div class="my-buttons">
                 <div class="button" @click="$nav('/edit-userinfo')">
                   <span>编辑资料</span>
-                </div>
-                <div class="button" @click="$nav('/edit-userinfo')">
-                  <span>主页访客</span>
                 </div>
                 <div class="button" @click="$nav('/people/find-acquaintance')">
                   <span>添加朋友</span>
@@ -412,36 +409,6 @@ export default {
       acceleration: 1.2,
       sprint: 15,
       canScroll: true,
-      localAuthor: {
-        school: {
-          name: '中央戏剧学院',
-          department: null,
-          joinTime: null,
-          education: null,
-          displayType: 1,
-        },
-        "id": "93864497380",
-        "unique_id_modify_time": "1630393144",
-        "unique_id": "10040050",
-        "favoriting_count": 143,
-        "avatar": require('../../assets/img/icon/avatar/1.png'),
-        "city": "成都",
-        "province": '四川',
-        "country": "中国",
-        "birthday": "2002-01-01",
-        "cover": "https://p3.douyinpic.com/obj/c8510002be9a3a61aad2?from=116350172",
-        "following_count": 66,
-        "follower_count": 235000,
-        "aweme_count": 1796000,
-        "nickname": "我是小睿耶",
-        "phone": "",
-        "sex": "",
-        "last_login_time": "1630423555",
-        "create_time": "1630423555",
-        "status": 1,
-        "desc": `一个普普通通学表演的\n看到的人都能开开心心`,
-        "is_private": 1
-      },
       videoPoster: `?vframe/jpg/offset/0/w/${document.body.clientWidth}`
     }
   },
