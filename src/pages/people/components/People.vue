@@ -3,36 +3,41 @@
     <img v-if="people.type === 6" src="../../../assets/img/icon/add-light.png" alt="" class="add">
     <img v-else :src="$imgPreview(people.avatar)" alt="" class="head-image pull-left">
     <div class="content">
-      <div class="left">
-        <div class="name">{{ people.name }}</div>
-        <div class="detail" v-if="people.type !== 6">
-          该用户关注了你
-        </div>
-      </div>
 
-      <!--   已关注   -->
-      <div class="right" v-if="people.type === 1">
-        <div class="l-button">已关注</div>
-      </div>
-      <!--     粉丝 -->
-      <div class="right" v-if="people.type === 2">
-        <div class="l-button red">回关</div>
-        <img src="../../../assets/img/icon/menu-white.png" alt="">
-      </div>
-      <!--     朋友推荐 -->
-      <div class="right" v-if="people.type === 3">
-        <div class="l-button red">回关</div>
-        <div class="l-button ">移除</div>
-      </div>
-      <!--     互相关注 -->
-      <div class="right" v-if="people.type === 4">
-        <div class="l-button">发私信</div>
-        <img src="../../../assets/img/icon/menu-white.png" alt="" @click="showPopover = !showPopover">
-      </div>
-      <!--     通讯录 -->
-      <div class="right" v-if="people.type === 5">
-        <div class="l-button red address-list">回关</div>
-      </div>
+      <template v-if="mode === 'fans'">
+        <div class="left">
+          <div class="name">{{ people.name }}</div>
+          <div class="detail">
+            <template v-if="people.type === RELATE_ENUM.REQUEST_FOLLOW">
+              发来一个关注请求
+            </template>
+            <template v-else>
+              该用户关注了你
+            </template>
+          </div>
+        </div>
+        <div class="right">
+          <!--   他关注我   -->
+          <template v-if="people.type === RELATE_ENUM.FOLLOW_ME">
+            <div class="l-button red">回关</div>
+          </template>
+          <!--   我关注他   -->
+          <template v-if="people.type === RELATE_ENUM.FOLLOW_HE">
+            <div class="l-button">已关注</div>
+          </template>
+          <!--          相互关注-->
+          <template v-if="people.type === RELATE_ENUM.FOLLOW_EACH_OTHER">
+            <div class="l-button">相互关注</div>
+          </template>
+          <!--         关注请求-->
+          <template v-if="people.type === RELATE_ENUM.REQUEST_FOLLOW">
+            <div class="l-button ">忽略</div>
+            <div class="l-button red">通过</div>
+          </template>
+        </div>
+      </template>
+
+
     </div>
     <transition name="scale">
       <div class="popover" v-if="people.type === 4 && showPopover">
@@ -56,11 +61,21 @@ export default {
     people: {
       type: Object,
       default: {}
+    },
+    mode: {
+      type: String,
+      default: 'fans'
     }
   },
   data() {
     return {
-      showPopover: false
+      showPopover: false,
+      RELATE_ENUM: {
+        FOLLOW_ME: 1,//只关注我
+        FOLLOW_EACH_OTHER: 2,//互相关注
+        FOLLOW_HE: 3,//我关注他
+        REQUEST_FOLLOW: 4//关注请求
+      }
     }
   },
   computed: {},
@@ -139,6 +154,10 @@ export default {
         padding: .5rem 2rem;
         border-radius: .2rem;
         background: rgb(58, 58, 67);
+
+        &:only-child {
+          background: yellow;
+        }
 
         &.address-list {
           padding: .7rem 3rem;

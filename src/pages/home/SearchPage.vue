@@ -5,6 +5,7 @@
       <BSearch placeholder="搜索用户名字/抖音号"
                :isShowText="true"
                notice="white"
+               @notice="$no"
       >
         <img class="scan" src="../../assets/img/icon/scan-gray.png" @click.stop="$nav('/scan')">
       </BSearch>
