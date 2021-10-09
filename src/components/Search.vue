@@ -2,10 +2,11 @@
   <div class="search-ctn" :class="mode">
     <div class="search">
       <img v-if="isShowSearchIcon" class="search-icon" src="../assets/img/icon/search-gray.png" alt="">
-      <input type="text" :placeholder="placeholder" v-model="value" >
+      <input type="text" :placeholder="placeholder" v-model="value">
       <div class="suffix">
         <slot v-if="$slots.default"></slot>
-        <img v-if="value.length && (!$slots.default)" src="../assets/img/icon/login/close-full-gray.png" @click.stop="clear">
+        <img v-if="value.length && (!$slots.default)" src="../assets/img/icon/login/close-full-gray.png"
+             @click.stop="clear">
       </div>
     </div>
     <div v-if="isShowText" class="notice" :style="{color : notice}" @click.stop="$emit('notice')">{{ showText }}</div>
@@ -13,6 +14,7 @@
 </template>
 
 <script>
+//TODO　背景颜色不对
 export default {
   name: "Search",
   props: {
