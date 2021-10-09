@@ -7,43 +7,164 @@
       </div>
     </div>
     <Search class="m2r"></Search>
-    <div class="line mb2r"></div>
     <div class="friends  pl1r ">
       <div class="friend pr1r pl1r"
            @click="$nav('/message/chat')"
-           v-for="item in friends.all">
-        <div class="avatar on-line">
+           v-for="(item,index) in friends.all">
+        <div class="avatar" :class="index%2===0?'on-line':''">
           <img :src="$imgPreview(item.avatar)" alt="">
         </div>
         <span>{{ item.name }}</span>
       </div>
       <div class="friend pr10p">
-        <img src="../../assets/img/icon/next.svg" alt="">
-        <span>状态设置</span>
+        <img src="../../assets/img/icon/message/setting.png" alt="">
+        <span class="ml1r">状态设置</span>
       </div>
     </div>
     <div class="line mt2r"></div>
-    <div class="requests">
-      <div class="span">关注请求（1）</div>
-      <div class="right">
-        <div class="not-read"></div>
-        <img class="arrow" src="../../assets/img/icon/close-white.png" alt="">
-      </div>
-    </div>
+
     <div class="messages ">
-      <div class="message" v-for="i in 5">
-        <div class="avatar on-line">
+      <!--      粉丝-->
+      <div class="message" @click="$nav('/message/fans')">
+        <div class="avatar">
           <img src="../../assets/img/icon/msg-icon1.png" alt="" class="head-image">
         </div>
         <div class="content">
           <div class="left">
             <div class="name">
               <span>粉丝</span>
+            </div>
+            <div class="detail">
+              xxx 关注了你
+            </div>
+          </div>
+          <div class="right">
+            <back class="arrow" mode="gray" img="back" direction="right"/>
+          </div>
+        </div>
+      </div>
+      <!--      互动消息-->
+      <div class="message">
+        <div class="avatar">
+          <img src="../../assets/img/icon/msg-icon2.png" alt="" class="head-image">
+        </div>
+        <div class="content">
+          <div class="left">
+            <div class="name">
+              <span>互动消息</span>
+            </div>
+            <div class="detail">
+              xxx 赞了你的评论
+            </div>
+          </div>
+          <div class="right">
+            <back class="arrow" mode="gray" img="back" direction="right"/>
+          </div>
+        </div>
+      </div>
+      <!--      抖音小助手-->
+      <div class="message">
+        <div class="avatar">
+          <img src="../../assets/img/icon/msg-icon5.webp" alt="" class="head-image">
+        </div>
+        <div class="content">
+          <div class="left">
+            <div class="name">
+              <span>抖音小助手</span>
               <span class="tag">官方</span>
             </div>
             <div class="detail">
-              <img class="sent" src="../../assets/img/icon/close-white.png" alt="">
-              已送达 ，sb，凌晨 01:15
+              #今天谁请客呢
+              <div class="point"></div>
+              星期四
+            </div>
+          </div>
+          <div class="right">
+            <div class="not-read"></div>
+          </div>
+        </div>
+      </div>
+      <!--      系统通知-->
+      <div class="message">
+        <div class="avatar">
+          <img src="../../assets/img/icon/msg-icon4.png" alt="" class="head-image">
+        </div>
+        <div class="content">
+          <div class="left">
+            <div class="name">
+              <span>系统通知</span>
+              <span class="tag">官方</span>
+            </div>
+            <div class="detail">
+              协议修订通知
+              <div class="point"></div>
+              08-31
+            </div>
+          </div>
+          <div class="right">
+            <div class="not-read"></div>
+          </div>
+        </div>
+      </div>
+      <!--      求更新-->
+      <div class="message">
+        <div class="avatar">
+          <img src="../../assets/img/icon/msg-icon7.webp" alt="" class="head-image">
+        </div>
+        <div class="content">
+          <div class="left">
+            <div class="name">
+              <span>求更新</span>
+              <span class="tag">官方</span>
+            </div>
+            <div class="detail">
+              你收到过1次求更新
+              <div class="point"></div>
+              10-09
+            </div>
+          </div>
+          <div class="right">
+            <div class="not-read"></div>
+          </div>
+        </div>
+      </div>
+      <!--      任务通知-->
+      <div class="message">
+        <div class="avatar">
+          <img src="../../assets/img/icon/msg-icon6.webp" alt="" class="head-image">
+        </div>
+        <div class="content">
+          <div class="left">
+            <div class="name">
+              <span>任务通知</span>
+              <span class="tag">官方</span>
+            </div>
+            <div class="detail">
+              发作品得流量
+              <div class="point"></div>
+              05-26
+            </div>
+          </div>
+          <div class="right">
+            <div class="not-read"></div>
+          </div>
+        </div>
+      </div>
+
+      <!--      消息-->
+      <div class="message">
+        <div class="avatar on-line">
+          <img src="../../assets/img/icon/avatar/2.png" alt="" class="head-image">
+        </div>
+        <div class="content">
+          <div class="left">
+            <div class="name">
+              <span>{{ userinfo.nickname }}</span>
+            </div>
+            <div class="detail">
+              哈哈哈哈哈哈
+              <div class="point"></div>
+              10-10
             </div>
           </div>
           <div class="right">
@@ -54,6 +175,31 @@
           </div>
         </div>
       </div>
+
+      <!--      模板-->
+      <!--      <div class="message">-->
+      <!--        <div class="avatar on-line">-->
+      <!--          <img src="../../assets/img/icon/avatar/2.png" alt="" class="head-image">-->
+      <!--        </div>-->
+      <!--        <div class="content">-->
+      <!--          <div class="left">-->
+      <!--            <div class="name">-->
+      <!--              <span>粉丝</span>-->
+      <!--              <span class="tag">官方</span>-->
+      <!--            </div>-->
+      <!--            <div class="detail">-->
+      <!--              <img class="sent" src="../../assets/img/icon/close-white.png" alt="">-->
+      <!--              已送达 ，sb，凌晨 01:15-->
+      <!--            </div>-->
+      <!--          </div>-->
+      <!--          <div class="right">-->
+      <!--            &lt;!&ndash;                          <div class="not-read"></div>&ndash;&gt;-->
+      <!--            &lt;!&ndash;                          <img class="camera" src="../../assets/img/icon/close-white.png" alt="">&ndash;&gt;-->
+      <!--            &lt;!&ndash;            <img class="arrow" src="../../assets/img/icon/close-white.png" alt="">&ndash;&gt;-->
+      <!--            <div class="badge">12</div>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
     </div>
     <Footer v-bind:init-tab="4"/>
 
@@ -213,7 +359,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['friends']),
+    ...mapState(['friends', 'userinfo']),
     selectFriends() {
       return this.friends.all.filter(v => v.select).length
     }
@@ -516,30 +662,33 @@ export default {
     .friend {
       &:nth-last-child(1) {
         img {
-          margin: 0 10px;
-          padding: 17px;
-          background: darkgray;
-          width: 30px;
-          height: 30px;
+          margin: 0 1rem;
+          padding: 1.7rem;
+          background: @second-btn-color-tran;
+          width: 3rem;
+          height: 3rem;
           border-radius: 50%;
+          margin-bottom: .6rem;
+
         }
       }
 
       .avatar {
         position: relative;
-        margin-bottom: 6px;
+        margin-bottom: .6rem;
 
         img {
-          width: 64px;
-          height: 64px;
+          @width: 6.4rem;
+          width: @width;
+          height: @width;
           border-radius: 50%;
         }
 
         &.on-line::before {
           content: ' ';
-          border: 4px solid black;
-          width: 18px;
-          height: 18px;
+          border: .4rem solid black;
+          width: 1.8rem;
+          height: 1.8rem;
           background: rgb(115, 254, 73);
           border-radius: 50%;
           position: absolute;
@@ -551,36 +700,16 @@ export default {
 
 
       span {
-        color: @second-text-color;
+        width: 6.4rem;
+        font-size: 1.2rem;
+        color: lightgray;
         display: block;
         text-align: center;
         word-break: break-all;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
-    }
-  }
-
-  .line {
-    border-top: 1px solid @line-color;
-  }
-
-  .requests {
-    font-size: 1.4rem;
-    box-sizing: border-box;
-    margin: 0 20px;
-    padding: 20px 0;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid @line-color;
-
-    .right {
-      display: flex;
-      align-items: center;
-
-      .arrow {
-        width: 15px;
-        height: 15px;
-      }
-
     }
   }
 
@@ -603,23 +732,24 @@ export default {
         position: relative;
 
         .head-image {
-          margin-left: 20px;
-          margin-right: 15px;
-          width: 48px;
-          height: 48px;
+          margin-left: 2rem;
+          margin-right: 1.5rem;
+          @width: 4.5rem;
+          width: @width;
+          height: @width;
           border-radius: 50%;
         }
 
         &.on-line::before {
           content: ' ';
-          border: 3px solid black;
-          width: 12px;
-          height: 12px;
+          border: .3rem solid black;
+          width: 1.2rem;
+          height: 1.2rem;
           background: rgb(115, 254, 73);
           border-radius: 50%;
           position: absolute;
           bottom: 0;
-          right: 15px;
+          right: 1.5rem;
         }
       }
 
@@ -628,55 +758,69 @@ export default {
         flex: 1;
         display: flex;
         justify-content: space-between;
-        padding: 15px 0 15px 0;
-        border-bottom: 1px solid @line-color;
+        @padding: 1.4rem;
+        padding: @padding 0 @padding 0;
+        border-bottom: 1px solid @line-color2;
 
         .left {
           .name {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             color: white;
             display: flex;
             align-items: flex-start;
 
             .tag {
-              margin-left: 5px;
+              margin-left: .5rem;
               font-size: 1rem;
-              background: @line-color;
-              padding: 2px 5px;
-              border-radius: 2px;
+              background: @second-btn-color-tran;
+              color: @second-text-color;
+              padding: .2rem .5rem;
+              border-radius: .2rem;
             }
           }
 
           .detail {
             color: @second-text-color;
             font-size: 1.2rem;
-            margin-top: 4px;
+            margin-top: .4rem;
+            display: flex;
+            align-items: center;
+
+            .point {
+              display: inline-block;
+              margin-left: .8rem;
+              margin-right: .8rem;
+              border-radius: 50%;
+              width: 1.5px;
+              height: 1.5px;
+              background: @second-text-color;
+            }
 
             .sent {
-              width: 10px;
-              height: 10px;
+              width: 1rem;
+              height: 1rem;
             }
           }
         }
 
         .right {
-          margin-right: 30px;
+          margin-right: 3rem;
           display: flex;
           align-items: center;
 
           .arrow {
-            width: 15px;
-            height: 15px;
+            width: 1.5rem;
+            height: 1.5rem;
           }
 
           .camera {
-            width: 20px;
-            height: 20px;
+            width: 2rem;
+            height: 2rem;
           }
 
           .not-read {
-            width: 10px;
-            height: 10px;
+            width: .7rem;
+            height: .7rem;
             border-radius: 50%;
             background: yellow;
           }
@@ -685,8 +829,8 @@ export default {
             font-size: 1.2rem;
             display: block;
             color: black;
-            padding: 1px 6px;
-            border-radius: 10px;
+            padding: 1px .6rem;
+            border-radius: 1rem;
             background: yellow;
           }
         }
@@ -697,13 +841,13 @@ export default {
     .not-more {
       color: @second-text-color;
       text-align: center;
-      padding: 20px;
+      padding: 2rem;
     }
   }
 
   .recommend {
     .title {
-      padding: 20px 20px 10px 20px;
+      padding: 2rem 2rem 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -712,17 +856,17 @@ export default {
         color: @second-text-color;
 
         img {
-          width: 10px;
-          height: 10px;
+          width: 1rem;
+          height: 1rem;
         }
       }
 
       .right {
         border-radius: 50%;
         background: @second-text-color;
-        padding: 5px;
-        width: 10px;
-        height: 10px;
+        padding: .5rem;
+        width: 1rem;
+        height: 1rem;
       }
     }
 
@@ -739,10 +883,10 @@ export default {
       }
 
       .head-image {
-        margin-left: 20px;
-        margin-right: 15px;
-        width: 48px;
-        height: 48px;
+        margin-left: 2rem;
+        margin-right: 1.5rem;
+        width: 4.8rem;
+        height: 4.8rem;
         border-radius: 50%;
       }
 
@@ -750,7 +894,7 @@ export default {
         flex: 1;
         display: flex;
         justify-content: space-between;
-        padding: 15px 0;
+        padding: 1.5rem 0;
 
         .left {
           .name {
@@ -766,15 +910,15 @@ export default {
         }
 
         .right {
-          margin-right: 20px;
+          margin-right: 2rem;
           display: flex;
           align-items: center;
 
           .button {
             background: @primary-btn-color;
-            margin-left: 8px;
-            padding: 8px 20px;
-            border-radius: 3px;
+            margin-left: .8rem;
+            padding: .8rem 2rem;
+            border-radius: .3rem;
 
             &:nth-last-child(1) {
               background: rgb(58, 58, 67);

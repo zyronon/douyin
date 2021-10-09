@@ -3,6 +3,12 @@ import enums from '../utils/enums'
 import api from '../api/index'
 import CONST_VAR from "../utils/const_var";
 
+let RELATE_ENUM = {
+  FOLLOW_ME: 1,//只关注我
+  FOLLOW_EACH_OTHER: 2,//互相关注
+  FOLLOW_HE: 3,//我关注他
+  REQUEST_FOLLOW: 4//关注请求
+}
 const store = Vuex.createStore({
   state: {
     bodyHeight: document.body.clientHeight,
@@ -58,7 +64,8 @@ const store = Vuex.createStore({
           "isDelete": 0,
           "account": "234",
           "pinyin": "M",
-          "select": false
+          "select": false,
+          type: RELATE_ENUM.REQUEST_FOLLOW
         },
         {
           "id": "2b446aa8-5d31-429a-8e39-d4705eb4e900",
@@ -76,7 +83,8 @@ const store = Vuex.createStore({
           "isDelete": 0,
           "account": "33453",
           "pinyin": "Q",
-          "select": false
+          "select": false,
+          type: RELATE_ENUM.FOLLOW_ME
         },
         {
           "id": "2d8622b4-7112-4bc7-a0cf-00a268a85504",
@@ -94,7 +102,8 @@ const store = Vuex.createStore({
           "isDelete": 0,
           "account": "234234",
           "pinyin": "#",
-          "select": false
+          "select": false,
+          type: RELATE_ENUM.FOLLOW_HE
         },
         {
           "id": "2e38900b-65f7-426a-8e8b-edb403df35fb",
@@ -112,7 +121,8 @@ const store = Vuex.createStore({
           "isDelete": 0,
           "account": "1111",
           "pinyin": "#",
-          "select": false
+          "select": false,
+          type: RELATE_ENUM.FOLLOW_EACH_OTHER
         },
         {
           "id": "3cd53cb5-04f8-4439-ad2b-e57b3f9b8c73",

@@ -58,6 +58,7 @@ import VideoCollect from "../pages/me/collect/VideoCollect";
 import MyMusic from "../pages/me/MyMusic";
 import FollowAndFans from "../pages/people/FollowAndFans";
 import MyRequestUpdate from "../pages/me/MyRequestUpdate";
+import Fans from "../pages/message/Fans";
 
 const routes = [
   // {path: '', component: Music},
@@ -79,11 +80,16 @@ const routes = [
 
   {path: '/attention', component: Attention},
   {path: '/publish', component: Publish},
+
+
   {path: '/message', component: Message},
   {path: '/message/share-to-friend', component: Share2Friend},
   {path: '/message/joined-group-chat', component: JoinedGroupChat},
   {path: '/message/chat', component: Chat},
   {path: '/message/chat-detail', component: ChatDetail},
+  {path: '/message/fans', component: Fans},
+
+
   {path: '/edit-userinfo', component: EditUserInfo},
   {path: '/edit-userinfo-item', component: EditUserInfoItem},
   {path: '/country-choose', component: countryChoose},
