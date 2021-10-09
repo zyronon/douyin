@@ -2,14 +2,14 @@
   <div class="Help">
     <BaseHeader>
       <template v-slot:center>
-        <span class="f16 fb">帮助</span>
+        <span class="f16 fb">帮助与设置</span>
       </template>
       <template v-slot:right>
         <span class="f14">我的反馈</span>
       </template>
     </BaseHeader>
     <div class="content">
-      <iframe src="https://kf.qq.com/touch/product/wechat_app.html" />
+      <iframe src="https://kf.qq.com/touch/product/wechat_app.html"/>
     </div>
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
     margin-top: 6rem;
     height: calc(100vh - 6rem);
 
-    iframe{
+    iframe {
       padding: 0;
       margin: 0;
       border: none;

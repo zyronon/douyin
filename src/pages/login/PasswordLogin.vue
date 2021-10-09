@@ -2,7 +2,7 @@
   <div class="PasswordLogin">
     <BaseHeader mode="light" backMode="dark" backImg="back">
       <template v-slot:right>
-        <span class="f16">帮助</span>
+        <span class="f14" @click="$nav('/login/help')">帮助与设置</span>
       </template>
     </BaseHeader>
     <div class="content">
@@ -31,7 +31,7 @@
         {{ notice }}
       </div>
 
-      <b-button :loading="loading" :active="false" :disabled="disabled" @click="login">
+      <b-button  type="primary"  :loading="loading" :active="false" :disabled="disabled" @click="login">
         {{ loading ? '登录中' : '登录' }}
       </b-button>
 

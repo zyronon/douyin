@@ -2,18 +2,19 @@
   <div class="login">
     <BaseHeader mode="light" backMode="dark" backImg="close">
       <template v-slot:right>
-        <span class="f16" @click="$nav('/login/help')">帮助</span>
+        <span class="f14" @click="$nav('/login/help')">帮助与设置</span>
       </template>
     </BaseHeader>
-    <div class="content">
+    <Loading v-if="loading.getPhone"/>
+    <div v-else class="content">
       <div class="desc">
         <div class="title">登录看朋友内容</div>
         <div class="phone-number">138****8000</div>
         <div class="sub-title">认证服务由中国移动提供</div>
       </div>
 
-      <b-button :loading="loading" :active="false" :loadingWithText="true" @click="login">
-        {{ loading ? '登录中' : '一键登录' }}
+      <b-button type="primary" :loading="loading.login" :active="false" :loadingWithText="true" @click="login">
+        {{ loading.login ? '登录中' : '一键登录' }}
       </b-button>
       <b-button :active="false" type="white" @click="$nav('/login/other')">其他手机号码登录</b-button>
 
@@ -38,10 +39,10 @@
       <div class="other-login">
         <transition name="fade">
           <div v-if="isOtherLogin" class="icons">
-            <img src="../../assets/img/icon/login/toutiao-round.png" alt="">
-            <img src="../../assets/img/icon/login/qq-round.webp" alt="">
-            <img src="../../assets/img/icon/login/wechat-round.png" alt="">
-            <img src="../../assets/img/icon/login/weibo-round.webp" alt="">
+            <img @click="$no" src="../../assets/img/icon/login/toutiao-round.png" alt="">
+            <img @click="$no" src="../../assets/img/icon/login/qq-round.webp" alt="">
+            <img @click="$no" src="../../assets/img/icon/login/wechat-round.png" alt="">
+            <img @click="$no" src="../../assets/img/icon/login/weibo-round.webp" alt="">
           </div>
         </transition>
       </div>
@@ -54,12 +55,14 @@
 <script>
 import Check from "../../components/Check";
 import Tooltip from "./components/Tooltip";
+import Loading from "../../components/Loading";
 
 export default {
   name: "login",
   components: {
     Check,
-    Tooltip
+    Tooltip,
+    Loading
   },
   data() {
     return {
@@ -67,16 +70,26 @@ export default {
       isOtherLogin: false,
       showAnim: false,
       showTooltip: false,
-      loading: false
+      loading: {
+        login: false,
+        getPhone: false,
+      }
+
     }
   },
   computed: {},
   created() {
+    this.getPhone()
   },
   methods: {
+    async getPhone() {
+      this.loading.getPhone = true
+      await this.$sleep(1000)
+      this.loading.getPhone = false
+    },
     login() {
       if (this.isAgree) {
-        this.loading = true
+        this.loading.login = true
       } else {
         if (!this.showAnim && !this.showTooltip) {
           this.showAnim = true

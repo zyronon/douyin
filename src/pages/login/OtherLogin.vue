@@ -2,7 +2,7 @@
   <div class="other-login" id="other-login">
     <BaseHeader mode="light" backMode="dark" backImg="back">
       <template v-slot:right>
-        <span class="f16">帮助</span>
+        <span class="f14" @click="$nav('/login/help')">帮助与设置</span>
       </template>
     </BaseHeader>
     <div class="content">
@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      <b-button :loading="loading" :active="false" :disabled="phone.length < 10" @click="getCode">
+      <b-button type="primary" :loading="loading" :active="false" :disabled="phone.length < 10" @click="getCode">
         获取短信验证码
       </b-button>
 
@@ -47,19 +47,19 @@
           height="27rem"
           mode="white">
         <div class="block-dialog">
-          <div class="item">
+          <div class="item" @click="$no">
             <img src="../../assets/img/icon/login/toutiao-round.png" alt="">
             <span>今日头条登录</span>
           </div>
-          <div class="item">
+          <div class="item" @click="$no">
             <img src="../../assets/img/icon/login/qq.webp" alt="">
             <span>QQ登录</span>
           </div>
-          <div class="item">
+          <div class="item" @click="$no">
             <img src="../../assets/img/icon/login/wechat.webp" alt="">
             <span>微信登录</span>
           </div>
-          <div class="item">
+          <div class="item" @click="$no">
             <img src="../../assets/img/icon/login/weibo.webp" alt="">
             <span>微博登录</span>
           </div>

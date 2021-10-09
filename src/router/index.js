@@ -57,6 +57,7 @@ import MusicCollect from "../pages/me/collect/MusicCollect";
 import VideoCollect from "../pages/me/collect/VideoCollect";
 import MyMusic from "../pages/me/MyMusic";
 import FollowAndFans from "../pages/people/FollowAndFans";
+import MyRequestUpdate from "../pages/me/MyRequestUpdate";
 
 const routes = [
   // {path: '', component: Music},
@@ -83,8 +84,6 @@ const routes = [
   {path: '/message/joined-group-chat', component: JoinedGroupChat},
   {path: '/message/chat', component: Chat},
   {path: '/message/chat-detail', component: ChatDetail},
-  {path: '/me', component: Me},
-  {path: '/me/request-update', component: RequestUpdate},
   {path: '/edit-userinfo', component: EditUserInfo},
   {path: '/edit-userinfo-item', component: EditUserInfoItem},
   {path: '/country-choose', component: countryChoose},
@@ -109,6 +108,7 @@ const routes = [
   {path: '/face-to-face', component: FaceToFace},
   {path: '/set-remark', component: SetRemark},
 
+  {path: '/me', component: Me},
   {path: '/me/right-menu/look-history', component: LookHistory},
   {path: '/me/right-menu/minor-protection/index', component: MinorProtectionIndex},
   {path: '/me/right-menu/minor-protection/detail-setting', component: MinorProtectionDetailSetting},
@@ -117,6 +117,8 @@ const routes = [
   {path: '/me/collect/music-collect', component: MusicCollect},
   {path: '/me/collect/video-collect', component: VideoCollect},
   {path: '/me/my-music', component: MyMusic},
+  {path: '/me/request-update', component: RequestUpdate},
+  {path: '/me/my-request-update', component: MyRequestUpdate},
 
   {path: '/login', component: Login},
   {path: '/login/other', component: OtherLogin},
