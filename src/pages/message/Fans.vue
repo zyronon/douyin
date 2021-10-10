@@ -60,7 +60,7 @@ export default {
       this.loading = true
       await this.$sleep(500)
       this.loading = false
-      this.recommend = this.recommend.concat(this.friends.all)
+       this.recommend = this.recommend.concat(this.friends.all)
     }
   }
 }
