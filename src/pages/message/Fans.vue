@@ -6,43 +6,78 @@
       </template>
     </BaseHeader>
     <div class="content">
-      <People v-for="item in friends.all" :people="item" mode="fans"></People>
-      <div class="line mt1r"></div>
-      <div class="title">
-        <span>朋友推荐</span>
-        <img src="../../assets/img/icon/about-gray.png" alt="">
-
-      </div>
-      <People v-for="item in friends.all" :people="item" mode="recommend"></People>
+      <Scroll @pulldown="loadData">
+        <People v-for="item in friends.all" :people="item" mode="fans"></People>
+        <div class="line mt1r"></div>
+        <div class="title">
+          <span>朋友推荐</span>
+          <img src="../../assets/img/icon/about-gray.png" alt="">
+        </div>
+        <transition-group name="list-complete" tag="div" class="people-wrapper">
+          <People v-for="(item,index) in recommend"
+                  :key="item.id"
+                  :people="item"
+                  @remove="remove(index)"
+                  mode="recommend"/>
+        </transition-group>
+        <Loading :is-full-screen="false" v-if="loading"/>
+      </Scroll>
     </div>
   </div>
 </template>
 <script>
 import {mapState} from "vuex";
 import People from "../people/components/People";
+import Scroll from "../../components/Scroll";
+import Loading from "../../components/Loading";
 
 export default {
   name: "Fans",
   components: {
-    People
-  },
-  props: {
-    modelValue: false
+    Scroll,
+    People,
+    Loading
   },
   data() {
-    return {}
+    return {
+      loading: false,
+      recommend: []
+    }
   },
   computed: {
     ...mapState(['userinfo', 'friends'])
   },
   created() {
+    this.recommend = this.$clone(this.friends.all)
   },
-  methods: {}
+  methods: {
+    remove(index) {
+      this.$notice('将不会再为你推荐该用户')
+      this.recommend.splice(index, 1)
+    },
+    async loadData() {
+      if (this.loading) return
+      this.loading = true
+      await this.$sleep(500)
+      this.loading = false
+      this.recommend = this.recommend.concat(this.friends.all)
+    }
+  }
 }
 </script>
 
 <style scoped lang="less">
 @import "@/assets/less/index";
+
+
+.list-complete-enter-from,
+.list-complete-leave-to {
+  opacity: 0;
+}
+
+.list-complete-leave-active {
+  position: absolute;
+}
 
 .Fans {
   position: fixed;
@@ -56,7 +91,15 @@ export default {
 
   .content {
     padding: @padding-page;
-    padding-top: 6rem;
+    padding-top: @header-height;
+
+    .scroll {
+      height: calc(100vh - @header-height);
+    }
+
+    .people-wrapper {
+      position: relative;
+    }
 
     .title {
       margin-top: 1.5rem;

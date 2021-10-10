@@ -1,9 +1,7 @@
 <template>
   <div class="People">
-    <img v-if="people.type === 6" src="../../../assets/img/icon/add-light.png" alt="" class="add">
-    <img v-else :src="$imgPreview(people.avatar)" alt="" class="head-image pull-left">
+    <img :src="$imgPreview(people.avatar)" alt="" class="head-image pull-left">
     <div class="content">
-
       <template v-if="mode === 'fans'">
         <div class="left">
           <div class="name">{{ people.name }}</div>
@@ -44,7 +42,7 @@
           <div class="detail">可能认识的人</div>
         </div>
         <div class="right">
-          <div class="l-button ">移除</div>
+          <div class="l-button" @click="$emit('remove')">移除</div>
           <div class="l-button red">关注</div>
         </div>
       </template>
@@ -122,6 +120,8 @@ export default {
 }
 
 .People {
+  transition: all 0.3s ease;
+  width: 100%;
   height: 7rem;
   display: flex;
   align-items: center;
