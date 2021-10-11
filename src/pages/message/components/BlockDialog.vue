@@ -1,6 +1,6 @@
 <template>
   <from-bottom-dialog
-      page-id="home-index"
+      page-id="ChatDetail"
       v-model="modelValue"
       :show-heng-gang="false"
       height="20rem"
