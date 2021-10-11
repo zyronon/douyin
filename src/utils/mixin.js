@@ -33,7 +33,14 @@ export default {
   },
   data() {
     return {
-      SUCCESS: 200
+      SUCCESS: 200,
+      RELATE_ENUM: {
+        RECOMMEND: -1,//推荐
+        FOLLOW_ME: 1,//只关注我
+        FOLLOW_EACH_OTHER: 2,//互相关注
+        FOLLOW_HE: 3,//我关注他
+        REQUEST_FOLLOW: 4//关注请求
+      }
     }
   },
   methods: {

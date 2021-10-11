@@ -1,5 +1,5 @@
 <template>
-  <div class="ChatDetail">
+  <div id="ChatDetail">
     <BaseHeader>
       <template v-slot:center>
         <span class="f16">聊天详情</span>
@@ -91,7 +91,7 @@ export default {
 <style scoped lang="less">
 @import "../../assets/less/index";
 
-.ChatDetail {
+#ChatDetail {
   position: fixed;
   left: 0;
   right: 0;

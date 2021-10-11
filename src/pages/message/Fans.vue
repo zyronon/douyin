@@ -1,5 +1,5 @@
 <template>
-  <div class="Fans">
+  <div id="Fans">
     <BaseHeader>
       <template v-slot:center>
         <span class="f16">粉丝</span>
@@ -7,19 +7,16 @@
     </BaseHeader>
     <div class="content">
       <Scroll @pulldown="loadData">
-        <People v-for="item in friends.all" :people="item" mode="fans"></People>
-        <div class="line mt1r"></div>
+        <Peoples v-model:list="fans"
+                 :loading="loading"
+                 mode="fans"/>
         <div class="title">
           <span>朋友推荐</span>
           <img src="../../assets/img/icon/about-gray.png" alt="">
         </div>
-        <transition-group name="list-complete" tag="div" class="people-wrapper">
-          <People v-for="(item,index) in recommend"
-                  :key="item.id"
-                  :people="item"
-                  @remove="remove(index)"
-                  mode="recommend"/>
-        </transition-group>
+        <Peoples v-model:list="recommend"
+                 :loading="loading"
+                 mode="recommend"/>
         <Loading :is-full-screen="false" v-if="loading"/>
       </Scroll>
     </div>
@@ -30,18 +27,21 @@ import {mapState} from "vuex";
 import People from "../people/components/People";
 import Scroll from "../../components/Scroll";
 import Loading from "../../components/Loading";
+import Peoples from "../people/components/Peoples";
 
 export default {
   name: "Fans",
   components: {
     Scroll,
     People,
-    Loading
+    Loading,
+    Peoples
   },
   data() {
     return {
       loading: false,
-      recommend: []
+      recommend: [],
+      fans: [],
     }
   },
   computed: {
@@ -49,6 +49,10 @@ export default {
   },
   created() {
     this.recommend = this.$clone(this.friends.all)
+    this.fans = this.$clone(this.friends.all)
+    this.recommend.map(v => {
+      v.type = -1
+    })
   },
   methods: {
     remove(index) {
@@ -60,7 +64,11 @@ export default {
       this.loading = true
       await this.$sleep(500)
       this.loading = false
-       this.recommend = this.recommend.concat(this.friends.all)
+      let temp = this.$clone(this.friends.all)
+      temp.map(v => {
+        v.type = -1
+      })
+      this.recommend = this.recommend.concat(temp)
     }
   }
 }
@@ -79,7 +87,7 @@ export default {
   position: absolute;
 }
 
-.Fans {
+#Fans {
   position: fixed;
   left: 0;
   right: 0;

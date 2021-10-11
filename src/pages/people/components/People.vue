@@ -18,20 +18,20 @@
         <div class="right">
           <!--   他关注我   -->
           <template v-if="people.type === RELATE_ENUM.FOLLOW_ME">
-            <div class="l-button red">回关</div>
+            <div class="l-button red" @click="$emit('follow')">回关</div>
           </template>
           <!--   我关注他   -->
           <template v-if="people.type === RELATE_ENUM.FOLLOW_HE">
-            <div class="l-button">已关注</div>
+            <div class="l-button" @click="$emit('unfollow')">已关注</div>
           </template>
           <!--          相互关注-->
           <template v-if="people.type === RELATE_ENUM.FOLLOW_EACH_OTHER">
-            <div class="l-button">相互关注</div>
+            <div class="l-button" @click="$emit('unfollow')">互相关注</div>
           </template>
           <!--         关注请求-->
           <template v-if="people.type === RELATE_ENUM.REQUEST_FOLLOW">
-            <div class="l-button ">忽略</div>
-            <div class="l-button red">通过</div>
+            <div class="l-button " @click="$emit('ignore')">忽略</div>
+            <div class="l-button red" @click="$emit('agree')">通过</div>
           </template>
         </div>
       </template>
@@ -42,8 +42,14 @@
           <div class="detail">可能认识的人</div>
         </div>
         <div class="right">
-          <div class="l-button" @click="$emit('remove')">移除</div>
-          <div class="l-button red">关注</div>
+          <template v-if="people.type === RELATE_ENUM.RECOMMEND">
+            <div class="l-button" @click="$emit('remove')">移除</div>
+            <div class="l-button red" @click="$emit('follow')">关注</div>
+          </template>
+          <!--   我关注他   -->
+          <template v-if="people.type === RELATE_ENUM.FOLLOW_HE">
+            <div class="l-button" @click="$emit('unfollow')">已关注</div>
+          </template>
         </div>
       </template>
 
@@ -91,6 +97,7 @@ export default {
     return {
       showPopover: false,
       RELATE_ENUM: {
+        RECOMMEND: -1,//推荐
         FOLLOW_ME: 1,//只关注我
         FOLLOW_EACH_OTHER: 2,//互相关注
         FOLLOW_HE: 3,//我关注他
