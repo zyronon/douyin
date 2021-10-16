@@ -44,7 +44,7 @@
         </div>
       </div>
       <!--      互动消息-->
-      <div class="message">
+      <div class="message" @click="$nav('/message/all')">
         <div class="avatar">
           <img src="../../assets/img/icon/msg-icon2.png" alt="" class="head-image">
         </div>
@@ -714,7 +714,6 @@ export default {
   }
 
   .messages {
-    margin-top: 5px;
 
     .message {
       display: flex;
@@ -725,7 +724,7 @@ export default {
       }
 
       &:active {
-        background: #353a4f;
+        background: @active-main-bg;
       }
 
       .avatar {

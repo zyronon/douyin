@@ -59,6 +59,8 @@ import MyMusic from "../pages/me/MyMusic";
 import FollowAndFans from "../pages/people/FollowAndFans";
 import MyRequestUpdate from "../pages/me/MyRequestUpdate";
 import Fans from "../pages/message/Fans";
+import AllMessage from "../pages/message/AllMessage";
+import Visitors from "../pages/message/Visitors";
 
 const routes = [
   // {path: '', component: Music},
@@ -88,6 +90,8 @@ const routes = [
   {path: '/message/chat', component: Chat},
   {path: '/message/chat-detail', component: ChatDetail},
   {path: '/message/fans', component: Fans},
+  {path: '/message/all', component: AllMessage},
+  {path: '/message/visitors', component: Visitors},
 
 
   {path: '/edit-userinfo', component: EditUserInfo},
