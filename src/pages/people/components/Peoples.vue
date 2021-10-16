@@ -76,6 +76,9 @@ export default {
       this.localList.splice(index, 1)
     },
     follow(index) {
+      if (this.mode === 'visitor') {
+        this.localList[index].type = this.RELATE_ENUM.FOLLOW_HE
+      }
       if (this.mode === 'recommend') {
         this.localList[index].type = this.RELATE_ENUM.FOLLOW_HE
       }
@@ -86,6 +89,9 @@ export default {
       }
     },
     unfollow(index) {
+      if (this.mode === 'visitor') {
+        this.localList[index].type = this.RELATE_ENUM.FOLLOW_ME
+      }
       if (this.mode === 'recommend') {
         this.localList[index].type = this.RELATE_ENUM.RECOMMEND
       }

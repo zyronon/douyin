@@ -63,6 +63,26 @@
           <img src="../../../assets/img/icon/menu-white.png" alt="" @click="showPopover = !showPopover">
         </div>
       </template>
+
+      <template v-if="mode === 'visitor'">
+        <div class="left">
+          <div class="name">{{ people.name }}</div>
+        </div>
+        <div class="right">
+          <!--   他关注我   -->
+          <template v-if="people.type === RELATE_ENUM.FOLLOW_ME">
+            <div class="l-button red" @click="$emit('follow')">关注</div>
+          </template>
+          <!--   我关注他   -->
+          <template v-if="people.type === RELATE_ENUM.FOLLOW_HE">
+            <div class="l-button" @click="$emit('unfollow')">已关注</div>
+          </template>
+          <!--          相互关注-->
+          <template v-if="people.type === RELATE_ENUM.FOLLOW_EACH_OTHER">
+            <div class="l-button" @click="$emit('unfollow')">互相关注</div>
+          </template>
+        </div>
+      </template>
     </div>
     <!--   TODO 点了不消失，内容也变了 -->
     <transition name="scale">
@@ -163,7 +183,7 @@ export default {
 
     .left {
       .name {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         margin-bottom: .2rem;
         color: white;
       }

@@ -18,6 +18,8 @@ export default {
 </script>
 
 <style lang="less">
+@import "@/assets/less/index";
+
 
 .Mask {
   z-index: 3;
@@ -26,22 +28,22 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  background: #000000bb;
+  background: @mask-dark;
 
   &.dark {
-    background: #000000bb;
+    background: @mask-dark;
   }
 
   &.light {
-    background: transparent;
+    background: @mask-light;
   }
 
   &.lightgray {
-    background: rgba(0, 0, 0, 0.25);
+    background: @mask-lightgray;
   }
 
   &.white {
-    background: transparent;
+    background: @mask-white;
   }
 }
 </style>

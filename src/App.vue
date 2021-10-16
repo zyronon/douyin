@@ -55,6 +55,8 @@ export default {
         '/message/share-to-friend',
         '/message/joined-group-chat',
         '/message/fans',
+        '/message/all',
+        '/message/visitors',
 
         '/country-choose',
         '/edit-userinfo',
