@@ -51,7 +51,7 @@ const store = Vuex.createStore({
         {
           "id": "224e9a00-ffa0-4bc1-bb07-c318c7b02fa5",
           "avatar": require('../assets/img/icon/avatar/1.png'),
-          "name": "冒安志",
+          "name": "何以为家",
           "sex": "",
           "age": null,
           "idCard": null,

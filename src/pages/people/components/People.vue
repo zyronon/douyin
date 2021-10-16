@@ -158,7 +158,6 @@ export default {
     background: #353a4f;
   }
 
-
   .head-image {
     margin-right: 1.5rem;
     width: 4.5rem;

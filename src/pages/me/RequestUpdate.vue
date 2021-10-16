@@ -17,15 +17,16 @@
         <div class="subtitle">当粉丝期待你的新作品时，会点击“求更新”提醒你</div>
       </div>
       <div class="request">
-        <div class="title">近7天收到1次求更新</div>
-        <div class="subtitle">上次发布作品：2020-08-01 上次开播：昨天23:12</div>
+        <!--        <div class="title">近7天收到1次求更新</div>-->
+        <!--        <div class="subtitle f12">上次发布作品：2020-08-01 上次开播：昨天23:12</div>-->
+        <div class="subtitle f12">历史求更新（粉丝送礼后7天未开播则退还礼物）</div>
         <div class="list">
           <div class="item" v-for="item in friends.all">
             <div class="left">
               <img :src='$imgPreview(item.avatar)'>
               <span class="name">{{ item.name }}</span>
             </div>
-            <span class="time">{{ $dateFormat(item.lastLoginTime,'D') }}</span>
+            <span class="time">{{ $dateFormat(item.lastLoginTime, 'D') }}</span>
           </div>
         </div>
         <no-more>最多展示100位粉丝的历史求更新记录</no-more>
@@ -116,8 +117,7 @@ export default {
 
     .request {
       .list {
-        margin-top: 2rem;
-        border-top: 1px solid #cccccc11;
+        margin-top: @padding-page;
 
         .item {
           padding: 1rem 0;
@@ -139,7 +139,7 @@ export default {
             }
           }
 
-          .time{
+          .time {
             font-size: 1.2rem;
             color: @second-text-color;
           }
