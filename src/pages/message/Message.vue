@@ -1,208 +1,254 @@
 <template>
   <div id="Message" ref="app" :class="createChatDialog?'disable-scroll':''">
-    <div class="header ">
-      <div class="title">
-        <p class="tac c-white ">消息</p>
-        <span @click="createChatDialog = true">创建群聊</span>
-      </div>
+    <div class="header">
+      <span style="opacity: 0;">消息</span>
+      <span class="f18">消息</span>
+      <span class="f14" @click="createChatDialog = true">创建群聊</span>
     </div>
-    <Search class="m2r"></Search>
-    <div class="friends  pl1r ">
-      <div class="friend pr1r pl1r"
-           @click="$nav('/message/chat')"
-           v-for="(item,index) in friends.all">
-        <div class="avatar" :class="index%2===0?'on-line':''">
-          <img :src="$imgPreview(item.avatar)" alt="">
+    <div class="content">
+      <Search class="m2r"></Search>
+      <div class="friends  pl1r ">
+        <div class="friend pr1r pl1r"
+             @click="$nav('/message/chat')"
+             v-for="(item,index) in friends.all">
+          <div class="avatar" :class="index%2===0?'on-line':''">
+            <img :src="$imgPreview(item.avatar)" alt="">
+          </div>
+          <span>{{ item.name }}</span>
         </div>
-        <span>{{ item.name }}</span>
+        <div class="friend pr10p">
+          <img src="../../assets/img/icon/message/setting.png" alt="">
+          <span class="ml1r">状态设置</span>
+        </div>
       </div>
-      <div class="friend pr10p">
-        <img src="../../assets/img/icon/message/setting.png" alt="">
-        <span class="ml1r">状态设置</span>
-      </div>
-    </div>
-    <div class="line mt2r"></div>
+      <div class="line mt2r"></div>
 
-    <div class="messages ">
-      <!--      粉丝-->
-      <div class="message" @click="$nav('/message/fans')">
-        <div class="avatar">
-          <img src="../../assets/img/icon/msg-icon1.png" alt="" class="head-image">
-        </div>
-        <div class="content">
-          <div class="left">
-            <div class="name">
-              <span>粉丝</span>
-            </div>
-            <div class="detail">
-              xxx 关注了你
-            </div>
+      <div class="messages ">
+        <!--      粉丝-->
+        <div class="message" @click="$nav('/message/fans')">
+          <div class="avatar">
+            <img src="../../assets/img/icon/msg-icon1.png" alt="" class="head-image">
           </div>
-          <div class="right">
-            <back class="arrow" mode="gray" img="back" direction="right"/>
-          </div>
-        </div>
-      </div>
-      <!--      互动消息-->
-      <div class="message" @click="$nav('/message/all')">
-        <div class="avatar">
-          <img src="../../assets/img/icon/msg-icon2.png" alt="" class="head-image">
-        </div>
-        <div class="content">
-          <div class="left">
-            <div class="name">
-              <span>互动消息</span>
+          <div class="content">
+            <div class="left">
+              <div class="name">
+                <span>粉丝</span>
+              </div>
+              <div class="detail">
+                xxx 关注了你
+              </div>
             </div>
-            <div class="detail">
-              xxx 赞了你的评论
+            <div class="right">
+              <back class="arrow" mode="gray" img="back" direction="right"/>
             </div>
           </div>
-          <div class="right">
-            <back class="arrow" mode="gray" img="back" direction="right"/>
+        </div>
+        <!--      互动消息-->
+        <div class="message" @click="$nav('/message/all')">
+          <div class="avatar">
+            <img src="../../assets/img/icon/msg-icon2.png" alt="" class="head-image">
           </div>
-        </div>
-      </div>
-      <!--      抖音小助手-->
-      <div class="message">
-        <div class="avatar">
-          <img src="../../assets/img/icon/msg-icon5.webp" alt="" class="head-image">
-        </div>
-        <div class="content">
-          <div class="left">
-            <div class="name">
-              <span>抖音小助手</span>
-              <span class="tag">官方</span>
+          <div class="content">
+            <div class="left">
+              <div class="name">
+                <span>互动消息</span>
+              </div>
+              <div class="detail">
+                xxx 赞了你的评论
+              </div>
             </div>
-            <div class="detail">
-              #今天谁请客呢
-              <div class="point"></div>
-              星期四
+            <div class="right">
+              <back class="arrow" mode="gray" img="back" direction="right"/>
             </div>
           </div>
-          <div class="right">
-            <div class="not-read"></div>
+        </div>
+        <!--      抖音小助手-->
+        <div class="message" @click="$nav('/message/douyin-helper')">
+          <div class="avatar">
+            <img src="../../assets/img/icon/msg-icon5.webp" alt="" class="head-image">
           </div>
-        </div>
-      </div>
-      <!--      系统通知-->
-      <div class="message">
-        <div class="avatar">
-          <img src="../../assets/img/icon/msg-icon4.png" alt="" class="head-image">
-        </div>
-        <div class="content">
-          <div class="left">
-            <div class="name">
-              <span>系统通知</span>
-              <span class="tag">官方</span>
+          <div class="content">
+            <div class="left">
+              <div class="name">
+                <span>抖音小助手</span>
+                <span class="tag">官方</span>
+              </div>
+              <div class="detail">
+                #今天谁请客呢
+                <div class="point"></div>
+                星期四
+              </div>
             </div>
-            <div class="detail">
-              协议修订通知
-              <div class="point"></div>
-              08-31
-            </div>
-          </div>
-          <div class="right">
-            <div class="not-read"></div>
-          </div>
-        </div>
-      </div>
-      <!--      求更新-->
-      <div class="message">
-        <div class="avatar">
-          <img src="../../assets/img/icon/msg-icon7.webp" alt="" class="head-image">
-        </div>
-        <div class="content">
-          <div class="left">
-            <div class="name">
-              <span>求更新</span>
-              <span class="tag">官方</span>
-            </div>
-            <div class="detail">
-              你收到过1次求更新
-              <div class="point"></div>
-              10-09
+            <div class="right">
+              <div class="not-read"></div>
             </div>
           </div>
-          <div class="right">
-            <div class="not-read"></div>
+        </div>
+        <!--      系统通知-->
+        <div class="message" @click="$nav('/message/system-notice')">
+          <div class="avatar">
+            <img src="../../assets/img/icon/msg-icon4.png" alt="" class="head-image">
           </div>
-        </div>
-      </div>
-      <!--      任务通知-->
-      <div class="message">
-        <div class="avatar">
-          <img src="../../assets/img/icon/msg-icon6.webp" alt="" class="head-image">
-        </div>
-        <div class="content">
-          <div class="left">
-            <div class="name">
-              <span>任务通知</span>
-              <span class="tag">官方</span>
+          <div class="content">
+            <div class="left">
+              <div class="name">
+                <span>系统通知</span>
+                <span class="tag">官方</span>
+              </div>
+              <div class="detail">
+                协议修订通知
+                <div class="point"></div>
+                08-31
+              </div>
             </div>
-            <div class="detail">
-              发作品得流量
-              <div class="point"></div>
-              05-26
+            <div class="right">
+              <div class="not-read"></div>
             </div>
           </div>
-          <div class="right">
-            <div class="not-read"></div>
+        </div>
+        <!--      求更新-->
+        <div class="message" @click="$nav('/me/request-update')">
+          <div class="avatar">
+            <img src="../../assets/img/icon/msg-icon7.webp" alt="" class="head-image">
+          </div>
+          <div class="content">
+            <div class="left">
+              <div class="name">
+                <span>求更新</span>
+                <span class="tag">官方</span>
+              </div>
+              <div class="detail">
+                你收到过1次求更新
+                <div class="point"></div>
+                10-09
+              </div>
+            </div>
+            <div class="right">
+              <div class="not-read"></div>
+            </div>
           </div>
         </div>
-      </div>
+        <!--      任务通知-->
+        <div class="message" @click="$nav('/message/task-notice')">
+          <div class="avatar">
+            <img src="../../assets/img/icon/msg-icon6.webp" alt="" class="head-image">
+          </div>
+          <div class="content">
+            <div class="left">
+              <div class="name">
+                <span>任务通知</span>
+                <span class="tag">官方</span>
+              </div>
+              <div class="detail">
+                发作品得流量
+                <div class="point"></div>
+                05-26
+              </div>
+            </div>
+            <div class="right">
+              <div class="not-read"></div>
+            </div>
+          </div>
+        </div>
+        <!--      直播通知-->
+        <div class="message" @click="$nav('/message/live-notice')">
+          <div class="avatar">
+            <img src="../../assets/img/icon/msg-icon8.webp" alt="" class="head-image">
+          </div>
+          <div class="content">
+            <div class="left">
+              <div class="name">
+                <span>直播通知</span>
+                <span class="tag">官方</span>
+              </div>
+              <div class="detail">
+                举报结果通知
+                <div class="point"></div>
+                05-26
+              </div>
+            </div>
+            <div class="right">
+              <div class="not-read"></div>
+            </div>
+          </div>
+        </div>
+        <!--      钱包通知-->
+        <div class="message" @click="$nav('/message/money-notice')">
+          <div class="avatar">
+            <img src="../../assets/img/icon/msg-icon9.webp" alt="" class="head-image">
+          </div>
+          <div class="content">
+            <div class="left">
+              <div class="name">
+                <span>钱包通知</span>
+                <span class="tag">官方</span>
+              </div>
+              <div class="detail">
+                卡券发放提醒
+                <div class="point"></div>
+                05-26
+              </div>
+            </div>
+            <div class="right">
+              <div class="not-read"></div>
+            </div>
+          </div>
+        </div>
 
-      <!--      消息-->
-      <div class="message">
-        <div class="avatar on-line">
-          <img src="../../assets/img/icon/avatar/2.png" alt="" class="head-image">
-        </div>
-        <div class="content">
-          <div class="left">
-            <div class="name">
-              <span>{{ userinfo.nickname }}</span>
+        <!--      消息-->
+        <div class="message">
+          <div class="avatar on-line">
+            <img src="../../assets/img/icon/avatar/2.png" alt="" class="head-image">
+          </div>
+          <div class="content">
+            <div class="left">
+              <div class="name">
+                <span>{{ userinfo.nickname }}</span>
+              </div>
+              <div class="detail">
+                哈哈哈哈哈哈
+                <div class="point"></div>
+                10-10
+              </div>
             </div>
-            <div class="detail">
-              哈哈哈哈哈哈
-              <div class="point"></div>
-              10-10
+            <div class="right">
+              <!--                          <div class="not-read"></div>-->
+              <!--                          <img class="camera" src="../../assets/img/icon/close-white.png" alt="">-->
+              <!--            <img class="arrow" src="../../assets/img/icon/close-white.png" alt="">-->
+              <div class="badge">12</div>
             </div>
           </div>
-          <div class="right">
-            <!--                          <div class="not-read"></div>-->
-            <!--                          <img class="camera" src="../../assets/img/icon/close-white.png" alt="">-->
-            <!--            <img class="arrow" src="../../assets/img/icon/close-white.png" alt="">-->
-            <div class="badge">12</div>
-          </div>
         </div>
-      </div>
 
-      <!--      模板-->
-      <!--      <div class="message">-->
-      <!--        <div class="avatar on-line">-->
-      <!--          <img src="../../assets/img/icon/avatar/2.png" alt="" class="head-image">-->
-      <!--        </div>-->
-      <!--        <div class="content">-->
-      <!--          <div class="left">-->
-      <!--            <div class="name">-->
-      <!--              <span>粉丝</span>-->
-      <!--              <span class="tag">官方</span>-->
-      <!--            </div>-->
-      <!--            <div class="detail">-->
-      <!--              <img class="sent" src="../../assets/img/icon/close-white.png" alt="">-->
-      <!--              已送达 ，sb，凌晨 01:15-->
-      <!--            </div>-->
-      <!--          </div>-->
-      <!--          <div class="right">-->
-      <!--            &lt;!&ndash;                          <div class="not-read"></div>&ndash;&gt;-->
-      <!--            &lt;!&ndash;                          <img class="camera" src="../../assets/img/icon/close-white.png" alt="">&ndash;&gt;-->
-      <!--            &lt;!&ndash;            <img class="arrow" src="../../assets/img/icon/close-white.png" alt="">&ndash;&gt;-->
-      <!--            <div class="badge">12</div>-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
+        <NoMore/>
+
+        <!--      模板-->
+        <!--      <div class="message">-->
+        <!--        <div class="avatar on-line">-->
+        <!--          <img src="../../assets/img/icon/avatar/2.png" alt="" class="head-image">-->
+        <!--        </div>-->
+        <!--        <div class="content">-->
+        <!--          <div class="left">-->
+        <!--            <div class="name">-->
+        <!--              <span>粉丝</span>-->
+        <!--              <span class="tag">官方</span>-->
+        <!--            </div>-->
+        <!--            <div class="detail">-->
+        <!--              <img class="sent" src="../../assets/img/icon/close-white.png" alt="">-->
+        <!--              已送达 ，sb，凌晨 01:15-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--          <div class="right">-->
+        <!--            &lt;!&ndash;                          <div class="not-read"></div>&ndash;&gt;-->
+        <!--            &lt;!&ndash;                          <img class="camera" src="../../assets/img/icon/close-white.png" alt="">&ndash;&gt;-->
+        <!--            &lt;!&ndash;            <img class="arrow" src="../../assets/img/icon/close-white.png" alt="">&ndash;&gt;-->
+        <!--            <div class="badge">12</div>-->
+        <!--          </div>-->
+        <!--        </div>-->
+        <!--      </div>-->
+      </div>
     </div>
     <Footer v-bind:init-tab="4"/>
-
     <from-bottom-dialog page-id="Message" v-model="createChatDialog">
       <div class="create-chat-wrapper" v-show="!showJoinedChat">
         <Search :isShowText="isShowText"
@@ -639,19 +685,21 @@ export default {
   }
 
   .header {
-    margin-top: 2rem;
+    position: fixed;
+    width: 100vw;
+    background: @main-bg;
+    z-index: 11;
+    height: 6rem;
+    display: flex;
+    padding: @padding-page;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-    .title {
-      font-size: 1.8rem;
-      position: relative;
+  .content {
+    padding-top: @header-height;
 
-      span {
-        font-size: 1.6rem;
-        position: absolute;
-        right: 2rem;
-        top: 0;
-      }
-    }
   }
 
   .friends {

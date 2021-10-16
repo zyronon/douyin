@@ -61,6 +61,12 @@ import MyRequestUpdate from "../pages/me/MyRequestUpdate";
 import Fans from "../pages/message/Fans";
 import AllMessage from "../pages/message/AllMessage";
 import Visitors from "../pages/message/Visitors";
+import DouyinHelper from "../pages/message/notice/DouyinHelper";
+import SystemNotice from "../pages/message/notice/SystemNotice";
+import NoticeSetting from "../pages/message/notice/NoticeSetting";
+import TaskNotice from "../pages/message/notice/TaskNotice";
+import LiveNotice from "../pages/message/notice/LiveNotice";
+import MoneyNotice from "../pages/message/notice/MoneyNotice";
 
 const routes = [
   // {path: '', component: Music},
@@ -92,6 +98,12 @@ const routes = [
   {path: '/message/fans', component: Fans},
   {path: '/message/all', component: AllMessage},
   {path: '/message/visitors', component: Visitors},
+  {path: '/message/douyin-helper', component: DouyinHelper},
+  {path: '/message/system-notice', component: SystemNotice},
+  {path: '/message/task-notice', component: TaskNotice},
+  {path: '/message/live-notice', component: LiveNotice},
+  {path: '/message/money-notice', component: MoneyNotice},
+  {path: '/message/notice-setting', component: NoticeSetting},
 
 
   {path: '/edit-userinfo', component: EditUserInfo},

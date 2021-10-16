@@ -57,6 +57,12 @@ export default {
         '/message/fans',
         '/message/all',
         '/message/visitors',
+        '/message/douyin-helper',
+        '/message/system-notice',
+        '/message/task-notice',
+        '/message/live-notice',
+        '/message/money-notice',
+        '/message/notice-setting',
 
         '/country-choose',
         '/edit-userinfo',
