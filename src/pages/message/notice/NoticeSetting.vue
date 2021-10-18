@@ -92,7 +92,7 @@ export default {
       option5: false,
       option6: false,
       option7: true,
-      option8: false,
+      option8: true,
       option9: false,
       option10: false,
       option11: false,
