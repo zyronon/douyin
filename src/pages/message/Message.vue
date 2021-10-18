@@ -22,7 +22,6 @@
         </div>
       </div>
       <div class="line mt2r"></div>
-
       <div class="messages ">
         <!--      粉丝-->
         <div class="message" @click="$nav('/message/fans')">
@@ -326,6 +325,33 @@
         <NoMore></NoMore>
       </div>
     </from-bottom-dialog>
+
+    <transition name="fade">
+      <div class="recommend-dialog" v-if="isShowRecommend">
+        <div class="dialog-content">
+          <div class="dialog-header">
+            <img style="opacity: 0;" src="../../assets/img/icon/components/gray-close-full2.png" alt="">
+            <div class="title">
+              <span>朋友推荐</span>
+              <img src="../../assets/img/icon/about-gray.png" alt="">
+            </div>
+            <img @click="isShowRecommend = false" src="../../assets/img/icon/components/gray-close-full2.png" alt="">
+          </div>
+          <div class="dialog-body">
+            <Scroll
+                ref="scroll"
+                @pulldown="loadRecommendData">
+              <Peoples v-model:list="recommend"
+                       :loading="loading"
+                       mode="recommend"/>
+              <Loading :is-full-screen="false" v-if="loading"/>
+              <NoMore v-else/>
+            </Scroll>
+          </div>
+        </div>
+        <Mask/>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -335,19 +361,27 @@ import Search from "../../components/Search";
 import FromBottomDialog from '../../components/dialog/FromBottomDialog'
 import Check from "../../components/Check";
 import {mapState} from "vuex";
+import Peoples from "../people/components/Peoples";
+import Mask from "../../components/Mask";
+import Scroll from "../../components/Scroll";
 
 export default {
   name: "Message",
   components: {
+    Scroll,
+    Mask,
     Footer,
     Search,
     FromBottomDialog,
-    Check
+    Check,
+    Peoples
   },
   data() {
     return {
+      isShowRecommend: false,
       createChatSearchKey: '',
       showJoinedChat: false,
+      loading: false,
       createChatDialog: false,
       isShowText: false,
       text: 'AAAAAAAAA、BBBBBBBBBBBBB、CCCCCCCC',
@@ -401,7 +435,8 @@ export default {
       //     select: false
       //   },
       // ],
-      searchFriends: []
+      searchFriends: [],
+      recommend: [],
     }
   },
   computed: {
@@ -424,9 +459,24 @@ export default {
     }
   },
   created() {
-    console.log(22)
+    this.recommend = this.$clone(this.friends.all)
+    this.recommend.map(v => {
+      v.type = -2
+    })
   },
-  methods: {}
+  methods: {
+    async loadRecommendData() {
+      if (this.loading) return
+      this.loading = true
+      await this.$sleep(500)
+      this.loading = false
+      let temp = this.$clone(this.friends.all)
+      temp.map(v => {
+        v.type = -2
+      })
+      this.recommend = this.recommend.concat(temp)
+    }
+  }
 }
 </script>
 
@@ -443,8 +493,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  //height: 100%;
-  //width: 100%;
+  font-size: 1.4rem;
   overflow: auto;
   background: @main-bg;
   padding-bottom: 6rem;
@@ -699,7 +748,6 @@ export default {
 
   .content {
     padding-top: @header-height;
-
   }
 
   .friends {
@@ -974,6 +1022,75 @@ export default {
         }
       }
 
+    }
+  }
+
+  .recommend-dialog {
+    position: fixed;
+    z-index: 11;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .dialog-content {
+      position: relative;
+      z-index: 4;
+      background: white;
+      width: 85vw;
+      height: 80vh;
+      border-radius: 1.2rem;
+      overflow: hidden;
+
+      .dialog-header {
+        color: black;
+        border-bottom: 1px solid whitesmoke;
+        padding: @padding-page;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .title {
+          display: flex;
+          align-items: center;
+
+          & > img {
+            margin-left: .3rem;
+            width: 1.5rem;
+          }
+        }
+
+        & > img {
+          width: 2rem;
+        }
+
+      }
+
+      .dialog-body {
+        padding: @padding-page;
+        padding-top: 0;
+        height: calc(80vh - 5rem);
+        overflow: auto;
+
+        .scroll {
+          height: calc(80vh - 5rem);
+        }
+
+        .l-button {
+          color: white;
+        }
+
+        .name {
+          color: black !important;
+        }
+
+        /deep/ .People .content .left .name {
+          color: black !important;
+        }
+      }
     }
   }
 }

@@ -42,6 +42,9 @@
           <div class="detail">可能认识的人</div>
         </div>
         <div class="right">
+          <template v-if="people.type === RELATE_ENUM.RECOMMEND_NO_REMOVE">
+            <div class="l-button red" @click="$emit('follow')">关注</div>
+          </template>
           <template v-if="people.type === RELATE_ENUM.RECOMMEND">
             <div class="l-button" @click="$emit('remove')">移除</div>
             <div class="l-button red" @click="$emit('follow')">关注</div>
@@ -117,6 +120,7 @@ export default {
     return {
       showPopover: false,
       RELATE_ENUM: {
+        RECOMMEND_NO_REMOVE: -2,//推荐,不能移除
         RECOMMEND: -1,//推荐
         FOLLOW_ME: 1,//只关注我
         FOLLOW_EACH_OTHER: 2,//互相关注
