@@ -3,8 +3,8 @@
     <div class="header">
       <back mode="light" @click="$back" class="mr1r"></back>
       <BSearch placeholder="搜索用户名字/抖音号"
-               :isShowText="true"
-               notice="white"
+               :isShowRightText="true"
+               rightTextColor="white"
                @notice="$no"
       >
         <img class="scan" src="../../assets/img/icon/scan-gray.png" @click.stop="$nav('/scan')">

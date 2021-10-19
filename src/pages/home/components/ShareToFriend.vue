@@ -8,11 +8,11 @@
     <div class="content" :style="{minHeight:height}">
       <div class="create-chat" v-show="!showJoinedChat">
         <Search
-            :isShowText="isShowText"
-            @click="isShowText = true;height = '100vh';"
-            @notice="isShowText = false;height = '70vh';"
-            showText="取消"
-            notice="gray"
+            :isShowRightText="isShowRightText"
+            @click="isShowRightText = true;height = '100vh';"
+            @notice="isShowRightText = false;height = '70vh';"
+            rightText="取消"
+            rightTextColor="gray"
             placeholder="搜索"
             v-model="searchKey"/>
         <template v-if="searchKey">
@@ -119,7 +119,7 @@ export default {
     return {
       height: '70vh',
       showJoinedChat: false,
-      isShowText: false,
+      isShowRightText: false,
       text: 'AAAAAAA、BBBBBBBB、CCCCCCCCCCCCC',
       localFriends: [],
       searchResult: [],
@@ -145,7 +145,7 @@ export default {
       } else {
         this.searchKey = ''
         this.height = '70vh'
-        this.isShowText = false
+        this.isShowRightText = false
         this.showJoinedChat = false
       }
     }

@@ -44,7 +44,7 @@
         v-model="isShowSetting"
         mode="white"
         mask-mode="dark"
-        height="25rem"
+        height="27rem"
         :show-heng-gang="false"
     >
       <div class="setting-dialog">

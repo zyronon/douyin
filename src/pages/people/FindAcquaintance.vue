@@ -13,16 +13,16 @@
     <SlideRowList v-model:active-index="currentSlideItemIndex">
       <SlideItem class="tab1" style="overflow: auto;">
         <div class="mr2r ml2r mt1r">
-          <Search v-if="!isShowText"
+          <Search v-if="!isShowRightText"
                   placeholder="搜索用户名字/抖音号"
-                  :is-show-text="false"
-                  @click="isShowText = true">
+                  :is-show-right-text="false"
+                  @click="isShowRightText = true">
             <img src="../../assets/img/icon/scan-gray.png" style="width: 1rem;transform: scale(1.5)"
                  @click.stop="$nav('/scan')">
           </Search>
-          <Search v-else v-model="searchKey" :is-show-text="true" @notice="search" @clear="isSearch = false"></Search>
+          <Search v-else v-model="searchKey" :is-show-right-text="true" @notice="search" @clear="isSearch = false"></Search>
         </div>
-        <div class="no-search" v-if="!isShowText">
+        <div class="no-search" v-if="!isShowRightText">
           <div class="look-address-list" @click="findAddressListDialog = true">
             <img class="left" src="../../assets/img/icon/people/address-book.png" alt="">
             <div class="right">
@@ -149,7 +149,7 @@ export default {
       moreOptionDialog: false,
       outWebImgAccountDialog: false,
       indicatorFixed: false,
-      isShowText: false,
+      isShowRightText: false,
       isSearch: false,
       searchKey: '',
 
@@ -194,8 +194,8 @@ export default {
       this.isSearch = true
     },
     back() {
-      if (this.isShowText) {
-        this.isShowText = false
+      if (this.isShowRightText) {
+        this.isShowRightText = false
       } else {
         this.$back()
       }
