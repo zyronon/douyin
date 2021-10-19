@@ -21,7 +21,7 @@
       </div>
       <SlideRowList v-model:active-index="slideIndex" style="height: calc(100vh - 11.1rem)">
         <SlideItem class="tab1">
-          <Search v-model="searchKey" placeholder="搜索用户备注或名字" :is-show-text="false"/>
+          <Search v-model="searchKey" placeholder="搜索用户备注或名字" :is-show-right-text="false"/>
           <div class="is-search" v-if="searchKey">
             <div class="search-result" v-if="searchFriends.length">
               <People v-for="item in searchFriends " :people="item"></People>
@@ -97,8 +97,8 @@ export default {
       this.isSearch = true
     },
     back() {
-      if (this.isShowText) {
-        this.isShowText = false
+      if (this.isShowRightText) {
+        this.isShowRightText = false
       } else {
         this.$back()
       }

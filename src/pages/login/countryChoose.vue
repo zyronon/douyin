@@ -3,11 +3,11 @@
     <base-header>
       <template v-slot:center>切换城市</template>
       <template v-slot:bottom>
-        <Search :isShowText="isShowText"
-                showText="取消"
-                @click="isShowText = true"
-                @notice="isShowText = false;"
-                @clear="isShowText = false"
+        <Search :isShowRightText="isShowRightText"
+                rightText="取消"
+                @click="isShowRightText = true"
+                @notice="isShowRightText = false;"
+                @clear="isShowRightText = false"
                 class="ml2r mr2r mt1r" placeholder="输入城市或区县名搜索" v-model="searchKey"></Search>
       </template>
     </base-header>
@@ -2325,7 +2325,7 @@ export default {
         ]
       },
       history: [],
-      isShowText: false,
+      isShowRightText: false,
       searchKey: '',
       indexOffsetTop: {},
       // currentFixedIndicator: null,

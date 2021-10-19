@@ -11,7 +11,7 @@
         <Search class="mt1r mb1r ml2r mr2r" placeholder="搜索大学名称"
                 v-model="schoolName"
                 @clear="isSearch = false"
-                :is-show-text="true"
+                :is-show-right-text="true"
                 @notice="search"></Search>
       </template>
     </BaseHeader>

@@ -5,11 +5,11 @@
       <input type="text" :placeholder="placeholder" v-model="value">
       <div class="suffix">
         <slot v-if="$slots.default"></slot>
-        <img v-if="value.length && (!$slots.default)" src="../assets/img/icon/login/close-full-gray.png"
+        <img v-if="value.length && (!$slots.default)" src="../assets/img/icon/components/gray-close-full2.png"
              @click.stop="clear">
       </div>
     </div>
-    <div v-if="isShowText" class="notice" :style="{color : notice}" @click.stop="$emit('notice')">{{ showText }}</div>
+    <div v-if="isShowRightText" class="rightTextColor" :style="{color : rightTextColor}" @click.stop="$emit('notice')">{{ rightText }}</div>
   </div>
 </template>
 
@@ -26,11 +26,11 @@ export default {
       type: String,
       default: ''
     },
-    notice: {
+    rightTextColor: {
       type: String,
       default: 'red'
     },
-    isShowText: {
+    isShowRightText: {
       type: Boolean,
       default: false
     },
@@ -38,7 +38,7 @@ export default {
       type: Boolean,
       default: true
     },
-    showText: {
+    rightText: {
       type: String,
       default: '搜索'
     },
@@ -93,7 +93,7 @@ export default {
     }
   }
 
-  .notice {
+  .rightTextColor {
     margin-left: 1.5rem;
     font-size: 1.6rem;
   }
@@ -130,11 +130,13 @@ export default {
     }
 
     .suffix {
+      display: flex;
+      align-items: center;
       position: absolute;
-      right: 2rem;
+      right: 1.5rem;
 
       img {
-        width: 1rem;
+        width: 1.5rem;
       }
     }
   }
