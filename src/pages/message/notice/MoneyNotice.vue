@@ -8,7 +8,8 @@
         <span class="f14" @click="$nav('/message/notice-setting',{ type : 'MONEY' })">通知设置</span>
       </template>
     </BaseHeader>
-    <div class="content">
+    <Loading v-if="loading"/>
+    <div class="content" v-else>
       <div class="list" ref="content">
         <NoMore/>
         <!--TODO　超过3行显示全文-->
@@ -78,6 +79,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       isShowSetting: false,
       openNotice: false,
       list: [
@@ -102,17 +104,21 @@ export default {
       ]
     }
   },
-  watch: {},
-  computed: {},
   created() {
+    this.getData()
   },
-  mounted() {
-    nextTick(() => {
-      let content = this.$refs['content']
-      content.scrollTo({top: content.scrollHeight - content.clientHeight})
-    })
-  },
-  methods: {}
+  methods: {
+    async getData() {
+      this.loading = true
+      await this.$sleep(700)
+      this.loading = false
+
+      nextTick(() => {
+        let content = this.$refs['content']
+        content.scrollTo({top: content.scrollHeight - content.clientHeight})
+      })
+    },
+  }
 }
 </script>
 

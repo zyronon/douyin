@@ -153,7 +153,7 @@ export default {
 .People {
   transition: all 0.3s ease;
   width: 100%;
-  height: 7rem;
+  height: 8rem;
   display: flex;
   align-items: center;
   position: relative;
@@ -207,11 +207,11 @@ export default {
         border-radius: .2rem;
         background: rgb(58, 58, 67);
         font-size: 1.2rem;
-        padding: .4rem 0;
+        padding: .5rem 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 5.5rem;
+        width: 5.8rem;
 
         &:only-child {
           width: 7rem;

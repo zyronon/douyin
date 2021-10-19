@@ -464,6 +464,11 @@ export default {
       v.type = -2
     })
   },
+  mounted() {
+    setTimeout(()=>{
+      // this.isShowRecommend = true
+    },1000)
+  },
   methods: {
     async loadRecommendData() {
       if (this.loading) return

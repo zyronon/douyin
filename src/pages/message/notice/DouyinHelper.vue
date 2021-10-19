@@ -5,7 +5,8 @@
         <span class="f16">抖音小助手</span>
       </template>
     </BaseHeader>
-    <div class="content" ref="content">
+    <Loading v-if="loading"/>
+    <div class="content" ref="content" v-else>
       <NoMore/>
       <div class="list">
         <!--TODO　超过3行显示全文-->
@@ -30,11 +31,9 @@ import {nextTick} from "vue";
 export default {
   name: "DouyinHelper",
   components: {},
-  props: {
-    modelValue: false
-  },
   data() {
     return {
+      loading:false,
       list: [
         {
           read: false,
@@ -78,14 +77,21 @@ export default {
   },
   computed: {},
   created() {
+    this.getData()
   },
   mounted() {
-    nextTick(() => {
-      let content = this.$refs['content']
-      content.scrollTo({top: content.scrollHeight - content.clientHeight})
-    })
   },
   methods: {
+    async getData(){
+      this.loading = true
+      await this.$sleep(700)
+      this.loading = false
+
+      nextTick(() => {
+        let content = this.$refs['content']
+        content.scrollTo({top: content.scrollHeight - content.clientHeight})
+      })
+    },
     goDetail(item) {
       item.read = true
       this.$no()

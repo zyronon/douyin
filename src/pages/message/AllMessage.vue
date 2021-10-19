@@ -40,7 +40,9 @@
       </div>
     </transition>
     <div class="content">
+      <Loading v-if="loading"/>
       <Scroll
+          v-else
           ref="scroll"
           :use-refresh="true"
           @refresh="refresh"
@@ -106,9 +108,9 @@
           <img src="../../assets/img/icon/about-gray.png" alt="">
         </div>
         <Peoples v-model:list="recommend"
-                 :loading="loading"
+                 :loading="loadingMore"
                  mode="recommend"/>
-        <Loading :is-full-screen="false" v-if="loading"/>
+        <Loading :is-full-screen="false" v-if="loadingMore"/>
       </Scroll>
     </div>
   </div>
@@ -133,6 +135,7 @@ export default {
   data() {
     return {
       loading: false,
+      loadingMore: false,
       isShowType: false,
       showAll: false,
       recommend: [],
@@ -162,14 +165,20 @@ export default {
     }
   },
   created() {
-    this.recommend = this.$clone(this.friends.all)
-    this.fans = this.$clone(this.friends.all)
-    this.recommend.map(v => {
-      v.type = -1
-    })
-    this.messages = this.$clone(resource.videos)
+    this.getData()
   },
   methods: {
+    async getData() {
+      this.loading = true
+      await this.$sleep(800)
+      this.loading = false
+      this.recommend = this.$clone(this.friends.all)
+      this.fans = this.$clone(this.friends.all)
+      this.recommend.map(v => {
+        v.type = -1
+      })
+      this.messages = this.$clone(resource.videos)
+    },
     toggleShowType(index) {
       this.selectShowType = index
       this.isShowType = false
@@ -183,10 +192,10 @@ export default {
       this.$refs.scroll.refreshEnd()
     },
     async loadData() {
-      if (this.loading) return
-      this.loading = true
+      if (this.loadingMore) return
+      this.loadingMore = true
       await this.$sleep(500)
-      this.loading = false
+      this.loadingMore = false
       let temp = this.$clone(this.friends.all)
       temp.map(v => {
         v.type = -1
