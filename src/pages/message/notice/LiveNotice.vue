@@ -8,7 +8,8 @@
         <span class="f14" @click="$nav('/message/notice-setting',{ type : 'LIVE' })">通知设置</span>
       </template>
     </BaseHeader>
-    <div class="content">
+    <Loading v-if="loading"/>
+    <div class="content" v-else>
       <div class="list" ref="content">
         <NoMore/>
         <div class="item" v-for="item in list" @click="goDetail(item)">
@@ -33,6 +34,7 @@ export default {
   },
   data() {
     return {
+      loading:false,
       list: [
         {
           title: '直播举报反馈',
@@ -50,14 +52,19 @@ export default {
   watch: {},
   computed: {},
   created() {
-  },
-  mounted() {
-    nextTick(() => {
-      let content = this.$refs['content']
-      content.scrollTo({top: content.scrollHeight - content.clientHeight})
-    })
+    this.getData()
   },
   methods: {
+    async getData() {
+      this.loading = true
+      await this.$sleep(700)
+      this.loading = false
+
+      nextTick(() => {
+        let content = this.$refs['content']
+        content.scrollTo({top: content.scrollHeight - content.clientHeight})
+      })
+    },
     goDetail(item) {
       item.read = true
       if (item.detail) {

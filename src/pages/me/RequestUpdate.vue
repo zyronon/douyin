@@ -10,7 +10,8 @@
         </div>
       </template>
     </BaseHeader>
-    <div class="content">
+    <Loading v-if="loading"/>
+    <div v-else class="content">
       <div class="none" v-if="false">
         <img src="../../assets/img/icon/none-bg1.webp" alt="">
         <div class="title">暂时还没有粉丝点击“求更新”</div>
@@ -66,6 +67,7 @@ export default {
   data() {
     return {
       isShowOption: false,
+      loading: false,
       openRequestUpdate: true,
     }
   },
@@ -73,8 +75,14 @@ export default {
     ...mapState(['friends'])
   },
   created() {
+    this.getData()
   },
   methods: {
+    async getData() {
+      this.loading = true
+      await this.$sleep(700)
+      this.loading = false
+    },
     toggleRequestUpdate() {
       this.openRequestUpdate = !this.openRequestUpdate
       this.isShowOption = false

@@ -8,7 +8,8 @@
         <span class="f14" @click="$nav('/message/notice-setting',{ type : 'SYSTEM' })">通知设置</span>
       </template>
     </BaseHeader>
-    <div class="content">
+    <Loading v-if="loading"/>
+    <div class="content" v-else>
       <div class="list" ref="content">
         <NoMore/>
         <!--TODO　超过3行显示全文-->
@@ -64,11 +65,9 @@ import Mask from "../../../components/Mask";
 export default {
   name: "SystemNotice",
   components: {Mask},
-  props: {
-    modelValue: false
-  },
   data() {
     return {
+      loading: false,
       isShowMask: false,
       isShowLeftHover: false,
       isShowRightHover: false,
@@ -124,14 +123,21 @@ export default {
   },
   computed: {},
   created() {
+    this.getData()
   },
   mounted() {
-    nextTick(() => {
-      let content = this.$refs['content']
-      content.scrollTo({top: content.scrollHeight - content.clientHeight})
-    })
   },
   methods: {
+    async getData() {
+      this.loading = true
+      await this.$sleep(700)
+      this.loading = false
+
+      nextTick(() => {
+        let content = this.$refs['content']
+        content.scrollTo({top: content.scrollHeight - content.clientHeight})
+      })
+    },
     goDetail(item) {
       item.read = true
       if (item.detail) {

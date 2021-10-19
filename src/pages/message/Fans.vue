@@ -6,18 +6,19 @@
       </template>
     </BaseHeader>
     <div class="content">
-      <Scroll @pulldown="loadData">
+      <Loading  v-if="loading"/>
+      <Scroll @pulldown="loadData" v-else>
         <Peoples v-model:list="fans"
-                 :loading="loading"
+                 :loading="loadingMore"
                  mode="fans"/>
         <div class="title">
           <span>朋友推荐</span>
           <img src="../../assets/img/icon/about-gray.png" alt="">
         </div>
         <Peoples v-model:list="recommend"
-                 :loading="loading"
+                 :loading="loadingMore"
                  mode="recommend"/>
-        <Loading :is-full-screen="false" v-if="loading"/>
+        <Loading :is-full-screen="false" v-if="loadingMore"/>
       </Scroll>
     </div>
   </div>
@@ -40,6 +41,7 @@ export default {
   data() {
     return {
       loading: false,
+      loadingMore: false,
       recommend: [],
       fans: [],
     }
@@ -48,22 +50,25 @@ export default {
     ...mapState(['userinfo', 'friends'])
   },
   created() {
-    this.recommend = this.$clone(this.friends.all)
-    this.fans = this.$clone(this.friends.all)
-    this.recommend.map(v => {
-      v.type = -1
-    })
+    this.getData()
   },
   methods: {
-    remove(index) {
-      this.$notice('将不会再为你推荐该用户')
-      this.recommend.splice(index, 1)
-    },
-    async loadData() {
-      if (this.loading) return
+    async getData() {
       this.loading = true
       await this.$sleep(500)
       this.loading = false
+
+      this.recommend = this.$clone(this.friends.all)
+      this.fans = this.$clone(this.friends.all)
+      this.recommend.map(v => {
+        v.type = -1
+      })
+    },
+    async loadData() {
+      if (this.loadingMore) return
+      this.loadingMore = true
+      await this.$sleep(500)
+      this.loadingMore = false
       let temp = this.$clone(this.friends.all)
       temp.map(v => {
         v.type = -1
