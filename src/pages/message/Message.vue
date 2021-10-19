@@ -1,6 +1,6 @@
 <template>
   <div id="Message" ref="app" :class="createChatDialog?'disable-scroll':''">
-    <div class="no-search" v-show="false">
+    <div class="no-search" v-show="!searching">
       <BaseHeader>
         <template v-slot:center>
           <span class="f16">消息</span>
@@ -11,7 +11,7 @@
       </BaseHeader>
 
       <div class="content">
-        <Search class="ml2r mr2r mb2r"></Search>
+        <Search class="ml2r mr2r mb2r" @click="searching = true"></Search>
         <div class="friends  pl1r ">
           <div class="friend pr1r pl1r"
                @click="$nav('/message/chat')"
@@ -359,9 +359,11 @@
       </transition>
     </div>
 
-    <div class="searching">
+    <div class="searching" v-show="searching">
       <Search class="m2r" v-model="searchKey"
-              show-text="取消"
+              right-text="取消"
+              right-text-color="white"
+              @notice="searching = false"
               :isShowRightText="true"/>
       <div class="more-chat">
 
@@ -397,6 +399,7 @@ export default {
   data() {
     return {
       isShowRecommend: false,
+      searching: false,
       searchKey: '',
       createChatSearchKey: '',
       showJoinedChat: false,

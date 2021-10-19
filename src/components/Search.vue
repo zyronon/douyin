@@ -1,4 +1,5 @@
 <template>
+<!--  TODO 背景色不对-->
   <div class="search-ctn" :class="mode">
     <div class="search">
       <img v-if="isShowSearchIcon" class="search-icon" src="../assets/img/icon/search-gray.png" alt="">
@@ -95,7 +96,7 @@ export default {
 
   .rightTextColor {
     margin-left: 1.5rem;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 
   .search {
