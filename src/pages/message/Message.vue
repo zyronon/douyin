@@ -360,12 +360,16 @@
     </div>
 
     <div class="searching" v-show="searching">
-      <Search class="m2r" v-model="searchKey"
+      <Search v-model="searchKey"
               right-text="取消"
               right-text-color="white"
               @notice="searching = false"
               :isShowRightText="true"/>
       <div class="more-chat">
+        <div class="sub-title-g">更多聊天</div>
+        <People v-for="(item,index) in moreChat"
+                :key="item.id"
+                :people="item"/>
 
       </div>
 
@@ -384,6 +388,7 @@ import {mapState} from "vuex";
 import Peoples from "../people/components/Peoples";
 import Mask from "../../components/Mask";
 import Scroll from "../../components/Scroll";
+import People from "../people/components/People";
 
 export default {
   name: "Message",
@@ -394,12 +399,13 @@ export default {
     Search,
     FromBottomDialog,
     Check,
-    Peoples
+    Peoples,
+    People
   },
   data() {
     return {
       isShowRecommend: false,
-      searching: false,
+      searching: true,
       searchKey: '',
       createChatSearchKey: '',
       showJoinedChat: false,
@@ -459,6 +465,8 @@ export default {
       // ],
       searchFriends: [],
       recommend: [],
+
+      moreChat: []
     }
   },
   computed: {
@@ -485,6 +493,7 @@ export default {
     this.recommend.map(v => {
       v.type = -2
     })
+    this.moreChat = this.$clone(this.friends.all.slice(0, 3))
   },
   mounted() {
     setTimeout(() => {
@@ -1035,6 +1044,7 @@ export default {
   }
 
   .searching {
+    padding: @padding-page;
 
   }
 
