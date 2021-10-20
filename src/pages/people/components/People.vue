@@ -2,6 +2,13 @@
   <div class="People">
     <img :src="$imgPreview(people.avatar)" alt="" class="head-image pull-left">
     <div class="content">
+      <template v-if="mode === 'normal'">
+        <div class="left">
+          <div class="name">{{ people.name }}</div>
+        </div>
+      </template>
+
+
       <template v-if="mode === 'fans'">
         <div class="left">
           <div class="name">{{ people.name }}</div>
@@ -113,7 +120,7 @@ export default {
     },
     mode: {
       type: String,
-      default: 'fans'
+      default: 'normal'
     }
   },
   data() {
@@ -153,7 +160,7 @@ export default {
 .People {
   transition: all 0.3s ease;
   width: 100%;
-  height: 8rem;
+  height: 7rem;
   display: flex;
   align-items: center;
   position: relative;
