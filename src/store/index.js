@@ -28,7 +28,7 @@ const store = Vuex.createStore({
       "unique_id_modify_time": "1630393144",
       "unique_id": "10040050",
       "favoriting_count": 143,
-      "avatar": require('../assets/img/icon/avatar/2.png'),
+      "avatar": new URL('../assets/img/icon/avatar/2.png', import.meta.url).href,
       "city": "成都",
       "province": '四川',
       "country": "中国",
@@ -50,7 +50,7 @@ const store = Vuex.createStore({
       "all": [
         {
           "id": "224e9a00-ffa0-4bc1-bb07-c318c7b02fa5",
-          "avatar": require('../assets/img/icon/avatar/1.png'),
+          "avatar": new URL('../assets/img/icon/avatar/1.png', import.meta.url).href,
           "name": "何以为家",
           "sex": "",
           "age": null,
@@ -69,7 +69,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "2b446aa8-5d31-429a-8e39-d4705eb4e900",
-          "avatar": require('../assets/img/icon/avatar/19.png'),
+          "avatar": new URL('../assets/img/icon/avatar/19.png', import.meta.url).href,
           "name": "浅唱↘我们的歌",
           "sex": "",
           "age": null,
@@ -88,7 +88,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "2d8622b4-7112-4bc7-a0cf-00a268a85504",
-          "avatar": require('../assets/img/icon/avatar/25.png'),
+          "avatar": new URL('../assets/img/icon/avatar/25.png', import.meta.url).href,
           "name": "‘心’之天空",
           "sex": "",
           "age": null,
@@ -107,7 +107,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "2e38900b-65f7-426a-8e8b-edb403df35fb",
-          "avatar": require('../assets/img/icon/avatar/18.png'),
+          "avatar": new URL('../assets/img/icon/avatar/18.png', import.meta.url).href,
           "name": "◇、_保持微笑ゞ",
           "sex": "",
           "age": null,
@@ -126,7 +126,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "3cd53cb5-04f8-4439-ad2b-e57b3f9b8c73",
-          "avatar": require('../assets/img/icon/avatar/26.png'),
+          "avatar": new URL('../assets/img/icon/avatar/26.png', import.meta.url).href,
           "name": "好◇°我会Yi直在●",
           "sex": "",
           "age": null,
@@ -144,7 +144,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "46c77017-9dc6-4a48-bf96-560c6e7db06f",
-          "avatar": require('../assets/img/icon/avatar/4.png'),
+          "avatar": new URL('../assets/img/icon/avatar/4.png', import.meta.url).href,
           "name": "甫韦茹",
           "sex": "",
           "age": null,
@@ -162,7 +162,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "4df770d7-a414-4e02-8f9e-72ebd87eb93e",
-          "avatar": require('../assets/img/icon/avatar/12.png'),
+          "avatar": new URL('../assets/img/icon/avatar/12.png', import.meta.url).href,
           "name": "幸福泡泡",
           "sex": "",
           "age": null,
@@ -180,7 +180,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "5ebb4d7a-c7ad-43c7-a830-9eb3ee423cb7",
-          "avatar": require('../assets/img/icon/avatar/3.png'),
+          "avatar": new URL('../assets/img/icon/avatar/3.png', import.meta.url).href,
           "name": "蔡傲安",
           "sex": "",
           "age": null,
@@ -198,7 +198,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "7226092d-a2c5-4ffd-98d7-3b7ac814bca3",
-          "avatar": require('../assets/img/icon/avatar/16.png'),
+          "avatar": new URL('../assets/img/icon/avatar/16.png', import.meta.url).href,
           "name": "心若向阳无谓伤悲",
           "sex": "",
           "age": null,
@@ -216,7 +216,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "72aef2a9-5573-4205-9288-706e19bccc7f",
-          "avatar": require('../assets/img/icon/avatar/10.png'),
+          "avatar": new URL('../assets/img/icon/avatar/10.png', import.meta.url).href,
           "name": "A倒影着稚嫩的少年",
           "sex": "",
           "age": null,
@@ -234,7 +234,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "77c82d2e-9be1-45c2-a733-00445d2e7f2c",
-          "avatar": require('../assets/img/icon/avatar/22.png'),
+          "avatar": new URL('../assets/img/icon/avatar/22.png', import.meta.url).href,
           "name": "一只喵的旅行。",
           "sex": "",
           "age": null,
@@ -252,7 +252,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "7b30566d-70eb-4a31-ae43-200917269a43",
-          "avatar": require('../assets/img/icon/avatar/14.png'),
+          "avatar": new URL('../assets/img/icon/avatar/14.png', import.meta.url).href,
           "name": "℉阳光下的小情绪",
           "sex": "",
           "age": null,
@@ -270,7 +270,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "90c6ccd8-0653-4789-9348-28fba06d6ae3",
-          "avatar": require('../assets/img/icon/avatar/11.png'),
+          "avatar": new URL('../assets/img/icon/avatar/11.png', import.meta.url).href,
           "name": "思念一直在",
           "sex": "",
           "age": null,
@@ -288,7 +288,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "a2c1310f-1a3c-430f-9b7c-557b9ccdd33d",
-          "avatar": require('../assets/img/icon/avatar/9.png'),
+          "avatar": new URL('../assets/img/icon/avatar/9.png', import.meta.url).href,
           "name": "阎韶丽",
           "sex": "",
           "age": null,
@@ -306,7 +306,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "a7443b4f-b0fa-4409-a693-5f090aa763ee",
-          "avatar": require('../assets/img/icon/avatar/5.png'),
+          "avatar": new URL('../assets/img/icon/avatar/5.png', import.meta.url).href,
           "name": "马佳婉清",
           "sex": "",
           "age": null,
@@ -324,7 +324,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "b49fd828-f8a7-4be0-a3bc-0a8fa312b2e8",
-          "avatar": require('../assets/img/icon/avatar/0.png'),
+          "avatar": new URL('../assets/img/icon/avatar/0.png', import.meta.url).href,
           "name": "倒影着稚嫩的少年",
           "sex": "",
           "age": null,
@@ -342,7 +342,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "b632bffe-1cfb-408a-8255-b558e2faf49a",
-          "avatar": require('../assets/img/icon/avatar/8.png'),
+          "avatar": new URL('../assets/img/icon/avatar/8.png', import.meta.url).href,
           "name": "买易槐",
           "sex": "",
           "age": null,
@@ -360,7 +360,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "c01f10dd-a270-42ab-876f-64a8beb22a69",
-          "avatar": require('../assets/img/icon/avatar/7.png'),
+          "avatar": new URL('../assets/img/icon/avatar/7.png', import.meta.url).href,
           "name": "章昊苍",
           "sex": "",
           "age": null,
@@ -378,7 +378,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "d0bf11a3-a25b-4865-a047-c67de8e8af7b",
-          "avatar": require('../assets/img/icon/avatar/2.png'),
+          "avatar": new URL('../assets/img/icon/avatar/2.png', import.meta.url).href,
           "name": "凌依晨",
           "sex": "",
           "age": null,
@@ -396,7 +396,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "d300b7a5-115d-41ba-a071-7d1781da331f",
-          "avatar": require('../assets/img/icon/avatar/23.png'),
+          "avatar": new URL('../assets/img/icon/avatar/23.png', import.meta.url).href,
           "name": "为你锁住心",
           "sex": "",
           "age": null,
@@ -414,7 +414,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "deceba30-80fc-45c2-bd56-8d65091bb104",
-          "avatar": require('../assets/img/icon/avatar/13.png'),
+          "avatar": new URL('../assets/img/icon/avatar/13.png', import.meta.url).href,
           "name": "原味青春",
           "sex": "",
           "age": null,
@@ -432,7 +432,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "e0c3d20d-5978-4339-962f-cffc6e29aff1",
-          "avatar": require('../assets/img/icon/avatar/24.png'),
+          "avatar": new URL('../assets/img/icon/avatar/24.png', import.meta.url).href,
           "name": "一起走过的日子°",
           "sex": "",
           "age": null,
@@ -450,7 +450,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "e1fb6274-10fa-4d50-b9b1-6eefacfc2341",
-          "avatar": require('../assets/img/icon/avatar/15.png'),
+          "avatar": new URL('../assets/img/icon/avatar/15.png', import.meta.url).href,
           "name": "看，熟悉旳风景",
           "sex": "",
           "age": null,
@@ -468,7 +468,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "eab1ef9b-70e6-4249-8d78-b4f6e1b0cb08",
-          "avatar": require('../assets/img/icon/avatar/20.png'),
+          "avatar": new URL('../assets/img/icon/avatar/20.png', import.meta.url).href,
           "name": "dear°学会微笑",
           "sex": "",
           "age": null,
@@ -486,7 +486,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "ecb405e2-d057-4c85-a12b-a5fe9a7b8a05",
-          "avatar": require('../assets/img/icon/avatar/6.png'),
+          "avatar": new URL('../assets/img/icon/avatar/6.png', import.meta.url).href,
           "name": "富察昕昕",
           "sex": "",
           "age": null,
@@ -504,7 +504,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "f09652a3-d6e1-4517-a15e-583a24a250e1",
-          "avatar": require('../assets/img/icon/avatar/17.png'),
+          "avatar": new URL('../assets/img/icon/avatar/17.png', import.meta.url).href,
           "name": "蓝天下的迷彩?",
           "sex": "",
           "age": null,
@@ -522,7 +522,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "f676cc30-cc81-487a-9450-cbb1f3c5cde8",
-          "avatar": require('../assets/img/icon/avatar/21.png'),
+          "avatar": new URL('../assets/img/icon/avatar/21.png', import.meta.url).href,
           "name": "伱的微笑",
           "sex": "",
           "age": null,
@@ -542,7 +542,7 @@ const store = Vuex.createStore({
       "recent": [
         {
           "id": "3cd53cb5-04f8-4439-ad2b-e57b3f9b8c73",
-          "avatar": require('../assets/img/icon/avatar/26.png'),
+          "avatar": new URL('../assets/img/icon/avatar/26.png', import.meta.url).href,
           "name": "好◇°我会Yi直在●",
           "sex": "",
           "age": null,
@@ -560,7 +560,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "77c82d2e-9be1-45c2-a733-00445d2e7f2c",
-          "avatar": require('../assets/img/icon/avatar/22.png'),
+          "avatar": new URL('../assets/img/icon/avatar/22.png', import.meta.url).href,
           "name": "一只喵的旅行。",
           "sex": "",
           "age": null,
@@ -580,7 +580,7 @@ const store = Vuex.createStore({
       "eachOther": [
         {
           "id": "2b446aa8-5d31-429a-8e39-d4705eb4e900",
-          "avatar": require('../assets/img/icon/avatar/19.png'),
+          "avatar": new URL('../assets/img/icon/avatar/19.png', import.meta.url).href,
           "name": "浅唱↘我们的歌",
           "sex": "",
           "age": null,
@@ -598,7 +598,7 @@ const store = Vuex.createStore({
         },
         {
           "id": "eab1ef9b-70e6-4249-8d78-b4f6e1b0cb08",
-          "avatar": require('../assets/img/icon/avatar/20.png'),
+          "avatar": new URL('../assets/img/icon/avatar/20.png', import.meta.url).href,
           "name": "dear°学会微笑",
           "sex": "",
           "age": null,
@@ -616,6 +616,7 @@ const store = Vuex.createStore({
         }
       ]
     }
+
   },
   mutations: {
     setUserinfo(store, val) {

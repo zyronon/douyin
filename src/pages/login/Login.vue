@@ -74,10 +74,10 @@ export default {
         login: false,
         getPhone: false,
       }
-
     }
   },
-  computed: {},
+  computed: {
+  },
   created() {
     this.getPhone()
   },

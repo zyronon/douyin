@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import bus from "../../utils/bus";
 
 export default {

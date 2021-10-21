@@ -2,12 +2,15 @@ import * as Vue from "vue";
 import SelectDialog from "../components/dialog/SelectDialog";
 import SimpleConfirmDialog from "../components/dialog/SimpleConfirmDialog";
 import ConfirmDialog from "../components/dialog/ConfirmDialog";
-import Loading from "../components/Loading";
+import Loading from "../components/Loading.vue";
 import Config from '../config'
 import NoticeDialog from "../components/dialog/NoticeDialog";
 import dayjs from 'dayjs'
 
 export default {
+  require2(url) {
+    return new URL(url, import.meta.url).href
+  },
   $showLoading() {
     const app = Vue.createApp({
       render() {

@@ -1,7 +1,7 @@
 <template>
   <div id="attention">
     <header ref="header">
-      <span @click="$nav('/country-choose')">双流</span>
+      <span @click="$nav('/me/country-choose')">双流</span>
       <div class="arrow"></div>
     </header>
     <div class="scroller"
@@ -247,23 +247,23 @@ export default {
   mounted() {
     for (let i = 1; i < 12; i++) {
       let temp = {
-        src: require(`../../assets/img/poster/${i}.jpg`),
-        author: require(`../../assets/img/avatar.png`),
+        src: new URL(`../../assets/img/poster/${i}.jpg`, import.meta.url).href,
+        author: new URL(`../../assets/img/avatar.png`, import.meta.url).href,
       }
       temp.type = i - 1 > 3 ? 3 : i - 1
       if (temp.type === 2) {
         temp.desc = '成都市好友聚会美食榜'
         temp.ads = [
           {
-            src: require(`../../assets/img/poster/${i}.jpg`),
+            src: new URL(`../../assets/img/poster/${i}.jpg`, import.meta.url).href,
             name: '烧江南烧肉'
           },
           {
-            src: require(`../../assets/img/poster/${i}.jpg`),
+            src: new URL(`../../assets/img/poster/${i}.jpg`, import.meta.url).href,
             name: '欧叶无国界料理餐厅'
           },
           {
-            src: require(`../../assets/img/poster/${i}.jpg`),
+            src: new URL(`../../assets/img/poster/${i}.jpg`, import.meta.url).href,
             name: '陆派玛歌庄园'
           }
         ]

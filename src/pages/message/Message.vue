@@ -366,16 +366,39 @@
               @notice="searching = false"
               :isShowRightText="true"/>
       <div class="more-chat">
-        <div class="sub-title-g">更多聊天</div>
-        <People v-for="(item,index) in moreChat"
-                :key="item.id"
-                :people="item"/>
+        <template v-if="searchKey">
+          <div class="sub-title" v-if="searchFriendsAll.length">
+            <span>联系人</span>
+            <div class="right" v-if="searchFriendsAll.length > 3" @click="$nav('/message/more-search',{key:searchKey})">
+              <span>更多联系人</span>
+              <back mode="gray" img="back" scale=".6" direction="right"/>
+            </div>
+          </div>
+          <People v-for="(item,index) in searchFriendsAll.slice(0,3)"
+                  :key="item.id"
+                  mode="search"
+                  :searchKey="searchKey"
+                  :people="item"/>
+          <div class="goto-search-page" @click="$nav('/home/search',{key:searchKey})">
+            <img class="icon" src="../../assets/img/icon/search-light.png" alt="">
+            <div class="right">
+              <div class="left">
+                <span>搜索 <span style="color: yellow">{{ searchKey }}</span></span>
+                <span class="second-text-color f12">视频、用户、音乐、话题、地点等</span>
+              </div>
+              <back mode="gray" img="back" direction="right" scale=".7"/>
+            </div>
+          </div>
 
+        </template>
+        <template v-else>
+          <div class="sub-title">更多聊天</div>
+          <People v-for="(item,index) in moreChat"
+                  :key="item.id"
+                  :people="item"/>
+        </template>
       </div>
-
     </div>
-
-
   </div>
 </template>
 
@@ -405,7 +428,7 @@ export default {
   data() {
     return {
       isShowRecommend: false,
-      searching: true,
+      searching: false,
       searchKey: '',
       createChatSearchKey: '',
       showJoinedChat: false,
@@ -413,56 +436,6 @@ export default {
       createChatDialog: false,
       isShowRightText: false,
       text: 'AAAAAAAAA、BBBBBBBBBBBBB、CCCCCCCC',
-      // friends: [
-      //   {
-      //     avatar: '',
-      //     name: '11',
-      //     account: '173123141231qoqo',
-      //     select: false
-      //   },
-      //   {
-      //     avatar: '',
-      //     name: 'Boooo',
-      //     account: '234242ooo',
-      //     select: false
-      //   },
-      //   {
-      //     avatar: '',
-      //     name: '三分钟情、',
-      //     account: '3029342',
-      //     select: false
-      //   },
-      //   {
-      //     avatar: '',
-      //     name: 'zzzzz',
-      //     account: '6034592',
-      //     select: false
-      //   },
-      //   {
-      //     avatar: '',
-      //     name: 'zzzzz',
-      //     account: '6034592',
-      //     select: false
-      //   },
-      //   {
-      //     avatar: '',
-      //     name: 'zzzzz',
-      //     account: '6034592',
-      //     select: false
-      //   },
-      //   {
-      //     avatar: '',
-      //     name: 'zzzzz',
-      //     account: '6034592',
-      //     select: false
-      //   },
-      //   {
-      //     avatar: '',
-      //     name: 'zzzzz',
-      //     account: '6034592',
-      //     select: false
-      //   },
-      // ],
       searchFriends: [],
       recommend: [],
 
@@ -473,6 +446,11 @@ export default {
     ...mapState(['friends', 'userinfo']),
     selectFriends() {
       return this.friends.all.filter(v => v.select).length
+    },
+    searchFriendsAll() {
+      return this.friends.all.filter(v => {
+        return v.name.search(this.searchKey) !== -1 || v.account.search(this.searchKey) !== -1
+      })
     }
   },
   watch: {
@@ -771,13 +749,14 @@ export default {
       }
     }
 
-    /deep/ #BaseHeader .header {
+    :deep(#BaseHeader .header) {
       border-bottom: none;
 
       .left {
         opacity: 0;
       }
     }
+
 
     .content {
       padding-top: @header-height;
@@ -1035,7 +1014,7 @@ export default {
             color: black !important;
           }
 
-          /deep/ .People .content .left .name {
+          :deep(.People .content .left .name) {
             color: black !important;
           }
         }
@@ -1046,6 +1025,55 @@ export default {
   .searching {
     padding: @padding-page;
 
+    .sub-title {
+      margin-top: @padding-page;
+      color: @second-text-color;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .right {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .goto-search-page {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: @padding-page;
+      margin-top: @padding-page;
+      border-top: 1px solid @line-color;
+
+      .icon {
+        border-radius: 50%;
+        padding: 1.3rem;
+        background: @second-btn-color-tran;
+        width: 2.2rem;
+        height: 2.2rem;
+        margin-right: 1rem;
+      }
+
+      .right {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .left {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .second-text-color {
+            margin-top: .5rem;
+          }
+        }
+      }
+
+    }
   }
 
 }

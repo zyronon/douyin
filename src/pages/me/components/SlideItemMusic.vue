@@ -67,9 +67,9 @@
   </div>
 </template>
 <script>
-import {nextTick} from "_vue@3.2.4@vue";
+import {nextTick} from "vue";
 import globalMethods from "../../../utils/global-methods";
-import gaobaiqiqiu from "../../../assets/data/lyrics/gaobaiqiqiu.lrc";
+import gaobaiqiqiu from "../../../assets/data/lyrics/gaobaiqiqiu.lrc?raw";
 
 export default {
   name: "SlideItemMusic",

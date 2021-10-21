@@ -11,14 +11,14 @@
       </template>
     </BaseHeader>
     <div class="content">
-      <div class="row" @click="$nav('/choose-school')">
+      <div class="row" @click="$nav('/me/choose-school')">
         <div class="left">学校</div>
         <div class="right">
           <span>{{ isEmpty(localSchool.name) }}</span>
           <back scale='1' direction="right"></back>
         </div>
       </div>
-      <div class="row" @click="checkGo('/choose-department')">
+      <div class="row" @click="checkGo('/me/choose-department')">
         <div class="left">院系</div>
         <div class="right">
           <span>{{ isEmpty(localSchool.department) }}</span>
@@ -40,7 +40,7 @@
           <back scale='1' direction="right"></back>
         </div>
       </div>
-      <div class="row" @click="$nav('/display-type',{displayType : localSchool.displayType})">
+      <div class="row" @click="$nav('/me/display-type',{displayType : localSchool.displayType})">
         <div class="left">展示范围</div>
         <div class="right">
           <span>{{ displayType }}</span>
@@ -55,7 +55,7 @@
 import {mapState} from 'vuex'
 import enums from '../../../utils/enums'
 import {inject} from "vue";
-import MobileSelect from "mobile-select";
+import MobileSelect from "../../../components/mobile-select/mobile-select";
 import ConfirmDialog from "../../../components/dialog/ConfirmDialog";
 import Loading from "../../../components/Loading";
 

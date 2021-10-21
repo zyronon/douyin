@@ -16,21 +16,21 @@
         </div>
         <span>点击更换头像</span>
       </div>
-      <div class="row" @click="$nav('/edit-userinfo-item',{type:1})">
+      <div class="row" @click="$nav('/me/edit-userinfo-item',{type:1})">
         <div class="left">名字</div>
         <div class="right">
           <span>{{ isEmpty(userinfo.nickname) }}</span>
           <back scale=".8" direction="right"></back>
         </div>
       </div>
-      <div class="row" @click="$nav('/edit-userinfo-item',{type:2})">
+      <div class="row" @click="$nav('/me/edit-userinfo-item',{type:2})">
         <div class="left">抖音号</div>
         <div class="right">
           <span>{{ isEmpty(userinfo.unique_id) }}</span>
           <back scale=".8" direction="right"></back>
         </div>
       </div>
-      <div class="row" @click="$nav('/edit-userinfo-item',{type:3})">
+      <div class="row" @click="$nav('/me/edit-userinfo-item',{type:3})">
         <div class="left">简介</div>
         <div class="right">
           <span>{{ isEmpty(userinfo.desc) }}</span>
@@ -52,14 +52,14 @@
           <back scale=".8" direction="right"></back>
         </div>
       </div>
-      <div class="row" @click="$nav('/choose-location')">
+      <div class="row" @click="$nav('/me/choose-location')">
         <div class="left">所在地</div>
         <div class="right">
           <span>{{ isEmpty(userinfo.location) }}</span>
           <back scale=".8" direction="right"></back>
         </div>
       </div>
-      <div class="row" @click="$nav('/add-school')">
+      <div class="row" @click="$nav('/me/add-school')">
         <div class="left">学校</div>
         <div class="right">
           <span>{{ isEmpty(userinfo.school.name) }}</span>
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import MobileSelect from "mobile-select";
+import MobileSelect from "../../../components/mobile-select/mobile-select";
 import {mapState} from "vuex";
 
 export default {

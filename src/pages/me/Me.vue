@@ -27,7 +27,7 @@
              @touchmove="touchMove($event)"
              @touchend="touchEnd($event)">
           <div ref="desc" class="desc">
-            <header ref="header" @click="previewImg = require('../../assets/img/header-bg.png')"></header>
+            <header ref="header" @click="previewImg = new URL('../../assets/img/header-bg.png')"></header>
             <div class="detail">
               <div class="head">
                 <img  :src="$imgPreview(userinfo.avatar)" class="head-image"
@@ -52,16 +52,16 @@
                 <div class="number mb1r">
                   <span class="mr1r" v-if="userinfo.is_private">私密账号</span>
                   <span>抖音号：{{ userinfo.unique_id }}</span>
-                  <img src="../../assets/img/icon/me/qrcode-gray.png" alt="" @click.stop="$nav('/my-card')">
+                  <img src="../../assets/img/icon/me/qrcode-gray.png" alt="" @click.stop="$nav('/me/my-card')">
                 </div>
-                <div class="signature f12" @click="$nav('/edit-userinfo-item',{type:3})">
+                <div class="signature f12" @click="$nav('/me/edit-userinfo-item',{type:3})">
                   <template v-if="!userinfo.desc">
                     <span>点击添加介绍，让大家认识你...</span>
                     <img src="../../assets/img/icon/me/write-gray.png" alt="">
                   </template>
                   <div v-else class="text" v-html="userinfo.desc"></div>
                 </div>
-                <div class="more" @click="$nav('/edit-userinfo')">
+                <div class="more" @click="$nav('/me/edit-userinfo')">
                   <div class="age item" v-if="userinfo.birthday">
                     <img v-if="userinfo.sex == 0" src="../../assets/img/icon/me/woman.png" alt="">
                     <img v-if="userinfo.sex == 1" src="../../assets/img/icon/me/man.png" alt="">
@@ -97,7 +97,7 @@
                 </div>
               </div>
               <div class="my-buttons">
-                <div class="button" @click="$nav('/edit-userinfo')">
+                <div class="button" @click="$nav('/me/edit-userinfo')">
                   <span>编辑资料</span>
                 </div>
                 <div class="button" @click="$nav('/people/find-acquaintance')">
@@ -222,7 +222,7 @@
             </div>
             <div class="line"></div>
 
-            <div class="li" @click="$nav('/my-card')">
+            <div class="li" @click="$nav('/me/my-card')">
               <img src="../../assets/img/icon/newicon/left_menu/qrcode.png" alt="">
               <span>我的二维码</span>
             </div>

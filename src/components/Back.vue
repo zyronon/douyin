@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     src() {
-      return require(`../assets/img/icon/components/${this.mode}-${this.img}.png`)
+      return new URL(`../assets/img/icon/components/${this.mode}-${this.img}.png`, import.meta.url).href
     }
   },
   mounted() {

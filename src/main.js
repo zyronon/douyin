@@ -12,10 +12,9 @@ import VueLazyload from '@jambonn/vue-lazyload'
 
 const app = Vue.createApp(App)
 app.config.globalProperties.$api = {...api}
-// app.config.compilerOptions.isCustomElement = tag => tag.startsWith('video1')
 
 
-const loadImage = require('./assets/img/icon/img-loading.png')
+const loadImage = new URL('./assets/img/icon/img-loading.png', import.meta.url).href
 
 app.provide('mitt', mitt())
 app.mixin(mixin)
