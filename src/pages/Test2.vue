@@ -111,7 +111,7 @@ export default {
     },
     emoji() {
       let span = document.createElement('img')
-      span.setAttribute('src', require('../assets/img/icon/message/emoji/4.webp'))
+      span.setAttribute('src', new URL('../assets/img/icon/message/emoji/4.webp'))
       span.classList.add('emoji')
       this.$refs.input.append(span)
     }

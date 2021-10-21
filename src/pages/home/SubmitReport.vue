@@ -62,7 +62,7 @@ export default {
       await this.$sleep(500)
       this.$hideLoading()
       this.photos.push(
-          require(`../../assets/img/poster/${this.photos.length}.jpg`)
+          new URL(`../../assets/img/poster/${this.photos.length}.jpg`)
       )
 
     }

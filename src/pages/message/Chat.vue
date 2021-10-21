@@ -160,7 +160,7 @@ export default {
         {
           type: MESSAGE_TYPE.MEME,
           state: AUDIO_STATE.NORMAL,
-          data: require('../../assets/img/poster/1.jpg'),
+          data: new URL('../../assets/img/poster/1.jpg', import.meta.url).href,
           time: '2021-01-02 21:21',
           user: {
             id: 2,
@@ -180,7 +180,7 @@ export default {
         {
           type: MESSAGE_TYPE.IMAGE,
           state: AUDIO_STATE.NORMAL,
-          data: require('../../assets/img/poster/1.jpg'),
+          data: new URL('../../assets/img/poster/1.jpg', import.meta.url).href,
           time: '2021-01-02 21:21',
           user: {
             id: 1,
@@ -190,7 +190,7 @@ export default {
         {
           type: MESSAGE_TYPE.IMAGE,
           state: AUDIO_STATE.NORMAL,
-          data: require('../../assets/img/poster/1.jpg'),
+          data: new URL('../../assets/img/poster/1.jpg', import.meta.url).href,
           time: '2021-01-02 21:21',
           user: {
             id: 1,
@@ -324,10 +324,10 @@ export default {
           type: MESSAGE_TYPE.DOUYIN_VIDEO,
           state: VIDEO_STATE.VALID,
           data: {
-            poster: require('../../assets/img/poster/3.jpg'),
+            poster: new URL('../../assets/img/poster/3.jpg', import.meta.url).href,
             author: {
               name: 'safasdfassafasdfassafasdfassafasdfas',
-              avatar: require('../../assets/img/icon/head-image.jpeg')
+              avatar: new URL('../../assets/img/icon/head-image.jpeg',import.meta.url).href
             },
             title: '服了asd'
           },
@@ -341,10 +341,10 @@ export default {
           type: MESSAGE_TYPE.DOUYIN_VIDEO,
           state: VIDEO_STATE.VALID,
           data: {
-            poster: require('../../assets/img/poster/3.jpg'),
+            poster: new URL('../../assets/img/poster/3.jpg', import.meta.url).href,
             author: {
               name: 'safasdfassafasdfassafasdfassafasdfas',
-              avatar: require('../../assets/img/icon/head-image.jpeg')
+              avatar: new URL('../../assets/img/icon/head-image.jpeg',import.meta.url).href
             },
             title: '服了asd'
           },
@@ -358,7 +358,7 @@ export default {
           type: MESSAGE_TYPE.VIDEO,
           state: VIDEO_STATE.VALID,
           data: {
-            poster: require('../../assets/img/poster/3.jpg'),
+            poster: new URL('../../assets/img/poster/3.jpg', import.meta.url).href,
           },
           time: '2021-01-02 21:21',
           user: {

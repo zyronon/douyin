@@ -20,7 +20,7 @@
         <div class="title">
           <span>其他地区</span>
         </div>
-        <div class="row" @click="$nav('/choose-province')">
+        <div class="row" @click="$nav('/me/choose-province')">
           <span>中国</span>
           <div class="right">
             <back scale=".8" direction="right"></back>

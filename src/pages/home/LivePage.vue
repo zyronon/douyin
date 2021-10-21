@@ -117,7 +117,7 @@ export default {
         `
       },
       userJoinedTemplate: () => {
-        let src = require('../../assets/img/icon/home/level.webp')
+        let src = new URL('../../assets/img/icon/home/level.webp')
         return `
         <div class="user-joined">
           <div class="level">
@@ -132,8 +132,8 @@ export default {
         `
       },
       sendGiftTemplate: () => {
-        let avatar = require('../../assets/img/icon/avatar/3.png')
-        let gift = require('../../assets/img/icon/home/love.webp')
+        let avatar = new URL('../../assets/img/icon/avatar/3.png')
+        let gift = new URL('../../assets/img/icon/home/love.webp')
         return `
         <div class="send-gift">
           <div class="left">

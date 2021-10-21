@@ -1,13 +1,13 @@
 {
-  "name": "douyin",
-  "version": "0.1.0",
-  "private": true,
+  "name": "my-vue-app",
+  "version": "0.0.0",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
   },
   "dependencies": {
+    "vue": "^3.2.16",
     "@jambonn/vue-lazyload": "^1.0.8",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
@@ -16,41 +16,16 @@
     "mitt": "^2.1.0",
     "mockjs": "^1.1.0",
     "pinyin": "^2.9.0",
-    "vue": "^3.0.0",
     "vue-router": "^4.0.8",
     "vue-switches": "^2.0.1",
     "vuex": "^4.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0",
+    "@vitejs/plugin-vue": "^1.9.3",
+    "@vitejs/plugin-vue-jsx": "^1.2.0",
+    "vite": "^2.6.4",
     "less": "^4.1.1",
     "less-loader": "^7.0.0",
-    "mobile-select": "^1.1.2",
-    "raw-loader": "^4.0.2"
-  },
-  "eslintConfig": {
-    "root": false,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+    "mobile-select": "^1.1.2"
+  }
 }

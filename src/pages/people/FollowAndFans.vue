@@ -51,7 +51,7 @@ import People from './components/People'
 import Search from '../../components/Search'
 import Indicator from '../../components/slide/Indicator'
 import FromBottomDialog from "../../components/dialog/FromBottomDialog";
-import {mapState} from "_vuex@4.0.2@vuex";
+import {mapState} from "vuex";
 
 export default {
   name: "FindAcquaintance",

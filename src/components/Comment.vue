@@ -169,7 +169,7 @@ export default {
     send() {
       this.comments.push({
         id: '2',
-        avatar: require('../assets/img/icon/avatar/4.png'),
+        avatar: new URL('../assets/img/icon/avatar/4.png', import.meta.url).href,
         name: '成都旅行',
         text: this.comment,
         loveNum: 27,
@@ -185,7 +185,7 @@ export default {
       this.comments = [
         {
           id: '1',
-          avatar: require('../assets/img/icon/avatar/1.png'),
+          avatar: new URL('../assets/img/icon/avatar/1.png', import.meta.url).href,
           name: '彭雨晏',
           text: '这到底是怎么了？艺人一个接一个的出事',
           loveNum: 57000,
@@ -194,7 +194,7 @@ export default {
           children: [
             {
               id: '10',
-              avatar: require('../assets/img/icon/avatar/2.png'),
+              avatar: new URL('../assets/img/icon/avatar/2.png', import.meta.url).href,
               name: 'sugar少吃一点',
               replay: '',
               text: '要么之前吴京说了一句话对一个小女孩说，以后别来娱乐圈',
@@ -204,7 +204,7 @@ export default {
             },
             {
               id: '11',
-              avatar: require('../assets/img/icon/avatar/3.png'),
+              avatar: new URL('../assets/img/icon/avatar/3.png', import.meta.url).href,
               name: '我不吃晚饭了',
               replay: 'sugar少吃一点',
               text: '@nana max',
@@ -214,7 +214,7 @@ export default {
             },
             {
               id: '12',
-              avatar: require('../assets/img/icon/avatar/4.png'),
+              avatar: new URL('../assets/img/icon/avatar/4.png', import.meta.url).href,
               name: '我劝你善良',
               replay: 'sugar少吃一点',
               text: '对对 我也刷到过这个视频',
@@ -226,7 +226,7 @@ export default {
         },
         {
           id: '2',
-          avatar: require('../assets/img/icon/avatar/4.png'),
+          avatar: new URL('../assets/img/icon/avatar/4.png', import.meta.url).href,
           name: '成都旅行',
           text: '开车回来4个小时，爬山两小时，如果当天天气好，你一定会喜欢上这里，是真的美！一日游',
           loveNum: 27,
@@ -235,7 +235,7 @@ export default {
           children: [
             {
               id: '20',
-              avatar: require('../assets/img/icon/avatar/4.png'),
+              avatar: new URL('../assets/img/icon/avatar/4.png', import.meta.url).href,
               name: '成都旅行',
               replay: '',
               text: '甘海子，汶川转经楼村',
@@ -245,7 +245,7 @@ export default {
             },
             {
               id: '21',
-              avatar: require('../assets/img/icon/avatar/5.png'),
+              avatar: new URL('../assets/img/icon/avatar/5.png', import.meta.url).href,
               name: 'August',
               replay: '成都旅行',
               text: '@NickyOO @AW%',
@@ -255,7 +255,7 @@ export default {
             },
             {
               id: '22',
-              avatar: require('../assets/img/icon/avatar/6.png'),
+              avatar: new URL('../assets/img/icon/avatar/6.png', import.meta.url).href,
               name: '用户121342411',
               replay: '成都旅行',
               text: '自己可以开私家车进去不',

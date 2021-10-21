@@ -67,6 +67,7 @@ import NoticeSetting from "../pages/message/notice/NoticeSetting";
 import TaskNotice from "../pages/message/notice/TaskNotice";
 import LiveNotice from "../pages/message/notice/LiveNotice";
 import MoneyNotice from "../pages/message/notice/MoneyNotice";
+import MoreSearch from "../pages/message/MoreSearch";
 
 const routes = [
   // {path: '', component: Music},
@@ -85,12 +86,13 @@ const routes = [
   {path: '/home/search', component: Search},
   {path: '/home/live', component: LivePage},
 
-
+  {path: '/video-detail', component: VideoDetail},
   {path: '/attention', component: Attention},
   {path: '/publish', component: Publish},
 
 
   {path: '/message', component: Message},
+  {path: '/message/more-search', component: MoreSearch},
   {path: '/message/share-to-friend', component: Share2Friend},
   {path: '/message/joined-group-chat', component: JoinedGroupChat},
   {path: '/message/chat', component: Chat},
@@ -106,21 +108,6 @@ const routes = [
   {path: '/message/notice-setting', component: NoticeSetting},
 
 
-  {path: '/edit-userinfo', component: EditUserInfo},
-  {path: '/edit-userinfo-item', component: EditUserInfoItem},
-  {path: '/country-choose', component: countryChoose},
-  {path: '/my-card', component: MyCard},
-  {path: '/my-collect', component: MyCollect},
-  {path: '/video-detail', component: VideoDetail},
-  {path: '/add-school', component: AddSchool},
-  {path: '/choose-school', component: ChooseSchool},
-  {path: '/declare-school', component: DeclareSchool},
-  {path: '/choose-department', component: ChooseDepartment},
-  {path: '/display-type', component: DisplayType},
-  {path: '/choose-location', component: ChooseLocation},
-  {path: '/choose-province', component: ChooseProvince},
-  {path: '/choose-city', component: ChooseCity},
-
   {path: '/people/find-acquaintance', component: FindAcquaintance},
   {path: '/people/follow-and-fans', component: FollowAndFans},
 
@@ -131,6 +118,19 @@ const routes = [
   {path: '/set-remark', component: SetRemark},
 
   {path: '/me', component: Me},
+  {path: '/me/edit-userinfo', component: EditUserInfo},
+  {path: '/me/edit-userinfo-item', component: EditUserInfoItem},
+  {path: '/me/country-choose', component: countryChoose},
+  {path: '/me/my-card', component: MyCard},
+  {path: '/me/my-collect', component: MyCollect},
+  {path: '/me/add-school', component: AddSchool},
+  {path: '/me/choose-school', component: ChooseSchool},
+  {path: '/me/declare-school', component: DeclareSchool},
+  {path: '/me/choose-department', component: ChooseDepartment},
+  {path: '/me/display-type', component: DisplayType},
+  {path: '/me/choose-location', component: ChooseLocation},
+  {path: '/me/choose-province', component: ChooseProvince},
+  {path: '/me/choose-city', component: ChooseCity},
   {path: '/me/right-menu/look-history', component: LookHistory},
   {path: '/me/right-menu/minor-protection/index', component: MinorProtectionIndex},
   {path: '/me/right-menu/minor-protection/detail-setting', component: MinorProtectionDetailSetting},

@@ -7,6 +7,19 @@
           <div class="name">{{ people.name }}</div>
         </div>
       </template>
+      <template v-if="mode === 'search'">
+        <div class="left">
+          <div class="name">
+            <span v-if="people.name.indexOf(searchKey) > -1">{{ people.name.substr(0, people.name.indexOf(searchKey)) }}<span style="color: yellow">{{ searchKey }}</span>{{ people.name.substr(people.name.indexOf(searchKey) + searchKey.length) }}</span>
+            <span v-else>{{ people.name }}</span>
+          </div>
+          <div class="name f12">抖音id:
+
+            <span v-if="people.account.indexOf(searchKey) > -1">{{ people.account.substr(0, people.account.indexOf(searchKey)) }}<span style="color: yellow">{{ searchKey }}</span>{{ people.account.substr(people.account.indexOf(searchKey) + searchKey.length) }}</span>
+            <span v-else>{{ people.account }}</span>
+          </div>
+        </div>
+      </template>
 
 
       <template v-if="mode === 'fans'">
@@ -121,6 +134,10 @@ export default {
     mode: {
       type: String,
       default: 'normal'
+    },
+    searchKey: {
+      type: String,
+      default: ''
     }
   },
   data() {

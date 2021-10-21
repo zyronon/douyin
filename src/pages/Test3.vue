@@ -50,7 +50,7 @@ export default {
       let id = 'a' + Date.now()
       let elWidth = 80
       let rotate = this.randomNum(0, 1)
-      let template = `<img class="${rotate ? 'left' : 'right'}" id="${id}" src="${require('../assets/img/icon/loved.svg')}" alt="">`
+      let template = `<img class="${rotate ? 'left' : 'right'}" id="${id}" src="${new URL('../assets/img/icon/loved.svg')}" alt="">`
       let el = new Dom().create(template)
       el.css({top: e.y - elWidth, left: e.x - elWidth / 2,})
       new Dom().find('.test').append(el)

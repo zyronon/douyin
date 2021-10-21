@@ -5,7 +5,7 @@
         <span class="f16">添加学校</span>
       </template>
       <template v-slot:right>
-        <span class="f14" @click="$nav('/declare-school',{type:1})">没有找到?</span>
+        <span class="f14" @click="$nav('/me/declare-school',{type:1})">没有找到?</span>
       </template>
       <template v-slot:bottom>
         <Search class="mt1r mb1r ml2r mr2r" placeholder="搜索大学名称"
@@ -51,7 +51,7 @@
           <img src="../../../assets/img/icon/head-image.jpeg" alt="">
           <div class="title">搜索结果为空</div>
           <div class="sub-title">没有搜索到相关的内容</div>
-          <div class="btn" @click="$nav('/declare-school')">没有学校信息？去申报</div>
+          <div class="btn" @click="$nav('/me/declare-school')">没有学校信息？去申报</div>
         </div>
       </div>
     </div>

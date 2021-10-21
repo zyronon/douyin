@@ -140,7 +140,7 @@ export default {
       currentMusic: {
         name: '告白气球',
         mp3: 'https://mp32.9ku.com/upload/128/2017/02/05/858423.mp3',
-        cover: require('../../assets/img/music-cover/7.png'),
+        cover: new URL('../../assets/img/music-cover/7.png', import.meta.url).href,
         author: '周杰伦',
         duration: 60,
         use_count: 37441000,

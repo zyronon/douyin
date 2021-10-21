@@ -173,7 +173,7 @@
 
   </div>
 </template>
-<script>
+<script lang="jsx">
 import Video1 from "../../components/Video.vue";
 import Comment from "../../components/Comment";
 import Share from "../../components/Share";

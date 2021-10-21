@@ -207,7 +207,7 @@
 
   </div>
 </template>
-<script>
+<script lang="jsx">
 import Posters from '../../components/Posters'
 import Indicator from '../../components/slide/Indicator'
 import {nextTick} from 'vue'
@@ -244,7 +244,7 @@ export default {
                 <span>喜欢</span>
                 {
                   this.localAuthor.is_private === 1 &&
-                  <img src={require('../../assets/img/icon/components/follow/lock.png')} alt=""/>
+                  <img src={new URL('../../assets/img/icon/components/follow/lock.png', import.meta.url).href} alt=""/>
                 }
               </div>
             </div>

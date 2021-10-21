@@ -5,7 +5,7 @@
         <span class="f16">选择院系</span>
       </template>
       <template v-slot:right>
-        <span class="f14" @click="$nav('/declare-school',{type:2})">没有找到?</span>
+        <span class="f14" @click="$nav('/me/declare-school',{type:2})">没有找到?</span>
       </template>
     </BaseHeader>
     <div class="content">
