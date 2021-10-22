@@ -5,9 +5,9 @@
   </div>
 </template>
 <script>
-import ShareToFriend from "./home/components/ShareToFriend";
-import BaseButton from "../components/BaseButton";
-import Search from "../components/Search";
+import ShareToFriend from "../home/components/ShareToFriend";
+import BaseButton from "../../components/BaseButton";
+import Search from "../../components/Search";
 
 export default {
   name: "Test4",
@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../assets/less/index";
+@import "../../assets/less/index";
 
 .Test {
   position: fixed;

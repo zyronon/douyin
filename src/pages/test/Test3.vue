@@ -3,7 +3,7 @@
   </div>
 </template>
 <script>
-import Dom from "../utils/dom";
+import Dom from "../../utils/dom";
 
 export default {
   name: "Test",
@@ -74,7 +74,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "../assets/less/index";
+@import "../../assets/less/index";
 
 .test {
   position: fixed;

@@ -41,18 +41,18 @@ import PasswordLogin from "../pages/login/PasswordLogin";
 import VerificationCode from "../pages/login/VerificationCode";
 import RetrievePassword from "../pages/login/RetrievePassword";
 import Help from "../pages/login/Help";
-import Test from "../pages/Test";
-import Test2 from "../pages/Test2";
-import Test3 from "../pages/Test3";
+import Test from "../pages/test/Test";
+import Test2 from "../pages/test/Test2";
+import Test3 from "../pages/test/Test3";
 import Share2Friend from "../pages/message/Share2Friend";
 import JoinedGroupChat from "../pages/message/JoinedGroupChat";
 import Report from "../pages/home/Report";
 import SubmitReport from "../pages/home/SubmitReport";
 import RequestUpdate from "../pages/me/RequestUpdate";
-import Test4 from "../pages/Test4";
+import Test4 from "../pages/test/Test4";
 import Search from "../pages/home/SearchPage";
 import LivePage from "../pages/home/LivePage";
-import Test5 from "../pages/Test5";
+import Test5 from "../pages/test/Test5";
 import MusicCollect from "../pages/me/collect/MusicCollect";
 import VideoCollect from "../pages/me/collect/VideoCollect";
 import MyMusic from "../pages/me/MyMusic";
@@ -68,6 +68,8 @@ import TaskNotice from "../pages/message/notice/TaskNotice";
 import LiveNotice from "../pages/message/notice/LiveNotice";
 import MoneyNotice from "../pages/message/notice/MoneyNotice";
 import MoreSearch from "../pages/message/MoreSearch";
+import Test6 from "../pages/test/Test6";
+import RedPacketDetail from "../pages/message/RedPacketDetail";
 
 const routes = [
   // {path: '', component: Music},
@@ -78,6 +80,7 @@ const routes = [
   {path: '/test3', component: Test3},
   {path: '/test4', component: Test4},
   {path: '/test5', component: Test5},
+  {path: '/test6', component: Test6},
   {path: '/home', component: Index},
   {path: '/home/submit-report', component: SubmitReport},
   {path: '/home/music', component: Music},
@@ -95,8 +98,6 @@ const routes = [
   {path: '/message/more-search', component: MoreSearch},
   {path: '/message/share-to-friend', component: Share2Friend},
   {path: '/message/joined-group-chat', component: JoinedGroupChat},
-  {path: '/message/chat', component: Chat},
-  {path: '/message/chat-detail', component: ChatDetail},
   {path: '/message/fans', component: Fans},
   {path: '/message/all', component: AllMessage},
   {path: '/message/visitors', component: Visitors},
@@ -106,6 +107,9 @@ const routes = [
   {path: '/message/live-notice', component: LiveNotice},
   {path: '/message/money-notice', component: MoneyNotice},
   {path: '/message/notice-setting', component: NoticeSetting},
+  {path: '/message/chat', component: Chat},
+  {path: '/message/chat/detail', component: ChatDetail},
+  {path: '/message/chat/red-packet-detail', component: RedPacketDetail},
 
 
   {path: '/people/find-acquaintance', component: FindAcquaintance},
