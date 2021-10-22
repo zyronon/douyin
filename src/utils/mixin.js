@@ -71,7 +71,7 @@ export default {
           if (pressTimer === null) {
             pressTimer = setTimeout(() => {
               // 执行函数
-              handler();
+              handler(e);
             }, 300)
           }
         }
@@ -85,6 +85,9 @@ export default {
         }
         // 运行函数
         const handler = (e) => {
+          // e.stopImmediatePropagation()
+          e.stopPropagation()
+          e.preventDefault()
           // 执行传递给指令的方法
           binding.value(e)
         };

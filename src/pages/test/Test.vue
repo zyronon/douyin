@@ -5,9 +5,9 @@
 </template>
 <script>
 
-import ConfirmDialog from "../components/dialog/ConfirmDialog";
-import Search from "../components/Search";
-import Uploader from "./me/Uploader";
+import ConfirmDialog from "../../components/dialog/ConfirmDialog";
+import Search from "../../components/Search";
+import Uploader from "../me/Uploader";
 
 export default {
   name: "Test",
@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../assets/less/index";
+@import "../../assets/less/index";
 
 
 .Test {

@@ -120,7 +120,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../assets/less/index";
+@import "../../assets/less/index";
 
 .Test {
   position: fixed;

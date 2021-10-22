@@ -172,9 +172,9 @@
 </template>
 <script>
 
-import BaseButton from "../components/BaseButton";
-import BaseMarquee from "../components/BaseMarquee";
-import Dom from "../utils/dom";
+import BaseButton from "../../components/BaseButton";
+import BaseMarquee from "../../components/BaseMarquee";
+import Dom from "../../utils/dom";
 
 export default {
   name: "Test4",
@@ -202,7 +202,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../assets/less/index";
+@import "../../assets/less/index";
 
 .Test {
   position: fixed;

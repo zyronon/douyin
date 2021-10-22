@@ -63,6 +63,9 @@ export default {
         '/message/live-notice',
         '/message/money-notice',
         '/message/notice-setting',
+        '/message/chat',
+        '/message/chat/detail',
+        '/message/chat/red-packet-detail',
 
         '/me/country-choose',
         '/me/edit-userinfo',
@@ -85,8 +88,6 @@ export default {
         '/me/my-card',
         '/scan',
         '/face-to-face',
-        '/message/chat',
-        '/message/chat-detail',
         '/set-remark',
 
         '/me/right-menu/look-history',

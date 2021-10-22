@@ -6,8 +6,8 @@
       {{ message.time }}
     </div>
     <template v-else>
-      <img v-if="!isMe" src="../../../assets/img/icon/head-image.jpeg" alt="" class="avatar">
-      <div class="chat-wrapper">
+      <img v-if="!isMe" src="../../../assets/img/icon/avatar/3.png" alt="" class="avatar">
+      <div class="chat-wrapper" @click="$emit('itemClick',message)">
         <div class="chat-text"
              v-if="message.type ===  MESSAGE_TYPE.TEXT">
           {{ message.data }}
@@ -72,7 +72,7 @@
              :class="message.data.state !== '未领取' ? 'invalid' : ''"
              v-if="message.type ===  MESSAGE_TYPE.RED_PACKET">
           <div class="top">
-            <img src="../../../assets/img/icon/head-image.jpeg" alt="">
+            <img src="../../../assets/img/icon/message/chat/redpack-logo.webp" alt="">
             <div class="right">
               <div class="title">{{ message.data.title }}</div>
               <div v-if="message.data.state !== '未领取'" class="state">{{ message.data.state }}</div>
@@ -86,7 +86,7 @@
           <img v-for="user in message.loved" src="../../../assets/img/icon/head-image.jpeg" alt="" class="love-avatar">
         </div>
       </div>
-      <img v-if="isMe" src="../../../assets/img/icon/head-image.jpeg" alt="" class="avatar">
+      <img v-if="isMe" src="../../../assets/img/icon/avatar/2.png" alt="" class="avatar">
     </template>
   </div>
 </template>
@@ -206,7 +206,7 @@ export default {
   }
 
   .red_packet {
-    border-radius: .3rem;
+    border-radius: 1rem;
     @not-received: rgb(253, 92, 72);
     @received: rgba(253, 92, 72, .8);
     width: 60vw;
@@ -226,7 +226,8 @@ export default {
       border-bottom: 1px solid rgb(253, 124, 81);
 
       img {
-        height: 4rem;
+        border-radius: .3rem;
+        height: 3.8rem;
         margin-right: 1rem;
       }
 
@@ -241,6 +242,7 @@ export default {
     }
 
     .bottom {
+      font-size: 1.2rem;
       padding: .5rem 1rem 1rem 1rem;
     }
   }
@@ -392,7 +394,6 @@ export default {
     font-size: 1.4rem;
     background: @chat-bg-color;
   }
-
 
   .loves {
     margin-top: 1rem;
