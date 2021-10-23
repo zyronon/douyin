@@ -92,7 +92,7 @@ export default {
     padding-top: 6rem;
 
     .list {
-      height: calc(100vh - 12rem);
+      height: calc(100vh - 6rem);
       overflow: auto;
       box-sizing: border-box;
       padding: 0 @padding-page;

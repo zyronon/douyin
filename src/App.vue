@@ -1,13 +1,14 @@
 <template>
   <router-view v-slot="{ Component }">
-    <transition :name="transitionName">
-      <!--      <keep-alive>-->
-      <!--      </keep-alive>-->
+<!--    <transition :name="transitionName">-->
+<!--      <keep-alive>-->
+<!--        <component :is="Component"/>-->
+<!--      </keep-alive>-->
+<!--    </transition>-->
+    <keep-alive>
       <component :is="Component"/>
-
-    </transition>
+    </keep-alive>
   </router-view>
-
 </template>
 
 <script>

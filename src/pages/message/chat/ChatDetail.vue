@@ -47,10 +47,10 @@
   </div>
 </template>
 <script>
-import Switches from './components/swtich/switches';
-import People from "../people/components/People";
-import FromBottomDialog from "../../components/dialog/FromBottomDialog";
-import BlockDialog from "./components/BlockDialog";
+import Switches from '../components/swtich/switches';
+import People from "../../people/components/People";
+import FromBottomDialog from "../../../components/dialog/FromBottomDialog";
+import BlockDialog from "../components/BlockDialog";
 
 export default {
   name: "ChatDetail",
@@ -89,7 +89,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../../assets/less/index";
+@import "../../../assets/less/index";
 
 #ChatDetail {
   position: fixed;

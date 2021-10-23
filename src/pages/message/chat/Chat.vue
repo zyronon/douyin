@@ -8,8 +8,8 @@
           <span>zzzz</span>
         </div>
         <div class="right">
-          <img style="transform: scale(1.1)" src="../../assets/img/icon/message/video-white.png" alt="">
-          <img src="../../assets/img/icon/menu-white.png" alt="" @click="$nav('/message/chat/detail')">
+          <img style="transform: scale(1.1)" src="../../../assets/img/icon/message/video-white.png" alt="">
+          <img src="../../../assets/img/icon/menu-white.png" alt="" @click="$nav('/message/chat/detail')">
         </div>
       </div>
       <div class="message-wrapper" ref="msgWrapper" :class="isExpand ? 'expand' : ''">
@@ -18,57 +18,57 @@
       </div>
       <div class="footer" :class="isTyping ? 'typing' : ''">
         <div class="toolbar" v-if="!recording">
-          <img src="../../assets/img/icon/message/camera.png" alt="" class="camera">
+          <img src="../../../assets/img/icon/message/camera.png" alt="" class="camera">
           <input @click="typing = true"
                  @blur="typing = false"
                  type="text" placeholder="发送信息...">
           <template v-if="!isTyping">
-            <img @click="recording = true;showOption = false" src="../../assets/img/icon/message/voice-white.png"
+            <img @click="recording = true;showOption = false" src="../../../assets/img/icon/message/voice-white.png"
                  alt="">
-            <img src="../../assets/img/icon/message/emoji-white.png" alt="">
-            <img @click="showOption = !showOption" src="../../assets/img/icon/message/add-white.png" alt="">
+            <img src="../../../assets/img/icon/message/emoji-white.png" alt="">
+            <img @click="showOption = !showOption" src="../../../assets/img/icon/message/add-white.png" alt="">
           </template>
           <template v-else>
-            <img @click="recording = true;showOption = false" src="../../assets/img/icon/message/voice-black.png"
+            <img @click="recording = true;showOption = false" src="../../../assets/img/icon/message/voice-black.png"
                  alt="">
-            <img src="../../assets/img/icon/message/emoji-black.png" alt="">
-            <img v-if="showOption" @click="showOption = !showOption" src="../../assets/img/icon/message/close-black.png"
+            <img src="../../../assets/img/icon/message/emoji-black.png" alt="">
+            <img v-if="showOption" @click="showOption = !showOption" src="../../../assets/img/icon/message/close-black.png"
                  alt="">
-            <img v-else @click="showOption = !showOption" src="../../assets/img/icon/message/add-black.png" alt="">
+            <img v-else @click="showOption = !showOption" src="../../../assets/img/icon/message/add-black.png" alt="">
           </template>
         </div>
         <div class="record" v-else>
           <span>按住 说话</span>
-          <img @click="recording = false" src="../../assets/img/icon/message/keyboard.png" alt="">
+          <img @click="recording = false" src="../../../assets/img/icon/message/keyboard.png" alt="">
         </div>
         <div class="options" v-if="showOption">
           <div class="option-wrapper">
             <div class="option">
-              <img src="../../assets/img/icon/message/photo.png" alt="">
+              <img src="../../../assets/img/icon/message/photo.png" alt="">
               <span>照片</span>
             </div>
             <div class="option">
-              <img src="../../assets/img/icon/message/camera2.png" alt="">
+              <img src="../../../assets/img/icon/message/camera2.png" alt="">
               <span>拍摄</span>
             </div>
             <div class="option">
-              <img src="../../assets/img/icon/message/redpack.png" alt="">
+              <img src="../../../assets/img/icon/message/redpack.png" alt="">
               <span>红包</span>
             </div>
             <div class="option">
-              <img src="../../assets/img/icon/message/video.png" alt="">
+              <img src="../../../assets/img/icon/message/video.png" alt="">
               <span>视频通话</span>
             </div>
             <div class="option">
-              <img src="../../assets/img/icon/message/audio.png" alt="">
+              <img src="../../../assets/img/icon/message/audio.png" alt="">
               <span>语音通话</span>
             </div>
             <div class="option">
-              <img src="../../assets/img/icon/message/come-on.png" alt="">
+              <img src="../../../assets/img/icon/message/come-on.png" alt="">
               <span>一起看视频</span>
             </div>
             <div class="option">
-              <img src="../../assets/img/icon/message/come-chang.png" alt="">
+              <img src="../../../assets/img/icon/message/come-chang.png" alt="">
               <span>一起唱</span>
             </div>
           </div>
@@ -81,27 +81,27 @@
       <!--      TODO 定位也有问题-->
       <div class="tooltip" :style="{top:tooltipTop+'px'}" v-if="tooltipTop !==-1">
         <div class="options">
-          <img src="../../assets/img/icon/message/chat/like.png" alt="">
+          <img src="../../../assets/img/icon/message/chat/like.png" alt="">
           <span>点赞</span>
         </div>
         <div class="options">
-          <img src="../../assets/img/icon/message/chat/copy.png" alt="">
+          <img src="../../../assets/img/icon/message/chat/copy.png" alt="">
           <span>复制</span>
         </div>
         <div class="options">
-          <img src="../../assets/img/icon/message/chat/send.png" alt="">
+          <img src="../../../assets/img/icon/message/chat/send.png" alt="">
           <span>转发</span>
         </div>
         <div class="options">
-          <img src="../../assets/img/icon/message/chat/comment.png" alt="">
+          <img src="../../../assets/img/icon/message/chat/comment.png" alt="">
           <span>回复</span>
         </div>
         <div class="options">
-          <img src="../../assets/img/icon/message/chat/return.png" alt="">
+          <img src="../../../assets/img/icon/message/chat/return.png" alt="">
           <span>回复</span>
         </div>
         <div class="options">
-          <img src="../../assets/img/icon/message/chat/del.png" alt="">
+          <img src="../../../assets/img/icon/message/chat/del.png" alt="">
           <span>删除</span>
         </div>
         <!--      TODO 官方的三角头会随着点击位置变动，先注释掉-->
@@ -112,7 +112,7 @@
     <div class="preview-img" v-if="false">
       <div class="header">
         <back mode="light"/>
-        <img src="../../assets/img/icon/search-light.png" alt="">
+        <img src="../../../assets/img/icon/search-light.png" alt="">
       </div>
       <img :src="previewImg" alt="" class="img-src">
       <div class="footer"></div>
@@ -124,7 +124,7 @@
         <Mask @click="isShowOpenRedPacket = false"/>
         <div class="content">
           <template v-if="isOpened">
-            <img src="../../assets/img/icon/message/chat/bg-open.png" alt="" class="bg">
+            <img src="../../../assets/img/icon/message/chat/bg-open.png" alt="" class="bg">
             <div class="wrapper">
               <div class="top">
                 <div class="money">0.01元</div>
@@ -135,7 +135,7 @@
             </div>
           </template>
           <template v-else>
-            <img src="../../assets/img/icon/message/chat/bg-close.png" alt="" class="bg">
+            <img src="../../../assets/img/icon/message/chat/bg-close.png" alt="" class="bg">
             <div class="wrapper">
               <div class="top">
                 <img :src="$imgPreview(userinfo.avatar)" alt="" class="avatar">
@@ -145,14 +145,14 @@
 
               <div class="l-button" :class="{opening}" @click="openRedPacket">
                 <template v-if="opening">
-                  <img src="../../assets/img/icon/loading-white.png" alt="">
+                  <img src="../../../assets/img/icon/loading-white.png" alt="">
                   正在打开
                 </template>
                 <span v-else>开红包</span>
               </div>
             </div>
           </template>
-          <img src="../../assets/img/icon/message/chat/close.png" alt="" class="close"
+          <img src="../../../assets/img/icon/message/chat/close.png" alt="" class="close"
                @click="isShowOpenRedPacket = false">
         </div>
       </div>
@@ -162,11 +162,11 @@
   </div>
 </template>
 <script>
-import ChatMessage from "./components/ChatMessage";
+import ChatMessage from "../components/ChatMessage";
 import {nextTick} from "vue";
-import Mask from "../../components/Mask";
+import Mask from "../../../components/Mask";
 import {mapState} from "vuex";
-import Loading from "../../components/Loading";
+import Loading from "../../../components/Loading";
 
 let CALL_STATE = {
   REJECT: 0,
@@ -257,7 +257,7 @@ export default {
         {
           type: MESSAGE_TYPE.MEME,
           state: AUDIO_STATE.NORMAL,
-          data: new URL('../../assets/img/poster/1.jpg', import.meta.url).href,
+          data: new URL('../../../assets/img/poster/1.jpg', import.meta.url).href,
           time: '2021-01-02 21:21',
           user: {
             id: '93864497380',
@@ -277,7 +277,7 @@ export default {
         {
           type: MESSAGE_TYPE.IMAGE,
           state: AUDIO_STATE.NORMAL,
-          data: new URL('../../assets/img/poster/1.jpg', import.meta.url).href,
+          data: new URL('../../../assets/img/poster/1.jpg', import.meta.url).href,
           time: '2021-01-02 21:21',
           user: {
             id: 1,
@@ -287,7 +287,7 @@ export default {
         {
           type: MESSAGE_TYPE.IMAGE,
           state: AUDIO_STATE.NORMAL,
-          data: new URL('../../assets/img/poster/1.jpg', import.meta.url).href,
+          data: new URL('../../../assets/img/poster/1.jpg', import.meta.url).href,
           time: '2021-01-02 21:21',
           user: {
             id: '93864497380',
@@ -364,7 +364,7 @@ export default {
           },
           time: '2021-01-02 21:21',
           user: {
-            id: '93864497380',
+            id: '1',
             avatar: '../../assets/img/icon/head-image.jpg'
           }
         },
@@ -421,29 +421,29 @@ export default {
           type: MESSAGE_TYPE.DOUYIN_VIDEO,
           state: VIDEO_STATE.VALID,
           data: {
-            poster: new URL('../../assets/img/poster/3.jpg', import.meta.url).href,
+            poster: new URL('../../../assets/img/poster/3.jpg', import.meta.url).href,
             author: {
               name: 'safasdfassafasdfassafasdfassafasdfas',
-              avatar: new URL('../../assets/img/icon/head-image.jpeg', import.meta.url).href
+              avatar: new URL('../../../assets/img/icon/head-image.jpeg', import.meta.url).href
             },
             title: '服了asd'
           },
           time: '2021-01-02 21:21',
           user: {
             id: '1',
-            avatar: '../../assets/img/icon/head-image.jpg'
+            avatar: '../../../assets/img/icon/head-image.jpg'
           }
         },
         {
           type: MESSAGE_TYPE.VIDEO,
           state: VIDEO_STATE.VALID,
           data: {
-            poster: new URL('../../assets/img/poster/3.jpg', import.meta.url).href,
+            poster: new URL('../../../assets/img/poster/3.jpg', import.meta.url).href,
           },
           time: '2021-01-02 21:21',
           user: {
             id: '93864497380',
-            avatar: '../../assets/img/icon/head-image.jpg'
+            avatar: '../../../assets/img/icon/head-image.jpg'
           }
         },
       ],
@@ -529,7 +529,7 @@ export default {
 }
 </style>
 <style scoped lang="less">
-@import "../../assets/less/index";
+@import "../../../assets/less/index";
 
 .Chat {
   position: fixed;
@@ -727,7 +727,7 @@ export default {
     margin-left: -33%;
     position: fixed;
     font-size: 1.2rem;
-    border-radius: .5rem;
+    border-radius: .6rem;
     //padding: 1rem;
     background: rgb(55, 58, 67);
     display: flex;
