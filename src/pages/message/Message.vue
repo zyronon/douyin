@@ -200,7 +200,7 @@
           </div>
 
           <!--      消息-->
-          <div class="message">
+          <div class="message" @click="$nav('/message/chat')">
             <div class="avatar on-line">
               <img src="../../assets/img/icon/avatar/2.png" alt="" class="head-image">
             </div>
@@ -252,7 +252,6 @@
           <!--      </div>-->
         </div>
       </div>
-      <Footer v-bind:init-tab="4"/>
       <from-bottom-dialog page-id="Message" v-model="createChatDialog">
         <div class="create-chat-wrapper" v-show="!showJoinedChat">
           <Search :isShowRightText="isShowRightText"
@@ -399,6 +398,8 @@
         </template>
       </div>
     </div>
+
+    <Footer v-bind:init-tab="4"/>
   </div>
 </template>
 
@@ -467,6 +468,7 @@ export default {
     }
   },
   created() {
+    console.log('create')
     this.recommend = this.$clone(this.friends.all)
     this.recommend.map(v => {
       v.type = -2
@@ -477,6 +479,12 @@ export default {
     setTimeout(() => {
       // this.isShowRecommend = true
     }, 1000)
+  },
+  activated() {
+    console.log('activated')
+  },
+  deactivated() {
+    console.log('deactivated')
   },
   methods: {
     async loadRecommendData() {
@@ -497,23 +505,20 @@ export default {
 <style scoped lang="less">
 @import "../../assets/less/index";
 
-::-webkit-scrollbar {
-  display: none; /* Chrome Safari */
-}
-
 #Message {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   font-size: 1.4rem;
-  overflow: auto;
   background: @main-bg;
-  padding-bottom: 6rem;
   color: white;
 
   .no-search {
+    height: calc(100vh - @footer-height);
+    overflow: auto;
+
 
     .create-chat-wrapper {
       min-height: 70vh;
@@ -1075,6 +1080,5 @@ export default {
 
     }
   }
-
 }
 </style>

@@ -32,11 +32,15 @@
 
         <div class="audio"
              v-if="message.type ===  MESSAGE_TYPE.AUDIO">
-          <div v-if="isMe" class="duration">{{ message.data.duration }}'</div>
-          <div class="horn">
-            <img src="../../../assets/img/icon/rss.png" alt="" class="avatar">
-          </div>
-          <div v-if="!isMe" class="duration">{{ message.data.duration }}'</div>
+          <template v-if="isMe">
+            <div class="duration">{{ message.data.duration }}'</div>
+            <img src="../../../assets/img/icon/message/chat/rss2.png" alt="" class="audio-icon">
+          </template>
+          <template v-else>
+            <img src="../../../assets/img/icon/message/chat/rss.png" alt="" class="audio-icon">
+            <div class="duration">{{ message.data.duration }}'</div>
+          </template>
+
         </div>
 
         <div class="call"
@@ -44,12 +48,12 @@
           message.type ===  MESSAGE_TYPE.AUDIO_CALL"
         >
           <div class="resolve" v-if="message.state === CALL_STATE.RESOLVE">
-            <img class="icon" src="../../../assets/img/icon/head-image.jpeg" alt="">
+            <img class="icon" src="../../../assets/img/icon/message/chat/video.png" alt="">
             <span>通话时长 05:32</span>
           </div>
           <div class="reject" v-if="message.state === CALL_STATE.REJECT||
         message.state === CALL_STATE.NONE">
-            <img class="icon" src="../../../assets/img/icon/collect-gray.png" alt="">
+            <img class="icon" src="../../../assets/img/icon/message/chat/video.png" alt="">
             <div class="notice">
               <span class="state" v-if="message.state === CALL_STATE.REJECT">对方已拒绝</span>
               <span class="state" v-if="message.state === CALL_STATE.NONE">对方未接通</span>
@@ -167,7 +171,8 @@ export default {
   margin-bottom: 2rem;
   display: flex;
   //@chat-bg-color: dodgerblue;
-  @chat-bg-color: rgb(105, 143, 244);
+  @chat-bg-right-color: rgb(72, 116, 230);
+  @chat-bg-left-color: rgb(59, 59, 67);
 
   &.right {
     justify-content: flex-end;
@@ -178,8 +183,12 @@ export default {
       border-radius: 50%;
     }
 
-    .horn {
-      text-align: end;
+    .audio-icon {
+      margin-left: 5rem;
+    }
+
+    .chat-text, .call, .audio {
+      background: @chat-bg-right-color;
     }
   }
 
@@ -192,9 +201,18 @@ export default {
       border-radius: 50%;
     }
 
-    .horn {
-      text-align: start;
+    .audio-icon {
+      margin-right: 5rem;
     }
+
+    .chat-text, .call, .audio {
+      background: @chat-bg-left-color;
+    }
+  }
+
+  @border-radius: 1rem;
+
+  .chat-wrapper {
   }
 
   .time {
@@ -206,7 +224,7 @@ export default {
   }
 
   .red_packet {
-    border-radius: 1rem;
+    border-radius: @border-radius;
     @not-received: rgb(253, 92, 72);
     @received: rgba(253, 92, 72, .8);
     width: 60vw;
@@ -249,7 +267,7 @@ export default {
 
   .meme {
     img {
-      border-radius: .6rem;
+      border-radius: @border-radius;
       //height: 30vh;
       max-width: 40vw;
     }
@@ -257,7 +275,7 @@ export default {
 
   .image {
     img {
-      border-radius: .6rem;
+      border-radius: @border-radius;
       //height: 30vh;
       max-width: 40vw;
     }
@@ -265,11 +283,10 @@ export default {
 
   .call {
     padding: 1rem;
-    border-radius: .3rem;
+    border-radius: @border-radius;
     display: flex;
     align-items: center;
     font-size: 1.4rem;
-    background: @chat-bg-color;
 
     .resolve {
       display: flex;
@@ -286,11 +303,11 @@ export default {
       align-items: center;
 
       .icon {
-        padding: .4rem;
+        padding: .6rem;
         border-radius: 50%;
         background: rgba(27, 100, 172, 0.8);
         margin-right: 1rem;
-        width: 2rem;
+        width: 1.8rem;
       }
 
       .notice {
@@ -312,26 +329,19 @@ export default {
     max-width: 60vw;
     padding: 1rem;
     padding-right: 1.5rem;
-    border-radius: .3rem;
+    border-radius: @border-radius;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 1.4rem;
-    background: @chat-bg-color;
 
-    .horn {
-      width: 5rem;
-
-      img {
-        transform: rotate(45deg) translate3d(1rem, -.5rem, 0);
-        width: 1.5rem;
-        height: 1.5rem;
-      }
+    .audio-icon {
+      width: 1.5rem;
+      height: 1.5rem;
     }
   }
 
   .douyin_video {
-    background: black;
     position: relative;
 
     .pause {
@@ -357,7 +367,7 @@ export default {
     }
 
     .poster {
-      border-radius: .6rem;
+      border-radius: @border-radius;
       //height: 30vh;
       width: 40vw;
     }
@@ -386,13 +396,12 @@ export default {
   }
 
   .chat-text {
+    border-radius: @border-radius;
     max-width: 60vw;
     padding: 1rem;
-    border-radius: .3rem;
     display: flex;
     align-items: center;
     font-size: 1.4rem;
-    background: @chat-bg-color;
   }
 
   .loves {
