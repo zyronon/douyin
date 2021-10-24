@@ -158,7 +158,8 @@ export default {
     this.$notice('未实现')
   },
   $back() {
-    window.history.back()
+    this.$router.back()
+    // window.history.back()
   },
   $stopPropagation(e) {
     // e.stopImmediatePropagation()

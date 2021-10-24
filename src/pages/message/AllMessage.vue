@@ -125,7 +125,7 @@ import resource from "../../assets/data/resource.js";
 
 
 export default {
-  name: "Fans",
+  name: "AllMessage",
   components: {
     Scroll,
     People,

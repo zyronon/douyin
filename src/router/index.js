@@ -68,8 +68,10 @@ import TaskNotice from "../pages/message/notice/TaskNotice";
 import LiveNotice from "../pages/message/notice/LiveNotice";
 import MoneyNotice from "../pages/message/notice/MoneyNotice";
 import MoreSearch from "../pages/message/MoreSearch";
-import Test6 from "../pages/test/Test6";
+import TestVue3 from "../pages/test/TestVue3.vue";
 import RedPacketDetail from "../pages/message/RedPacketDetail";
+import TestKeepAlive from "../pages/test/TestKeepAlive";
+import TestKeepAlivePage1 from "../pages/test/TestKeepAlivePage1";
 
 const routes = [
   // {path: '', component: Music},
@@ -80,7 +82,9 @@ const routes = [
   {path: '/test3', component: Test3},
   {path: '/test4', component: Test4},
   {path: '/test5', component: Test5},
-  {path: '/test6', component: Test6},
+  {path: '/TestVue3', component: TestVue3},
+  {path: '/TestKeepAlive', component: TestKeepAlive},
+  {path: '/TestKeepAlivePage1', component: TestKeepAlivePage1},
   {path: '/home', component: Index},
   {path: '/home/submit-report', component: SubmitReport},
   {path: '/home/music', component: Music},
@@ -94,22 +98,23 @@ const routes = [
   {path: '/publish', component: Publish},
 
 
-  {path: '/message', component: Message},
-  {path: '/message/more-search', component: MoreSearch},
-  {path: '/message/share-to-friend', component: Share2Friend},
-  {path: '/message/joined-group-chat', component: JoinedGroupChat},
-  {path: '/message/fans', component: Fans},
-  {path: '/message/all', component: AllMessage},
-  {path: '/message/visitors', component: Visitors},
-  {path: '/message/douyin-helper', component: DouyinHelper},
-  {path: '/message/system-notice', component: SystemNotice},
-  {path: '/message/task-notice', component: TaskNotice},
-  {path: '/message/live-notice', component: LiveNotice},
-  {path: '/message/money-notice', component: MoneyNotice},
-  {path: '/message/notice-setting', component: NoticeSetting},
-  {path: '/message/chat', component: Chat},
-  {path: '/message/chat/detail', component: ChatDetail},
-  {path: '/message/chat/red-packet-detail', component: RedPacketDetail},
+  {path: '/message', component: Message, meta: {keepAlive: true,}},
+  {path: '/message/more-search', component: MoreSearch, meta: {keepAlive: true,}},
+  {path: '/message/share-to-friend', component: Share2Friend, meta: {keepAlive: true,}},
+  {path: '/message/joined-group-chat', component: JoinedGroupChat, meta: {keepAlive: true,}},
+  {path: '/message/fans', component: Fans, meta: {keepAlive: true,}},
+  {path: '/message/all', component: AllMessage, meta: {keepAlive: true,}},
+  {path: '/message/visitors', component: Visitors, meta: {keepAlive: true,}},
+  {path: '/message/douyin-helper', component: DouyinHelper, meta: {keepAlive: true,}},
+  {path: '/message/system-notice', component: SystemNotice, meta: {keepAlive: true,}},
+  {path: '/message/task-notice', component: TaskNotice, meta: {keepAlive: true,}},
+  {path: '/message/live-notice', component: LiveNotice, meta: {keepAlive: true,}},
+  {path: '/message/money-notice', component: MoneyNotice, meta: {keepAlive: true,}},
+  {path: '/message/notice-setting', component: NoticeSetting, meta: {keepAlive: true,}},
+
+  {path: '/message/chat', component: Chat, meta: {keepAlive: false,}},
+  {path: '/message/chat/detail', component: ChatDetail, meta: {keepAlive: true,}},
+  {path: '/message/chat/red-packet-detail', component: RedPacketDetail, meta: {keepAlive: true,}},
 
 
   {path: '/people/find-acquaintance', component: FindAcquaintance},
@@ -156,5 +161,13 @@ const routes = [
 
 export default VueRouter.createRouter({
   history: VueRouter.createWebHashHistory(),
-  routes, // `routes: routes` 的缩写
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    // console.log('savedPosition', savedPosition)
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return {top: 0}
+    }
+  },
 })
