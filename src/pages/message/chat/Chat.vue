@@ -14,7 +14,7 @@
       </div>
       <div class="message-wrapper" ref="msgWrapper" :class="isExpand ? 'expand' : ''">
         <ChatMessage @itemClick="clickItem" v-longpress="showTooltip" :message="item"
-                     v-for="item in messages"></ChatMessage>
+                     v-for="(item,index) in messages" :key="item"></ChatMessage>
       </div>
       <div class="footer" :class="isTyping ? 'typing' : ''">
         <div class="toolbar" v-if="!recording">
@@ -32,7 +32,8 @@
             <img @click="recording = true;showOption = false" src="../../../assets/img/icon/message/voice-black.png"
                  alt="">
             <img src="../../../assets/img/icon/message/emoji-black.png" alt="">
-            <img v-if="showOption" @click="showOption = !showOption" src="../../../assets/img/icon/message/close-black.png"
+            <img v-if="showOption" @click="showOption = !showOption"
+                 src="../../../assets/img/icon/message/close-black.png"
                  alt="">
             <img v-else @click="showOption = !showOption" src="../../../assets/img/icon/message/add-black.png" alt="">
           </template>
@@ -470,12 +471,21 @@ export default {
   created() {
   },
   mounted() {
-    nextTick(() => {
-      let wrapper = this.$refs.msgWrapper
-      wrapper.scrollTo({top: wrapper.scrollHeight - wrapper.clientHeight})
-    })
+
+  },
+  activated() {
+    this.scrollBottom()
   },
   methods: {
+    scrollBottom() {
+      nextTick(() => {
+        let wrapper = this.$refs.msgWrapper
+        console.log('wrapper.clientHeight', wrapper.clientHeight)
+        console.log('wrapper.scrollHeight', wrapper.scrollHeight)
+        wrapper.scrollTo({top: wrapper.scrollHeight - wrapper.clientHeight})
+      })
+
+    },
     openRedPacket() {
       this.opening = true
       setTimeout(() => {
@@ -542,11 +552,9 @@ export default {
   font-size: 1.4rem;
 
   .chat-content {
-
     .header {
       z-index: 2;
       background: @main-bg;
-      position: fixed;
       width: 100%;
       box-sizing: border-box;
       height: @header-height;
@@ -582,7 +590,6 @@ export default {
     .message-wrapper {
       height: calc(100vh - 12.5rem);
       overflow: auto;
-      padding-top: 6rem;
 
       &.expand {
         height: calc(100vh - (12.5rem + 30vh));

@@ -1,13 +1,10 @@
 <template>
   <router-view v-slot="{ Component }">
-<!--    <transition :name="transitionName">-->
-<!--      <keep-alive>-->
-<!--        <component :is="Component"/>-->
-<!--      </keep-alive>-->
-<!--    </transition>-->
-    <keep-alive>
-      <component :is="Component"/>
-    </keep-alive>
+    <transition :name="transitionName">
+      <keep-alive exclude="AllMessage">
+        <component :is="Component"/>
+      </keep-alive>
+    </transition>
   </router-view>
 </template>
 
@@ -36,6 +33,7 @@ export default {
   // watch $route 决定使用哪种过渡
   watch: {
     '$route'(to, from) {
+      console.log(to)
       this.$store.commit('setMaskDialog', {state: false, mode: this.maskDialogMode})
 
       //footer下面的5个按钮，对跳不要用动画

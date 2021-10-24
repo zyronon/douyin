@@ -480,12 +480,6 @@ export default {
       // this.isShowRecommend = true
     }, 1000)
   },
-  activated() {
-    console.log('activated')
-  },
-  deactivated() {
-    console.log('deactivated')
-  },
   methods: {
     async loadRecommendData() {
       if (this.loading) return
