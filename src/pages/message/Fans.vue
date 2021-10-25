@@ -6,8 +6,8 @@
       </template>
     </BaseHeader>
     <div class="content">
-      <Loading  v-if="loading"/>
-      <Scroll @pulldown="loadData" v-else>
+      <Loading v-if="loading"/>
+      <Scroll ref="mainScroll" @pulldown="loadData" v-else>
         <Peoples v-model:list="fans"
                  :loading="loadingMore"
                  mode="fans"/>
@@ -29,8 +29,10 @@ import People from "../people/components/People";
 import Scroll from "../../components/Scroll";
 import Loading from "../../components/Loading";
 import Peoples from "../people/components/Peoples";
+import BasePage from "../BasePage";
 
 export default {
+  extends: BasePage,
   name: "Fans",
   components: {
     Scroll,

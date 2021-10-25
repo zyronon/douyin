@@ -1,7 +1,7 @@
 <template>
   <div id="Uploader">
     <div ref="float" class="float" :class="floatFixed?'fixed':''">
-      <div class="left" @click="$emit('back')">
+      <div class="left" @click="back">
         <img src="../../assets/img/icon/next.svg" alt="">
       </div>
       <transition name="fade">
@@ -204,7 +204,6 @@
         <img class="download" src="../../assets/img/icon/components/video/download.png" alt="" @click.stop="$no">
       </div>
     </transition>
-
   </div>
 </template>
 <script lang="jsx">
@@ -375,6 +374,7 @@ export default {
     }
   },
   mounted() {
+
     setTimeout(() => {
       this.refs.header = this.$refs.header
       this.refs.headerHeight = this.$refs.header.offsetHeight
@@ -389,6 +389,13 @@ export default {
     bus.on('baseSlide-end', () => this.canScroll = true)
   },
   methods: {
+    back() {
+      if (this.$route.path === '/me/uploader') {
+        this.$back()
+      } else {
+        this.$emit('back')
+      }
+    },
     copy() {
       const input = document.createElement('input');
       input.setAttribute('readonly', 'readonly');

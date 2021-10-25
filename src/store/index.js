@@ -642,7 +642,7 @@ const store = Vuex.createStore({
           store.excludeRoutes.splice(resIndex, 1)
         }
       }
-      // console.log('store.excludeRoutes', store.excludeRoutes)
+      console.log('store.excludeRoutes', store.excludeRoutes)
     },
   },
   actions: {

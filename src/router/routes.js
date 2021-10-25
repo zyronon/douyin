@@ -70,6 +70,7 @@ import PasswordLogin from "../pages/login/PasswordLogin";
 import VerificationCode from "../pages/login/VerificationCode";
 import RetrievePassword from "../pages/login/RetrievePassword";
 import Help from "../pages/login/Help";
+import Uploader from "../pages/me/Uploader";
 
 const routes = [
   // {path: '', component: Music},
@@ -155,9 +156,10 @@ const routes = [
   {path: '/login/retrieve-password', component: RetrievePassword},
   {path: '/login/help', component: Help},
 
-  //message页面要跳到这页面，所以放后面
+  //前面的要跳到这些页面，所以放后面
   {path: '/me/request-update', component: RequestUpdate},
   {path: '/me/my-request-update', component: MyRequestUpdate},
+  {path: '/me/uploader', component: Uploader},
 ]
 
 export default routes

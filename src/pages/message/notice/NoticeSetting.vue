@@ -77,7 +77,7 @@
 import Switches from "../components/swtich/switches";
 
 export default {
-  name: "SystemNotice",
+  name: "NoticeSetting",
   components: {Switches},
   props: {
     modelValue: false

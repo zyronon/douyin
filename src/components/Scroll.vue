@@ -96,6 +96,11 @@ export default {
         }
       }
     },
+    scrollBottom() {
+      nextTick(()=>{
+        this.wrapper.scrollTo({top: this.wrapper.scrollHeight - this.wrapper.clientHeight})
+      })
+    }
   }
 }
 </script>
