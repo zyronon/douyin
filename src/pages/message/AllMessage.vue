@@ -43,7 +43,7 @@
       <Loading v-if="loading"/>
       <Scroll
           v-else
-          ref="scroll"
+          ref="mainScroll"
           :use-refresh="true"
           @refresh="refresh"
           @pulldown="loadData">
@@ -122,9 +122,11 @@ import Scroll from "../../components/Scroll";
 import Loading from "../../components/Loading";
 import Peoples from "../people/components/Peoples";
 import resource from "../../assets/data/resource.js";
+import BasePage from "../BasePage";
 
 
 export default {
+  extends: BasePage,
   name: "AllMessage",
   components: {
     Scroll,
@@ -189,7 +191,7 @@ export default {
     },
     async refresh() {
       await this.$sleep(1000)
-      this.$refs.scroll.refreshEnd()
+      this.$refs.mainScroll.refreshEnd()
     },
     async loadData() {
       if (this.loadingMore) return

@@ -1,7 +1,7 @@
 <template>
   <router-view v-slot="{ Component }">
     <transition :name="transitionName">
-      <keep-alive exclude="AllMessage">
+      <keep-alive :exclude="excludeRoutes">
         <component :is="Component"/>
       </keep-alive>
     </transition>
@@ -14,9 +14,9 @@
 * try {navigator.control.gesture(false);} catch (e) {} //UC浏览器关闭默认手势事件
 try {navigator.control.longpressMenu(false);} catch (e) {} //关闭长按弹出菜单
 * */
-import * as Vue from "vue";
-import Loading from "./components/Loading";
 import Mask from "./components/Mask";
+import {mapState} from "vuex";
+import routes from "./router/routes";
 
 export default {
   name: 'App',
@@ -28,12 +28,13 @@ export default {
       transitionName: 'go',
     }
   },
-  computed: {},
+  computed: {
+    ...mapState(['excludeRoutes'])
+  },
   methods: {},
   // watch $route 决定使用哪种过渡
   watch: {
     '$route'(to, from) {
-      console.log(to)
       this.$store.commit('setMaskDialog', {state: false, mode: this.maskDialogMode})
 
       //footer下面的5个按钮，对跳不要用动画
@@ -42,77 +43,8 @@ export default {
         return this.transitionName = ''
       }
 
-      const routeDeep = [
-        '/message', '/attention', '/home', '/me', '/publish',
-        '/home/submit-report',
-        '/home/music',
-        '/home/music-rank-list',
-        '/home/report',
-        '/home/search',
-
-        '/message/more-search',
-        '/message/share-to-friend',
-        '/message/joined-group-chat',
-        '/message/fans',
-        '/message/all',
-        '/message/visitors',
-        '/message/douyin-helper',
-        '/message/system-notice',
-        '/message/task-notice',
-        '/message/live-notice',
-        '/message/money-notice',
-        '/message/notice-setting',
-        '/message/chat',
-        '/message/chat/detail',
-        '/message/chat/red-packet-detail',
-
-        '/me/country-choose',
-        '/me/edit-userinfo',
-        '/me/edit-userinfo-item',
-        '/video-detail',
-        '/me/add-school',
-        '/me/choose-school',
-        '/me/choose-department',
-        '/me/declare-school',
-        '/me/display-type',
-        '/me/choose-location',
-        '/me/choose-province',
-        '/me/choose-city',
-
-        '/people/follow-and-fans',
-        '/people/find-acquaintance',
-
-        '/address-list',
-        '/video-detail',
-        '/me/my-card',
-        '/scan',
-        '/face-to-face',
-        '/set-remark',
-
-        '/me/right-menu/look-history',
-        '/me/right-menu/minor-protection/index',
-        '/me/right-menu/minor-protection/detail-setting',
-        '/me/right-menu/minor-protection/trigger-time',
-        '/me/right-menu/setting',
-        '/me/collect/video-collect',
-        '/me/collect/music-collect',
-        '/me/my-music',
-        '/me/request-update',
-        '/me/my-request-update',
-
-        '/login',
-        '/login/other',
-        '/login/password',
-        '/login/verification-code',
-        '/login/retrieve-password',
-        '/login/help',
-
-
-        '/service-protocol',
-        '',
-      ];
-      const toDepth = routeDeep.indexOf(to.path)
-      const fromDepth = routeDeep.indexOf(from.path)
+      const toDepth = routes.findIndex(v => v.path === to.path)
+      const fromDepth = routes.findIndex(v => v.path === from.path)
       this.transitionName = toDepth > fromDepth ? 'go' : 'back'
     },
   },

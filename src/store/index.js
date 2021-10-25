@@ -615,8 +615,8 @@ const store = Vuex.createStore({
           "select": false
         }
       ]
-    }
-
+    },
+    excludeRoutes: []
   },
   mutations: {
     setUserinfo(store, val) {
@@ -630,7 +630,20 @@ const store = Vuex.createStore({
       if (val.mode) {
         store.maskDialogMode = val.mode
       }
-    }
+    },
+    updateExcludeRoutes(store, val) {
+      if (val.type === 'add') {
+        if (!store.excludeRoutes.find(v => v === val.value)) {
+          store.excludeRoutes.push(val.value)
+        }
+      } else {
+        let resIndex = store.excludeRoutes.findIndex(v => v === val.value)
+        if (resIndex !== -1) {
+          store.excludeRoutes.splice(resIndex, 1)
+        }
+      }
+      // console.log('store.excludeRoutes', store.excludeRoutes)
+    },
   },
   actions: {
     async getFriends(context) {
