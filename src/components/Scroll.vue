@@ -1,5 +1,5 @@
 <template>
-  <div v-if="useRefresh" class="scroll-wrapper scroll"
+  <div v-if="useRefresh" class="scroll-wrapper scroll Scroll"
        ref="wrapper"
        @touchmove="move"
        @touchend="end"
@@ -9,7 +9,7 @@
       <slot></slot>
     </div>
   </div>
-  <div v-else class="scroll-wrapper scroll" ref="wrapper" @scroll="scroll">
+  <div v-else class="scroll-wrapper scroll Scroll" ref="wrapper" @scroll="scroll">
     <div class="scroll-content">
       <slot></slot>
     </div>
@@ -17,6 +17,7 @@
 </template>
 <script>
 import Loading from "./Loading";
+import {nextTick} from "vue";
 
 export default {
   name: "Scroll",
@@ -52,7 +53,9 @@ export default {
   created() {
   },
   mounted() {
-    this.wrapper = this.$refs.wrapper
+    nextTick(() => {
+      this.wrapper = this.$refs.wrapper
+    })
   },
   methods: {
     move(e) {
@@ -84,12 +87,13 @@ export default {
       }, 300)
     },
     async scroll() {
-      let wrapper = this.$refs.wrapper
       if (this.fixedHeight !== -1) {
-        this.$emit('fixed', this.fixedHeight < wrapper.scrollTop)
+        this.$emit('fixed', this.fixedHeight < this.wrapper.scrollTop)
       }
-      if (wrapper.scrollHeight - wrapper.clientHeight < wrapper.scrollTop + 60) {
-        this.$emit('pulldown')
+      if (this.$attrs.onPulldown) {
+        if (this.wrapper.scrollHeight - this.wrapper.clientHeight < this.wrapper.scrollTop + 60) {
+          this.$emit('pulldown')
+        }
       }
     },
   }

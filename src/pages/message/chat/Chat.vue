@@ -471,9 +471,6 @@ export default {
   created() {
   },
   mounted() {
-
-  },
-  activated() {
     this.scrollBottom()
   },
   methods: {

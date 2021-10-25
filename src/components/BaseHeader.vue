@@ -1,5 +1,5 @@
 <template>
-  <div id='BaseHeader' :class="mode">
+  <div id='BaseHeader' :class="[mode,isFixed?'fixed':'']">
     <div class="header">
       <back
           :mode="backMode"
@@ -22,17 +22,21 @@ export default {
       type: String,
       default: 'dark'
     },
-    backMode:{
+    backMode: {
       type: String,
       default: 'gray'
     },
-    backImg:{
+    backImg: {
       type: String,
       default: 'back',
     },
     isClose: {
       type: Boolean,
       default: false,
+    },
+    isFixed: {
+      type: Boolean,
+      default: true,
     }
   },
   data() {
@@ -58,8 +62,12 @@ export default {
 
 #BaseHeader {
   width: 100%;
-  position: fixed;
-  z-index: 2;
+
+  &.fixed {
+    z-index: 2;
+    top: 0;
+    position: fixed;
+  }
 
   &.light {
     background: white;
@@ -75,7 +83,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 6rem;
+    height: @header-height;
     border-bottom: 1px solid #cccccc11;
     position: relative;
 

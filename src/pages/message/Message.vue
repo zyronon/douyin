@@ -1,7 +1,7 @@
 <template>
   <div id="Message" ref="app" :class="createChatDialog?'disable-scroll':''">
     <div class="no-search" v-show="!searching">
-      <BaseHeader>
+      <BaseHeader :isFixed="false">
         <template v-slot:center>
           <span class="f16">消息</span>
         </template>
@@ -10,7 +10,7 @@
         </template>
       </BaseHeader>
 
-      <div class="content">
+      <Scroll ref="mainScroll">
         <Search class="ml2r mr2r mb2r" @click="searching = true"></Search>
         <div class="friends  pl1r ">
           <div class="friend pr1r pl1r"
@@ -251,7 +251,7 @@
           <!--        </div>-->
           <!--      </div>-->
         </div>
-      </div>
+      </Scroll>
       <from-bottom-dialog page-id="Message" v-model="createChatDialog">
         <div class="create-chat-wrapper" v-show="!showJoinedChat">
           <Search :isShowRightText="isShowRightText"
@@ -356,6 +356,8 @@
           <Mask/>
         </div>
       </transition>
+      <Footer v-bind:init-tab="4"/>
+
     </div>
 
     <div class="searching" v-show="searching">
@@ -399,7 +401,6 @@
       </div>
     </div>
 
-    <Footer v-bind:init-tab="4"/>
   </div>
 </template>
 
@@ -413,8 +414,10 @@ import Peoples from "../people/components/Peoples";
 import Mask from "../../components/Mask";
 import Scroll from "../../components/Scroll";
 import People from "../people/components/People";
+import BasePage from "../BasePage";
 
 export default {
+  extends: BasePage,
   name: "Message",
   components: {
     Scroll,
@@ -495,7 +498,6 @@ export default {
   }
 }
 </script>
-
 <style scoped lang="less">
 @import "../../assets/less/index";
 
@@ -510,9 +512,7 @@ export default {
   color: white;
 
   .no-search {
-    height: calc(100vh - @footer-height);
-    overflow: auto;
-
+    height: 100vh;
 
     .create-chat-wrapper {
       min-height: 70vh;
@@ -756,9 +756,8 @@ export default {
       }
     }
 
-
-    .content {
-      padding-top: @header-height;
+    .scroll {
+      height: calc(100% - @header-height - @footer-height);
     }
 
     .friends {
