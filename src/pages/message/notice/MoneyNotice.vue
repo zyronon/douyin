@@ -1,6 +1,6 @@
 <template>
   <div id="MoneyNotice">
-    <BaseHeader>
+    <BaseHeader :isFixed="false">
       <template v-slot:center>
         <span class="f16">钱包通知</span>
       </template>
@@ -10,42 +10,44 @@
     </BaseHeader>
     <Loading v-if="loading"/>
     <div class="content" v-else>
-      <div class="list" ref="content">
-        <NoMore/>
-        <!--TODO　超过3行显示全文-->
-        <div class="item" v-for="item in list" @click="$no">
-          <div class="header">
-            <div class="left">
-              <img src="../../../assets/img/icon/msg-icon9.webp" alt="">
+      <Scroll ref="mainScroll">
+        <div class="list">
+          <NoMore/>
+          <!--TODO　超过3行显示全文-->
+          <div class="item" v-for="item in list" @click="$no">
+            <div class="header">
+              <div class="left">
+                <img src="../../../assets/img/icon/msg-icon9.webp" alt="">
+              </div>
+              <div class="right">
+                <template v-if="item.type === 1">
+                  <span>零钱任务</span>
+                </template>
+                <template v-if="item.type === 2">
+                  <span>钱包任务</span>
+                </template>
+                <img @click.stop="isShowSetting = true" src="../../../assets/img/icon/menu-gray.png" alt="">
+              </div>
             </div>
-            <div class="right">
-              <template v-if="item.type === 1">
-                <span>零钱任务</span>
-              </template>
-              <template v-if="item.type === 2">
-                <span>钱包任务</span>
-              </template>
-              <img @click.stop="isShowSetting = true" src="../../../assets/img/icon/menu-gray.png" alt="">
-            </div>
-          </div>
-          <div class="title">{{ item.title }}</div>
-          <div class="time">{{ item.time }}</div>
-          <template v-if="item.type === 1">
-            <div class="content-text">退款金额：￥{{ item.money }}</div>
-            <div class="content-text">退回方式：{{ item.toAccountType }}</div>
-            <div class="content-text">退款原因：{{ item.desc }}</div>
-            <div class="content-text">预计到账时间：{{ item.toAccountTime }}</div>
-          </template>
-          <template v-if="item.type === 2">
-            <div class="content-text">{{ item.desc }}</div>
-          </template>
+            <div class="title">{{ item.title }}</div>
+            <div class="time">{{ item.time }}</div>
+            <template v-if="item.type === 1">
+              <div class="content-text">退款金额：￥{{ item.money }}</div>
+              <div class="content-text">退回方式：{{ item.toAccountType }}</div>
+              <div class="content-text">退款原因：{{ item.desc }}</div>
+              <div class="content-text">预计到账时间：{{ item.toAccountTime }}</div>
+            </template>
+            <template v-if="item.type === 2">
+              <div class="content-text">{{ item.desc }}</div>
+            </template>
 
-          <div class="look-detail">
-            <span>查看详情</span>
-            <back direction="right" scale=".6"/>
+            <div class="look-detail">
+              <span>查看详情</span>
+              <back direction="right" scale=".6"/>
+            </div>
           </div>
         </div>
-      </div>
+      </Scroll>
     </div>
 
     <from-bottom-dialog
@@ -71,11 +73,15 @@
 import {nextTick} from "vue";
 import Mask from "../../../components/Mask";
 import FromBottomDialog from "../../../components/dialog/FromBottomDialog";
+import Scroll from "../../../components/Scroll";
+import BasePage from "../../BasePage";
 
 export default {
-  name: "SystemNotice",
+  extends: BasePage,
+  name: "MoneyNotice",
   components: {
-    FromBottomDialog
+    FromBottomDialog,
+    Scroll
   },
   data() {
     return {
@@ -112,11 +118,8 @@ export default {
       this.loading = true
       await this.$sleep(700)
       this.loading = false
-
-      nextTick(() => {
-        let content = this.$refs['content']
-        content.scrollTo({top: content.scrollHeight - content.clientHeight})
-      })
+      await nextTick()
+      this.$refs.mainScroll.scrollBottom()
     },
   }
 }
@@ -131,18 +134,20 @@ export default {
   right: 0;
   bottom: 0;
   top: 0;
-  overflow: auto;
   color: white;
   font-size: 1.4rem;
 
+  .scroll {
+    height: calc(100vh - @header-height);
+  }
+
   .content {
-    padding-top: 6rem;
+    height: calc(100vh - @header-height);
 
     .list {
-      height: calc(100vh - 6rem);
-      overflow: auto;
+      padding: @padding-page;
+      padding-top: 0;
       box-sizing: border-box;
-      padding: 0 @padding-page;
 
       .item {
         padding: @padding-page;

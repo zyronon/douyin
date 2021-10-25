@@ -1,6 +1,6 @@
 <template>
   <div id="SystemNotice">
-    <BaseHeader>
+    <BaseHeader :isFixed="false">
       <template v-slot:center>
         <span class="f16">系统通知</span>
       </template>
@@ -10,21 +10,23 @@
     </BaseHeader>
     <Loading v-if="loading"/>
     <div class="content" v-else>
-      <div class="list" ref="content">
-        <NoMore/>
-        <!--TODO　超过3行显示全文-->
-        <div class="item" v-for="item in list" @click="goDetail(item)">
-          <div class="title">{{ item.title }}
-            <div class="ml1r not-read" v-if="!item.read"></div>
-          </div>
-          <div class="time">{{ item.time }}</div>
-          <div class="content-text">{{ item.content }}</div>
-          <div class="look-detail" v-if="item.detail">
-            <span>查看详情</span>
-            <back direction="right" scale=".6"/>
+      <Scroll ref="mainScroll">
+        <div class="list">
+          <NoMore/>
+          <!--TODO　超过3行显示全文-->
+          <div class="item" v-for="item in list" @click="goDetail(item)">
+            <div class="title">{{ item.title }}
+              <div class="ml1r not-read" v-if="!item.read"></div>
+            </div>
+            <div class="time">{{ item.time }}</div>
+            <div class="content-text">{{ item.content }}</div>
+            <div class="look-detail" v-if="item.detail">
+              <span>查看详情</span>
+              <back direction="right" scale=".6"/>
+            </div>
           </div>
         </div>
-      </div>
+      </Scroll>
 
       <!--      TODO 子页面未做-->
       <div class="hover-dialog left" v-if="isShowLeftHover">
@@ -61,10 +63,13 @@
 <script>
 import {nextTick} from "vue";
 import Mask from "../../../components/Mask";
+import Scroll from "../../../components/Scroll";
+import BasePage from "../../BasePage";
 
 export default {
+  extends: BasePage,
   name: "SystemNotice",
-  components: {Mask},
+  components: {Mask, Scroll},
   data() {
     return {
       loading: false,
@@ -132,11 +137,8 @@ export default {
       this.loading = true
       await this.$sleep(700)
       this.loading = false
-
-      nextTick(() => {
-        let content = this.$refs['content']
-        content.scrollTo({top: content.scrollHeight - content.clientHeight})
-      })
+      await nextTick()
+      this.$refs.mainScroll.scrollBottom()
     },
     goDetail(item) {
       item.read = true
@@ -157,19 +159,20 @@ export default {
   right: 0;
   bottom: 0;
   top: 0;
-  overflow: auto;
   color: white;
   font-size: 1.4rem;
 
+  .scroll {
+    height: calc(100vh - @header-height - @header-height);
+  }
+
   .content {
-    padding-top: 6rem;
+    height: calc(100vh - @header-height);
+    padding: @padding-page;
+    padding-top: 0;
+    box-sizing: border-box;
 
     .list {
-      height: calc(100vh - 12rem);
-      overflow: auto;
-      box-sizing: border-box;
-      padding: 0 @padding-page;
-
       .item {
         padding: @padding-page;
         background: @second-btn-color-tran;

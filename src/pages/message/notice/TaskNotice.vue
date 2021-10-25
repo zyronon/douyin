@@ -1,6 +1,6 @@
 <template>
   <div id="TaskNotice">
-    <BaseHeader>
+    <BaseHeader :isFixed="false">
       <template v-slot:center>
         <span class="f16">任务通知</span>
       </template>
@@ -10,30 +10,32 @@
     </BaseHeader>
     <Loading v-if="loading"/>
     <div class="content" v-else>
-      <div class="list" ref="content">
-        <NoMore/>
-        <!--TODO　超过3行显示全文-->
-        <div class="item" v-for="item in list" @click="goDetail(item)">
-          <div class="header">
-            <div class="left">
-              <img src="../../../assets/img/icon/message/task.webp" alt="">
+      <Scroll ref="mainScroll">
+        <div class="list">
+          <NoMore/>
+          <!--TODO　超过3行显示全文-->
+          <div class="item" v-for="item in list" @click="goDetail(item)">
+            <div class="header">
+              <div class="left">
+                <img src="../../../assets/img/icon/message/task.webp" alt="">
+              </div>
+              <div class="right">
+                <span>成长任务</span>
+                <img @click.stop="isShowSetting = true" src="../../../assets/img/icon/menu-gray.png" alt="">
+              </div>
             </div>
-            <div class="right">
-              <span>成长任务</span>
-              <img @click.stop="isShowSetting = true" src="../../../assets/img/icon/menu-gray.png" alt="">
+            <div class="title">{{ item.title }}
+              <div class="ml1r not-read" v-if="!item.read"></div>
             </div>
-          </div>
-          <div class="title">{{ item.title }}
-            <div class="ml1r not-read" v-if="!item.read"></div>
-          </div>
-          <div class="time">{{ item.time }}</div>
-          <div class="content-text">{{ item.content }}</div>
-          <div class="look-detail" v-if="item.detail">
-            <span>查看详情</span>
-            <back direction="right" scale=".6"/>
+            <div class="time">{{ item.time }}</div>
+            <div class="content-text">{{ item.content }}</div>
+            <div class="look-detail" v-if="item.detail">
+              <span>查看详情</span>
+              <back direction="right" scale=".6"/>
+            </div>
           </div>
         </div>
-      </div>
+      </Scroll>
       <div class="footer" @click="$no">查看更多任务</div>
     </div>
 
@@ -60,18 +62,36 @@
 import {nextTick} from "vue";
 import Mask from "../../../components/Mask";
 import FromBottomDialog from "../../../components/dialog/FromBottomDialog";
+import Scroll from "../../../components/Scroll";
+import BasePage from "../../BasePage";
 
 export default {
+  extends: BasePage,
   name: "SystemNotice",
   components: {
-    FromBottomDialog
+    FromBottomDialog,
+    Scroll
   },
   data() {
     return {
-      loading:false,
+      loading: false,
       isShowSetting: false,
       openNotice: false,
       list: [
+        {
+          type: 1,
+          title: '发作品得流量',
+          detail: 'xxx',
+          time: '2021-10-12 12:12',
+          content: '4.24-4.28，公开发布1个道具作品，即得50-100的额外流量。快来发布视频，获得更多关注'
+        },
+        {
+          type: 1,
+          title: '发作品得流量',
+          detail: 'xxx',
+          time: '2021-10-12 12:12',
+          content: '4.24-4.28，公开发布1个道具作品，即得50-100的额外流量。快来发布视频，获得更多关注'
+        },
         {
           type: 1,
           title: '发作品得流量',
@@ -99,11 +119,8 @@ export default {
       this.loading = true
       await this.$sleep(700)
       this.loading = false
-
-      nextTick(() => {
-        let content = this.$refs['content']
-        content.scrollTo({top: content.scrollHeight - content.clientHeight})
-      })
+      await nextTick()
+      this.$refs.mainScroll.scrollBottom()
     },
     goDetail(item) {
       item.read = true
@@ -124,18 +141,20 @@ export default {
   right: 0;
   bottom: 0;
   top: 0;
-  overflow: auto;
   color: white;
   font-size: 1.4rem;
 
+  .scroll {
+    height: calc(100vh - @header-height - @header-height);
+  }
+
   .content {
-    padding-top: 6rem;
+    height: calc(100vh - @header-height);
 
     .list {
-      height: calc(100vh - 12rem);
-      overflow: auto;
+      padding: @padding-page;
+      padding-top: 0;
       box-sizing: border-box;
-      padding: 0 @padding-page;
 
       .item {
         padding: @padding-page;
@@ -204,8 +223,9 @@ export default {
 
     .footer {
       border-top: 1px solid @line-color;
-      height: 6rem;
+      height: @header-height;
       display: flex;
+      box-sizing: border-box;
       align-items: center;
       justify-content: center;
     }

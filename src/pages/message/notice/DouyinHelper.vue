@@ -1,39 +1,44 @@
 <template>
   <div id="DouyinHelper">
-    <BaseHeader>
+    <BaseHeader :isFixed="false">
       <template v-slot:center>
         <span class="f16">抖音小助手</span>
       </template>
     </BaseHeader>
     <Loading v-if="loading"/>
-    <div class="content" ref="content" v-else>
-      <NoMore/>
-      <div class="list">
-        <!--TODO　超过3行显示全文-->
-        <div class="item" v-for="item in list" @click="goDetail(item)">
-          <div class="title">{{ item.title }}
-            <div class="ml1r not-read" v-if="!item.read"></div>
-          </div>
-          <div class="time">{{ item.time }}</div>
-          <div class="content-text">{{ item.content }}</div>
-          <div class="look-detail">
-            <span>查看详情</span>
-            <back direction="right" scale=".6"/>
+    <Scroll v-else ref="mainScroll">
+      <div class="content">
+        <NoMore/>
+        <div class="list">
+          <!--TODO　超过3行显示全文-->
+          <div class="item" v-for="item in list" @click="goDetail(item)">
+            <div class="title">{{ item.title }}
+              <div class="ml1r not-read" v-if="!item.read"></div>
+            </div>
+            <div class="time">{{ item.time }}</div>
+            <div class="content-text">{{ item.content }}</div>
+            <div class="look-detail">
+              <span>查看详情</span>
+              <back direction="right" scale=".6"/>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Scroll>
   </div>
 </template>
 <script>
 import {nextTick} from "vue";
+import Scroll from "../../../components/Scroll";
+import BasePage from "../../BasePage";
 
 export default {
+  extends: BasePage,
   name: "DouyinHelper",
-  components: {},
+  components: {Scroll},
   data() {
     return {
-      loading:false,
+      loading: false,
       list: [
         {
           read: false,
@@ -82,15 +87,12 @@ export default {
   mounted() {
   },
   methods: {
-    async getData(){
+    async getData() {
       this.loading = true
       await this.$sleep(700)
       this.loading = false
-
-      nextTick(() => {
-        let content = this.$refs['content']
-        content.scrollTo({top: content.scrollHeight - content.clientHeight})
-      })
+      await nextTick()
+      this.$refs.mainScroll.scrollBottom()
     },
     goDetail(item) {
       item.read = true
@@ -113,11 +115,13 @@ export default {
   color: white;
   font-size: 1.4rem;
 
+  .scroll {
+    height: calc(100vh - @header-height);
+  }
+
   .content {
     padding: @padding-page;
-    padding-top: 6rem;
-    height: 100vh;
-    overflow: auto;
+    padding-top: 0;
     box-sizing: border-box;
 
     .list {
@@ -158,5 +162,6 @@ export default {
       }
     }
   }
+
 }
 </style>
