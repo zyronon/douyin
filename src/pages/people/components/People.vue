@@ -7,20 +7,51 @@
           <div class="name">{{ people.name }}</div>
         </div>
       </template>
+      <template v-if="mode === 'normal-add-button'">
+        <div class="left">
+          <div class="name">{{ people.name }}</div>
+        </div>
+        <div class="right">
+          <!--   他关注我   -->
+          <template v-if="people.type === RELATE_ENUM.FOLLOW_ME">
+            <div class="l-button red" @click.stop="$emit('follow')">回关</div>
+          </template>
+          <!--   我关注他   -->
+          <template v-if="people.type === RELATE_ENUM.FOLLOW_HE">
+            <div class="l-button" @click.stop="$emit('unfollow')">已关注</div>
+          </template>
+          <!--          相互关注-->
+          <template v-if="people.type === RELATE_ENUM.FOLLOW_EACH_OTHER">
+            <div class="l-button" @click.stop="$emit('unfollow')">互相关注</div>
+          </template>
+          <!--         关注请求-->
+          <template v-if="people.type === RELATE_ENUM.REQUEST_FOLLOW">
+            <div class="l-button " @click.stop="$emit('ignore')">忽略</div>
+            <div class="l-button red" @click.stop="$emit('agree')">通过</div>
+          </template>
+        </div>
+      </template>
+
       <template v-if="mode === 'search'">
         <div class="left">
           <div class="name">
-            <span v-if="people.name.indexOf(searchKey) > -1">{{ people.name.substr(0, people.name.indexOf(searchKey)) }}<span style="color: yellow">{{ searchKey }}</span>{{ people.name.substr(people.name.indexOf(searchKey) + searchKey.length) }}</span>
+            <span v-if="people.name.indexOf(searchKey) > -1">{{ people.name.substr(0, people.name.indexOf(searchKey)) }}<span
+                style="color: yellow">{{
+                searchKey
+              }}</span>{{ people.name.substr(people.name.indexOf(searchKey) + searchKey.length) }}</span>
             <span v-else>{{ people.name }}</span>
           </div>
           <div class="name f12">抖音id:
 
-            <span v-if="people.account.indexOf(searchKey) > -1">{{ people.account.substr(0, people.account.indexOf(searchKey)) }}<span style="color: yellow">{{ searchKey }}</span>{{ people.account.substr(people.account.indexOf(searchKey) + searchKey.length) }}</span>
+            <span v-if="people.account.indexOf(searchKey) > -1">{{
+                people.account.substr(0, people.account.indexOf(searchKey))
+              }}<span style="color: yellow">{{
+                  searchKey
+                }}</span>{{ people.account.substr(people.account.indexOf(searchKey) + searchKey.length) }}</span>
             <span v-else>{{ people.account }}</span>
           </div>
         </div>
       </template>
-
 
       <template v-if="mode === 'fans'">
         <div class="left">
@@ -38,20 +69,20 @@
         <div class="right">
           <!--   他关注我   -->
           <template v-if="people.type === RELATE_ENUM.FOLLOW_ME">
-            <div class="l-button red" @click="$emit('follow')">回关</div>
+            <div class="l-button red" @click.stop="$emit('follow')">回关</div>
           </template>
           <!--   我关注他   -->
           <template v-if="people.type === RELATE_ENUM.FOLLOW_HE">
-            <div class="l-button" @click="$emit('unfollow')">已关注</div>
+            <div class="l-button" @click.stop="$emit('unfollow')">已关注</div>
           </template>
           <!--          相互关注-->
           <template v-if="people.type === RELATE_ENUM.FOLLOW_EACH_OTHER">
-            <div class="l-button" @click="$emit('unfollow')">互相关注</div>
+            <div class="l-button" @click.stop="$emit('unfollow')">互相关注</div>
           </template>
           <!--         关注请求-->
           <template v-if="people.type === RELATE_ENUM.REQUEST_FOLLOW">
-            <div class="l-button " @click="$emit('ignore')">忽略</div>
-            <div class="l-button red" @click="$emit('agree')">通过</div>
+            <div class="l-button " @click.stop="$emit('ignore')">忽略</div>
+            <div class="l-button red" @click.stop="$emit('agree')">通过</div>
           </template>
         </div>
       </template>
@@ -63,15 +94,15 @@
         </div>
         <div class="right">
           <template v-if="people.type === RELATE_ENUM.RECOMMEND_NO_REMOVE">
-            <div class="l-button red" @click="$emit('follow')">关注</div>
+            <div class="l-button red" @click.stop="$emit('follow')">关注</div>
           </template>
           <template v-if="people.type === RELATE_ENUM.RECOMMEND">
-            <div class="l-button" @click="$emit('remove')">移除</div>
-            <div class="l-button red" @click="$emit('follow')">关注</div>
+            <div class="l-button" @click.stop="$emit('remove')">移除</div>
+            <div class="l-button red" @click.stop="$emit('follow')">关注</div>
           </template>
           <!--   我关注他   -->
           <template v-if="people.type === RELATE_ENUM.FOLLOW_HE">
-            <div class="l-button" @click="$emit('unfollow')">已关注</div>
+            <div class="l-button" @click.stop="$emit('unfollow')">已关注</div>
           </template>
         </div>
       </template>
@@ -83,7 +114,7 @@
         </div>
         <div class="right">
           <div class="l-button">发私信</div>
-          <img src="../../../assets/img/icon/menu-white.png" alt="" @click="showPopover = !showPopover">
+          <img src="../../../assets/img/icon/menu-white.png" alt="" @click.stop="showPopover = !showPopover">
         </div>
       </template>
 
@@ -94,15 +125,15 @@
         <div class="right">
           <!--   他关注我   -->
           <template v-if="people.type === RELATE_ENUM.FOLLOW_ME">
-            <div class="l-button red" @click="$emit('follow')">关注</div>
+            <div class="l-button red" @click.stop="$emit('follow')">关注</div>
           </template>
           <!--   我关注他   -->
           <template v-if="people.type === RELATE_ENUM.FOLLOW_HE">
-            <div class="l-button" @click="$emit('unfollow')">已关注</div>
+            <div class="l-button" @click.stop="$emit('unfollow')">已关注</div>
           </template>
           <!--          相互关注-->
           <template v-if="people.type === RELATE_ENUM.FOLLOW_EACH_OTHER">
-            <div class="l-button" @click="$emit('unfollow')">互相关注</div>
+            <div class="l-button" @click.stop="$emit('unfollow')">互相关注</div>
           </template>
         </div>
       </template>
@@ -143,14 +174,6 @@ export default {
   data() {
     return {
       showPopover: false,
-      RELATE_ENUM: {
-        RECOMMEND_NO_REMOVE: -2,//推荐,不能移除
-        RECOMMEND: -1,//推荐
-        FOLLOW_ME: 1,//只关注我
-        FOLLOW_EACH_OTHER: 2,//互相关注
-        FOLLOW_HE: 3,//我关注他
-        REQUEST_FOLLOW: 4//关注请求
-      }
     }
   },
   computed: {},

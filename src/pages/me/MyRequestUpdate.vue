@@ -25,7 +25,7 @@ import {mapState} from "vuex";
 import FromBottomDialog from "../../components/dialog/FromBottomDialog";
 
 export default {
-  name: "RequestUpdate",
+  name: "MyRequestUpdate",
   components: {FromBottomDialog},
   data() {
     return {}

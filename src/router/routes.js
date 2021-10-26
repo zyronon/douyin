@@ -85,10 +85,8 @@ const routes = [
   {path: '/TestKeepAlive', component: TestKeepAlive},
   {path: '/TestKeepAlivePage1', component: TestKeepAlivePage1},
   {path: '/home', component: Index},
-  {path: '/home/submit-report', component: SubmitReport},
   {path: '/home/music', component: Music},
   {path: '/home/music-rank-list', component: MusicRankList},
-  {path: '/home/report', component: Report},
   {path: '/home/search', component: Search},
   {path: '/home/live', component: LivePage},
 
@@ -123,7 +121,6 @@ const routes = [
   {path: '/message', component: Message},
   {path: '/message/all', component: AllMessage},
   {path: '/message/more-search', component: MoreSearch},
-  {path: '/message/share-to-friend', component: Share2Friend},
   {path: '/message/joined-group-chat', component: JoinedGroupChat},
   {path: '/message/fans', component: Fans},
   {path: '/message/visitors', component: Visitors},
@@ -160,6 +157,9 @@ const routes = [
   {path: '/me/request-update', component: RequestUpdate},
   {path: '/me/my-request-update', component: MyRequestUpdate},
   {path: '/me/uploader', component: Uploader},
+  {path: '/home/report', component: Report},
+  {path: '/home/submit-report', component: SubmitReport},
+  {path: '/message/share-to-friend', component: Share2Friend},
 ]
 
 export default routes

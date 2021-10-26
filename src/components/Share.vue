@@ -113,7 +113,7 @@
             <img src="../assets/img/icon/components/video/link.png" alt="">
             <span>复制链接</span>
           </div>
-          <div class="tool" @click="$nav('/home/report',{type:this.mode})">
+          <div class="tool" @click="$nav('/home/report',{mode:this.mode})">
             <img src="../assets/img/icon/components/video/warring.png" alt="">
             <span>举报音乐</span>
           </div>
@@ -127,7 +127,7 @@
             <img src="../assets/img/icon/components/video/comeonlook.webp" alt="">
             <span>一起视频</span>
           </div>
-          <div class="tool" @click="$nav('/home/report',{type:this.mode})">
+          <div class="tool" @click="$nav('/home/report',{mode:this.mode})">
             <img src="../assets/img/icon/components/video/warring.png" alt="">
             <span>举报</span>
           </div>

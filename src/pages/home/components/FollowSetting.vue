@@ -24,7 +24,7 @@
           <img src="../../../assets/img/icon/components/follow/private-chat.png" alt="">
           <span>发私信</span>
         </div>
-        <div class="option" @click="cancel(e => $nav('/home/report'))">
+        <div class="option" @click="cancel(e => $nav('/home/report',{mode:'chat'}))">
           <img src="../../../assets/img/icon/components/follow/report.png" alt="">
           <span>举报</span>
         </div>

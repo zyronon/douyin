@@ -110,7 +110,6 @@ Mock.mock(/private1/, options => {
     }, code: 200, msg: '',
   })
 })
-
 Mock.mock(/collect/, options => {
   return Mock.mock({
     data: {
@@ -125,7 +124,6 @@ Mock.mock(/collect/, options => {
     }, code: 200, msg: '',
   })
 })
-
 Mock.mock(/historyVideo/, options => {
   let page = getPage(options)
   return Mock.mock({
@@ -145,5 +143,10 @@ Mock.mock(/historyOther/, options => {
       total: 0,
       list: [],
     }, code: 200, msg: '',
+  })
+})
+Mock.mock(/user\/friends/, options => {
+  return Mock.mock({
+    data: resource.users, code: 200, msg: '',
   })
 })

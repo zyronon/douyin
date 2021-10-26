@@ -7,7 +7,16 @@
     </BaseHeader>
     <div class="content">
       <div class="peoples">
-        <People v-for="item in list " :people="item"></People>
+        <People
+            @follow="follow(index)"
+            @unfollow="unfollow(index)"
+            mode="normal-add-button"
+            v-for="(item,index) in list "
+            :people="item"/>
+        <div class="add-people" @click="$nav('/message/share-to-friend')">
+          <img src="../../../assets/img/icon/message/chat/add.png" alt="" class="head-image">
+          <div class="name">多人聊天</div>
+        </div>
       </div>
       <div class="setting">
         <div class="row">
@@ -25,20 +34,19 @@
         <div class="row" @click="$nav('/set-remark')">
           <div class="left">设备备注</div>
           <div class="right">
-            <back direction="right" scale="1.2" ></back>
+            <back direction="right" scale=".7"></back>
           </div>
         </div>
-        <!-- TODO 没做        -->
-        <div class="row">
+        <div class="row" @click="$nav('/home/report',{mode:'chat'})">
           <div class="left">举报</div>
           <div class="right">
-            <back direction="right" scale="1.2" ></back>
+            <back direction="right" scale=".7"></back>
           </div>
         </div>
         <div class="row" @click="blockDialog = true">
           <div class="left">拉黑</div>
           <div class="right">
-            <back direction="right" scale="1.2" ></back>
+            <back direction="right" scale=".7"></back>
           </div>
         </div>
       </div>
@@ -51,6 +59,7 @@ import Switches from '../components/swtich/switches';
 import People from "../../people/components/People";
 import FromBottomDialog from "../../../components/dialog/FromBottomDialog";
 import BlockDialog from "../components/BlockDialog";
+import CONST_VAR from "../../../utils/const_var";
 
 export default {
   name: "ChatDetail",
@@ -67,12 +76,23 @@ export default {
       blockDialog: false,
       list: [
         {
-          type: 1,
-          name: 'A'
-        },
-        {
-          type: 6,
-          name: '多人聊天'
+          "id": "224e9a00-ffa0-4bc1-bb07-c318c7b02fa5",
+          "avatar": new URL('../../../assets/img/icon/avatar/1.png', import.meta.url).href,
+          "name": "何以为家",
+          "sex": "",
+          "age": null,
+          "idCard": null,
+          "phone": "",
+          "address": null,
+          "wechat": "",
+          "password": null,
+          "lastLoginTime": "1629993515",
+          "createTime": "1630035089",
+          "isDelete": 0,
+          "account": "234",
+          "pinyin": "M",
+          "select": false,
+          type: CONST_VAR.RELATE_ENUM.FOLLOW_EACH_OTHER
         },
       ]
     }
@@ -83,6 +103,25 @@ export default {
   methods: {
     t() {
       this.enabled = !this.enabled
+    },
+    follow(index) {
+      if (this.list[index].type === this.RELATE_ENUM.FOLLOW_ME) {
+        this.list[index].type = this.RELATE_ENUM.FOLLOW_EACH_OTHER
+      }
+    },
+    unfollow(index) {
+      this.$showConfirmDialog(
+          '正在与对方相互关注，是否不再关注该用户',
+          null,
+          'gray',
+          () => {
+            this.list[index].type = this.RELATE_ENUM.FOLLOW_ME
+          },
+          () => {
+          },
+          '取消关注',
+          '返回'
+      )
     }
   }
 }
@@ -110,7 +149,25 @@ export default {
       .People {
         border-bottom: 1px solid @second-btn-color-tran;
       }
+
+      .add-people {
+        transition: all 0.3s ease;
+        width: 100%;
+        height: 7rem;
+        display: flex;
+        align-items: center;
+        position: relative;
+        border-bottom: 1px solid @second-btn-color-tran;
+
+        .head-image {
+          margin-right: 1.5rem;
+          width: 4.5rem;
+          height: 4.5rem;
+          border-radius: 50%;
+        }
+      }
     }
+
 
     .setting {
       .row {
