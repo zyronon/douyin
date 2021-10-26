@@ -109,10 +109,10 @@ export default {
       .title {
         font-size: 1.5rem;
         font-weight: bold;
-        margin-bottom: 1rem;
       }
 
       .subtitle {
+        margin-top: 1rem;
         font-size: 1.3rem;
 
         &.gray {

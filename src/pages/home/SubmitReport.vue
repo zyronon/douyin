@@ -2,7 +2,10 @@
   <div class="Report">
     <BaseHeader>
       <template v-slot:center>
-        <span class="f16">视频举报</span>
+         <span class="f16">
+          <template v-if="mode === 'video'">视频</template>
+          <template v-if="mode === 'music'">音乐</template>
+          <template v-if="mode === 'chat'">私信</template>举报</span>
       </template>
     </BaseHeader>
     <div class="content">
@@ -24,8 +27,8 @@
         <div class="text-num">{{ desc.length }}/200</div>
       </div>
       <div class="upload-photo">
-        <div class="photo-wrapper" v-for="(index,item) in photos">
-          <img class="photo" src="../../assets/img/poster/1.jpg" alt="">
+        <div class="photo-wrapper" v-for="(item,index) in photos">
+          <img class="photo" :src="item" alt="">
           <img class="close" src="../../assets/img/icon/components/light-close.png" alt="" @click="photos.pop()">
         </div>
         <div class="upload" @click="upload" v-if="photos.length !== 4">
@@ -45,6 +48,7 @@ export default {
   data() {
     return {
       type: '色情低俗',
+      mode: 'video',
       desc: '',
       photos: []
     }
@@ -52,9 +56,7 @@ export default {
   computed: {},
   created() {
     this.type = this.$route.query.type
-  },
-  activated() {
-    this.type = this.$route.query.type
+    this.mode = this.$route.query.mode
   },
   methods: {
     async upload() {
@@ -62,7 +64,7 @@ export default {
       await this.$sleep(500)
       this.$hideLoading()
       this.photos.push(
-          new URL(`../../assets/img/poster/${this.photos.length}.jpg`)
+          new URL(`../../assets/img/poster/${this.photos.length}.jpg`, import.meta.url).href,
       )
 
     }
@@ -147,6 +149,7 @@ export default {
         margin-right: 1vw;
 
         .photo {
+          object-fit: cover;
           position: absolute;
           width: 100%;
           height: 100%;

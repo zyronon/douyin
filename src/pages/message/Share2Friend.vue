@@ -272,6 +272,7 @@ export default {
     },
     async getFriends() {
       let res = await this.$api.user.friends()
+      console.log('getFriends', res)
       if (res.code === this.SUCCESS) {
         this.friends = res.data
         this.friends.all = this.friends.all.sort((a, b) => {
@@ -339,6 +340,7 @@ export default {
     border-bottom: 1px solid #cccccc11;
     font-size: 1.4rem;
     padding: 0;
+    padding-left: @padding-page;
     height: 5rem;
     border-radius: 2px;
     display: flex;
@@ -423,13 +425,6 @@ export default {
     }
   }
 
-  .fixed {
-    position: fixed;
-    top: 11rem;
-    left: 2rem;
-    right: 2rem;
-  }
-
   .content {
     height: calc(100% - 11.2rem);
     margin-top: 11.2rem;
@@ -450,7 +445,7 @@ export default {
       justify-content: space-between;
 
       .comment {
-        padding: 2rem;
+        padding: 0 2rem;
         display: flex;
         flex: 1;
 
@@ -467,6 +462,10 @@ export default {
           height: 4rem;
           width: 4rem;
         }
+      }
+
+      .wrapper {
+        padding: 1rem;
       }
 
       .create-chat {

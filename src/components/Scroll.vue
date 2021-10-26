@@ -60,7 +60,7 @@ export default {
   methods: {
     move(e) {
       // console.log(this.wrapper)
-      console.log(this.wrapper.scrollTop)
+      // console.log(this.wrapper.scrollTop)
       if (this.refresh) return
       if (this.wrapper.scrollTop > 0) return;
       if (this.wrapper.scrollTop === 0 && this.startMoveY === null) {
@@ -78,7 +78,7 @@ export default {
       } else {
         this.distance = null
       }
-      console.log('end')
+      // console.log('end')
     },
     refreshEnd() {
       this.distance = null
