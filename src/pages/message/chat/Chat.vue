@@ -8,7 +8,7 @@
           <span>zzzz</span>
         </div>
         <div class="right">
-          <img @click="isShowAudioCall = true" style="transform: scale(1.1)"
+          <img @click="mitt.emit('showAudioCall')" style="transform: scale(1.1)"
                src="../../../assets/img/icon/message/video-white.png" alt="">
           <img src="../../../assets/img/icon/menu-white.png" alt="" @click="$nav('/message/chat/detail')">
         </div>
@@ -161,53 +161,11 @@
     </transition>
 
     <Loading v-if="loading"/>
-
-    <div class="call-float">
-      <!--      <span>对方手机可能不在身边，建议稍后再试</span>-->
-      <!--      <span>对方无应答</span>-->
-      <img src="@/assets/img/icon/message/chat/call-float.png" alt="">
-      <span>呼叫中</span>
-    </div>
-
-    <transition name="scale">
-      <div class="audio-call" v-if="isShowAudioCall">
-        <div class="float">
-          <div class="header">
-            <img @click="isShowAudioCall = false" src="../../../assets/img/icon/message/chat/narrow.png" alt=""
-                 class="left">
-            <div class="center">
-              <img src="../../../assets/img/icon/avatar/2.png" alt="" class="avatar">
-              <span>等待对方接听...</span>
-            </div>
-            <div class="right">
-              <div class="option">
-                <img src="../../../assets/img/icon/message/chat/disabled-camera.png" alt="">
-                <span>摄像头</span>
-              </div>
-              <div class="option">
-                <img src="../../../assets/img/icon/message/chat/able-volume.png" alt="">
-                <span>免提</span>
-              </div>
-              <div class="option">
-                <back mode="light" img="back" class="shrink"/>
-                <!--              <img src="../../../assets/img/icon/message/chat/narrow.png" alt="">-->
-              </div>
-            </div>
-          </div>
-          <img src="../../../assets/img/icon/avatar/2.png" alt="" class="big-avatar">
-          <div class="footer">
-            <img @click="isShowAudioCall = false" src="@/assets/img/icon/message/chat/call-end.png">
-            <span>挂断</span>
-          </div>
-        </div>
-      </div>
-    </transition>
-
   </div>
 </template>
 <script>
 import ChatMessage from "../components/ChatMessage";
-import {nextTick} from "vue";
+import {inject, nextTick} from "vue";
 import Mask from "../../../components/Mask";
 import {mapState} from "vuex";
 import Loading from "../../../components/Loading";
@@ -491,7 +449,7 @@ export default {
           }
         },
       ],
-      isShowAudioCall: false,
+
       typing: false,
       loading: false,
       opening: false,
@@ -500,7 +458,8 @@ export default {
       showOption: false,
       isShowOpenRedPacket: false,
       tooltipTop: -1,
-      tooltipTopLocation: ''
+      tooltipTopLocation: '',
+      mitt: inject('mitt'),
     }
   },
   computed: {
@@ -933,126 +892,6 @@ export default {
       }
     }
 
-  }
-
-
-  .audio-call {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    //background: black;
-    background: linear-gradient(to bottom, #262626, black);
-
-    .float {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-
-      > .header {
-        width: 100vw;
-        padding: @padding-page;
-        box-sizing: border-box;
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-
-        img {
-          width: 2.4rem;
-          height: 2.4rem;
-        }
-
-        .center {
-          display: flex;
-          align-items: center;
-
-          img {
-            width: 2rem;
-            height: 2rem;
-            background: white;
-            padding: .2rem;
-            border-radius: 50%;
-          }
-
-          span {
-            margin-left: .5rem;
-          }
-        }
-
-        .right {
-          display: flex;
-          flex-direction: column;
-          font-size: 1rem;
-
-          .option {
-            margin-bottom: 2.4rem;
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-
-            span {
-              margin-top: 1rem;
-            }
-          }
-
-          .shrink {
-            transform: rotate(90deg) scale(.6) !important;
-          }
-        }
-      }
-
-      .big-avatar {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate3d(-50%, -50%, 0);
-        width: 10rem;
-        border-radius: 50%;
-      }
-
-      .footer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-size: 1.2rem;
-        margin-bottom: 4rem;
-
-        img {
-          width: 5rem;
-          margin-bottom: .5rem;
-        }
-
-      }
-
-
-    }
-
-  }
-
-  .call-float {
-    position: fixed;
-    top: 20vh;
-    left: @padding-page;
-    background: white;
-    display: flex;
-    align-items: center;
-    border-radius: .6rem;
-    justify-content: center;
-    flex-direction: column;
-    color: #14BF5F;
-    padding: 1rem;
-
-    img {
-      width: 3rem;
-      margin-bottom: .2rem;
-    }
   }
 }
 
