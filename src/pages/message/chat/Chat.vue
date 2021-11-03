@@ -8,8 +8,10 @@
           <span>zzzz</span>
         </div>
         <div class="right">
-          <img @click="mitt.emit('showAudioCall')" style="transform: scale(1.1)"
-               src="../../../assets/img/icon/message/video-white.png" alt="">
+          <img @click="mitt.emit('showAudioCall')"
+               src="../../../assets/img/icon/message/chat/call.png" alt="">
+          <img @click="$no"
+               src="../../../assets/img/icon/message/chat/video-white.png" alt="">
           <img src="../../../assets/img/icon/menu-white.png" alt="" @click="$nav('/message/chat/detail')">
         </div>
       </div>
@@ -449,7 +451,6 @@ export default {
           }
         },
       ],
-
       typing: false,
       loading: false,
       opening: false,
@@ -584,6 +585,10 @@ export default {
           color: white;
           background: @second-btn-color;
         }
+      }
+
+      .right{
+        display: flex;
       }
     }
 

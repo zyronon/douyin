@@ -1,43 +1,49 @@
 <template>
   <div class="call-float"
-       v-if="call.isSmall"
+       v-if="isSmall"
        :style="callFloatStyle"
        @touchmove="touchmove"
        @touchend="touchend"
-       @click="call.isSmall = false">
+       @click="isSmall = false">
     <img src="@/assets/img/icon/message/chat/call-float.png" alt="">
     <span>呼叫中</span>
   </div>
 
   <transition name="scale">
     <div class="audio-call"
-         :style="call.isSmall ? callFloatStyle : {zIndex:10}"
-         :class="call.isSmall?'small':''"
-         v-if="call.isShowAudioCall">
+         :style="isSmall ? callFloatStyle : {zIndex:10}"
+         :class="isSmall?'small':''"
+         v-if="isShowAudioCall">
       <div class="float">
         <div class="header">
           <div class="left">
-            <img @click="call.isSmall = true" src="@/assets/img/icon/message/chat/narrow.png" alt="">
+            <img @click="isSmall = true" src="@/assets/img/icon/message/chat/narrow.png" alt="">
           </div>
           <span class="center">等待对方接听...</span>
           <div class="right">
             <div class="option">
-              <img src="@/assets/img/icon/message/chat/disabled-camera.png" alt="">
+              <img v-show="!isOpenCamera" @click="isOpenCamera = !isOpenCamera"
+                   src="@/assets/img/icon/message/chat/disabled-camera.png" alt="">
+              <img v-show="isOpenCamera" @click="isOpenCamera = !isOpenCamera"
+                   src="@/assets/img/icon/message/chat/able-camera.png" alt="">
               <span>摄像头</span>
             </div>
-            <div class="option">
-              <img src="@/assets/img/icon/message/chat/able-volume.png" alt="">
+            <div class="option" v-if="isExpand">
+              <img v-show="!isOpenAudio" @click="isOpenAudio = !isOpenAudio"
+                   src="@/assets/img/icon/message/chat/disabled-volume.png" alt="">
+              <img v-show="isOpenAudio" @click="isOpenAudio = !isOpenAudio"
+                   src="@/assets/img/icon/message/chat/able-volume.png" alt="">
               <span>免提</span>
             </div>
             <div class="option">
-              <back mode="light" img="back" class="shrink"/>
+              <back mode="light" @click="isExpand = !isExpand" img="back" class="shrink"/>
               <!--              <img src="@/assets/img/icon/message/chat/narrow.png" alt="">-->
             </div>
           </div>
         </div>
         <img src="@/assets/img/icon/avatar/2.png" alt="" class="big-avatar">
         <div class="footer">
-          <img @click="call.isShowAudioCall = false" src="@/assets/img/icon/message/chat/call-end.png">
+          <img @click="isShowAudioCall = false" src="@/assets/img/icon/message/chat/call-end.png">
           <span>挂断</span>
         </div>
       </div>
@@ -56,13 +62,14 @@ export default {
   data() {
     return {
       mitt: inject('mitt'),
-      call: {
-        callFloatTransitionTime: 300,
-        callFloatLeft: 15,
-        callFloatTop: 100,
-        isSmall: false,
-        isShowAudioCall: false,
-      },
+      callFloatTransitionTime: 300,
+      callFloatLeft: 15,
+      callFloatTop: 100,
+      isOpenCamera: false,
+      isOpenAudio: true,
+      isExpand: true,
+      isSmall: false,
+      isShowAudioCall: false,
       height: 0,
       width: 0,
     }
@@ -70,36 +77,43 @@ export default {
   computed: {
     callFloatStyle() {
       return {
-        'transition-duration': this.call.callFloatTransitionTime + 'ms',
-        left: this.call.callFloatLeft + 'px',
-        top: this.call.callFloatTop + 'px',
+        'transition-duration': this.callFloatTransitionTime + 'ms',
+        left: this.callFloatLeft + 'px',
+        top: this.callFloatTop + 'px',
       }
     }
   },
-  watch: {},
+  watch: {
+    isShowAudioCall(newVal) {
+      if (!newVal) {
+        this.isOpenCamera = false
+        this.isOpenAudio = true
+      }
+    }
+  },
   created() {
   },
   methods: {
     touchmove(e) {
-      this.call.callFloatTransitionTime = 0
-      this.call.callFloatLeft = e.touches[0].pageX - 35
-      this.call.callFloatTop = e.touches[0].pageY - 40
+      this.callFloatTransitionTime = 0
+      this.callFloatLeft = e.touches[0].pageX - 35
+      this.callFloatTop = e.touches[0].pageY - 40
     },
     touchend(e) {
-      this.call.callFloatTransitionTime = 300
-      if (this.call.callFloatLeft < this.width / 2) {
-        this.call.callFloatLeft = 15
+      this.callFloatTransitionTime = 300
+      if (this.callFloatLeft < this.width / 2) {
+        this.callFloatLeft = 15
       } else {
-        this.call.callFloatLeft = this.width - 15 - 70
+        this.callFloatLeft = this.width - 15 - 70
       }
     },
   },
   mounted() {
     this.mitt.on('showAudioCall', () => {
-      if (this.call.isShowAudioCall) {
-        this.call.isSmall = false
+      if (this.isShowAudioCall) {
+        this.isSmall = false
       } else {
-        this.call.isShowAudioCall = true
+        this.isShowAudioCall = true
       }
     })
     this.height = document.body.clientHeight
