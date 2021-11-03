@@ -1,5 +1,5 @@
 <p align="center">
-   <img src="https://github.com/ttentau/douyin" alt="Star">
+   <img src="https://badgen.net/github/stars/ttentau/douyin" alt="Star">
   <a href="https://github.com/vuejs/vue">
     <img src="https://img.shields.io/badge/Vue-2.6.10-brightgreen.svg" alt="Vue">
   </a>
@@ -41,27 +41,6 @@
 
 [在线预览地址](http://douyin.ttentau.top)
 
-## 运行
-
-```bash
-# 克隆项目到本地
-git clone https://github.com/ttentau/douyin.git
-
-# 进入项目目录
-cd douyin
-
-# 安装依赖
-npm install
-
-# 启动服务
-npm run serve
-
-# 访问
-Chrome浏览器访问 http://localhost:8080
-Chrome切换成移动端模式快捷键，先按F12调出控制台，再按Ctrl+Shift+M
-
-```
-
 ## 功能点
 
 页面|进度
@@ -87,6 +66,27 @@ Chrome切换成移动端模式快捷键，先按F12调出控制台，再按Ctrl+
 -- 设置|&#9745;
 -- -- 具体设置页面|0%
 登录\注册|&#9745;
+
+## 运行
+
+```bash
+# 克隆项目到本地
+git clone https://github.com/ttentau/douyin.git
+
+# 进入项目目录
+cd douyin
+
+# 安装依赖
+npm install
+
+# 启动服务
+npm run serve
+
+# 访问
+Chrome浏览器访问 http://localhost:8080
+Chrome切换成移动端模式快捷键，先按F12调出控制台，再按Ctrl+Shift+M
+
+```
 
 ## 问题反馈
 
