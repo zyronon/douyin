@@ -923,21 +923,8 @@ export default {
               height: 2rem;
             }
 
-            .not-read {
-              width: .7rem;
-              height: .7rem;
-              border-radius: 50%;
-              background: yellow;
-            }
 
-            .badge {
-              font-size: 1.2rem;
-              display: block;
-              color: black;
-              padding: 1px .6rem;
-              border-radius: 1rem;
-              background: yellow;
-            }
+
           }
         }
 

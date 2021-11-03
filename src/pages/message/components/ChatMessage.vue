@@ -221,6 +221,7 @@ export default {
     text-align: center;
     height: 4rem;
     line-height: 4rem;
+    font-size: 1.2rem;
   }
 
   .red_packet {

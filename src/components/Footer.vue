@@ -1,5 +1,5 @@
 <template>
-  <div class="footer f16 ">
+  <div class="footer">
     <div class="l-button" @click="refresh(1)">
       <span v-if="!isRefresh1" :class="{active:currentTab===1}">首页</span>
       <img v-if="isRefresh1 " src="../assets/img/icon/refresh1.png" alt="" class="refresh">
@@ -15,8 +15,13 @@
         </div>
       </div>
     </div>
-    <div class="l-button" @click="tab(4)"><span :class="{active:currentTab===4}">消息</span></div>
-    <div class="l-button" @click="tab(5)"><span :class="{active:currentTab===5}">我</span></div>
+    <div class="l-button" @click="tab(4)">
+      <span :class="{active:currentTab===4}">消息</span>
+      <div class="badge2 ">2</div>
+    </div>
+    <div class="l-button" @click="tab(5)">
+      <span :class="{active:currentTab===5}">我</span>
+    </div>
   </div>
 </template>
 
@@ -69,7 +74,7 @@ export default {
 @import "../assets/less/index";
 
 .footer {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   position: fixed;
   width: 100%;
   height: 5rem;
@@ -89,6 +94,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 
     .refresh {
       width: 25%;
@@ -137,6 +143,18 @@ export default {
       &.active {
         opacity: 1;
       }
+    }
+
+    .badge2 {
+      right: .7rem;
+      top: .7rem;
+      position: absolute;
+    }
+
+    .badge {
+      right: .7rem;
+      top: .7rem;
+      position: absolute;
     }
   }
 }
