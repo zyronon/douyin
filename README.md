@@ -1,17 +1,13 @@
 <p align="center">
    <img src="https://badgen.net/github/stars/ttentau/douyin" alt="Star">
   <a href="https://github.com/vuejs/vue">
-    <img src="https://img.shields.io/badge/Vue-2.6.10-brightgreen.svg" alt="Vue">
+    <img src="https://img.shields.io/badge/Vue-3-brightgreen.svg" alt="Vue">
   </a>
-  <a href="https://youzan.github.io/vant/#/zh-CN/intro">
-    <img src="https://img.shields.io/badge/Vant--UI-2.7.0-brightgreen.svg" alt="Vant-ui">
-  </a>
-  <img src="https://img.shields.io/badge/Node-8.9+-brightgreen.svg" alt="Vant-ui">
-   <a href="https://github.com/Geek-James">
-    <img src="https://img.shields.io/badge/build-passing-green.svg" alt="geekJames">
-  </a>
-  <a href="https://github.com/easy-mock/easy-mock">
-    <img src="https://img.shields.io/badge/EasyMock-1.6.0-brightgreen.svg" alt="easymock">
+  <a href="https://cn.vitejs.dev">
+    <img src="https://img.shields.io/badge/vite-2-brightgreen.svg" alt="Vant-ui">
+  </a> 
+  <a href="http://mockjs.com">
+    <img src="https://img.shields.io/badge/mockjs-brightgreen.svg" alt="easymock">
   </a>
     <a href="https://github.com/Geek-James/ddBuy/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="license">
