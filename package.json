@@ -24,8 +24,8 @@
     "@vitejs/plugin-vue": "^1.9.3",
     "@vitejs/plugin-vue-jsx": "^1.2.0",
     "vite": "^2.6.4",
-    "less": "^4.1.1",
-    "less-loader": "^7.0.0",
+    "less": "4.1.1",
+    "less-loader": "7.0.0",
     "mobile-select": "^1.1.2"
   }
 }
