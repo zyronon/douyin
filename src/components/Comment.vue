@@ -32,9 +32,9 @@
                 </div>
               </div>
               <div class="love" @click="loved(item)">
-                <img v-if="item.isLoved" src="../assets/img/icon/components/like-red-small.png" alt=""
+                <img v-show="item.isLoved" src="../assets/img/icon/components/like-red-small.png" alt=""
                      class="love-image">
-                <img v-else src="../assets/img/icon/components/like-gray-small.png" alt="" class="love-image">
+                <img  v-show="!item.isLoved" src="../assets/img/icon/components/like-gray-small.png" alt="" class="love-image">
                 <span>{{ $likeNum(item.loveNum) }}</span>
               </div>
             </div>
@@ -478,6 +478,7 @@ export default {
         }
 
         span {
+          font-size: 1rem;
           transform: translateY(-.5rem);
         }
       }
