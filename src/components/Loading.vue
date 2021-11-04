@@ -31,6 +31,7 @@ export default {
 
 
   &.full {
+    z-index: 999;
     position: fixed;
     left: 50%;
     top: 50%;

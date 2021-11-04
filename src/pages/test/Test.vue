@@ -1,6 +1,7 @@
 <template>
   <div class="Test">
-    <Uploader/>
+<!--    <Uploader/>-->
+    <TestVideo class="vue"/>
   </div>
 </template>
 <script>
@@ -8,11 +9,13 @@
 import ConfirmDialog from "../../components/dialog/ConfirmDialog";
 import Search from "../../components/Search";
 import Uploader from "../me/Uploader";
+import TestVideo from "./TestVideo";
 
 export default {
   name: "Test",
   components: {
-    Uploader
+    Uploader,
+    TestVideo
   },
   props: {},
   data() {

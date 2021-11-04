@@ -215,7 +215,7 @@ export default {
   },
   data() {
     return {
-      previewImg: new URL('../../assets/img/poster/3.jpg', import.meta.url).href,
+      previewImg: new URL('../../../assets/img/poster/3.jpg', import.meta.url).href,
       videoCall: [],
       MESSAGE_TYPE,
       messages: [
