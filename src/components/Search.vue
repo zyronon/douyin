@@ -6,7 +6,7 @@
       <input type="text" :placeholder="placeholder" v-model="value">
       <div class="suffix">
         <slot v-if="$slots.default"></slot>
-        <img v-if="value.length && (!$slots.default)" src="../assets/img/icon/components/gray-close-full2.png"
+        <img v-if="value.length && (!$slots.default)" src="../assets/img/icon/components/gray-close-full3.png"
              @click.stop="clear">
       </div>
     </div>

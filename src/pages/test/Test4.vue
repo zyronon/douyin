@@ -1,20 +1,23 @@
 <template>
-  <div class="Test">
+  <div id="Test">
     <base-button type="primary" @click="t = true">test</base-button>
-    <ShareToFriend v-model="t"/>
+<!--    <ShareToFriend pageId="Test" v-model="t"/>-->
+    <VideoShare v-model="t" page-id="Test"/>
   </div>
 </template>
 <script>
 import ShareToFriend from "../home/components/ShareToFriend";
 import BaseButton from "../../components/BaseButton";
 import Search from "../../components/Search";
+import VideoShare from "../home/components/VideoShare";
 
 export default {
   name: "Test4",
   components: {
     BaseButton,
     ShareToFriend,
-    Search
+    Search,
+    VideoShare
   },
   props: {
     text: {
@@ -36,7 +39,7 @@ export default {
 <style scoped lang="less">
 @import "../../assets/less/index";
 
-.Test {
+#Test {
   position: fixed;
   left: 0;
   right: 0;

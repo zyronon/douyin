@@ -10,7 +10,7 @@
         <Search
             :isShowRightText="isShowRightText"
             @click="isShowRightText = true;height = '100vh';"
-            @notice="isShowRightText = false;height = '70vh';"
+            @notice="isShowRightText = false;searchKey = '';height = '70vh';"
             rightText="取消"
             rightTextColor="gray"
             placeholder="搜索"

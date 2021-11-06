@@ -48,6 +48,9 @@ export default {
     },
   },
   mounted() {
+    window.onresize=()=>{
+      location.reload()
+    }
     // this.$store.dispatch('getFriends')
     try {
       navigator.control.gesture(false);
