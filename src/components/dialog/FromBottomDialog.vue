@@ -133,7 +133,6 @@ export default {
     afterLeave() {
     },
 
-
     hide(val = false) {
       this.$emit('update:modelValue', val)
       this.$emit('cancel')

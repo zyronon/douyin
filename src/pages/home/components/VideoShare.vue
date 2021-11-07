@@ -2,108 +2,119 @@
   <from-bottom-dialog
       :page-id="pageId"
       v-model="modelValue"
-      @cancel="closeShare"
+      @cancel="closeShare1"
       :touch-moved="false"
       maskMode="light"
       height="60vh"
       mode="light">
     <div class="video-share">
+
+      <svg width="200" height="200" viewBox="0 0 200 200">
+        <circle
+            :r="10"
+            :cx="100"
+            :cy="100"
+            :stroke-width="3"
+            :stroke="'darkgrey'"
+            fill="none"
+        />
+        <circle
+            :r="10"
+            :cx="100"
+            :cy="100"
+            :stroke-width="3"
+            :stroke="'#514F56'"
+            :stroke-dasharray="`30,100000`"
+            fill="none"
+            stroke-linecap="round"
+        />
+
+      </svg>
       <div class="shares">
+        <div class="to">
+          <div class="wrapper">
+            <!--            <div class="loading">-->
+            <!--              <div class="quan1"></div>-->
+            <!--              <div class="quan2"></div>-->
+            <!--            </div>-->
+
+
+          </div>
+        </div>
         <div class="to" @click="closeShare($emit('share2WeChat'))">
-          <img src="@/assets/img/icon/components/share/wechat.webp" alt="">
+          <div class="wrapper">
+            <img src="@/assets/img/icon/components/share/wechat.webp" alt="">
+          </div>
           <span>微信</span>
         </div>
         <div class="to" @click="closeShare($emit('showShare2WeChatZone'))">
-          <img src="@/assets/img/icon/components/share/wechatquan.png" alt="">
+          <div class="wrapper">
+            <img src="@/assets/img/icon/components/share/wechatquan.png" alt="">
+          </div>
           <span>朋友圈</span>
         </div>
-        <div class="to" @click="closeShare($emit('share2QQZone'))">
-          <img src="@/assets/img/icon/components/share/qq.webp" alt="">
-          <span>QQ</span>
-        </div>
-        <div class="to" @click="canDownload && closeShare($emit('download'))"
-             :style="{ opacity : canDownload ? '1' : '0.5' }">
-          <img src="@/assets/img/icon/components/share/download.png" alt="">
-          <span>保存本地</span>
-        </div>
-        <div class="to" @click="$nav('/home/report',{mode:this.mode})">
-          <img src="@/assets/img/icon/components/share/warning.png" alt="">
-          <span>举报</span>
-        </div>
-        <div class="to" @click="copyLink">
-          <img src="@/assets/img/icon/components/share/copy.png" alt="">
-          <span>复制口令</span>
-        </div>
-        <div class="to" @click="toggleCollect">
-          <img v-if="isCollect" src="@/assets/img/icon/components/share/collect-yellow.png" alt="">
-          <img v-else src="@/assets/img/icon/components/share/collect.png" alt="">
-          <span>收藏</span>
-        </div>
-        <div class="to" @click="$no">
-          <img src="@/assets/img/icon/components/video/comeonlook.webp" alt="">
-          <span>一起看</span>
-        </div>
-        <div class="to" @click="copyLink">
-          <img src="@/assets/img/icon/components/share/link.png" alt="">
-          <span>复制链接</span>
-        </div>
-        <div class="to" @click="$no">
-          <img src="@/assets/img/icon/components/video/dou.webp" alt="">
-          <span>帮上热门</span>
-        </div>
-        <template v-if="isShowMore">
-          <div class="to" @click="closeShare($emit('showShareDuoshan'))">
-            <img src="@/assets/img/icon/components/video/duoshan.png" alt="">
-            <span>多闪</span>
-          </div>
-          <div class="to" @click="$no">
-            <img src="@/assets/img/icon/components/video/totoutiao.webp" alt="">
-            <span>今日头条</span>
-          </div>
-        </template>
-        <template v-else>
-          <div class="to" @click="$no">
-            <img src="@/assets/img/icon/components/share/share.png" alt="">
-            <span>更多分享</span>
-          </div>
-        </template>
-        <!--        todo-->
-        <div class="to" @click="closeShare($emit('dislike'))">
-          <img src="@/assets/img/icon/components/share/dislike.png" alt="">
-          <span>不感兴趣</span>
-        </div>
-        <div class="to" @click="$no">
-          <img src="@/assets/img/icon/components/video/bizhi.webp" alt="">
-          <span>动态壁纸</span>
-        </div>
-
-        <div class="to" @click="closeShare($emit('showDouyinCode'))">
-          <img src="@/assets/img/icon/components/video/qrcode.png" alt="">
-          <span>抖音码</span>
-        </div>
-
-
         <template v-if="false">
+          <div class="to" @click="closeShare($emit('share2QQZone'))">
+            <img src="@/assets/img/icon/components/share/qq.webp" alt="">
+            <span>QQ</span>
+          </div>
+          <div class="to" @click="canDownload && closeShare($emit('download'))"
+               :style="{ opacity : canDownload ? '1' : '0.5' }">
+            <img src="@/assets/img/icon/components/share/download.png" alt="">
+            <span>保存本地</span>
+          </div>
+          <div class="to" @click="$nav('/home/report',{mode:this.mode})">
+            <img src="@/assets/img/icon/components/share/warning.png" alt="">
+            <span>举报</span>
+          </div>
+          <div class="to" @click="copyLink">
+            <img src="@/assets/img/icon/components/share/copy.png" alt="">
+            <span>复制口令</span>
+          </div>
+          <div class="to" @click="toggleCollect">
+            <img v-if="isCollect" src="@/assets/img/icon/components/share/collect-yellow.png" alt="">
+            <img v-else src="@/assets/img/icon/components/share/collect.png" alt="">
+            <span>收藏</span>
+          </div>
           <div class="to" @click="$no">
-            <img src="@/assets/img/icon/components/video/torichang.png" alt="">
-            <span>分享日常</span>
+            <img src="@/assets/img/icon/components/share/comeon.webp" alt="">
+            <span>一起看</span>
           </div>
-          <div class="to" @click="closeShare($emit('ShareToFriend'))">
-            <img src="@/assets/img/icon/components/video/tofriend.webp" alt="">
-            <span>私信朋友</span>
-          </div>
-
-          <div class="to" @click="closeShare($emit('share2Webo'))">
-            <img src="@/assets/img/icon/components/video/toweibo.webp" alt="">
-            <span>微博</span>
+          <div class="to" @click="copyLink">
+            <img src="@/assets/img/icon/components/share/link.png" alt="">
+            <span>复制链接</span>
           </div>
           <div class="to" @click="$no">
-            <img src="@/assets/img/icon/components/video/comeonplay.png" alt="">
-            <span>合拍</span>
+            <img src="@/assets/img/icon/components/share/dou.webp" alt="">
+            <span>帮上热门</span>
           </div>
-          <div class="to" @click="closeShare($emit('play-feedback'))">
-            <img src="@/assets/img/icon/components/video/feedback.webp" alt="">
-            <span>播放反馈</span>
+          <template v-if="isShowMore">
+            <div class="to" @click="closeShare($emit('showShareDuoshan'))">
+              <img src="@/assets/img/icon/components/video/duoshan.png" alt="">
+              <span>多闪</span>
+            </div>
+            <div class="to" @click="$no">
+              <img src="@/assets/img/icon/components/video/totoutiao.webp" alt="">
+              <span>今日头条</span>
+            </div>
+          </template>
+          <template v-else>
+            <div class="to" @click="$no">
+              <img src="@/assets/img/icon/components/share/share.png" alt="">
+              <span>更多分享</span>
+            </div>
+          </template>
+          <div class="to" @click="closeShare($emit('dislike'))">
+            <img src="@/assets/img/icon/components/share/dislike.png" alt="">
+            <span>不感兴趣</span>
+          </div>
+          <div class="to" @click="$no">
+            <img src="@/assets/img/icon/components/share/bizhi.webp" alt="">
+            <span>动态壁纸</span>
+          </div>
+          <div class="to" @click="closeShare($emit('showDouyinCode'))">
+            <img src="@/assets/img/icon/components/share/code.png" alt="">
+            <span>抖音码</span>
           </div>
         </template>
       </div>
@@ -153,13 +164,14 @@ export default {
       default: true
     },
   },
+
   computed: {
     ...mapState(['friends']),
   },
   data() {
     return {
       isCollect: false,
-      isShowMore: false,
+      isShowMore: true,
     }
   },
   methods: {
@@ -184,6 +196,9 @@ export default {
     },
     closeShare() {
       // this.$emit("update:modelValue", false)
+    },
+    closeShare1() {
+      this.$emit("update:modelValue", false)
     }
   }
 }
@@ -254,9 +269,10 @@ export default {
     }
   }
 
+  @icon-width: 5.8rem;
+
   .shares {
     @space-width: 1.5rem;
-    @icon-width: 3.8rem;
 
     overflow-x: scroll;
     display: flex;
@@ -266,16 +282,25 @@ export default {
       margin-left: @space-width;
       margin-bottom: @space-width;
 
-      img {
+      .wrapper {
+        box-sizing: border-box;
         background: white;
-        padding: 1rem;
         width: @icon-width;
         height: @icon-width;
+        padding: 1.2rem;
         border-radius: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 100%;
+          //height: 100%;
+        }
       }
 
       span {
-        margin-top: .2rem;
+        margin-top: .7rem;
         color: black;
         font-size: 1rem;
         display: block;
@@ -283,6 +308,36 @@ export default {
       }
     }
   }
+
+
+  .loading {
+    width: 60%;
+    height: 60%;
+    position: relative;
+
+    @border-width: 3.1px;
+
+    .quan1 {
+      position: absolute;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      border: @border-width solid darkgrey;
+      border-radius: 50%;
+    }
+
+    .quan2 {
+      position: absolute;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      border: @border-width solid #514F56;
+      border-radius: 50%;
+    }
+
+  }
+
+
 }
 
 </style>
