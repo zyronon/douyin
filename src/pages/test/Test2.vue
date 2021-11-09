@@ -85,7 +85,7 @@ export default {
           "unique_id_modify_time": "1630393144",
           "unique_id": "travels520",
           "favoriting_count": 54,
-          "avatar": new URL('../img/icon/avatar/11.png', import.meta.url).href,
+          "avatar": new URL('../../assets/img/icon/avatar/11.png', import.meta.url).href,
           "city": "",
           "province": '',
           "country": "",

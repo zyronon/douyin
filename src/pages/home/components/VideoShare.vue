@@ -9,89 +9,30 @@
       mode="light">
     <div class="video-share">
       <div class="shares">
-        <div class="to" @click="closeShare('weChat')">
-          <div class="wrapper">
-            <div v-if="loading.weChat" class="loading-wrapper" style="width: 80%;height: 80%;">
-              <LoadingCircle v-model="progress"/>
-            </div>
-            <img v-else src="@/assets/img/icon/components/share/wechat.webp" alt="">
-          </div>
-          <span>{{ displayText('weChat') }}</span>
-        </div>
-        <div class="to" @click="closeShare('weChatZone')">
-          <div class="wrapper">
-            <div v-if="loading.weChatZone" class="loading-wrapper" style="width: 80%;height: 80%;">
-              <LoadingCircle v-model="progress"/>
-            </div>
-            <img v-else src="@/assets/img/icon/components/share/wechatquan.png" alt="">
-          </div>
-          <!--          <span>{{ displayText('weChatZone') }}</span>-->
-         <sssss></sssss>
-        </div>
-        <template v-if="false">
-          <div class="to" @click="closeShare($emit('share2QQZone'))">
-            <img src="@/assets/img/icon/components/share/qq.webp" alt="">
-            <span>QQ</span>
-          </div>
-          <div class="to" @click="canDownload && closeShare($emit('download'))"
-               :style="{ opacity : canDownload ? '1' : '0.5' }">
-            <img src="@/assets/img/icon/components/share/download.png" alt="">
-            <span>保存本地</span>
-          </div>
-          <div class="to" @click="$nav('/home/report',{mode:this.mode})">
-            <img src="@/assets/img/icon/components/share/warning.png" alt="">
-            <span>举报</span>
-          </div>
-          <div class="to" @click="copyLink">
-            <img src="@/assets/img/icon/components/share/copy.png" alt="">
-            <span>复制口令</span>
-          </div>
-          <div class="to" @click="toggleCollect">
-            <img v-if="isCollect" src="@/assets/img/icon/components/share/collect-yellow.png" alt="">
-            <img v-else src="@/assets/img/icon/components/share/collect.png" alt="">
-            <span>收藏</span>
-          </div>
-          <div class="to" @click="$no">
-            <img src="@/assets/img/icon/components/share/comeon.webp" alt="">
-            <span>一起看</span>
-          </div>
-          <div class="to" @click="copyLink">
-            <img src="@/assets/img/icon/components/share/link.png" alt="">
-            <span>复制链接</span>
-          </div>
-          <div class="to" @click="$no">
-            <img src="@/assets/img/icon/components/share/dou.webp" alt="">
-            <span>帮上热门</span>
-          </div>
-          <template v-if="isShowMore">
-            <div class="to" @click="closeShare($emit('showShareDuoshan'))">
-              <img src="@/assets/img/icon/components/video/duoshan.png" alt="">
-              <span>多闪</span>
-            </div>
-            <div class="to" @click="$no">
-              <img src="@/assets/img/icon/components/video/totoutiao.webp" alt="">
-              <span>今日头条</span>
-            </div>
-          </template>
-          <template v-else>
-            <div class="to" @click="$no">
-              <img src="@/assets/img/icon/components/share/share.png" alt="">
-              <span>更多分享</span>
-            </div>
-          </template>
-          <div class="to" @click="closeShare($emit('dislike'))">
-            <img src="@/assets/img/icon/components/share/dislike.png" alt="">
-            <span>不感兴趣</span>
-          </div>
-          <div class="to" @click="$no">
-            <img src="@/assets/img/icon/components/share/bizhi.webp" alt="">
-            <span>动态壁纸</span>
-          </div>
-          <div class="to" @click="closeShare($emit('showDouyinCode'))">
-            <img src="@/assets/img/icon/components/share/code.png" alt="">
-            <span>抖音码</span>
-          </div>
+        <to-share item-type="weChat" :need-down="true" :can-download="canDownload"
+                  @copy="copyLink"
+                  @click="closeShare"/>
+        <to-share item-type="weChatZone" :need-down="true" :can-download="canDownload"
+                  @copy="copyLink"
+                  @click="closeShare"/>
+        <to-share item-type="qq" :need-down="true" :can-download="canDownload"
+                  @copy="copyLink"
+                  @click="closeShare"/>
+        <to-share item-type="download" :need-down="true" :can-download="canDownload" @click="closeShare()"/>
+        <to-share item-type="report" @click="$nav('/home/report',{mode:this.mode})"/>
+        <to-share item-type="copyPassword" @click="copyLink"/>
+        <to-share :item-type="isCollect?'collectYellow':'collect'" @click="toggleCollect"/>
+        <to-share item-type="comeon" @click="$no"/>
+        <to-share item-type="dou" @click="$no"/>
+        <to-share item-type="copyLink" @click="copyLink"/>
+        <template v-if="isShowMore">
+          <to-share item-type="duoshan" @click="isShowMore = true"/>
+          <to-share item-type="totoutiao" @click="isShowMore = true"/>
         </template>
+        <to-share v-else item-type="share" @click="isShowMore = true"/>
+        <to-share item-type="dislike" @click="isShowMore = true"/>
+        <to-share item-type="bizhi" @click="$no"/>
+        <to-share item-type="code" @click="$no"/>
       </div>
       <div class="friends">
         <div class="item" v-for="item in friends.all">
@@ -125,9 +66,109 @@ export default {
     FromBottomDialog,
     LoadingCircle,
     // DouyinCode,
-    sssss: {
+    'ToShare': {
+      components: {
+        LoadingCircle
+      },
+      props: {
+        itemType: {
+          type: String,
+          default: 'weChat'
+        },
+        needDown: {
+          type: Boolean,
+          default: false
+        },
+        canDownload: {
+          type: Boolean,
+          default: true
+        }
+      },
+      data() {
+        return {
+          progress: 0,
+          loading: false,
+          text: {
+            weChat: '微信',
+            weChatZone: '朋友圈',
+            qq: 'QQ',
+            download: '保存本地',
+            report: '举报',
+            copyPassword: '复制口令',
+            copyLink: '复制链接',
+            collect: '收藏',
+            collectYellow: '取消收藏',
+            comeon: '一起看',
+            dou: '帮上热门',
+            share: '更多分享',
+            duoshan: '多闪',
+            totoutiao: '今日头条',
+            dislike: '不感兴趣',
+            bizhi: '动态壁纸',
+            code: '抖音码',
+          },
+        }
+      },
+      computed: {
+        styleCanDownload() {
+          if (!this.canDownload) {
+            return this.itemType !== 'download';
+          }
+          return true
+        }
+      },
+      methods: {
+        displayText() {
+          if (this.loading) {
+            return this.progress !== 100 ? '下载中' : this.text[this.itemType]
+          }
+          return this.text[this.itemType]
+        },
+        click(e) {
+          if (!this.canDownload) {
+            if (this.itemType === 'download') {
+              this.$stopPropagation(e)
+            } else {
+              this.$notice('作者已关闭下载功能')
+              this.$emit('copy')
+            }
+            return
+          }
+          if (this.needDown) this.$stopPropagation(e)
+          else return
+          if (this.progress === 100) {
+            this.$notice('未实现分享跳转到其他App')
+          } else {
+            this.loading = true
+            let interval = setInterval(() => {
+              if (this.progress < 100) {
+                this.progress++
+              } else {
+                clearInterval(interval)
+                this.loading = false
+                this.$emit('click')
+                this.$emit('click')
+                this.$notice('未实现分享跳转到其他App')
+              }
+            }, 10)
+          }
+        }
+      },
       render() {
-        return <span>1231</span>
+        return (
+            <div className="to" onClick={this.click} style={{opacity: this.styleCanDownload ? '1' : '0.5'}}>
+              <div className="wrapper">
+                {this.loading ?
+                    <div className="loading-wrapper" style="width: 80%;height: 80%;">
+                      <LoadingCircle v-model={this.progress}/>
+                    </div>
+                    :
+                    <img src={`/src/assets/img/icon/components/share/${this.itemType}.png`} alt=""/>
+                }
+              </div>
+              <span>{this.displayText()}</span>
+            </div>
+        )
       }
     }
   },
@@ -143,7 +184,7 @@ export default {
     },
     canDownload: {
       type: Boolean,
-      default: true
+      default: false
     },
   },
   computed: {
@@ -164,7 +205,7 @@ export default {
   data() {
     return {
       isCollect: false,
-      isShowMore: true,
+      isShowMore: false,
       loading: {
         weChat: false,
         weChatZone: false,
@@ -202,22 +243,8 @@ export default {
     toggleCall(item) {
       item.select = !item.select
     },
-    closeShare(type) {
-      if (this.progress === 100) {
-        this.$notice('未实现分享跳转到其他App')
-      } else {
-        this.loading[type] = true
-        let interval = setInterval(() => {
-          if (this.progress < 100) {
-            this.progress++
-          } else {
-            clearInterval(interval)
-            this.loading[type] = false
-            // this.$emit("update:modelValue", false)
-            this.$notice('未实现分享跳转到其他App')
-          }
-        }, 10)
-      }
+    closeShare() {
+      this.$emit("update:modelValue", false)
     },
     closeShare1() {
       this.$emit("update:modelValue", false)
@@ -293,7 +320,7 @@ export default {
 
   @icon-width: 5.8rem;
 
-  .shares {
+  :deep(.shares) {
     @space-width: 1.5rem;
 
     overflow-x: scroll;
