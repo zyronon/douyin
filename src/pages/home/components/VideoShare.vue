@@ -9,41 +9,13 @@
       mode="light">
     <div class="video-share">
 
-      <svg width="200" height="200" viewBox="0 0 200 200">
-        <circle
-            :r="10"
-            :cx="100"
-            :cy="100"
-            :stroke-width="3"
-            :stroke="'darkgrey'"
-            fill="none"
-        />
-        <circle
-            :r="10"
-            :cx="100"
-            :cy="100"
-            :stroke-width="3"
-            :stroke="'#514F56'"
-            :stroke-dasharray="`30,100000`"
-            fill="none"
-            stroke-linecap="round"
-        />
-
-      </svg>
       <div class="shares">
-        <div class="to">
+        <div class="to" @click="closeShare($emit('share2WeChat'),'type1')">
           <div class="wrapper">
-            <!--            <div class="loading">-->
-            <!--              <div class="quan1"></div>-->
-            <!--              <div class="quan2"></div>-->
-            <!--            </div>-->
-
-
-          </div>
-        </div>
-        <div class="to" @click="closeShare($emit('share2WeChat'))">
-          <div class="wrapper">
-            <img src="@/assets/img/icon/components/share/wechat.webp" alt="">
+            <div v-if="loading.type1" class="loading-wrapper" style="width: 80%;height: 80%;">
+              <LoadingCircle v-model="progress"/>
+            </div>
+            <img v-else src="@/assets/img/icon/components/share/wechat.webp" alt="">
           </div>
           <span>微信</span>
         </div>
@@ -141,12 +113,14 @@
 <script>
 import {mapState} from "vuex";
 import FromBottomDialog from "../../../components/dialog/FromBottomDialog";
+import LoadingCircle from "./LoadingCircle";
 // import DouyinCode from "./DouyinCode";
 
 export default {
   name: "Share",
   components: {
     FromBottomDialog,
+    LoadingCircle
     // DouyinCode
   },
   props: {
@@ -172,6 +146,10 @@ export default {
     return {
       isCollect: false,
       isShowMore: true,
+      loading: {
+        typ1: false
+      },
+      progress: 0
     }
   },
   methods: {
@@ -194,8 +172,16 @@ export default {
     toggleCall(item) {
       item.select = !item.select
     },
-    closeShare() {
+    closeShare(v1, v2) {
+      this.loading[v2] = true
       // this.$emit("update:modelValue", false)
+      let interval = setInterval(() => {
+        if (this.progress <= 100) {
+          this.progress++
+        } else {
+          clearInterval(interval)
+        }
+      }, 12)
     },
     closeShare1() {
       this.$emit("update:modelValue", false)
