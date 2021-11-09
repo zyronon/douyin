@@ -8,22 +8,25 @@
       height="60vh"
       mode="light">
     <div class="video-share">
-
       <div class="shares">
-        <div class="to" @click="closeShare($emit('share2WeChat'),'type1')">
+        <div class="to" @click="closeShare('weChat')">
           <div class="wrapper">
-            <div v-if="loading.type1" class="loading-wrapper" style="width: 80%;height: 80%;">
+            <div v-if="loading.weChat" class="loading-wrapper" style="width: 80%;height: 80%;">
               <LoadingCircle v-model="progress"/>
             </div>
             <img v-else src="@/assets/img/icon/components/share/wechat.webp" alt="">
           </div>
-          <span>微信</span>
+          <span>{{ displayText('weChat') }}</span>
         </div>
-        <div class="to" @click="closeShare($emit('showShare2WeChatZone'))">
+        <div class="to" @click="closeShare('weChatZone')">
           <div class="wrapper">
-            <img src="@/assets/img/icon/components/share/wechatquan.png" alt="">
+            <div v-if="loading.weChatZone" class="loading-wrapper" style="width: 80%;height: 80%;">
+              <LoadingCircle v-model="progress"/>
+            </div>
+            <img v-else src="@/assets/img/icon/components/share/wechatquan.png" alt="">
           </div>
-          <span>朋友圈</span>
+          <!--          <span>{{ displayText('weChatZone') }}</span>-->
+         <sssss></sssss>
         </div>
         <template v-if="false">
           <div class="to" @click="closeShare($emit('share2QQZone'))">
@@ -110,7 +113,7 @@
   </from-bottom-dialog>
 </template>
 
-<script>
+<script lang="jsx">
 import {mapState} from "vuex";
 import FromBottomDialog from "../../../components/dialog/FromBottomDialog";
 import LoadingCircle from "./LoadingCircle";
@@ -120,8 +123,13 @@ export default {
   name: "Share",
   components: {
     FromBottomDialog,
-    LoadingCircle
-    // DouyinCode
+    LoadingCircle,
+    // DouyinCode,
+    sssss: {
+      render() {
+        return <span>1231</span>
+      }
+    }
   },
   props: {
     modelValue: false,
@@ -138,21 +146,43 @@ export default {
       default: true
     },
   },
-
   computed: {
     ...mapState(['friends']),
+  },
+  watch: {
+    modelValue(newVal) {
+      if (!newVal) {
+        this.loading = {
+          weChat: false,
+          weChatZone: false,
+        }
+        this.progress = 0
+        this.isShowMore = false
+      }
+    }
   },
   data() {
     return {
       isCollect: false,
       isShowMore: true,
       loading: {
-        typ1: false
+        weChat: false,
+        weChatZone: false,
+      },
+      text: {
+        weChat: '微信',
+        weChatZone: '朋友圈'
       },
       progress: 0
     }
   },
   methods: {
+    displayText(type) {
+      if (this.loading[type]) {
+        return this.progress !== 100 ? '下载中' : this.text[type]
+      }
+      return this.text[type]
+    },
     async copyLink() {
       this.closeShare()
       this.$showLoading()
@@ -172,16 +202,22 @@ export default {
     toggleCall(item) {
       item.select = !item.select
     },
-    closeShare(v1, v2) {
-      this.loading[v2] = true
-      // this.$emit("update:modelValue", false)
-      let interval = setInterval(() => {
-        if (this.progress <= 100) {
-          this.progress++
-        } else {
-          clearInterval(interval)
-        }
-      }, 12)
+    closeShare(type) {
+      if (this.progress === 100) {
+        this.$notice('未实现分享跳转到其他App')
+      } else {
+        this.loading[type] = true
+        let interval = setInterval(() => {
+          if (this.progress < 100) {
+            this.progress++
+          } else {
+            clearInterval(interval)
+            this.loading[type] = false
+            // this.$emit("update:modelValue", false)
+            this.$notice('未实现分享跳转到其他App')
+          }
+        }, 10)
+      }
     },
     closeShare1() {
       this.$emit("update:modelValue", false)
