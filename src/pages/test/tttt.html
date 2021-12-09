@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+</head>
+<body>
+
+<div id="app">
+  <input type="text" v-model="firstName" value="123">
+  <input type="text" v-model="lastName">
+  <input type="text" v-model="name">
+  <button @click="save(1)">显示1</button>
+  <button @click="save(2)">显示2</button>
+  <button @click="save(3)">显示3</button>
+  <ol>
+    <!--            变量对应的dom，li，变动-->
+    <li v-for="(todo,index) in todos" :key="index">
+      {{ todo.text }}-{{ index }}
+    </li>
+  </ol>
+  <ol>
+    <!--            变量对应的dom，li，变动-->
+    <li v-for="todo in todos">
+      {{ todo.text }}
+    </li>
+  </ol>
+  <div v-bind:style="styleObject">123123</div>
+
+</div>
+</body>
+</html>
+<script>
+  import axios from "axios";
+  new Vue({
+    el: '#app',
+    data: {
+      styleObject: {
+        'color': 'red',
+        'font-size': '33px'
+      },
+      account: 'account',
+      pwd: '',
+      a: 'https://cn.vuejs.org/images/logo.svg',
+      firstName: '王',
+      lastName: '念超',
+      //响应式
+      todos: [
+        //变量，变了
+        {text: '学习 JavaScript'},
+        {text: '学习 Vue'},
+        {text: '整个牛项目'}
+      ],
+      list: []
+    },
+    methods: {
+      save(type) {
+        this.show = type
+
+      },
+    },
+    computed: {
+      accountAndPwd() {
+        return this.account + this.pwd
+      },
+      name: {
+        get: function () {
+          return this.firstName + this.lastName
+        },
+      },
+    },
+    //监听器
+    watch: {
+      name(newVal, oldVal) {
+        console.log('计算属性变了', newVal, oldVal)
+      }
+    },
+    created() {
+      this.name = 1
+      //请求后端的数据
+      console.log('created')
+      console.log(this.name)
+    },
+    mounted() {
+      let ajax = new XMLHttpRequest()
+      ajax.onreadystatechange = e => {
+        if (e) {
+
+        }
+      }
+      ajax.open('xxxx')
+      ajax.send()
+
+    },
+  })
+</script>

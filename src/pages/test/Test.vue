@@ -1,6 +1,6 @@
 <template>
   <div class="Test">
-<!--    <Uploader/>-->
+    <!--    <Uploader/>-->
     <TestVideo class="vue"/>
   </div>
 </template>
@@ -22,7 +22,6 @@ export default {
     return {
       showFollowSetting: true,
       switches1: true,
-      t: ''
     }
   },
   computed: {},

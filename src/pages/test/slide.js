@@ -6,23 +6,21 @@ export default class Slide {
     let container = new Dom(id)
     this.wrapper = new Dom().create('<div class="slide-wrapper"></div>')
     this.list = new Dom().create('<div class="slide-list"></div>')
-    this.list.on('touchstart', () => {
-      console.log('touchstart')
-    })
-    this.list.on('touchmove', () => {
-      console.log('touchmove')
-    })
-    this.list.on('touchend', () => {
-      console.log('touchend')
-    })
+    this.list.on('touchstart', this.touchstart.bind(this))
+    this.list.on('touchmove', this.touchmove.bind(this))
+    this.list.on('touchend', this.touchend)
     this.wrapper.append(this.list)
     container.append(this.wrapper)
     this.totalSize = 52
     this.pageSize = 10
     this.pageNo = 0
+    this.judgeValue = 0
+    this.isDrawDown = true
     this.config = config
     this.appInsMap = new Map()
     this.getData()
+
+    console.log(this.list)
   }
 
   async getData() {
@@ -52,5 +50,31 @@ export default class Slide {
     this.appInsMap.set(index, app)
     // this.appInsMap.set(index, ins)
     return ins.$el
+  }
+
+  touchstart(e) {
+    console.log('touchstart')
+    this.startLocationX = e.touches[0].pageX
+    this.startLocationY = e.touches[0].pageY
+    this.startTime = Date.now()
+  }
+
+  touchmove(e) {
+    this.moveXDistance = e.touches[0].pageX - this.startLocationX
+    this.moveYDistance = e.touches[0].pageY - this.startLocationY
+
+    // console.log('touchmove', this.moveXDistance)
+    // console.log('touchmove', this.moveYDistance)
+    this.list.css('transform', `translate3d(0,100px,0)`)
+
+    this.list.css('transform', `translate3d(0px, ${
+      this.moveYDistance +
+      (this.isDrawDown ? this.judgeValue : -this.judgeValue)
+    }px, 0px)`)
+
+  }
+
+  touchend() {
+    console.log('touchend')
   }
 }
