@@ -24,17 +24,23 @@ router.beforeEach((to, from) => {
   const toDepth = routes.findIndex(v => v.path === to.path)
   const fromDepth = routes.findIndex(v => v.path === from.path)
   // const fromDepth = routeDeep.indexOf(from.path)
+
   if (toDepth > fromDepth) {
-    let toComponentName = to.matched[0].components.default.name
-    store.commit('updateExcludeRoutes', {type: 'remove', value: toComponentName})
-    // console.log('to', toComponentName)
-    // console.log('前进')
-    // console.log('删除', toComponentName)
+    if (to.matched && to.matched.length) {
+      let toComponentName = to.matched[0].components.default.name
+      store.commit('updateExcludeRoutes', {type: 'remove', value: toComponentName})
+      // console.log('to', toComponentName)
+      // console.log('前进')
+      // console.log('删除', toComponentName)
+    }
+
   } else {
-    let fromComponentName = from.matched[0].components.default.name
-    store.commit('updateExcludeRoutes', {type: 'add', value: fromComponentName})
-    // console.log('后退')
-    // console.log('添加', fromComponentName)
+    if (from.matched && from.matched.length) {
+      let fromComponentName = from.matched[0].components.default.name
+      store.commit('updateExcludeRoutes', {type: 'add', value: fromComponentName})
+      // console.log('后退')
+      // console.log('添加', fromComponentName)
+    }
   }
   // ...
   // 返回 false 以取消导航

@@ -2,6 +2,8 @@
   <div id="Test6">
     <p>第{{year}}年</p>
   </div>
+
+
 </template>
 <script>
 import {ref} from "vue";
