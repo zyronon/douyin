@@ -6,9 +6,9 @@ export default class Slide {
     let container = new Dom(id)
     this.wrapper = new Dom().create('<div class="slide-wrapper"></div>')
     this.list = new Dom().create('<div class="slide-list"></div>')
-    this.list.on('touchstart', this.touchstart.bind(this))
-    this.list.on('touchmove', this.touchmove.bind(this))
-    this.list.on('touchend', this.touchend)
+    this.list.els[0].addEventListener('touchstart', this.touchstart.bind(this))
+    this.list.els[0].addEventListener('touchmove', this.touchmove.bind(this))
+    this.list.els[0].addEventListener('touchend', this.touchend.bind(this))
     this.wrapper.append(this.list)
     container.append(this.wrapper)
     this.totalSize = 52
