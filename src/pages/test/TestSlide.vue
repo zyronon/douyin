@@ -69,6 +69,7 @@ export default {
 
 .slide-list {
   display: flex;
+  flex-direction: column;
   height: 100%;
   width: 100%;
   position: relative;
