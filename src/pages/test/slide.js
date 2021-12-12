@@ -81,10 +81,9 @@ export default class Slide {
   init() {
     this.list.slice(this.index, this.index + this.virtualTotal).map((v, i) => {
       let el = this.getInsEl(v, i, false)
-      let item = this.create('<div class="slide-item"></div>')
-      item.appendChild(el)
-      this.slideList.appendChild(item)
+      this.slideList.appendChild(el)
     })
+    this.setActive()
   }
 
   getInsEl(item, index, play = false) {
@@ -95,11 +94,12 @@ export default class Slide {
         return slideVNode
       }
     })
-    const parent = document.createElement('div')
-    const ins = app.mount(parent)
+    const ins = app.mount(document.createElement('div'))
     this.appInsMap.set(index, app)
-    // this.appInsMap.set(index, ins)
-    return ins.$el
+
+    let parent = this.create(`<div class="slide-item slide-item-${index}"></div>`)
+    parent.appendChild(ins.$el)
+    return parent
   }
 
   touchstart(e) {
@@ -109,7 +109,7 @@ export default class Slide {
     this.startTime = Date.now()
     // console.log('touchstart', this.startTime)
 
-    this.css(this.list, 'transition-duration', '0ms')
+    this.css(this.slideList, 'transition-duration', '0ms')
   }
 
   touchmove(e) {
@@ -121,7 +121,7 @@ export default class Slide {
 
     this.isDrawDown = this.moveYDistance < 0
 
-    this.css(this.list, 'transform', `translate3d(0px, ${
+    this.css(this.slideList, 'transform', `translate3d(0px, ${
       this.getHeight() + this.moveYDistance +
       (this.isDrawDown ? this.judgeValue : -this.judgeValue)
     }px, 0px)`)
@@ -131,6 +131,17 @@ export default class Slide {
     return -this.index * this.height
   }
 
+  setActive() {
+    this.slideList.childNodes.forEach(v => {
+      v.classList.remove('active')
+    })
+    this.slideList.childNodes.forEach(v => {
+      if (v.classList.value.search(this.index) !== -1) {
+        v.classList.add('active')
+      }
+    })
+  }
+
   touchend() {
     let canSlide = this.height / 8 < Math.abs(this.moveYDistance);
     if (Date.now() - this.startTime < 40) canSlide = false
@@ -138,10 +149,29 @@ export default class Slide {
     if (canSlide) {
       if (this.isDrawDown) {
         if (this.index !== this.total) {
-          this.index += 1
-          if (this.list.length - this.index <= 3 && this.index < this.total - 3) {
-            this.getData()
+          // if (this.list.length - this.index <= 3 && this.index < this.total - 3) {
+          //   this.getData()
+          // }
+          let addIndex = this.index + 3
+          let removeIndex = this.index - 2
+
+          let res = this.slideList.querySelector(`.slide-item-${addIndex}`)
+          if (!res) {
+            this.slideList.appendChild(this.getInsEl(this.list[addIndex], addIndex))
           }
+          let res2 = this.slideList.querySelector(`.slide-item-${removeIndex}`)
+          if (res2) {
+            this.slideList.removeChild(res2)
+          }
+
+          if (this.index > 1) {
+            this.slideList.childNodes.forEach(v => {
+              this.css(v, 'top', (this.index - 1) * this.height + 'px')
+            })
+          }
+
+          this.index += 1
+          this.setActive()
         }
       } else {
         if (this.index !== 0) {
@@ -149,7 +179,7 @@ export default class Slide {
         }
       }
     }
-    this.css(this.list, 'transition-duration', '300ms')
-    this.css(this.list, 'transform', `translate3d(0px, ${this.getHeight()}px, 0px)`)
+    this.css(this.slideList, 'transition-duration', '300ms')
+    this.css(this.slideList, 'transform', `translate3d(0px, ${this.getHeight()}px, 0px)`)
   }
 }
