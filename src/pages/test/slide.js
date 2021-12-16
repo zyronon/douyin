@@ -17,6 +17,8 @@ export default class Slide {
     this.pageSize = 10
     this.pageNo = 0
     this.list = []
+    this.listMap = new Map()
+    this.loading = false
 
     this.judgeValue = 0
     this.index = 0
@@ -34,7 +36,7 @@ export default class Slide {
     this.isDrawDown = true
     this.config = config
     this.appInsMap = new Map()
-    this.getData()
+    this.getData(this.pageNo)
   }
 
   create(template) {
@@ -47,7 +49,7 @@ export default class Slide {
     el.style[args[0]] = args[1]
   }
 
-  async getData() {
+  async getData(pageNo, init = true) {
     // if (this.config.request) {
     //   let res = await this.config.request({pageNo: this.pageNo, pageSize: this.pageSize})
     //   if (res.code === 200) {
@@ -61,29 +63,40 @@ export default class Slide {
     //     })
     //   }
     // }
-    this.getRecommend().then(
+    this.getRecommend(pageNo).then(
       r => {
-        this.init()
+        init && this.init()
       }
     )
   }
 
-  async getRecommend() {
+  async getRecommend(pageNo) {
     if (this.config.request) {
-      let res = await this.config.request({pageNo: this.pageNo, pageSize: this.pageSize})
+
+      if (this.listMap.has(pageNo)) return
+      this.loading = true
+      let res = await this.config.request({pageNo, pageSize: this.pageSize})
+      this.loading = true
       if (res.code === 200) {
         this.total = res.data.total
-        this.list = this.list.concat(res.data.list)
+        this.pageNo = pageNo
+        console.log('请求数据', res.data.list)
+        this.listMap.set(pageNo, res.data.list)
+        // this.list = this.list.concat(res.data.list)
       }
     }
   }
 
   init() {
-    this.list.slice(this.index, this.index + this.virtualTotal).map((v, i) => {
+    this.getList().slice(this.index, this.index + this.virtualTotal).map((v, i) => {
       let el = this.getInsEl(v, i, false)
       this.slideList.appendChild(el)
     })
     this.setActive()
+  }
+
+  getList() {
+    return Array.from(this.listMap.values()).flat()
   }
 
   getInsEl(item, index, play = false) {
@@ -148,16 +161,16 @@ export default class Slide {
 
     if (canSlide) {
       if (this.isDrawDown) {
-        if (this.index !== this.total) {
-          // if (this.list.length - this.index <= 3 && this.index < this.total - 3) {
-          //   this.getData()
-          // }
+        if (this.index < this.total - 3) {
+          if (this.index + 5 > this.getList().length) {
+            this.getData(this.pageNo + 1, false)
+          }
           let addIndex = this.index + 3
           let removeIndex = this.index - 2
 
           let res = this.slideList.querySelector(`.slide-item-${addIndex}`)
           if (!res) {
-            this.slideList.appendChild(this.getInsEl(this.list[addIndex], addIndex))
+            this.slideList.appendChild(this.getInsEl(this.getList()[addIndex], addIndex))
           }
           let res2 = this.slideList.querySelector(`.slide-item-${removeIndex}`)
           if (res2) {
@@ -174,8 +187,27 @@ export default class Slide {
           this.setActive()
         }
       } else {
-        if (this.index !== 0) {
+        if (this.index > 2) {
+          let addIndex = this.index - 3
+          let removeIndex = this.index + 2
+
+          let res = this.slideList.querySelector(`.slide-item-${addIndex}`)
+          if (!res) {
+            this.slideList.insertBefore(this.getInsEl(this.getList()[addIndex], addIndex), this.slideList.firstChild)
+          }
+          let res2 = this.slideList.querySelector(`.slide-item-${removeIndex}`)
+          if (res2) {
+            this.slideList.removeChild(res2)
+          }
+
+          this.slideList.childNodes.forEach(v => {
+            this.css(v, 'top', (this.index - 3) * this.height + 'px')
+          })
+        }
+
+        if (this.index > 0) {
           this.index -= 1
+          this.setActive()
         }
       }
     }
