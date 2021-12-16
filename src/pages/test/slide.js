@@ -126,14 +126,34 @@ export default class Slide {
 
     this.isDrawDown = this.moveYDistance < 0
 
+    // console.log('isDrawDown', this.isDrawDown)
+
+    if (this.isDrawDown) {
+      if (this.index === this.getList().length - 1) {
+        this.css(this.slideList, 'transform', `translate3d(0px, ${
+          this.getHeight() + (Math.abs(this.moveYDistance) > this.height / 5 ? -this.height / 5 : this.moveYDistance)
+        }px, 0px)`)
+        return
+      }
+    } else {
+      if (this.index === 0) return
+    }
+
     this.css(this.slideList, 'transform', `translate3d(0px, ${
       this.getHeight() + this.moveYDistance +
       (this.isDrawDown ? this.judgeValue : -this.judgeValue)
     }px, 0px)`)
   }
 
-
   touchend() {
+    if (this.isDrawDown) {
+      if (this.index === this.getList().length - 1) {
+        console.log('加载中')
+        this.loading = true
+        return
+      }
+    }
+
     let canSlide = this.height / 8 < Math.abs(this.moveYDistance);
     if (Date.now() - this.startTime < 40) canSlide = false
 
