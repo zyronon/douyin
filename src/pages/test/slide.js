@@ -39,15 +39,6 @@ export default class Slide {
     this.getData(this.pageNo)
   }
 
-  create(template) {
-    let tempNode = document.createElement('div');
-    tempNode.innerHTML = template.trim();
-    return tempNode.firstChild;
-  }
-
-  css(el, ...args) {
-    el.style[args[0]] = args[1]
-  }
 
   async getData(pageNo, init = true) {
     // if (this.config.request) {
@@ -71,6 +62,7 @@ export default class Slide {
   }
 
   async getRecommend(pageNo) {
+    if (pageNo === 1) return
     if (this.config.request) {
 
       if (this.listMap.has(pageNo)) return
@@ -140,20 +132,6 @@ export default class Slide {
     }px, 0px)`)
   }
 
-  getHeight() {
-    return -this.index * this.height
-  }
-
-  setActive() {
-    this.slideList.childNodes.forEach(v => {
-      v.classList.remove('active')
-    })
-    this.slideList.childNodes.forEach(v => {
-      if (v.classList.value.search(this.index) !== -1) {
-        v.classList.add('active')
-      }
-    })
-  }
 
   touchend() {
     let canSlide = this.height / 8 < Math.abs(this.moveYDistance);
@@ -162,29 +140,37 @@ export default class Slide {
     if (canSlide) {
       if (this.isDrawDown) {
         if (this.index < this.total - 3) {
-          if (this.index + 5 > this.getList().length) {
-            this.getData(this.pageNo + 1, false)
-          }
           let addIndex = this.index + 3
           let removeIndex = this.index - 2
 
-          let res = this.slideList.querySelector(`.slide-item-${addIndex}`)
-          if (!res) {
-            this.slideList.appendChild(this.getInsEl(this.getList()[addIndex], addIndex))
-          }
-          let res2 = this.slideList.querySelector(`.slide-item-${removeIndex}`)
-          if (res2) {
-            this.slideList.removeChild(res2)
+          //如果没有新数据，则不进行操作
+          if (this.getList()[addIndex]) {
+            let res = this.slideList.querySelector(`.slide-item-${addIndex}`)
+            if (!res) {
+              this.slideList.appendChild(this.getInsEl(this.getList()[addIndex], addIndex))
+            }
+            let res2 = this.slideList.querySelector(`.slide-item-${removeIndex}`)
+            if (res2) {
+              this.slideList.removeChild(res2)
+            }
+
+            if (this.index > 1) {
+              this.slideList.childNodes.forEach(v => {
+                this.css(v, 'top', (this.index - 1) * this.height + 'px')
+              })
+            }
+          } else {
+            console.log('没有新数据')
           }
 
-          if (this.index > 1) {
-            this.slideList.childNodes.forEach(v => {
-              this.css(v, 'top', (this.index - 1) * this.height + 'px')
-            })
+          if (this.index < this.getList().length - 1) {
+            this.index += 1
           }
-
-          this.index += 1
           this.setActive()
+
+          if (this.index + 5 > this.getList().length) {
+            this.getData(this.pageNo + 1, false)
+          }
         }
       } else {
         if (this.index > 2) {
@@ -200,9 +186,12 @@ export default class Slide {
             this.slideList.removeChild(res2)
           }
 
-          this.slideList.childNodes.forEach(v => {
-            this.css(v, 'top', (this.index - 3) * this.height + 'px')
-          })
+          //如果在已有数据倒数第二条之前，才移动top
+          if (this.index < this.getList().length - 2) {
+            this.slideList.childNodes.forEach(v => {
+              this.css(v, 'top', (this.index - 3) * this.height + 'px')
+            })
+          }
         }
 
         if (this.index > 0) {
@@ -213,5 +202,30 @@ export default class Slide {
     }
     this.css(this.slideList, 'transition-duration', '300ms')
     this.css(this.slideList, 'transform', `translate3d(0px, ${this.getHeight()}px, 0px)`)
+  }
+
+  create(template) {
+    let tempNode = document.createElement('div');
+    tempNode.innerHTML = template.trim();
+    return tempNode.firstChild;
+  }
+
+  css(el, ...args) {
+    el.style[args[0]] = args[1]
+  }
+
+  getHeight() {
+    return -this.index * this.height
+  }
+
+  setActive() {
+    this.slideList.childNodes.forEach(v => {
+      v.classList.remove('active')
+    })
+    this.slideList.childNodes.forEach(v => {
+      if (v.classList.value.search(this.index) !== -1) {
+        v.classList.add('active')
+      }
+    })
   }
 }
