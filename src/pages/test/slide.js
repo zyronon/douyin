@@ -146,9 +146,12 @@ export default class Slide {
 
     if (canSlide) {
       if (this.isDrawDown) {
-        if (this.index < this.total - 3) {
-          let addIndex = this.index + 3
-          let removeIndex = this.index - 2
+        if (this.index < this.getList().length - 1) {
+          this.index += 1
+        }
+        if (this.index < this.total - 2) {
+          let addIndex = this.index + 2
+          let removeIndex = this.index - 3
 
           //如果没有新数据，则不进行操作
           if (this.getList()[addIndex]) {
@@ -163,16 +166,13 @@ export default class Slide {
 
             if (this.index > 1) {
               this.slideList.childNodes.forEach(v => {
-                this.css(v, 'top', (this.index - 1) * this.height + 'px')
+                this.css(v, 'top', (this.index - 2) * this.height + 'px')
               })
             }
           } else {
             console.log('没有新数据')
           }
 
-          if (this.index < this.getList().length - 1) {
-            this.index += 1
-          }
           this.setActive()
 
           if (this.index + 5 > this.getList().length) {
