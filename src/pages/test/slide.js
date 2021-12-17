@@ -2,17 +2,17 @@ import Dom from "../../utils/dom";
 import * as Vue from "vue";
 
 export default class Slide {
-  constructor(id, config) {
-    this.wrapper = this.create('<div class="slide-wrapper"></div>')
+  constructor(id, config = {index: 0}) {
     this.slideList = this.create('<div class="slide-list"></div>')
     this.slideList.addEventListener('touchstart', this.touchstart.bind(this))
     this.slideList.addEventListener('touchmove', this.touchmove.bind(this))
     this.slideList.addEventListener('touchend', this.touchend.bind(this))
-    this.wrapper.appendChild(this.slideList)
-    new Dom(id).append(new Dom(this.wrapper))
-    // let container = document.querySelector(id)
-    // console.log(container)
-    // container.appendChild(this.wrapper)
+
+    let container = new Dom(id)
+    // container.css('height','100%')
+    container.css('width', '100%')
+    container.css('overflow', 'hidden')
+    container.append(new Dom(this.slideList))
     this.total = 0
     this.pageSize = 10
     this.pageNo = 0
@@ -21,7 +21,7 @@ export default class Slide {
     this.loading = false
 
     this.judgeValue = 0
-    this.index = 0
+    this.index = config.index || 0
 
     this.startTime = 0
 
@@ -32,39 +32,31 @@ export default class Slide {
     this.virtualTotal = 5
 
 
-    this.height = 812
+    this.height = parseFloat(container.css('height'))
     this.isDrawDown = true
     this.config = config
     this.appInsMap = new Map()
     this.getData(this.pageNo)
   }
 
-
   async getData(pageNo, init = true) {
-    // if (this.config.request) {
-    //   let res = await this.config.request({pageNo: this.pageNo, pageSize: this.pageSize})
-    //   if (res.code === 200) {
-    //     this.total = res.data.total
-    //
-    //     res.data.list.map((v, i) => {
-    //       let el = this.getInsEl(v, i, false)
-    //       let item = this.create('<div class="slide-item"></div>')
-    //       item.appendChild(el)
-    //       this.slideList.appendChild(item)
-    //     })
-    //   }
-    // }
-    this.getRecommend(pageNo).then(
-      r => {
-        init && this.init()
+    if (this.config.list && this.config.list.length) {
+      if (init) {
+        for (let i = 0; i < this.config.list.length / this.virtualTotal; i++) {
+          this.listMap.set(i, this.config.list.slice(i * this.virtualTotal, (i + 1) * this.virtualTotal))
+        }
+        this.init()
       }
-    )
+    } else {
+      this.getRecommend(pageNo).then(r => {
+        init && this.init()
+      })
+    }
   }
 
   async getRecommend(pageNo) {
-    if (pageNo === 1) return
+    // if (pageNo === 1) return
     if (this.config.request) {
-
       if (this.listMap.has(pageNo)) return
       this.loading = true
       let res = await this.config.request({pageNo, pageSize: this.pageSize})
@@ -72,7 +64,7 @@ export default class Slide {
       if (res.code === 200) {
         this.total = res.data.total
         this.pageNo = pageNo
-        console.log('请求数据', res.data.list)
+        // console.log('请求数据', res.data.list)
         this.listMap.set(pageNo, res.data.list)
         // this.list = this.list.concat(res.data.list)
       }
@@ -81,7 +73,7 @@ export default class Slide {
 
   init() {
     this.getList().slice(this.index, this.index + this.virtualTotal).map((v, i) => {
-      let el = this.getInsEl(v, i, false)
+      let el = this.getInsEl(v, this.index + i, false)
       this.slideList.appendChild(el)
     })
     this.setActive()
@@ -130,19 +122,14 @@ export default class Slide {
 
     if (this.isDrawDown) {
       if (this.index === this.getList().length - 1) {
-        this.css(this.slideList, 'transform', `translate3d(0px, ${
-          this.getHeight() + (Math.abs(this.moveYDistance) > this.height / 5 ? -this.height / 5 : this.moveYDistance)
-        }px, 0px)`)
+        this.css(this.slideList, 'transform', `translate3d(0px, ${this.getHeight() + (Math.abs(this.moveYDistance) > this.height / 5 ? -this.height / 5 : this.moveYDistance)}px, 0px)`)
         return
       }
     } else {
       if (this.index === 0) return
     }
 
-    this.css(this.slideList, 'transform', `translate3d(0px, ${
-      this.getHeight() + this.moveYDistance +
-      (this.isDrawDown ? this.judgeValue : -this.judgeValue)
-    }px, 0px)`)
+    this.css(this.slideList, 'transform', `translate3d(0px, ${this.getHeight() + this.moveYDistance + (this.isDrawDown ? this.judgeValue : -this.judgeValue)}px, 0px)`)
   }
 
   touchend() {
@@ -154,7 +141,7 @@ export default class Slide {
       }
     }
 
-    let canSlide = this.height / 8 < Math.abs(this.moveYDistance);
+    let canSlide = this.height / 8 < Math.abs(this.moveYDistance) && Math.abs(this.moveYDistance) > 40;
     if (Date.now() - this.startTime < 40) canSlide = false
 
     if (canSlide) {
