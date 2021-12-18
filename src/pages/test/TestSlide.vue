@@ -52,7 +52,8 @@ export default {
     let list = resource.videos
     list = list.concat(resource.videos)
     list.splice(24, 6)
-    console.log(list.length)
+    // list.splice(3)
+    console.log('length', list.length)
     let slide = new Slide('#TestSlide1', {
       render: (item, itemIndex, play) => {
         return (
@@ -68,8 +69,8 @@ export default {
             />
         )
       },
-      // list,
-      // index: 10,
+      list,
+      index: 2,
       request: this.$api.videos.recommended
     })
     // let slide2 = new Slide('#TestSlide2', {
@@ -99,7 +100,6 @@ export default {
 }
 
 if (import.meta.hot) {
-
 }
 </script>
 <style>
