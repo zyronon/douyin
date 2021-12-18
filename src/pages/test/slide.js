@@ -17,40 +17,47 @@ export default class Slide {
     this.pageSize = 10
     this.pageNo = 0
     this.list = []
+    this.index = config.index || 0
     this.listMap = new Map()
     this.loading = false
 
+
     this.judgeValue = 0
-    this.index = config.index || 0
-
     this.startTime = 0
-
     this.startLocationX = 0
     this.startLocationY = 0
     this.moveXDistance = 0
     this.moveYDistance = 0
     this.virtualTotal = 5
 
-
     this.height = parseFloat(container.css('height'))
     this.isDrawDown = true
     this.config = config
     this.appInsMap = new Map()
+
+
+    if (this.config.list && this.config.list.length) {
+      this.total = this.config.list.length
+      this.isRecommend = false
+    } else {
+      this.isRecommend = true
+    }
     this.getData(this.pageNo)
   }
 
   async getData(pageNo, init = true) {
-    if (this.config.list && this.config.list.length) {
+    if (this.isRecommend) {
+      this.getRecommend(pageNo).then(r => {
+        init && this.init()
+      })
+    } else {
       if (init) {
+        this.total = this.config.list.length
         for (let i = 0; i < this.config.list.length / this.virtualTotal; i++) {
           this.listMap.set(i, this.config.list.slice(i * this.virtualTotal, (i + 1) * this.virtualTotal))
         }
         this.init()
       }
-    } else {
-      this.getRecommend(pageNo).then(r => {
-        init && this.init()
-      })
     }
   }
 
@@ -72,15 +79,35 @@ export default class Slide {
   }
 
   init() {
-    this.getList().slice(this.index, this.index + this.virtualTotal).map((v, i) => {
-      let el = this.getInsEl(v, this.index + i, false)
+    let start = 0
+    let end = start + this.virtualTotal
+    if (this.total > this.virtualTotal) {
+      if (this.index > 1) start = this.index - 2
+      else start = 0
+      end = start + this.virtualTotal
+      if (end > this.total) {
+        start = start - (end - this.total)
+      }
+    }
+    console.log('startIndex', start)
+    console.log('endIndex', end)
+    this.getList().slice(start, end).map((v, i) => {
+      let el = this.getInsEl(v, start + i, false)
       this.slideList.appendChild(el)
     })
-    this.setActive()
-  }
+    this.css(this.slideList, 'transform', `translate3d(0px, ${this.getHeight()}px, 0px)`)
 
-  getList() {
-    return Array.from(this.listMap.values()).flat()
+    //this.total > this.virtualTotal，只有总条数在不少this.virtualTotal条数的情况下用top
+    //this.index > 1 和setTop保持统一，这里其实可以用this.index > 2
+    if (this.index > 1 && this.total > this.virtualTotal) {
+      this.slideList.childNodes.forEach(v => {
+        //((this.total - 1 - this.index) > 1 ? 0 : 2),如果当前是最后两条，那么要多减去N个height
+        console.log('((this.total - this.index) > 1 ? 0 : 2)', ((this.total - 1 - this.index) > 1 ? 0 : this.total - 1 - this.index))
+        this.css(v, 'top', (this.index - 2 - ((this.total - 1 - this.index) > 1 ? 0 : this.total - 1 - this.index)) * this.height + 'px')
+      })
+    }
+    // this.setTop()
+    this.setActive()
   }
 
   getInsEl(item, index, play = false) {
@@ -164,25 +191,23 @@ export default class Slide {
               this.slideList.removeChild(res2)
             }
 
-            if (this.index > 1) {
-              this.slideList.childNodes.forEach(v => {
-                this.css(v, 'top', (this.index - 2) * this.height + 'px')
-              })
-            }
+
           } else {
             console.log('没有新数据')
           }
 
-          this.setActive()
 
           if (this.index + 5 > this.getList().length) {
             this.getData(this.pageNo + 1, false)
           }
         }
       } else {
-        if (this.index > 2) {
-          let addIndex = this.index - 3
-          let removeIndex = this.index + 2
+        if (this.index > 0) {
+          this.index -= 1
+        }
+        if (this.index > 1) {
+          let addIndex = this.index - 2
+          let removeIndex = this.index + 3
 
           let res = this.slideList.querySelector(`.slide-item-${addIndex}`)
           if (!res) {
@@ -192,23 +217,19 @@ export default class Slide {
           if (res2) {
             this.slideList.removeChild(res2)
           }
-
-          //如果在已有数据倒数第二条之前，才移动top
-          if (this.index < this.getList().length - 2) {
-            this.slideList.childNodes.forEach(v => {
-              this.css(v, 'top', (this.index - 3) * this.height + 'px')
-            })
-          }
-        }
-
-        if (this.index > 0) {
-          this.index -= 1
-          this.setActive()
         }
       }
     }
+
+    this.setTop()
+    this.setActive()
+
     this.css(this.slideList, 'transition-duration', '300ms')
     this.css(this.slideList, 'transform', `translate3d(0px, ${this.getHeight()}px, 0px)`)
+  }
+
+  getList() {
+    return Array.from(this.listMap.values()).flat()
   }
 
   create(template) {
@@ -234,5 +255,13 @@ export default class Slide {
         v.classList.add('active')
       }
     })
+  }
+
+  setTop() {
+    if (this.index > 1 && this.index < this.getList().length - 2) {
+      this.slideList.childNodes.forEach(v => {
+        this.css(v, 'top', (this.index - 2) * this.height + 'px')
+      })
+    }
   }
 }
