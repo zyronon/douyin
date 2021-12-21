@@ -28,6 +28,7 @@
 import Slide from "./slide";
 import Video from "../../components/Video";
 import resource from "../../assets/data/resource.js";
+import CONST_VAR from "../../utils/const_var";
 
 export default {
   name: "TestSlide",
@@ -52,25 +53,62 @@ export default {
     let list = resource.videos
     list = list.concat(resource.videos)
     list.splice(24, 6)
+    list = list.slice(0, 1)
+    list.map(v => {
+      v.type = 'video'
+    })
+    list.unshift({
+      type: 'img',
+      src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
+    })
+    list.unshift({
+      type: 'user',
+      "id": "224e9a00-ffa0-4bc1-bb07-c318c7b02fa5",
+      "avatar": new URL('../../assets/img/icon/avatar/1.png', import.meta.url).href,
+      "name": "何以为家",
+      "sex": "",
+      "age": null,
+      "idCard": null,
+      "phone": "",
+      "address": null,
+      "wechat": "",
+      "password": null,
+      "lastLoginTime": "1629993515",
+      "createTime": "1630035089",
+      "isDelete": 0,
+      "account": "234",
+      "pinyin": "H",
+      "select": false,
+    })
     // list.splice(3)
     console.log('length', list.length)
     let slide = new Slide('#TestSlide1', {
       render: (item, itemIndex, play) => {
-        return (
-            <Video
-                isPlay={play}
-                video={item}
-                index={itemIndex}
-                onShowComments={e => this.isCommenting = true}
-                onShowShare={e => this.isSharing = true}
-                onGoUserInfo={e => this.baseActiveIndex = 1}
-                onGoMusic={e => this.$nav('/home/music')}
-                v-model={[this.videos[itemIndex], 'video']}
-            />
-        )
+        let html
+        if (item.type === 'video') {
+          html = <Video
+              isPlay={play}
+              video={item}
+              index={itemIndex}
+              onShowComments={e => this.isCommenting = true}
+              onShowShare={e => this.isSharing = true}
+              onGoUserInfo={e => this.baseActiveIndex = 1}
+              onGoMusic={e => this.$nav('/home/music')}
+              v-model={[this.videos[itemIndex], 'video']}
+          />
+        }
+        if (item.type === 'img') {
+          html = <img src={item.src} style="height:100%;"/>
+        }
+        if (item.type === 'user') {
+          html = <div>
+            user
+          </div>
+        }
+        return html
       },
       list,
-      index: 2,
+      index: 0,
       request: this.$api.videos.recommended
     })
     // let slide2 = new Slide('#TestSlide2', {

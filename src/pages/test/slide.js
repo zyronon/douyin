@@ -2,6 +2,7 @@ import Dom from "../../utils/dom";
 import * as Vue from "vue";
 
 export default class Slide {
+
   constructor(id, config = {index: 0}) {
     this.slideList = this.create('<div class="slide-list"></div>')
     this.slideList.addEventListener('touchstart', this.touchstart.bind(this))
@@ -36,12 +37,8 @@ export default class Slide {
     this.appInsMap = new Map()
 
 
-    if (this.config.list && this.config.list.length) {
-      this.total = this.config.list.length
-      this.isRecommend = false
-    } else {
-      this.isRecommend = true
-    }
+    this.isRecommend = !(this.config.list && this.config.list.length);
+
     this.getData(this.pageNo)
   }
 
@@ -79,11 +76,14 @@ export default class Slide {
   }
 
   init() {
+    //计算出正确的开始下标和结束下标
+    // 情况一，数据是推荐的，默认取前面virtualTotal（5）条
+    // 情况二，数据是固定的，当前要播放的视频在中间，那么取前2，后2
+    // 情况二，数据是固定的，当前要播放的视频在后面，那么往前取，直到5条
     let start = 0
     let end = start + this.virtualTotal
     if (this.total > this.virtualTotal) {
       if (this.index > 1) start = this.index - 2
-      else start = 0
       end = start + this.virtualTotal
       if (end > this.total) {
         start = start - (end - this.total)
@@ -95,11 +95,12 @@ export default class Slide {
       let el = this.getInsEl(v, start + i, false)
       this.slideList.appendChild(el)
     })
-    this.css(this.slideList, 'transform', `translate3d(0px, ${this.getHeight()}px, 0px)`)
 
     //this.total > this.virtualTotal，只有总条数在不少this.virtualTotal条数的情况下用top
     //this.index > 1 和setTop保持统一，这里其实可以用this.index > 2
     if (this.index > 1 && this.total > this.virtualTotal) {
+      this.css(this.slideList, 'transform', `translate3d(0px, ${this.getHeight()}px, 0px)`)
+
       this.slideList.childNodes.forEach(v => {
         //((this.total - 1 - this.index) > 1 ? 0 : 2),如果当前是最后两条，那么要多减去N个height
         console.log('((this.total - this.index) > 1 ? 0 : 2)', ((this.total - 1 - this.index) > 1 ? 0 : this.total - 1 - this.index))
@@ -132,23 +133,18 @@ export default class Slide {
     this.startLocationY = e.touches[0].pageY
     this.startTime = Date.now()
     // console.log('touchstart', this.startTime)
-
     this.css(this.slideList, 'transition-duration', '0ms')
   }
 
   touchmove(e) {
     this.moveXDistance = e.touches[0].pageX - this.startLocationX
     this.moveYDistance = e.touches[0].pageY - this.startLocationY
-
     // console.log('touchmove', this.moveXDistance)
     // console.log('touchmove', this.moveYDistance)
-
     this.isDrawDown = this.moveYDistance < 0
-
     // console.log('isDrawDown', this.isDrawDown)
-
     if (this.isDrawDown) {
-      if (this.index === this.getList().length - 1) {
+      if ( this.index === this.getList().length - 1) {
         this.css(this.slideList, 'transform', `translate3d(0px, ${this.getHeight() + (Math.abs(this.moveYDistance) > this.height / 5 ? -this.height / 5 : this.moveYDistance)}px, 0px)`)
         return
       }
@@ -160,12 +156,9 @@ export default class Slide {
   }
 
   touchend() {
-    if (this.isDrawDown) {
-      if (this.index === this.getList().length - 1) {
-        console.log('加载中')
-        this.loading = true
-        return
-      }
+    //如果向下划，并且加载中，并且还是已有数据的最后一条
+    if (this.isDrawDown && this.loading && this.index === this.getList().length - 1) {
+      return console.log('加载中')
     }
 
     let canSlide = this.height / 8 < Math.abs(this.moveYDistance) && Math.abs(this.moveYDistance) > 40;
@@ -188,14 +181,13 @@ export default class Slide {
             }
             let res2 = this.slideList.querySelector(`.slide-item-${removeIndex}`)
             if (res2) {
+              // this.appInsMap.get(removeIndex).unmount()
               this.slideList.removeChild(res2)
             }
-
-
           } else {
-            console.log('没有新数据')
+            this.getData(this.pageNo + 1, false)
+            console.log('没有这条数据')
           }
-
 
           if (this.index + 5 > this.getList().length) {
             this.getData(this.pageNo + 1, false)
@@ -215,14 +207,15 @@ export default class Slide {
           }
           let res2 = this.slideList.querySelector(`.slide-item-${removeIndex}`)
           if (res2) {
+            // this.appInsMap.get(removeIndex).unmount()
             this.slideList.removeChild(res2)
           }
         }
       }
+      this.setTop()
+      this.setActive()
     }
 
-    this.setTop()
-    this.setActive()
 
     this.css(this.slideList, 'transition-duration', '300ms')
     this.css(this.slideList, 'transform', `translate3d(0px, ${this.getHeight()}px, 0px)`)
