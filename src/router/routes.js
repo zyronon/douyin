@@ -72,6 +72,7 @@ import RetrievePassword from "../pages/login/RetrievePassword";
 import Help from "../pages/login/Help";
 import Uploader from "../pages/me/Uploader";
 import TestSlide from "../pages/test/TestSlide";
+import TestOne from "../pages/test/TestOne";
 
 const routes = [
   // {path: '', component: Music},
@@ -82,6 +83,7 @@ const routes = [
   {path: '/test3', component: Test3},
   {path: '/test4', component: Test4},
   {path: '/test5', component: Test5},
+  {path: '/testone', component: TestOne},
   {path: '/TestSlide', component: TestSlide},
   {path: '/TestVue3', component: TestVue3},
   {path: '/TestKeepAlive', component: TestKeepAlive},
