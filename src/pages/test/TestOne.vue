@@ -1,15 +1,15 @@
 <template>
   <div id="TestOne">
-    <SlideUser class="vue"></SlideUser>
+    <RecommendSlideUser/>
   </div>
 </template>
 <script>
-import SlideUser from "../../components/SlideUser";
+import RecommendSlideUser from "../../components/RecommendSlideUser";
 
 export default {
   name: "TestOne",
   components: {
-    SlideUser
+    RecommendSlideUser
   },
   props: {
     modelValue: false
