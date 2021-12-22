@@ -1,7 +1,7 @@
 <template>
   <div id="SlideUser">
     <div class="content">
-      <img class="close" src="../assets/img/icon/components/gray-close-full2.png" alt="">
+      <img @click="$emit('close')" class="close" src="../../assets/img/icon/components/gray-close-full2.png" alt="">
       <img class="avatar" :src="modelValue.avatar">
       <div class="name">{{ modelValue.name }}</div>
       <div class="age">{{ modelValue.age }}岁</div>
@@ -10,7 +10,7 @@
         <div class="poster-item" v-for="(i,index) in modelValue.videos.slice(0,3)" @click="globalMethods.$no">
           <img class="poster" :src="globalMethods.$imgPreview(i.cover)"/>
           <div class="num">
-            <img class="love" src="../assets/img/icon/love.svg" alt="">
+            <img class="love" src="../../assets/img/icon/love.svg" alt="">
             <span>{{ globalMethods.$likeNum(i.digg_count) }}</span>
           </div>
         </div>
@@ -23,9 +23,9 @@
   </div>
 </template>
 <script>
-import Posters from "./Posters";
-import globalMethods from "../utils/global-methods";
-import BaseButton from "./BaseButton";
+import Posters from "../Posters";
+import globalMethods from "../../utils/global-methods";
+import BaseButton from "../BaseButton";
 
 export default {
   name: "SlideUser",

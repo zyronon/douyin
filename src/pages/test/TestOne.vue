@@ -1,15 +1,18 @@
 <template>
   <div id="TestOne">
-    <RecommendSlideUser/>
+<!--    <SlideUser/>-->
+    <SlideImgs/>
   </div>
 </template>
 <script>
-import RecommendSlideUser from "../../components/RecommendSlideUser";
+import SlideUser from "../../components/slide/SlideUser";
+import SlideImgs from "../../components/slide/SlideImgs";
 
 export default {
   name: "TestOne",
   components: {
-    RecommendSlideUser
+    SlideUser,
+    SlideImgs
   },
   props: {
     modelValue: false

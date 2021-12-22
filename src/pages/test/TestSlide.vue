@@ -26,8 +26,8 @@
 </template>
 <script lang="jsx">
 import Slide from "./slide.jsx";
-import BaseVideo from "../../components/BaseVideo";
-import RecommendSlideUser from "../../components/RecommendSlideUser";
+import SlideVideo from "../../components/slide/SlideVideo";
+import SlideUser from "../../components/slide/SlideUser";
 import resource from "../../assets/data/resource.js";
 import CONST_VAR from "../../utils/const_var";
 import Dom from "../../utils/dom";
@@ -60,7 +60,7 @@ export default {
     list = list.slice(0, 5)
     list.map(v => v.type = 'recommend-video')
     if (true) {
-    // if (false) {
+      // if (false) {
       list.map(v => {
         v.type = 'recommend-video'
       })
@@ -266,7 +266,7 @@ export default {
       render: (item, itemIndex, play) => {
         let html
         if (item.type === 'recommend-video') {
-          html = <BaseVideo
+          html = <SlideVideo
               isPlay={play}
               video={item}
               index={itemIndex}
@@ -284,7 +284,7 @@ export default {
           html = <video src={item.src} style="height:100%;"/>
         }
         if (item.type === 'user') {
-          html = <RecommendSlideUser modelValue={item}/>
+          html = <SlideUser onClose={this.t} modelValue={item}/>
         }
         return html
       },
@@ -326,6 +326,9 @@ export default {
     // }, true)
   },
   methods: {
+    t() {
+      console.log('t', this.totalSize)
+    },
     dbClick(e) {
       let id = 'a' + Date.now()
       let elWidth = 80
@@ -349,7 +352,6 @@ if (import.meta.hot) {
 }
 </script>
 <style>
-
 .slide-wrapper {
   width: 100%;
   height: 100%;
