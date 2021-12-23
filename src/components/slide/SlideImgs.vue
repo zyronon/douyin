@@ -1,17 +1,20 @@
 <template>
   <div id="SlideImgs">
-    <div class="content" @click="toggle">
-      <SlideRowList
-          v-model:active-index="baseActiveIndex">
-        <SlideItem v-for="img in modelValue.imgs">
-          <img :src="img">
-        </SlideItem>
-      </SlideRowList>
+    <div class="img-slide-wrapper">
+      <div class="img-slide-list"
+           ref="list"
+           @touchstart="start"
+           @touchmove="move"
+           @touchend="end">
+        <div class="img-slide-item" v-for="img in modelValue.imgs">
+          <img :ref="setItemRef" :src="img">
+        </div>
+      </div>
     </div>
-    <div class="progress-bar">
+    <div class="progress-bar" v-if="true">
       <div class="bar" v-for="(img,index) in modelValue.imgs">
         <div class="progress"
-             :style="getWidth(index)"></div>
+             :style="getProgressWidth(index)"></div>
       </div>
     </div>
   </div>
@@ -21,7 +24,7 @@
 import enums from "../../utils/enums";
 
 export default {
-  name: "SlideImgages",
+  name: "SlideImgs",
   components: {},
   props: {
     modelValue: {
@@ -124,20 +127,50 @@ export default {
   },
   data() {
     return {
+      itemRefs: [],
       baseActiveIndex: 0,
       progress: 0,
       cycleFn: null,
       state: 'play',//stop,custom
+
+      startLocationX: 0,
+      startLocationY: 0,
+
+      moveXDistance: 0,
+      moveYDistance: 0,
+      width: document.body.clientWidth,
+      startTime: 0,
+      index: 0,
+      isDrawRight: false,
+      isDrawDown: false,
+      isTwo: false,
+      store: {
+        scale: 1
+      }
     }
   },
   created() {
+    this.width = document.body.clientWidth
+  },
+  watch: {
+    state(newVal, oldVal) {
+      console.log('newVal', newVal)
+      if (newVal === 'play') requestAnimationFrame(this.cycleFn)
+      if (newVal === 'stop') cancelAnimationFrame(this.cycleFn)
+      if (newVal === 'custom') cancelAnimationFrame(this.cycleFn)
+    }
   },
   mounted() {
     this.cycleFn = () => {
       if (this.state !== 'play') return cancelAnimationFrame(this.cycleFn)
       if (this.progress < this.modelValue.imgs.length * 100) {
         this.progress += .55
-        this.baseActiveIndex = parseInt(this.progress / 100)
+        this.index = parseInt(this.progress / 100)
+        if (this.$refs.list) {
+          this.$setCss(this.$refs.list, 'transition-duration', `300ms`)
+          this.$setCss(this.$refs.list, 'transform',
+              `translate3d(${-this.getWidth(this.index)}px, 0px, 0px)`)
+        }
       } else {
         this.progress = 0
         // cancelAnimationFrame(this.cycleFn)
@@ -147,7 +180,114 @@ export default {
     requestAnimationFrame(this.cycleFn)
   },
   methods: {
+    start(e) {
+      this.state = 'stop'
+      if (e.touches && e.touches.length === 1) {
+        this.isTwo = false
+        this.$setCss(this.$refs.list, 'transition-duration', `0ms`)
+        this.startLocationX = e.touches[0].pageX
+        this.startLocationY = e.touches[0].pageY
+        this.startTime = Date.now()
+      } else {
+        this.isTwo = true
+        this.itemRefs[this.index].style['transition-duration'] = '0ms';
+
+        let events = e.touches[0];
+        let events2 = e.touches[1];
+
+        e.preventDefault();
+
+        // 第一个触摸点的坐标
+        this.store.pageX = events.pageX;
+        this.store.pageY = events.pageY;
+        this.store.pageX2 = events2.pageX;
+        this.store.pageY2 = events2.pageY;
+      }
+    },
+    move(e) {
+      if (e.touches && e.touches.length === 1) {
+        this.isTwo = false
+
+        this.moveXDistance = e.touches[0].pageX - this.startLocationX
+        this.moveYDistance = e.touches[0].pageY - this.startLocationY
+
+        this.isDrawRight = this.moveXDistance < 0
+        this.isDrawDown = this.moveYDistance < 0
+
+        if (this.index === 0 && !this.isDrawRight) return
+        if (this.index === this.modelValue.imgs.length - 1 && this.isDrawRight) return
+
+        this.$setCss(this.$refs.list, 'transform',
+            `translate3d(${-this.getWidth(this.index) +
+            this.moveXDistance}px, 0px, 0px)`)
+      } else {
+        this.isTwo = true
+        e.preventDefault();
+
+        let events = e.touches[0];
+        let events2 = e.touches[1];
+
+        // 获取坐标之间的举例
+        let getDistance = function (start, stop) {
+          return Math.hypot(stop.x - start.x, stop.y - start.y);
+        };
+        // 双指缩放比例计算
+        let zoom =
+            getDistance({x: events.pageX, y: events.pageY},
+                {x: events2.pageX, y: events2.pageY}) /
+            getDistance({x: this.store.pageX, y: this.store.pageY},
+                {x: this.store.pageX2, y: this.store.pageY2});
+        // 图像应用缩放效果
+        this.itemRefs[this.index].style.transform = 'scale(' + this.store.scale * zoom + ')';
+      }
+    },
+    end(e) {
+      //console.log('end', e)
+      if (this.isTwo) {
+        this.store.scale = 1
+        this.itemRefs[this.index].style['transition-duration'] = '300ms';
+        this.itemRefs[this.index].style.transform = 'scale(' + 1 + ')';
+      } else {
+        if (Date.now() - this.startTime < 40 && Math.abs(this.moveXDistance) < 10) {
+
+        }
+
+        if (this.index === 0 && !this.isDrawRight) return
+        if (this.index === this.modelValue.imgs.length - 1 && this.isDrawRight) return
+
+        let canSlide = this.width / 8 < Math.abs(this.moveXDistance) && Math.abs(this.moveXDistance) > 40;
+        if (Date.now() - this.startTime < 40) canSlide = false
+
+        if (canSlide) {
+          if (this.isDrawRight) {
+            this.index += 1
+          } else {
+            this.index -= 1
+          }
+          this.state = 'custom'
+          this.progress = (this.index + 1) * 100
+        }
+        this.$setCss(this.$refs.list, 'transition-duration', `300ms`)
+        this.$setCss(this.$refs.list, 'transform',
+            `translate3d(${-this.getWidth(this.index)}px, 0px, 0px)`)
+      }
+    },
+    getWidth(index) {
+      return index * this.width
+    },
+    setItemRef(el) {
+      if (el) {
+        this.itemRefs.push(el)
+      }
+    },
+    beforeUpdate() {
+      this.itemRefs = []
+    },
+    updated() {
+      console.log(this.itemRefs)
+    },
     toggle() {
+      return
       if (this.state === 'stop') {
         this.state = 'play'
         requestAnimationFrame(this.cycleFn)
@@ -155,7 +295,7 @@ export default {
         this.state = 'stop'
       }
     },
-    getWidth(index) {
+    getProgressWidth(index) {
       if (this.progress >= (index + 1) * 100) return {width: '100%'}
       return {width: `${this.progress - index * 100 < 0 ? 0 : this.progress - index * 100}%`}
     }
@@ -176,6 +316,29 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  .img-slide-wrapper {
+    width: 100vw;
+    overflow: hidden;
+
+    .img-slide-list {
+      width: 100vw;
+      display: flex;
+
+      .img-slide-item {
+        min-width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 100vw;
+          //position: absolute;
+          //height: 100%;
+        }
+      }
+    }
+  }
 
   .content {
     width: 100vw;
