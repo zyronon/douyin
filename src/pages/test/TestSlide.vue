@@ -28,6 +28,7 @@
 import Slide from "./slide.jsx";
 import SlideVideo from "../../components/slide/SlideVideo";
 import SlideUser from "../../components/slide/SlideUser";
+import SlideImgs from "../../components/slide/SlideImgs";
 import resource from "../../assets/data/resource.js";
 import CONST_VAR from "../../utils/const_var";
 import Dom from "../../utils/dom";
@@ -66,6 +67,10 @@ export default {
       })
       list.unshift({
         type: 'img',
+        src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
+      })
+      list.unshift({
+        type: 'imgs',
         src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
       })
       list.unshift({
@@ -279,6 +284,9 @@ export default {
         }
         if (item.type === 'img') {
           html = <img src={item.src} style="height:100%;"/>
+        }
+        if (item.type === 'imgs') {
+          html = <SlideImgs />
         }
         if (item.type === 'send-video') {
           html = <video src={item.src} style="height:100%;"/>

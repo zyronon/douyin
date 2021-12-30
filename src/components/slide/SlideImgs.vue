@@ -22,6 +22,7 @@
 
 <script>
 import enums from "../../utils/enums";
+import globalMethods from '../../utils/global-methods'
 
 export default {
   name: "SlideImgs",
@@ -164,11 +165,11 @@ export default {
     this.cycleFn = () => {
       if (this.state !== 'play') return cancelAnimationFrame(this.cycleFn)
       if (this.progress < this.modelValue.imgs.length * 100) {
-        this.progress += .55
+        this.progress += .4
         this.index = parseInt(this.progress / 100)
         if (this.$refs.list) {
-          this.$setCss(this.$refs.list, 'transition-duration', `300ms`)
-          this.$setCss(this.$refs.list, 'transform',
+          globalMethods.$setCss(this.$refs.list, 'transition-duration', `300ms`)
+          globalMethods.$setCss(this.$refs.list, 'transform',
               `translate3d(${-this.getWidth(this.index)}px, 0px, 0px)`)
         }
       } else {
@@ -181,10 +182,12 @@ export default {
   },
   methods: {
     start(e) {
-      this.state = 'stop'
+      if (this.state !== 'custom') {
+        this.state = 'stop'
+      }
       if (e.touches && e.touches.length === 1) {
         this.isTwo = false
-        this.$setCss(this.$refs.list, 'transition-duration', `0ms`)
+        globalMethods.$setCss(this.$refs.list, 'transition-duration', `0ms`)
         this.startLocationX = e.touches[0].pageX
         this.startLocationY = e.touches[0].pageY
         this.startTime = Date.now()
@@ -217,7 +220,7 @@ export default {
         if (this.index === 0 && !this.isDrawRight) return
         if (this.index === this.modelValue.imgs.length - 1 && this.isDrawRight) return
 
-        this.$setCss(this.$refs.list, 'transform',
+        globalMethods.$setCss(this.$refs.list, 'transform',
             `translate3d(${-this.getWidth(this.index) +
             this.moveXDistance}px, 0px, 0px)`)
       } else {
@@ -247,15 +250,14 @@ export default {
         this.store.scale = 1
         this.itemRefs[this.index].style['transition-duration'] = '300ms';
         this.itemRefs[this.index].style.transform = 'scale(' + 1 + ')';
-      } else {
-        if (Date.now() - this.startTime < 40 && Math.abs(this.moveXDistance) < 10) {
-
+        if (this.state !== 'custom') {
+          this.state = 'play'
         }
-
+      } else {
         if (this.index === 0 && !this.isDrawRight) return
         if (this.index === this.modelValue.imgs.length - 1 && this.isDrawRight) return
 
-        let canSlide = this.width / 8 < Math.abs(this.moveXDistance) && Math.abs(this.moveXDistance) > 40;
+        let canSlide = this.width / 5 < Math.abs(this.moveXDistance);
         if (Date.now() - this.startTime < 40) canSlide = false
 
         if (canSlide) {
@@ -266,9 +268,13 @@ export default {
           }
           this.state = 'custom'
           this.progress = (this.index + 1) * 100
+        } else {
+          if (this.state !== 'custom') {
+            this.state = 'play'
+          }
         }
-        this.$setCss(this.$refs.list, 'transition-duration', `300ms`)
-        this.$setCss(this.$refs.list, 'transform',
+        globalMethods.$setCss(this.$refs.list, 'transition-duration', `300ms`)
+        globalMethods.$setCss(this.$refs.list, 'transform',
             `translate3d(${-this.getWidth(this.index)}px, 0px, 0px)`)
       }
     },

@@ -220,19 +220,6 @@ export default {
   $console(v) {
     return console.log(JSON.stringify(v, null, 4))
   },
-  $randomNum(minNum, maxNum) {
-    switch (arguments.length) {
-      case 1:
-        return parseInt(Math.random() * minNum + 1, 10);
-        break;
-      case 2:
-        return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
-        break;
-      default:
-        return 0;
-        break;
-    }
-  },
   $sleep(duration) {
     return new Promise((resolve, reject) => {
       setTimeout(resolve, duration)
