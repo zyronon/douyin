@@ -35,8 +35,8 @@
 
 ## 预览图
 
-[在线预览地址1](放个gitee的地址，快得多)
-[在线预览地址2](http://douyin.ttentau.top)
+[在线预览地址1](http://ttentau.top/dy/)
+[在线预览地址2](http://ttentau.top/dy/)
 
 ## 功能点
 
