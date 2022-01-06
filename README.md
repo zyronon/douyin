@@ -34,7 +34,7 @@
 欢迎提Bug,如有新的需求和想法，欢迎 issue 和 pr
 
 ## 预览图
-
+请用手机模式访问
 [在线预览地址1](http://ttentau.top/dy/)
 [在线预览地址2](http://ttentau.top/dy/)
 
