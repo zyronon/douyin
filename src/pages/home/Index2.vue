@@ -13,7 +13,7 @@
           <SlideItem>
             <SlideColumnList>
               <SlideItem style="background: tan">
-                <p>111111111111</p>
+                <p>12</p>
                 <p>111111111111</p>
                 <p>111111111111</p>
                 <p>111111111111</p>

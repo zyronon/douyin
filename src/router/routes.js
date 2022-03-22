@@ -7,7 +7,6 @@ import Test5 from "../pages/test/Test5";
 import TestVue3 from "../pages/test/TestVue3";
 import TestKeepAlive from "../pages/test/TestKeepAlive";
 import TestKeepAlivePage1 from "../pages/test/TestKeepAlivePage1";
-import Index from "../pages/home";
 import SubmitReport from "../pages/home/SubmitReport";
 import Music from "../pages/home/Music";
 import MusicRankList from "../pages/home/MusicRankList";
@@ -73,11 +72,14 @@ import Help from "../pages/login/Help";
 import Uploader from "../pages/me/Uploader";
 import TestSlide from "../pages/test/TestSlide";
 import TestOne from "../pages/test/TestOne";
+import Slide from "../pages/slide/slide";
 
 const routes = [
-  // {path: '', component: Music},
-  // {path: '/', component: Index},
-  {path: '/', component: Index2},
+  {
+    path: '/',
+    redirect: '/slide'
+  },
+  {path: '/slide', component: Slide},
   {path: '/test', component: Test},
   {path: '/test2', component: Test2},
   {path: '/test3', component: Test3},
@@ -88,7 +90,7 @@ const routes = [
   {path: '/TestVue3', component: TestVue3},
   {path: '/TestKeepAlive', component: TestKeepAlive},
   {path: '/TestKeepAlivePage1', component: TestKeepAlivePage1},
-  {path: '/home', component: Index},
+  {path: '/home', component: Index2},
   {path: '/home/music', component: Music},
   {path: '/home/music-rank-list', component: MusicRankList},
   {path: '/home/search', component: Search},
