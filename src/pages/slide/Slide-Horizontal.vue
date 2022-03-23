@@ -76,6 +76,9 @@ export default {
       this.$setCss(this.wrapper, 'transition-duration', `300ms`)
       this.$setCss(this.wrapper, 'transform',
           `translate3d(${this.getDistance()}px, 0, 0)`)
+
+      this.$attrs['onUpdate:index'] && this.$emit('update:index', this.index)
+
       this.reset()
     },
     reset() {
