@@ -21,7 +21,6 @@ export default {
     this.total = this.wrapper.children.length
     this.wrapperWidth = this.$getCss(this.wrapper, 'width')
     this.wrapperHeight = this.$getCss(this.wrapper, 'height')
-
   },
   methods: {
     touchStart(e) {
@@ -35,11 +34,11 @@ export default {
 
       let isRight = this.moveX < 0
       if ((this.index === 0 && !isRight) || (this.index === this.total - 1 && isRight)) return
-      this.$stopPropagation(e)
 
       this.checkDirection(e)
 
       if (this.next) {
+        this.$stopPropagation(e)
         this.$setCss(this.wrapper, 'transform',
             `translate3d(${this.getDistance()
             + this.moveX
@@ -48,11 +47,7 @@ export default {
       }
     },
     checkDirection(e) {
-      if (this.needCheck) {
-        // this.$stopPropagation(e)
-      } else {
-        return
-      }
+      if (!this.needCheck) return
       if (Math.abs(this.moveX) > this.judgeValue || Math.abs(this.moveY) > this.judgeValue) {
         let angle = (Math.abs(this.moveX) * 10) / (Math.abs(this.moveY) * 10)
         if (angle > 1) {
@@ -84,6 +79,7 @@ export default {
       this.reset()
     },
     reset() {
+      this.moveX = 0
       this.next = false
       this.needCheck = true
     },
@@ -94,8 +90,8 @@ export default {
 
   render(createElement, context) {
     return (
-        <div className="slide-column">
-          <div className="column-wrapper"
+        <div className="slide">
+          <div className="slide-wrapper"
                ref="wrapper"
                ontouchstart={this.touchStart.bind(this)}
                ontouchmove={this.touchMove.bind(this)}

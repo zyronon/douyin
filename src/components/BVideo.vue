@@ -11,7 +11,6 @@
     </video>
     <img src="../assets/img/icon/play-white.png" class="pause" v-if="!isPlaying">
     <div class="float" @click="togglePlayVideo">
-      <!--       @click.stop="togglePlayVideo" -->
       <div :style="{opacity:isMove ? 0:1}" class="normal">
         <div class="toolbar mb1r">
           <div class="avatar-ctn mb4r">
@@ -142,6 +141,12 @@ export default {
         return -1
       }
     },
+    prefix: {
+      type: String,
+      default: () => {
+        return ''
+      }
+    },
     //用于第一条数据，自动播放，如果都用事件去触发播放，有延迟
     isPlay: {
       type: Boolean,
@@ -171,7 +176,7 @@ export default {
   data() {
     return {
       loading: false,
-      name: `v-${this.index}-video`,
+      name: `v-${this.prefix}-${this.index}-video`,
       globalMethods: globalMethods,
       duration: 0,
       step: 0,
@@ -186,10 +191,7 @@ export default {
       isMove: false,
       test: [1, 2],
       lVideo: this.video,
-      lastClickTime: -1,
-      clickTimer: null,
-      dbClickTimer: null,
-      isDbClick: false,
+
       videoPoster: `?vframe/jpg/offset/0/w/${document.body.clientWidth}`
     }
   },
@@ -222,7 +224,6 @@ export default {
       }, false);
     }
 
-
     // eventTester("loadstart", '客户端开始请求数据'); //客户端开始请求数据
     // eventTester("abort", '客户端主动终止下载（不是因为错误引起）'); //客户端主动终止下载（不是因为错误引起）
     // eventTester("loadstart", '客户端开始请求数据'); //客户端开始请求数据
@@ -252,58 +253,6 @@ export default {
     videoWrapper.on('stop', this.stop)
   },
   methods: {
-    dbClick(e) {
-      // console.log('dbclick')
-      let id = 'a' + Date.now()
-      let elWidth = 80
-      let rotate = this.randomNum(0, 1)
-      let template = `<img class="${rotate ? 'left love-dbclick' : 'right love-dbclick'}" id="${id}" src="${new URL('../assets/img/icon/loved.svg')}" alt="">`
-      let el = new Dom().create(template)
-      el.css({top: e.y - elWidth, left: e.x - elWidth / 2,})
-      new Dom('#home-index').append(el)
-      setTimeout(() => {
-        new Dom(`#${id}`).remove()
-      }, 1000)
-    },
-    randomNum(minNum, maxNum) {
-      switch (arguments.length) {
-        case 1:
-          return parseInt(Math.random() * minNum + 1, 10);
-        case 2:
-          return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
-        default:
-          return 0;
-      }
-    },
-    checkDbClick(e) {
-      let checkTime = 400
-      if (this.isDbClick) {
-        this.dbClick(e)
-        // console.log('checkDbClick-dbclick1')
-        clearTimeout(this.dbClickTimer);
-        this.dbClickTimer = setTimeout(() => {
-          this.isDbClick = false
-        }, 400);
-      }
-      let nowTime = new Date().getTime();
-      if (nowTime - this.lastClickTime < checkTime) {
-        this.dbClick(e)
-        // console.log('checkDbClick-dbclick2')
-
-        this.lastClickTime = 0;
-        this.clickTimer && clearTimeout(this.clickTimer);
-        this.isDbClick = true
-        this.dbClickTimer = setTimeout(() => {
-          this.isDbClick = false
-        }, checkTime);
-      } else {
-        this.lastClickTime = nowTime;
-        this.clickTimer = setTimeout(() => {
-          // console.log('单击')
-          this.togglePlayVideo()
-        }, checkTime);
-      }
-    },
     play() {
       new Dom(`.${this.name}-marquee`).trigger('start')
       new Dom(`.${this.name}-music`).trigger('start')
@@ -330,6 +279,13 @@ export default {
       this.$refs.video.pause()
       this.isPlaying = false
     },
+    //切换视频状态
+    togglePlayVideo(e) {
+      console.log('togglePlayVideo')
+      if (!this.isPlaying) {
+        this.play()
+      }
+    },
     $likeNum(v) {
       return globalMethods.$likeNum(v)
     },
@@ -343,15 +299,7 @@ export default {
         this.isAttention = true
       }, 1000)
     },
-    //切换视频状态
-    togglePlayVideo(e) {
-      // console.log('togglePlayVideo')
-      if (this.isPlaying) {
-        this.pause()
-      } else {
-        this.play()
-      }
-    },
+
     loved(e, index) {
       this.lVideo.isLoved = !this.lVideo.isLoved
       this.$emit('update:video', this.lVideo)
