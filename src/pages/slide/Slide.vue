@@ -4,6 +4,7 @@
       <div class="item">
         <IndicatorHome/>
         <slide-horizontal
+            v-model:index="index"
             style="height: calc(100% - 5rem);"
         >
           <div class="item">
@@ -100,6 +101,7 @@ export default {
   },
   data() {
     return {
+      index: 0,
       closeOne: true,
       videos: [],
       totalSize: 52,
