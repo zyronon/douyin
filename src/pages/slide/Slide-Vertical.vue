@@ -84,6 +84,7 @@ export default {
       this.reset()
     },
     reset() {
+      this.moveX = 0
       this.next = false
       this.needCheck = true
     },
@@ -94,8 +95,8 @@ export default {
 
   render(createElement, context) {
     return (
-        <div className="slide-row">
-          <div className="column-wrapper"
+        <div className="slide">
+          <div className="slide-wrapper"
                style="flex-direction: column;"
                ref="wrapper"
                ontouchstart={this.touchStart.bind(this)}

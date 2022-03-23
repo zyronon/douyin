@@ -361,7 +361,7 @@ export default {
 if (import.meta.hot) {
 }
 </script>
-<style>
+<style scoped>
 .slide-wrapper {
   width: 100%;
   height: 100%;
