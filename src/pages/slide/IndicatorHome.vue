@@ -1,20 +1,24 @@
 <template>
   <div class="indicator-home">
+    <transition name="fade">
+      <div class="mask" v-if="open" @click="open = false"></div>
+    </transition>
     <div class="notice"><span>下拉刷新内容</span></div>
     <div class="toolbar" ref="toolbar">
       <div class="left" @click="$nav('/home/live')">直播</div>
       <div class="tab-ctn">
         <div class="tabs" ref="tabs">
-          <div class="tab"
-               @click.stop="changeIndex(0)">
+          <div class="tab" :class="tabOneClass"
+               @click.stop="change(0)">
             <span>同城</span>
+            <img src="../../assets/img/icon/arrow-up-white.png" alt="">
           </div>
-          <div class="tab"
-               @click.stop="changeIndex(1)">
+          <div class="tab" :class="{active:index === 1}"
+               @click.stop="change(1)">
             <span>关注</span>
           </div>
-          <div class="tab"
-               @click.stop="changeIndex(2)"><span>推荐</span>
+          <div class="tab" :class="{active:index === 2}"
+               @click.stop="change(2)"><span>推荐</span>
           </div>
         </div>
         <div class="indicator" ref="indicator"></div>
@@ -23,6 +27,14 @@
            @click="$nav('/home/search')"
            style="margin-top: .5rem;">
     </div>
+    <div class="toggle-type" :class="{open}">
+      <div class="l-button active">
+        <span>同城</span>
+        <img src="../../assets/img/icon/switch.png" alt="">
+      </div>
+      <div class="l-button">学习</div>
+    </div>
+
     <Loading class="loading" style="width: 4rem;" :is-full-screen="false"/>
   </div>
 </template>
@@ -51,20 +63,32 @@ export default {
     return {
       indicatorRef: null,
       lefts: [],
-      indicatorSpace: 0
+      indicatorSpace: 0,
+      open: false
     }
   },
-  computed: {},
-  watch: {},
+  computed: {
+    tabOneClass() {
+      return {active: this.index === 0, open: this.open}
+    }
+  },
+  watch: {
+    // index(newVal) {
+    //   this.end()
+    // }
+  },
   created() {
   },
   mounted() {
     this.initTabs()
-    bus.on(this.name + '-moved', this.move)
+    bus.on(this.name + '-move', this.move)
     bus.on(this.name + '-end', this.end)
   },
   methods: {
-    changeIndex(index) {
+    change(index) {
+      if (this.index === 0 && index === 0) {
+        this.open = !this.open
+      }
       this.$emit('update:index', index)
       this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
       this.$setCss(this.indicatorRef, 'left', this.lefts[index] + 'px')
@@ -84,36 +108,36 @@ export default {
       this.$setCss(this.indicatorRef, 'left', this.lefts[this.index] + 'px')
     },
     move(e) {
-      console.log('move', e)
-
+      this.$setCss(this.indicatorRef, 'transition-duration', `0ms`)
       this.$setCss(this.indicatorRef, 'left',
           this.lefts[this.index] -
           e.x.distance / (this.$store.state.bodyWidth / this.indicatorSpace) + 'px')
     },
     end(index) {
-      console.log(index)
       this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
-      this.$setCss(this.indicatorRef, 'left', this.lefts[this.index] + 'px')
+      this.$setCss(this.indicatorRef, 'left', this.lefts[index] + 'px')
       setTimeout(() => {
         this.$setCss(this.indicatorRef, 'transition-duration', `0ms`)
       }, 300)
     }
-  }
+  },
 }
 </script>
 
 <style scoped lang="less">
 @import "@/assets/less/index";
 
+@height: 6rem;
+
 .indicator-home {
   position: fixed;
   font-size: 1.6rem;
   top: 0;
   left: 0;
-  height: 60px;
   z-index: 2;
   width: 100%;
   color: white;
+  height: @height;
 
   .notice {
     opacity: 0;
@@ -156,7 +180,21 @@ export default {
 
         .tab {
           transition: color .3s;
-          color: gray;
+          color: rgb(156, 158, 165);
+
+          img {
+            @width: 1rem;
+            width: @width;
+            height: @width;
+            margin-left: .4rem;
+            transition: all .3s;
+          }
+
+          &.open {
+            img {
+              transform: rotate(180deg);
+            }
+          }
 
           &.active {
             color: white;
@@ -169,12 +207,69 @@ export default {
         //transition: left .3s;
         position: absolute;
         bottom: -0.8rem;
-        height: .3rem;
+        height: .2rem;
         width: 2rem;
         background: #fff;
         border-radius: .5rem;
       }
     }
+  }
+
+  .toggle-type {
+    @height: 10rem;
+    position: absolute;
+    height: @height;
+    //padding-top: @height;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    width: 100%;
+    background: @main-bg;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    box-sizing: border-box;
+    font-size: 1.2rem;
+    top: -@height;
+    transition: all .3s;
+    opacity: 0;
+
+    &.open {
+      top: 0;
+      opacity: 1;
+    }
+
+    .l-button {
+      width: 49%;
+      height: 2.8rem;
+      background: rgb(33, 36, 45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2rem;
+      color: rgb(157, 161, 170);
+
+      &.active {
+        background: rgb(57, 57, 65);
+        color: white;
+      }
+
+      img {
+        @width: .9rem;
+        width: @width;
+        height: @width;
+        margin-left: .8rem;
+      }
+    }
+
+  }
+
+  .mask {
+    top: 0;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: #00000066;
   }
 }
 

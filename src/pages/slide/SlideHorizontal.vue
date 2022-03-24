@@ -2,17 +2,21 @@
 import bus from "../../utils/bus";
 
 export default {
-  props:{
+  props: {
     name: {
       type: String,
       default: () => ''
+    },
+    index: {
+      type: Number,
+      default: () => 0
     },
   },
   data() {
     return {
       wrapper: null,
       total: 0,
-      index: 0,
+      lIndex: 0,
       wrapperWidth: 0,
       wrapperHeight: 0,
       moveX: 0,
@@ -30,6 +34,14 @@ export default {
     this.wrapperWidth = this.$getCss(this.wrapper, 'width')
     this.wrapperHeight = this.$getCss(this.wrapper, 'height')
   },
+  watch: {
+    index(newVal) {
+      this.lIndex = newVal
+      this.$setCss(this.wrapper, 'transition-duration', `300ms`)
+      this.$setCss(this.wrapper, 'transform',
+          `translate3d(${this.getDistance()}px, 0, 0)`)
+    }
+  },
   methods: {
     touchStart(e) {
       this.$setCss(this.wrapper, 'transition-duration', `0ms`)
@@ -41,13 +53,13 @@ export default {
       this.moveY = e.touches[0].pageY - this.startY
 
       let isRight = this.moveX < 0
-      if ((this.index === 0 && !isRight) || (this.index === this.total - 1 && isRight)) return
+      if ((this.lIndex === 0 && !isRight) || (this.lIndex === this.total - 1 && isRight)) return
 
 
       this.checkDirection(e)
 
       if (this.next) {
-        bus.emit(this.name + '-moved', {
+        bus.emit(this.name + '-move', {
           x: {distance: this.moveX, isRight},
         })
         this.$stopPropagation(e)
@@ -76,22 +88,23 @@ export default {
     touchEnd(e) {
       let isRight = this.moveX < 0
       let next = true
-      if ((this.index === 0 && !isRight) || (this.index === this.total - 1 && isRight)) next = false
+      if ((this.lIndex === 0 && !isRight) || (this.lIndex === this.total - 1 && isRight)) next = false
 
       if (Math.abs(this.moveX) > (this.wrapperWidth / 4) && next) {
         if (isRight) {
-          this.index++
+          this.lIndex++
         } else {
-          this.index--
+          this.lIndex--
         }
       }
       this.$setCss(this.wrapper, 'transition-duration', `300ms`)
       this.$setCss(this.wrapper, 'transform',
           `translate3d(${this.getDistance()}px, 0, 0)`)
 
-      this.$attrs['onUpdate:index'] && this.$emit('update:index', this.index)
+      this.$emit('update:index', this.lIndex)
 
       this.reset()
+      bus.emit(this.name + '-end', this.lIndex)
     },
     reset() {
       this.moveX = 0
@@ -99,7 +112,7 @@ export default {
       this.needCheck = true
     },
     getDistance() {
-      return -this.index * this.wrapperWidth
+      return -this.lIndex * this.wrapperWidth
     },
   },
 

@@ -1,12 +1,12 @@
 <template>
   <div id="Slide" @click="checkDbClick">
-    <slide-horizontal>
+    <SlideHorizontal>
       <div class="item">
         <IndicatorHome
             name="main"
             v-model:index="index"
         />
-        <slide-horizontal
+        <SlideHorizontal
             name="main"
             v-model:index="index"
             style="height: calc(100% - 5rem);"
@@ -73,19 +73,19 @@
               <div class="item">r333333333333333333333333333333333333333333333333333333</div>
             </SlideVertical>
           </div>
-        </slide-horizontal>
+        </SlideHorizontal>
         <Footer v-bind:init-tab="1"/>
       </div>
       <div class="item">
         <p v-for="i in 100">2</p>
       </div>
-    </slide-horizontal>
+    </SlideHorizontal>
   </div>
 </template>
 
 <script>
-import SlideHorizontal from './slide-horizontal'
-import SlideVertical from './slide-vertical'
+import SlideHorizontal from './SlideHorizontal'
+import SlideVertical from './SlideVertical'
 import BVideo from "../../components/BVideo";
 import resource from "../../assets/data/resource";
 import Dom from "../../utils/dom";
@@ -121,6 +121,7 @@ export default {
     ...mapState(['friends']),
   },
   created() {
+    console.log(this.$router)
     this.getData()
   },
   mounted() {

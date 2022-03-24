@@ -72,7 +72,7 @@ import Help from "../pages/login/Help";
 import Uploader from "../pages/me/Uploader";
 import TestSlide from "../pages/test/TestSlide";
 import TestOne from "../pages/test/TestOne";
-import Slide from "../pages/slide/slide";
+import Slide from "../pages/slide/Slide";
 
 const routes = [
   {
