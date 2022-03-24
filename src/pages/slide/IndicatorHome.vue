@@ -6,16 +6,15 @@
       <div class="tab-ctn">
         <div class="tabs" ref="tabs">
           <div class="tab"
-               @click="changeIndex(false,0)">
+               @click.stop="changeIndex(0)">
             <span>同城</span>
           </div>
           <div class="tab"
-
-               @click="changeIndex(false,0)">
+               @click.stop="changeIndex(1)">
             <span>关注</span>
           </div>
           <div class="tab"
-               @click="changeIndex(false,1)"><span>推荐</span>
+               @click.stop="changeIndex(2)"><span>推荐</span>
           </div>
         </div>
         <div class="indicator" ref="indicator"></div>
@@ -29,6 +28,7 @@
 </template>
 <script>
 import Loading from "../../components/Loading";
+import bus from "../../utils/bus";
 
 export default {
   name: "IndicatorHome",
@@ -36,13 +36,21 @@ export default {
     Loading,
   },
   props: {
-    modelValue: false
+    modelValue: false,
+    //用于和slidList绑定，因为一个页面可能有多个slidList，但只有一个indicator组件
+    name: {
+      type: String,
+      default: () => ''
+    },
+    index: {
+      type: Number,
+      default: () => 0
+    },
   },
   data() {
     return {
-      tabWidth: 0,
       indicatorRef: null,
-      indicatorRelateIndexLefts: [],
+      lefts: [],
       indicatorSpace: 0
     }
   },
@@ -51,23 +59,44 @@ export default {
   created() {
   },
   mounted() {
-    let tabs = this.$refs.tabs
-    this.indicatorRef = this.$refs.indicator
-    for (let i = 0; i < tabs.children.length; i++) {
-      let item = tabs.children[i]
-      this.tabWidth = this.$getCss(item, 'width')
-      //TODO 这里算得不对，两个字时正常，字一多就会出问题，修改参考IndicatorLight.vue
-      this.indicatorRelateIndexLefts.push(
-          item.getBoundingClientRect().x - tabs.children[0].getBoundingClientRect().x + this.tabWidth * 0.15)
-    }
-    this.indicatorSpace = this.indicatorRelateIndexLefts[1] - this.indicatorRelateIndexLefts[0]
-    this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
-    this.$setCss(this.indicatorRef, 'left', this.indicatorRelateIndexLefts[0] + 'px')
-
+    this.initTabs()
+    bus.on(this.name + '-moved', this.move)
+    bus.on(this.name + '-end', this.end)
   },
   methods: {
-    changeIndex() {
+    changeIndex(index) {
+      this.$emit('update:index', index)
+      this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
+      this.$setCss(this.indicatorRef, 'left', this.lefts[index] + 'px')
+    },
+    initTabs() {
+      let tabs = this.$refs.tabs
+      this.indicatorRef = this.$refs.indicator
+      let indicatorWidth = this.$getCss(this.indicatorRef, 'width')
+      for (let i = 0; i < tabs.children.length; i++) {
+        let item = tabs.children[i]
+        let tabWidth = this.$getCss(item, 'width')
+        this.lefts.push(
+            item.getBoundingClientRect().x - tabs.children[0].getBoundingClientRect().x + (tabWidth * 0.5 - indicatorWidth / 2))
+      }
+      this.indicatorSpace = this.lefts[1] - this.lefts[this.index]
+      this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
+      this.$setCss(this.indicatorRef, 'left', this.lefts[this.index] + 'px')
+    },
+    move(e) {
+      console.log('move', e)
 
+      this.$setCss(this.indicatorRef, 'left',
+          this.lefts[this.index] -
+          e.x.distance / (this.$store.state.bodyWidth / this.indicatorSpace) + 'px')
+    },
+    end(index) {
+      console.log(index)
+      this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
+      this.$setCss(this.indicatorRef, 'left', this.lefts[this.index] + 'px')
+      setTimeout(() => {
+        this.$setCss(this.indicatorRef, 'transition-duration', `0ms`)
+      }, 300)
     }
   }
 }

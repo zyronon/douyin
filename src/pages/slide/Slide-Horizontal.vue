@@ -1,5 +1,13 @@
 <script lang="jsx">
+import bus from "../../utils/bus";
+
 export default {
+  props:{
+    name: {
+      type: String,
+      default: () => ''
+    },
+  },
   data() {
     return {
       wrapper: null,
@@ -35,9 +43,13 @@ export default {
       let isRight = this.moveX < 0
       if ((this.index === 0 && !isRight) || (this.index === this.total - 1 && isRight)) return
 
+
       this.checkDirection(e)
 
       if (this.next) {
+        bus.emit(this.name + '-moved', {
+          x: {distance: this.moveX, isRight},
+        })
         this.$stopPropagation(e)
         this.$setCss(this.wrapper, 'transform',
             `translate3d(${this.getDistance()

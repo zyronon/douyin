@@ -2,8 +2,12 @@
   <div id="Slide" @click="checkDbClick">
     <slide-horizontal>
       <div class="item">
-        <IndicatorHome/>
+        <IndicatorHome
+            name="main"
+            v-model:index="index"
+        />
         <slide-horizontal
+            name="main"
             v-model:index="index"
             style="height: calc(100% - 5rem);"
         >
