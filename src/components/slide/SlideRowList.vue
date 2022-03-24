@@ -189,7 +189,7 @@ export default {
         this.tabIndicatorRelationActiveIndexLefts.push(
             item.getBoundingClientRect().x - tabs.children[0].getBoundingClientRect().x + (this.isHome ? this.tabWidth * 0.15 : 0))
       }
-      // console.log(this.indicatorRelateIndexLefts)
+      // console.log(this.lefts)
       this.indicatorSpace = this.tabIndicatorRelationActiveIndexLefts[1] - this.tabIndicatorRelationActiveIndexLefts[0]
       if (this.isHome) {
         this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
