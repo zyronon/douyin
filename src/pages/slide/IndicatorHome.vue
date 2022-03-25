@@ -8,17 +8,14 @@
       <div class="left" @click="$nav('/home/live')">直播</div>
       <div class="tab-ctn">
         <div class="tabs" ref="tabs">
-          <div class="tab" :class="tabOneClass"
-               @click.stop="change(0)">
+          <div class="tab" :class="tabOneClass" @click.stop="change(0)">
             <span>同城</span>
-            <img src="../../assets/img/icon/arrow-up-white.png" alt="">
+            <img v-show="index === 0" src="../../assets/img/icon/arrow-up-white.png" alt="">
           </div>
-          <div class="tab" :class="{active:index === 1}"
-               @click.stop="change(1)">
+          <div class="tab" :class="{active:index === 1}" @click.stop="change(1)">
             <span>关注</span>
           </div>
-          <div class="tab" :class="{active:index === 2}"
-               @click.stop="change(2)"><span>推荐</span>
+          <div class="tab" :class="{active:index === 2}" @click.stop="change(2)"><span>推荐</span>
           </div>
         </div>
         <div class="indicator" ref="indicator"></div>
@@ -28,11 +25,12 @@
            style="margin-top: .5rem;">
     </div>
     <div class="toggle-type" :class="{open}">
-      <div class="l-button active">
+      <div class="l-button" :class="{active:type === 0}" @click="toggleType(0)">
         <span>同城</span>
-        <img src="../../assets/img/icon/switch.png" alt="">
+        <img v-if="type === 0" src="../../assets/img/icon/switch.png" alt="">
       </div>
-      <div class="l-button">学习</div>
+      <div class="l-button" :class="{active:type === 1}" @click="toggleType(1)">学习</div>
+      <div class="l-button" :class="{active:type === 2}" @click="toggleType(2)">热点</div>
     </div>
 
     <Loading class="loading" style="width: 4rem;" :is-full-screen="false"/>
@@ -64,7 +62,8 @@ export default {
       indicatorRef: null,
       lefts: [],
       indicatorSpace: 0,
-      open: false
+      open: false,
+      type: 1
     }
   },
   computed: {
@@ -85,9 +84,17 @@ export default {
     bus.on(this.name + '-end', this.end)
   },
   methods: {
+    toggleType(type) {
+      if (type !== this.type) {
+        this.type = type
+        this.open = false
+      }
+    },
     change(index) {
       if (this.index === 0 && index === 0) {
         this.open = !this.open
+      } else {
+        this.open = false
       }
       this.$emit('update:index', index)
       this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
@@ -181,13 +188,16 @@ export default {
         .tab {
           transition: color .3s;
           color: rgb(156, 158, 165);
+          position: relative;
 
           img {
+            position: absolute;
             @width: 1rem;
             width: @width;
             height: @width;
             margin-left: .4rem;
             transition: all .3s;
+            margin-top: .7rem;
           }
 
           &.open {
@@ -240,7 +250,8 @@ export default {
     }
 
     .l-button {
-      width: 49%;
+      flex: 1;
+      margin: 0 .3rem;
       height: 2.8rem;
       background: rgb(33, 36, 45);
       display: flex;
@@ -248,6 +259,7 @@ export default {
       justify-content: center;
       border-radius: 2rem;
       color: rgb(157, 161, 170);
+      transition: all .3s;
 
       &.active {
         background: rgb(57, 57, 65);

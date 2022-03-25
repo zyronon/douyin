@@ -29,6 +29,7 @@ export default {
       this.startY = e.touches[0].pageY
     },
     touchMove(e) {
+      console.log('move',e.touches[0].pageY)
       this.moveX = e.touches[0].pageX - this.startX
       this.moveY = e.touches[0].pageY - this.startY
 
