@@ -1,5 +1,6 @@
 <script lang="jsx">
 import bus from "../../utils/bus";
+import {mapState} from "vuex";
 
 export default {
   props: {
@@ -25,8 +26,10 @@ export default {
       startY: 0,
       needCheck: true,
       next: false,
-      judgeValue: 20
     }
+  },
+  computed: {
+    ...mapState(['judgeValue'])
   },
   mounted() {
     this.wrapper = this.$refs.wrapper
@@ -59,9 +62,7 @@ export default {
       this.checkDirection(e)
 
       if (this.next) {
-        bus.emit(this.name + '-move', {
-          x: {distance: this.moveX, isRight},
-        })
+        bus.emit(this.name + '-moveX', this.moveX)
         this.$stopPropagation(e)
         this.$setCss(this.wrapper, 'transform',
             `translate3d(${this.getDistance()
@@ -74,12 +75,7 @@ export default {
       if (!this.needCheck) return
       if (Math.abs(this.moveX) > this.judgeValue || Math.abs(this.moveY) > this.judgeValue) {
         let angle = (Math.abs(this.moveX) * 10) / (Math.abs(this.moveY) * 10)
-        if (angle > 1) {
-          this.next = true
-          // console.log('横划')
-        } else {
-          // console.log('竖划')
-        }
+        this.next = angle > 1;
         // console.log(angle)
         return this.needCheck = false
       }
@@ -104,12 +100,12 @@ export default {
       this.$emit('update:index', this.lIndex)
 
       this.reset()
-      bus.emit(this.name + '-end', this.lIndex)
     },
     reset() {
       this.moveX = 0
       this.next = false
       this.needCheck = true
+      bus.emit(this.name + '-end', this.lIndex)
     },
     getDistance() {
       return -this.lIndex * this.wrapperWidth

@@ -3,24 +3,29 @@
     <transition name="fade">
       <div class="mask" v-if="open" @click="open = false"></div>
     </transition>
-    <div class="notice"><span>下拉刷新内容</span></div>
-    <div class="toolbar" ref="toolbar">
-      <div class="left" @click="$nav('/home/live')">直播</div>
+    <div class="notice" :style="noticeStyle"><span>下拉刷新内容</span></div>
+    <div class="toolbar" ref="toolbar" :style="toolbarStyle">
+      <img src="../../assets/img/icon/scan.png"
+           class="search"
+           @click="$nav('/home/live')"
+           style="margin-top: .5rem;">
       <div class="tab-ctn">
         <div class="tabs" ref="tabs">
           <div class="tab" :class="tabOneClass" @click.stop="change(0)">
             <span>同城</span>
-            <img v-show="index === 0" src="../../assets/img/icon/arrow-up-white.png" alt="">
+            <img v-show="index === 0" src="../../assets/img/icon/arrow-up-white.png" class="tab1-img">
           </div>
           <div class="tab" :class="{active:index === 1}" @click.stop="change(1)">
             <span>关注</span>
+            <img src="../../assets/img/icon/live.webp" class="tab2-img">
           </div>
           <div class="tab" :class="{active:index === 2}" @click.stop="change(2)"><span>推荐</span>
           </div>
         </div>
         <div class="indicator" ref="indicator"></div>
       </div>
-      <img src="../../assets/img/icon/search-gray.png" alt=""
+      <img v-hide="!loading" src="../../assets/img/icon/search-light.png"
+           class="search"
            @click="$nav('/home/search')"
            style="margin-top: .5rem;">
     </div>
@@ -33,12 +38,13 @@
       <div class="l-button" :class="{active:type === 2}" @click="toggleType(2)">热点</div>
     </div>
 
-    <Loading class="loading" style="width: 4rem;" :is-full-screen="false"/>
+    <Loading :style="loadingStyle" class="loading" style="width: 4rem;" :is-full-screen="false"/>
   </div>
 </template>
 <script>
 import Loading from "../../components/Loading";
 import bus from "../../utils/bus";
+import {mapState} from "vuex";
 
 export default {
   name: "IndicatorHome",
@@ -63,25 +69,72 @@ export default {
       lefts: [],
       indicatorSpace: 0,
       open: false,
-      type: 1
+      loading: false,
+      type: 1,
+      moveY: 0
     }
   },
   computed: {
+    ...mapState(['judgeValue', 'homeRefresh']),
     tabOneClass() {
       return {active: this.index === 0, open: this.open}
+    },
+    transform() {
+      return `translate3d(0, ${this.moveY - this.judgeValue > this.homeRefresh ? this.homeRefresh : this.moveY - this.judgeValue}px, 0)`
+    },
+    toolbarStyle() {
+      if (this.loading) {
+        return {opacity: 1, 'transition-duration': '300ms', transform: `translate3d(0, 0, 0)`,}
+      }
+      if (this.moveY) {
+        return {
+          opacity: 1 - (this.moveY - this.judgeValue) / (this.homeRefresh / 2),
+          transform: this.transform
+        }
+      }
+      return {opacity: 1, 'transition-duration': '300ms', transform: `translate3d(0, 0, 0)`,}
+    },
+    noticeStyle() {
+      if (this.loading) {
+        return {opacity: 0,}
+      }
+      if (this.moveY) {
+        return {
+          opacity: (this.moveY - this.judgeValue) / (this.homeRefresh / 2) - .5,
+          transform: this.transform
+        }
+      }
+      return {opacity: 0,}
+    },
+    loadingStyle() {
+      if (this.loading) {
+        return {opacity: 1, 'transition-duration': '300ms',}
+      }
+      if (this.moveY) {
+        return {
+          opacity: (this.moveY - this.judgeValue) / (this.homeRefresh / 2) - .5,
+          transform: this.transform
+        }
+      }
     }
-  },
-  watch: {
-    // index(newVal) {
-    //   this.end()
-    // }
   },
   created() {
   },
   mounted() {
     this.initTabs()
-    bus.on(this.name + '-move', this.move)
+    bus.on(this.name + '-moveX', this.move)
+    bus.on(this.name + '-moveY', e => {
+      // console.log('moveY', e)
+      this.moveY = e
+    })
     bus.on(this.name + '-end', this.end)
+    bus.on(this.name + '-loading', () => {
+      console.log('loading')
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+      }, 3000)
+    })
   },
   methods: {
     toggleType(type) {
@@ -118,9 +171,10 @@ export default {
       this.$setCss(this.indicatorRef, 'transition-duration', `0ms`)
       this.$setCss(this.indicatorRef, 'left',
           this.lefts[this.index] -
-          e.x.distance / (this.$store.state.bodyWidth / this.indicatorSpace) + 'px')
+          e / (this.$store.state.bodyWidth / this.indicatorSpace) + 'px')
     },
     end(index) {
+      this.moveY = 0
       this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
       this.$setCss(this.indicatorRef, 'left', this.lefts[index] + 'px')
       setTimeout(() => {
@@ -190,7 +244,7 @@ export default {
           color: rgb(156, 158, 165);
           position: relative;
 
-          img {
+          .tab1-img {
             position: absolute;
             @width: 1rem;
             width: @width;
@@ -200,8 +254,15 @@ export default {
             margin-top: .7rem;
           }
 
+          .tab2-img {
+            position: absolute;
+            height: 1.5rem;
+            left: 2.4rem;
+            top: -.5rem;
+          }
+
           &.open {
-            img {
+            .tab1-img {
               transform: rotate(180deg);
             }
           }
@@ -222,6 +283,10 @@ export default {
         background: #fff;
         border-radius: .5rem;
       }
+    }
+
+    .search {
+      width: 2rem;
     }
   }
 

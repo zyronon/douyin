@@ -93,6 +93,22 @@ export default {
         el.addEventListener("touchend", cancel);
         el.addEventListener("touchcancel", cancel);
       }
+    },
+    hide: {
+      beforeMount: function (el, binding, vNode) {
+        if (binding.value) {
+          el.style.opacity = 1
+        } else {
+          el.style.opacity = 0
+        }
+      },
+      updated: function (el, binding, vNode) {
+        if (binding.value) {
+          el.style.opacity = 1
+        } else {
+          el.style.opacity = 0
+        }
+      }
     }
   },
 }

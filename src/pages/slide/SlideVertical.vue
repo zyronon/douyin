@@ -1,5 +1,14 @@
 <script lang="jsx">
+import bus from "../../utils/bus";
+import {mapState} from "vuex";
+
 export default {
+  props: {
+    name: {
+      type: String,
+      default: () => ''
+    },
+  },
   data() {
     return {
       wrapper: null,
@@ -13,8 +22,10 @@ export default {
       startY: 0,
       needCheck: true,
       next: false,
-      judgeValue: 20
     }
+  },
+  computed: {
+    ...mapState(['judgeValue','homeRefresh'])
   },
   mounted() {
     this.wrapper = this.$refs.wrapper
@@ -29,14 +40,18 @@ export default {
       this.startY = e.touches[0].pageY
     },
     touchMove(e) {
-      console.log('move',e.touches[0].pageY)
       this.moveX = e.touches[0].pageX - this.startX
       this.moveY = e.touches[0].pageY - this.startY
 
       let isDown = this.moveY < 0
+      this.checkDirection(e)
+
+      if (this.index === 0 && !isDown && this.next) {
+        bus.emit(this.name + '-moveY', this.moveY)
+      }
+
       if ((this.index === 0 && !isDown) || (this.index === this.total - 1 && isDown)) return
 
-      this.checkDirection(e)
 
       if (this.next) {
         this.$stopPropagation(e)
@@ -55,12 +70,7 @@ export default {
       }
       if (Math.abs(this.moveX) > this.judgeValue || Math.abs(this.moveY) > this.judgeValue) {
         let angle = (Math.abs(this.moveX) * 10) / (Math.abs(this.moveY) * 10)
-        if (angle > 1) {
-          // console.log('横划')
-        } else {
-          this.next = true
-          // console.log('竖划')
-        }
+        this.next = angle <= 1;
         // console.log(angle)
         return this.needCheck = false
       }
@@ -68,6 +78,9 @@ export default {
     },
     touchEnd(e) {
       let isDown = this.moveY < 0
+      if (this.index === 0 && !isDown && this.moveY > (this.homeRefresh + this.judgeValue)) {
+        bus.emit(this.name + '-loading')
+      }
       let next = true
       if ((this.index === 0 && !isDown) || (this.index === this.total - 1 && isDown)) next = false
 
@@ -88,12 +101,12 @@ export default {
       this.moveX = 0
       this.next = false
       this.needCheck = true
+      bus.emit(this.name + '-end', this.index)
     },
     getDistance() {
       return -this.index * this.wrapperHeight
     },
   },
-
   render(createElement, context) {
     return (
         <div className="slide">

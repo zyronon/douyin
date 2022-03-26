@@ -34,9 +34,9 @@
                 <span>住宿</span>
               </div>
             </div>
-            <SlideVertical>
-              <div class="item" style="background: tan">
-                <p style="padding: 1rem;" v-for="i in 50">
+            <SlideVertical name="main">
+              <div class="item">
+                <p style="padding: 1rem;" v-for="i in 5">
                   r2222222222222222222222222222222222222222222222222222222
                 </p>
               </div>
@@ -60,14 +60,14 @@
                 </div>
               </div>
             </div>
-            <SlideVertical>
+            <SlideVertical name="main">
               <div class="item">r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1</div>
               <div class="item">r2222222222222222222222222222222222222222222222222222222</div>
               <div class="item">r333333333333333333333333333333333333333333333333333333</div>
             </SlideVertical>
           </div>
           <div class="item">
-            <SlideVertical>
+            <SlideVertical name="main">
               <div class="item">r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1</div>
               <div class="item">r2222222222222222222222222222222222222222222222222222222</div>
               <div class="item">r333333333333333333333333333333333333333333333333333333</div>

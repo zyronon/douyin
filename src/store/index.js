@@ -42,7 +42,9 @@ const store = Vuex.createStore({
       "is_private": 1
     },
     friends: resource.users,
-    excludeRoutes: []
+    excludeRoutes: [],
+    judgeValue: 20,
+    homeRefresh: 60,
   },
   mutations: {
     setUserinfo(store, val) {
