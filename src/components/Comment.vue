@@ -5,7 +5,7 @@
       @cancel="cancel"
       :show-heng-gang="false"
       maskMode="light"
-      height="70vh"
+      :height="height"
       mode="white">
     <template v-slot:header>
       <div class="title">
@@ -134,6 +134,10 @@ export default {
     videoId: {
       type: String,
       default: null
+    },
+    height: {
+      type: String,
+      default: '70vh'
     },
   },
   computed: {
@@ -348,7 +352,7 @@ export default {
 
 .comment {
   width: 100%;
-  height: 70vh;
+  height: v-bind(height);
   background: #fff;
   z-index: 5;
   border-radius: 1rem 1rem 0 0;

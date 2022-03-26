@@ -10,7 +10,7 @@
       <p> 您的浏览器不支持 video 标签。</p>
     </video>
     <img src="../assets/img/icon/play-white.png" class="pause" v-if="!isPlaying">
-    <div class="float" @click="togglePlayVideo">
+    <div class="float" :style="{opacity: isUp?0:1}" @click="togglePlayVideo">
       <div :style="{opacity:isMove ? 0:1}" class="normal">
         <div class="toolbar mb1r">
           <div class="avatar-ctn mb4r">
@@ -159,6 +159,12 @@ export default {
       default: () => {
         return false
       }
+    },
+    isUp: {
+      type: Boolean,
+      default: () => {
+        return false
+      }
     }
   },
   computed: {
@@ -192,6 +198,7 @@ export default {
       test: [1, 2],
       lVideo: this.video,
 
+      videoScreenHeight: 0,
       videoPoster: `?vframe/jpg/offset/0/w/${document.body.clientWidth}`
     }
   },
@@ -203,10 +210,12 @@ export default {
     let video = this.$refs.video
     video.currentTime = 0
     let fun = e => {
+      this.loading = false
       this.currentTime = Math.ceil(e.target.currentTime)
       this.pageX = this.currentTime * this.step
     }
     video.addEventListener('loadedmetadata', e => {
+      this.videoScreenHeight = video.videoHeight / (video.videoWidth / this.width)
       this.duration = video.duration
       if (this.duration > 60) {
         // if (this.duration > 6) {

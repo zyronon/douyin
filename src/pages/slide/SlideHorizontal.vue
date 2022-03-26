@@ -26,6 +26,7 @@ export default {
       startY: 0,
       needCheck: true,
       next: false,
+      startTime: null
     }
   },
   computed: {
@@ -50,6 +51,7 @@ export default {
       this.$setCss(this.wrapper, 'transition-duration', `0ms`)
       this.startX = e.touches[0].pageX
       this.startY = e.touches[0].pageY
+      this.startTime = Date.now()
     },
     touchMove(e) {
       this.moveX = e.touches[0].pageX - this.startX
@@ -83,10 +85,13 @@ export default {
     },
     touchEnd(e) {
       let isRight = this.moveX < 0
-      let next = true
-      if ((this.lIndex === 0 && !isRight) || (this.lIndex === this.total - 1 && isRight)) next = false
+      if ((this.lIndex === 0 && !isRight) || (this.lIndex === this.total - 1 && isRight)) this.next = false
 
-      if (Math.abs(this.moveX) > (this.wrapperWidth / 4) && next) {
+      let endTime = Date.now()
+      let gapTime = endTime - this.startTime
+      if (Math.abs(this.moveX) < 20) gapTime = 1000
+      if (Math.abs(this.moveX) > (this.wrapperWidth / 4)) gapTime = 100
+      if (gapTime < 150 && this.next) {
         if (isRight) {
           this.lIndex++
         } else {
@@ -105,6 +110,7 @@ export default {
       this.moveX = 0
       this.next = false
       this.needCheck = true
+      this.startTime = null
       bus.emit(this.name + '-end', this.lIndex)
     },
     getDistance() {

@@ -22,10 +22,11 @@ export default {
       startY: 0,
       needCheck: true,
       next: false,
+      startTime: null
     }
   },
   computed: {
-    ...mapState(['judgeValue','homeRefresh'])
+    ...mapState(['judgeValue', 'homeRefresh'])
   },
   mounted() {
     this.wrapper = this.$refs.wrapper
@@ -38,6 +39,7 @@ export default {
       this.$setCss(this.wrapper, 'transition-duration', `0ms`)
       this.startX = e.touches[0].pageX
       this.startY = e.touches[0].pageY
+      this.startTime = Date.now()
     },
     touchMove(e) {
       this.moveX = e.touches[0].pageX - this.startX
@@ -49,10 +51,7 @@ export default {
       if (this.index === 0 && !isDown && this.next) {
         bus.emit(this.name + '-moveY', this.moveY)
       }
-
       if ((this.index === 0 && !isDown) || (this.index === this.total - 1 && isDown)) return
-
-
       if (this.next) {
         this.$stopPropagation(e)
         this.$setCss(this.wrapper, 'transform',
@@ -81,10 +80,13 @@ export default {
       if (this.index === 0 && !isDown && this.moveY > (this.homeRefresh + this.judgeValue)) {
         bus.emit(this.name + '-loading')
       }
-      let next = true
-      if ((this.index === 0 && !isDown) || (this.index === this.total - 1 && isDown)) next = false
+      if ((this.index === 0 && !isDown) || (this.index === this.total - 1 && isDown)) this.next = false
 
-      if (Math.abs(this.moveY) > (this.wrapperHeight / 4) && next) {
+      let endTime = Date.now()
+      let gapTime = endTime - this.startTime
+      if (Math.abs(this.moveY) < 20) gapTime = 1000
+      if (Math.abs(this.moveY) > (this.wrapperHeight / 4)) gapTime = 100
+      if (gapTime < 150 && this.next) {
         if (isDown) {
           this.index++
         } else {
@@ -100,6 +102,7 @@ export default {
     reset() {
       this.moveX = 0
       this.next = false
+      this.startTime = null
       this.needCheck = true
       bus.emit(this.name + '-end', this.index)
     },

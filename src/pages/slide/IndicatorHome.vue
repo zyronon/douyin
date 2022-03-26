@@ -24,7 +24,7 @@
         </div>
         <div class="indicator" ref="indicator"></div>
       </div>
-      <img v-hide="!loading" src="../../assets/img/icon/search-light.png"
+      <img v-hide="loading" src="../../assets/img/icon/search-light.png"
            class="search"
            @click="$nav('/home/search')"
            style="margin-top: .5rem;">
@@ -199,6 +199,7 @@ export default {
   width: 100%;
   color: white;
   height: @height;
+  transition: all .3s;
 
   .notice {
     opacity: 0;

@@ -87,7 +87,7 @@ export default {
         let mask = new Dom('.Mask').replaceClass('fade-in', 'fade-out')
         setTimeout(() => {
           mask.remove()
-        }, 300)
+        }, 250)
       }
     },
   },
@@ -105,7 +105,7 @@ export default {
   },
   methods: {
     beforeEnter(el) {
-      this.$setCss(el, 'transition-duration', `200ms`)
+      this.$setCss(el, 'transition-duration', `250ms`)
       this.$setCss(el, 'transform', `translate3d(0,${this.height},0)`)
     },
     enter(el, done) {
@@ -116,19 +116,19 @@ export default {
         // this.$setCss(el, 'transition-duration', `0ms`)
         this.$setCss(el, 'transform', `none`)
         done()
-      }, 200)
+      }, 250)
     },
     afterEnter() {
     },
     beforeLeave(el) {
-      this.$setCss(el, 'transition-duration', `200ms`)
+      this.$setCss(el, 'transition-duration', `250ms`)
       this.$setCss(el, 'transform', `translate3d(0,0,0)`)
     },
     leave(el, done) {
       //ref获取不到
       let maxHeight = new Dom('.FromBottomDialog').css('max-height')
       this.$setCss(el, 'transform', `translate3d(0,${maxHeight},0)`)
-      setTimeout(done, 200)
+      setTimeout(done, 250)
     },
     afterLeave() {
     },
@@ -151,25 +151,23 @@ export default {
       }
     },
     end(e) {
-
       //点击
       if (Date.now() - this.startTime < 150 && Math.abs(this.moveYDistance) < 30) {
         return
       }
-
       //滑动
       if (this.$refs.dialog.scrollTop !== 0) return
       let clientHeight = this.$refs.dialog.clientHeight
-      this.$setCss(this.$refs.dialog, 'transition-duration', `300ms`)
+      this.$setCss(this.$refs.dialog, 'transition-duration', `250ms`)
       if (Math.abs(this.moveYDistance) > clientHeight / 2) {
         this.$setCss(this.$refs.dialog, 'transform', `translate3d(0,${clientHeight}px,0)`)
-        setTimeout(this.hide, 300)
+        setTimeout(this.hide, 250)
       } else {
         this.$setCss(this.$refs.dialog, 'transform', `translate3d(0,0,0)`)
         setTimeout(() => {
           this.$setCss(this.$refs.dialog, 'transform', 'none')
           // this.$setCss(this.$refs.dialog, 'transition-duration', `0ms`)
-        }, 300)
+        }, 250)
       }
       this.moveYDistance = 0
     }

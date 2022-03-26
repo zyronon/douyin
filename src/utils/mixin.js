@@ -14,6 +14,7 @@ import Back from "../components/Back";
 import Loading from "../components/Loading";
 import BaseButton from "../components/BaseButton";
 import CONST_VAR from "./const_var";
+import Dom from "./dom";
 
 export default {
   components: {
@@ -97,18 +98,78 @@ export default {
     hide: {
       beforeMount: function (el, binding, vNode) {
         if (binding.value) {
-          el.style.opacity = 1
-        } else {
           el.style.opacity = 0
+        } else {
+          el.style.opacity = 1
         }
       },
       updated: function (el, binding, vNode) {
         if (binding.value) {
-          el.style.opacity = 1
-        } else {
           el.style.opacity = 0
+        } else {
+          el.style.opacity = 1
         }
       }
-    }
+    },
+    love: {
+      beforeMount: function (el, binding, vNode) {
+        let isDbClick = false
+        let clickTimer = null
+        let dbClickTimer = null
+        let lastClickTime = null
+        let dbClick = (e) => {
+          console.log('dbClick')
+          let id = 'a' + Date.now()
+          let elWidth = 80
+          let rotate = randomNum(0, 1)
+          let template = `<img class="${rotate ? 'left love-dbclick' : 'right love-dbclick'}" id="${id}" src="${new URL('../assets/img/icon/loved.svg', import.meta.url).href}">`
+          let el = new Dom().create(template)
+          el.css({top: e.y - elWidth, left: e.x - elWidth / 2,})
+          new Dom(`#${binding.value}`).append(el)
+          setTimeout(() => {
+            new Dom(`#${id}`).remove()
+          }, 1000)
+        }
+        let randomNum = (minNum, maxNum) => {
+          switch (arguments.length) {
+            case 1:
+              return parseInt(Math.random() * minNum + 1, 10);
+            case 2:
+              return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+            default:
+              return 0;
+          }
+        }
+
+        let check = (e) => {
+          let checkTime = 400
+          if (isDbClick) {
+            dbClick(e)
+            clearTimeout(dbClickTimer);
+            dbClickTimer = setTimeout(() => {
+              isDbClick = false
+            }, 400);
+            return
+          }
+          let nowTime = new Date().getTime();
+          if (nowTime - lastClickTime < checkTime) {
+            dbClick(e)
+            lastClickTime = 0;
+            clickTimer && clearTimeout(clickTimer);
+            isDbClick = true
+            dbClickTimer = setTimeout(() => {
+              isDbClick = false
+            }, checkTime);
+          } else {
+            lastClickTime = nowTime;
+            clickTimer = setTimeout(() => {
+              console.log('单击')
+            }, checkTime);
+          }
+        }
+        el.addEventListener('click', check)
+      },
+    },
+
   },
 }
