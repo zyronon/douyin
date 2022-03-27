@@ -94,12 +94,23 @@ export default {
     this.insertContent()
   },
   methods: {
+    refresh(list) {
+      $(this.wrapper).empty()
+      list && this.insertContent(list)
+    },
+    dislike(item) {
+      let currentItem = $(this.wrapper).find(`.slide-item[data-index=${this.lIndex}]`)
+      let replaceItem = this.getInsEl(item, this.lIndex, true)
+      new Dom(replaceItem).css('top', currentItem.css('top'))
+      currentItem.replaceWith(replaceItem)
+    },
     checkChildren() {
       this.wrapper = this.$refs.wrapper
       this.wrapperWidth = this.$getCss(this.wrapper, 'width')
       this.wrapperHeight = this.$getCss(this.wrapper, 'height')
     },
-    insertContent() {
+    //默认使用this.list,刷新时，考虑到vue可能更新外面的videos到this.list数据没有那么快，因为我要立即刷新
+    insertContent(list = this.list) {
       let start = 0
       let that = this
 
@@ -107,14 +118,14 @@ export default {
         start = this.lIndex - (this.virtualTotal - 1) / 2
       }
       let end = start + 5
-      if (end >= this.list.length) {
-        end = this.list.length
+      if (end >= list.length) {
+        end = list.length
         start = end - 5
       }
       if (start < 0) start = 0
       // console.log('start', start)
       // console.log('end', end)
-      this.list.slice(start, end).map(
+      list.slice(start, end).map(
           (item, index) => {
             //自动播放，当前条（可能是0，可能是其他），试了下用jq来找元素，然后trigger play事件，要慢点样
             let el = this.getInsEl(item, start + index, start + index === this.lIndex)
@@ -124,9 +135,9 @@ export default {
       this.$setCss(this.wrapper, 'transform', `translate3d(0px,
              ${-this.lIndex * this.wrapperHeight}px,  0px)`)
 
-      if (this.lIndex > 2 && this.list.length > 5) {
+      if (this.lIndex > 2 && list.length > 5) {
         $(this.wrapper).find(".slide-item").each(function () {
-          if ((that.list.length - that.lIndex) > 2) {
+          if ((list.length - that.lIndex) > 2) {
             $(this).css('top', (that.lIndex - 2) * that.wrapperHeight)
           } else {
             $(this).css('top', start * that.wrapperHeight)
@@ -193,7 +204,7 @@ export default {
     touchEnd(e) {
       let isDown = this.moveY < 0
       if (this.lIndex === 0 && !isDown && this.moveY > (this.homeRefresh + this.judgeValue)) {
-        bus.emit(this.name + '-loading')
+        bus.emit(this.prefix + '-loading')
       }
       if ((this.lIndex === 0 && !isDown) || (this.lIndex === this.list.length - 1 && isDown)) this.next = false
 

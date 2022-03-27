@@ -4,6 +4,7 @@
       <div class="slide-item">
         <IndicatorHome
             v-hide="isUp"
+            :loading="loading"
             name="main"
             v-model:index="baseIndex"
         />
@@ -54,8 +55,26 @@
         <p v-for="i in 100">2</p>
       </div>
     </SlideHorizontal>
+
     <Comment v-model="isUp"/>
 
+    <Share v-model="isSharing"
+           ref="share"
+           page-id="home-index"
+           @dislike="dislike"
+           :videoId="videos[videoIndex]?.id"
+           :canDownload="videos[videoIndex]?.canDownload"
+           @play-feedback="showPlayFeedback = true"
+           @showShareDuoshan="delayShowDialog(e => this.showShareDuoshan = true)"
+           @shareToFriend="delayShowDialog(e => this.shareToFriend = true)"
+           @showDouyinCode="showDouyinCode = true"
+           @showShare2WeChatZone="shareType = 2"
+           @share2WeChat="shareType = 3"
+           @share2QQZone="shareType = 4"
+           @share2QQ="shareType = 5"
+           @share2Webo="shareType = 8"
+           @download="shareType = 9"
+    />
   </div>
 </template>
 
@@ -73,6 +92,22 @@ import SlideVerticalInfinite from "./SlideVerticalInfinite";
 import Comment from "../../components/Comment";
 import enums from "../../utils/enums";
 import bus from "../../utils/bus";
+import FromBottomDialog from "../../components/dialog/FromBottomDialog";
+import SlideColumnList from "../../components/slide/SlideColumnList";
+import SlideRowList from "../../components/slide/SlideRowList";
+import Video1 from "../../components/Video";
+import Share from "../../components/Share";
+import Uploader from "../me/Uploader";
+import PlayFeedback from "../home/components/PlayFeedback";
+import Duoshan from "../home/components/Duoshan";
+import ShareTo from "../home/components/ShareTo";
+import DouyinCode from "../../components/DouyinCode";
+import FollowSetting from "../home/components/FollowSetting";
+import FollowSetting2 from "../home/components/FollowSetting2";
+import BlockDialog from "../message/components/BlockDialog";
+import Search from "../../components/Search";
+import ConfirmDialog from "../../components/dialog/ConfirmDialog";
+import ShareToFriend from "../home/components/ShareToFriend";
 
 export default {
   name: "slide",
@@ -83,16 +118,32 @@ export default {
     BVideo,
     Footer,
     IndicatorHome,
-    Comment
+    FromBottomDialog,
+    SlideColumnList,
+    SlideRowList,
+    Video1,
+    Comment,
+    Share,
+    Uploader,
+    PlayFeedback,
+    Duoshan,
+    ShareTo,
+    DouyinCode,
+    FollowSetting,
+    FollowSetting2,
+    BlockDialog,
+    Search,
+    ConfirmDialog,
+    ShareToFriend
   },
   data() {
     return {
       baseIndex: 0,
-      videoIndex: 5,
+      videoIndex: 0,
       closeOne: true,
       videoPrefix: ['one', 'two', 'three'],
       loading: false,
-      videos: [
+      videos1: [
         {
           "id": "034ae83b-ca0a-401a-b7c6-cf78361bae7b",
           video: 'http://douyin.ttentau.top/0.mp4',
@@ -1431,6 +1482,7 @@ export default {
           }
         },
       ],
+      videos: [],
       totalSize: 52,
       pageSize: 10,
       pageNo: 0,
@@ -1487,15 +1539,30 @@ export default {
     }
   },
   created() {
+    this.getData()
     bus.on('singleClick', () => {
       new Dom(`.v-${this.videoPrefix[this.baseIndex]}-${this.videoIndex}-video`).trigger('singleClick')
+    })
+    bus.on(this.videoPrefix[this.baseIndex] + '-loading', () => {
+      console.log('loading')
+      this.getData(true)
     })
   },
   mounted() {
   },
   methods: {
+    delayShowDialog(cb) {
+      setTimeout(() => {
+        cb()
+      }, 400)
+    },
+    dislike() {
+      this.$refs.virtualList.dislike(this.videos[10])
+      this.videos[this.videoIndex] = this.videos[10]
+      this.$notice('操作成功，将减少此类视频的推荐')
+    },
     loadMore() {
-      return
+      // return
       if (!this.loading) {
         this.pageNo++
         this.getData()
@@ -1507,14 +1574,21 @@ export default {
     changeIndex() {
       this.closeOne = !this.closeOne
     },
-    async getData() {
+    async getData(refresh = false) {
+      if (this.loading) return
       this.loading = true
       let res = await this.$api.videos.recommended({pageNo: this.pageNo, pageSize: this.pageSize})
-      console.log(res)
+      // console.log(res)
       this.loading = false
       if (res.code === this.SUCCESS) {
         this.totalSize = res.data.total
+        if (refresh) {
+          this.videos = []
+        }
         this.videos = this.videos.concat(res.data.list)
+        if (refresh) {
+          this.$refs.virtualList.refresh(this.videos)
+        }
       } else {
         this.pageNo--
       }

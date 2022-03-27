@@ -97,6 +97,7 @@
         </div>
       </div>
       <div class="progress"
+           v-if="duration > 60"
            :class="progressClass"
            @touchmove="move"
            @touchend="end"
@@ -218,7 +219,7 @@ export default {
       this.videoScreenHeight = video.videoHeight / (video.videoWidth / this.width)
       this.duration = video.duration
       if (this.duration > 60) {
-      // if (this.duration > 6) {
+        // if (this.duration > 6) {
         this.step = this.width / Math.floor(this.duration)
         video.addEventListener('timeupdate', fun)
       }
@@ -271,9 +272,9 @@ export default {
         this.play()
         //这里playg事件，触发之后，会马上触发一次waiting事件。就很烦，会出现点完播放之后闪一下loading的情况，所以用一个变量来规避一下
         this.isSingleClick = true
-        setTimeout(()=>{
+        setTimeout(() => {
           this.isSingleClick = false
-        },300)
+        }, 300)
       }
       this.loading = false
     })

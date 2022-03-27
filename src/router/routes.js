@@ -1,12 +1,6 @@
 import Index2 from "../pages/home/Index2";
 import Test from "../pages/test/Test";
-import Test2 from "../pages/test/Test2";
-import Test3 from "../pages/test/Test3";
 import Test4 from "../pages/test/Test4";
-import Test5 from "../pages/test/Test5";
-import TestVue3 from "../pages/test/TestVue3";
-import TestKeepAlive from "../pages/test/TestKeepAlive";
-import TestKeepAlivePage1 from "../pages/test/TestKeepAlivePage1";
 import SubmitReport from "../pages/home/SubmitReport";
 import Music from "../pages/home/Music";
 import MusicRankList from "../pages/home/MusicRankList";
@@ -70,8 +64,6 @@ import VerificationCode from "../pages/login/VerificationCode";
 import RetrievePassword from "../pages/login/RetrievePassword";
 import Help from "../pages/login/Help";
 import Uploader from "../pages/me/Uploader";
-import TestSlide from "../pages/test/TestSlide";
-import TestOne from "../pages/test/TestOne";
 import Slide from "../pages/slide/Slide";
 
 const routes = [
@@ -81,15 +73,7 @@ const routes = [
   },
   {path: '/slide', component: Slide},
   {path: '/test', component: Test},
-  {path: '/test2', component: Test2},
-  {path: '/test3', component: Test3},
   {path: '/test4', component: Test4},
-  {path: '/test5', component: Test5},
-  {path: '/testone', component: TestOne},
-  {path: '/TestSlide', component: TestSlide},
-  {path: '/TestVue3', component: TestVue3},
-  {path: '/TestKeepAlive', component: TestKeepAlive},
-  {path: '/TestKeepAlivePage1', component: TestKeepAlivePage1},
   {path: '/home', component: Index2},
   {path: '/home/music', component: Music},
   {path: '/home/music-rank-list', component: MusicRankList},

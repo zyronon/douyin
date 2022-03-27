@@ -52,7 +52,7 @@ export default {
     Loading,
   },
   props: {
-    modelValue: false,
+    loading: false,
     //用于和slidList绑定，因为一个页面可能有多个slidList，但只有一个indicator组件
     name: {
       type: String,
@@ -69,7 +69,6 @@ export default {
       lefts: [],
       indicatorSpace: 0,
       open: false,
-      loading: false,
       type: 1,
       moveY: 0
     }
@@ -128,13 +127,6 @@ export default {
       this.moveY = e
     })
     bus.on(this.name + '-end', this.end)
-    bus.on(this.name + '-loading', () => {
-      console.log('loading')
-      this.loading = true
-      setTimeout(() => {
-        this.loading = false
-      }, 3000)
-    })
   },
   methods: {
     toggleType(type) {
