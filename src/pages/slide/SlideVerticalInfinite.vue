@@ -155,6 +155,7 @@ export default {
       this.startY = e.touches[0].pageY
       this.startTime = Date.now()
     },
+    //TODO 2022-3-28:在最顶部，反复滑动会抖动一下，初步猜测是因为方向变了，导致的加判断距离变成了减
     touchMove(e) {
       this.moveX = e.touches[0].pageX - this.startX
       this.moveY = e.touches[0].pageY - this.startY

@@ -142,13 +142,13 @@ export default {
           }
         }
         let check = (e) => {
-          let checkTime = 400
+          let checkTime = 300
           if (isDbClick) {
             dbClick(e)
             clearTimeout(dbClickTimer);
             dbClickTimer = setTimeout(() => {
               isDbClick = false
-            }, 400);
+            }, checkTime);
             return
           }
           let nowTime = new Date().getTime();

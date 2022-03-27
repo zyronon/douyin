@@ -195,6 +195,7 @@ export default {
       line: null,
       point: null,
       isMove: false,
+      isSingleClick: false,
       test: [1, 2],
       lVideo: this.video,
 
@@ -210,15 +211,14 @@ export default {
     let video = this.$refs.video
     video.currentTime = 0
     let fun = e => {
-      this.loading = false
       this.currentTime = Math.ceil(e.target.currentTime)
       this.pageX = this.currentTime * this.step
     }
     video.addEventListener('loadedmetadata', e => {
       this.videoScreenHeight = video.videoHeight / (video.videoWidth / this.width)
       this.duration = video.duration
-      // if (this.duration > 60) {
-      if (this.duration > 6) {
+      if (this.duration > 60) {
+      // if (this.duration > 6) {
         this.step = this.width / Math.floor(this.duration)
         video.addEventListener('timeupdate', fun)
       }
@@ -228,14 +228,11 @@ export default {
       video.addEventListener(e, () => {
         if (e === 'playing') this.loading = false
         if (e === 'waiting') {
-          // console.log('paused',this.paused)
-          console.log('!this.paused ', !this.paused)
-          console.log(' !this.isPlaying', !this.isPlaying)
-          if (!this.paused && !this.isPlaying) {
+          if (!this.paused && !this.isSingleClick) {
             this.loading = true
           }
         }
-        console.log(e, t)
+        // console.log(e, t)
       }, false);
     }
 
@@ -270,10 +267,13 @@ export default {
     videoWrapper.on('singleClick', () => {
       if (this.isPlaying) {
         this.pause()
-        this.paused = true
       } else {
         this.play()
-        this.paused = false
+        //这里playg事件，触发之后，会马上触发一次waiting事件。就很烦，会出现点完播放之后闪一下loading的情况，所以用一个变量来规避一下
+        this.isSingleClick = true
+        setTimeout(()=>{
+          this.isSingleClick = false
+        },300)
       }
       this.loading = false
     })
@@ -305,6 +305,7 @@ export default {
       new Dom(`.${this.name}-music`).trigger('pause')
       // console.log('trigger-pause')
       this.$refs.video.pause()
+      this.paused = true
       this.isPlaying = false
     },
     $likeNum(v) {
