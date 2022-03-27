@@ -2,10 +2,15 @@
 import bus from "../../utils/bus";
 import {mapState} from "vuex";
 import * as Vue from "vue";
+import Dom from "../../utils/dom";
 
 export default {
   props: {
     name: {
+      type: String,
+      default: () => ''
+    },
+    prefix: {
       type: String,
       default: () => ''
     },
@@ -33,7 +38,7 @@ export default {
   data() {
     return {
       wrapper: null,
-      total: 0,
+      childs: 0,
       lIndex: 0,
       wrapperWidth: 0,
       wrapperHeight: 0,
@@ -51,11 +56,42 @@ export default {
   computed: {
     ...mapState(['judgeValue', 'homeRefresh'])
   },
+  watch: {
+    lIndex(newVal, oldVal) {
+      new Dom(this.wrapper).find(`.v-${this.prefix}-${newVal}-video`).trigger('play')
+      setTimeout(() => {
+        new Dom(this.wrapper).find(`.v-${this.prefix}-${oldVal}-video`).trigger('stop')
+      }, 200)
+      if (newVal >= this.list.length - 3) {
+        this.$emit('load-more')
+      }
+    },
+    list(newVal, oldVal) {
+      // console.log('watch', newVal.length, oldVal.length)
+      if (oldVal.length === 0) {
+        this.insertContent()
+      } else {
+        let end = oldVal.length + 3
+        let top = $(this.wrapper).find(".slide-item:last").css('top')
+
+        newVal.slice(oldVal.length, end).map((item, index) => {
+          let el = this.getInsEl(item, oldVal.length + index)
+          //这里必须要设置个top值，不然会把前面的条目给覆盖掉
+          //2022-3-27，这里不用计算，直接用已用slide-item最后一条的top值，
+          //因为有一条情况：当滑动最后一条和二条的时候top值不会继续加。此时新增的数据如果还
+          // 计算top值的，会和前面的对不上
+          $(el).css('top', top)
+          this.wrapper.appendChild(el)
+        })
+        this.childs = this.wrapper.children.length
+        // console.log(this.childs)
+      }
+    }
+  },
   mounted() {
     this.lIndex = this.index
     this.checkChildren()
     this.insertContent()
-    this.total = this.wrapper.children.length
   },
   methods: {
     checkChildren() {
@@ -75,13 +111,13 @@ export default {
         end = this.list.length
         start = end - 5
       }
-      console.log('start', start)
-      console.log('end', end)
+      if (start < 0) start = 0
+      // console.log('start', start)
+      // console.log('end', end)
       this.list.slice(start, end).map(
           (item, index) => {
-            let el = null
             //自动播放，当前条（可能是0，可能是其他），试了下用jq来找元素，然后trigger play事件，要慢点样
-            el = this.getInsEl(item, start + index, start + index === this.lIndex)
+            let el = this.getInsEl(item, start + index, start + index === this.lIndex)
             this.wrapper.appendChild(el)
           }
       )
@@ -97,10 +133,11 @@ export default {
           }
         })
       }
+      this.childs = this.wrapper.children.length
     },
     getInsEl(item, index, play = false) {
       // console.log('index',index,play)
-      let slideVNode = this.renderSlide(item, index, play)
+      let slideVNode = this.renderSlide(item, index, play, this.prefix)
       const app = Vue.createApp({
         render() {
           return slideVNode
@@ -162,28 +199,27 @@ export default {
       let endTime = Date.now()
       let gapTime = endTime - this.startTime
       if (Math.abs(this.moveY) < 20) gapTime = 1000
-      if (Math.abs(this.moveY) > (this.wrapperHeight / 4)) gapTime = 100
+      if (Math.abs(this.moveY) > (this.wrapperHeight / 3)) gapTime = 100
       if (gapTime < 150 && this.next) {
         if (isDown) {
           this.lIndex++
         } else {
           this.lIndex--
         }
-        // console.log(this.total)
+
         let that = this
         if (isDown) {
           let addItemIndex = this.lIndex + 2
           let res = $(that.wrapper).find(`.slide-item[data-index=${addItemIndex}]`)
-          if (this.total < this.virtualTotal) {
+          if (this.childs < this.virtualTotal) {
             if (res.length === 0) {
               this.wrapper.appendChild(this.getInsEl(this.list[addItemIndex], addItemIndex))
             }
           }
-          if (this.total === this.virtualTotal
+          if (this.childs === this.virtualTotal
               && this.lIndex >= (this.virtualTotal + 1) / 2
               && this.lIndex <= this.list.length - 3
           ) {
-            // console.log(videos)
             if (res.length === 0) {
               this.wrapper.appendChild(this.getInsEl(this.list[addItemIndex], addItemIndex))
               this.appInsMap.get($(that.wrapper).find(".slide-item:first").data('index')).unmount()
@@ -193,35 +229,48 @@ export default {
               })
             }
           }
-          if (this.total > this.virtualTotal) {
-            this.appInsMap.get($(that.wrapper).find(".slide-item:first").data('index')).unmount()
+          if (this.childs > this.virtualTotal) {
             $(that.wrapper).find(".slide-item").each(function () {
+              let index = $(this).data('index')
+              if (index < (that.lIndex - 2)) {
+                that.appInsMap.get(index).unmount()
+              }
               $(this).css('top', (that.lIndex - 2) * that.wrapperHeight)
             })
           }
         } else {
+          let addItemIndex = this.lIndex - 2
+          let res = $(that.wrapper).find(`.slide-item[data-index=${addItemIndex}]`)
+
           if (this.lIndex > 1 && this.lIndex <= this.list.length - 4) {
-            let addItemIndex = this.lIndex - 2
-            this.wrapper.prepend(this.getInsEl(this.list[addItemIndex], addItemIndex))
+            if (res.length === 0) {
+              this.wrapper.prepend(this.getInsEl(this.list[addItemIndex], addItemIndex))
+              this.appInsMap.get($(that.wrapper).find(".slide-item:last").data('index')).unmount()
+              // $(that.wrapper).find(".base-slide-item:last").remove()
+              $(that.wrapper).find(".slide-item").each(function () {
+                $(this).css('top', (that.lIndex - 2) * that.wrapperHeight)
+              })
+            }
+          }
+
+          if (this.childs > this.virtualTotal) {
             this.appInsMap.get($(that.wrapper).find(".slide-item:last").data('index')).unmount()
-            // $(that.wrapper).find(".base-slide-item:last").remove()
-            $(that.wrapper).find(".slide-item").each(function () {
-              $(this).css('top', (that.lIndex - 2) * that.wrapperHeight)
-            })
           }
         }
+        this.childs = this.wrapper.children.length
       }
-      this.$setCss(this.wrapper, 'transition-duration', `300ms`)
-
-      this.$setCss(this.wrapper, 'transform',
-          `translate3d(0,${this.getDistance()}px, 0)`)
       this.reset()
     },
     reset() {
+      this.$setCss(this.wrapper, 'transition-duration', `300ms`)
+      this.$setCss(this.wrapper, 'transform',
+          `translate3d(0,${this.getDistance()}px, 0)`)
+
       this.moveX = 0
       this.next = false
       this.startTime = null
       this.needCheck = true
+      this.$emit('update:index', this.lIndex)
       bus.emit(this.name + '-end', this.lIndex)
     },
     getDistance() {

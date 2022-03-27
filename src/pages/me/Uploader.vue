@@ -344,25 +344,25 @@ export default {
       this.videos = {
         my: {
           list: [],
-          total: -1,
+          childs: -1,
           pageNo: 0
         },
         private: {
           list: [],
-          total: -1
+          childs: -1
         },
         like: {
           list: [],
-          total: -1
+          childs: -1
         },
         collect: {
           video: {
             list: [],
-            total: -1,
+            childs: -1,
           },
           audio: {
             list: [],
-            total: -1,
+            childs: -1,
           }
         },
       }

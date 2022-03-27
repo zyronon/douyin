@@ -9,8 +9,8 @@
            :autoplay="isPlay" loop>
       <p> 您的浏览器不支持 video 标签。</p>
     </video>
-    <img src="../assets/img/icon/play-white.png" class="pause" v-if="!isPlaying">
-    <div class="float" :style="{opacity: isUp?0:1}" @click="togglePlayVideo">
+    <img src="../assets/img/icon/play-white.png" class="pause" v-if="paused">
+    <div class="float" :style="{opacity: isUp?0:1}">
       <div :style="{opacity:isMove ? 0:1}" class="normal">
         <div class="toolbar mb1r">
           <div class="avatar-ctn mb4r">
@@ -97,7 +97,6 @@
         </div>
       </div>
       <div class="progress"
-           v-if="duration > 60"
            :class="progressClass"
            @touchmove="move"
            @touchend="end"
@@ -122,7 +121,7 @@ import {mapState} from "vuex";
 import Loading from "./Loading";
 
 export default {
-  name: "Video",
+  name: "BVideo",
   components: {
     BaseMarquee,
     BaseMusic,
@@ -182,6 +181,7 @@ export default {
   data() {
     return {
       loading: false,
+      paused: false,
       name: `v-${this.prefix}-${this.index}-video`,
       globalMethods: globalMethods,
       duration: 0,
@@ -217,8 +217,8 @@ export default {
     video.addEventListener('loadedmetadata', e => {
       this.videoScreenHeight = video.videoHeight / (video.videoWidth / this.width)
       this.duration = video.duration
-      if (this.duration > 60) {
-        // if (this.duration > 6) {
+      // if (this.duration > 60) {
+      if (this.duration > 6) {
         this.step = this.width / Math.floor(this.duration)
         video.addEventListener('timeupdate', fun)
       }
@@ -227,16 +227,22 @@ export default {
     let eventTester = (e, t) => {
       video.addEventListener(e, () => {
         if (e === 'playing') this.loading = false
-        if (e === 'progress') this.loading = true
-        if (e === 'waiting') this.loading = true
-        //
+        if (e === 'waiting') {
+          // console.log('paused',this.paused)
+          console.log('!this.paused ', !this.paused)
+          console.log(' !this.isPlaying', !this.isPlaying)
+          if (!this.paused && !this.isPlaying) {
+            this.loading = true
+          }
+        }
+        console.log(e, t)
       }, false);
     }
 
     // eventTester("loadstart", '客户端开始请求数据'); //客户端开始请求数据
     // eventTester("abort", '客户端主动终止下载（不是因为错误引起）'); //客户端主动终止下载（不是因为错误引起）
     // eventTester("loadstart", '客户端开始请求数据'); //客户端开始请求数据
-    eventTester("progress", '客户端正在请求数据'); //客户端正在请求数据
+    // eventTester("progress", '客户端正在请求数据'); //客户端正在请求数据
     // // eventTester("suspend", '延迟下载'); //延迟下载
     // eventTester("abort", '客户端主动终止下载（不是因为错误引起），'); //客户端主动终止下载（不是因为错误引起），
     // eventTester("error", '请求数据时遇到错误'); //请求数据时遇到错误
@@ -257,9 +263,20 @@ export default {
     // eventTester("durationchange", '资源长度改变'); //资源长度改变
     // eventTester("volumechange", '音量改变'); //音量改变
 
+    //这里不能用this.name，因为class可能还没绑上去。可以找不到dom
     let videoWrapper = new Dom(this.$refs.videoWrapper)
     videoWrapper.on('play', this.play)
     videoWrapper.on('stop', this.stop)
+    videoWrapper.on('singleClick', () => {
+      if (this.isPlaying) {
+        this.pause()
+        this.paused = true
+      } else {
+        this.play()
+        this.paused = false
+      }
+      this.loading = false
+    })
   },
   methods: {
     play() {
@@ -267,6 +284,7 @@ export default {
       new Dom(`.${this.name}-music`).trigger('start')
       // console.log('trigger-play')
       this.isPlaying = true
+      this.paused = false
       if (this.currentTime !== -1) {
         this.$refs.video.currentTime = this.currentTime
       }
@@ -278,6 +296,7 @@ export default {
       new Dom(`.${this.name}-music`).trigger('stop')
       // console.log('trigger-stop')
       this.$refs.video.pause()
+      this.paused = false
       this.isPlaying = false
       this.$refs.video.currentTime = 0
     },
@@ -287,13 +306,6 @@ export default {
       // console.log('trigger-pause')
       this.$refs.video.pause()
       this.isPlaying = false
-    },
-    //切换视频状态
-    togglePlayVideo(e) {
-      console.log('togglePlayVideo')
-      if (!this.isPlaying) {
-        this.play()
-      }
     },
     $likeNum(v) {
       return globalMethods.$likeNum(v)
@@ -308,7 +320,6 @@ export default {
         this.isAttention = true
       }, 1000)
     },
-
     loved(e, index) {
       this.lVideo.isLoved = !this.lVideo.isLoved
       this.$emit('update:video', this.lVideo)
@@ -317,7 +328,8 @@ export default {
       this.pageX = e.touches[0].pageX
     },
     move(e) {
-      if (this.isPlaying) return
+      // console.log('move',e)
+      // if (this.isPlaying) return
       this.isMove = true
       this.pause()
       this.pageX = e.touches[0].pageX
@@ -373,7 +385,6 @@ export default {
     position: absolute;
     margin: auto;
     left: 0;
-    top: 0;
     top: 0;
     bottom: 0;
     right: 0;

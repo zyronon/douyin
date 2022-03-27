@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       wrapper: null,
-      total: 0,
+      childs: 0,
       lIndex: 0,
       wrapperWidth: 0,
       wrapperHeight: 0,
@@ -34,7 +34,7 @@ export default {
   },
   mounted() {
     this.wrapper = this.$refs.wrapper
-    this.total = this.wrapper.children.length
+    this.childs = this.wrapper.children.length
     this.wrapperWidth = this.$getCss(this.wrapper, 'width')
     this.wrapperHeight = this.$getCss(this.wrapper, 'height')
   },
@@ -58,7 +58,7 @@ export default {
       this.moveY = e.touches[0].pageY - this.startY
 
       let isRight = this.moveX < 0
-      if ((this.lIndex === 0 && !isRight) || (this.lIndex === this.total - 1 && isRight)) return
+      if ((this.lIndex === 0 && !isRight) || (this.lIndex === this.childs - 1 && isRight)) return
 
 
       this.checkDirection(e)
@@ -85,7 +85,7 @@ export default {
     },
     touchEnd(e) {
       let isRight = this.moveX < 0
-      if ((this.lIndex === 0 && !isRight) || (this.lIndex === this.total - 1 && isRight)) this.next = false
+      if ((this.lIndex === 0 && !isRight) || (this.lIndex === this.childs - 1 && isRight)) this.next = false
 
       let endTime = Date.now()
       let gapTime = endTime - this.startTime
@@ -98,19 +98,18 @@ export default {
           this.lIndex--
         }
       }
+      this.reset()
+    },
+    reset() {
       this.$setCss(this.wrapper, 'transition-duration', `300ms`)
       this.$setCss(this.wrapper, 'transform',
           `translate3d(${this.getDistance()}px, 0, 0)`)
 
-      this.$emit('update:index', this.lIndex)
-
-      this.reset()
-    },
-    reset() {
       this.moveX = 0
       this.next = false
       this.needCheck = true
       this.startTime = null
+      this.$emit('update:index', this.lIndex)
       bus.emit(this.name + '-end', this.lIndex)
     },
     getDistance() {

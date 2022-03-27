@@ -15,6 +15,7 @@ import Loading from "../components/Loading";
 import BaseButton from "../components/BaseButton";
 import CONST_VAR from "./const_var";
 import Dom from "./dom";
+import bus from "./bus";
 
 export default {
   components: {
@@ -118,7 +119,7 @@ export default {
         let dbClickTimer = null
         let lastClickTime = null
         let dbClick = (e) => {
-          console.log('dbClick')
+          // console.log('dbClick')
           let id = 'a' + Date.now()
           let elWidth = 80
           let rotate = randomNum(0, 1)
@@ -140,7 +141,6 @@ export default {
               return 0;
           }
         }
-
         let check = (e) => {
           let checkTime = 400
           if (isDbClick) {
@@ -163,7 +163,8 @@ export default {
           } else {
             lastClickTime = nowTime;
             clickTimer = setTimeout(() => {
-              console.log('单击')
+              // console.log('单击')
+              bus.emit('singleClick')
             }, checkTime);
           }
         }

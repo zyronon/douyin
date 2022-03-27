@@ -5,11 +5,11 @@
         <IndicatorHome
             v-hide="isUp"
             name="main"
-            v-model:index="index"
+            v-model:index="baseIndex"
         />
         <SlideHorizontal
             name="main"
-            v-model:index="index"
+            v-model:index="baseIndex"
             style="height: calc(100% - 5rem);"
         >
           <div class="slide-item">
@@ -40,9 +40,11 @@
                 :style="marginTop"
                 ref="virtualList"
                 :list="videos"
+                :prefix="videoPrefix[0]"
                 :renderSlide="render"
                 v-model:index="videoIndex"
                 @end="end"
+                @load-more="loadMore"
             />
           </div>
         </SlideHorizontal>
@@ -70,6 +72,7 @@ import IndicatorHome from "./IndicatorHome";
 import SlideVerticalInfinite from "./SlideVerticalInfinite";
 import Comment from "../../components/Comment";
 import enums from "../../utils/enums";
+import bus from "../../utils/bus";
 
 export default {
   name: "slide",
@@ -84,9 +87,11 @@ export default {
   },
   data() {
     return {
-      index: 0,
+      baseIndex: 0,
       videoIndex: 5,
       closeOne: true,
+      videoPrefix: ['one', 'two', 'three'],
+      loading: false,
       videos: [
         {
           "id": "034ae83b-ca0a-401a-b7c6-cf78361bae7b",
@@ -602,7 +607,6 @@ export default {
             "is_private": 0
           }
         },
-
         {
           "id": "0b1fb9c4-9d5c-40f7-9a01-1310674cbfeb",
           video: 'http://douyin.ttentau.top/7.mp4',
@@ -1449,13 +1453,13 @@ export default {
       showChangeNote: false,
       shareToFriend: false,
 
-
-      render: (item, itemIndex, play) => {
+      render: (item, itemIndex, play, prefix) => {
         return (
-            <div className={`slide-item video-slide-item video-slide-item-${itemIndex}`} data-index={itemIndex}>
+            <div class="slide-item" data-index={itemIndex}>
               <BVideo
                   isPlay={play}
                   video={item}
+                  prefix={prefix}
                   index={itemIndex}
                   onShowComments={e => this.isCommenting = true}
                   onShowShare={e => this.isSharing = true}
@@ -1483,11 +1487,20 @@ export default {
     }
   },
   created() {
-    // this.getData()
+    bus.on('singleClick', () => {
+      new Dom(`.v-${this.videoPrefix[this.baseIndex]}-${this.videoIndex}-video`).trigger('singleClick')
+    })
   },
   mounted() {
   },
   methods: {
+    loadMore() {
+      return
+      if (!this.loading) {
+        this.pageNo++
+        this.getData()
+      }
+    },
     t() {
       this.isUp = !this.isUp
     },
@@ -1497,6 +1510,7 @@ export default {
     async getData() {
       this.loading = true
       let res = await this.$api.videos.recommended({pageNo: this.pageNo, pageSize: this.pageSize})
+      console.log(res)
       this.loading = false
       if (res.code === this.SUCCESS) {
         this.totalSize = res.data.total
