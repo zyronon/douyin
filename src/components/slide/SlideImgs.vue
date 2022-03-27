@@ -23,7 +23,7 @@
 <script>
 import enums from "../../utils/enums";
 import globalMethods from '../../utils/global-methods'
-
+//TODO 放大功能待完善
 export default {
   name: "SlideImgs",
   components: {},
