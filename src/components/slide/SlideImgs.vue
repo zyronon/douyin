@@ -134,11 +134,11 @@ export default {
       cycleFn: null,
       state: 'play',//stop,custom
 
-      startLocationX: 0,
-      startLocationY: 0,
+      startX: 0,
+      startY: 0,
 
-      moveXDistance: 0,
-      moveYDistance: 0,
+      moveX: 0,
+      moveY: 0,
       width: document.body.clientWidth,
       startTime: 0,
       index: 0,
@@ -147,7 +147,12 @@ export default {
       isTwo: false,
       store: {
         scale: 1
-      }
+      },
+      a: {},
+      b: {},
+      x: 0,
+      y: 0,
+      lastCenter: {}
     }
   },
   created() {
@@ -155,6 +160,7 @@ export default {
   },
   watch: {
     state(newVal, oldVal) {
+      return
       console.log('newVal', newVal)
       if (newVal === 'play') requestAnimationFrame(this.cycleFn)
       if (newVal === 'stop') cancelAnimationFrame(this.cycleFn)
@@ -178,18 +184,24 @@ export default {
       }
       requestAnimationFrame(this.cycleFn)
     }
-    requestAnimationFrame(this.cycleFn)
+    // requestAnimationFrame(this.cycleFn)
   },
   methods: {
+    getCenter(a, b) {
+      const x = (a.x + b.x) / 2;
+      const y = (a.y + b.y) / 2;
+      return {x, y}
+    },
     start(e) {
+      console.log('start')
       if (this.state !== 'custom') {
         this.state = 'stop'
       }
       if (e.touches && e.touches.length === 1) {
         this.isTwo = false
         globalMethods.$setCss(this.$refs.list, 'transition-duration', `0ms`)
-        this.startLocationX = e.touches[0].pageX
-        this.startLocationY = e.touches[0].pageY
+        this.startX = e.touches[0].pageX
+        this.startY = e.touches[0].pageY
         this.startTime = Date.now()
       } else {
         this.isTwo = true
@@ -198,54 +210,82 @@ export default {
         let events = e.touches[0];
         let events2 = e.touches[1];
 
-        e.preventDefault();
+        if (e.cancelable) {
+          e.preventDefault();
+        }
 
         // 第一个触摸点的坐标
-        this.store.pageX = events.pageX;
-        this.store.pageY = events.pageY;
-        this.store.pageX2 = events2.pageX;
-        this.store.pageY2 = events2.pageY;
+        this.a.x = events.pageX;
+        this.a.y = events.pageY;
+        this.b.x = events2.pageX;
+        this.b.y = events2.pageY;
+
+        this.lastCenter = this.getCenter(this.a, this.b)
       }
     },
     move(e) {
       if (e.touches && e.touches.length === 1) {
         this.isTwo = false
 
-        this.moveXDistance = e.touches[0].pageX - this.startLocationX
-        this.moveYDistance = e.touches[0].pageY - this.startLocationY
+        this.moveX = e.touches[0].pageX - this.startX
+        this.moveY = e.touches[0].pageY - this.startY
 
-        this.isDrawRight = this.moveXDistance < 0
-        this.isDrawDown = this.moveYDistance < 0
+        this.isDrawRight = this.moveX < 0
+        this.isDrawDown = this.moveY < 0
 
         if (this.index === 0 && !this.isDrawRight) return
         if (this.index === this.modelValue.imgs.length - 1 && this.isDrawRight) return
 
         globalMethods.$setCss(this.$refs.list, 'transform',
             `translate3d(${-this.getWidth(this.index) +
-            this.moveXDistance}px, 0px, 0px)`)
+            this.moveX}px, 0px, 0px)`)
       } else {
         this.isTwo = true
-        e.preventDefault();
+        if (e.cancelable) {
+          e.preventDefault();
+        }
 
-        let events = e.touches[0];
-        let events2 = e.touches[1];
+        let a = {x: e.touches[0].pageX, y: e.touches[0].pageY}
+        let b = {x: e.touches[1].pageX, y: e.touches[1].pageY}
 
         // 获取坐标之间的举例
         let getDistance = function (start, stop) {
           return Math.hypot(stop.x - start.x, stop.y - start.y);
         };
+
         // 双指缩放比例计算
-        let zoom =
-            getDistance({x: events.pageX, y: events.pageY},
-                {x: events2.pageX, y: events2.pageY}) /
-            getDistance({x: this.store.pageX, y: this.store.pageY},
-                {x: this.store.pageX2, y: this.store.pageY2});
+        let ratio = getDistance(a, b) / getDistance(this.a, this.b);
+
+        let moveX = a.x - this.a.x
+        let moveY = a.y - this.a.y
+
+        // 计算当前双指中心点坐标
+        let center = this.getCenter(a, b)
+        // console.log('center', center)
+
+        // 计算图片中心偏移量，默认transform-origin: 50% 50%
+        // 如果transform-origin: 30% 40%，那origin.x = (ratio - 1) * result.width * 0.3
+        // origin.y = (ratio - 1) * result.height * 0.4
+        // 如果通过修改宽高或使用transform缩放，但将transform-origin设置为左上角时。
+        // 可以不用计算origin，因为(ratio - 1) * result.width * 0 = 0
+        const origin = {
+          x: (ratio - 1) * 414 * 0.5,
+          y: (ratio - 1) * 737 * 0.5
+        };
+        // 计算偏移量，认真思考一下为什么要这样计算(带入特定的值计算一下)
+        this.x -= (ratio - 1) * (center.x - this.x) - origin.x - (center.x - this.lastCenter.x);
+        this.y -= (ratio - 1) * (center.y - this.y) - origin.y - (center.y - this.lastCenter.y);
+
+        console.log('this.x',this.x)
+        console.log('this.y',this.y)
+
         // 图像应用缩放效果
-        this.itemRefs[this.index].style.transform = 'scale(' + this.store.scale * zoom + ')';
+        this.itemRefs[this.index].style.transform =
+            `translate3d(${moveX}px,${moveY}px,0) scale(${this.store.scale * ratio})`;
       }
     },
     end(e) {
-      //console.log('end', e)
+      console.log('end')
       if (this.isTwo) {
         this.store.scale = 1
         this.itemRefs[this.index].style['transition-duration'] = '300ms';
@@ -257,7 +297,7 @@ export default {
         if (this.index === 0 && !this.isDrawRight) return
         if (this.index === this.modelValue.imgs.length - 1 && this.isDrawRight) return
 
-        let canSlide = this.width / 5 < Math.abs(this.moveXDistance);
+        let canSlide = this.width / 5 < Math.abs(this.moveX);
         if (Date.now() - this.startTime < 40) canSlide = false
 
         if (canSlide) {
@@ -310,6 +350,10 @@ export default {
 </script>
 
 <style scoped lang="less">
+html {
+  touch-action: none;
+}
+
 #SlideImgs {
   position: relative;
   background: black;
@@ -338,6 +382,7 @@ export default {
         justify-content: center;
 
         img {
+          //transform-origin: left top;
           width: 100vw;
           //position: absolute;
           //height: 100%;
