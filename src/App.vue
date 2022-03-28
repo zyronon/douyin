@@ -37,7 +37,7 @@ export default {
       this.$store.commit('setMaskDialog', {state: false, mode: this.maskDialogMode})
 
       //footer下面的5个按钮，对跳不要用动画
-      let noAnimation = ['/', '/home', '/me', '/attention', '/message', '/publish', '/home/live',
+      let noAnimation = ['/', '/home','/slide', '/me', '/attention', '/message', '/publish', '/home/live',
       'slide'
       ]
       if (noAnimation.indexOf(from.path) !== -1 && noAnimation.indexOf(to.path) !== -1) {

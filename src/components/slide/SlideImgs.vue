@@ -95,7 +95,7 @@ export default {
             "unique_id_modify_time": "1630393144",
             "unique_id": "10040050",
             "favoriting_count": 143,
-            "avatar": new URL('../img/icon/avatar/3.png', import.meta.url).href,
+            "avatar": new URL('../../assets/img/icon/avatar/3.png', import.meta.url).href,
             school: {
               name: '中央戏剧学院',
               department: null,

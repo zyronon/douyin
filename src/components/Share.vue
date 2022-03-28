@@ -11,15 +11,15 @@
     <div class="share">
       <div class="title">
         <span>私信给朋友</span>
-        <back mode="light" img="close" direction="right" @click="closeShare"></back>
+        <back mode="light" img="close" direction="right" @click.stop="closeShare"></back>
       </div>
       <div class="friends">
-        <div class="friend" v-for="item in friends.all" @click="toggleCall(item)">
+        <div class="friend" v-for="item in friends.all" @click.stop="toggleCall(item)">
           <img :style="item.select?'opacity: .5;':''" class="avatar" :src="$imgPreview(item.avatar)" alt="">
           <span>{{ item.name }}</span>
           <img v-if="item.select" class="checked" src="../assets/img/icon/components/check/check-red-share.png">
         </div>
-        <div class="more" @click="closeShare($nav('/message/share-to-friend'))">
+        <div class="more" @click.stop="closeShare($nav('/message/share-to-friend'))">
           <back mode="light" direction="right"></back>
           <span>更多</span>
         </div>
@@ -27,75 +27,75 @@
       <div class="line"></div>
       <div class="shares">
         <template v-if="mode === 'video'">
-          <div class="share-to" @click="$no">
+          <div class="share-to" @click.stop="$no">
             <img src="../assets/img/icon/components/video/torichang.png" alt="">
             <span>分享日常</span>
           </div>
-          <div class="share-to" @click="closeShare($emit('ShareToFriend'))">
+          <div class="share-to" @click.stop="closeShare($emit('ShareToFriend'))">
             <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
             <span>私信朋友</span>
           </div>
-          <div class="share-to" @click="closeShare($emit('showShare2WeChatZone'))">
+          <div class="share-to" @click.stop="closeShare($emit('showShare2WeChatZone'))">
             <img src="../assets/img/icon/components/video/towechat.webp" alt="">
             <span>朋友圈</span>
           </div>
-          <div class="share-to" @click="closeShare($emit('share2WeChat'))">
+          <div class="share-to" @click.stop="closeShare($emit('share2WeChat'))">
             <img src="../assets/img/icon/components/video/towechatchat.webp" alt="">
             <span>微信好友</span>
           </div>
-          <div class="share-to" @click="closeShare($emit('share2QQZone'))">
+          <div class="share-to" @click.stop="closeShare($emit('share2QQZone'))">
             <img src="../assets/img/icon/components/video/tozone.webp" alt="">
             <span>QQ空间</span>
           </div>
-          <div class="share-to" @click="closeShare($emit('share2QQ'))">
+          <div class="share-to" @click.stop="closeShare($emit('share2QQ'))">
             <img src="../assets/img/icon/components/video/toqq.webp" alt="">
             <span>QQ好友</span>
           </div>
-          <div class="share-to" @click="closeShare($emit('showShareDuoshan'))">
+          <div class="share-to" @click.stop="closeShare($emit('showShareDuoshan'))">
             <img src="../assets/img/icon/components/video/duoshan.png" alt="">
             <span>多闪</span>
           </div>
-          <div class="share-to" @click="$no">
+          <div class="share-to" @click.stop="$no">
             <img src="../assets/img/icon/components/video/totoutiao.webp" alt="">
             <span>今日头条</span>
           </div>
-          <div class="share-to" @click="closeShare($emit('share2Webo'))">
+          <div class="share-to" @click.stop="closeShare($emit('share2Webo'))">
             <img src="../assets/img/icon/components/video/toweibo.webp" alt="">
             <span>微博</span>
           </div>
         </template>
         <template v-if="mode === 'music'">
-          <div class="share-to" @click="closeShare($emit('ShareToFriend'))">
+          <div class="share-to" @click.stop="closeShare($emit('ShareToFriend'))">
             <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
             <span>私信朋友</span>
           </div>
-          <div class="share-to" @click="closeShare($emit('showShare2WeChatZone'))">
+          <div class="share-to" @click.stop="closeShare($emit('showShare2WeChatZone'))">
             <img src="../assets/img/icon/components/video/towechat.webp" alt="">
             <span>朋友圈</span>
           </div>
-          <div class="share-to" @click="closeShare($emit('share2WeChat'))">
+          <div class="share-to" @click.stop="closeShare($emit('share2WeChat'))">
             <img src="../assets/img/icon/components/video/towechatchat.webp" alt="">
             <span>微信好友</span>
           </div>
-          <div class="share-to" @click="closeShare($emit('share2QQZone'))">
+          <div class="share-to" @click.stop="closeShare($emit('share2QQZone'))">
             <img src="../assets/img/icon/components/video/tozone.webp" alt="">
             <span>QQ空间</span>
           </div>
-          <div class="share-to" @click="closeShare($emit('share2QQ'))">
+          <div class="share-to" @click.stop="closeShare($emit('share2QQ'))">
             <img src="../assets/img/icon/components/video/toqq.webp" alt="">
             <span>QQ好友</span>
           </div>
-          <div class="share-to" @click="closeShare($emit('share2Webo'))">
+          <div class="share-to" @click.stop="closeShare($emit('share2Webo'))">
             <img src="../assets/img/icon/components/video/toweibo.webp" alt="">
             <span>微博</span>
           </div>
         </template>
         <template v-if="mode === 'my-music'">
-          <div class="share-to" @click="$no">
+          <div class="share-to" @click.stop="$no">
             <img src="../assets/img/icon/components/video/torichang.png" alt="">
             <span>转发到日常</span>
           </div>
-          <div class="share-to" @click="closeShare($emit('ShareToFriend'))">
+          <div class="share-to" @click.stop="closeShare($emit('ShareToFriend'))">
             <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
             <span>私信朋友</span>
           </div>
@@ -103,70 +103,70 @@
       </div>
       <div class="toolbar ">
         <template v-if="mode === 'qrcode'">
-          <div class="tool" @click="copyLink">
+          <div class="tool" @click.stop="copyLink">
             <img src="../assets/img/icon/components/video/link.png" alt="">
             <span>复制链接</span>
           </div>
         </template>
         <template v-if="mode === 'music'">
-          <div class="tool" @click="copyLink">
+          <div class="tool" @click.stop="copyLink">
             <img src="../assets/img/icon/components/video/link.png" alt="">
             <span>复制链接</span>
           </div>
-          <div class="tool" @click="$nav('/home/report',{mode:this.mode})">
+          <div class="tool" @click.stop="$nav('/home/report',{mode:this.mode})">
             <img src="../assets/img/icon/components/video/warring.png" alt="">
             <span>举报音乐</span>
           </div>
-          <div class="tool" @click="closeShare($emit('showDouyinCode'))">
+          <div class="tool" @click.stop="closeShare($emit('showDouyinCode'))">
             <img src="../assets/img/icon/components/video/qrcode.png" alt="">
             <span>抖音码</span>
           </div>
         </template>
         <template v-if="mode === 'video'">
-          <div class="tool" @click="$no">
+          <div class="tool" @click.stop="$no">
             <img src="../assets/img/icon/components/video/comeonlook.webp" alt="">
             <span>一起视频</span>
           </div>
-          <div class="tool" @click="$nav('/home/report',{mode:this.mode})">
+          <div class="tool" @click.stop="$nav('/home/report',{mode:this.mode})">
             <img src="../assets/img/icon/components/video/warring.png" alt="">
             <span>举报</span>
           </div>
-          <div class="tool" @click="canDownload && closeShare($emit('download'))"
+          <div class="tool" @click.stop="canDownload && closeShare($emit('download'))"
                :style="{ opacity : canDownload ? '1' : '0.5' }">
             <img src="../assets/img/icon/components/video/download.png" alt="">
             <span>保存本地</span>
           </div>
-          <div class="tool" @click="toggleCollect">
+          <div class="tool" @click.stop="toggleCollect">
             <img v-if="isCollect" src="../assets/img/icon/components/video/star-full.png" alt="">
             <img v-else src="../assets/img/icon/components/video/star.png" alt="">
             <span>收藏</span>
           </div>
-          <div class="tool" @click="$no">
+          <div class="tool" @click.stop="$no">
             <img src="../assets/img/icon/components/video/comeonplay.png" alt="">
             <span>合拍</span>
           </div>
-          <div class="tool" @click="$no">
+          <div class="tool" @click.stop="$no">
             <img src="../assets/img/icon/components/video/bizhi.webp" alt="">
             <span>动态壁纸</span>
           </div>
           <!--        todo-->
-          <div class="tool" @click="closeShare($emit('dislike'))">
+          <div class="tool" @click.stop="closeShare($emit('dislike'))">
             <img src="../assets/img/icon/components/video/dislike.png" alt="">
             <span>不感兴趣</span>
           </div>
-          <div class="tool" @click="copyLink">
+          <div class="tool" @click.stop="copyLink">
             <img src="../assets/img/icon/components/video/link.png" alt="">
             <span>复制链接</span>
           </div>
-          <div class="tool" @click="closeShare($emit('showDouyinCode'))">
+          <div class="tool" @click.stop="closeShare($emit('showDouyinCode'))">
             <img src="../assets/img/icon/components/video/qrcode.png" alt="">
             <span>抖音码</span>
           </div>
-          <div class="tool" @click="$no">
+          <div class="tool" @click.stop="$no">
             <img src="../assets/img/icon/components/video/dou.webp" alt="">
             <span>帮上热门</span>
           </div>
-          <div class="tool" @click="closeShare($emit('play-feedback'))">
+          <div class="tool" @click.stop="closeShare($emit('play-feedback'))">
             <img src="../assets/img/icon/components/video/feedback.webp" alt="">
             <span>播放反馈</span>
           </div>
@@ -183,7 +183,7 @@
             <Check mode="red" v-model="isCreateChat"/>
             <span>创建群聊</span>
           </div>
-          <b-button type="primary" @click="$no">{{ selectFriends.length > 1 ? '分别发送' : '发送' }}</b-button>
+          <b-button type="primary" @click.stop="$no">{{ selectFriends.length > 1 ? '分别发送' : '发送' }}</b-button>
         </div>
       </div>
     </div>

@@ -76,7 +76,10 @@ export default {
 
         let maskTemplate = `<div class="Mask fade-in ${this.maskMode}"></div>`
         let mask = new Dom().create(maskTemplate)
-        mask.on('click', () => this.hide(false))
+        mask.on('click', e => {
+          this.$stopPropagation(e)
+          this.hide(false)
+        })
         page.appendChild(mask.els[0])
       } else {
         let page = document.getElementById(this.pageId)
