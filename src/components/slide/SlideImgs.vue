@@ -148,11 +148,27 @@ export default {
       store: {
         scale: 1
       },
+
+      result: {
+        width: 414,
+        height: 737
+      },
+      x: 0,
+      y: 79,
+      scale: 1,
+      maxScale: 3,
+      minScale: 0.5,
+      point1: {x: 0, y: 0},
+      point2: {x: 0, y: 0},
+      diff: {x: 0, y: 0},
+      lastPointermove: {x: 0, y: 0},
+      lastPoint1: {x: 0, y: 0},
+      lastPoint2: {x: 0, y: 0},
+      lastCenter: {x: 0, y: 0},
+
       a: {},
       b: {},
-      x: 0,
-      y: 0,
-      lastCenter: {}
+
     }
   },
   created() {
@@ -214,13 +230,10 @@ export default {
           e.preventDefault();
         }
 
-        // 第一个触摸点的坐标
-        this.a.x = events.pageX;
-        this.a.y = events.pageY;
-        this.b.x = events2.pageX;
-        this.b.y = events2.pageY;
+        this.lastPoint1 = this.point1 = {x: events.pageX, y: events.pageY};
+        this.lastPoint2 = this.point2 = {x: events2.pageX, y: events2.pageY};
 
-        this.lastCenter = this.getCenter(this.a, this.b)
+        this.lastCenter = this.getCenter(this.lastPoint1, this.lastPoint2)
       }
     },
     move(e) {
@@ -245,8 +258,8 @@ export default {
           e.preventDefault();
         }
 
-        let a = {x: e.touches[0].pageX, y: e.touches[0].pageY}
-        let b = {x: e.touches[1].pageX, y: e.touches[1].pageY}
+        let current1 = {x: e.touches[0].pageX, y: e.touches[0].pageY}
+        let current2 = {x: e.touches[1].pageX, y: e.touches[1].pageY}
 
         // 获取坐标之间的举例
         let getDistance = function (start, stop) {
@@ -254,14 +267,12 @@ export default {
         };
 
         // 双指缩放比例计算
-        let ratio = getDistance(a, b) / getDistance(this.a, this.b);
+        let ratio = getDistance(current1, current2) / getDistance(this.lastPoint1, this.lastPoint2);
 
-        let moveX = a.x - this.a.x
-        let moveY = a.y - this.a.y
 
         // 计算当前双指中心点坐标
-        let center = this.getCenter(a, b)
-        // console.log('center', center)
+        let center = this.getCenter(current1, current2)
+        console.log('center', center)
 
         // 计算图片中心偏移量，默认transform-origin: 50% 50%
         // 如果transform-origin: 30% 40%，那origin.x = (ratio - 1) * result.width * 0.3
@@ -269,30 +280,38 @@ export default {
         // 如果通过修改宽高或使用transform缩放，但将transform-origin设置为左上角时。
         // 可以不用计算origin，因为(ratio - 1) * result.width * 0 = 0
         const origin = {
-          x: (ratio - 1) * 414 * 0.5,
-          y: (ratio - 1) * 737 * 0.5
+          x: (ratio - 1) * this.result.width * 0.5,
+          y: (ratio - 1) * this.result.height * 0.5
         };
         // 计算偏移量，认真思考一下为什么要这样计算(带入特定的值计算一下)
         this.x -= (ratio - 1) * (center.x - this.x) - origin.x - (center.x - this.lastCenter.x);
         this.y -= (ratio - 1) * (center.y - this.y) - origin.y - (center.y - this.lastCenter.y);
 
-        console.log('this.x',this.x)
-        console.log('this.y',this.y)
+        // console.log('this.x', this.x)
+        // console.log('this.y', this.y)
 
         // 图像应用缩放效果
         this.itemRefs[this.index].style.transform =
-            `translate3d(${moveX}px,${moveY}px,0) scale(${this.store.scale * ratio})`;
+            `translate3d(${this.x}px,${this.y}px,0) scale(${this.store.scale * ratio})`;
+
+        this.lastCenter = {x: center.x, y: center.y};
+        this.lastPoint1 = {x: current1.x, y: current1.y};
+        this.lastPoint2 = {x: current2.x, y: current2.y};
       }
     },
     end(e) {
-      console.log('end')
+      console.log('end',e.touches)
       if (this.isTwo) {
         this.store.scale = 1
         this.itemRefs[this.index].style['transition-duration'] = '300ms';
-        this.itemRefs[this.index].style.transform = 'scale(' + 1 + ')';
+        this.itemRefs[this.index].style.transform = `translate3d(0,0,0) scale(1)`;
         if (this.state !== 'custom') {
           this.state = 'play'
         }
+        if (e.touches.length){
+          this.point1 = {x: e.touches[0].pageX, y: e.touches[0].pageY}
+        }
+
       } else {
         if (this.index === 0 && !this.isDrawRight) return
         if (this.index === this.modelValue.imgs.length - 1 && this.isDrawRight) return
