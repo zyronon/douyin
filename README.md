@@ -22,7 +22,7 @@
 
 **douyin** 是一个模仿抖音的移动端短视频项目，它基于 [vue 3](https://v3.cn.vuejs.org/),
 [vite 2](https://cn.vitejs.dev/)
-实现。使用了最新的Vue全家桶技术栈，后台数据通过[mock-js](http://mockjs.com)搭建。相信不管你是处于哪个段位的攻城狮，本项目都能帮助到你。
+实现。使用了最新的Vue全家桶技术栈，后台数据通过[mock-js](http://mockjs.com)搭建。相信不管你是处于哪个段位的工程师，本项目都能帮助到你。
 
 ## 核心技术拆解（TODO）
 
@@ -97,5 +97,5 @@ Chrome切换成移动端模式快捷键，先按F12调出控制台，再按Ctrl+
 
 本项目仅做技术交流和学习，请勿用于商业目的！
 
-Copyright (c) 2021 ttentau
+Copyright (c) 2021 zyronon
 
