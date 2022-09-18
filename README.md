@@ -21,7 +21,6 @@
 
 ## 目前在忙另一个开源项目[open-design](https://github.com/zyronon/open-design)，本项目更新减慢
 
-https://github.com/zyronon/douyin
 ## 简介
 
 **douyin** 是一个模仿抖音的移动端短视频项目，它基于 [vue 3](https://v3.cn.vuejs.org/),
