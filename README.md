@@ -1,5 +1,5 @@
 <p align="center">
-   <img src="https://badgen.net/github/stars/ttentau/douyin" alt="Star">
+   <img src="https://badgen.net/github/stars/zyronon/douyin" alt="Star">
   <a href="https://github.com/vuejs/vue">
     <img src="https://img.shields.io/badge/Vue-3-brightgreen.svg" alt="Vue">
   </a>
@@ -14,7 +14,7 @@
   </a>
 </p>
 
-简体中文 | [English](https://github.com/ttentau/douyin/vue3-vite/README.en.md)
+简体中文 | [English](https://github.com/zyronon/douyin/vue3-vite/README.en.md)
 
 # 此代码仅供学习，请勿用于商业用途
 
@@ -73,7 +73,7 @@
 
 ```bash
 # 克隆项目到本地
-git clone https://github.com/ttentau/douyin.git
+git clone https://github.com/zyronon/douyin.git
 
 # 进入项目目录
 cd douyin
@@ -96,7 +96,7 @@ Chrome切换成移动端模式快捷键，先按F12调出控制台，再按Ctrl+
 
 ## MIT许可协议
 
-[MIT](https://github.com/ttentau/douyin/blob/vue3-vite/LICENSE)
+[MIT](LICENSE)
 
 ## 声明
 
