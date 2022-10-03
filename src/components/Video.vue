@@ -1,7 +1,8 @@
 <template>
   <div class="video-wrapper" ref="videoWrapper" :class="name">
     <Loading v-if="loading" style="position: absolute"/>
-    <video :src="video.video + '?v=123'"
+<!--    <video :src="video.video + '?v=123'"-->
+    <video :src="video.video"
            :poster="video.video + videoPoster"
            ref="video"
            muted
