@@ -1,4 +1,4 @@
-import globalMethods from '../utils/global-methods'
+import globalMethods from './index'
 
 export default class Dom {
   els = []

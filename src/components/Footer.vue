@@ -74,10 +74,10 @@ export default {
 @import "../assets/less/index";
 
 .footer {
-  font-size: 1.4rem;
+  font-size: 14rem;
   position: fixed;
   width: 100%;
-  height: 5rem;
+  height: 50rem;
   //border-top: 1px solid #7b7878;
   z-index: 2;
   //不用bottom：0是因为，在进行页面切换的时候，vue的transition
@@ -112,19 +112,19 @@ export default {
     }
 
     .add-ctn {
-      @height: 2.7rem;
-      @width: 4rem;
+      @height: 27rem;
+      @width: 40rem;
       height: @height;
       width: @width;
       background: linear-gradient(to right, #59dcdf, #ff5f75);
-      border-radius: .5rem;
+      border-radius: 5rem;
       box-sizing: border-box;
-      padding: 0 .2rem;
+      padding: 0 2rem;
 
       .add-one {
         box-sizing: border-box;
         height: 100%;
-        border-radius: .5rem;
+        border-radius: 5rem;
         border: 2px solid white;
         background: black;
         display: flex;
@@ -133,7 +133,7 @@ export default {
       }
 
       img {
-        width: 2rem;
+        width: 20rem;
       }
     }
 
@@ -146,14 +146,14 @@ export default {
     }
 
     .badge2 {
-      right: .7rem;
-      top: .7rem;
+      right: 7rem;
+      top: 7rem;
       position: absolute;
     }
 
     .badge {
-      right: .7rem;
-      top: .7rem;
+      right: 7rem;
+      top: 7rem;
       position: absolute;
     }
   }
