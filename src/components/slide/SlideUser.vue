@@ -24,7 +24,7 @@
 </template>
 <script>
 import Posters from "../Posters";
-import globalMethods from "../../utils/global-methods";
+import globalMethods from "../../utils";
 import BaseButton from "../BaseButton";
 
 export default {

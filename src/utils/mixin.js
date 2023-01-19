@@ -1,4 +1,4 @@
-import globalMethods from "./global-methods";
+import globalMethods from "./index";
 import BaseHeader from "../components/BaseHeader";
 import SlideList from "../components/slide/SlideList";
 import SlideRowList from "../components/slide/SlideRowList";

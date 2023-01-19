@@ -68,7 +68,7 @@
 </template>
 <script>
 import {nextTick} from "vue";
-import globalMethods from "../../../utils/global-methods";
+import globalMethods from "../../../utils";
 import gaobaiqiqiu from "../../../assets/data/lyrics/gaobaiqiqiu.lrc?raw";
 
 export default {

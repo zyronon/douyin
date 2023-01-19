@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import globalMethods from "../../utils/global-methods";
+import globalMethods from "../../utils";
 
 export default {
   name: "TestImg",

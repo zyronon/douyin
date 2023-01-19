@@ -1,7 +1,7 @@
 import axios from 'axios'
 import config from '@/config'
 import store from '../store'
-import globalMethods from './global-methods'
+import globalMethods from './index'
 //这里必须使用axios实例，因为已经有一个没有创建实例而直接使用的axio了，
 // 在request.js，这里如果直接使用axios的话，request.js里面的拦截器也会执行
 //创建一个实例再去使用这个实例请求，request.js里面的axios配置就不会生效

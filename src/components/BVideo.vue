@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import globalMethods from '../utils/global-methods'
+import globalMethods from '../utils'
 import BaseMarquee from "./BaseMarquee";
 import Dom from "../utils/dom";
 import BaseMusic from "./BaseMusic";

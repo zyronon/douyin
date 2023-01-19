@@ -6,6 +6,7 @@ import Loading from "../components/Loading.vue";
 import Config from '../config'
 import NoticeDialog from "../components/dialog/NoticeDialog";
 import dayjs from 'dayjs'
+import bus from "./bus";
 
 export default {
   require2(url) {

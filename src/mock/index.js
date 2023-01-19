@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
-import globalMethods from '../utils/global-methods'
+import globalMethods from '../utils'
 import resource from "../assets/data/resource.js";
 
 function getParams(options) {
