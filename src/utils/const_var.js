@@ -19,3 +19,7 @@ export default {
     REQUEST_FOLLOW: 4//关注请求
   }
 }
+export const SlideType = {
+  HORIZONTAL:0,
+  VERTICAL:1,
+}
