@@ -1,11 +1,22 @@
 import bus from "../../utils/bus";
 import Utils from '../../utils'
-import GM from "../../utils";
 import {SlideType} from "../../utils/const_var";
+import GM from "../../utils";
 
+export function slideInit(el, state, type) {
+  state.wrapper.width = GM.$getCss(el, 'width')
+  state.wrapper.height = GM.$getCss(el, 'height')
+  state.wrapper.childrenLength = el.children.length
+
+  let t = getSlideDistance(state, type)
+  let dx1 = 0, dx2 = 0
+  if (type === SlideType.HORIZONTAL) dx1 = t
+  else dx2 = t
+  Utils.$setCss(el, 'transform', `translate3d(${dx1}px, ${dx2}px, 0)`)
+}
 
 export function slideTouchStart(e, el, state) {
-  GM.$setCss(el, 'transition-duration', `0ms`)
+  Utils.$setCss(el, 'transition-duration', `0ms`)
   state.start.x = e.touches[0].pageX
   state.start.y = e.touches[0].pageY
   state.start.time = Date.now()
@@ -35,7 +46,7 @@ export function slideTouchMove(e, el, state, judgeValue, cb, type = SlideType.HO
 
   if (canSlide(state, judgeValue, type)) {
     bus.emit(state.name + '-moveX', state.move.x)
-    GM.$stopPropagation(e)
+    Utils.$stopPropagation(e)
     let t = getSlideDistance(state, type) + (isNext ? judgeValue : -judgeValue)
     let dx1 = 0
     let dx2 = 0
@@ -44,7 +55,7 @@ export function slideTouchMove(e, el, state, judgeValue, cb, type = SlideType.HO
     } else {
       dx2 = t + state.move.y
     }
-    GM.$setCss(el, 'transform', `translate3d(${dx1}px, ${dx2}px, 0)`)
+    Utils.$setCss(el, 'transform', `translate3d(${dx1}px, ${dx2}px, 0)`)
   }
 }
 
@@ -54,7 +65,7 @@ export function slideTouchEnd(e, state, canNextCb, nextCb, type = SlideType.HORI
 
   if (!canNextCb?.(isNext)) return
   if (state.next) {
-    GM.$stopPropagation(e)
+    Utils.$stopPropagation(e)
     let endTime = Date.now()
     let gapTime = endTime - state.start.time
     let distance = isHorizontal ? state.move.x : state.move.y
@@ -82,7 +93,7 @@ export function slideReset(el, state, type, emit) {
   } else {
     dx2 = t
   }
-  GM.$setCss(el, 'transform', `translate3d(${dx1}px, ${dx2}px, 0)`)
+  Utils.$setCss(el, 'transform', `translate3d(${dx1}px, ${dx2}px, 0)`)
   state.start.x = state.start.y = state.start.time = state.move.x = state.move.y = 0
   state.next = false
   state.needCheck = true
