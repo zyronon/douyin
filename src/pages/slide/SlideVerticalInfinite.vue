@@ -50,7 +50,6 @@ export default {
       next: false,
       startTime: null,
       appInsMap: new Map()
-
     }
   },
   computed: {

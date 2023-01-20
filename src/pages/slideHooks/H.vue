@@ -1,8 +1,9 @@
 <script setup>
 import {onMounted, reactive, ref, watch} from "vue";
 import GM from '../../utils'
-import {getSlideDistance, slideReset, slideTouchEnd, slideTouchMove, slideTouchStart} from "./common";
+import {getSlideDistance, slideInit, slideReset, slideTouchEnd, slideTouchMove, slideTouchStart} from "./common";
 import {SlideType} from "../../utils/const_var";
+import Utils from "../../utils";
 
 const props = defineProps({
   index: {
@@ -26,11 +27,9 @@ const state = reactive({
   wrapper: {width: 0, height: 0, childrenLength: 0}
 })
 
-// 单个 ref
 watch(
     () => props.index,
     (newVal) => {
-      console.log('w')
       if (state.localIndex !== newVal) {
         state.localIndex = newVal
         GM.$setCss(wrapperEl.value, 'transition-duration', `300ms`)
@@ -40,9 +39,7 @@ watch(
 )
 
 onMounted(() => {
-  state.wrapper.width = GM.$getCss(wrapperEl.value, 'width')
-  state.wrapper.height = GM.$getCss(wrapperEl.value, 'height')
-  state.wrapper.childrenLength = wrapperEl.value.children.length
+  slideInit(wrapperEl.value,state,SlideType.HORIZONTAL)
 })
 
 function touchStart(e) {
@@ -68,7 +65,7 @@ function canNext(isNext) {
 
 <template>
   <div class="slide">
-    <div class="slide-wrapper"
+    <div class="slide-list"
          ref="wrapperEl"
          @touchstart="touchStart"
          @touchmove="touchMove"

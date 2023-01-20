@@ -8,7 +8,8 @@ import router from "./router";
 import store from "./store";
 import mixin from "./utils/mixin";
 import VueLazyload from '@jambonn/vue-lazyload'
-
+import VConsole from 'vconsole';
+const vConsole = new VConsole();
 
 const app = Vue.createApp(App)
 app.config.globalProperties.$api = {...api}

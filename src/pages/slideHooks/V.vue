@@ -1,7 +1,7 @@
 <script setup>
-import {onMounted, reactive, ref} from "vue";
+import {onMounted, reactive, ref,watch} from "vue";
 import GM from '../../utils'
-import {slideReset, slideTouchEnd, slideTouchMove, slideTouchStart} from "./common";
+import {getSlideDistance, slideInit, slideReset, slideTouchEnd, slideTouchMove, slideTouchStart} from "./common";
 import {SlideType} from "../../utils/const_var";
 
 const props = defineProps({
@@ -18,7 +18,7 @@ const judgeValue = 20
 const wrapperEl = ref(null)
 const state = reactive({
   name: 'SlideVertical',
-  localIndex: 0,
+  localIndex: props.index,
   needCheck: true,
   next: false,
   start: {x: 0, y: 0, time: 0},
@@ -26,10 +26,19 @@ const state = reactive({
   wrapper: {width: 0, height: 0, childrenLength: 0}
 })
 
+watch(
+    () => props.index,
+    (newVal) => {
+      if (state.localIndex !== newVal) {
+        state.localIndex = newVal
+        GM.$setCss(wrapperEl.value, 'transition-duration', `300ms`)
+        GM.$setCss(wrapperEl.value, 'transform', `translate3d(0,${getSlideDistance(state, SlideType.VERTICAL)}px, 0)`)
+      }
+    }
+)
+
 onMounted(() => {
-  state.wrapper.width = GM.$getCss(wrapperEl.value, 'width')
-  state.wrapper.height = GM.$getCss(wrapperEl.value, 'height')
-  state.wrapper.childrenLength = wrapperEl.value.children.length
+  slideInit(wrapperEl.value, state, SlideType.VERTICAL)
 })
 
 function touchStart(e) {
@@ -55,7 +64,7 @@ function canNext(isNext) {
 
 <template>
   <div class="slide">
-    <div class="slide-wrapper flex-direction-column"
+    <div class="slide-list flex-direction-column"
          ref="wrapperEl"
          @touchstart="touchStart"
          @touchmove="touchMove"

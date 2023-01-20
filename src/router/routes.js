@@ -69,7 +69,7 @@ import Slide from "../pages/slide/Slide";
 const routes = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/test'
   },
   {path: '/slide', component: Slide},
   {path: '/test', component: Test},

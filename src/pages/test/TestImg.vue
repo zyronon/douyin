@@ -83,6 +83,9 @@ export default {
 
 
         this.scale = this.scale * ratio
+        console.log('ratio',ratio)
+        console.log('scale',this.scale)
+
         // 计算当前双指中心点坐标
         let center = this.getCenter(current1, current2)
         // console.log('center', center)
@@ -120,7 +123,6 @@ export default {
 
       this.$refs.img.style.transform = `translate3d(0px,0px,0) scale(1)`;
       // this.point1 = {x: e.touches[0].pageX, y: e.touches[0].pageY}
-
     }
   }
 }
