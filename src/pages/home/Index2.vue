@@ -96,7 +96,7 @@
                 ref="virtualList"
                 :list="videos"
                 :renderSlide="render"
-                v-model:active-index="videoActiveIndex"
+                v-model:active-index="videoActixveIndex"
                 @end="end"
             >
             </SlideColumnVirtualList>
