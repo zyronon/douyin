@@ -1,24 +1,24 @@
 <template>
   <div class="test-slide-wrapper">
     <H v-model:index="state.baseIndex">
-      <SlideItem class="slide-item gray">
+      <SlideItem class=" gray">
         <H class="h" v-model:index="state.navIndex">
-          <SlideItem class="slide-item gray">
+          <SlideItem class=" gray">
             <div class="big">找红包</div>
           </SlideItem>
-          <SlideItem class="slide-item gray">
+          <SlideItem class=" gray">
             <div class="big">热点</div>
           </SlideItem>
-          <SlideItem class="slide-item gray">
+          <SlideItem class=" gray">
             <div class="big">社区</div>
           </SlideItem>
-          <SlideItem class="slide-item gray">
+          <SlideItem class=" gray">
             <div class="big">关注</div>
           </SlideItem>
-          <SlideItem class="slide-item gray">
+          <SlideItem class=" gray">
             <div class="big">商城</div>
           </SlideItem>
-          <SlideItem class="slide-item">
+          <SlideItem class="">
             <VInfinite
                 v-model:index="state.index"
                 :render="render"
@@ -40,7 +40,7 @@
         </div>
         <Footer v-bind:init-tab="1"/>
       </SlideItem>
-      <SlideItem class="slide-item gray">
+      <SlideItem class=" gray">
         <div class="big" v-for="i in 100">主页</div>
       </SlideItem>
     </H>
@@ -63,10 +63,10 @@ const state = reactive({
   navIndex: 5,
   index: 0,
   recommendVideos: [
-    {
-      type: 'img',
-      src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
-    },
+    // {
+    //   type: 'img',
+    //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
+    // },
     {
       type: 'imgs',
       src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
@@ -85,7 +85,7 @@ function render(item, itemIndex, play) {
     node = <SlideImgs/>
   }
   return node
-  // return <SlideItem class="slide-item gray">{node}</SlideItem>
+  // return <SlideItem class=" gray">{node}</SlideItem>
 }
 
 // function render1(item, itemIndex, play) {

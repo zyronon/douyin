@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, reactive, ref,watch} from "vue";
+import {onMounted, reactive, ref, watch} from "vue";
 import GM from '../../utils'
 import {getSlideDistance, slideInit, slideReset, slideTouchEnd, slideTouchMove, slideTouchStart} from "./common";
 import {SlideType} from "../../utils/const_var";
@@ -46,13 +46,11 @@ function touchStart(e) {
 }
 
 function touchMove(e) {
-  slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext, SlideType.VERTICAL)
+  slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext,null, SlideType.VERTICAL)
 }
 
 function touchEnd(e) {
-  slideTouchEnd(e, state, canNext, () => {
-
-  }, SlideType.VERTICAL)
+  slideTouchEnd(e, state, canNext, null, null, SlideType.VERTICAL)
   slideReset(wrapperEl.value, state, SlideType.VERTICAL, emit)
 }
 

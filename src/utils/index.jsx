@@ -353,7 +353,7 @@ export default {
     }
     return str
   },
-  $randomNum(minNum, maxNum) {
+  randomNum(minNum, maxNum) {
     switch (arguments.length) {
       case 1:
         return parseInt(Math.random() * minNum + 1, 10);
@@ -362,5 +362,14 @@ export default {
       default:
         return 0;
     }
+  },
+  getCenter(a, b) {
+    const x = (a.x + b.x) / 2;
+    const y = (a.y + b.y) / 2;
+    return {x, y}
+  },
+  // 获取坐标之间的举例
+  getDistance(start, stop) {
+    return Math.hypot(stop.x - start.x, stop.y - start.y);
   },
 }
