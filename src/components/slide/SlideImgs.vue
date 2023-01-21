@@ -4,8 +4,8 @@
       <div class="img-slide-list"
            ref="list"
            @touchstart="touchstart"
-           @touchmove="move"
-           @touchend="end">
+           @touchmove="touchmove"
+           @touchend="touchend">
         <div class="img-slide-item" v-for="img in modelValue.imgs">
           <img :ref="setItemRef" :src="img">
         </div>
@@ -285,7 +285,7 @@ export default {
       return Math.hypot(stop.x - start.x, stop.y - start.y);
     },
     touchstart(e) {
-      // console.log('start', e.touches.length)
+      console.log('start', e.touches.length)
       if (this.state !== 'custom') {
         this.state = 'stop'
       }
@@ -296,6 +296,7 @@ export default {
         this.startY = e.touches[0].pageY
         this.startTime = Date.now()
       } else {
+        if (this.isTwo) return
         this.isTwo = true
         this.itemRefs[this.index].style['transition-duration'] = '0ms';
 
@@ -303,23 +304,23 @@ export default {
           e.preventDefault();
         }
 
-        this.lastPoint1 = this.point1 = {x: e.touches[0].pageX, y: e.touches[0].pageY};
-        this.lastPoint2 = this.point2 = {x: e.touches[1].pageX, y: e.touches[1].pageY};
+        this.last.point1 = this.point1 = {x: e.touches[0].pageX, y: e.touches[0].pageY};
+        this.last.point2 = this.point2 = {x: e.touches[1].pageX, y: e.touches[1].pageY};
         this.startCenter = this.getCenter(this.point1, this.point2)
       }
     },
-    move(e) {
+    touchmove(e) {
       console.log('move', e.touches.length)
       if (this.isTwo && e.touches.length === 1) {
         // console.log('单手移动',)
         let current = {x: e.touches[0].pageX, y: e.touches[0].pageY}
         let movementX = current.x - this.last.point1.x
         let movementY = current.y - this.last.point1.y
-        // console.log(movementX, movementY)
+        console.log(movementX, movementY)
         const t = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, movementX, movementY, 0, 1,]);
-        ov = mat4.multiply(out, t, ov);
-        this.itemRefs[this.index].style.transform = `matrix3d(${ov.toString()})`;
-        this.last.point1 = current
+        let ov1 = mat4.multiply(out, t, ov);
+        this.itemRefs[this.index].style.transform = `matrix3d(${ov1.toString()})`;
+        // this.last.point1 = current
       } else {
         if (e.touches.length === 1) {
           this.isTwo = false
@@ -341,7 +342,6 @@ export default {
           if (e.cancelable) {
             e.preventDefault();
           }
-
           let current1 = {x: e.touches[0].pageX, y: e.touches[0].pageY}
           let current2 = {x: e.touches[1].pageX, y: e.touches[1].pageY}
 
@@ -353,12 +353,12 @@ export default {
             rect = rectMap.get(this.index)
           } else {
             //getBoundingClientRect在手机上获取不到值
-            // rect = this.itemRefs[this.index].getBoundingClientRect()
             let offset = $(this.itemRefs[this.index]).offset()
             rect.x = offset.left
             rect.y = offset.top
             rectMap.set(this.index, rect)
           }
+
           let center = cloneDeep(this.startCenter)
           center.x -= rect.x
           center.y -= rect.y
@@ -369,11 +369,24 @@ export default {
           //如果zoom是累加放大（比如每次都是0.15），第三个参数用ov
           //但这里zoom是每次都是最后放大倍数，第三个参数用原值（即，矩阵x乘时，都是乘以单位矩阵）
           ov = mat4.multiply(out, t, original);
+
+          let movementX = current1.x - this.last.point1.x
+          let movementY = current1.y - this.last.point1.y
+          let movement2X = current2.x - this.last.point2.x
+          let movement2Y = current2.y - this.last.point2.y
+
+          let minX = Math.min(movementX, movement2X)
+          let minY = Math.min(movementY, movement2Y)
+
+          console.log('minX', minX, 'minY', minY)
+
           this.itemRefs[this.index].style.transform = `matrix3d(${ov.toString()})`;
+          this.last.point1 = current1
+          this.last.point2 = current2
         }
       }
     },
-    end(e) {
+    touchend(e) {
       console.log('end', e.touches.length, this.isTwo)
       if (this.isTwo && e.touches.length === 1) {
         //双指绽放，但只松开了一只手
