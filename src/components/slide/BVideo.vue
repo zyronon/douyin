@@ -10,7 +10,7 @@
            :autoplay="isPlay" loop>
       <p> 您的浏览器不支持 video 标签。</p>
     </video>
-    <img src="../assets/img/icon/play-white.png" class="pause" v-if="paused">
+    <img src="../../assets/img/icon/play-white.png" class="pause" v-if="paused">
     <div class="float" :style="{opacity: isUp?0:1}">
       <div :style="{opacity:isMove ? 0:1}" class="normal">
         <div class="toolbar mb1r">
@@ -19,30 +19,30 @@
                  @click.stop="$emit('goUserInfo')">
             <transition name="fade">
               <div v-if="!isAttention" @click.stop="attention" class="options" ref="attention-option">
-                <img class="no" src="../assets/img/icon/add-light.png" alt="">
-                <img class="yes" src="../assets/img/icon/ok-red.png" alt="">
+                <img class="no" src="../../assets/img/icon/add-light.png" alt="">
+                <img class="yes" src="../../assets/img/icon/ok-red.png" alt="">
               </div>
             </transition>
 
           </div>
           <div class="love mb2r" @click.stop="loved($event)">
             <div>
-              <img src="../assets/img/icon/love.svg" class="love-image" v-if="!lVideo.isLoved">
-              <img src="../assets/img/icon/loved.svg" class="love-image" v-if="lVideo.isLoved">
+              <img src="../../assets/img/icon/love.svg" class="love-image" v-if="!lVideo.isLoved">
+              <img src="../../assets/img/icon/loved.svg" class="love-image" v-if="lVideo.isLoved">
             </div>
             <span>{{ $likeNum(lVideo.digg_count) }}</span>
           </div>
           <div class="message mb2r" @click.stop="$emit('showComments')">
             <!--            <div class="message mb15p" @click.stop="showComment">-->
-            <img src="../assets/img/icon/message.svg" alt="" class="message-image">
+            <img src="../../assets/img/icon/message.svg" alt="" class="message-image">
             <span>{{ $likeNum(lVideo.comment_count) }}</span>
           </div>
           <div v-if="!isMy" class="share mb4r" @click.stop="$emit('showShare')">
-            <img src="../assets/img/icon/share-white-full.png" alt="" class="share-image">
+            <img src="../../assets/img/icon/share-white-full.png" alt="" class="share-image">
             <span>{{ $likeNum(lVideo.share_count) }}</span>
           </div>
           <div v-else class="share mb4r" @click.stop="$emit('showShare')">
-            <img src="../assets/img/icon/share-white-full.png" alt="" class="share-image">
+            <img src="../../assets/img/icon/share-white-full.png" alt="" class="share-image">
           </div>
           <BaseMusic
               :cover="lVideo.music.cover"
@@ -55,7 +55,7 @@
         <div class="content ml1r mb1r" v-if="!isMy">
           <div class="location-wrapper" v-if=" lVideo.city || lVideo.address">
             <div class="location">
-              <img src="../assets/img/icon/location.webp" alt="">
+              <img src="../../assets/img/icon/location.webp" alt="">
               <span>{{ lVideo.city }}</span>
               <template v-if="lVideo.address && lVideo.address">
                 <div class="gang"></div>
@@ -68,7 +68,7 @@
             {{ lVideo.desc }}
           </div>
           <div class="music" @click.stop="$nav('/music')">
-            <img src="../assets/img/icon/music.svg" alt="" class="music-image">
+            <img src="../../assets/img/icon/music.svg" alt="" class="music-image">
             <BaseMarquee :key="name"
                          :name="name"
                          :isPlay="isPlay"
@@ -79,7 +79,7 @@
         <div v-else class="comment-status">
           <div class="comment">
             <div class="type-comment">
-              <img src="../assets/img/icon/head-image.jpeg" alt="" class="avatar">
+              <img src="../../assets/img/icon/head-image.jpeg" alt="" class="avatar">
               <div class="right">
                 <p>
                   <span class="name">zzzzz</span>
@@ -90,8 +90,8 @@
             </div>
             <transition-group name="comment-status" tag="div" class="loveds">
               <div class="type-loved" :key="i" v-for="i in test">
-                <img src="../assets/img/icon/head-image.jpeg" alt="" class="avatar">
-                <img src="../assets/img/icon/love.svg" alt="" class="loved">
+                <img src="../../assets/img/icon/head-image.jpeg" alt="" class="avatar">
+                <img src="../../assets/img/icon/love.svg" alt="" class="loved">
               </div>
             </transition-group>
           </div>
@@ -115,12 +115,12 @@
 </template>
 
 <script>
-import globalMethods from '../utils'
-import BaseMarquee from "./BaseMarquee";
-import Dom from "../utils/dom";
-import BaseMusic from "./BaseMusic";
+import globalMethods from '../../utils'
+import BaseMarquee from "../BaseMarquee";
+import Dom from "../../utils/dom";
+import BaseMusic from "../BaseMusic";
 import {mapState} from "vuex";
-import Loading from "./Loading";
+import Loading from "../Loading";
 
 export default {
   name: "BVideo",
@@ -355,7 +355,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../assets/less/color";
+@import "../../assets/less/color";
 
 .fade-enter-active,
 .fade-leave-active {

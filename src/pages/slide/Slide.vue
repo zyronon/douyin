@@ -81,7 +81,7 @@
 <script lang="jsx">
 import SlideHorizontal from './SlideHorizontal'
 import SlideVertical from './SlideVertical'
-import BVideo from "../../components/BVideo";
+import BVideo from "../../components/slide/BVideo";
 import resource from "../../assets/data/resource";
 import Dom from "../../utils/dom";
 import Footer from "../../components/Footer";
