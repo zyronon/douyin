@@ -47,7 +47,7 @@ function touchStart(e) {
 }
 
 function touchMove(e) {
-  slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext, SlideType.HORIZONTAL)
+  slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext,null, SlideType.HORIZONTAL)
 }
 
 function touchEnd(e) {

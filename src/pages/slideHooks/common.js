@@ -36,15 +36,16 @@ export function canSlide(state, judgeValue, type = SlideType.HORIZONTAL) {
   return state.next
 }
 
-export function slideTouchMove(e, el, state, judgeValue, cb, type = SlideType.HORIZONTAL) {
+export function slideTouchMove(e, el, state, judgeValue, canNextCb, nextCb, type = SlideType.HORIZONTAL) {
   state.move.x = e.touches[0].pageX - state.start.x
   state.move.y = e.touches[0].pageY - state.start.y
 
   let isNext = type === SlideType.HORIZONTAL ? state.move.x < 0 : state.move.y < 0
 
-  if (!cb?.(isNext)) return
+  if (!canNextCb?.(isNext)) return
 
   if (canSlide(state, judgeValue, type)) {
+    nextCb?.()
     bus.emit(state.name + '-moveX', state.move.x)
     Utils.$stopPropagation(e)
     let t = getSlideDistance(state, type) + (isNext ? judgeValue : -judgeValue)
@@ -55,11 +56,12 @@ export function slideTouchMove(e, el, state, judgeValue, cb, type = SlideType.HO
     } else {
       dx2 = t + state.move.y
     }
+    Utils.$setCss(el, 'transition-duration', `0ms`)
     Utils.$setCss(el, 'transform', `translate3d(${dx1}px, ${dx2}px, 0)`)
   }
 }
 
-export function slideTouchEnd(e, state, canNextCb, nextCb, type = SlideType.HORIZONTAL) {
+export function slideTouchEnd(e, state, canNextCb, nextCb, notNextCb, type = SlideType.HORIZONTAL) {
   let isHorizontal = type === SlideType.HORIZONTAL;
   let isNext = isHorizontal ? state.move.x < 0 : state.move.y < 0
 
@@ -79,6 +81,8 @@ export function slideTouchEnd(e, state, canNextCb, nextCb, type = SlideType.HORI
         state.localIndex--
       }
       nextCb?.()
+    } else {
+      notNextCb?.()
     }
   }
 }
@@ -97,7 +101,7 @@ export function slideReset(el, state, type, emit) {
   state.start.x = state.start.y = state.start.time = state.move.x = state.move.y = 0
   state.next = false
   state.needCheck = true
-  emit('update:index', state.localIndex)
+  emit?.('update:index', state.localIndex)
   bus.emit(state.name + '-end', state.localIndex)
 }
 

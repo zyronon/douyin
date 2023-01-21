@@ -1,5 +1,5 @@
 <template>
-  <div class="slide-item">
+  <div class="slide-item2">
     <slot></slot>
   </div>
 </template>
@@ -8,7 +8,7 @@
 </script>
 
 <style scoped lang="less">
-.slide-item {
+.slide-item2 {
   height: 100%;
   width: 100%;
   flex-shrink: 0;

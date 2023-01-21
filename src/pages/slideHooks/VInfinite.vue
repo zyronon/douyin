@@ -124,13 +124,13 @@ function touchStart(e) {
 }
 
 function touchMove(e) {
-  slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext, SlideType.VERTICAL)
+  slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext,null, SlideType.VERTICAL)
 }
 
 function touchEnd(e) {
   slideTouchEnd(e, state, canNext, () => {
 
-  }, SlideType.VERTICAL)
+  },null, SlideType.VERTICAL)
   slideReset(wrapperEl.value, state, SlideType.VERTICAL, emit)
 }
 

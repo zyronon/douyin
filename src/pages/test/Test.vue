@@ -1,9 +1,9 @@
 <template>
   <!--  <TestSlide></TestSlide>-->
   <!--  <SlideUser></SlideUser>-->
-  <SlideImgs></SlideImgs>
-  <!--    <TestImg/>-->
-  <!--  <slideHooks></slideHooks>-->
+<!--  <SlideImgs></SlideImgs>-->
+<!--      <TestImg/>-->
+    <slideHooks></slideHooks>
 
   <!--  <div class="body">-->
   <!--    <div class="wrapper">-->
@@ -46,7 +46,7 @@ export default {
   }
 }
 </script>
-<style lang="less">
+<style scoped lang="less">
 .body {
   display: flex;
   align-items: center;
@@ -62,11 +62,5 @@ export default {
 .wrapper {
   background: black;
   overflow: hidden;
-}
-
-img {
-  transform-origin: 0 0;
-  max-width: 1040px;
-  max-height: 600px;
 }
 </style>
