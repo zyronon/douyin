@@ -14,7 +14,9 @@ const props = defineProps({
   },
   prefix: {
     type: String,
-    default: () => ''
+    default: () => {
+      return ''
+    }
   },
   render: {
     type: Function,
@@ -124,13 +126,13 @@ function touchStart(e) {
 }
 
 function touchMove(e) {
-  slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext,null, SlideType.VERTICAL)
+  slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext, null, SlideType.VERTICAL)
 }
 
 function touchEnd(e) {
   slideTouchEnd(e, state, canNext, () => {
 
-  },null, SlideType.VERTICAL)
+  }, null, SlideType.VERTICAL)
   slideReset(wrapperEl.value, state, SlideType.VERTICAL, emit)
 }
 
