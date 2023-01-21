@@ -55,7 +55,7 @@ import SlideItem from './SlideItem'
 import SlideVideo from "../../components/slide/SlideVideo";
 import SlideUser from "../../components/slide/SlideUser";
 import SlideImgs from "../../components/slide/SlideImgs";
-import BVideo from "../../components/BVideo";
+import BVideo from "../../components/slide/BVideo";
 
 import resource from "../../assets/data/resource.js";
 import {reactive} from "vue";
