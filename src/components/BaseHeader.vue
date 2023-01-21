@@ -90,8 +90,8 @@ export default {
 
     .left {
       position: absolute;
-      left: 1rem;
-      top: 2rem;
+      left: 10rem;
+      top: 20rem;
     }
 
     & > :nth-last-child(1) {

@@ -550,7 +550,7 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .chat-content {
     > .header {
@@ -559,15 +559,15 @@ export default {
       width: 100%;
       box-sizing: border-box;
       height: @header-height;
-      padding: 0 1rem;
+      padding: 0 10rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid @line-color;
 
       img {
-        height: 2rem;
-        margin: 0 1rem;
+        height: 20rem;
+        margin: 0 10rem;
       }
 
       .left {
@@ -577,8 +577,8 @@ export default {
         align-items: center;
 
         .badge {
-          margin-right: 1rem;
-          font-size: 1.2rem;
+          margin-right: 10rem;
+          font-size: 12rem;
           display: block;
           padding: 1px 6px;
           border-radius: 10px;
@@ -593,11 +593,11 @@ export default {
     }
 
     .message-wrapper {
-      height: calc(100vh - 12.5rem);
+      height: calc(100vh - 125rem);
       overflow: auto;
 
       &.expand {
-        height: calc(100vh - (12.5rem + 30vh));
+        height: calc(100vh - (125rem + 30vh));
       }
     }
 
@@ -606,7 +606,7 @@ export default {
       @typing-bg-color: whitesmoke;
       background: @main-bg;
       @normal-bg-color: rgb(35, 38, 47);
-      padding: 1rem 0;
+      padding: 10rem 0;
       border-top: 1px solid @second-btn-color-tran;
 
       &.typing {
@@ -623,18 +623,18 @@ export default {
 
       .toolbar {
         box-sizing: border-box;
-        height: 4.4rem;
-        margin: 0 1rem;
-        padding: .5rem;
+        height: 44rem;
+        margin: 0 10rem;
+        padding: 5rem;
         background: @normal-bg-color;
-        border-radius: 2rem;
+        border-radius: 20rem;
         display: flex;
         align-items: center;
 
         img {
-          width: 2.4rem;
+          width: 24rem;
           border-radius: 50%;
-          margin-left: 1.5rem;
+          margin-left: 15rem;
         }
 
         input {
@@ -646,9 +646,9 @@ export default {
 
         .camera {
           margin-left: 0;
-          margin-right: .5rem;
-          width: 1.4rem;
-          padding: .5rem;
+          margin-right: 5rem;
+          width: 14rem;
+          padding: 5rem;
           border-radius: 50%;
           background: @chat-bg-color;
         }
@@ -657,35 +657,35 @@ export default {
 
       .record {
         box-sizing: border-box;
-        height: 4.4rem;
-        margin: 0 1rem;
-        padding: 1rem .5rem;
+        height: 44rem;
+        margin: 0 10rem;
+        padding: 10rem 5rem;
         background: @normal-bg-color;
-        border-radius: 2rem;
+        border-radius: 20rem;
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
 
         img {
-          right: .5rem;
+          right: 5rem;
           position: absolute;
-          width: 2.4rem;
+          width: 24rem;
           border-radius: 50%;
-          margin-left: 1.5rem;
+          margin-left: 15rem;
         }
       }
 
       .options {
-        font-size: 1.4rem;
+        font-size: 14rem;
         width: 100vw;
-        padding: 1.5rem;
+        padding: 15rem;
         height: 30vh;
         box-sizing: border-box;
 
         .option-wrapper {
           box-sizing: border-box;
-          @grid-width: calc((100vw - 3rem) / 4);
+          @grid-width: calc((100vw - 30rem) / 4);
           color: black;
           display: grid;
           grid-template-columns:@grid-width @grid-width @grid-width @grid-width;
@@ -695,14 +695,14 @@ export default {
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            margin-bottom: 1rem;
+            margin-bottom: 10rem;
 
             img {
-              border-radius: .4rem;
+              border-radius: 4rem;
               background: whitesmoke;
-              padding: 1rem;
-              width: 3rem;
-              margin-bottom: 1rem;
+              padding: 10rem;
+              width: 30rem;
+              margin-bottom: 10rem;
             }
           }
         }
@@ -727,7 +727,7 @@ export default {
       justify-content: space-between;
 
       img {
-        width: 2.2rem;
+        width: 22rem;
       }
     }
 
@@ -738,23 +738,23 @@ export default {
     left: 50%;
     margin-left: -33%;
     position: fixed;
-    font-size: 1.2rem;
-    border-radius: .6rem;
+    font-size: 12rem;
+    border-radius: 6rem;
     //padding: 1rem;
     background: rgb(55, 58, 67);
     display: flex;
 
     .options {
-      width: 4.5rem;
-      height: 6rem;
+      width: 45rem;
+      height: 60rem;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
 
       img {
-        margin-bottom: .4rem;
-        width: 1.8rem;
+        margin-bottom: 4rem;
+        width: 18rem;
       }
     }
 
@@ -766,15 +766,15 @@ export default {
       transform: translateX(-50%);
 
       &.bottom {
-        top: -1.4rem;
-        border: .7rem solid transparent;
-        border-bottom: .7rem solid @second-btn-color;
+        top: -14rem;
+        border: 7rem solid transparent;
+        border-bottom: 7rem solid @second-btn-color;
       }
 
       &.top {
-        bottom: -1.4rem;
-        border: .7rem solid transparent;
-        border-top: .7rem solid @second-btn-color;
+        bottom: -14rem;
+        border: 7rem solid transparent;
+        border-top: 7rem solid @second-btn-color;
       }
     }
   }
@@ -809,7 +809,7 @@ export default {
         width: 100%;
         height: 100%;
         box-sizing: border-box;
-        padding: 2rem;
+        padding: 20rem;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -825,41 +825,41 @@ export default {
         }
 
         .avatar {
-          margin-top: 6rem;
-          width: 5.5rem;
+          margin-top: 60rem;
+          width: 55rem;
           border-radius: 50%;
-          margin-bottom: 2rem;
+          margin-bottom: 20rem;
         }
 
         .money {
           color: rgb(193, 135, 79);
-          font-size: 4rem;
+          font-size: 40rem;
           font-weight: bold;
-          margin-top: 1.5rem;
-          margin-bottom: 6.5rem;
+          margin-top: 15rem;
+          margin-bottom: 65rem;
         }
 
 
         .belong {
-          font-size: 1.2rem;
-          margin-bottom: 3rem;
+          font-size: 12rem;
+          margin-bottom: 30rem;
         }
 
         .password {
-          font-size: 1.6rem;
+          font-size: 16rem;
         }
 
 
         .notice {
-          margin-top: 15rem;
-          font-size: 1.2rem;
+          margin-top: 150rem;
+          font-size: 12rem;
         }
 
         .l-button {
-          font-size: 1.6rem;
-          border-radius: .5rem;
-          margin-bottom: 3rem;
-          padding: 1.2rem 0;
+          font-size: 16rem;
+          border-radius: .50rem;
+          margin-bottom: 30rem;
+          padding: 12rem 0;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -872,8 +872,8 @@ export default {
             background: rgb(228, 77, 58);
 
             img {
-              width: 1.8rem;
-              margin-right: 1rem;
+              width: 18rem;
+              margin-right: 10rem;
               animation: animal .8s infinite linear;
 
               @keyframes animal {
@@ -887,13 +887,12 @@ export default {
             }
           }
         }
-
       }
 
       .close {
         bottom: -8vh;
         position: absolute;
-        width: 3rem;
+        width: 30rem;
       }
     }
 

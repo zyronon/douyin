@@ -39,6 +39,6 @@ export default {
 
 <style scoped lang="less">
 img {
-  width: 2rem;
+  width: 20rem;
 }
 </style>

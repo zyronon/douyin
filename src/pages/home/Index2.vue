@@ -6,7 +6,7 @@
         v-model:active-index="baseActiveIndex">
       <SlideItem>
         <SlideRowList
-            style="height: calc(100% - 5rem);"
+            style="height: calc(100% - 50rem);"
             v-model:active-index="activeIndex"
             indicatorType="home"
         >

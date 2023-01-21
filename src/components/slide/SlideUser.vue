@@ -259,34 +259,34 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 1.5rem;
+    border-radius: 15rem;
     //box-shadow: 0 0 2rem 0 #b3b3b3;
-    padding: 1.5rem;
+    padding: 15rem;
     color: black;
     position: relative;
 
     .close {
-      top: 1.5rem;
-      right: 1.5rem;
-      width: 2.5rem;
-      height: 2.5rem;
+      top: 15rem;
+      right: 15rem;
+      width: 25rem;
+      height: 25rem;
       position: absolute;
     }
 
     .avatar {
-      width: 12rem;
+      width: 120rem;
       border-radius: 50%;
     }
 
     .name {
-      margin-top: 2rem;
-      margin-bottom: 2rem;
+      margin-top: 20rem;
+      margin-bottom: 20rem;
       font-weight: bold;
-      font-size: 1.6rem;
+      font-size: 16rem;
     }
 
     .age {
-      font-size: 1rem;
+      font-size: 10rem;
       background: #f1f1f1;
       padding: 3px;
       border-radius: 2px;
@@ -297,9 +297,9 @@ export default {
       color: black;
       border-top: 1px solid #f1f1f1;
       border-bottom: 1px solid #f1f1f1;
-      padding: 1rem 0;
-      margin: 1.5rem 0;
-      font-size: 1.2rem;
+      padding: 10rem 0;
+      margin: 15rem 0;
+      font-size: 12rem;
       width: 90%;
     }
 
@@ -313,7 +313,7 @@ export default {
     }
 
     .poster-item {
-      border-radius: .8rem;
+      border-radius: 8rem;
       overflow: hidden;
       position: relative;
 
@@ -326,17 +326,17 @@ export default {
       .num {
         color: white;
         position: absolute;
-        bottom: .5rem;
-        left: .5rem;
+        bottom: 5rem;
+        left: 5rem;
         display: flex;
         align-items: center;
-        font-size: 1.2rem;
+        font-size: 12rem;
 
 
         .love {
-          width: 1.2rem;
-          height: 1.2rem;
-          margin-right: .5rem;
+          width: 12rem;
+          height: 12rem;
+          margin-right: 5rem;
         }
       }
     }
@@ -345,11 +345,11 @@ export default {
 
   .options {
     position: absolute;
-    bottom: 2rem;
+    bottom: 20rem;
     display: flex;
     justify-content: space-between;
-    left: 1.5rem;
-    right: 1.5rem;
+    left: 15rem;
+    right: 15rem;
 
     .button {
       width: 49%;

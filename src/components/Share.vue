@@ -273,11 +273,11 @@ export default {
   color: white;
   box-sizing: border-box;
 
-  @space-width: 1.8rem;
-  @icon-width: 4.8rem;
+  @space-width: 18rem;
+  @icon-width: 48rem;
 
   .title {
-    font-size: 1.4rem;
+    font-size: 14rem;
     padding: 20px;
     position: relative;
     display: flex;
@@ -285,9 +285,9 @@ export default {
     justify-content: space-between;
 
     img {
-      width: 1.4rem;
-      height: 1.4rem;
-      padding: .6rem;
+      width: 14rem;
+      height: 14rem;
+      padding: 6rem;
       border-radius: 50%;
       background: @second-btn-color-tran;
       //background: rgb(56, 58, 57);
@@ -304,7 +304,7 @@ export default {
       position: relative;
       margin-left: @space-width;
       margin-bottom: @space-width;
-      font-size: 1rem;
+      font-size: 10rem;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -316,7 +316,7 @@ export default {
       }
 
       span {
-        margin-top: .5rem;
+        margin-top: 5rem;
         text-align: center;
         width: @icon-width;
         //white-space: nowrap;
@@ -328,8 +328,8 @@ export default {
         position: absolute;
         top: @icon-width - 1.5;
         right: -2px;
-        width: 2rem;
-        height: 2rem;
+        width: 20rem;
+        height: 20rem;
         border-radius: 50%;
       }
     }
@@ -341,7 +341,7 @@ export default {
       img {
         width: @icon-width - 2.6;
         height: @icon-width - 2.6;
-        padding: 1.3rem;
+        padding: 13rem;
         border-radius: 50%;
         background: @second-btn-color-tran;
         //background: rgb(56, 58, 57);
@@ -349,7 +349,7 @@ export default {
     }
 
     span {
-      font-size: 1.2rem;
+      font-size: 12rem;
       display: block;
       text-align: center;
       word-break: break-all;
@@ -359,9 +359,9 @@ export default {
   .line {
     height: 1px;
     background: #1c1c1c;
-    margin-left: 2rem;
-    width: calc(100% - 4rem);
-    margin-bottom: 1rem;
+    margin-left: 20rem;
+    width: calc(100% - 40rem);
+    margin-bottom: 10rem;
   }
 
   .shares {
@@ -383,7 +383,7 @@ export default {
 
       span {
         color: @second-text-color;
-        font-size: 1rem;
+        font-size: 10rem;
         display: block;
         text-align: center;
       }
@@ -404,7 +404,7 @@ export default {
       img {
         width: @icon-width - 2;
         height: @icon-width - 2;
-        padding: 1rem;
+        padding: 10rem;
         border-radius: 50%;
         //background: @second-btn-color;
         background: rgb(56, 58, 57);
@@ -412,7 +412,7 @@ export default {
 
       span {
         color: @second-text-color;
-        font-size: 1rem;
+        font-size: 10rem;
         display: block;
         text-align: center;
       }
@@ -422,10 +422,10 @@ export default {
   .share2friend {
     position: fixed;
     bottom: 0;
-    padding: 2rem;
+    padding: 20rem;
     box-sizing: border-box;
     width: 100vw;
-    height: 18rem;
+    height: 180rem;
     background: black;
     display: flex;
     flex-direction: column;
@@ -444,23 +444,23 @@ export default {
       }
 
       .poster {
-        margin-left: 2rem;
-        height: 4rem;
-        width: 4rem;
+        margin-left: 20rem;
+        height: 40rem;
+        width: 40rem;
       }
     }
 
     .create-chat {
-      font-size: 1.1rem;
-      margin: 1rem 0;
+      font-size: 11rem;
+      margin: 10rem 0;
       display: flex;
       align-items: center;
       color: @second-text-color;
 
       .check {
-        margin-right: 1rem;
-        width: 1.6rem;
-        height: 1.6rem;
+        margin-right: 10rem;
+        width: 16rem;
+        height: 16rem;
         //transform: scale(1.2);
       }
     }

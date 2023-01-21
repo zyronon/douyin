@@ -200,7 +200,7 @@ export default {
 .People {
   transition: all 0.3s ease;
   width: 100%;
-  height: 7rem;
+  height: 70rem;
   display: flex;
   align-items: center;
   position: relative;
@@ -210,18 +210,18 @@ export default {
   }
 
   .head-image {
-    margin-right: 1.5rem;
-    width: 4.5rem;
-    height: 4.5rem;
+    margin-right: 15rem;
+    width: 45rem;
+    height: 45rem;
     border-radius: 50%;
   }
 
   .add {
     background: @second-btn-color-tran;
-    margin-right: 1.5rem;
-    padding: 1.5rem;
-    width: 1.8rem;
-    height: 1.8rem;
+    margin-right: 15rem;
+    padding: 15rem;
+    width: 18rem;
+    height: 18rem;
     border-radius: 50%;
   }
 
@@ -233,14 +233,14 @@ export default {
 
     .left {
       .name {
-        font-size: 1.4rem;
-        margin-bottom: .2rem;
+        font-size: 14rem;
+        margin-bottom: 2rem;
         color: white;
       }
 
       .detail {
         color: @second-text-color;
-        font-size: 1.2rem;
+        font-size: 12rem;
         margin-top: 4px;
       }
     }
@@ -250,18 +250,18 @@ export default {
       align-items: center;
 
       .l-button {
-        margin-left: .8rem;
-        border-radius: .2rem;
+        margin-left: 8rem;
+        border-radius: 2rem;
         background: rgb(58, 58, 67);
-        font-size: 1.2rem;
-        padding: .5rem 0;
+        font-size: 12rem;
+        padding: 5rem 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 5.8rem;
+        width: 58rem;
 
         &:only-child {
-          width: 7rem;
+          width: 70rem;
         }
 
         &.red {
@@ -271,8 +271,8 @@ export default {
       }
 
       img {
-        height: 1.8rem;
-        margin-left: 2rem;
+        height: 18rem;
+        margin-left: 20rem;
       }
     }
   }
@@ -281,15 +281,15 @@ export default {
     z-index: 9;
     position: absolute;
     bottom: -100%;
-    right: 1rem;
-    border-radius: .8rem;
+    right: 10rem;
+    border-radius: 8rem;
     background: @second-btn-color;
 
     .item {
-      font-size: 1.4rem;
-      padding: 0 4rem 0 1rem;
+      font-size: 14rem;
+      padding: 0 40rem 0 10rem;
       display: flex;
-      height: 4rem;
+      height: 40rem;
       align-items: center;
       border-bottom: 1px solid @line-color;
 
@@ -299,19 +299,19 @@ export default {
       }
 
       img {
-        margin-right: 1rem;
-        height: 2rem;
+        margin-right: 10rem;
+        height: 20rem;
       }
     }
 
     .arrow {
       width: 0;
       height: 0;
-      border: .7rem solid transparent;
-      border-bottom: .7rem solid @second-btn-color;
+      border: 7rem solid transparent;
+      border-bottom: 7rem solid @second-btn-color;
       position: absolute;
-      right: 1rem;
-      top: -1.4rem;
+      right: 10rem;
+      top: -14rem;
     }
   }
 }

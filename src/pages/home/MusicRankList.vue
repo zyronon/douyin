@@ -432,12 +432,12 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .fixed-back {
     position: fixed;
-    left: 1rem;
-    top: 2rem;
+    left: 10rem;
+    top: 20rem;
     z-index: 3;
   }
 
@@ -446,7 +446,7 @@ export default {
     width: 100%;
     position: fixed;
     z-index: 2;
-    height: 6rem;
+    height: 60rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -464,9 +464,9 @@ export default {
     .update-time {
       position: absolute;
       background: rgba(172, 107, 251, .5);
-      bottom: 2rem;
-      border-radius: .1rem;
-      padding: .2rem 3rem;
+      bottom: 20rem;
+      border-radius: 1rem;
+      padding: 2rem 30rem;
     }
   }
 
@@ -481,7 +481,7 @@ export default {
 
     .list {
       .item {
-        padding: 2rem 1.5rem;
+        padding: 20rem 15rem;
         padding-bottom: 0;
         display: flex;
         flex-direction: column;
@@ -492,11 +492,11 @@ export default {
 
           .rank-wrapper {
             .rank {
-              width: 1.8rem;
-              height: 1.8rem;
-              line-height: 1.8rem;
+              width: 18rem;
+              height: 18rem;
+              line-height: 18rem;
               text-align: center;
-              margin-right: 1.5rem;
+              margin-right: 15rem;
             }
           }
 
@@ -510,21 +510,21 @@ export default {
               display: flex;
 
               .cover-wrapper {
-                margin-right: 1rem;
+                margin-right: 10rem;
                 position: relative;
                 display: flex;
                 align-items: center;
                 justify-content: center;
 
                 .play {
-                  width: 3rem;
-                  height: 3rem;
+                  width: 30rem;
+                  height: 30rem;
                   position: absolute;
                 }
 
                 .cover {
-                  border-radius: .2rem;
-                  @width: 6rem;
+                  border-radius: 2rem;
+                  @width: 60rem;
                   width: @width;
                   object-fit: cover;
                   height: @width;
@@ -544,7 +544,7 @@ export default {
                 }
 
                 .author, .desc-bottom {
-                  font-size: 1.2rem;
+                  font-size: 12rem;
                   color: @second-text-color;
                 }
 
@@ -552,7 +552,7 @@ export default {
                   display: flex;
 
                   .duration {
-                    margin-right: 1.4rem;
+                    margin-right: 14rem;
                     position: relative;
 
                     &:after {
@@ -572,9 +572,9 @@ export default {
 
             .option {
               img {
-                width: 2rem;
-                height: 2rem;
-                margin-left: 2rem;
+                width: 20rem;
+                height: 20rem;
+                margin-left: 20rem;
               }
             }
 
@@ -583,9 +583,9 @@ export default {
 
         .bottom {
           background: @second-btn-color-tran;
-          padding: 1rem 1.5rem;
-          margin-left: 3.3rem;
-          margin-top: 1.5rem;
+          padding: 10rem 15rem;
+          margin-left: 33rem;
+          margin-top: 15rem;
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -594,27 +594,27 @@ export default {
           .arrow {
             width: 0;
             height: 0;
-            border: .8rem solid transparent;
-            border-bottom: .8rem solid @second-btn-color-tran;
+            border: 8rem solid transparent;
+            border-bottom: 8rem solid @second-btn-color-tran;
             position: absolute;
-            left: 2rem;
-            top: -1.5rem;
+            left: 20rem;
+            top: -15rem;
           }
 
           .left {
             display: flex;
 
             .avatar {
-              width: 3.5rem;
-              height: 3.5rem;
-              margin-right: 1rem;
+              width: 35rem;
+              height: 35rem;
+              margin-right: 10rem;
               border-radius: 50%;
             }
           }
 
           .button {
-            width: 6rem;
-            height: 2.5rem;
+            width: 60rem;
+            height: 25rem;
           }
         }
       }

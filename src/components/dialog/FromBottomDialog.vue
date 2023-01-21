@@ -61,7 +61,7 @@ export default {
     },
     borderRadius: {
       type: String,
-      default: '.5rem .5rem 0 0'
+      default: '5rem 5rem 0 0'
     },
   },
   watch: {
@@ -186,7 +186,7 @@ export default {
   position: fixed;
   width: 100%;
   overflow: auto;
-  padding-top: 2.4rem;
+  padding-top: 24rem;
   bottom: 0;
   left: 0;
   box-sizing: border-box;
@@ -210,13 +210,13 @@ export default {
   }
 
   .heng-gang {
-    border-radius: .5rem .5rem 0 0;
+    border-radius: 5rem 5rem 0 0;
     z-index: 3;
     width: 100%;
     position: fixed;
-    height: 2rem;
+    height: 20rem;
     display: flex;
-    transform: translateY(-2.4rem);
+    transform: translateY(-24rem);
     justify-content: center;
     align-items: center;
 
@@ -246,8 +246,8 @@ export default {
 
     .content {
       border-radius: 2px;
-      height: .4rem;
-      width: 3rem;
+      height: 4rem;
+      width: 30rem;
     }
   }
 }

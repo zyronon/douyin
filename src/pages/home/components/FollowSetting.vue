@@ -5,7 +5,7 @@
       :show-heng-gang="false"
       maskMode="dark"
       @cancel="cancel()"
-      height="33rem"
+      height="330rem"
       mode="light">
     <div class="follow-setting-dialog">
       <div class="dialog-header">
@@ -92,12 +92,12 @@ export default {
 @import "../../../assets/less/index";
 
 .follow-setting-dialog {
-  padding: 1.5rem;
-  font-size: 1.4rem;
+  padding: 15rem;
+  font-size: 14rem;
 
   .dialog-header {
     color: rgb(81, 81, 89);
-    font-size: 1.4rem;
+    font-size: 14rem;
     position: relative;
     display: flex;
     align-items: flex-start;
@@ -109,44 +109,44 @@ export default {
     }
 
     .title {
-      font-size: 1.8rem;
+      font-size: 18rem;
     }
 
     .subtitle {
-      margin-top: .5rem;
+      margin-top: 5rem;
       color: @second-text-color;
-      font-size: 1.3rem;
+      font-size: 13rem;
     }
 
     img {
-      width: 1.4rem;
-      height: 1.4rem;
-      padding: .6rem;
+      width: 14rem;
+      height: 14rem;
+      padding: 6rem;
       border-radius: 50%;
       background: rgba(187, 187, 194, 0.4);
     }
   }
 
   .options {
-    margin-top: 2rem;
+    margin-top: 20rem;
     display: flex;
     justify-content: space-between;
 
     .option {
       box-sizing: border-box;
-      padding: 1rem;
+      padding: 10rem;
       display: flex;
       background: white;
       flex-direction: column;
       align-items: center;
       width: 23%;
-      font-size: 1.2rem;
-      border-radius: .8rem;
+      font-size: 12rem;
+      border-radius: 8rem;
 
       img {
-        margin-top: .5rem;
-        margin-bottom: 1rem;
-        @width: 2rem;
+        margin-top: 5rem;
+        margin-bottom: 10rem;
+        @width: 20rem;
         width: @width;
         height: @width;
       }
@@ -154,11 +154,11 @@ export default {
   }
 
   .l-rows {
-    margin-top: 2rem;
+    margin-top: 20rem;
 
     .l-row {
-      height: 4.5rem;
-      padding: 0 2rem;
+      height: 45rem;
+      padding: 0 20rem;
       background: white;
       display: flex;
       align-items: center;
@@ -166,17 +166,17 @@ export default {
       border-bottom: 1px solid rgba(222, 222, 222, 0.42);
 
       &:nth-child(1) {
-        border-radius: 1rem 1rem 0 0;
+        border-radius: 10rem 10rem 0 0;
       }
 
       &:nth-child(3) {
         border-bottom: none;
-        border-radius: 0 0 1rem 1rem;
+        border-radius: 0 0 10rem 10rem;
       }
 
       img {
-        width: 2rem;
-        height: 2rem;
+        width: 20rem;
+        height: 20rem;
       }
     }
   }

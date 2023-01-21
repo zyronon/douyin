@@ -84,7 +84,7 @@ export default {
   .content {
     background: white;
     width: 80vw;
-    margin-bottom: 2rem;
+    margin-bottom: 20rem;
     position: relative;
 
     .top {
@@ -92,22 +92,22 @@ export default {
     }
 
     .desc {
-      margin-bottom: 2rem;
+      margin-bottom: 20rem;
       display: flex;
-      padding: 1rem;
+      padding: 10rem;
 
       .left {
-        font-size: 1.8rem;
+        font-size: 18rem;
 
         .title {
-          font-size: 1.4rem;
+          font-size: 14rem;
           color: @second-text-color;
         }
 
       }
 
       .code {
-        width: 6rem;
+        width: 60rem;
       }
     }
 
@@ -119,7 +119,7 @@ export default {
       width: 35vw;
       height: calc(35vw * 1.5);
       position: absolute;
-      top: 8rem;
+      top: 80rem;
       left: 50%;
       transform: translateX(-50%);
       overflow: hidden;
@@ -138,7 +138,7 @@ export default {
       .play {
         position: relative;
         z-index: 9;
-        width: 4rem;
+        width: 40rem;
       }
     }
   }
@@ -146,17 +146,17 @@ export default {
   .toolbar {
     width: 100vw;
     background: black;
-    border-radius: 1rem 1rem 0 0;
+    border-radius: 10rem 10rem 0 0;
     color: white;
 
     .title {
-      font-size: 1.2rem;
-      padding: 1rem;
+      font-size: 12rem;
+      padding: 10rem;
       text-align: center;
     }
 
-    @space-width: 1.8rem;
-    @icon-width: 4.5rem;
+    @space-width: 18rem;
+    @icon-width: 45rem;
 
     .shares {
       display: flex;
@@ -176,7 +176,7 @@ export default {
 
         span {
           color: @second-text-color;
-          font-size: 1rem;
+          font-size: 10rem;
           display: block;
           text-align: center;
         }
@@ -184,9 +184,9 @@ export default {
     }
 
     .cancel {
-      font-size: 1.6rem;
+      font-size: 16rem;
       background: rgb(38,38,38);
-      padding: 1.5rem;
+      padding: 15rem;
       text-align: center;
     }
 

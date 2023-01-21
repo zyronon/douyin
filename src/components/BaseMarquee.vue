@@ -105,7 +105,7 @@ export default {
 
     .space {
       display: inline-block;
-      width: 5rem;
+      width: 50rem;
     }
   }
 

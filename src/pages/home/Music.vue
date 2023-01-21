@@ -229,7 +229,7 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .header {
     position: fixed;
@@ -238,14 +238,14 @@ export default {
     background: @main-bg;
     width: 100%;
     box-sizing: border-box;
-    padding: 0 1.5rem;
-    height: 6rem;
+    padding: 0 15rem;
+    height: 60rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     .center {
-      font-size: 1.3rem;
+      font-size: 13rem;
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
@@ -258,34 +258,34 @@ export default {
       .logo {
         background: linear-gradient(to bottom, #794CFF 5%, #4C3EFE 50%);
         //padding: .2rem 1rem;
-        width: 8rem;
-        height: 2rem;
-        border-radius: 1rem;
+        width: 80rem;
+        height: 20rem;
+        border-radius: 10rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1rem;
+        font-size: 10rem;
       }
 
       img {
-        width: 2.4rem;
-        height: 2.4rem;
-        margin-left: 1.5rem;
+        width: 24rem;
+        height: 24rem;
+        margin-left: 15rem;
       }
     }
   }
 
   .content {
-    padding-top: 6rem;
+    padding-top: 60rem;
 
     .Scroll {
-      height: calc(100vh - 6rem);
+      height: calc(100vh - 60rem);
     }
 
     .desc {
-      padding: 1rem 1.5rem 3rem 1.5rem;
+      padding: 10rem 15rem 30rem 15rem;
       display: flex;
-      height: 12rem;
+      height: 120rem;
 
       .cover-wrapper {
         position: relative;
@@ -294,82 +294,81 @@ export default {
         justify-content: center;
 
         .play {
-          width: 4rem;
-          height: 4rem;
+          width: 40rem;
+          height: 40rem;
           position: absolute;
         }
 
         .cover {
-          width: 12rem;
+          width: 120rem;
           object-fit: cover;
           height: 100%;
-          border-radius: .3rem;
+          border-radius: 3rem;
         }
       }
 
       .info {
-        margin-left: 1.5rem;
+        margin-left: 15rem;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
 
 
         .name {
-          font-size: 1.8rem;
+          font-size: 18rem;
           color: #fff;
           font-weight: bold;
-          margin-bottom: 1rem;
+          margin-bottom: 10rem;
         }
 
         .user, .peoples {
-          font-size: 1.2rem;
-          margin-bottom: 0.5rem;
+          font-size: 12rem;
+          margin-bottom: 5rem;
           color: #999999;
         }
 
         .collection {
           display: flex;
           justify-content: center;
-          height: 2.5rem;
-          width: 7rem;
+          height: 25rem;
+          width: 70rem;
           align-items: center;
           color: #ffffff;
           background: @second-btn-color;
-          border-radius: 0.2rem;
-          font-size: 1.3rem;
+          border-radius: 2rem;
+          font-size: 13rem;
 
           img {
-            margin-right: .5rem;
-            width: 1.3rem;
-            height: 1.3rem;
+            margin-right: 5rem;
+            width: 13rem;
+            height: 13rem;
           }
         }
       }
     }
-
   }
 
   .options {
-    font-size: 1.4rem;
+    font-size: 14rem;
     width: 100vw;
     position: fixed;
-    bottom: 2rem;
+    bottom: 20rem;
     display: flex;
     justify-content: center;
 
     img {
-      width: 2rem;
-      height: 2rem;
-      margin-right: .5rem;
+      width: 20rem;
+      height: 20rem;
+      margin-right: 5rem;
     }
 
     .l-button {
-      margin-left: .5rem;
-      margin-right: .5rem;
-      width: 14rem;
-      border-radius: 5rem;
+      margin-left: 5rem;
+      margin-right: 5rem;
+      width: 140rem;
+      border-radius: 50rem;
       display: flex;
-      padding: 1.5rem 0;
+      padding: 15rem 0;
       align-items: center;
       justify-content: center;
     }

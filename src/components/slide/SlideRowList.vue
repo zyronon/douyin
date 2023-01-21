@@ -21,9 +21,9 @@
         <img src="../../assets/img/icon/search-gray.png" alt=""
              :style="{opacity:loading ? 0 : 1}"
              @click="$nav('/home/search')"
-             style="margin-top: .5rem;">
+             style="margin-top: 5rem;">
       </div>
-      <Loading class="loading" style="width: 4rem;" :style="loadingStyle" :is-full-screen="false"/>
+      <Loading class="loading" style="width: 40rem;" :style="loadingStyle" :is-full-screen="false"/>
     </div>
 
     <div class="indicator-bullets" v-if="indicatorType === 'bullets' && slideItems.length">
@@ -362,7 +362,7 @@ export default {
 
   .indicator-home {
     position: fixed;
-    font-size: 1.6rem;
+    font-size: 16rem;
     top: 0;
     left: 0;
     height: 60px;
@@ -383,8 +383,8 @@ export default {
 
     .loading {
       opacity: 0;
-      top: 1.3rem;
-      right: 1.5rem;
+      top: 13rem;
+      right: 15rem;
       position: absolute;
 
     }
@@ -396,7 +396,7 @@ export default {
       width: 100%;
       height: 100%;
       box-sizing: border-box;
-      padding: 0 1.5rem;
+      padding: 0 15rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -424,11 +424,11 @@ export default {
         .indicator {
           //transition: left .3s;
           position: absolute;
-          bottom: -0.8rem;
-          height: .3rem;
-          width: 2rem;
+          bottom: -8rem;
+          height: 3rem;
+          width: 20rem;
           background: #fff;
-          border-radius: .5rem;
+          border-radius: 5rem;
         }
       }
     }
@@ -436,7 +436,7 @@ export default {
 
   .indicator-bullets {
     position: absolute;
-    bottom: 1rem;
+    bottom: 10rem;
     z-index: 2;
     left: 0;
     display: flex;
@@ -444,10 +444,10 @@ export default {
     width: 100%;
 
     .bullet {
-      @width: .5rem;
+      @width: 5rem;
       width: @width;
       height: @width;
-      margin: 0 .3rem;
+      margin: 0 3rem;
       border-radius: 50%;
       background: @second-btn-color;
 

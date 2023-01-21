@@ -37,7 +37,7 @@ export default {
 @import "../assets/less/index";
 
 .check {
-  @width: 1.4rem;
+  @width: 14rem;
   width: @width;
   height: @width;
 

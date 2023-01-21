@@ -431,7 +431,7 @@ export default {
 
   .indicator-home {
     position: fixed;
-    font-size: 1.6rem;
+    font-size: 16rem;
     top: 0;
     left: 0;
     height: 60px;

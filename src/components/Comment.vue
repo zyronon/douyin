@@ -331,22 +331,22 @@ export default {
   position: fixed;
   left: 0;
   right: 0;
-  height: 4rem;
-  padding: 0 1.5rem;
+  height: 40rem;
+  padding: 0 15rem;
   background: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-radius: 1rem 1rem 0 0;
+  border-radius: 10rem 10rem 0 0;
 
   span {
-    font-size: 1.2rem;
+    font-size: 12rem;
     text-align: center;
   }
 
   img {
-    width: 1.3rem;
-    height: 1.3rem;
+    width: 13rem;
+    height: 13rem;
   }
 }
 
@@ -355,18 +355,18 @@ export default {
   height: v-bind(height);
   background: #fff;
   z-index: 5;
-  border-radius: 1rem 1rem 0 0;
+  border-radius: 10rem 10rem 0 0;
 
   .wrapper {
     position: relative;
-    padding-top: 4rem;
-    padding-bottom: 6rem;
+    padding-top: 40rem;
+    padding-bottom: 60rem;
   }
 
   .items {
     .item {
       .main {
-        padding: .5rem 0;
+        padding: 5rem 0;
         display: flex;
 
         &:active {
@@ -374,19 +374,19 @@ export default {
         }
 
         .head-image {
-          margin-left: 1.5rem;
-          margin-right: 1rem;
-          width: 3.5rem;
-          height: 3.5rem;
+          margin-left: 15rem;
+          margin-right: 10rem;
+          width: 35rem;
+          height: 35rem;
           border-radius: 50%;
         }
       }
 
       .replies {
-        padding-left: 5.5rem;
+        padding-left: 55rem;
 
         .reply {
-          padding: .5rem 0 .5rem .5rem;
+          padding: 5rem 0 5rem 5rem;
           display: flex;
 
           &:active {
@@ -394,34 +394,34 @@ export default {
           }
 
           .head-image {
-            margin-right: 1rem;
-            width: 2rem;
-            height: 2rem;
+            margin-right: 10rem;
+            width: 20rem;
+            height: 20rem;
             border-radius: 50%;
           }
         }
 
         .more {
-          font-size: 1.2rem;
-          margin: .5rem;
+          font-size: 12rem;
+          margin: 5rem;
           display: flex;
           align-items: center;
           color: @second-text-color;
 
           .gang {
             background: #d5d5d5;
-            width: 2rem;
-            margin-right: 1rem;
+            width: 20rem;
+            margin-right: 10rem;
             height: 1px;
           }
 
           .arrow {
-            margin-left: .5rem;
-            margin-top: .8rem;
+            margin-left: 5rem;
+            margin-top: 8rem;
             width: 0;
             height: 0;
-            border: .5rem solid transparent;
-            border-top: .6rem solid @second-text-color;
+            border: 5rem solid transparent;
+            border-top: 6rem solid @second-text-color;
           }
         }
       }
@@ -429,29 +429,29 @@ export default {
       .content {
         display: flex;
         flex: 1;
-        font-size: 1.4rem;
+        font-size: 14rem;
 
         .comment-container {
           width: 85%;
 
           .name {
             color: @second-text-color;
-            margin-bottom: .5rem;
+            margin-bottom: 5rem;
             display: flex;
             align-items: center;
 
 
             .reply-user {
-              margin-left: .5rem;
+              margin-left: 5rem;
               width: 0;
               height: 0;
-              border: .5rem solid transparent;
-              border-left: .6rem solid gray;
+              border: 5rem solid transparent;
+              border-left: 6rem solid gray;
             }
           }
 
           .detail {
-            margin-bottom: .5rem;
+            margin-bottom: 5rem;
           }
 
           .time-wrapper {
@@ -460,7 +460,7 @@ export default {
 
             .time {
               color: #c4c3c3;
-              margin-right: 1.5rem;
+              margin-right: 15rem;
             }
 
             .reply-text {
@@ -473,17 +473,17 @@ export default {
       .love {
         color: @second-text-color;
         text-align: center;
-        width: 3rem;
-        padding-right: 1rem;
+        width: 30rem;
+        padding-right: 10rem;
 
         .love-image {
-          width: 2.5rem;
+          width: 25rem;
           border-radius: 50%;
         }
 
         span {
-          font-size: 1rem;
-          transform: translateY(-.5rem);
+          font-size: 10rem;
+          transform: translateY(-5rem);
         }
       }
     }
@@ -494,18 +494,18 @@ export default {
   @chat-bg-color: rgb(105, 143, 244);
 
   .input-toolbar {
-    border-radius: 1rem 1rem 0 0;
+    border-radius: 10rem 10rem 0 0;
     background: white;
     position: fixed;
     width: 100vw;
     bottom: 0;
     z-index: 3;
 
-    @space-width: 1.8rem;
-    @icon-width: 4.8rem;
+    @space-width: 18rem;
+    @icon-width: 48rem;
 
     .call-friend {
-      padding-top: 3rem;
+      padding-top: 30rem;
       overflow-x: scroll;
       display: flex;
       padding-right: @space-width;
@@ -515,7 +515,7 @@ export default {
         position: relative;
         margin-left: @space-width;
         margin-bottom: @space-width;
-        font-size: 1rem;
+        font-size: 10rem;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -527,7 +527,7 @@ export default {
         }
 
         span {
-          margin-top: .5rem;
+          margin-top: 5rem;
           text-align: center;
           width: @icon-width;
           white-space: nowrap;
@@ -539,18 +539,18 @@ export default {
           position: absolute;
           top: @icon-width - 1.5;
           right: -2px;
-          width: 2rem;
-          height: 2rem;
+          width: 20rem;
+          height: 20rem;
           border-radius: 50%;
         }
       }
     }
 
     .toolbar {
-      @icon-width: 2.5rem;
+      @icon-width: 25rem;
       display: flex;
       align-items: center;
-      padding: 1rem 1.5rem;
+      padding: 10rem 15rem;
       border-top: 1px solid #e2e1e1;
 
       .input-wrapper {
@@ -559,9 +559,9 @@ export default {
         align-items: center;
         justify-content: space-between;
         box-sizing: border-box;
-        padding: .5rem 1rem;
+        padding: 5rem 10rem;
         background: #eee;
-        border-radius: 2rem;
+        border-radius: 20rem;
 
         .right {
           display: flex;
@@ -569,7 +569,7 @@ export default {
         }
 
         .auto-input {
-          width: calc(100vw - 18rem);
+          width: calc(100vw - 180rem);
         }
       }
 
@@ -577,7 +577,7 @@ export default {
         width: @icon-width;
         height: @icon-width;
         border-radius: 50%;
-        margin-left: 1.5rem;
+        margin-left: 15rem;
       }
     }
   }

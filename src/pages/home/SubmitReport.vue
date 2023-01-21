@@ -83,33 +83,33 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .content {
-    padding-top: 6rem;
+    padding-top: 60rem;
 
     .title {
-      font-size: 1.2rem;
-      padding: 1rem 1.5rem;
+      font-size: 12rem;
+      padding: 10rem 15rem;
       color: @second-text-color;
       border-bottom: 1px solid #cccccc11;
 
       img {
-        width: 1rem;
-        height: 1rem;
-        margin-right: .2rem;
+        width: 10rem;
+        height: 10rem;
+        margin-right: 2rem;
       }
     }
 
     .l-row {
-      padding: 0 1.5rem;
+      padding: 0 15rem;
 
       .textarea-ctn {
         width: 100%;
         background: @active-main-bg;
-        padding: 1.5rem;
+        padding: 15rem;
         box-sizing: border-box;
-        margin-top: 1rem;
+        margin-top: 10rem;
         border-radius: 2px;
 
 
@@ -128,19 +128,19 @@ export default {
       }
 
       .text-num {
-        margin-top: .5rem;
-        font-size: 1rem;
+        margin-top: 5rem;
+        font-size: 10rem;
         color: @second-text-color;
         text-align: right;
       }
     }
 
     .upload-photo {
-      margin-top: .5rem;
+      margin-top: 5rem;
       display: flex;
-      padding: 0 1.5rem;
+      padding: 0 15rem;
 
-      @width: calc((100vw - 3vw - 3rem) / 4);
+      @width: calc((100vw - 3vw - 30rem) / 4);
 
       .photo-wrapper {
         width: @width;
@@ -160,9 +160,9 @@ export default {
           right: 0;
           top: 0;
           background: @second-btn-color;
-          padding: .3rem;
-          width: 1rem;
-          height: 1rem;
+          padding: 3rem;
+          width: 10rem;
+          height: 10rem;
         }
       }
 
@@ -173,13 +173,13 @@ export default {
         flex-direction: column;
         justify-content: center;
         color: @second-text-color;
-        font-size: 1.2rem;
+        font-size: 12rem;
         align-items: center;
         background: @second-btn-color-tran;
 
         img {
-          width: 3.5rem;
-          height: 3.5rem;
+          width: 35rem;
+          height: 35rem;
         }
       }
     }
@@ -187,9 +187,9 @@ export default {
 
   .button {
     position: absolute;
-    left: 1.5rem;
-    right: 1.5rem;
-    bottom: 1.5rem;
+    left: 15rem;
+    right: 15rem;
+    bottom: 15rem;
   }
 }
 </style>

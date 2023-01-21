@@ -171,48 +171,48 @@ export default {
 @import "../../../assets/less/index";
 
 .button {
-  width: 6.4rem;
-  height: 2.6rem !important;
+  width: 64rem;
+  height: 26rem !important;
 }
 
-@avatar-width: 3.8rem;
+@avatar-width: 38rem;
 
 .friend-list {
-  padding: 0 1.5rem;
+  padding: 0 15rem;
 
   .index {
     color: @second-text-color;
-    height: 6rem;
-    line-height: 6rem;
-    font-size: 1.3rem;
+    height: 60rem;
+    line-height: 60rem;
+    font-size: 13rem;
   }
 
   .friend-item {
-    margin-bottom: 2rem;
+    margin-bottom: 20rem;
     display: flex;
     align-items: center;
     //background: #fff;
 
     &:nth-child(1) {
-      margin-top: 1rem;
+      margin-top: 10rem;
     }
 
     .left {
       width: @avatar-width;
       height: @avatar-width;
       border-radius: 50%;
-      margin-right: 1.5rem;
+      margin-right: 15rem;
     }
 
     .right {
-      font-size: 1.4rem;
+      font-size: 14rem;
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: space-between;
 
       img {
-        height: 2rem;
+        height: 20rem;
       }
     }
   }
@@ -222,28 +222,28 @@ export default {
   color: white;
 
   .create-chat {
-    padding-bottom: 4rem;
+    padding-bottom: 40rem;
     background: @main-bg;
 
     .search-ctn {
-      padding: 0 1.5rem;
+      padding: 0 15rem;
     }
 
     .joined-chat-group-nav {
       border-bottom: 1px solid @line-color;
-      height: 5rem;
-      padding: 0 1.5rem;
+      height: 50rem;
+      padding: 0 15rem;
       display: flex;
       align-items: center;
 
       .left {
-        width: 2.2rem;
-        height: 2.2rem;
-        margin-right: 1rem;
+        width: 22rem;
+        height: 22rem;
+        margin-right: 10rem;
       }
 
       .right {
-        font-size: 1.4rem;
+        font-size: 14rem;
         flex: 1;
         display: flex;
         align-items: center;
@@ -263,15 +263,15 @@ export default {
       justify-content: center;
 
       .btn {
-        margin-bottom: 2rem;
-        width: calc(100% - 4rem);
-        height: 4rem;
+        margin-bottom: 20rem;
+        width: calc(100% - 40rem);
+        height: 40rem;
         display: flex;
         align-items: center;
-        font-size: 1.4rem;
+        font-size: 14rem;
         justify-content: center;
         background: #3f445c;
-        border-radius: .2rem;
+        border-radius: 2rem;
 
         &.primary {
           background: @primary-btn-color;
@@ -287,12 +287,12 @@ export default {
       flex-direction: column;
 
       .notice-h1 {
-        font-size: 1.6rem;
+        font-size: 16rem;
       }
 
       .notice-h2 {
-        margin-top: 1rem;
-        font-size: 1.4rem;
+        margin-top: 10rem;
+        font-size: 14rem;
         color: @second-text-color;
       }
 
@@ -303,17 +303,17 @@ export default {
     background: @main-bg;
 
     .nav {
-      font-size: 1.6rem;
-      padding: 1.5rem;
+      font-size: 16rem;
+      padding: 15rem;
       display: flex;
       justify-content: space-between;
     }
 
     .chat-list {
-      padding: 0 1.5rem;
+      padding: 0 15rem;
 
       .chat-item {
-        margin-bottom: 2rem;
+        margin-bottom: 20rem;
         display: flex;
         align-items: center;
         position: relative;
@@ -324,18 +324,18 @@ export default {
         }
 
         &:nth-child(1) {
-          margin-top: 1rem;
+          margin-top: 10rem;
         }
 
         .left {
           width: @avatar-width;
           height: @avatar-width;
           border-radius: 50%;
-          margin-right: 1.5rem;
+          margin-right: 15rem;
         }
 
         .right {
-          font-size: 1.4rem;
+          font-size: 14rem;
           flex: 1;
           display: flex;
           align-items: center;
@@ -355,13 +355,13 @@ export default {
             }
 
             .num {
-              margin-left: .5rem;
+              margin-left: 5rem;
               color: @second-text-color;
             }
           }
 
           img {
-            height: 1.5rem;
+            height: 15rem;
           }
         }
       }
