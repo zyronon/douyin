@@ -238,7 +238,7 @@ export default {
 .send-gift {
   position: fixed;
   top: 63vh;
-  left: 1.5rem;
+  left: 15rem;
   display: flex;
   align-items: flex-end;
   animation: send-gift-anim 2s linear;
@@ -264,14 +264,14 @@ export default {
 
   .left {
     background: linear-gradient(to right, @primary-btn-color, rgba(252, 47, 86, .2));
-    padding: .5rem;
-    border-radius: 5rem;
+    padding: 5rem;
+    border-radius: 50rem;
     display: flex;
     align-items: center;
 
     .avatar {
-      margin-right: .5rem;
-      width: 4rem;
+      margin-right: 5rem;
+      width: 40rem;
       border-radius: 50%;
     }
 
@@ -285,11 +285,11 @@ export default {
       }
 
       .name {
-        font-size: 1.4rem;
+        font-size: 14rem;
       }
 
       .sendto {
-        font-size: 1.2rem;
+        font-size: 12rem;
         color: yellow;
       }
 
@@ -299,13 +299,13 @@ export default {
     }
 
     .gift-icon {
-      width: 4rem;
+      width: 40rem;
     }
 
   }
 
   .right {
-    font-size: 2.3rem;
+    font-size: 23rem;
     font-weight: bold;
     font-style: oblique;
   }
@@ -317,7 +317,7 @@ export default {
   transform: translateX(100vw);
   display: flex;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 12rem;
   animation: anim 5s linear;
 
   @keyframes anim {
@@ -330,24 +330,24 @@ export default {
   }
 
   .type {
-    padding: .1rem .6rem;
+    padding: 1rem 6rem;
     border: 1px solid white;
-    border-radius: 2rem;
-    margin-right: .5rem;
+    border-radius: 20rem;
+    margin-right: 5rem;
   }
 
 }
 
 .user-joined {
   @tag-bg: rgba(58, 58, 70, 0.3);
-  font-size: 1.2rem;
+  font-size: 12rem;
   position: absolute;
   top: 70vh;
-  left: 1.5rem;
-  padding: .4rem .8rem;
-  border-radius: 2rem;
+  left: 15rem;
+  padding: 4rem 8rem;
+  border-radius: 20rem;
   background: rgba(115, 114, 181, .7);
-  margin-bottom: .5rem;
+  margin-bottom: 5rem;
   animation: user-joined-anim 3s linear;
 
   @keyframes user-joined-anim {
@@ -357,7 +357,7 @@ export default {
     }
     10% {
       opacity: 1;
-      transform: translateX(3rem);
+      transform: translateX(30rem);
     }
     90% {
       opacity: 1;
@@ -378,22 +378,22 @@ export default {
       display: flex;
       @color: rgb(130, 133, 185);
       align-items: center;
-      font-size: 1rem;
-      border-radius: 1rem;
-      margin-right: 0.5rem;
-      padding: 0 .6rem;
+      font-size: 10rem;
+      border-radius: 10rem;
+      margin-right: 5rem;
+      padding: 0 6rem;
       background: @color;
 
       img {
-        margin-right: 0.3rem;
-        width: 1.2rem;
+        margin-right: 3rem;
+        width: 12rem;
       }
     }
   }
 
   .name {
-    margin-right: 0.5rem;
-    font-size: 1.3rem;
+    margin-right: 5rem;
+    font-size: 13rem;
     color: @text-color;
   }
 
@@ -410,7 +410,7 @@ export default {
   width: 100vw;
   height: 100vh;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
   position: relative;
 
   .live-wrapper {
@@ -436,7 +436,7 @@ export default {
     .top {
       display: flex;
       justify-content: space-between;
-      margin-top: 1rem;
+      margin-top: 10rem;
 
       .left {
         margin-left: @padding-page;
@@ -445,15 +445,15 @@ export default {
           box-sizing: border-box;
           background: @second-btn-color-tran;
           display: flex;
-          padding: .3rem .4rem .3rem .2rem;
+          padding: 3rem 4rem 3rem 2rem;
           align-items: center;
-          border-radius: 2rem;
+          border-radius: 20rem;
 
           .avatar {
             border-radius: 50%;
-            width: 3rem;
-            height: 3rem;
-            margin-right: .4rem;
+            width: 30rem;
+            height: 30rem;
+            margin-right: 4rem;
           }
 
           .desc {
@@ -464,10 +464,10 @@ export default {
 
 
             .desc-wrapper {
-              width: 8rem;
+              width: 80rem;
 
               .name {
-                font-size: 1.2rem;
+                font-size: 12rem;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -475,19 +475,19 @@ export default {
 
               .count {
                 color: gainsboro;
-                font-size: 1rem;
+                font-size: 10rem;
               }
             }
 
             .follow-btn {
-              height: 3rem;
-              width: 4.5rem;
+              height: 30rem;
+              width: 45rem;
               background: @primary-btn-color;
-              border-radius: 3rem;
+              border-radius: 30rem;
               display: flex;
               align-items: center;
               justify-content: center;
-              font-size: 1.2rem;
+              font-size: 12rem;
             }
           }
         }
@@ -495,20 +495,20 @@ export default {
         .left-bottom {
           margin-top: calc(@padding-page / 2);
           display: flex;
-          font-size: 1.2rem;
+          font-size: 12rem;
 
           .tag {
             display: flex;
             align-items: center;
-            padding: .4rem 1rem;
+            padding: 4rem 10rem;
             background: @tag-bg;
-            border-radius: 2rem;
-            margin-right: 1rem;
+            border-radius: 20rem;
+            margin-right: 10rem;
 
             img {
-              margin-right: .5rem;
-              width: 1rem;
-              height: 1rem;
+              margin-right: 5rem;
+              width: 10rem;
+              height: 10rem;
             }
           }
         }
@@ -516,23 +516,23 @@ export default {
       }
 
       .right {
-        margin-top: .3rem;
+        margin-top: 3rem;
         display: flex;
         flex-direction: column;
 
         .follower {
-          @width: 3rem;
+          @width: 30rem;
           display: flex;
 
           .round {
             width: @width;
             height: @width;
             border-radius: 50%;
-            margin-right: .3rem;
+            margin-right: 3rem;
           }
 
           .count {
-            font-size: 1.2rem;
+            font-size: 12rem;
             background: @second-btn-color-tran;
             display: flex;
             align-items: center;
@@ -540,11 +540,11 @@ export default {
           }
 
           .close {
-            margin-right: 1rem;
-            margin-left: .5rem;
-            padding: 0.6rem;
-            width: calc(@width - 1.2rem);
-            height: calc(@width - 1.2rem);
+            margin-right: 10rem;
+            margin-left: 5rem;
+            padding: 6rem;
+            width: calc(@width - 12rem);
+            height: calc(@width - 12rem);
           }
         }
 
@@ -553,16 +553,15 @@ export default {
           justify-content: flex-end;
 
           .wrapper {
-            border-radius: 1.3rem 0 0 1.3rem;
-            padding: .2rem 0 .2rem 1rem;
-            margin-top: 1.5rem;
+            border-radius: 13rem 0 0 13rem;
+            padding: 2rem 0 2rem 10rem;
+            margin-top: 15rem;
             background: @tag-bg;
             display: flex;
             align-items: center;
-            font-size: 1rem;
+            font-size: 10rem;
           }
         }
-
       }
     }
 
@@ -572,7 +571,7 @@ export default {
       width: 100vw;
       box-sizing: border-box;
       padding: @padding-page;
-      padding-bottom: 1rem;
+      padding-bottom: 10rem;
       display: flex;
 
 
@@ -580,7 +579,7 @@ export default {
         width: 87%;
 
         .comments {
-          margin-bottom: 1rem;
+          margin-bottom: 10rem;
           overflow: auto;
           height: 20vh;
 
@@ -592,10 +591,10 @@ export default {
           }
 
           .comment {
-            padding: .4rem .5rem;
-            border-radius: 1rem;
+            padding: 4rem 5rem;
+            border-radius: 10rem;
             background: @tag-bg;
-            margin-bottom: .5rem;
+            margin-bottom: 5rem;
 
             @text-color: rgb(164, 234, 253);
 
@@ -612,22 +611,22 @@ export default {
                 display: flex;
                 @color: rgb(130, 133, 185);
                 align-items: center;
-                font-size: 1rem;
-                border-radius: 1rem;
-                margin-right: 0.5rem;
-                padding: 0 .6rem;
+                font-size: 10rem;
+                border-radius: 10rem;
+                margin-right: 5rem;
+                padding: 0 6rem;
                 background: @color;
 
                 img {
-                  margin-right: 0.3rem;
-                  width: 1.2rem;
+                  margin-right: 3rem;
+                  width: 12rem;
                 }
               }
             }
 
             .name {
-              margin-right: 0.5rem;
-              font-size: 1.3rem;
+              margin-right: 5rem;
+              font-size: 13rem;
               color: @text-color;
             }
 
@@ -644,31 +643,31 @@ export default {
           .input {
             flex: 1;
             color: #a2a2a2;
-            font-size: 1.2rem;
-            border-radius: 1.5rem;
-            padding: .4rem 1rem;
+            font-size: 12rem;
+            border-radius: 15rem;
+            padding: 4rem 10rem;
             background: @tag-bg;
             display: flex;
             align-items: center;
             justify-content: space-between;
 
             img {
-              width: 2rem;
+              width: 20rem;
             }
           }
 
           .more {
-            margin-left: 1rem;
-            width: 2rem;
-            height: 2rem;
-            padding: .5rem;
+            margin-left: 10rem;
+            width: 20rem;
+            height: 20rem;
+            padding: 5rem;
             background: @tag-bg;
             border-radius: 50%;
           }
 
           .gift {
-            margin-left: 1rem;
-            width: 3.1rem;
+            margin-left: 10rem;
+            width: 31rem;
           }
         }
       }
@@ -679,12 +678,12 @@ export default {
         justify-content: flex-end;
         align-items: flex-end;
 
-        @width: 3.5rem;
+        @width: 35rem;
 
         .avatar-wrapper {
           background: linear-gradient(to bottom, #000000, @primary-btn-color);
-          border-radius: 2rem;
-          width: calc(@width + .2rem);
+          border-radius: 20rem;
+          width: calc(@width + 2rem);
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -698,27 +697,27 @@ export default {
             width: @width;
             border-radius: 50%;
             background: white;
-            padding: .15rem;
+            padding: 1.5rem;
           }
 
           .follow {
-            width: 3.2rem;
-            margin-top: .5rem;
-            margin-bottom: .5rem;
+            width: 32rem;
+            margin-top: 5rem;
+            margin-bottom: 5rem;
           }
 
           .options {
-            margin-top: .8rem;
-            margin-bottom: .5rem;
+            margin-top: 8rem;
+            margin-bottom: 5rem;
             display: flex;
-            width: 2rem;
-            height: 2rem;
+            width: 20rem;
+            height: 20rem;
             justify-content: center;
             align-items: center;
 
             img {
               position: absolute;
-              width: 1.8rem;
+              width: 18rem;
               transition: all .8s;
             }
 
@@ -740,12 +739,9 @@ export default {
               }
             }
           }
-
         }
       }
     }
-
   }
-
 }
 </style>

@@ -43,13 +43,13 @@ export default {
   .content {
     background: white;
     width: 80%;
-    padding: .5rem 0;
+    padding: 5rem 0;
     border-radius: 2px;
     box-sizing: border-box;
 
     .item {
-      font-size: 1.5rem;
-      padding: 1.5rem 2rem;
+      font-size: 15rem;
+      padding: 15rem 20rem;
       transition: all .2s;
 
       &:active {

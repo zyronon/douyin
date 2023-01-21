@@ -53,8 +53,8 @@ export default {
 @import "../../../assets/less/index";
 
 .share-to-duoshan {
-  padding: 3rem 2rem;
-  min-height: calc(50vh - 6rem);
+  padding: 30rem 20rem;
+  min-height: calc(50vh - 60rem);
   //min-height: 50vh;
   box-sizing: border-box;
   display: flex;
@@ -64,8 +64,8 @@ export default {
 
 
   .logo {
-    height: 12rem;
-    width: 12rem;
+    height: 120rem;
+    width: 120rem;
   }
 
   .wrapper {
@@ -73,15 +73,15 @@ export default {
   }
 
   .title2 {
-    margin-bottom: 2rem;
+    margin-bottom: 20rem;
     text-align: center;
-    font-size: 2rem;
+    font-size: 20rem;
     color: black;
   }
 
   .subtitle {
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 12rem;
     color: @second-text-color;
   }
 
@@ -90,8 +90,8 @@ export default {
     width: 100%;
 
     img {
-      height: 2.2rem;
-      margin-right: .5rem;
+      height: 22rem;
+      margin-right: 5rem;
     }
   }
 }

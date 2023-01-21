@@ -296,7 +296,7 @@
                 <img class="left" :src="$imgPreview(item.avatar)" alt="">
                 <div class="right">
                   <span>{{ item.name }}</span>
-                  <Check mode="red" style="height: 2rem;width: 2rem;" v-model="item.select"/>
+                  <Check mode="red" style="height: 20rem;width: 20rem;" v-model="item.select"/>
                 </div>
               </div>
             </div>
@@ -507,7 +507,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  font-size: 1.4rem;
+  font-size: 14rem;
   background: @main-bg;
   color: white;
 
@@ -516,70 +516,70 @@ export default {
 
     .create-chat-wrapper {
       min-height: 70vh;
-      padding-bottom: 6rem;
+      padding-bottom: 60rem;
 
       .joined-chat {
         border-bottom: 1px solid @line-color;
-        height: 5rem;
-        padding: 0 2rem;
+        height: 50rem;
+        padding: 0 20rem;
         display: flex;
         align-items: center;
 
         .left {
-          width: 2.2rem;
-          height: 2.2rem;
-          margin-left: 1rem;
-          margin-right: 2rem;
+          width: 22rem;
+          height: 22rem;
+          margin-left: 10rem;
+          margin-right: 20rem;
         }
 
         .right {
-          font-size: 1.4rem;
+          font-size: 14rem;
           flex: 1;
           display: flex;
           align-items: center;
           justify-content: space-between;
 
           img {
-            height: 1.5rem;
+            height: 15rem;
           }
         }
       }
 
       .friend-list {
-        padding: 0 2rem;
+        padding: 0 20rem;
 
         .index {
-          height: 6rem;
-          line-height: 6rem;
-          font-size: 1.4rem;
+          height: 60rem;
+          line-height: 60rem;
+          font-size: 14rem;
         }
 
         .friend-item {
-          margin-bottom: 2rem;
+          margin-bottom: 20rem;
           display: flex;
           align-items: center;
           //background: #fff;
 
           &:nth-child(1) {
-            margin-top: 1rem;
+            margin-top: 10rem;
           }
 
           .left {
-            width: 4.8rem;
-            height: 4.8rem;
+            width: 48rem;
+            height: 48rem;
             border-radius: 50%;
-            margin-right: 1rem;
+            margin-right: 10rem;
           }
 
           .right {
-            font-size: 1.4rem;
+            font-size: 14rem;
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: space-between;
 
             img {
-              height: 2rem;
+              height: 20rem;
             }
           }
         }
@@ -597,15 +597,15 @@ export default {
         justify-content: center;
 
         .btn {
-          margin-bottom: 2rem;
-          width: calc(100% - 4rem);
-          height: 4rem;
+          margin-bottom: 20rem;
+          width: calc(100% - 40rem);
+          height: 40rem;
           display: flex;
           align-items: center;
-          font-size: 1.4rem;
+          font-size: 14rem;
           justify-content: center;
           background: #3f445c;
-          border-radius: .2rem;
+          border-radius: 2rem;
 
           &.primary {
             background: @primary-btn-color;
@@ -614,26 +614,26 @@ export default {
       }
 
       .search-result {
-        padding: 0 2rem;
+        padding: 0 20rem;
 
         .search-result-item {
-          margin-bottom: 2rem;
+          margin-bottom: 20rem;
           display: flex;
           align-items: center;
 
           &:nth-child(1) {
-            margin-top: 1rem;
+            margin-top: 10rem;
           }
 
           .left {
-            width: 4.8rem;
-            height: 4.8rem;
+            width: 48rem;
+            height: 48rem;
             border-radius: 50%;
-            margin-right: 1rem;
+            margin-right: 10rem;
           }
 
           .right {
-            font-size: 1.4rem;
+            font-size: 14rem;
             flex: 1;
             display: flex;
             align-items: center;
@@ -644,17 +644,17 @@ export default {
               flex-direction: column;
 
               .name {
-                font-size: 1.4rem;
+                font-size: 14rem;
               }
 
               .account {
-                font-size: 1.3rem;
+                font-size: 13rem;
                 color: @second-text-color;
               }
             }
 
             img {
-              height: 2rem;
+              height: 20rem;
             }
           }
         }
@@ -668,12 +668,12 @@ export default {
         flex-direction: column;
 
         .notice-h1 {
-          font-size: 1.6rem;
+          font-size: 16rem;
         }
 
         .notice-h2 {
-          margin-top: 1rem;
-          font-size: 1.4rem;
+          margin-top: 10rem;
+          font-size: 14rem;
           color: @second-text-color;
         }
 
@@ -684,21 +684,21 @@ export default {
       min-height: 70vh;
 
       .nav {
-        font-size: 1.7rem;
-        padding: 2rem;
+        font-size: 17rem;
+        padding: 20rem;
         display: flex;
         justify-content: space-between;
 
         img {
-          height: 2rem;
+          height: 20rem;
         }
       }
 
       .chat-list {
-        padding: 0 2rem;
+        padding: 0 20rem;
 
         .chat-item {
-          margin-bottom: 2rem;
+          margin-bottom: 20rem;
           display: flex;
           align-items: center;
           position: relative;
@@ -709,18 +709,18 @@ export default {
           }
 
           &:nth-child(1) {
-            margin-top: 1rem;
+            margin-top: 10rem;
           }
 
           .left {
-            width: 4.8rem;
-            height: 4.8rem;
+            width: 48rem;
+            height: 48rem;
             border-radius: 50%;
-            margin-right: 1rem;
+            margin-right: 10rem;
           }
 
           .right {
-            font-size: 1.4rem;
+            font-size: 14rem;
             flex: 1;
             display: flex;
             align-items: center;
@@ -735,13 +735,13 @@ export default {
               }
 
               .num {
-                margin-left: .5rem;
+                margin-left: 5rem;
                 color: @second-text-color;
               }
             }
 
             img {
-              height: 1.5rem;
+              height: 15rem;
             }
           }
         }
@@ -763,28 +763,28 @@ export default {
     .friends {
       overflow-x: scroll;
       display: flex;
-      font-size: 1.4rem;
+      font-size: 14rem;
 
       .friend {
         &:nth-last-child(1) {
           img {
-            margin: 0 1rem;
-            padding: 1.7rem;
+            margin: 0 10rem;
+            padding: 17rem;
             background: @second-btn-color-tran;
-            width: 3rem;
-            height: 3rem;
+            width: 30rem;
+            height: 30rem;
             border-radius: 50%;
-            margin-bottom: .6rem;
+            margin-bottom: 6rem;
 
           }
         }
 
         .avatar {
           position: relative;
-          margin-bottom: .6rem;
+          margin-bottom: 6rem;
 
           img {
-            @width: 6.4rem;
+            @width: 64rem;
             width: @width;
             height: @width;
             border-radius: 50%;
@@ -792,9 +792,9 @@ export default {
 
           &.on-line::before {
             content: ' ';
-            border: .4rem solid black;
-            width: 1.8rem;
-            height: 1.8rem;
+            border: 4rem solid black;
+            width: 18rem;
+            height: 18rem;
             background: rgb(115, 254, 73);
             border-radius: 50%;
             position: absolute;
@@ -806,8 +806,8 @@ export default {
 
 
         span {
-          width: 6.4rem;
-          font-size: 1.2rem;
+          width: 64rem;
+          font-size: 12rem;
           color: lightgray;
           display: block;
           text-align: center;
@@ -837,9 +837,9 @@ export default {
           position: relative;
 
           .head-image {
-            margin-left: 2rem;
-            margin-right: 1.5rem;
-            @width: 4.5rem;
+            margin-left: 20rem;
+            margin-right: 15rem;
+            @width: 45rem;
             width: @width;
             height: @width;
             border-radius: 50%;
@@ -847,14 +847,14 @@ export default {
 
           &.on-line::before {
             content: ' ';
-            border: .3rem solid black;
-            width: 1.2rem;
-            height: 1.2rem;
+            border: 3rem solid black;
+            width: 12rem;
+            height: 12rem;
             background: rgb(115, 254, 73);
             border-radius: 50%;
             position: absolute;
             bottom: 0;
-            right: 1.5rem;
+            right: 15rem;
           }
         }
 
@@ -863,38 +863,38 @@ export default {
           flex: 1;
           display: flex;
           justify-content: space-between;
-          @padding: 1.4rem;
+          @padding: 14rem;
           padding: @padding 0 @padding 0;
           border-bottom: 1px solid @line-color2;
 
           .left {
             .name {
-              font-size: 1.4rem;
+              font-size: 14rem;
               color: white;
               display: flex;
               align-items: flex-start;
 
               .tag {
-                margin-left: .5rem;
-                font-size: 1rem;
+                margin-left: 5rem;
+                font-size: 10rem;
                 background: @second-btn-color-tran;
                 color: @second-text-color;
-                padding: .2rem .5rem;
-                border-radius: .2rem;
+                padding: 2rem 5rem;
+                border-radius: 2rem;
               }
             }
 
             .detail {
               color: @second-text-color;
-              font-size: 1.2rem;
-              margin-top: .4rem;
+              font-size: 12rem;
+              margin-top: 4rem;
               display: flex;
               align-items: center;
 
               .point {
                 display: inline-block;
-                margin-left: .8rem;
-                margin-right: .8rem;
+                margin-left: 8rem;
+                margin-right: 8rem;
                 border-radius: 50%;
                 width: 1.5px;
                 height: 1.5px;
@@ -902,38 +902,34 @@ export default {
               }
 
               .sent {
-                width: 1rem;
-                height: 1rem;
+                width: 10rem;
+                height: 10rem;
               }
             }
           }
 
           .right {
-            margin-right: 3rem;
+            margin-right: 30rem;
             display: flex;
             align-items: center;
 
             .arrow {
-              width: 1.5rem;
-              height: 1.5rem;
+              width: 15rem;
+              height: 15rem;
             }
 
             .camera {
-              width: 2rem;
-              height: 2rem;
+              width: 20rem;
+              height: 20rem;
             }
-
-
-
           }
         }
-
       }
 
       .not-more {
         color: @second-text-color;
         text-align: center;
-        padding: 2rem;
+        padding: 20rem;
       }
     }
 
@@ -954,7 +950,7 @@ export default {
         background: white;
         width: 85vw;
         height: 80vh;
-        border-radius: 1.2rem;
+        border-radius: 12rem;
         overflow: hidden;
 
         .dialog-header {
@@ -970,13 +966,13 @@ export default {
             align-items: center;
 
             & > img {
-              margin-left: .3rem;
-              width: 1.5rem;
+              margin-left: 3rem;
+              width: 15rem;
             }
           }
 
           & > img {
-            width: 2rem;
+            width: 20rem;
           }
 
         }
@@ -984,11 +980,11 @@ export default {
         .dialog-body {
           padding: @padding-page;
           padding-top: 0;
-          height: calc(80vh - 5rem);
+          height: calc(80vh - 50rem);
           overflow: auto;
 
           .scroll {
-            height: calc(80vh - 5rem);
+            height: calc(80vh - 50rem);
           }
 
           .l-button {
@@ -1013,7 +1009,7 @@ export default {
     .sub-title {
       margin-top: @padding-page;
       color: @second-text-color;
-      font-size: 1.2rem;
+      font-size: 12rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1034,11 +1030,11 @@ export default {
 
       .icon {
         border-radius: 50%;
-        padding: 1.3rem;
+        padding: 13rem;
         background: @second-btn-color-tran;
-        width: 2.2rem;
-        height: 2.2rem;
-        margin-right: 1rem;
+        width: 22rem;
+        height: 22rem;
+        margin-right: 10rem;
       }
 
       .right {
@@ -1053,7 +1049,7 @@ export default {
           justify-content: space-between;
 
           .second-text-color {
-            margin-top: .5rem;
+            margin-top: 5rem;
           }
         }
       }

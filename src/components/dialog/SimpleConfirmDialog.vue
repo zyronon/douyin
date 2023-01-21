@@ -67,16 +67,16 @@ export default {
     width: 80%;
     border-radius: 2px;
     box-sizing: border-box;
-    padding: 1.5rem 2rem;
-    font-size: 1.5rem;
+    padding: 15rem 20rem;
+    font-size: 15rem;
 
     .footer {
-      margin-top: 2rem;
+      margin-top: 20rem;
       display: flex;
       justify-content: flex-end;
 
       .cancel {
-        margin-right: 2.5rem;
+        margin-right: 25rem;
       }
 
     }

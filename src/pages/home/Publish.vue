@@ -1,20 +1,20 @@
 <template>
   <div class="Publish">
-    <video id="video" autoplay="autoplay" style="width: 100%;height:calc(100% - 6rem);"></video>
+    <video id="video" autoplay="autoplay" style="width: 100%;height:calc(100% - 60rem);"></video>
     <div class="footer">
       <SlideRowList v-model:active-index="activeIndex">
-        <SlideItem style="min-width: 20vw;min-height: 6rem;"></SlideItem>
-        <SlideItem style="min-width: 20vw;min-height: 6rem;"></SlideItem>
-        <SlideItem style="min-width: 25vw;min-height: 6rem;" @click="activeIndex = 0">
+        <SlideItem style="min-width: 20vw;min-height: 60rem;"></SlideItem>
+        <SlideItem style="min-width: 20vw;min-height: 60rem;"></SlideItem>
+        <SlideItem style="min-width: 25vw;min-height: 60rem;" @click="activeIndex = 0">
           <span :class="activeIndex + 2 === 2?'active':''">分段拍</span>
         </SlideItem>
-        <SlideItem style="min-width: 20vw;min-height: 6rem;" @click="activeIndex = 1">
+        <SlideItem style="min-width: 20vw;min-height: 60rem;" @click="activeIndex = 1">
           <span :class="activeIndex + 2 === 3?'active':''">快拍</span>
         </SlideItem>
-        <SlideItem style="min-width: 20vw;min-height: 6rem;" @click="activeIndex = 2">
+        <SlideItem style="min-width: 20vw;min-height: 60rem;" @click="activeIndex = 2">
           <span :class="activeIndex + 2 === 4?'active':''">影集</span>
         </SlideItem>
-        <SlideItem style="min-width: 20vw;min-height: 6rem;" @click="activeIndex = 3">
+        <SlideItem style="min-width: 20vw;min-height: 60rem;" @click="activeIndex = 3">
           <span :class="activeIndex + 2 === 5?'active':''">开直播</span>
         </SlideItem>
       </SlideRowList>
@@ -98,7 +98,7 @@ export default {
   background: black;
 
   .footer {
-    font-size: 1.5rem;
+    font-size: 15rem;
     font-weight: bold;
     color: @second-text-color;
 
@@ -121,51 +121,49 @@ export default {
 
     .close {
       position: absolute;
-      left: 2rem;
-      top: 2rem;
-      width: 2rem;
-      height: 2rem;
+      left: 20rem;
+      top: 20rem;
+      width: 20rem;
+      height: 20rem;
     }
 
     .choose-music {
       position: absolute;
       left: 50%;
-      top: 2rem;
+      top: 20rem;
       transform: translateX(-50%);
-      border-radius: 2rem;
+      border-radius: 20rem;
       background: #333333;
-      padding: .5rem 1.5rem;
+      padding: 5rem 15rem;
       display: flex;
       align-items: center;
 
       img {
-        margin-right: .5rem;
-        width: 1.2rem;
-        height: 1.2rem;
+        margin-right: 5rem;
+        width: 12rem;
+        height: 12rem;
       }
     }
 
     .toolbar {
       position: absolute;
-      top: 2rem;
-      right: 1rem;
+      top: 20rem;
+      right: 10rem;
 
       .tool {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 2rem;
-        font-size: 1rem;
+        margin-bottom: 20rem;
+        font-size: 10rem;
 
         img {
-          width: 2rem;
-          height: 2rem;
-          margin-bottom: .5rem;
+          width: 20rem;
+          height: 20rem;
+          margin-bottom: 5rem;
         }
       }
     }
   }
-
-
 }
 </style>

@@ -259,19 +259,19 @@ export default {
 .video-share {
   height: 60vh;
   width: 100%;
-  border-radius: 1rem 1rem 0 0;
+  border-radius: 10rem 10rem 0 0;
   color: white;
   box-sizing: border-box;
 
   .friends {
-    border-radius: 1rem;
-    margin: 1rem;
+    border-radius: 10rem;
+    margin: 10rem;
     padding: 0 @padding-page;
-    @avatar-width: 3.8rem;
-    font-size: 1.4rem;
+    @avatar-width: 38rem;
+    font-size: 14rem;
     background: white;
 
-    @item-width: 5.5rem;
+    @item-width: 55rem;
 
     .item {
       height: @item-width;
@@ -284,18 +284,18 @@ export default {
         width: @avatar-width;
         height: @avatar-width;
         border-radius: 50%;
-        margin-right: 1.5rem;
+        margin-right: 15rem;
       }
 
       .right {
-        font-size: 1.4rem;
+        font-size: 14rem;
         flex: 1;
         display: flex;
         align-items: center;
         justify-content: space-between;
 
         img {
-          height: 2rem;
+          height: 20rem;
         }
       }
     }
@@ -309,19 +309,19 @@ export default {
       border-bottom: 1px solid #f3f3f3;
 
       .left {
-        width: 2rem;
-        height: 2rem;
+        width: 20rem;
+        height: 20rem;
         border-radius: 50%;
-        margin-left: 1rem;
-        margin-right: 2rem;
+        margin-left: 10rem;
+        margin-right: 20rem;
       }
     }
   }
 
-  @icon-width: 5.8rem;
+  @icon-width: 58rem;
 
   :deep(.shares) {
-    @space-width: 1.5rem;
+    @space-width: 15rem;
 
     overflow-x: scroll;
     display: flex;
@@ -336,8 +336,8 @@ export default {
         background: white;
         width: @icon-width;
         height: @icon-width;
-        padding: 1.2rem;
-        border-radius: 1.5rem;
+        padding: 12rem;
+        border-radius: 15rem;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -349,9 +349,9 @@ export default {
       }
 
       span {
-        margin-top: .7rem;
+        margin-top: 7rem;
         color: black;
-        font-size: 1rem;
+        font-size: 10rem;
         display: block;
         text-align: center;
       }
@@ -383,10 +383,7 @@ export default {
       border: @border-width solid #514F56;
       border-radius: 50%;
     }
-
   }
-
-
 }
 
 </style>

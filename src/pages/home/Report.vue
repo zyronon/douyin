@@ -134,27 +134,27 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .content {
-    padding-top: 6rem;
+    padding-top: 60rem;
 
     .title {
-      font-size: 1.2rem;
-      padding: 1rem 1.5rem;
+      font-size: 12rem;
+      padding: 10rem 15rem;
       color: @second-text-color;
 
       img {
-        width: 1rem;
-        height: 1rem;
-        margin-right: .2rem;
+        width: 10rem;
+        height: 10rem;
+        margin-right: 2rem;
       }
     }
   }
 
   .line {
-    width: calc(100% - 3rem);
-    margin-left: 1.5rem;
+    width: calc(100% - 30rem);
+    margin-left: 15rem;
     background: @line-color;
   }
 }

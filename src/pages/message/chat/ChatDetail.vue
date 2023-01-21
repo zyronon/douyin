@@ -138,13 +138,13 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .content {
-    padding-top: 6rem;
+    padding-top: 60rem;
 
     .peoples {
-      padding: 0 2rem;
+      padding: 0 20rem;
 
       .People {
         border-bottom: 1px solid @second-btn-color-tran;
@@ -153,16 +153,16 @@ export default {
       .add-people {
         transition: all 0.3s ease;
         width: 100%;
-        height: 7rem;
+        height: 70rem;
         display: flex;
         align-items: center;
         position: relative;
         border-bottom: 1px solid @second-btn-color-tran;
 
         .head-image {
-          margin-right: 1.5rem;
-          width: 4.5rem;
-          height: 4.5rem;
+          margin-right: 15rem;
+          width: 45rem;
+          height: 45rem;
           border-radius: 50%;
         }
       }
@@ -171,22 +171,20 @@ export default {
 
     .setting {
       .row {
-        padding-left: 2rem;
-        padding-right: 2rem;
+        padding-left: 20rem;
+        padding-right: 20rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: 4rem;
+        height: 40rem;
 
         .right {
           img {
-            height: 2rem;
+            height: 20rem;
           }
         }
       }
     }
   }
-
-
 }
 </style>

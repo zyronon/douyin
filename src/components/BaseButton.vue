@@ -82,18 +82,18 @@ export default {
 
 .button {
   color: white;
-  height: 4rem;
-  line-height: 4rem;
-  border-radius: .3rem;
+  height: 40rem;
+  line-height: 40rem;
+  border-radius: 3rem;
   //width: 100%;
-  font-size: 1.4rem;
+  font-size: 14rem;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
 
   .progress {
-    border-radius: .3rem;
+    border-radius: 3rem;
     position: absolute;
     left: 0;
     top: 0;
@@ -103,8 +103,8 @@ export default {
   }
 
   img {
-    height: 1.6rem;
-    margin-right: .5rem;
+    height: 16rem;
+    margin-right: 5rem;
     animation: animal .8s infinite linear;
 
     @keyframes animal {
@@ -236,9 +236,9 @@ export default {
   }
 
   &.small {
-    font-size: 1.2rem;
-    width: 6.2rem;
-    height: 2.6rem;
+    font-size: 12rem;
+    width: 62rem;
+    height: 26rem;
   }
 }
 </style>

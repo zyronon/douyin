@@ -23,7 +23,7 @@ export default {
 
   &.normal {
     width: 100%;
-    height: 4rem;
+    height: 40rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,12 +38,12 @@ export default {
     transform: translate(-50%, -50%);
     display: flex;
     justify-content: space-between;
-    width: 2.2rem;
+    width: 22rem;
   }
 
   .circle {
-    width: 1rem;
-    height: 1rem;
+    width: 10rem;
+    height: 10rem;
     border-radius: 50%;
   }
 
@@ -62,7 +62,7 @@ export default {
       transform: translate3d(0, 0, 0) scale(1);
     }
     to {
-      transform: translate3d(1rem, 0, 0) scale(1.2);
+      transform: translate3d(10rem, 0, 0) scale(1.2);
     }
 
   }
@@ -71,7 +71,7 @@ export default {
       transform: translate3d(0, 0, 0) scale(1);
     }
     to {
-      transform: translate3d(-1rem, 0, 0) scale(1.2);
+      transform: translate3d(-10rem, 0, 0) scale(1.2);
     }
   }
 }

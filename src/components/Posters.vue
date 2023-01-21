@@ -95,50 +95,50 @@ export default {
 
   .music {
     position: absolute;
-    font-size: 1.2rem;
+    font-size: 12rem;
     background: gold;
     color: black;
-    padding: .2rem .3rem;
-    border-radius: .2rem;
-    top: .7rem;
-    left: .7rem;
+    padding: 2rem 3rem;
+    border-radius: 2rem;
+    top: 7rem;
+    left: 7rem;
   }
 
   .num {
     color: white;
     position: absolute;
-    bottom: .5rem;
-    left: .5rem;
+    bottom: 5rem;
+    left: 5rem;
     display: flex;
     align-items: center;
-    font-size: 1.4rem;
+    font-size: 14rem;
 
     .love {
-      width: 1.4rem;
-      height: 1.4rem;
-      margin-right: .5rem;
+      width: 14rem;
+      height: 14rem;
+      margin-right: 5rem;
     }
   }
 
   .date {
     position: absolute;
-    top: .5rem;
-    left: .5rem;
+    top: 5rem;
+    left: 5rem;
     display: flex;
     align-items: center;
     flex-direction: column;
-    font-size: 1.4rem;
+    font-size: 14rem;
     color: black;
     background: white;
-    padding: .6rem;
-    border-radius: .6rem;
+    padding: 6rem;
+    border-radius: 6rem;
 
     .day {
       font-weight: bold;
     }
 
     .month {
-      font-size: 1rem;
+      font-size: 10rem;
     }
   }
 }

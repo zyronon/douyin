@@ -75,20 +75,20 @@ export default {
     width: 70%;
     border-radius: 2px;
     box-sizing: border-box;
-    font-size: 1.5rem;
+    font-size: 15rem;
     text-align: center;
 
     .body {
-      padding: 2.5rem;
+      padding: 25rem;
 
       .title {
-        font-size: 1.5rem;
+        font-size: 15rem;
         font-weight: bold;
       }
 
       .subtitle {
-        margin-top: 1rem;
-        font-size: 1.3rem;
+        margin-top: 10rem;
+        font-size: 13rem;
 
         &.gray{
           color: @second-text-color;
@@ -97,12 +97,12 @@ export default {
     }
 
     .footer {
-      height: 4.6rem;
+      height: 46rem;
       display: flex;
       justify-content: center;
       align-items: center;
       border-top: 1px solid whitesmoke;
-      font-size: 1.4rem;
+      font-size: 14rem;
 
 
       .cancel {

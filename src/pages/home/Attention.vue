@@ -409,14 +409,14 @@ export default {
   //overflow: auto;
 
   .scroller {
-    //transform: translate3d(0, -5rem, 0);
-    height: calc(100vh - 5rem);
+    //transform: translate3d(0, -50rem, 0);
+    height: calc(100vh - 50rem);
     position: relative;
     overflow: scroll;
 
     > .wrapper {
       position: absolute;
-      top: -8rem;
+      top: -80rem;
       left: 0;
       width: 100%;
       z-index: 2;
@@ -425,17 +425,17 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        height: 8rem;
+        height: 80rem;
       }
     }
   }
 
   header {
-    //transform: translate3d(0, -5rem, 0);
+    //transform: translate3d(0, -50rem, 0);
     background: @douyin-bg;
     width: 100%;
-    font-size: 1.5rem;
-    height: 5rem;
+    font-size: 15rem;
+    height: 50rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -461,7 +461,7 @@ export default {
 
     .title {
       margin-bottom: 15px;
-      font-size: 1.8rem;
+      font-size: 18rem;
       font-weight: bold;
     }
 
@@ -483,7 +483,7 @@ export default {
 
         .left-title {
           font-weight: bold;
-          font-size: 1.7rem;
+          font-size: 17rem;
           display: flex;
           align-items: center;
           margin-bottom: 10px;
@@ -492,7 +492,7 @@ export default {
             background: linear-gradient(to top right, #e37c7c, #bd5959);
             padding: 0 4px 2px 4px;
             border-radius: 3px;
-            font-size: 1rem;
+            font-size: 10rem;
             font-weight: lighter;
             margin-left: 5px;
           }
@@ -516,7 +516,7 @@ export default {
             }
 
             .price {
-              font-size: 1rem;
+              font-size: 10rem;
             }
           }
         }
@@ -553,7 +553,7 @@ export default {
               }
 
               .ad-desc {
-                font-size: 1rem;
+                font-size: 10rem;
                 color: darkgray;
               }
             }
@@ -563,8 +563,6 @@ export default {
               height: 50px;
               border-radius: 5px;
             }
-
-
           }
         }
       }
@@ -620,17 +618,17 @@ export default {
         .author {
           position: absolute;
           border-radius: 50%;
-          height: 3rem;
-          bottom: 1rem;
-          left: 1rem;
+          height: 30rem;
+          bottom: 10rem;
+          left: 10rem;
         }
 
         .live {
           position: absolute;
-          padding: .2rem .5rem;
-          border-radius: .2rem;
-          top: 1rem;
-          left: 1rem;
+          padding: 2rem 5rem;
+          border-radius: 2rem;
+          top: 10rem;
+          left: 10rem;
           color: white;
           background: @primary-btn-color;
         }
@@ -641,7 +639,7 @@ export default {
         background: @douyin-bg;
 
         .top, .bottom {
-          font-size: 1.4rem;
+          font-size: 14rem;
           display: flex;
           align-items: center;
 
@@ -658,31 +656,31 @@ export default {
           .line {
             margin: 0 4px;
             width: 1px;
-            height: .8rem;
+            height: 8rem;
             background: gray;
           }
         }
 
         .bottom {
           margin-top: 2px;
-          font-size: 1rem;
+          font-size: 10rem;
         }
       }
 
       .ranking-list {
-        padding: 2rem 1rem;
+        padding: 20rem 10rem;
         background: @douyin-bg;
 
         .desc {
           .top {
-            margin-bottom: .2rem;
+            margin-bottom: 2rem;
             display: flex;
             align-items: center;
-            font-size: 1.4rem;
+            font-size: 14rem;
 
             .logo {
-              margin-right: .5rem;
-              height: 1.4rem;
+              margin-right: 5rem;
+              height: 14rem;
             }
 
             .name {
@@ -692,19 +690,19 @@ export default {
         }
 
         .ads {
-          font-size: 1.2rem;
+          font-size: 12rem;
 
           .ad {
             background: @second-btn-color;
             display: flex;
-            margin-top: 1rem;
+            margin-top: 10rem;
 
             .left {
-              margin-right: 1rem;
+              margin-right: 10rem;
 
               .ad-logo {
-                height: 4rem;
-                width: 4rem;
+                height: 40rem;
+                width: 40rem;
               }
             }
 
@@ -715,7 +713,7 @@ export default {
 
               .rank {
                 color: @second-text-color;
-                margin-bottom: .2rem;
+                margin-bottom: 2rem;
               }
             }
           }

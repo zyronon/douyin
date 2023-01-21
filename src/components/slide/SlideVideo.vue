@@ -353,7 +353,7 @@ export default {
 .video-wrapper {
   position: relative;
   background: black;
-  font-size: 1.4rem;
+  font-size: 14rem;
   width: 100%;
   height: 100%;
 
@@ -364,8 +364,8 @@ export default {
   }
 
   .pause {
-    width: 10rem;
-    height: 10rem;
+    width: 100rem;
+    height: 100rem;
     opacity: 0.5;
     position: absolute;
     margin: auto;
@@ -473,7 +473,7 @@ export default {
           justify-content: center;
           align-items: center;
 
-          @width: 3.5rem;
+          @width: 35rem;
 
           img {
             width: @width;
@@ -481,7 +481,7 @@ export default {
           }
 
           span {
-            font-size: 1.2rem;
+            font-size: 12rem;
           }
         }
 
@@ -503,25 +503,25 @@ export default {
           display: flex;
 
           .location {
-            margin-bottom: 1rem;
+            margin-bottom: 10rem;
 
             display: flex;
             align-items: center;
-            font-size: 1.2rem;
-            padding: .4rem;
-            border-radius: .3rem;
+            font-size: 12rem;
+            padding: 4rem;
+            border-radius: 3rem;
             background: @second-btn-color-tran;
 
             .gang {
-              height: .8rem;
+              height: 8rem;
               width: 1.5px;
-              margin: 0 .5rem;
+              margin: 0 5rem;
               background: gray;
             }
 
             img {
-              margin-right: .7rem;
-              width: 1.8rem;
+              margin-right: 7rem;
+              width: 18rem;
             }
           }
         }

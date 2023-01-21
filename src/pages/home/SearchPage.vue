@@ -671,17 +671,17 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .type {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 1.6rem;
-    width: 1.6rem;
-    font-size: 1.2rem;
-    margin-left: .5rem;
-    border-radius: .2rem;
+    height: 16rem;
+    width: 16rem;
+    font-size: 12rem;
+    margin-left: 5rem;
+    border-radius: 2rem;
 
     &.hot {
       background: @primary-btn-color;
@@ -695,8 +695,8 @@ export default {
   .header {
     z-index: 4;
     background: @main-bg;
-    height: 6rem;
-    font-size: 1.4rem;
+    height: 60rem;
+    font-size: 14rem;
     padding: 0 @padding-page;
     display: flex;
     justify-content: space-between;
@@ -713,22 +713,22 @@ export default {
 
     .scan {
       transform: scale(2);
-      height: 1rem;
-      width: 1rem;
+      height: 10rem;
+      width: 10rem;
     }
   }
 
   .content {
-    padding-top: 6rem;
+    padding-top: 60rem;
 
     .history {
       .row {
-        min-height: 4rem;
+        min-height: 40rem;
       }
 
       .history-expand {
         text-align: center;
-        padding: 1rem;
+        padding: 10rem;
         color: @second-text-color;
       }
     }
@@ -737,8 +737,8 @@ export default {
       padding: 0 @padding-page;
 
       .title {
-        font-size: 1.4rem;
-        padding: 1rem 0;
+        font-size: 14rem;
+        padding: 10rem 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -749,28 +749,28 @@ export default {
           align-items: center;
 
           img {
-            margin-right: .5rem;
-            width: 1.3rem;
-            height: 1.3rem;
+            margin-right: 5rem;
+            width: 13rem;
+            height: 13rem;
           }
         }
       }
 
       .keys {
-        font-size: 1.6rem;
+        font-size: 16rem;
         display: flex;
         flex-wrap: wrap;
 
         .key {
           box-sizing: border-box;
-          padding: .8rem 0;
+          padding: 8rem 0;
           width: 49%;
           display: flex;
           align-items: center;
 
           .desc {
             max-width: 80%;
-            font-size: 1.4rem;
+            font-size: 14rem;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
@@ -782,14 +782,14 @@ export default {
 
     .rank-list {
       .indicator {
-        padding: 1.5rem;
+        padding: 15rem;
         display: flex;
         align-items: center;
-        font-size: 1.4rem;
+        font-size: 14rem;
 
         .tab {
           color: @second-text-color;
-          margin-right: 2rem;
+          margin-right: 20rem;
 
           &.active {
             transform: scale(1.2);
@@ -809,15 +809,15 @@ export default {
 
       .slide0 {
         box-sizing: border-box;
-        margin: 0 @padding-page 5rem @padding-page;
+        margin: 0 @padding-page 50rem @padding-page;
         background: linear-gradient(to right, rgb(32, 29, 36), rgb(50, 29, 38));
         padding: @padding-page;
-        border-radius: 1rem;
+        border-radius: 10rem;
 
         .l-row {
-          font-size: 1.4rem;
+          font-size: 14rem;
           display: flex;
-          margin-bottom: 1.6rem;
+          margin-bottom: 16rem;
           align-items: center;
           color: @second-text-color;
 
@@ -826,11 +826,11 @@ export default {
             align-items: center;
 
             .rank {
-              width: 1.8rem;
-              height: 1.8rem;
-              line-height: 1.8rem;
+              width: 18rem;
+              height: 18rem;
+              line-height: 18rem;
               text-align: center;
-              margin-right: 1.5rem;
+              margin-right: 15rem;
             }
           }
 
@@ -841,18 +841,18 @@ export default {
             justify-content: space-between;
 
             .center {
-              width: calc(100vw - 14rem);
+              width: calc(100vw - 140rem);
               box-sizing: border-box;
               //padding: 0 1rem;
               //flex: 1;
               display: flex;
               align-items: center;
-              font-size: 1.4rem;
+              font-size: 14rem;
               color: white;
 
               .desc {
                 max-width: 85%;
-                font-size: 1.4rem;
+                font-size: 14rem;
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -860,7 +860,7 @@ export default {
             }
 
             .count {
-              font-size: 1.2rem;
+              font-size: 12rem;
             }
           }
         }
@@ -868,16 +868,16 @@ export default {
 
       .slide1 {
         box-sizing: border-box;
-        margin: 0 @padding-page 5rem @padding-page;
+        margin: 0 @padding-page 50rem @padding-page;
         background: rgb(20, 22, 34);
         border: 1px solid rgba(31, 34, 52, 0.5);
         padding: @padding-page;
-        border-radius: 1rem;
+        border-radius: 10rem;
 
         .l-row {
-          font-size: 1.4rem;
+          font-size: 14rem;
           display: flex;
-          margin-bottom: 1rem;
+          margin-bottom: 10rem;
           align-items: center;
           color: @second-text-color;
 
@@ -890,11 +890,11 @@ export default {
             align-items: center;
 
             .rank {
-              width: 1.8rem;
-              height: 1.8rem;
-              line-height: 1.8rem;
+              width: 18rem;
+              height: 18rem;
+              line-height: 18rem;
               text-align: center;
-              margin-right: 1.5rem;
+              margin-right: 15rem;
 
               &.top {
                 color: yellow;
@@ -909,18 +909,18 @@ export default {
             justify-content: space-between;
 
             .center {
-              width: calc(100vw - 16rem);
+              width: calc(100vw - 160rem);
               box-sizing: border-box;
               //padding: 0 1rem;
               //flex: 1;
               display: flex;
               align-items: center;
-              font-size: 1.4rem;
+              font-size: 14rem;
               color: white;
 
               .avatar-wrapper {
-                @width: 3.5rem;
-                margin-right: 1rem;
+                @width: 35rem;
+                margin-right: 10rem;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -932,48 +932,48 @@ export default {
                 .avatar {
                   width: @width - 0.3;
                   border-radius: 50%;
-                  padding: .1rem;
+                  padding: 1rem;
                   background: black;
                 }
               }
 
               .desc {
                 max-width: 55%;
-                font-size: 1.4rem;
+                font-size: 14rem;
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
               }
 
               .live-type {
-                height: 2.2rem;
-                padding: 0 .5rem;
+                height: 22rem;
+                padding: 0 5rem;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 1rem;
+                font-size: 10rem;
                 color: @second-text-color;
-                margin-left: .5rem;
-                border-radius: .2rem;
+                margin-left: 5rem;
+                border-radius: 2rem;
                 background: @second-btn-color-tran;
 
                 .type2 {
-                  margin-right: .2rem;
-                  width: 1rem;
-                  height: 1rem;
+                  margin-right: 2rem;
+                  width: 10rem;
+                  height: 10rem;
                 }
 
                 .type1 {
-                  margin-right: .2rem;
-                  width: 1.5rem;
-                  height: 1rem;
+                  margin-right: 2rem;
+                  width: 15rem;
+                  height: 10rem;
                 }
 
               }
             }
 
             .count {
-              font-size: 1.2rem;
+              font-size: 12rem;
             }
           }
         }
@@ -981,16 +981,16 @@ export default {
 
       .slide2 {
         box-sizing: border-box;
-        margin: 0 @padding-page 5rem @padding-page;
+        margin: 0 @padding-page 50rem @padding-page;
         background: rgb(20, 22, 34);
         border: 1px solid rgba(31, 34, 52, 0.5);
         padding: @padding-page;
-        border-radius: 1rem;
+        border-radius: 10rem;
 
         .l-row {
-          font-size: 1.4rem;
+          font-size: 14rem;
           display: flex;
-          margin-bottom: 1rem;
+          margin-bottom: 10rem;
           align-items: center;
           color: @second-text-color;
 
@@ -1003,11 +1003,11 @@ export default {
             align-items: center;
 
             .rank {
-              width: 1.8rem;
-              height: 1.8rem;
-              line-height: 1.8rem;
+              width: 18rem;
+              height: 18rem;
+              line-height: 18rem;
               text-align: center;
-              margin-right: 1.5rem;
+              margin-right: 15rem;
 
               &.top {
                 color: yellow;
@@ -1022,28 +1022,28 @@ export default {
             justify-content: space-between;
 
             .center {
-              width: calc(100vw - 15rem);
+              width: calc(100vw - 150rem);
               box-sizing: border-box;
               //padding: 0 1rem;
               //flex: 1;
               display: flex;
               align-items: center;
-              font-size: 1.4rem;
+              font-size: 14rem;
               color: white;
 
               .avatar-wrapper {
-                margin-right: 1rem;
+                margin-right: 10rem;
 
                 .avatar {
-                  width: 3rem;
-                  height: 3rem;
-                  border-radius: .2rem;
+                  width: 30rem;
+                  height: 30rem;
+                  border-radius: 2rem;
                 }
               }
 
               .desc {
                 max-width: 95%;
-                font-size: 1.4rem;
+                font-size: 14rem;
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -1054,12 +1054,12 @@ export default {
             .count {
               display: flex;
               align-items: center;
-              font-size: 1.2rem;
+              font-size: 12rem;
 
               img {
-                margin-right: .2rem;
-                width: 1.5rem;
-                height: 1.5rem;
+                margin-right: 2rem;
+                width: 15rem;
+                height: 15rem;
               }
             }
           }
@@ -1068,22 +1068,22 @@ export default {
 
       .slide3 {
         box-sizing: border-box;
-        margin: 0 @padding-page 5rem @padding-page;
-        border-radius: 1rem;
+        margin: 0 @padding-page 50rem @padding-page;
+        border-radius: 10rem;
 
         .slide4-wrapper {
-          padding: .5rem @padding-page;
+          padding: 5rem @padding-page;
 
           .brands {
             color: @second-text-color;
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
+            font-size: 12rem;
+            margin-bottom: 15rem;
             display: flex;
 
             .brand {
-              border-radius: .2rem;
-              margin-right: 1rem;
-              padding: .5rem 1rem;
+              border-radius: 2rem;
+              margin-right: 10rem;
+              padding: 5rem 10rem;
               background: @second-btn-color-tran;
 
               &.active {
@@ -1094,9 +1094,9 @@ export default {
           }
 
           .l-row {
-            font-size: 1.4rem;
+            font-size: 14rem;
             display: flex;
-            margin-bottom: 1rem;
+            margin-bottom: 10rem;
             align-items: center;
             color: @second-text-color;
 
@@ -1109,11 +1109,11 @@ export default {
               align-items: center;
 
               .rank {
-                width: 1.8rem;
-                height: 1.8rem;
-                line-height: 1.8rem;
+                width: 18rem;
+                height: 18rem;
+                line-height: 18rem;
                 text-align: center;
-                margin-right: 1.5rem;
+                margin-right: 15rem;
 
                 &.top {
                   color: yellow;
@@ -1128,18 +1128,18 @@ export default {
               justify-content: space-between;
 
               .center {
-                width: calc(100vw - 15rem);
+                width: calc(100vw - 150rem);
                 box-sizing: border-box;
                 //padding: 0 1rem;
                 //flex: 1;
                 display: flex;
                 align-items: center;
-                font-size: 1.4rem;
+                font-size: 14rem;
                 color: white;
 
                 .avatar-wrapper {
-                  @width: 3.5rem;
-                  margin-right: 1rem;
+                  @width: 35rem;
+                  margin-right: 10rem;
 
                   &.living {
                     position: relative;
@@ -1157,7 +1157,7 @@ export default {
                       position: absolute;
                       background: transparent;
                       border-radius: 50%;
-                      border: .2rem solid @primary-btn-color;
+                      border: 2rem solid @primary-btn-color;
                       animation: avatar-out-line 1s infinite;
 
                       @keyframes avatar-out-line {
@@ -1166,13 +1166,13 @@ export default {
                         }
                         to {
                           opacity: 0;
-                          padding: .2rem;
+                          padding: 2rem;
                         }
                       }
                     }
 
                     .avatar {
-                      padding: .1rem;
+                      padding: 1rem;
                       animation: avatar 1s infinite alternate;
                     }
                   }
@@ -1188,10 +1188,10 @@ export default {
 
                     @keyframes avatar {
                       from {
-                        padding: .1rem;
+                        padding: 1rem;
                       }
                       to {
-                        padding: .2rem;
+                        padding: 2rem;
                       }
                     }
                   }
@@ -1199,7 +1199,7 @@ export default {
 
                 .desc {
                   max-width: 95%;
-                  font-size: 1.4rem;
+                  font-size: 14rem;
                   white-space: nowrap;
                   text-overflow: ellipsis;
                   overflow: hidden;
@@ -1210,32 +1210,31 @@ export default {
               .count {
                 display: flex;
                 align-items: center;
-                font-size: 1.2rem;
+                font-size: 12rem;
 
                 img {
-                  margin-right: .2rem;
-                  width: 1.5rem;
-                  height: 1.5rem;
+                  margin-right: 2rem;
+                  width: 15rem;
+                  height: 15rem;
                 }
               }
             }
           }
         }
 
-
         .ad {
           background: @second-btn-color-tran;
           display: flex;
           align-items: center;
           justify-content: center;
-          height: 10rem;
+          height: 100rem;
         }
       }
 
       .more {
-        margin-bottom: 2rem;
-        font-size: 1.2rem;
-        padding: 1rem 1rem 0 1rem;
+        margin-bottom: 20rem;
+        font-size: 12rem;
+        padding: 10rem 10rem 0 10rem;
         text-align: center;
         color: yellow;
       }

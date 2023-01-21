@@ -118,7 +118,7 @@ export default {
 @import "../../assets/less/index";
 
 .indicator-ctn {
-  font-size: 1.4rem;
+  font-size: 14rem;
   width: 100%;
   height: @indicator-height;
   top: 0;
@@ -132,7 +132,7 @@ export default {
     font-weight: bold;
 
     .tab {
-      height: 4.5rem;
+      height: 45rem;
       width: 45%;
       display: flex;
       justify-content: center;
@@ -145,8 +145,8 @@ export default {
       }
 
       img {
-        margin-left: .5rem;
-        @width: 1.2rem;
+        margin-left: 5rem;
+        @width: 12rem;
         width: @width;
         height: @width;
       }
@@ -155,7 +155,7 @@ export default {
 
   .indicator {
     height: 3px;
-    width: 2.5rem;
+    width: 25rem;
     background: #fff;
     border-radius: 5px;
     position: relative;
