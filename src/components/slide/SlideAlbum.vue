@@ -1,6 +1,5 @@
 <template>
-  <!--不知为啥touch事件，在下部20px的空间内不触发，加上click事件不好了  -->
-  <div id="SlideImgs">
+  <div id="SlideAlbum">
     <div class="img-slide-wrapper">
       <div class="img-slide-list"
            ref="wrapperEl"
@@ -13,42 +12,54 @@
         </div>
       </div>
     </div>
-    <template v-if="!state.isPreview">
-      <template v-if="false">
-        <ItemToolbar :item="props.modelValue"
-                     :index="0"
-                     prefix="sadfa"
-        />
-        <ItemDesc
-            :item="props.modelValue"
-            :index="0"
-            prefix="sadfa"
-        />
-      </template>
-      <div class="progress-bar"
-           @touchstart="progressBarTouchStart"
-           @touchmove="progressBarTouchMove"
-           @touchend="progressBarTouchMEnd"
-      >
-        <div class="bar" v-for="(img,index) in modelValue.imgs">
-          <div class="progress"
-               :style="getProgressWidth(index)"></div>
-        </div>
-      </div>
-
+    <template v-if=" state.operationStatus === SlideAlbumOperationStatus.Normal">
+      <ItemToolbar :item="props.modelValue"
+                   :index="0"
+                   prefix="sadfa"
+      />
+      <ItemDesc
+          :item="props.modelValue"
+          :index="0"
+          prefix="sadfa"
+      />
     </template>
-    <div class="preview" v-if="state.isPreview">
-      <div class="preview-wrapper">
-        <img :src="img"
-             :class="{'preview-img':index === state.localIndex}"
-             v-for="(img,index) in props.modelValue.imgs"
-             :ref="e=>setItemRef(e,'previewImgs')"
-        >
-      </div>
-      <div class="indicator">
-        <span class="index">{{ state.localIndex + 1 }}</span>&nbsp;/&nbsp;{{ props.modelValue.imgs.length }}
+    <!--不知为啥touch事件，在下部20px的空间内不触发，加上click事件不好了  -->
+    <div class="progress-bar"
+         v-if="!state.isPreview && state.operationStatus!== SlideAlbumOperationStatus.Zooming"
+         @click="null"
+         @touchstart="progressBarTouchStart"
+         @touchmove="progressBarTouchMove"
+         @touchend="progressBarTouchMEnd"
+    >
+      <div class="bar" v-for="(img,index) in modelValue.imgs">
+        <div class="progress"
+             :style="getProgressWidth(index)"></div>
       </div>
     </div>
+    <Teleport to="#slideHook" v-if="state.isPreview">
+      <div class="preview">
+        <div class="preview-wrapper">
+          <img :src="img"
+               :class="{'preview-img':index === state.localIndex}"
+               v-for="(img,index) in props.modelValue.imgs"
+               :ref="e=>setItemRef(e,'previewImgs')"
+          >
+        </div>
+        <div class="indicator">
+          <span class="index">{{ state.localIndex + 1 }}</span>&nbsp;/&nbsp;{{ props.modelValue.imgs.length }}
+        </div>
+      </div>
+    </Teleport>
+    <Teleport to="#slideHook" v-if="state.operationStatus === SlideAlbumOperationStatus.Detail">
+      <div class="album-toolbar">
+        <div class="left">关闭</div>
+        <div class="right">
+          <div class="option">评论</div>
+          <div class="option">切换</div>
+          <div class="option">下载</div>
+        </div>
+      </div>
+    </Teleport>
   </div>
 </template>
 
@@ -56,7 +67,7 @@
 import enums from "../../utils/enums";
 import Utils from '../../utils'
 import {mat4} from 'gl-matrix'
-import {onMounted, onBeforeUpdate, reactive, ref, watch} from "vue";
+import {onMounted, onBeforeUpdate, reactive, ref, watch, computed} from "vue";
 import {
   getSlideDistance,
   slideInit,
@@ -65,15 +76,12 @@ import {
   slideTouchMove,
   slideTouchStart
 } from "../../pages/slideHooks/common";
-import {SlideType} from "../../utils/const_var";
+import {SlideAlbumOperationStatus, SlideType} from "../../utils/const_var";
 import ItemToolbar from "./ItemToolbar";
 import ItemDesc from "./ItemDesc";
 import GM from "../../utils";
 import {cloneDeep} from "lodash";
-
-function c() {
-  console.log('console.log()')
-}
+import bus from "../../utils/bus";
 
 let out = new Float32Array([
   0, 0, 0, 0,
@@ -199,7 +207,8 @@ const state = reactive({
   localIndex: 0,
   needCheck: true,
   isPreview: false,
-  isTwo: true,
+  isZoom: false,
+  operationStatus: SlideAlbumOperationStatus.Normal,
   next: false,
   wrapper: {width: 0, height: 0, childrenLength: 0},
   last: {
@@ -258,6 +267,21 @@ watch(
     }
 )
 
+watch(
+    () => state.operationStatus,
+    (newVal) => {
+      if (newVal === SlideAlbumOperationStatus.Zooming) {
+        bus.emit('enterFullscreen')
+      } else {
+        bus.emit('exitFullscreen')
+      }
+    }
+)
+
+const isZooming = computed(() => {
+  return state.operationStatus === SlideAlbumOperationStatus.Zooming
+})
+
 function calcCurrentIndex(e) {
   state.isPreview = true
   let x = e.touches[0].pageX
@@ -277,39 +301,26 @@ function calcCurrentIndex(e) {
 }
 
 function progressBarTouchStart(e) {
-  console.log('progressBarTouchStart')
   Utils.$stopPropagation(e)
 }
 
 function progressBarTouchMove(e) {
-  console.log('progressBarTouchMove')
-  let current1 = {x: e.touches[0].pageX, y: e.touches[0].pageY}
-  // let rect = wrapperEl.value.getBoundingClientRect()
-  // if (rect.height - 15 < current1.y && current1.y < rect.height) {
-  //   console.log('在')
-  //   state.isPreview = true
-  //   // Utils.$stopPropagation(e)
-  // }
-
-  // calcCurrentIndex(e)
+  Utils.$stopPropagation(e)
+  calcCurrentIndex(e)
 }
 
 function progressBarTouchMEnd(e) {
-  console.log('progressBarTouchEnd')
-  if (state.isPreview){
-    Utils.$stopPropagation(e)
-  }
+  Utils.$stopPropagation(e)
   state.isPreview = false
 }
 
 function touchStart(e) {
   console.log('start', e.touches.length)
   if (e.touches.length === 1) {
-    state.isTwo = false
     slideTouchStart(e, wrapperEl.value, state)
   } else {
-    if (state.isTwo) return
-    state.isTwo = true
+    if (isZooming.value) return
+    state.operationStatus = SlideAlbumOperationStatus.Zooming
     state.itemRefs[state.localIndex].style['transition-duration'] = '0ms';
     state.last.point1 = state.start.point1 = {x: e.touches[0].pageX, y: e.touches[0].pageY};
     state.last.point2 = state.start.point2 = {x: e.touches[1].pageX, y: e.touches[1].pageY};
@@ -318,9 +329,10 @@ function touchStart(e) {
 }
 
 function touchMove(e) {
-  console.log('move', e.touches.length)
+  console.log('move', e.touches.length,)
   let current1 = {x: e.touches[0].pageX, y: e.touches[0].pageY}
-  if (state.isTwo && e.touches.length === 1) {
+  if (isZooming.value && e.touches.length === 1) {
+    console.log('m1')
     state.status = 'pause'
     Utils.$stopPropagation(e)
 
@@ -334,16 +346,19 @@ function touchMove(e) {
     state.last.point1 = current1
   } else {
     if (e.touches.length === 1) {
-      state.isTwo = false
-      if (state.isPreview) {
-        // Utils.$stopPropagation(e)
-      }else {
-        slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext, () => {
-          state.status = 'pause'
-        }, SlideType.HORIZONTAL)
-      }
+      console.log('m2')
+      slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext,
+          () => {
+            state.status = 'pause'
+          }, SlideType.HORIZONTAL,
+          () => {
+            if (state.operationStatus === SlideAlbumOperationStatus.Detail) {
+              Utils.$stopPropagation(e)
+            }
+          })
     } else {
-      state.isTwo = true
+      console.log('m3')
+      state.operationStatus = SlideAlbumOperationStatus.Zooming
       Utils.$stopPropagation(e)
       state.status = 'pause'
 
@@ -398,13 +413,14 @@ function touchMove(e) {
 
 function touchEnd(e) {
   state.isPreview = false
-  // console.log('end', e.touches.length, state.isTwo)
+  console.log('end', e.touches.length, state.operationStatus)
   //双指缩放，但只松开了一只手
-  if (state.isTwo && e.touches.length === 1) {
+  if (isZooming.value && e.touches.length === 1) {
     Utils.$stopPropagation(e)
     state.last.point1 = {x: e.touches[0].pageX, y: e.touches[0].pageY}
   } else {
-    if (state.isTwo) {
+    if (isZooming.value) {
+      state.operationStatus = SlideAlbumOperationStatus.Detail
       ov = origin
       Utils.$stopPropagation(e)
       state.itemRefs[state.localIndex].style['transition-duration'] = '300ms';
@@ -416,6 +432,8 @@ function touchEnd(e) {
             state.progress = (state.localIndex + 1) * 100
           },
           () => {
+            console.log('notNextCb')
+            state.operationStatus = SlideAlbumOperationStatus.Normal
             if (state.status !== 'custom') {
               state.status = 'play'
               requestAnimationFrame(state.cycleFn)
@@ -436,16 +454,21 @@ function setItemRef(el, key) {
   el && state[key].push(el)
 }
 
-function canNext(isNext) {
-  return !((state.localIndex === 0 && !isNext) || (state.localIndex === props.modelValue.imgs.length - 1 && isNext));
+function canNext(isNext, e) {
+  let res = !((state.localIndex === 0 && !isNext) || (state.localIndex === props.modelValue.imgs.length - 1 && isNext));
+  if (!res && state.operationStatus === SlideAlbumOperationStatus.Detail && e) {
+    Utils.$stopPropagation(e)
+  }
+  return res
 }
 
 </script>
 
 <style scoped lang="less">
-#SlideImgs {
+@import "@/assets/less/index";
+
+#SlideAlbum {
   position: relative;
-  background: blue;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -488,8 +511,8 @@ function canNext(isNext) {
     padding: 0 5rem;
     @h: 4rem;
     //height: @h;
-    height: 30rem;
-    background-color: red;
+    height: 10rem;
+    //background-color: red;
     align-items: flex-end;
     justify-content: space-between;
 
@@ -498,7 +521,7 @@ function canNext(isNext) {
       flex: 1;
       margin: 0 2rem;
       height: @h;
-      background: gray;
+      background: rgba(#000, .5);
       position: relative;
       overflow: hidden;
 
@@ -512,41 +535,85 @@ function canNext(isNext) {
     }
   }
 
-  .preview {
-    transition: opacity .3s;
-    position: fixed;
-    bottom: 20rem;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+}
+</style>
+<style lang="less">
+@import "@/assets/less/index";
 
-    .preview-wrapper {
-      img {
-        transition: width .3s;
-        margin: 0 5rem;
-        width: 30rem;
-        height: 50rem;
-        background-color: black;
-        object-fit: contain;
-        border-radius: 3rem;
-        overflow: hidden;
+.preview {
+  transition: opacity .3s;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 
-        &.preview-img {
-          width: 40rem;
-        }
-      }
-    }
+  .preview-wrapper {
+    img {
+      transition: width .3s;
+      margin: 0 5rem;
+      width: 30rem;
+      height: 50rem;
+      background-color: black;
+      object-fit: contain;
+      border-radius: 3rem;
+      overflow: hidden;
 
-    .indicator {
-      margin-top: 10rem;
-      color: gray;
-
-      .index {
-        color: white;
+      &.preview-img {
+        width: 40rem;
       }
     }
   }
+
+  .indicator {
+    background: @footer-color;
+    width: 100%;
+    height: @footer-height;
+    color: gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .index {
+      color: white;
+    }
+  }
 }
+
+.album-toolbar {
+  position: absolute;
+  bottom: 0;
+  background: @footer-color;
+  width: 100%;
+  box-sizing: border-box;
+  height: @footer-height;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10rem;
+
+  @padding: 12rem;
+
+  .left {
+    height: 34rem;
+    background-color: gray;
+    border-radius: 6rem;
+    padding: 0 @padding;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .right {
+    .left;
+
+    .option {
+      margin: 0 5rem;
+    }
+  }
+
+}
+
 </style>

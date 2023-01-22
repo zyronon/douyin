@@ -1,5 +1,5 @@
 <template>
-  <div class="footer">
+  <div v-if="visible" class="footer">
     <div class="l-button" @click="refresh(1)">
       <span v-if="!isRefresh1" :class="{active:currentTab===1}">首页</span>
       <img v-if="isRefresh1 " src="../assets/img/icon/refresh1.png" alt="" class="refresh">
@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import bus from "../utils/bus";
+
 export default {
   name: "Footer",
   props: ['initTab'],
@@ -34,7 +36,13 @@ export default {
       isRefresh1: false,
       isRefresh2: false,
       currentTab: this.initTab,
+      visible: true
     }
+  },
+  created() {
+    bus.on('setFooterVisible', (e) => this.visible = e)
+    bus.on('enterFullscreen', (e) => this.visible = false)
+    bus.on('exitFullscreen', (e) => this.visible = true)
   },
   methods: {
     tab(index) {
@@ -84,7 +92,7 @@ export default {
   // 会使footer的bottom：0失效，不能准确定位
   top: calc(100vh - @footer-height);
   //bottom: 0;
-  background: #020202;
+  background: @footer-color;
   color: white;
   display: flex;
   //justify-content: space-between;

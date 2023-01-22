@@ -52,7 +52,7 @@ const state = reactive({
 </script>
 <template>
   <div class="item-desc">
-    <div class="content ml1r mb2r" v-if="!isMy">
+    <div class="content ml1r mb1r" v-if="!isMy">
       <div class="location-wrapper" v-if=" item.city || item.address">
         <div class="location">
           <img src="../../assets/img/icon/location.webp" alt="">

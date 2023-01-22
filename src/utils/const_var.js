@@ -20,6 +20,18 @@ export default {
   }
 }
 export const SlideType = {
-  HORIZONTAL:0,
-  VERTICAL:1,
+  HORIZONTAL: 0,
+  VERTICAL: 1,
+}
+
+/*图集操作状态*/
+export const SlideAlbumOperationStatus = {
+  Normal: 'Normal',
+  Zooming: 'Zooming',
+  Detail: 'Detail',
+}
+/*图集播放状态*/
+export const SlideAlbumPlayStatus = {
+  HORIZONTAL: 0,
+  VERTICAL: 1,
 }

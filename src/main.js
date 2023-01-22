@@ -9,14 +9,13 @@ import store from "./store";
 import mixin from "./utils/mixin";
 import VueLazyload from '@jambonn/vue-lazyload'
 import VConsole from 'vconsole';
+
 const vConsole = new VConsole();
 
 const app = Vue.createApp(App)
 app.config.globalProperties.$api = {...api}
 
-
 const loadImage = new URL('./assets/img/icon/img-loading.png', import.meta.url).href
-
 app.provide('mitt', mitt())
 app.mixin(mixin)
 app.use(VueLazyload, {
