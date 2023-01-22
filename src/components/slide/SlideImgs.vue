@@ -1,20 +1,52 @@
 <template>
+  <!--不知为啥touch事件，在下部20px的空间内不触发，加上click事件不好了  -->
   <div id="SlideImgs">
     <div class="img-slide-wrapper">
       <div class="img-slide-list"
            ref="wrapperEl"
-           @touchstart="touchStart"
+           @touchstart.passive="touchStart"
            @touchmove="touchMove"
            @touchend="touchEnd">
         <div class="img-slide-item" v-for="img in props.modelValue.imgs">
-          <img :ref="setItemRef" :src="img">
+          <img :ref="e=>setItemRef(e,'itemRefs')"
+               :src="img">
         </div>
       </div>
     </div>
-    <div class="progress-bar" v-if="true">
-      <div class="bar" v-for="(img,index) in modelValue.imgs">
-        <div class="progress"
-             :style="getProgressWidth(index)"></div>
+    <template v-if="!state.isPreview">
+      <template v-if="false">
+        <ItemToolbar :item="props.modelValue"
+                     :index="0"
+                     prefix="sadfa"
+        />
+        <ItemDesc
+            :item="props.modelValue"
+            :index="0"
+            prefix="sadfa"
+        />
+      </template>
+      <div class="progress-bar"
+           @touchstart="progressBarTouchStart"
+           @touchmove="progressBarTouchMove"
+           @touchend="progressBarTouchMEnd"
+      >
+        <div class="bar" v-for="(img,index) in modelValue.imgs">
+          <div class="progress"
+               :style="getProgressWidth(index)"></div>
+        </div>
+      </div>
+
+    </template>
+    <div class="preview" v-if="state.isPreview">
+      <div class="preview-wrapper">
+        <img :src="img"
+             :class="{'preview-img':index === state.localIndex}"
+             v-for="(img,index) in props.modelValue.imgs"
+             :ref="e=>setItemRef(e,'previewImgs')"
+        >
+      </div>
+      <div class="indicator">
+        <span class="index">{{ state.localIndex + 1 }}</span>&nbsp;/&nbsp;{{ props.modelValue.imgs.length }}
       </div>
     </div>
   </div>
@@ -24,7 +56,7 @@
 import enums from "../../utils/enums";
 import Utils from '../../utils'
 import {mat4} from 'gl-matrix'
-import {onMounted, reactive, ref} from "vue";
+import {onMounted, onBeforeUpdate, reactive, ref, watch} from "vue";
 import {
   getSlideDistance,
   slideInit,
@@ -34,6 +66,14 @@ import {
   slideTouchStart
 } from "../../pages/slideHooks/common";
 import {SlideType} from "../../utils/const_var";
+import ItemToolbar from "./ItemToolbar";
+import ItemDesc from "./ItemDesc";
+import GM from "../../utils";
+import {cloneDeep} from "lodash";
+
+function c() {
+  console.log('console.log()')
+}
 
 let out = new Float32Array([
   0, 0, 0, 0,
@@ -47,6 +87,7 @@ let ov = new Float32Array([
   0, 0, 1, 0,
   0, 0, 0, 1,
 ]);
+let origin = cloneDeep(ov)
 const rectMap = new Map()
 const props = defineProps({
   modelValue: {
@@ -59,6 +100,9 @@ const props = defineProps({
           new URL('../../assets/img/poster/1.jpg', import.meta.url).href,
           new URL('../../assets/img/poster/2.jpg', import.meta.url).href,
           new URL('../../assets/img/poster/3.jpg', import.meta.url).href,
+          new URL('../../assets/img/poster/4.jpg', import.meta.url).href,
+          new URL('../../assets/img/poster/5.jpg', import.meta.url).href,
+          new URL('../../assets/img/poster/6.jpg', import.meta.url).href,
         ],
         "id": "034ae83b-ca0a-401a-b7c6-cf78361bae7b",
         video: 'http://douyin.ttentau.top/0.mp4',
@@ -154,6 +198,7 @@ const state = reactive({
   name: 'SlideHorizontal',
   localIndex: 0,
   needCheck: true,
+  isPreview: false,
   isTwo: true,
   next: false,
   wrapper: {width: 0, height: 0, childrenLength: 0},
@@ -170,14 +215,17 @@ const state = reactive({
   },
   move: {x: 0, y: 0},
   itemRefs: [],
+  previewImgs: [],
   status: 'play',//stop,custom
   progress: 0,
   cycleFn: null,
 })
+
 onMounted(() => {
   slideInit(wrapperEl.value, state, SlideType.HORIZONTAL)
 
   state.cycleFn = () => {
+    return
     if (state.status !== 'play') return cancelAnimationFrame(state.cycleFn)
     if (state.progress < props.modelValue.imgs.length * 100) {
       state.progress += .4
@@ -195,11 +243,67 @@ onMounted(() => {
   requestAnimationFrame(state.cycleFn)
 })
 
+// 确保在每次更新之前重置ref
+onBeforeUpdate(() => {
+  state.itemRefs = []
+  state.previewImgs = []
+})
+
+watch(
+    () => state.localIndex,
+    (newVal) => {
+      GM.$setCss(wrapperEl.value, 'transition-duration', `300ms`)
+      GM.$setCss(wrapperEl.value, 'transform', `translate3d(${getSlideDistance(state, SlideType.HORIZONTAL)}px, 0, 0)`)
+      state.progress = (state.localIndex + 1) * 100
+    }
+)
+
+function calcCurrentIndex(e) {
+  state.isPreview = true
+  let x = e.touches[0].pageX
+
+  let current = -1
+  let length = state.previewImgs.length
+  for (let i = length - 1; i >= 0; i--) {
+    let rect = state.previewImgs[i].getBoundingClientRect()
+    if (rect.x < x) {
+      current = i
+      break
+    }
+  }
+  if (current > -1) {
+    state.localIndex = current
+  }
+}
+
+function progressBarTouchStart(e) {
+  console.log('progressBarTouchStart')
+  Utils.$stopPropagation(e)
+}
+
+function progressBarTouchMove(e) {
+  console.log('progressBarTouchMove')
+  let current1 = {x: e.touches[0].pageX, y: e.touches[0].pageY}
+  // let rect = wrapperEl.value.getBoundingClientRect()
+  // if (rect.height - 15 < current1.y && current1.y < rect.height) {
+  //   console.log('在')
+  //   state.isPreview = true
+  //   // Utils.$stopPropagation(e)
+  // }
+
+  // calcCurrentIndex(e)
+}
+
+function progressBarTouchMEnd(e) {
+  console.log('progressBarTouchEnd')
+  if (state.isPreview){
+    Utils.$stopPropagation(e)
+  }
+  state.isPreview = false
+}
+
 function touchStart(e) {
   console.log('start', e.touches.length)
-  // if (s.state !== 'custom') {
-  //   this.state = 'stop'
-  // }
   if (e.touches.length === 1) {
     state.isTwo = false
     slideTouchStart(e, wrapperEl.value, state)
@@ -214,26 +318,30 @@ function touchStart(e) {
 }
 
 function touchMove(e) {
-  // console.log('move', e.touches.length)
+  console.log('move', e.touches.length)
+  let current1 = {x: e.touches[0].pageX, y: e.touches[0].pageY}
   if (state.isTwo && e.touches.length === 1) {
     state.status = 'pause'
     Utils.$stopPropagation(e)
 
     // console.log('单手移动',)
-    let current = {x: e.touches[0].pageX, y: e.touches[0].pageY}
-    let movementX = current.x - state.last.point1.x
-    let movementY = current.y - state.last.point1.y
+    let movementX = current1.x - state.last.point1.x
+    let movementY = current1.y - state.last.point1.y
     // console.log(movementX, movementY)
     const t = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, movementX, movementY, 0, 1,]);
     ov = mat4.multiply(out, t, ov);
     state.itemRefs[state.localIndex].style.transform = `matrix3d(${ov.toString()})`;
-    state.last.point1 = current
+    state.last.point1 = current1
   } else {
     if (e.touches.length === 1) {
       state.isTwo = false
-      slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext, () => {
-        state.status = 'pause'
-      }, SlideType.HORIZONTAL)
+      if (state.isPreview) {
+        // Utils.$stopPropagation(e)
+      }else {
+        slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext, () => {
+          state.status = 'pause'
+        }, SlideType.HORIZONTAL)
+      }
     } else {
       state.isTwo = true
       Utils.$stopPropagation(e)
@@ -249,7 +357,6 @@ function touchMove(e) {
         rectMap.set(state.localIndex, rect)
       }
 
-      let current1 = {x: e.touches[0].pageX, y: e.touches[0].pageY}
       let current2 = {x: e.touches[1].pageX, y: e.touches[1].pageY}
 
       // 双指缩放比例，就是对应的放大倍数
@@ -290,17 +397,18 @@ function touchMove(e) {
 }
 
 function touchEnd(e) {
-  console.log('end', e.touches.length, state.isTwo)
+  state.isPreview = false
+  // console.log('end', e.touches.length, state.isTwo)
   //双指缩放，但只松开了一只手
   if (state.isTwo && e.touches.length === 1) {
     Utils.$stopPropagation(e)
     state.last.point1 = {x: e.touches[0].pageX, y: e.touches[0].pageY}
   } else {
     if (state.isTwo) {
+      ov = origin
       Utils.$stopPropagation(e)
       state.itemRefs[state.localIndex].style['transition-duration'] = '300ms';
-      state.itemRefs[state.localIndex].style.transform = `matrix3d(${ov.toString()})`;
-
+      state.itemRefs[state.localIndex].style.transform = `matrix3d(${origin.toString()})`;
     } else {
       slideTouchEnd(e, state, canNext,
           () => {
@@ -324,8 +432,8 @@ function getProgressWidth(index) {
   return {width: `${state.progress - index * 100 < 0 ? 0 : state.progress - index * 100}%`}
 }
 
-function setItemRef(el) {
-  el && state.itemRefs.push(el)
+function setItemRef(el, key) {
+  el && state[key].push(el)
 }
 
 function canNext(isNext) {
@@ -335,13 +443,9 @@ function canNext(isNext) {
 </script>
 
 <style scoped lang="less">
-html {
-  touch-action: none;
-}
-
 #SlideImgs {
   position: relative;
-  background: black;
+  background: blue;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -349,6 +453,7 @@ html {
   font-size: 14rem;
 
   .img-slide-wrapper {
+    position: relative;
     height: 100%;
     width: 100%;
 
@@ -381,35 +486,66 @@ html {
     display: flex;
     box-sizing: border-box;
     padding: 0 5rem;
+    @h: 4rem;
+    //height: @h;
+    height: 30rem;
+    background-color: red;
+    align-items: flex-end;
     justify-content: space-between;
 
     .bar {
       border-radius: 10rem;
       flex: 1;
       margin: 0 2rem;
-      height: 2rem;
+      height: @h;
       background: gray;
       position: relative;
+      overflow: hidden;
 
       .progress {
         border-radius: 10rem;
         position: absolute;
         left: 0;
-        height: 2rem;
+        height: @h;
         background: white;
-        //width: 100%;
-        //animation: start 3s linear;
+      }
+    }
+  }
 
-        @keyframes start {
-          0% {
-            width: 0;
-          }
-          100% {
-            width: 100%;
-          }
+  .preview {
+    transition: opacity .3s;
+    position: fixed;
+    bottom: 20rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .preview-wrapper {
+      img {
+        transition: width .3s;
+        margin: 0 5rem;
+        width: 30rem;
+        height: 50rem;
+        background-color: black;
+        object-fit: contain;
+        border-radius: 3rem;
+        overflow: hidden;
+
+        &.preview-img {
+          width: 40rem;
         }
       }
+    }
 
+    .indicator {
+      margin-top: 10rem;
+      color: gray;
+
+      .index {
+        color: white;
+      }
     }
   }
 }

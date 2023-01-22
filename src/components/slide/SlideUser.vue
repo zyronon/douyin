@@ -11,7 +11,7 @@
           <img class="poster" :src="globalMethods.$imgPreview(i.cover)"/>
           <div class="num">
             <img class="love" src="../../assets/img/icon/love.svg" alt="">
-            <span>{{ globalMethods.$likeNum(i.digg_count) }}</span>
+            <span>{{ globalMethods.formatNumber(i.digg_count) }}</span>
           </div>
         </div>
       </div>

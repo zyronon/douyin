@@ -35,15 +35,15 @@
                 <div class="heat">
                   <div class="text" @click="isShowStarCount = true">
                     <span>获赞</span>
-                    <span class="num">{{ $likeNum(userinfo.aweme_count) }}</span>
+                    <span class="num">{{ formatNumber(userinfo.aweme_count) }}</span>
                   </div>
                   <div class="text" @click="$nav('/people/follow-and-fans',{type:0})">
                     <span>关注</span>
-                    <span class="num">{{ $likeNum(userinfo.following_count) }}</span>
+                    <span class="num">{{ formatNumber(userinfo.following_count) }}</span>
                   </div>
                   <div class="text" @click="$nav('/people/follow-and-fans',{type:1})">
                     <span>粉丝</span>
-                    <span class="num">{{ $likeNum(userinfo.follower_count) }}</span>
+                    <span class="num">{{ formatNumber(userinfo.follower_count) }}</span>
                   </div>
                 </div>
               </div>
@@ -172,7 +172,7 @@
                       <img class="poster" :src="$imgPreview(i.video+videoPoster)" alt="">
                       <div class="num">
                         <img class="love" src="../../assets/img/icon/love.svg" alt="">
-                        <span>{{ $likeNum(i.likeNum) }}</span>
+                        <span>{{ formatNumber(i.likeNum) }}</span>
                       </div>
                     </div>
                   </div>
@@ -323,7 +323,7 @@
 
     <ConfirmDialog
         v-model:visible="isShowStarCount"
-        :subtitle='`"${userinfo.nickname}"共获得${this.$likeNum(userinfo.aweme_count)}个赞`'
+        :subtitle='`"${userinfo.nickname}"共获得${this.formatNumber(userinfo.aweme_count)}个赞`'
         okText="确认"
         cancelText="取消"
         @ok="isShowStarCount = false"

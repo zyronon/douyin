@@ -1,7 +1,8 @@
 <template>
   <from-bottom-dialog
       page-id="home-index"
-      v-model="modelValue"
+      :modelValue="modelValue"
+      @update:modelValue="e=>$emit('update:modelValue',e)"
       :show-heng-gang="false"
       maskMode="dark"
       @cancel="cancel()"

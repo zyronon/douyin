@@ -265,7 +265,7 @@ export default {
     }
     return Config.filePreview + url
   },
-  $likeNum(num) {
+  formatNumber(num) {
     if (!num) return
     if (num < 10000) {
       return num

@@ -41,7 +41,7 @@
               <div class="heat">
                 <div class="text">
                   <span>获赞</span>
-                  <span class="num">{{ $likeNum(localAuthor.aweme_count) }}</span>
+                  <span class="num">{{ formatNumber(localAuthor.aweme_count) }}</span>
                 </div>
                 <div class="text">
                   <span>关注</span>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="text">
                   <span>粉丝</span>
-                  <span class="num">{{ $likeNum(localAuthor.follower_count) }}</span>
+                  <span class="num">{{ formatNumber(localAuthor.follower_count) }}</span>
                 </div>
               </div>
             </div>

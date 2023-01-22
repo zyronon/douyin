@@ -5,7 +5,7 @@
       <img class="poster" v-lazy="$imgPreview(i.cover)" alt="">
       <div class="num" v-if="mode === 'normal'">
         <img class="love" src="../assets/img/icon/love.svg" alt="">
-        <span>{{ $likeNum(i.digg_count) }}</span>
+        <span>{{ formatNumber(i.digg_count) }}</span>
       </div>
       <div class="date" v-if="mode === 'date'">
         <div class="day">{{ getDay(i.create_time) }}</div>

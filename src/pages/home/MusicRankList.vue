@@ -46,7 +46,7 @@
                       <div class="author">{{ item.author }}</div>
                       <div class="desc-bottom">
                         <div class="duration">{{ $duration(item.duration) }}</div>
-                        <div class="use_count">{{ $likeNum(item.use_count) }}人使用</div>
+                        <div class="use_count">{{ formatNumber(item.use_count) }}人使用</div>
                       </div>
                     </div>
                   </div>
@@ -94,7 +94,7 @@
                       <div class="author">{{ item.author }}</div>
                       <div class="desc-bottom">
                         <div class="duration">{{ $duration(item.duration) }}</div>
-                        <div class="use_count">{{ $likeNum(item.use_count) }}人使用</div>
+                        <div class="use_count">{{ formatNumber(item.use_count) }}人使用</div>
                       </div>
                     </div>
                   </div>
@@ -142,7 +142,7 @@
                       <div class="author">{{ item.author }}</div>
                       <div class="desc-bottom">
                         <div class="duration">{{ $duration(item.duration) }}</div>
-                        <div class="use_count">{{ $likeNum(item.use_count) }}人使用</div>
+                        <div class="use_count">{{ formatNumber(item.use_count) }}人使用</div>
                       </div>
                     </div>
                   </div>

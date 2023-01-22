@@ -1,7 +1,8 @@
 <template>
   <from-bottom-dialog
       page-id="ChatDetail"
-      v-model="modelValue"
+      :modelValue="modelValue"
+      @update:modelValue="e=>$emit('update:modelValue',e)"
       :show-heng-gang="false"
       height="20rem"
       @cancel='cancel'
