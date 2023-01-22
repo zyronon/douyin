@@ -1,5 +1,5 @@
 <template>
-  <div class="test-slide-wrapper">
+  <div class="test-slide-wrapper" id="slideHook">
     <H v-model:index="state.baseIndex">
       <SlideItem class=" gray">
         <H class="h" v-model:index="state.navIndex">
@@ -54,7 +54,7 @@ import VInfinite from './VInfinite.vue'
 import SlideItem from './SlideItem'
 import SlideVideo from "../../components/slide/SlideVideo";
 import SlideUser from "../../components/slide/SlideUser";
-import SlideImgs from "../../components/slide/SlideImgs";
+import SlideImgs from "../../components/slide/SlideAlbum";
 import BVideo from "../../components/slide/BVideo";
 
 import resource from "../../assets/data/resource.js";
@@ -235,6 +235,8 @@ function render(item, itemIndex, play,prefix) {
 </script>
 
 <style scoped lang="less">
+@import "@/assets/less/index";
+
 .test-slide-wrapper {
   font-size: 14rem;
   width: 100%;

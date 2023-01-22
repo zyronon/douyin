@@ -67,10 +67,7 @@ import Uploader from "../pages/me/Uploader";
 import Slide from "../pages/slide/Slide";
 
 const routes = [
-  {
-    path: '/',
-    redirect: '/test'
-  },
+  {path: '/', redirect: '/test'},
   {path: '/slide', component: Slide},
   {path: '/test', component: Test},
   {path: '/test4', component: Test4},

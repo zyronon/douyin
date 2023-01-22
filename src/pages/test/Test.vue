@@ -15,7 +15,7 @@
 
 import TestSlide from "./TestSlide";
 import SlideUser from "../../components/slide/SlideUser";
-import SlideImgs from "../../components/slide/SlideImgs";
+import SlideImgs from "../../components/slide/SlideAlbum";
 import TestImg from "./TestImg";
 import slideHooks from '../slideHooks'
 import {mat4} from "gl-matrix";
