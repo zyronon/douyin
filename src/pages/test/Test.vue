@@ -2,7 +2,6 @@
   <!--  <TestSlide></TestSlide>-->
   <!--  <SlideUser></SlideUser>-->
 <!--  <SlideImgs></SlideImgs>-->
-<!--      <TestImg/>-->
     <slideHooks></slideHooks>
 
   <!--  <div class="body">-->

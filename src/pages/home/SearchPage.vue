@@ -120,7 +120,7 @@
                   </div>
                   <div class="count">
                     <img src="../../assets/img/icon/home/hot-gray.png" alt="">
-                    <span>{{ $likeNum(item.use_count) }}</span>
+                    <span>{{ formatNumber(item.use_count) }}</span>
                   </div>
                 </div>
               </div>
@@ -153,7 +153,7 @@
                     </div>
                     <div class="count">
                       <img src="../../assets/img/icon/home/hot-gray.png" alt="">
-                      <span>{{ $likeNum(item.hot_count) }}</span>
+                      <span>{{ formatNumber(item.hot_count) }}</span>
                     </div>
                   </div>
                 </div>

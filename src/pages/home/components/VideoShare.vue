@@ -1,7 +1,8 @@
 <template>
   <from-bottom-dialog
       :page-id="pageId"
-      v-model="modelValue"
+      :modelValue="modelValue"
+      @update:modelValue="e=>$emit('update:modelValue',e)"
       @cancel="closeShare1"
       :touch-moved="false"
       maskMode="light"

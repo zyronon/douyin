@@ -1,7 +1,8 @@
 <template>
   <from-bottom-dialog
       page-id="home-index"
-      v-model="modelValue"
+      :modelValue="modelValue"
+      @update:modelValue="e=>$emit('update:modelValue',e)"
       @cancel="cancel"
       :show-heng-gang="false"
       maskMode="light"
@@ -35,7 +36,7 @@
                 <img v-show="item.isLoved" src="../assets/img/icon/components/like-red-small.png" alt=""
                      class="love-image">
                 <img  v-show="!item.isLoved" src="../assets/img/icon/components/like-gray-small.png" alt="" class="love-image">
-                <span>{{ $likeNum(item.loveNum) }}</span>
+                <span>{{ formatNumber(item.loveNum) }}</span>
               </div>
             </div>
             <div class="replies">
@@ -60,7 +61,7 @@
                   <img v-if="child.isLoved" src="../assets/img/icon/components/like-red-small.png" alt=""
                        class="love-image">
                   <img v-else src="../assets/img/icon/components/like-gray-small.png" alt="" class="love-image">
-                  <span>{{ $likeNum(child.loveNum) }}</span>
+                  <span>{{ formatNumber(child.loveNum) }}</span>
                 </div>
               </div>
               <div class="more">

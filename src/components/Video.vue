@@ -31,16 +31,16 @@
               <img src="../assets/img/icon/love.svg" class="love-image" v-if="!lVideo.isLoved">
               <img src="../assets/img/icon/loved.svg" class="love-image" v-if="lVideo.isLoved">
             </div>
-            <span>{{ $likeNum(lVideo.digg_count) }}</span>
+            <span>{{ formatNumber(lVideo.digg_count) }}</span>
           </div>
           <div class="message mb2r" @click.stop="$emit('showComments')">
             <!--            <div class="message mb15p" @click.stop="showComment">-->
             <img src="../assets/img/icon/message.svg" alt="" class="message-image">
-            <span>{{ $likeNum(lVideo.comment_count) }}</span>
+            <span>{{ formatNumber(lVideo.comment_count) }}</span>
           </div>
           <div v-if="!isMy" class="share mb4r" @click.stop="$emit('showShare')">
             <img src="../assets/img/icon/share-white-full.png" alt="" class="share-image">
-            <span>{{ $likeNum(lVideo.share_count) }}</span>
+            <span>{{ formatNumber(lVideo.share_count) }}</span>
           </div>
           <div v-else class="share mb4r" @click.stop="$emit('showShare')">
             <img src="../assets/img/icon/share-white-full.png" alt="" class="share-image">
@@ -331,8 +331,8 @@ export default {
       this.$refs.video.pause()
       this.isPlaying = false
     },
-    $likeNum(v) {
-      return globalMethods.$likeNum(v)
+    formatNumber(v) {
+      return globalMethods.formatNumber(v)
     },
     $duration(v) {
       return globalMethods.$duration(v)
