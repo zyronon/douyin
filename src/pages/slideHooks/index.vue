@@ -1,5 +1,5 @@
 <template>
-  <div class="test-slide-wrapper" id="slideHook">
+  <div class="test-slide-wrapper" id="slideHook" v-love="'slideHook'">
     <H v-model:index="state.baseIndex">
       <SlideItem class=" gray">
         <H class="h" v-model:index="state.navIndex">
@@ -20,10 +20,10 @@
           </SlideItem>
           <SlideItem class="">
             <VInfinite
-                v-model:index="state.index"
+                v-model:index="state.itemIndex"
                 :render="render"
                 :list="state.recommendVideos"
-                :prefix="state.videoPrefix[0]"
+                tag="0-5"
             >
             </VInfinite>
           </SlideItem>
@@ -58,22 +58,24 @@ import SlideImgs from "../../components/slide/SlideAlbum";
 import BVideo from "../../components/slide/BVideo";
 
 import resource from "../../assets/data/resource.js";
-import {reactive} from "vue";
+import {onMounted, reactive} from "vue";
 import enums from "../../utils/enums";
+import bus from "../../utils/bus";
+import Dom from "../../utils/dom";
 
 const state = reactive({
   baseIndex: 0,
   navIndex: 5,
-  index: 0,
+  itemIndex: 0,
   recommendVideos: [
     // {
     //   type: 'img',
     //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
     // },
-    {
-      type: 'imgs',
-      src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
-    },
+    // {
+    //   type: 'imgs',
+    //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
+    // },
     {
       type: 'recommend-video',
       "id": "034ae83b-ca0a-401a-b7c6-cf78361bae7b",
@@ -161,7 +163,6 @@ const state = reactive({
       }
     },
   ],
-  videoPrefix: ['one', 'two', 'three'],
 
   isCommenting: false,
   isSharing: false,
@@ -181,7 +182,13 @@ const state = reactive({
   shareToFriend: false,
 })
 
-function render(item, itemIndex, play,prefix) {
+onMounted(() => {
+  bus.on('singleClick', () => {
+    new Dom(`.v-${state.baseIndex}-${state.navIndex}-${state.itemIndex}-item`).trigger('singleClick')
+  })
+})
+
+function render(item, itemIndex, play, tag) {
   let node
   if (item.type === 'img') {
     node = <img src={item.src} style="height:100%;"/>
@@ -193,8 +200,7 @@ function render(item, itemIndex, play,prefix) {
     node = <BVideo
         isPlay={play}
         video={item}
-        prefix={prefix}
-        index={itemIndex}
+        tag={tag + '-' + itemIndex}
         onShowComments={e => state.isCommenting = true}
         onShowShare={e => state.isSharing = true}
         onGoUserInfo={e => state.baseActiveIndex = 1}

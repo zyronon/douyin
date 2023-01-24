@@ -192,3 +192,67 @@ p {
     position: relative;
   }
 }
+
+.love-dbclick {
+  position: absolute;
+  @width: 90rem;
+  width: @width;
+  height: @width;
+
+  &.left {
+    animation: loveLeft 1.1s linear;
+  }
+
+  &.right {
+    animation: loveRight 1.1s linear;
+  }
+
+  @scale: scale(1.2);
+  @start-scale: scale(2.2);
+  @rotate: 10deg;
+
+  @keyframes loveLeft {
+    0% {
+      opacity: 0;
+      transform: @start-scale rotate(0-@rotate);
+    }
+    10% {
+      opacity: 1;
+      transform: scale(1) rotate(0-@rotate);
+    }
+    15% {
+      opacity: 1;
+      transform: @scale rotate(0-@rotate);
+    }
+    40% {
+      opacity: 1;
+      transform: @scale rotate(0-@rotate);
+    }
+    100% {
+      transform: translateY(-12rem) scale(2) rotate(0-@rotate);
+      opacity: 0;
+    }
+  }
+  @keyframes loveRight {
+    0% {
+      opacity: 0;
+      transform: @start-scale rotate(0+@rotate);
+    }
+    10% {
+      opacity: 1;
+      transform: scale(1) rotate(0+@rotate);
+    }
+    15% {
+      opacity: 1;
+      transform: @scale rotate(0+@rotate);
+    }
+    40% {
+      opacity: 1;
+      transform: @scale rotate(0+@rotate);
+    }
+    100% {
+      transform: translateY(-12rem) scale(2) rotate(0+@rotate);
+      opacity: 0;
+    }
+  }
+}

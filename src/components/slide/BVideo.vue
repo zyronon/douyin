@@ -1,7 +1,7 @@
 <template>
   <div class="video-wrapper" ref="videoWrapper" :class="name">
     <Loading v-if="loading" style="position: absolute"/>
-<!--    <video :src="video.video + '?v=123'"-->
+    <!--    <video :src="video.video + '?v=123'"-->
     <video :src="video.video"
            :poster="video.video + videoPoster"
            ref="video"
@@ -13,70 +13,17 @@
     <img src="../../assets/img/icon/play-white.png" class="pause" v-if="paused">
     <div class="float" :style="{opacity: isUp?0:1}">
       <div :style="{opacity:isMove ? 0:1}" class="normal">
-        <div class="toolbar mb1r">
-          <div class="avatar-ctn mb4r">
-            <img class="avatar" :src="lVideo.author.avatar" alt=""
-                 @click.stop="$emit('goUserInfo')">
-            <transition name="fade">
-              <div v-if="!isAttention" @click.stop="attention" class="options" ref="attention-option">
-                <img class="no" src="../../assets/img/icon/add-light.png" alt="">
-                <img class="yes" src="../../assets/img/icon/ok-red.png" alt="">
-              </div>
-            </transition>
+        <ItemToolbar :item="video"
+                     :index="0"
+                     prefix="sadfa"
+        />
+        <ItemDesc
+            :item="video"
+            :index="0"
+            prefix="sadfa"
 
-          </div>
-          <div class="love mb2r" @click.stop="loved($event)">
-            <div>
-              <img src="../../assets/img/icon/love.svg" class="love-image" v-if="!lVideo.isLoved">
-              <img src="../../assets/img/icon/loved.svg" class="love-image" v-if="lVideo.isLoved">
-            </div>
-            <span>{{ formatNumber(lVideo.digg_count) }}</span>
-          </div>
-          <div class="message mb2r" @click.stop="$emit('showComments')">
-            <!--            <div class="message mb15p" @click.stop="showComment">-->
-            <img src="../../assets/img/icon/message.svg" alt="" class="message-image">
-            <span>{{ formatNumber(lVideo.comment_count) }}</span>
-          </div>
-          <div v-if="!isMy" class="share mb4r" @click.stop="$emit('showShare')">
-            <img src="../../assets/img/icon/share-white-full.png" alt="" class="share-image">
-            <span>{{ formatNumber(lVideo.share_count) }}</span>
-          </div>
-          <div v-else class="share mb4r" @click.stop="$emit('showShare')">
-            <img src="../../assets/img/icon/share-white-full.png" alt="" class="share-image">
-          </div>
-          <BaseMusic
-              :cover="lVideo.music.cover"
-              :key="name"
-              :name="name"
-              :isPlay="isPlay"
-              @click.stop="$emit('goMusic')"
-          />
-        </div>
-        <div class="content ml1r mb1r" v-if="!isMy">
-          <div class="location-wrapper" v-if=" lVideo.city || lVideo.address">
-            <div class="location">
-              <img src="../../assets/img/icon/location.webp" alt="">
-              <span>{{ lVideo.city }}</span>
-              <template v-if="lVideo.address && lVideo.address">
-                <div class="gang"></div>
-              </template>
-              <span>{{ lVideo.address }}</span>
-            </div>
-          </div>
-          <div class="name mb1r fb" @click.stop="$emit('goUserInfo')">@{{ lVideo.author.nickname }}</div>
-          <div class="description mb1r">
-            {{ lVideo.desc }}
-          </div>
-          <div class="music" @click.stop="$nav('/music')">
-            <img src="../../assets/img/icon/music.svg" alt="" class="music-image">
-            <BaseMarquee :key="name"
-                         :name="name"
-                         :isPlay="isPlay"
-                         :text="lVideo.music.title"
-                         @click.stop="$emit('goMusic')"/>
-          </div>
-        </div>
-        <div v-else class="comment-status">
+        />
+        <div v-if="isMy" class="comment-status">
           <div class="comment">
             <div class="type-comment">
               <img src="../../assets/img/icon/head-image.jpeg" alt="" class="avatar">
@@ -98,36 +45,38 @@
         </div>
       </div>
       <div class="progress"
-           v-if="duration > 60"
            :class="progressClass"
-           @touchmove="move"
-           @touchend="end"
+           ref="progress"
+           @click="null"
+           @touchstart="touchstart"
+           @touchmove="touchmove"
+           @touchend="touchend"
       >
         <div class="time" v-if="isMove">
           <span class="currentTime">{{ $duration(currentTime) }}</span>
           <span class="duration"> / {{ $duration(duration) }}</span>
         </div>
-        <div class="line" :style="durationStyle" ref="line"></div>
-        <div class="point" :style="durationStyle" ref="point"></div>
+        <div class="bg"></div>
+        <div class="progress-line" :style="durationStyle"></div>
+        <div class="point"></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import globalMethods from '../../utils'
-import BaseMarquee from "../BaseMarquee";
+import Utils from '../../utils'
 import Dom from "../../utils/dom";
-import BaseMusic from "../BaseMusic";
-import {mapState} from "vuex";
 import Loading from "../Loading";
+import ItemToolbar from "./ItemToolbar";
+import ItemDesc from "./ItemDesc";
 
 export default {
   name: "BVideo",
   components: {
-    BaseMarquee,
-    BaseMusic,
-    Loading
+    Loading,
+    ItemToolbar,
+    ItemDesc
   },
   props: {
     video: {
@@ -142,7 +91,7 @@ export default {
         return -1
       }
     },
-    prefix: {
+    tag: {
       type: String,
       default: () => {
         return ''
@@ -170,11 +119,11 @@ export default {
   },
   computed: {
     durationStyle() {
-      return {left: this.pageX + 'px'}
+      return {width: this.pageX + 'px'}
     },
     progressClass() {
       if (this.isMove) {
-        return 'stop'
+        return 'move'
       } else {
         return this.isPlaying ? '' : 'stop'
       }
@@ -184,22 +133,22 @@ export default {
     return {
       loading: false,
       paused: false,
-      name: `v-${this.prefix}-${this.index}-video`,
-      globalMethods: globalMethods,
+      name: `v-${this.tag}-item`,
       duration: 0,
       step: 0,
       currentTime: -1,
       pageX: 0,
+      start: {x: 0},
+      last: {x: 0, time: 0},
       height: 0,
       width: 0,
       isPlaying: this.isPlay,
       isAttention: false,
-      line: null,
-      point: null,
       isMove: false,
       isSingleClick: false,
       test: [1, 2],
       lVideo: this.video,
+      progressBarRect: {},
 
       videoScreenHeight: 0,
       videoPoster: `?vframe/jpg/offset/0/w/${document.body.clientWidth}`
@@ -208,20 +157,19 @@ export default {
   mounted() {
     this.height = document.body.clientHeight
     this.width = document.body.clientWidth
-    this.line = this.$refs.line
-    this.point = this.$refs.point
     let video = this.$refs.video
     video.currentTime = 0
     let fun = e => {
       this.currentTime = Math.ceil(e.target.currentTime)
-      this.pageX = this.currentTime * this.step
+      this.pageX = (this.currentTime - 1) * this.step
     }
     video.addEventListener('loadedmetadata', e => {
       this.videoScreenHeight = video.videoHeight / (video.videoWidth / this.width)
       this.duration = video.duration
-      if (this.duration > 60) {
-        // if (this.duration > 6) {
-        this.step = this.width / Math.floor(this.duration)
+      // if (this.duration > 60) {
+      if (this.duration > 6) {
+        this.progressBarRect = this.$refs.progress.getBoundingClientRect()
+        this.step = this.progressBarRect.width / Math.floor(this.duration)
         video.addEventListener('timeupdate', fun)
       }
     })
@@ -311,10 +259,10 @@ export default {
       this.isPlaying = false
     },
     formatNumber(v) {
-      return globalMethods.formatNumber(v)
+      return Utils.formatNumber(v)
     },
     $duration(v) {
-      return globalMethods.$duration(v)
+      return Utils.$duration(v)
     },
     attention() {
       let option = this.$refs['attention-option']
@@ -327,28 +275,31 @@ export default {
       this.lVideo.isLoved = !this.lVideo.isLoved
       this.$emit('update:video', this.lVideo)
     },
-    start(e) {
-      this.pageX = e.touches[0].pageX
+    touchstart(e) {
+      this.start.x = e.touches[0].pageX
+      this.last.x = this.pageX
+      this.last.time = this.currentTime
     },
-    move(e) {
+    touchmove(e) {
       // console.log('move',e)
       // if (this.isPlaying) return
       this.isMove = true
       this.pause()
-      this.pageX = e.touches[0].pageX
-      // console.log(this.step)
-      this.currentTime = Math.ceil(Math.ceil(e.touches[0].pageX) / this.step)
-      globalMethods.$stopPropagation(e)
+      let dx = e.touches[0].pageX - this.start.x
+      this.pageX = this.last.x + dx
+      this.currentTime = this.last.time + Math.ceil(Math.ceil(dx) / this.step)
+      if (this.currentTime <= 0) this.currentTime = 0
+      if (this.currentTime >= this.duration) this.currentTime = this.duration
+      Utils.$stopPropagation(e)
     },
-    end(e) {
+    touchend(e) {
       if (this.isPlaying) return
-      console.log('end', e)
+      // console.log('end', e)
       setTimeout(() => {
         this.isMove = false
       }, 1000)
-      this.currentTime = Math.ceil(Math.ceil(e.changedTouches[0].pageX) / this.step)
       this.play()
-      globalMethods.$stopPropagation(e)
+      Utils.$stopPropagation(e)
     }
   }
 }
@@ -639,12 +590,16 @@ export default {
     }
 
     .progress {
-      bottom: -1px;
+      z-index: 10;
+      @w: 90%;
       position: absolute;
-      height: 7px;
-      width: 100vw;
-      background: black;
-
+      bottom: -1rem;
+      height: 10rem;
+      left: calc((100% - @w) / 2);
+      width: @w;
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 2rem;
 
       .time {
         position: absolute;
@@ -661,53 +616,78 @@ export default {
         }
       }
 
-      &:before {
-        z-index: 9;
-        content: ' ';
-        height: 1.5px;
-        width: 100vw;
-        background: gray;
+      @radius: 10rem;
+
+      @h: 1rem;
+      @tr: height .3s;;
+
+      .bg {
+        transition: @tr;
         position: absolute;
-        top: 0;
+        width: 100%;
+        height: @h;
+        background: rgba(#000, .3);
+        border-radius: @radius;
       }
 
-      .line {
-        z-index: 999;
-        content: '';
-        position: absolute;
-        top: 0;
-        height: 1px;
-        width: 200vw;
-        transform: translate3d(-200vw, 0, 0);
-        background: gray;
+      @p: 50px;
+
+      .progress-line {
+        transition: @tr;
+        height: @h;
+        width: @p;
+        border-radius: @radius 0 0 @radius;
+        background: rgba(#000, .8);
+        z-index: 1;
       }
 
       .point {
-        z-index: 10;
-        position: absolute;
-        left: 10vw;
-        top: -1px;
-        height: 4px;
-        width: 4px;
+        transition: all .2s;
+        width: @h+2;
+        height: @h+2;
         border-radius: 50%;
         background: gray;
+        z-index: 2;
+        transform: translate(-1rem, 1rem);
+      }
+    }
+
+    & .move {
+      @h: 10rem;
+
+      .bg {
+        height: @h;
+        background: @active-main-bg;
+      }
+
+      .progress-line {
+        height: @h;
+        background: @second-text-color;
+      }
+
+      .point {
+        width: @h+2;
+        height: @h+2;
+        background: white;
       }
     }
 
     & .stop {
-      &:before {
-        height: 3.5px;
+      @h: 4rem;
+
+      .bg {
+        height: @h;
+        background: rgba(#000, .8);
       }
 
-      .line {
-        height: 3px;
+      .progress-line {
+        height: @h;
         background: white;
       }
 
       .point {
-        top: -2px;
-        height: 8px;
-        width: 8px;
+        width: @h+2;
+        height: @h+2;
         background: white;
       }
     }

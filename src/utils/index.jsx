@@ -331,7 +331,7 @@ export default {
     }
   },
   $duration(v) {
-    if (!v) return
+    if (!v) return '00:00'
     let m = Math.floor(v / 60)
     // let s = v % 60
     let s = Math.round(v % 60)

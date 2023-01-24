@@ -12,7 +12,7 @@ const props = defineProps({
       return 0
     }
   },
-  prefix: {
+  tag: {
     type: String,
     default: () => {
       return ''
@@ -106,11 +106,10 @@ function insertContent(list = props.list) {
 
 function getInsEl(item, index, play = false) {
   // console.log('index',index,play)
-  let slideVNode = props.render(item, index, play, props.prefix)
+  let slideVNode = props.render(item, index, play, props.tag)
   const app = createApp({
     render() {
       return <SlideItem>{slideVNode}</SlideItem>
-      // return slideVNode
     }
   })
   const parent = document.createElement('div')
