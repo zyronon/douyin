@@ -468,6 +468,7 @@ function canNext(isNext, e) {
 @import "@/assets/less/index";
 
 #SlideAlbum {
+  transition: height .3s;
   position: relative;
   width: 100%;
   height: 100%;

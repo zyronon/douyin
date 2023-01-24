@@ -99,7 +99,7 @@ function attention() {
         :cover="item.music.cover"
         :key="state.name"
         :name="state.name"
-        :isPlay="state.isPlay"
+        :isPlay="isPlay"
         @click.stop="$emit('goMusic')"
     />
   </div>

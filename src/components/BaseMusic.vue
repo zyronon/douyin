@@ -51,7 +51,7 @@ export default {
     // },
     pause() {
       this.isStop = true
-      this.musicBg.css('webkitAnimationPlayState', 'paused')
+      this.musicBg.css('webkitAnimationPlayState', 'isZooming.value')
     },
     stop() {
       this.isStop = true

@@ -16,6 +16,7 @@ import BaseButton from "../components/BaseButton";
 import CONST_VAR from "./const_var";
 import Dom from "./dom";
 import bus from "./bus";
+import {random} from "lodash";
 
 export default {
   components: {
@@ -118,59 +119,46 @@ export default {
         let clickTimer = null
         let dbClickTimer = null
         let lastClickTime = null
+        let checkTime = 200
+        let dbCheckCancelTime = 500
+
         let dbClick = (e) => {
           // console.log('dbClick')
           let id = 'a' + Date.now()
           let elWidth = 80
-          let rotate = randomNum(0, 1)
+          let rotate = random(1)
           let template = `<img class="${rotate ? 'left love-dbclick' : 'right love-dbclick'}" id="${id}" src="${new URL('../assets/img/icon/loved.svg', import.meta.url).href}">`
           let el = new Dom().create(template)
-          el.css({top: e.y - elWidth, left: e.x - elWidth / 2,})
+          el.css({top: e.y - elWidth - 40, left: e.x - elWidth / 2,})
           new Dom(`#${binding.value}`).append(el)
           setTimeout(() => {
             new Dom(`#${id}`).remove()
           }, 1000)
         }
-        let randomNum = (minNum, maxNum) => {
-          switch (arguments.length) {
-            case 1:
-              return parseInt(Math.random() * minNum + 1, 10);
-            case 2:
-              return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
-            default:
-              return 0;
-          }
-        }
+
         let check = (e) => {
-          let checkTime = 300
           if (isDbClick) {
-            dbClick(e)
             clearTimeout(dbClickTimer);
-            dbClickTimer = setTimeout(() => {
-              isDbClick = false
-            }, checkTime);
+            dbClick(e)
+            dbClickTimer = setTimeout(() => isDbClick = false, dbCheckCancelTime);
             return
           }
           let nowTime = new Date().getTime();
           if (nowTime - lastClickTime < checkTime) {
+            clearTimeout(clickTimer);
             dbClick(e)
-            lastClickTime = 0;
-            clickTimer && clearTimeout(clickTimer);
             isDbClick = true
-            dbClickTimer = setTimeout(() => {
-              isDbClick = false
-            }, checkTime);
+            dbClickTimer = setTimeout(() => isDbClick = false, dbCheckCancelTime);
           } else {
-            lastClickTime = nowTime;
             clickTimer = setTimeout(() => {
-              // console.log('单击')
+              console.log('单击')
               bus.emit('singleClick')
             }, checkTime);
           }
+          lastClickTime = nowTime;
         }
         el.addEventListener('click', check)
       },
     },
-
   },
 }
