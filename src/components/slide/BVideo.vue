@@ -1,9 +1,9 @@
 <template>
-  <div class="video-wrapper" ref="videoWrapper" :class="name">
+  <div class="video-wrapper" ref="videoWrapper" :class="positionName">
     <Loading v-if="loading" style="position: absolute"/>
     <!--    <video :src="video.video + '?v=123'"-->
-    <video :src="video.video"
-           :poster="video.video + videoPoster"
+    <video :src="item.video"
+           :poster="item.video + videoPoster"
            ref="video"
            muted
            preload
@@ -13,15 +13,13 @@
     <img src="../../assets/img/icon/play-white.png" class="pause" v-if="paused">
     <div class="float" :style="{opacity: isUp?0:1}">
       <div :style="{opacity:isMove ? 0:1}" class="normal">
-        <ItemToolbar :item="video"
-                     :index="0"
-                     prefix="sadfa"
+        <ItemToolbar v-model:item="localItem"
+                     :index="index"
+                     :position="position"
         />
         <ItemDesc
-            :item="video"
-            :index="0"
-            prefix="sadfa"
-
+            v-model:item="localItem"
+            :index="index"
         />
         <div v-if="isMy" class="comment-status">
           <div class="comment">
@@ -79,7 +77,7 @@ export default {
     ItemDesc
   },
   props: {
-    video: {
+    item: {
       type: Object,
       default: () => {
         return {}
@@ -91,10 +89,10 @@ export default {
         return -1
       }
     },
-    tag: {
-      type: String,
+    position: {
+      type: Object,
       default: () => {
-        return ''
+        return {}
       }
     },
     //用于第一条数据，自动播放，如果都用事件去触发播放，有延迟
@@ -119,7 +117,7 @@ export default {
   },
   computed: {
     durationStyle() {
-      return {width: this.pageX + 'px'}
+      return {width: this.playX + 'px'}
     },
     progressClass() {
       if (this.isMove) {
@@ -128,16 +126,18 @@ export default {
         return this.isPlaying ? '' : 'stop'
       }
     },
+    positionName() {
+      return 'item-' + Object.values(this.position).join('-')
+    }
   },
   data() {
     return {
       loading: false,
       paused: false,
-      name: `v-${this.tag}-item`,
       duration: 0,
       step: 0,
       currentTime: -1,
-      pageX: 0,
+      playX: 0,
       start: {x: 0},
       last: {x: 0, time: 0},
       height: 0,
@@ -147,31 +147,29 @@ export default {
       isMove: false,
       isSingleClick: false,
       test: [1, 2],
-      lVideo: this.video,
+      localItem: this.item,
       progressBarRect: {},
-
       videoScreenHeight: 0,
       videoPoster: `?vframe/jpg/offset/0/w/${document.body.clientWidth}`
     }
   },
   mounted() {
+    console.log('position',this.position)
+    console.log('item',this.item)
     this.height = document.body.clientHeight
     this.width = document.body.clientWidth
     let video = this.$refs.video
     video.currentTime = 0
     let fun = e => {
       this.currentTime = Math.ceil(e.target.currentTime)
-      this.pageX = (this.currentTime - 1) * this.step
+      this.playX = (this.currentTime - 1) * this.step
     }
     video.addEventListener('loadedmetadata', e => {
       this.videoScreenHeight = video.videoHeight / (video.videoWidth / this.width)
       this.duration = video.duration
-      // if (this.duration > 60) {
-      if (this.duration > 6) {
-        this.progressBarRect = this.$refs.progress.getBoundingClientRect()
-        this.step = this.progressBarRect.width / Math.floor(this.duration)
-        video.addEventListener('timeupdate', fun)
-      }
+      this.progressBarRect = this.$refs.progress.getBoundingClientRect()
+      this.step = this.progressBarRect.width / Math.floor(this.duration)
+      video.addEventListener('timeupdate', fun)
     })
 
     let eventTester = (e, t) => {
@@ -230,8 +228,8 @@ export default {
   },
   methods: {
     play() {
-      new Dom(`.${this.name}-marquee`).trigger('start')
-      new Dom(`.${this.name}-music`).trigger('start')
+      new Dom(`.${this.tag}-marquee`).trigger('start')
+      new Dom(`.${this.tag}-music`).trigger('start')
       // console.log('trigger-play')
       this.isPlaying = true
       this.paused = false
@@ -242,8 +240,8 @@ export default {
       this.$refs.video.play()
     },
     stop() {
-      new Dom(`.${this.name}-marquee`).trigger('stop')
-      new Dom(`.${this.name}-music`).trigger('stop')
+      new Dom(`.${this.tag}-marquee`).trigger('stop')
+      new Dom(`.${this.tag}-music`).trigger('stop')
       // console.log('trigger-stop')
       this.$refs.video.pause()
       this.paused = false
@@ -251,8 +249,8 @@ export default {
       this.$refs.video.currentTime = 0
     },
     pause() {
-      new Dom(`.${this.name}-marquee`).trigger('pause')
-      new Dom(`.${this.name}-music`).trigger('pause')
+      new Dom(`.${this.tag}-marquee`).trigger('pause')
+      new Dom(`.${this.tag}-music`).trigger('pause')
       // console.log('trigger-pause')
       this.$refs.video.pause()
       this.paused = true
@@ -271,35 +269,29 @@ export default {
         this.isAttention = true
       }, 1000)
     },
-    loved(e, index) {
-      this.lVideo.isLoved = !this.lVideo.isLoved
-      this.$emit('update:video', this.lVideo)
-    },
     touchstart(e) {
+      Utils.$stopPropagation(e)
       this.start.x = e.touches[0].pageX
-      this.last.x = this.pageX
+      this.last.x = this.playX
       this.last.time = this.currentTime
     },
     touchmove(e) {
       // console.log('move',e)
-      // if (this.isPlaying) return
+      Utils.$stopPropagation(e)
       this.isMove = true
       this.pause()
       let dx = e.touches[0].pageX - this.start.x
-      this.pageX = this.last.x + dx
+      this.playX = this.last.x + dx
       this.currentTime = this.last.time + Math.ceil(Math.ceil(dx) / this.step)
       if (this.currentTime <= 0) this.currentTime = 0
       if (this.currentTime >= this.duration) this.currentTime = this.duration
-      Utils.$stopPropagation(e)
     },
     touchend(e) {
-      if (this.isPlaying) return
       // console.log('end', e)
-      setTimeout(() => {
-        this.isMove = false
-      }, 1000)
-      this.play()
       Utils.$stopPropagation(e)
+      if (this.isPlaying) return
+      setTimeout(() => this.isMove = false, 1000)
+      this.play()
     }
   }
 }

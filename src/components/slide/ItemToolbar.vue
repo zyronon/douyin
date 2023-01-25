@@ -2,8 +2,10 @@
 import BaseMusic from "../BaseMusic";
 import Utils from "../../utils";
 import {reactive} from "vue";
+import bus from "../../utils/bus";
+import {cloneDeep} from "lodash";
 
-const {item, index, prefix, isMy, isUp, isPlay} = defineProps({
+const {item, index, isMy, isUp, isPlay, position} = defineProps({
   item: {
     type: Object,
     default: () => {
@@ -16,10 +18,10 @@ const {item, index, prefix, isMy, isUp, isPlay} = defineProps({
       return -1
     }
   },
-  prefix: {
-    type: String,
+  position: {
+    type: Object,
     default: () => {
-      return ''
+      return {}
     }
   },
   isMy: {
@@ -42,15 +44,16 @@ const {item, index, prefix, isMy, isUp, isPlay} = defineProps({
     }
   },
 })
-
+const emit = defineEmits(['update:item'])
 const state = reactive({
   isAttention: false,
-  name: `v-${prefix}-${index}-video`,
 })
 
 function loved(e, index) {
-  // this.lVideo.isLoved = !this.lVideo.isLoved
-  // this.$emit('update:video', this.lVideo)
+  let old = cloneDeep(item)
+  old.isLoved = !old.isLoved
+  emit('update:item', old)
+  // bus.emit('update:item', {position, item: old})
 }
 
 function attention() {

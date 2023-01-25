@@ -12,10 +12,10 @@ const props = defineProps({
       return 0
     }
   },
-  tag: {
-    type: String,
+  position: {
+    type: Object,
     default: () => {
-      return ''
+      return {}
     }
   },
   render: {
@@ -39,6 +39,7 @@ const emit = defineEmits(['update:index'])
 
 const appInsMap = new Map()
 const judgeValue = 20
+const slideItemClassName = 'slide-item2'
 const wrapperEl = ref(null)
 const state = reactive({
   name: 'SlideVerticalInfinite',
@@ -69,7 +70,6 @@ onMounted(() => {
 //默认使用this.list,刷新时，考虑到vue可能更新外面的videos到this.list数据没有那么快，因为我要立即刷新
 function insertContent(list = props.list) {
   let start = 0
-  let that = this
 
   if (state.localIndex >= (props.virtualTotal - 1) / 2) {
     start = state.localIndex - (props.virtualTotal - 1) / 2
@@ -80,8 +80,8 @@ function insertContent(list = props.list) {
     start = end - 5
   }
   if (start < 0) start = 0
-  // console.log('start', start)
-  // console.log('end', end)
+  console.log('start', start)
+  console.log('end', end)
   list.slice(start, end).map(
       (item, index) => {
         //自动播放，当前条（可能是0，可能是其他），试了下用jq来找元素，然后trigger play事件，要慢点样
@@ -93,7 +93,7 @@ function insertContent(list = props.list) {
              ${-state.localIndex * state.wrapper.height}px,  0px)`)
 
   if (state.localIndex > 2 && list.length > 5) {
-    $(wrapperEl.value).find(".slide-item").each(function () {
+    $(wrapperEl.value).find(`.${slideItemClassName}`).each(function () {
       if ((list.length - state.localIndex) > 2) {
         $(this).css('top', (state.localIndex - 2) * state.wrapper.height)
       } else {
@@ -106,10 +106,10 @@ function insertContent(list = props.list) {
 
 function getInsEl(item, index, play = false) {
   // console.log('index',index,play)
-  let slideVNode = props.render(item, index, play, props.tag)
+  let slideVNode = props.render(item, index, play, props.position)
   const app = createApp({
     render() {
-      return <SlideItem>{slideVNode}</SlideItem>
+      return <SlideItem data-index={index}>{slideVNode}</SlideItem>
     }
   })
   const parent = document.createElement('div')
@@ -129,8 +129,58 @@ function touchMove(e) {
 }
 
 function touchEnd(e) {
-  slideTouchEnd(e, state, canNext, () => {
+  slideTouchEnd(e, state, canNext, (isNext) => {
+    if (isNext) {
+      let addItemIndex = state.localIndex + 2
+      let res = $(wrapperEl.value).find(`.${slideItemClassName}[data-index=${addItemIndex}]`)
+      if (state.wrapper.childrenLength < props.virtualTotal) {
+        if (res.length === 0) {
+          wrapperEl.value.appendChild(getInsEl(props.list[addItemIndex], addItemIndex))
+        }
+      }
+      if (state.wrapper.childrenLength === props.virtualTotal
+          && state.localIndex >= (props.virtualTotal + 1) / 2
+          && state.localIndex <= props.list.length - 3
+      ) {
+        if (res.length === 0) {
+          wrapperEl.value.appendChild(getInsEl(props.list[addItemIndex], addItemIndex))
+          appInsMap.get($(wrapperEl.value).find(`.${slideItemClassName}:first`).data('index')).unmount()
+          // $(wrapperEl.value).find(".base-slide-item:first").remove()
+          $(wrapperEl.value).find(`.${slideItemClassName}`).each(function () {
+            $(this).css('top', (state.localIndex - 2) * state.wrapper.height)
+          })
+        }
+      }
+      if (state.wrapper.childrenLength > props.virtualTotal) {
+        $(wrapperEl.value).find(`.${slideItemClassName}`).each(function () {
+          let index = $(this).data('index')
+          if (index < (state.localIndex - 2)) {
+            appInsMap.get(index).unmount()
+          }
+          $(this).css('top', (state.localIndex - 2) * state.wrapper.height)
+        })
+      }
+    } else {
+      let addItemIndex = state.localIndex - 2
+      let res = $(wrapperEl.value).find(`.${slideItemClassName}[data-index=${addItemIndex}]`)
 
+      if (state.localIndex > 1 && state.localIndex <= props.list.length - 4) {
+        if (res.length === 0) {
+          wrapperEl.value.prepend(getInsEl(props.list[addItemIndex], addItemIndex))
+          appInsMap.get($(wrapperEl.value).find(`.${slideItemClassName}:last`).data('index')).unmount()
+          // $(wrapperEl.value).find(".base-slide-item:last").remove()
+          $(wrapperEl.value).find(`.${slideItemClassName}`).each(function () {
+            $(this).css('top', (state.localIndex - 2) * state.wrapper.height)
+          })
+        }
+      }
+
+      if (state.wrapper.childrenLength > props.virtualTotal) {
+        appInsMap.get($(wrapperEl.value).find(`.${slideItemClassName}:last`).data('index')).unmount()
+      }
+    }
+
+    state.wrapper.childrenLength = wrapperEl.value.children.length
   }, null, SlideType.VERTICAL)
   slideReset(wrapperEl.value, state, SlideType.VERTICAL, emit)
 }
