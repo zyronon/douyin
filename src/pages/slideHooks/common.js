@@ -36,7 +36,7 @@ export function canSlide(state, judgeValue, type = SlideType.HORIZONTAL) {
   return state.next
 }
 
-export function slideTouchMove(e, el, state, judgeValue, canNextCb, nextCb, type = SlideType.HORIZONTAL,notNextCb) {
+export function slideTouchMove(e, el, state, judgeValue, canNextCb, nextCb, type = SlideType.HORIZONTAL, notNextCb) {
   state.move.x = e.touches[0].pageX - state.start.x
   state.move.y = e.touches[0].pageY - state.start.y
 
@@ -58,7 +58,7 @@ export function slideTouchMove(e, el, state, judgeValue, canNextCb, nextCb, type
     }
     Utils.$setCss(el, 'transition-duration', `0ms`)
     Utils.$setCss(el, 'transform', `translate3d(${dx1}px, ${dx2}px, 0)`)
-  }else {
+  } else {
     notNextCb?.()
   }
 }
@@ -82,7 +82,10 @@ export function slideTouchEnd(e, state, canNextCb, nextCb, notNextCb, type = Sli
       } else {
         state.localIndex--
       }
-      return nextCb?.()
+
+
+
+      return nextCb?.(isNext)
     }
   }
   notNextCb?.()

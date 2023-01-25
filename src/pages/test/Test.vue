@@ -3,6 +3,7 @@
   <!--  <SlideUser></SlideUser>-->
 <!--  <SlideImgs></SlideImgs>-->
     <slideHooks></slideHooks>
+<!--  <TestSwiperJs></TestSwiperJs>-->
 
   <!--  <div class="body">-->
   <!--    <div class="wrapper">-->
@@ -18,6 +19,7 @@ import SlideUser from "../../components/slide/SlideUser";
 import SlideImgs from "../../components/slide/SlideAlbum";
 import TestImg from "./TestImg";
 import slideHooks from '../slideHooks'
+import TestSwiperJs from "./TestSwiperJs";
 import {mat4} from "gl-matrix";
 
 export default {
@@ -27,7 +29,8 @@ export default {
     TestSlide,
     SlideUser,
     SlideImgs,
-    TestImg
+    TestImg,
+    TestSwiperJs
   },
   data() {
     return {

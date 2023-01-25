@@ -356,7 +356,7 @@ export default {
           childs: -1
         },
         collect: {
-          video: {
+          item: {
             list: [],
             childs: -1,
           },

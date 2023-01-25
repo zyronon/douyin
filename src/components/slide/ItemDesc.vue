@@ -3,7 +3,7 @@
 import {reactive} from "vue";
 import BaseMarquee from "../BaseMarquee";
 
-const {item, index, prefix, isMy, isUp, isPlay} = defineProps({
+const {item, index, isMy, isUp, isPlay} = defineProps({
   item: {
     type: Object,
     default: () => {
@@ -14,12 +14,6 @@ const {item, index, prefix, isMy, isUp, isPlay} = defineProps({
     type: Number,
     default: () => {
       return -1
-    }
-  },
-  prefix: {
-    type: String,
-    default: () => {
-      return ''
     }
   },
   isMy: {
@@ -45,7 +39,6 @@ const {item, index, prefix, isMy, isUp, isPlay} = defineProps({
 
 const state = reactive({
   isAttention: false,
-  name: `v-${prefix}-${index}-video`,
   test: [1, 2],
 })
 
