@@ -1,6 +1,6 @@
 <template>
   <from-bottom-dialog
-      page-id="home-index"
+      :page-id="pageId"
       :modelValue="modelValue"
       @update:modelValue="e=>$emit('update:modelValue',e)"
       @cancel="cancel"
@@ -35,7 +35,8 @@
               <div class="love" @click="loved(item)">
                 <img v-show="item.isLoved" src="../assets/img/icon/components/like-red-small.png" alt=""
                      class="love-image">
-                <img  v-show="!item.isLoved" src="../assets/img/icon/components/like-gray-small.png" alt="" class="love-image">
+                <img v-show="!item.isLoved" src="../assets/img/icon/components/like-gray-small.png" alt=""
+                     class="love-image">
                 <span>{{ formatNumber(item.loveNum) }}</span>
               </div>
             </div>
@@ -135,6 +136,10 @@ export default {
     videoId: {
       type: String,
       default: null
+    },
+    pageId: {
+      type: String,
+      default: 'home-index'
     },
     height: {
       type: String,

@@ -217,9 +217,12 @@ export default {
     // eventTester("durationchange", '资源长度改变'); //资源长度改变
     // eventTester("volumechange", '音量改变'); //音量改变
 
+    console.log('mounted')
+    bus.off('singleClickBroadcast')
     bus.on('singleClickBroadcast', this.click)
   },
   unmounted() {
+    console.log('unmounted')
     bus.off('singleClickBroadcast', this.click)
   },
   methods: {

@@ -10,7 +10,7 @@ import mixin from "./utils/mixin";
 import VueLazyload from '@jambonn/vue-lazyload'
 import VConsole from 'vconsole';
 
-const vConsole = new VConsole();
+// const vConsole = new VConsole();
 
 const app = Vue.createApp(App)
 app.config.globalProperties.$api = {...api}

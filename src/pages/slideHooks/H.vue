@@ -12,13 +12,17 @@ const props = defineProps({
       return 0
     }
   },
+  name: {
+    type: String,
+    default: () => ''
+  },
 })
 const emit = defineEmits(['update:index'])
 
 const judgeValue = 20
 const wrapperEl = ref(null)
 const state = reactive({
-  name: 'SlideHorizontal',
+  name: props.name,
   localIndex: props.index,
   needCheck: true,
   next: false,
@@ -39,7 +43,7 @@ watch(
 )
 
 onMounted(() => {
-  slideInit(wrapperEl.value,state,SlideType.HORIZONTAL)
+  slideInit(wrapperEl.value, state, SlideType.HORIZONTAL)
 })
 
 function touchStart(e) {
@@ -47,7 +51,7 @@ function touchStart(e) {
 }
 
 function touchMove(e) {
-  slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext,null, SlideType.HORIZONTAL)
+  slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext, null, SlideType.HORIZONTAL)
 }
 
 function touchEnd(e) {

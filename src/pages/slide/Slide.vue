@@ -11,7 +11,7 @@
         <SlideHorizontal
             name="main"
             v-model:index="baseIndex"
-            style="height: calc(100% - 5rem);"
+            style="height: calc(100% - 50rem);"
         >
           <div class="slide-item">
             <div class="nav-one" :class="{close:closeOne}">
@@ -171,7 +171,7 @@ export default {
             <div class="slide-item" data-index={itemIndex}>
               <BVideo
                   isPlay={play}
-                  video={item}
+                  item={item}
                   prefix={prefix}
                   index={itemIndex}
                   onShowComments={e => this.isCommenting = true}
@@ -293,7 +293,7 @@ export default {
 }
 
 .nav-one {
-  height: 14rem;
+  height: 140rem;
   box-sizing: border-box;
   background: linear-gradient(to right, rgb(36, 34, 84), rgb(7, 5, 16));
   transition: all .3s;
@@ -303,7 +303,7 @@ export default {
   justify-content: space-between;
 
   .nav-item {
-    @width: 3.5rem;
+    @width: 35rem;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -311,20 +311,20 @@ export default {
     img {
       width: @width;
       height: @width;
-      margin-bottom: .5rem;
+      margin-bottom: 5rem;
     }
   }
 
   &.close {
-    margin-top: -14rem;
+    margin-top: -140rem;
   }
 }
 
-@space-width: 1.5rem;
-@icon-width: 5.2rem;
+@space-width: 15rem;
+@icon-width: 52rem;
 
 .nav-two {
-  height: 18rem;
+  height: 180rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -337,7 +337,7 @@ export default {
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
-    margin-bottom: 1.5rem;
+    margin-bottom: 15rem;
 
     .right {
       color: gray;
@@ -346,9 +346,9 @@ export default {
     }
 
     img {
-      width: 1rem;
-      height: 1rem;
-      margin-left: .4rem;
+      width: 10rem;
+      height: 10rem;
+      margin-left: 4rem;
     }
   }
 
@@ -361,7 +361,7 @@ export default {
       width: @icon-width;
       position: relative;
       margin-right: @space-width;
-      font-size: 1rem;
+      font-size: 10rem;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -373,7 +373,7 @@ export default {
       }
 
       span {
-        margin-top: .8rem;
+        margin-top: 8rem;
         text-align: center;
         width: @icon-width;
         white-space: nowrap;
@@ -383,17 +383,17 @@ export default {
 
       .tag {
         background: rgb(239, 46, 137);
-        border-radius: .2rem;
-        padding: 0 .2rem;
-        bottom: 1.8rem;
+        border-radius: 2rem;
+        padding: 0 2rem;
+        bottom: 18rem;
         position: absolute;
-        font-size: 1rem;
+        font-size: 10rem;
       }
     }
   }
 
   &.close {
-    margin-top: -18rem;
+    margin-top: -180rem;
   }
 }
 

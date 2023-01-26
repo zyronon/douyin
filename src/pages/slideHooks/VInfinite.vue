@@ -1,9 +1,11 @@
 <script setup lang="jsx">
-import {onMounted, reactive, ref, watch, createApp} from "vue";
+import {onMounted, reactive, ref, watch, createApp, computed} from "vue";
 import GM from '../../utils'
 import {getSlideDistance, slideInit, slideReset, slideTouchEnd, slideTouchMove, slideTouchStart} from "./common";
 import {SlideType} from "../../utils/const_var";
 import SlideItem from './SlideItem'
+import bus from "../../utils/bus";
+import {useStore} from 'vuex'
 
 const props = defineProps({
   index: {
@@ -34,15 +36,18 @@ const props = defineProps({
     type: Number,
     default: () => 5
   },
+  name: {
+    type: String,
+    default: () => ''
+  },
 })
 const emit = defineEmits(['update:index'])
 
 const appInsMap = new Map()
-const judgeValue = 20
 const slideItemClassName = 'slide-item2'
 const wrapperEl = ref(null)
 const state = reactive({
-  name: 'SlideVerticalInfinite',
+  name: props.name,
   localIndex: props.index,
   needCheck: true,
   next: false,
@@ -50,6 +55,9 @@ const state = reactive({
   move: {x: 0, y: 0},
   wrapper: {width: 0, height: 0, childrenLength: 0}
 })
+const store = useStore()
+const homeRefresh = computed(() => store.state.homeRefresh)
+const judgeValue = computed(() => store.state.judgeValue)
 
 watch(
     () => props.index,
@@ -80,8 +88,6 @@ function insertContent(list = props.list) {
     start = end - 5
   }
   if (start < 0) start = 0
-  console.log('start', start)
-  console.log('end', end)
   list.slice(start, end).map(
       (item, index) => {
         //自动播放，当前条（可能是0，可能是其他），试了下用jq来找元素，然后trigger play事件，要慢点样
@@ -125,10 +131,15 @@ function touchStart(e) {
 }
 
 function touchMove(e) {
-  slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext, null, SlideType.VERTICAL)
+  slideTouchMove(e, wrapperEl.value, state, judgeValue.value, canNext, null, SlideType.VERTICAL)
 }
 
 function touchEnd(e) {
+  let isNext = state.move.y < 0
+  if (state.localIndex === 0 && !isNext && state.move.y > (homeRefresh.value + judgeValue.value)) {
+    console.log('loading')
+    // bus.emit(props.prefix + '-loading')
+  }
   slideTouchEnd(e, state, canNext, (isNext) => {
     if (isNext) {
       let addItemIndex = state.localIndex + 2
