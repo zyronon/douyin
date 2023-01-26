@@ -7,12 +7,24 @@ export default {
     } else {
       cbs = [cb]
     }
+    if (cbs.length > 10) {
+      console.error('eventMap', this.eventMap)
+    }
     this.eventMap.set(eventType, cbs)
   },
-  off(eventType) {
+  off(eventType, fn) {
     let cbs = this.eventMap.has(eventType);
     if (cbs) {
-      this.eventMap.delete(eventType);
+      if (fn) {
+        let cbs = this.eventMap.get(eventType)
+        let rIndex = cbs.findIndex(v => v === fn)
+        if (rIndex > -1) {
+          cbs.splice(rIndex, 1)
+        }
+        this.eventMap.set(eventType, cbs)
+      } else {
+        this.eventMap.delete(eventType);
+      }
     }
   },
   offAll() {

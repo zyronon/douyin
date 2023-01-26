@@ -35,3 +35,10 @@ export const SlideAlbumPlayStatus = {
   HORIZONTAL: 0,
   VERTICAL: 1,
 }
+
+/*播放状态*/
+export const SlideItemPlayStatus = {
+  Play: 'Play',
+  Stop: 'Stop',
+  Pause: 'Pause',
+}

@@ -7,6 +7,7 @@ import Config from '../config'
 import NoticeDialog from "../components/dialog/NoticeDialog";
 import dayjs from 'dayjs'
 import bus from "./bus";
+import {cloneDeep} from "lodash";
 
 export default {
   require2(url) {
@@ -372,4 +373,10 @@ export default {
   getDistance(start, stop) {
     return Math.hypot(stop.x - start.x, stop.y - start.y);
   },
+  updateItem(props, key, val, emit) {
+    let old = cloneDeep(props.item)
+    old[key] = val
+    emit('update:item', old)
+    bus.emit('update:item', {position: props.position, item: old})
+  }
 }

@@ -195,6 +195,7 @@ function canNext(isNext) {
   <div class="slide">
     <div class="slide-list flex-direction-column"
          ref="wrapperEl"
+         @click="null"
          @touchstart="touchStart"
          @touchmove="touchMove"
          @touchend="touchEnd"

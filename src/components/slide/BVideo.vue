@@ -10,16 +10,16 @@
            :autoplay="isPlay" loop>
       <p> 您的浏览器不支持 video 标签。</p>
     </video>
-    <img src="../../assets/img/icon/play-white.png" class="pause" v-if="paused">
+    <img src="../../assets/img/icon/play-white.png" class="pause" v-if="!isPlaying">
     <div class="float" :style="{opacity: isUp?0:1}">
       <div :style="{opacity:isMove ? 0:1}" class="normal">
         <ItemToolbar v-model:item="localItem"
-                     :index="index"
                      :position="position"
+                     v-bind="$attrs"
         />
         <ItemDesc
             v-model:item="localItem"
-            :index="index"
+            :position="position"
         />
         <div v-if="isMy" class="comment-status">
           <div class="comment">
@@ -68,6 +68,9 @@ import Dom from "../../utils/dom";
 import Loading from "../Loading";
 import ItemToolbar from "./ItemToolbar";
 import ItemDesc from "./ItemDesc";
+import bus from "../../utils/bus";
+import {SlideItemPlayStatus} from "../../utils/const_var";
+import {computed} from "vue";
 
 export default {
   name: "BVideo",
@@ -75,6 +78,12 @@ export default {
     Loading,
     ItemToolbar,
     ItemDesc
+  },
+  provide() {
+    return {
+      // isPlaying: computed(() => this.status)
+      isPlaying: computed(() => this.isPlaying)
+    }
   },
   props: {
     item: {
@@ -128,12 +137,16 @@ export default {
     },
     positionName() {
       return 'item-' + Object.values(this.position).join('-')
+    },
+    isPlaying() {
+      return this.status === SlideItemPlayStatus.Play
     }
   },
   data() {
     return {
       loading: false,
       paused: false,
+      status: this.isPlay ? SlideItemPlayStatus.Play : SlideItemPlayStatus.Pause,
       duration: 0,
       step: 0,
       currentTime: -1,
@@ -142,20 +155,16 @@ export default {
       last: {x: 0, time: 0},
       height: 0,
       width: 0,
-      isPlaying: this.isPlay,
-      isAttention: false,
       isMove: false,
       isSingleClick: false,
       test: [1, 2],
       localItem: this.item,
       progressBarRect: {},
       videoScreenHeight: 0,
-      videoPoster: `?vframe/jpg/offset/0/w/${document.body.clientWidth}`
+      videoPoster: `?vframe/jpg/offset/0/w/${document.body.clientWidth}`,
     }
   },
   mounted() {
-    console.log('position',this.position)
-    console.log('item',this.item)
     this.height = document.body.clientHeight
     this.width = document.body.clientWidth
     let video = this.$refs.video
@@ -208,66 +217,41 @@ export default {
     // eventTester("durationchange", '资源长度改变'); //资源长度改变
     // eventTester("volumechange", '音量改变'); //音量改变
 
-    //这里不能用this.name，因为class可能还没绑上去。可以找不到dom
-    let videoWrapper = new Dom(this.$refs.videoWrapper)
-    videoWrapper.on('play', this.play)
-    videoWrapper.on('stop', this.stop)
-    videoWrapper.on('singleClick', () => {
-      if (this.isPlaying) {
-        this.pause()
-      } else {
-        this.play()
-        //这里playg事件，触发之后，会马上触发一次waiting事件。就很烦，会出现点完播放之后闪一下loading的情况，所以用一个变量来规避一下
-        this.isSingleClick = true
-        setTimeout(() => {
-          this.isSingleClick = false
-        }, 300)
-      }
-      this.loading = false
-    })
+    bus.on('singleClickBroadcast', this.click)
+  },
+  unmounted() {
+    bus.off('singleClickBroadcast', this.click)
   },
   methods: {
+    click(val) {
+      if (this.item.id === val) {
+        if (this.status === SlideItemPlayStatus.Play) {
+          this.pause()
+        } else {
+          this.play()
+          //这里playg事件，触发之后，会马上触发一次waiting事件。就很烦，会出现点完播放之后闪一下loading的情况，所以用一个变量来规避一下
+          // this.isSingleClick = true
+          setTimeout(() => {
+            // this.isSingleClick = false
+          }, 300)
+        }
+        this.loading = false
+      }
+    },
     play() {
-      new Dom(`.${this.tag}-marquee`).trigger('start')
-      new Dom(`.${this.tag}-music`).trigger('start')
-      // console.log('trigger-play')
-      this.isPlaying = true
-      this.paused = false
+      this.status = SlideItemPlayStatus.Play
       if (this.currentTime !== -1) {
         this.$refs.video.currentTime = this.currentTime
       }
       this.$refs.video.volume = 1
       this.$refs.video.play()
     },
-    stop() {
-      new Dom(`.${this.tag}-marquee`).trigger('stop')
-      new Dom(`.${this.tag}-music`).trigger('stop')
-      // console.log('trigger-stop')
-      this.$refs.video.pause()
-      this.paused = false
-      this.isPlaying = false
-      this.$refs.video.currentTime = 0
-    },
     pause() {
-      new Dom(`.${this.tag}-marquee`).trigger('pause')
-      new Dom(`.${this.tag}-music`).trigger('pause')
-      // console.log('trigger-pause')
+      this.status = SlideItemPlayStatus.Pause
       this.$refs.video.pause()
-      this.paused = true
-      this.isPlaying = false
     },
     formatNumber(v) {
       return Utils.formatNumber(v)
-    },
-    $duration(v) {
-      return Utils.$duration(v)
-    },
-    attention() {
-      let option = this.$refs['attention-option']
-      option.classList.add('attention')
-      setTimeout(() => {
-        this.isAttention = true
-      }, 1000)
     },
     touchstart(e) {
       Utils.$stopPropagation(e)
