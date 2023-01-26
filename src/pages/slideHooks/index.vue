@@ -1,11 +1,16 @@
 <template>
   <div class="test-slide-wrapper" id="slideHook" v-love="'slideHook'">
     <H v-model:index="state.baseIndex">
-      <SlideItem class=" gray">
-        <H class="h" v-model:index="state.navIndex">
-          <SlideItem class=" gray">
-            <div class="big">找红包</div>
-          </SlideItem>
+      <SlideItem>
+        <IndicatorHome
+            v-hide="state.isUp"
+            :loading="state.loading"
+            name="main"
+            v-model:index="state.navIndex"
+        />
+        <H class="h"
+           name="main"
+           v-model:index="state.navIndex">
           <SlideItem class=" gray">
             <div class="big">热点</div>
           </SlideItem>
@@ -18,8 +23,9 @@
           <SlideItem class=" gray">
             <div class="big">商城</div>
           </SlideItem>
-          <SlideItem class="">
+          <SlideItem>
             <VInfinite
+                name="main"
                 v-model:index="state.itemIndex"
                 :render="render"
                 :list="state.recommendVideos"
@@ -48,6 +54,7 @@
       </SlideItem>
     </H>
   </div>
+  <Comment page-id="slideHook" v-model="state.isCommenting"/>
 </template>
 
 <script setup lang="jsx">
@@ -56,6 +63,8 @@ import VInfinite from './VInfinite.vue'
 import SlideItem from './SlideItem'
 import SlideImgs from "../../components/slide/SlideAlbum";
 import BVideo from "../../components/slide/BVideo";
+import Comment from "../../components/Comment";
+import IndicatorHome from "../slide/IndicatorHome";
 
 import resource from "../../assets/data/resource.js";
 import {onMounted, onUnmounted, reactive} from "vue";
@@ -64,7 +73,7 @@ import {useNav} from "../../utils/hooks/useNav";
 
 const nav = useNav()
 
-const videos = resource.videos.slice(0,5).map(v => {
+const videos = resource.videos.slice(0, 6).map(v => {
   v.type = 'recommend-video'
   return v
 })
@@ -72,7 +81,7 @@ const videos = resource.videos.slice(0,5).map(v => {
 
 const state = reactive({
   baseIndex: 0,
-  navIndex: 5,
+  navIndex: 4,
   itemIndex: 0,
   recommendVideos: [
     // {
@@ -89,6 +98,8 @@ const state = reactive({
   isCommenting: false,
   isSharing: false,
   canMove: true,
+  loading: false,
+  isUp: false,
 
   shareType: -1,
 
@@ -118,9 +129,7 @@ onMounted(() => {
       state.recommendVideos[itemIndex] = val.item
     }
   })
-  bus.on('nav', path => {
-    nav(path)
-  })
+  bus.on('nav', path => nav(path))
 })
 onUnmounted(() => {
   bus.offAll()
@@ -136,7 +145,7 @@ function render(item, itemIndex, play, position) {
   }
   if (item.type === 'recommend-video') {
     node = <BVideo
-        isPlay={play}
+        isPlay={false}
         item={item}
         position={{...position, itemIndex}}
         onShowComments={e => state.isCommenting = true}

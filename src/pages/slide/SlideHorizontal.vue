@@ -65,6 +65,7 @@ export default {
 
       if (this.next) {
         bus.emit(this.name + '-moveX', this.moveX)
+
         this.$stopPropagation(e)
         this.$setCss(this.wrapper, 'transform',
             `translate3d(${this.getDistance()

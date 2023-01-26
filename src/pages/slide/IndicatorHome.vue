@@ -12,14 +12,18 @@
       <div class="tab-ctn">
         <div class="tabs" ref="tabs">
           <div class="tab" :class="tabOneClass" @click.stop="change(0)">
-            <span>同城</span>
+            <span>热点</span>
             <img v-show="index === 0" src="../../assets/img/icon/arrow-up-white.png" class="tab1-img">
           </div>
           <div class="tab" :class="{active:index === 1}" @click.stop="change(1)">
-            <span>关注</span>
+            <span>社区</span>
             <img src="../../assets/img/icon/live.webp" class="tab2-img">
           </div>
-          <div class="tab" :class="{active:index === 2}" @click.stop="change(2)"><span>推荐</span>
+          <div class="tab" :class="{active:index === 2}" @click.stop="change(2)"><span>关注</span>
+          </div>
+          <div class="tab" :class="{active:index === 3}" @click.stop="change(3)"><span>商城</span>
+          </div>
+          <div class="tab" :class="{active:index === 4}" @click.stop="change(4)"><span>推荐</span>
           </div>
         </div>
         <div class="indicator" ref="indicator"></div>
@@ -123,7 +127,6 @@ export default {
     this.initTabs()
     bus.on(this.name + '-moveX', this.move)
     bus.on(this.name + '-moveY', e => {
-      // console.log('moveY', e)
       this.moveY = e
     })
     bus.on(this.name + '-end', this.end)
@@ -162,7 +165,7 @@ export default {
     move(e) {
       this.$setCss(this.indicatorRef, 'transition-duration', `0ms`)
       this.$setCss(this.indicatorRef, 'left',
-          this.lefts[this.index] -
+          this.lefts[this.index] +
           e / (this.$store.state.bodyWidth / this.indicatorSpace) + 'px')
     },
     end(index) {
@@ -180,11 +183,11 @@ export default {
 <style scoped lang="less">
 @import "@/assets/less/index";
 
-@height: 6rem;
+@height: 60rem;
 
 .indicator-home {
   position: fixed;
-  font-size: 1.6rem;
+  font-size: 16rem;
   top: 0;
   left: 0;
   z-index: 2;
@@ -206,8 +209,8 @@ export default {
 
   .loading {
     opacity: 0;
-    top: 1.3rem;
-    right: 1.5rem;
+    top: 13rem;
+    right: 15rem;
     position: absolute;
   }
 
@@ -218,13 +221,13 @@ export default {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    padding: 0 1.5rem;
+    padding: 0 15rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     .tab-ctn {
-      width: 45%;
+      width: 80%;
       position: relative;
 
       .tabs {
@@ -242,16 +245,16 @@ export default {
             @width: 1rem;
             width: @width;
             height: @width;
-            margin-left: .4rem;
+            margin-left: 4rem;
             transition: all .3s;
-            margin-top: .7rem;
+            margin-top: 7rem;
           }
 
           .tab2-img {
             position: absolute;
-            height: 1.5rem;
-            left: 2.4rem;
-            top: -.5rem;
+            height: 15rem;
+            left: 24rem;
+            top: -5rem;
           }
 
           &.open {
@@ -266,38 +269,38 @@ export default {
         }
       }
 
-
       .indicator {
         //transition: left .3s;
         position: absolute;
-        bottom: -0.8rem;
-        height: .2rem;
-        width: 2rem;
+        bottom: -8rem;
+        height: 2rem;
+        width: 20rem;
+        //width: calc(100% / 5);
         background: #fff;
-        border-radius: .5rem;
+        border-radius: 5rem;
       }
     }
 
     .search {
-      width: 2rem;
+      width: 20rem;
     }
   }
 
   .toggle-type {
-    @height: 10rem;
+    @height: 100rem;
     position: absolute;
     height: @height;
     //padding-top: @height;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-bottom: 1rem;
+    padding-left: 10rem;
+    padding-right: 10rem;
+    padding-bottom: 10rem;
     width: 100%;
     background: @main-bg;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     box-sizing: border-box;
-    font-size: 1.2rem;
+    font-size: 12rem;
     top: -@height;
     transition: all .3s;
     opacity: 0;
@@ -309,13 +312,13 @@ export default {
 
     .l-button {
       flex: 1;
-      margin: 0 .3rem;
-      height: 2.8rem;
+      margin: 0 3rem;
+      height: 28rem;
       background: rgb(33, 36, 45);
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 2rem;
+      border-radius: 20rem;
       color: rgb(157, 161, 170);
       transition: all .3s;
 
@@ -325,10 +328,10 @@ export default {
       }
 
       img {
-        @width: .9rem;
+        @width: 9rem;
         width: @width;
         height: @width;
-        margin-left: .8rem;
+        margin-left: 8rem;
       }
     }
 
