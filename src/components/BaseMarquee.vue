@@ -1,5 +1,5 @@
 <template>
-  <div class="marquee" :class="name+'-marquee'" ref="marquee">
+  <div class="marquee" ref="marquee">
     <span class="text" ref="marqueeText">
       {{ text }}<span class="space"></span>
       {{ text }}<span class="space"></span>
@@ -17,17 +17,6 @@ export default {
     text: {
       type: String,
       default: ''
-    },
-    name: {
-      type: String,
-      default: ''
-    },
-    //用于第一条数据，自动播放，如果都用事件去触发播放，有延迟
-    isPlay: {
-      type: Boolean,
-      default: () => {
-        return true
-      }
     },
   },
   data() {

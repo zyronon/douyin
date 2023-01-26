@@ -1,83 +1,28 @@
 <template>
-  <div class="music-wrapper" :class="name+'-music'" ref="musicWrapper">
-    <template v-if="!isStop">
-      <img class="music1" src="../assets/img/icon/home/music1.png" alt="">
-      <img class="music2" src="../assets/img/icon/home/music2.png" alt="">
-    </template>
-    <div class="music-bg" ref="musicBg">
-      <img class="music" :src="cover">
+  <div class="music-wrapper">
+    <img class="music1" :style="style" src="../assets/img/icon/home/music1.png" alt="">
+    <img class="music2" :style="style" src="../assets/img/icon/home/music2.png" alt="">
+    <div class="music-bg" :style="style" @click.stop="bus.emit('nav','/home/music')">
+      <img class="music" :src="props.cover">
     </div>
   </div>
 </template>
-<script>
-import Dom from "../utils/dom";
-import {nextTick} from "vue";
-import BaseButton from "./BaseButton";
+<script setup>
+import {computed, inject} from "vue";
+import bus from "../utils/bus";
 
-export default {
-  name: "BaseMusic",
-  components: {
-    BaseButton
+const props = defineProps({
+  cover: {
+    type: String,
+    default: ''
   },
-  props: {
-    cover: {
-      type: String,
-      default: ''
-    },
-    name: {
-      type: String,
-      default: ''
-    },
-    //用于第一条数据，自动播放，如果都用事件去触发播放，有延迟
-    isPlay: {
-      type: Boolean,
-      default: () => {
-        return true
-      }
-    },
-  },
-  data() {
-    return {
-      isStop: false,
-      musicBg: null,
-    }
-  },
-  methods: {
-    // triggerPause() {
-    //   new Dom('.music-wrapper').trigger('pause')
-    // },
-    // triggerStart() {
-    //   new Dom('.music-wrapper').trigger('start')
-    // },
-    pause() {
-      this.isStop = true
-      this.musicBg.css('webkitAnimationPlayState', 'isZooming.value')
-    },
-    stop() {
-      this.isStop = true
-      this.musicBg.css('webkitAnimationPlayState', 'paused')
-    },
-    start() {
-      this.isStop = false
-      this.musicBg.css('webkitAnimationPlayState', 'running')
-    }
-  },
-  mounted() {
-    nextTick(() => {
-      //直接document.querySelectorAll，找不到dom，必须用$refs的方式
-      this.musicBg = new Dom(this.$refs.musicBg)
+})
+const isPlaying = inject('isPlaying')
 
-      new Dom(this.$refs.musicWrapper).on('pause', this.pause)
-      new Dom(this.$refs.musicWrapper).on('start', this.start)
-      new Dom(this.$refs.musicWrapper).on('stop', this.stop)
-      if (this.isPlay) {
-        this.start()
-      } else {
-        this.stop()
-      }
-    })
-  }
-}
+const style = computed(() => {
+  return {webkitAnimationPlayState: isPlaying.value ? 'running' : 'paused'}
+})
+
 </script>
 
 <style lang="less">

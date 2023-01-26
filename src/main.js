@@ -14,7 +14,7 @@ const vConsole = new VConsole();
 
 const app = Vue.createApp(App)
 app.config.globalProperties.$api = {...api}
-
+app.config.unwrapInjectedRef = true
 const loadImage = new URL('./assets/img/icon/img-loading.png', import.meta.url).href
 app.provide('mitt', mitt())
 app.mixin(mixin)

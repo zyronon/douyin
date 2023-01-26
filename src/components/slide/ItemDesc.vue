@@ -2,37 +2,25 @@
 
 import {reactive} from "vue";
 import BaseMarquee from "../BaseMarquee";
+import bus from "../../utils/bus";
 
-const {item, index, isMy, isUp, isPlay} = defineProps({
+const props = defineProps({
   item: {
     type: Object,
     default: () => {
       return {}
     }
   },
-  index: {
-    type: Number,
+  position: {
+    type: Object,
     default: () => {
-      return -1
+      return {}
     }
   },
   isMy: {
     type: Boolean,
     default: () => {
       return false
-    }
-  },
-  isUp: {
-    type: Boolean,
-    default: () => {
-      return false
-    }
-  },
-  //用于第一条数据，自动播放，如果都用事件去触发播放，有延迟
-  isPlay: {
-    type: Boolean,
-    default: () => {
-      return true
     }
   },
 })
@@ -45,28 +33,24 @@ const state = reactive({
 </script>
 <template>
   <div class="item-desc">
-    <div class="content ml1r mb1r" v-if="!isMy">
-      <div class="location-wrapper" v-if=" item.city || item.address">
+    <div class="content ml1r mb1r" v-if="!props.isMy">
+      <div class="location-wrapper" v-if=" props.item.city || item.address">
         <div class="location">
           <img src="../../assets/img/icon/location.webp" alt="">
-          <span>{{ item.city }}</span>
-          <template v-if="item.address">
+          <span>{{ props.item.city }}</span>
+          <template v-if="props.item.address">
             <div class="gang"></div>
           </template>
-          <span>{{ item.address }}</span>
+          <span>{{ props.item.address }}</span>
         </div>
       </div>
-      <div class="name mb1r fb" @click.stop="$emit('goUserInfo')">@{{ item.author.nickname }}</div>
+      <div class="name mb1r fb" @click.stop="$emit('goUserInfo')">@{{ props.item.author.nickname }}</div>
       <div class="description mb1r">
-        {{ item.desc }}
+        {{ props.item.desc }}
       </div>
-      <div class="music" @click.stop="$nav('/music')">
+      <div class="music" @click.stop="bus.emit('nav','/home/music')">
         <img src="../../assets/img/icon/music.svg" alt="" class="music-image">
-        <BaseMarquee :key="state.name"
-                     :name="state.name"
-                     :isPlay="isPlay"
-                     :text="item.music.title"
-                     @click.stop="$emit('goMusic')"/>
+        <BaseMarquee :text="props.item.music.title"/>
       </div>
     </div>
     <div v-else class="comment-status">
