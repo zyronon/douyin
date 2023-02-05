@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import bus from "../utils/bus";
+import bus, {EVENT_KEY} from "../utils/bus";
 
 export default {
   name: "Footer",
@@ -41,8 +41,12 @@ export default {
   },
   created() {
     bus.on('setFooterVisible', (e) => this.visible = e)
-    bus.on('enterFullscreen', (e) => this.visible = false)
-    bus.on('exitFullscreen', (e) => this.visible = true)
+    bus.on(EVENT_KEY.ENTER_FULLSCREEN, (e) => this.visible = false)
+    bus.on(EVENT_KEY.EXIT_FULLSCREEN, (e) => this.visible = true)
+  },
+  unmounted() {
+    bus.off(EVENT_KEY.ENTER_FULLSCREEN,)
+    bus.off(EVENT_KEY.EXIT_FULLSCREEN,)
   },
   methods: {
     tab(index) {

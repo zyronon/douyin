@@ -1,7 +1,7 @@
 <template>
   <div class="video-wrapper" ref="videoWrapper" :class="positionName">
     <Loading v-if="loading" style="position: absolute"/>
-    <!--    <video :src="video.video + '?v=123'"-->
+    <!--    <video :src="item.video + '?v=123'"-->
     <video :src="item.video"
            :poster="item.video + videoPoster"
            ref="video"
@@ -13,14 +13,16 @@
     <img src="../../assets/img/icon/play-white.png" class="pause" v-if="!isPlaying">
     <div class="float" :style="{opacity: isUp?0:1}">
       <div :style="{opacity:isMove ? 0:1}" class="normal">
-        <ItemToolbar v-model:item="localItem"
-                     :position="position"
-                     v-bind="$attrs"
-        />
-        <ItemDesc
-            v-model:item="localItem"
-            :position="position"
-        />
+        <template v-if="commentVisible">
+          <ItemToolbar v-model:item="localItem"
+                       :position="position"
+                       v-bind="$attrs"
+          />
+          <ItemDesc
+              v-model:item="localItem"
+              :position="position"
+          />
+        </template>
         <div v-if="isMy" class="comment-status">
           <div class="comment">
             <div class="type-comment">
@@ -68,7 +70,7 @@ import Dom from "../../utils/dom";
 import Loading from "../Loading";
 import ItemToolbar from "./ItemToolbar";
 import ItemDesc from "./ItemDesc";
-import bus from "../../utils/bus";
+import bus, {EVENT_KEY} from "../../utils/bus";
 import {SlideItemPlayStatus} from "../../utils/const_var";
 import {computed} from "vue";
 
@@ -79,6 +81,7 @@ export default {
     ItemToolbar,
     ItemDesc
   },
+  inject: ['commentVisible'],
   provide() {
     return {
       // isPlaying: computed(() => this.status)
@@ -164,7 +167,14 @@ export default {
       videoPoster: `?vframe/jpg/offset/0/w/${document.body.clientWidth}`,
     }
   },
+  watch: {
+    item(newVal) {
+      // console.log('item', newVal)
+      this.localItem = newVal
+    }
+  },
   mounted() {
+    // console.log(this.commentVisible)
     this.height = document.body.clientHeight
     this.width = document.body.clientWidth
     let video = this.$refs.video
@@ -218,12 +228,14 @@ export default {
     // eventTester("volumechange", '音量改变'); //音量改变
 
     console.log('mounted')
-    bus.off('singleClickBroadcast')
+    // bus.off('singleClickBroadcast')
     bus.on('singleClickBroadcast', this.click)
+    // bus.on(EVENT_KEY.TOGGLE_COMMENT, (e) => this.commentVisible = !this.commentVisible)
   },
   unmounted() {
     console.log('unmounted')
     bus.off('singleClickBroadcast', this.click)
+    // bus.off(EVENT_KEY.TOGGLE_COMMENT,)
   },
   methods: {
     click(val) {

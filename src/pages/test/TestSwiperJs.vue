@@ -1,42 +1,99 @@
 <template>
-  <swiper :modules="[Virtual]" :space-between="50" virtual>
-    <swiper-slide
-        v-for="(slideContent, index) in slides"
-        :key="index"
-        :virtualIndex="index"
+  <div class="slide">
+    <div class="slide-list"
+         ref="wrapperEl"
+         @touchstart="touchStart"
+         @touchmove="touchMove"
+         @touchend="touchEnd"
     >
-      <div class="aa">{{ slideContent }}</div>
-    </swiper-slide
-    >
-  </swiper>
+      <slot></slot>
+    </div>
+  </div>
+
 </template>
-<script>
-import {Virtual} from 'swiper';
-import {Swiper, SwiperSlide} from 'swiper/vue';
+<script lang="jsx" setup>
 import SlideItem from "../slideHooks/SlideItem";
-import "swiper/css";
-import "swiper/css/virtual";
+import {onMounted, reactive, ref, watch} from "vue";
+import GM from "@/utils";
+import {
+  getSlideDistance,
+  slideInit,
+  slideReset,
+  slideTouchEnd,
+  slideTouchMove,
+  slideTouchStart
+} from "@/pages/slideHooks/common";
+import {SlideType} from "@/utils/const_var";
+
+const emit = defineEmits(['update:index'])
+
+const props = defineProps({
+  index: {
+    type: Number,
+    default: () => {
+      return 0
+    }
+  },
+  name: {
+    type: String,
+    default: () => ''
+  },
+})
+const judgeValue = 20
+const wrapperEl = ref(null)
+const state = reactive({
+  name: props.name,
+  localIndex: props.index,
+  needCheck: true,
+  next: false,
+  start: {x: 0, y: 0, time: 0},
+  move: {x: 0, y: 0},
+  wrapper: {width: 0, height: 0, childrenLength: 0},
 
 
-export default {
-  components: {
-    SlideItem,
-    Swiper,
-    SwiperSlide,
-  },
-  setup() {
-    // Create array with 1000 slides
-    const slides = Array.from({length: 1000}).map(
-        (el, index) => `Slide ${index + 1}`
-    );
-    return {
-      slides,
-      Virtual,
-    };
-  },
-};
+})
+
+watch(
+    () => props.index,
+    (newVal) => {
+      if (state.localIndex !== newVal) {
+        state.localIndex = newVal
+        GM.$setCss(wrapperEl.value, 'transition-duration', `300ms`)
+        GM.$setCss(wrapperEl.value, 'transform', `translate3d(${getSlideDistance(state, SlideType.HORIZONTAL)}px, 0, 0)`)
+      }
+    }
+)
+
+onMounted(() => {
+  slideInit(wrapperEl.value, state, SlideType.HORIZONTAL)
+})
+
+function touchStart(e) {
+  slideTouchStart(e, wrapperEl.value, state)
+}
+
+function touchMove(e) {
+  slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext, null, SlideType.HORIZONTAL)
+}
+
+function touchEnd(e) {
+  slideTouchEnd(e, state, canNext, () => {
+
+  })
+  slideReset(wrapperEl.value, state, SlideType.HORIZONTAL, emit)
+}
+
+
+function canNext(isNext) {
+  return !((state.localIndex === 0 && !isNext) || (state.localIndex === state.wrapper.childrenLength - 1 && isNext));
+}
 </script>
-<style lang="less">
+<style lang="less" scoped>
+.page {
+  font-size: 14rem;
+  color: white;
+}
+
 .swiper {
   height: 50vh;
   //width: 100%;

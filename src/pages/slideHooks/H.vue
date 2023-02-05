@@ -68,7 +68,7 @@ function canNext(isNext) {
 </script>
 
 <template>
-  <div class="slide">
+  <div class="slide hhhh">
     <div class="slide-list"
          ref="wrapperEl"
          @touchstart="touchStart"

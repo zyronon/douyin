@@ -203,7 +203,7 @@ function canNext(isNext) {
 </script>
 
 <template>
-  <div class="slide">
+  <div class="slide v-infinite">
     <div class="slide-list flex-direction-column"
          ref="wrapperEl"
          @click="null"
