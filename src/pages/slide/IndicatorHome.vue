@@ -42,7 +42,7 @@
       <div class="l-button" :class="{active:type === 2}" @click="toggleType(2)">热点</div>
     </div>
 
-    <Loading :style="loadingStyle" class="loading" style="width: 4rem;" :is-full-screen="false"/>
+    <Loading :style="loadingStyle" class="loading" style="width: 40rem;" :is-full-screen="false"/>
   </div>
 </template>
 <script>

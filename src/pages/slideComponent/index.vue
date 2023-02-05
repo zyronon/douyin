@@ -1,70 +1,25 @@
 <template>
   <div class="test-slide-wrapper" id="slideHook" v-love="'slideHook'">
-    <H v-model:index="state.baseIndex">
-      <SlideItem>
-        <IndicatorHome
-            v-hide="state.isUp"
-            :loading="state.loading"
-            name="main"
-            v-model:index="state.navIndex"
-        />
-        <H class="h"
-           name="main"
-           v-model:index="state.navIndex">
-          <SlideItem class=" gray">
-            <div class="big">热点</div>
-          </SlideItem>
-          <SlideItem class=" gray">
-            <div class="big">社区</div>
-          </SlideItem>
-          <SlideItem class=" gray">
-            <div class="big">关注</div>
-          </SlideItem>
-          <SlideItem class=" gray">
-            <div class="big">商城</div>
-          </SlideItem>
-          <SlideItem>
-            <VInfinite
-                name="main"
-                v-model:index="state.itemIndex"
-                :render="render"
-                :list="state.recommendVideos"
-                :position="{
+    <V
+        name="main"
+        v-model:index="state.itemIndex"
+        :render="render"
+        @loadMore="loadMore"
+        :list="state.recommendVideos"
+        :position="{
                   baseIndex:0,
                   navIndex:5,
                 }"
-            >
-            </VInfinite>
-          </SlideItem>
-        </H>
-        <div>
-          <span>{{ state.baseIndex }}</span>
-          <button @click="state.baseIndex++">加</button>
-          <button @click="state.baseIndex--">减</button>
-        </div>
-        <div>
-          <span>{{ state.navIndex }}</span>
-          <button @click="state.navIndex++">加</button>
-          <button @click="state.navIndex--">减</button>
-        </div>
-        <Footer v-bind:init-tab="1"/>
-      </SlideItem>
-      <SlideItem class=" gray">
-        <div class="big" v-for="i in 100">主页</div>
-      </SlideItem>
-    </H>
+    >
+    </V>
   </div>
-  <Comment page-id="slideHook" v-model="state.commentVisible"/>
 </template>
 
 <script setup lang="jsx">
-import H from './H'
-import VInfinite from './VInfinite.vue'
-import SlideItem from './SlideItem'
+import V from './V.vue'
 import SlideImgs from "../../components/slide/SlideAlbum";
 import BVideo from "../../components/slide/BVideo";
 import Comment from "../../components/Comment";
-import IndicatorHome from "../slide/IndicatorHome";
 
 import resource from "../../assets/data/resource.js";
 import {onMounted, onUnmounted, provide, reactive} from "vue";
@@ -73,8 +28,9 @@ import {useNav} from "../../utils/hooks/useNav";
 
 const nav = useNav()
 
-const videos = resource.videos.slice(0, 6).map(v => {
+const videos = resource.videos.slice(0, 7).map((v, i) => {
   v.type = 'recommend-video'
+  // v.desc = i + v.desc
   return v
 })
 
@@ -120,7 +76,8 @@ provide('commentVisible', () => state.commentVisible)
 onMounted(() => {
   bus.on('singleClick', () => {
     let id = ''
-    if (state.navIndex === 5) {
+    // if (state.navIndex === 5) {
+    if (true) {
       id = state.recommendVideos[state.itemIndex].id
     }
     bus.emit('singleClickBroadcast', id)
@@ -136,6 +93,14 @@ onMounted(() => {
 onUnmounted(() => {
   bus.offAll()
 })
+
+function loadMore() {
+  return
+  state.recommendVideos = state.recommendVideos.concat(resource.videos.slice(0, 10).map((v, i) => {
+    v.type = 'recommend-video'
+    return v
+  }))
+}
 
 function test() {
   state.commentVisible = true
@@ -161,36 +126,11 @@ function render(item, itemIndex, play, position) {
     />
   }
   return node
-}
 
-// function render1(item, itemIndex, play) {
-//   let node
-//   if (item.type === 'recommend-video') {
-//     node = <SlideVideo
-//         isPlay={play}
-//         video={item}
-//         index={itemIndex}
-//         onShowComments={e => this.isCommenting = true}
-//         onShowShare={e => this.isSharing = true}
-//         onGoUserInfo={e => this.baseActiveIndex = 1}
-//         onGoMusic={e => this.$nav('/home/music')}
-//         v-model={[this.videos[itemIndex], 'video']}
-//     />
-//   }
-//   if (item.type === 'img') {
-//     node = <img src={item.src} style="height:100%;"/>
-//   }
-//   if (item.type === 'imgs') {
-//     node = <SlideImgs/>
-//   }
-//   if (item.type === 'send-video') {
-//     node = <video src={item.src} style="height:100%;"/>
-//   }
-//   if (item.type === 'user') {
-//     node = <SlideUser onClose={this.t} modelValue={item}/>
-//   }
-//   return node
-// }
+  return <SlideItem class="slideItemClassName">
+    {node}
+  </SlideItem>
+}
 
 </script>
 
@@ -198,9 +138,10 @@ function render(item, itemIndex, play, position) {
 @import "@/assets/less/index";
 
 .test-slide-wrapper {
-  font-size: 14rem;
+  font-size: 24rem;
   width: 100%;
   height: 100%;
+  color: white;
 
   span {
     color: white;
