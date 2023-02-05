@@ -167,12 +167,6 @@ export default {
       videoPoster: `?vframe/jpg/offset/0/w/${document.body.clientWidth}`,
     }
   },
-  watch: {
-    item(newVal) {
-      // console.log('item', newVal)
-      this.localItem = newVal
-    }
-  },
   mounted() {
     // console.log(this.commentVisible)
     this.height = document.body.clientHeight
