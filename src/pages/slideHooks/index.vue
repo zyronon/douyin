@@ -1,5 +1,7 @@
 <template>
-  <div class="test-slide-wrapper" id="slideHook" v-love="'slideHook'">
+  <div class="test-slide-wrapper" id="slideHook"
+       @click="pageClick"
+       v-love="'slideHook'">
     <H v-model:index="state.baseIndex">
       <SlideItem>
         <IndicatorHome
@@ -9,6 +11,50 @@
             name="main"
             v-model:index="state.navIndex"
         />
+        <div class="sub-type"
+             :class="state.subTypeIsTop?'top':''"
+             ref="subTypeRef">
+          <div class="local">
+            <div class="card" @touchmove.capture="stop">
+              <div class="nav-item">
+                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                <span>美食</span>
+              </div>
+              <div class="nav-item">
+                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                <span>休闲娱乐</span>
+              </div>
+              <div class="nav-item">
+                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                <span>游玩</span>
+              </div>
+              <div class="nav-item">
+                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                <span>丽人/美发</span>
+              </div>
+              <div class="nav-item">
+                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                <span>住宿</span>
+              </div>
+              <div class="nav-item">
+                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                <span>游玩</span>
+              </div>
+              <div class="nav-item">
+                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                <span>丽人/美发</span>
+              </div>
+              <div class="nav-item">
+                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                <span>住宿</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sub-type-notice"
+             v-if="state.subType===-1"
+             @click="showSubType">附近吃喝玩乐
+        </div>
         <H class="h"
            name="main"
            v-model:index="state.navIndex">
@@ -70,9 +116,10 @@ import Comment from "../../components/Comment";
 import IndicatorHome from "../slide/IndicatorHome";
 
 import resource from "../../assets/data/resource.js";
-import {onMounted, onUnmounted, provide, reactive} from "vue";
+import {onMounted, onUnmounted, provide, reactive, ref} from "vue";
 import bus, {EVENT_KEY} from "../../utils/bus";
 import {useNav} from "../../utils/hooks/useNav";
+import Utils from "@/utils";
 
 const nav = useNav()
 
@@ -81,6 +128,12 @@ const videos = resource.videos.slice(0, 16).map(v => {
   return v
 })
 
+function stop(e) {
+  e.stopPropagation()
+}
+
+
+const subTypeRef = ref(null)
 const state = reactive({
   baseIndex: 0,
   navIndex: 4,
@@ -97,7 +150,6 @@ const state = reactive({
     ...videos
   ],
 
-  isCommenting: false,
   isSharing: false,
   canMove: true,
   loading: false,
@@ -118,16 +170,40 @@ const state = reactive({
 
   commentVisible: false,
   fullScreen: false,
-  style: '100%'
+  subType: -1,
+  //用于改变zindex的层级到上层，反正比slide高就行。不然摸不到subType.
+  subTypeIsTop: false,
 })
+
+function showSubType(e) {
+  Utils.$stopPropagation(e)
+  console.log('subTypeRef',)
+  state.subType = 0
+  setTimeout(() => {
+    state.subTypeIsTop = true
+  }, 300)
+  bus.emit(EVENT_KEY.OPEN_SUB_TYPE, {
+    index: 0,
+    height: subTypeRef.value.getBoundingClientRect().height
+  })
+}
+
+function pageClick(e) {
+  if (state.subType !== -1) {
+    state.subType = -1
+    state.subTypeIsTop = false
+    bus.emit(EVENT_KEY.CLOSE_SUB_TYPE, {index: 0,})
+    Utils.$stopPropagation(e)
+  }
+}
 
 onMounted(() => {
   bus.on('singleClick', () => {
     let id = ''
-    if (state.navIndex === 5) {
+    if (state.navIndex === 4) {
       id = state.recommendVideos[state.itemIndex].id
     }
-    bus.emit('singleClickBroadcast', id)
+    bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, id)
   })
   bus.on('update:item', val => {
     const {baseIndex, navIndex, itemIndex} = val.position
@@ -210,15 +286,73 @@ function render(item, itemIndex, play, position) {
 <style scoped lang="less">
 @import "@/assets/less/index";
 
+.sub-type {
+  width: 100%;
+  position: fixed;
+  top: 0;
+
+  &.top {
+    z-index: 1;
+  }
+
+  .local {
+    transition: all .3s;
+    font-size: 14rem;
+    color: gray;
+    background: linear-gradient(to right, rgb(36, 34, 84), rgb(7, 5, 16));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .card {
+      margin: 20rem;
+      margin-top: @header-height;
+      padding: 20rem;
+      border-radius: 8rem;
+      width: 100%;
+      background: red;
+      background: linear-gradient(to right, rgb(53, 51, 110), rgb(29, 21, 66));
+      box-sizing: border-box;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      overflow: auto;
+    }
+
+    .nav-item {
+      @width: 35rem;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      flex-shrink: 0;
+      width: 17vw;
+
+      img {
+        width: @width;
+        height: @width;
+        margin-bottom: 5rem;
+      }
+    }
+  }
+}
+
+.sub-type-notice {
+  position: fixed;
+  background: rgba(black, .4);
+  top: 100rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 3rem 12rem;
+  border-radius: 10rem;
+  z-index: 3;
+  font-size: 12rem;
+  color: white;
+}
+
 .test-slide-wrapper {
   font-size: 14rem;
   width: 100%;
   height: 100%;
-
-  span {
-    color: white;
-    font-size: 24rem;
-  }
 
   .big {
     font-weight: bold;

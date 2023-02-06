@@ -13,7 +13,7 @@
     <img src="../../assets/img/icon/play-white.png" class="pause" v-if="!isPlaying">
     <div class="float" :style="{opacity: isUp?0:1}">
       <div :style="{opacity:isMove ? 0:1}" class="normal">
-        <template v-if="!commentVisible">
+        <template v-if="!commentVisible && !isMarginTop">
           <ItemToolbar v-model:item="localItem"
                        :position="position"
                        v-bind="$attrs"
@@ -165,6 +165,7 @@ export default {
       videoScreenHeight: 0,
       videoPoster: `?vframe/jpg/offset/0/w/${document.body.clientWidth}`,
       commentVisible: false,
+      isMarginTop: false,
     }
   },
   mounted() {
@@ -223,21 +224,32 @@ export default {
 
     console.log('mounted')
     // bus.off('singleClickBroadcast')
-    bus.on('singleClickBroadcast', this.click)
+    bus.on(EVENT_KEY.SINGLE_CLICK_BROADCAST, this.click)
     bus.on(EVENT_KEY.DIALOG_MOVE, this.onDialogMove)
     bus.on(EVENT_KEY.DIALOG_END, this.onDialogEnd)
     bus.on(EVENT_KEY.OPEN_COMMENTS, this.onOpenComments)
     bus.on(EVENT_KEY.CLOSE_COMMENTS, this.onCloseComments)
+    bus.on(EVENT_KEY.OPEN_SUB_TYPE, this.onOpenSubType)
+    bus.on(EVENT_KEY.CLOSE_SUB_TYPE, this.onCloseSubType)
   },
   unmounted() {
     console.log('unmounted')
-    bus.off('singleClickBroadcast', this.click)
+    bus.off(EVENT_KEY.SINGLE_CLICK_BROADCAST, this.click)
     bus.off(EVENT_KEY.DIALOG_MOVE, this.onDialogMove)
     bus.off(EVENT_KEY.DIALOG_END, this.onDialogEnd)
     bus.off(EVENT_KEY.OPEN_COMMENTS, this.onOpenComments)
     bus.off(EVENT_KEY.CLOSE_COMMENTS, this.onCloseComments)
+    bus.off(EVENT_KEY.OPEN_SUB_TYPE, this.onCloseSubType)
   },
   methods: {
+    onOpenSubType({index, height}) {
+      this.isMarginTop = true
+      Utils.$setCss(this.$refs.video, 'margin-top', `${height}px`)
+    },
+    onCloseSubType({index}) {
+      this.isMarginTop = false
+      Utils.$setCss(this.$refs.video, 'margin-top', `0px`)
+    },
     onDialogMove({tag, e}) {
       if (this.commentVisible && tag === 'comment') {
         Utils.$setCss(this.$refs.video, 'transition-duration', `0ms`)
@@ -344,7 +356,6 @@ export default {
 
 .video-wrapper {
   position: relative;
-  background: black;
   font-size: 14rem;
   width: 100%;
   height: 100%;
@@ -352,7 +363,8 @@ export default {
   video {
     width: 100%;
     height: 100%;
-    transition: height .3s;
+    transition: height, margin-top .3s;
+    background: black;
     /*position: absolute;*/
   }
 
