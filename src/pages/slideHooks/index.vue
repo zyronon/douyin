@@ -3,6 +3,7 @@
     <H v-model:index="state.baseIndex">
       <SlideItem>
         <IndicatorHome
+            v-if="!state.fullScreen"
             v-hide="state.isUp"
             :loading="state.loading"
             name="main"
@@ -54,7 +55,9 @@
       </SlideItem>
     </H>
   </div>
-  <Comment page-id="slideHook" v-model="state.commentVisible"/>
+  <Comment page-id="slideHook" v-model="state.commentVisible"
+           @close="closeComments"
+  />
 </template>
 
 <script setup lang="jsx">
@@ -73,7 +76,7 @@ import {useNav} from "../../utils/hooks/useNav";
 
 const nav = useNav()
 
-const videos = resource.videos.slice(0, 6).map(v => {
+const videos = resource.videos.slice(0, 16).map(v => {
   v.type = 'recommend-video'
   return v
 })
@@ -114,8 +117,9 @@ const state = reactive({
   shareToFriend: false,
 
   commentVisible: false,
+  fullScreen: false,
+  style: '100%'
 })
-provide('commentVisible', () => state.commentVisible)
 
 onMounted(() => {
   bus.on('singleClick', () => {
@@ -131,15 +135,25 @@ onMounted(() => {
       state.recommendVideos[itemIndex] = val.item
     }
   })
+
+  bus.on(EVENT_KEY.ENTER_FULLSCREEN, (e) => state.fullScreen = true)
+  bus.on(EVENT_KEY.EXIT_FULLSCREEN, (e) => state.fullScreen = false)
+  bus.on(EVENT_KEY.OPEN_COMMENTS, (e) => {
+    bus.emit(EVENT_KEY.ENTER_FULLSCREEN)
+    state.commentVisible = true
+  })
+  bus.on(EVENT_KEY.CLOSE_COMMENTS, (e) => {
+    bus.emit(EVENT_KEY.EXIT_FULLSCREEN)
+    state.commentVisible = false
+  })
   bus.on('nav', path => nav(path))
 })
 onUnmounted(() => {
   bus.offAll()
 })
 
-function test() {
-  state.commentVisible = true
-  bus.emit(EVENT_KEY.TOGGLE_COMMENT,)
+function closeComments() {
+  bus.emit(EVENT_KEY.CLOSE_COMMENTS)
 }
 
 function render(item, itemIndex, play, position) {
@@ -155,7 +169,6 @@ function render(item, itemIndex, play, position) {
         isPlay={false}
         item={item}
         position={{...position, itemIndex}}
-        onShowComments={test}
         onShowShare={e => state.isSharing = true}
         onGoUserInfo={e => state.baseIndex = 1}
     />

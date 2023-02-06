@@ -7,6 +7,7 @@
       :show-heng-gang="false"
       maskMode="light"
       :height="height"
+      tag="comment"
       mode="white">
     <template v-slot:header>
       <div class="title">
@@ -279,6 +280,7 @@ export default {
     },
     cancel() {
       this.$emit("update:modelValue", false)
+      this.$emit("close")
     },
     toggleCall(item) {
       item.select = !item.select

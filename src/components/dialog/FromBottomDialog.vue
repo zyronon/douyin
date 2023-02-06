@@ -28,6 +28,7 @@
 </template>
 <script>
 import Dom from "../../utils/dom";
+import bus, {EVENT_KEY} from "@/utils/bus";
 
 export default {
   name: "FromBottomDialog",
@@ -63,6 +64,10 @@ export default {
       type: String,
       default: '5rem 5rem 0 0'
     },
+    tag: {
+      type: String,
+      default: ''
+    }
   },
   watch: {
     modelValue(newVal) {
@@ -144,12 +149,13 @@ export default {
       if (this.$refs.dialog.scrollTop !== 0) return
       this.startLocationY = e.touches[0].pageY
       this.startTime = Date.now()
+      this.$setCss(this.$refs.dialog, 'transition-duration', `0ms`)
     },
     move(e) {
       if (this.$refs.dialog.scrollTop !== 0) return
       this.moveYDistance = e.touches[0].pageY - this.startLocationY
       if (this.moveYDistance > 0) {
-        this.$setCss(this.$refs.dialog, 'transition-duration', `0ms`)
+        bus.emit(EVENT_KEY.DIALOG_MOVE, {tag: this.tag, e: this.moveYDistance})
         this.$setCss(this.$refs.dialog, 'transform', `translate3d(0,${this.moveYDistance}px,0)`)
       }
     },
@@ -164,9 +170,11 @@ export default {
       this.$setCss(this.$refs.dialog, 'transition-duration', `250ms`)
       if (Math.abs(this.moveYDistance) > clientHeight / 2) {
         this.$setCss(this.$refs.dialog, 'transform', `translate3d(0,${clientHeight}px,0)`)
+        bus.emit('dialogEnd', {tag: this.tag, isClose: true})
         setTimeout(this.hide, 250)
       } else {
         this.$setCss(this.$refs.dialog, 'transform', `translate3d(0,0,0)`)
+        bus.emit(EVENT_KEY.DIALOG_END, {tag: this.tag, isClose: false})
         setTimeout(() => {
           this.$setCss(this.$refs.dialog, 'transform', 'none')
           // this.$setCss(this.$refs.dialog, 'transition-duration', `0ms`)
