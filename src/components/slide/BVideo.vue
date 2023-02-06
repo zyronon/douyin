@@ -13,7 +13,7 @@
     <img src="../../assets/img/icon/play-white.png" class="pause" v-if="!isPlaying">
     <div class="float" :style="{opacity: isUp?0:1}">
       <div :style="{opacity:isMove ? 0:1}" class="normal">
-        <template v-if="commentVisible">
+        <template v-if="!commentVisible">
           <ItemToolbar v-model:item="localItem"
                        :position="position"
                        v-bind="$attrs"
@@ -81,7 +81,6 @@ export default {
     ItemToolbar,
     ItemDesc
   },
-  inject: ['commentVisible'],
   provide() {
     return {
       // isPlaying: computed(() => this.status)
@@ -165,6 +164,7 @@ export default {
       progressBarRect: {},
       videoScreenHeight: 0,
       videoPoster: `?vframe/jpg/offset/0/w/${document.body.clientWidth}`,
+      commentVisible: false,
     }
   },
   mounted() {
@@ -224,14 +224,52 @@ export default {
     console.log('mounted')
     // bus.off('singleClickBroadcast')
     bus.on('singleClickBroadcast', this.click)
-    // bus.on(EVENT_KEY.TOGGLE_COMMENT, (e) => this.commentVisible = !this.commentVisible)
+    bus.on(EVENT_KEY.DIALOG_MOVE, this.onDialogMove)
+    bus.on(EVENT_KEY.DIALOG_END, this.onDialogEnd)
+    bus.on(EVENT_KEY.OPEN_COMMENTS, this.onOpenComments)
+    bus.on(EVENT_KEY.CLOSE_COMMENTS, this.onCloseComments)
   },
   unmounted() {
     console.log('unmounted')
     bus.off('singleClickBroadcast', this.click)
-    // bus.off(EVENT_KEY.TOGGLE_COMMENT,)
+    bus.off(EVENT_KEY.DIALOG_MOVE, this.onDialogMove)
+    bus.off(EVENT_KEY.DIALOG_END, this.onDialogEnd)
+    bus.off(EVENT_KEY.OPEN_COMMENTS, this.onOpenComments)
+    bus.off(EVENT_KEY.CLOSE_COMMENTS, this.onCloseComments)
   },
   methods: {
+    onDialogMove({tag, e}) {
+      if (this.commentVisible && tag === 'comment') {
+        Utils.$setCss(this.$refs.video, 'transition-duration', `0ms`)
+        Utils.$setCss(this.$refs.video, 'height', `calc(30vh + ${e}px)`)
+      }
+    },
+    onDialogEnd({tag, isClose}) {
+      if (this.commentVisible && tag === 'comment') {
+        console.log('isClose', isClose)
+        Utils.$setCss(this.$refs.video, 'transition-duration', `300ms`)
+        if (isClose) {
+          this.commentVisible = false
+          Utils.$setCss(this.$refs.video, 'height', '100%')
+        } else {
+          Utils.$setCss(this.$refs.video, 'height', '30vh')
+        }
+      }
+    },
+    onOpenComments(id) {
+      if (id === this.item.id) {
+        Utils.$setCss(this.$refs.video, 'transition-duration', `300ms`)
+        Utils.$setCss(this.$refs.video, 'height', '30vh')
+        this.commentVisible = true
+      }
+    },
+    onCloseComments(id) {
+      if (this.commentVisible) {
+        Utils.$setCss(this.$refs.video, 'transition-duration', `300ms`)
+        Utils.$setCss(this.$refs.video, 'height', '100%')
+        this.commentVisible = false
+      }
+    },
     click(val) {
       if (this.item.id === val) {
         if (this.status === SlideItemPlayStatus.Play) {
@@ -314,6 +352,7 @@ export default {
   video {
     width: 100%;
     height: 100%;
+    transition: height .3s;
     /*position: absolute;*/
   }
 

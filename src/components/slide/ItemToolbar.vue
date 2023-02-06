@@ -2,6 +2,7 @@
 import BaseMusic from "../BaseMusic";
 import Utils from "../../utils";
 import {reactive,} from "vue";
+import bus, {EVENT_KEY} from "@/utils/bus";
 
 const props = defineProps({
   item: {
@@ -43,6 +44,10 @@ function attention(e) {
   }, 1000)
 }
 
+function showComments() {
+  bus.emit(EVENT_KEY.OPEN_COMMENTS, props.item.id)
+}
+
 </script>
 
 <template>
@@ -65,11 +70,11 @@ function attention(e) {
       </div>
       <span>{{ Utils.formatNumber(props.item.digg_count) }}</span>
     </div>
-    <div class="message mb2r" @click.stop="$emit('showComments')">
+    <div class="message mb2r" @click.stop="showComments">
       <img src="../../assets/img/icon/message.svg" alt="" class="message-image">
       <span>{{ Utils.formatNumber(props.item.comment_count) }}</span>
     </div>
-    <div class="message mb2r" @click.stop="$emit('showComments')">
+    <div class="message mb2r" @click.stop="showComments">
       <img src="../../assets/img/icon/star-white.png" alt="" class="message-image">
       <span>{{ Utils.formatNumber(props.item.comment_count) }}</span>
     </div>
