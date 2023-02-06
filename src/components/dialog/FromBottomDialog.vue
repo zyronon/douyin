@@ -170,7 +170,7 @@ export default {
       this.$setCss(this.$refs.dialog, 'transition-duration', `250ms`)
       if (Math.abs(this.moveYDistance) > clientHeight / 2) {
         this.$setCss(this.$refs.dialog, 'transform', `translate3d(0,${clientHeight}px,0)`)
-        bus.emit('dialogEnd', {tag: this.tag, isClose: true})
+        bus.emit(EVENT_KEY.DIALOG_END, {tag: this.tag, isClose: true})
         setTimeout(this.hide, 250)
       } else {
         this.$setCss(this.$refs.dialog, 'transform', `translate3d(0,0,0)`)
