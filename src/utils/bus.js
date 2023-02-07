@@ -8,9 +8,12 @@ export default {
       cbs = [cb]
     }
     if (cbs.length > 10) {
-      console.error('eventMap', this.eventMap)
+      // console.error('eventMap', this.eventMap)
     }
     this.eventMap.set(eventType, cbs)
+  },
+  once(eventType, cb) {
+    this.eventMap.set(eventType, [cb])
   },
   off(eventType, fn) {
     let cbs = this.eventMap.has(eventType);

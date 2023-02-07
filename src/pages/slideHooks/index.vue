@@ -1,109 +1,113 @@
 <template>
-  <div class="test-slide-wrapper" id="slideHook"
-       @click="pageClick"
-       v-love="'slideHook'">
-    <H v-model:index="state.baseIndex">
-      <SlideItem>
-        <IndicatorHome
-            v-if="!state.fullScreen"
-            v-hide="state.isUp"
-            :loading="state.loading"
-            name="main"
-            v-model:index="state.navIndex"
-        />
-        <div class="sub-type"
-             :class="state.subTypeIsTop?'top':''"
-             ref="subTypeRef">
-          <div class="local">
-            <div class="card" @touchmove.capture="stop">
-              <div class="nav-item">
-                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                <span>美食</span>
-              </div>
-              <div class="nav-item">
-                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                <span>休闲娱乐</span>
-              </div>
-              <div class="nav-item">
-                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                <span>游玩</span>
-              </div>
-              <div class="nav-item">
-                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                <span>丽人/美发</span>
-              </div>
-              <div class="nav-item">
-                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                <span>住宿</span>
-              </div>
-              <div class="nav-item">
-                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                <span>游玩</span>
-              </div>
-              <div class="nav-item">
-                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                <span>丽人/美发</span>
-              </div>
-              <div class="nav-item">
-                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                <span>住宿</span>
-              </div>
-            </div>
+  <div class="test-slide-wrapper">
+    <IndicatorHome
+        v-if="!state.fullScreen"
+        v-hide="state.isUp"
+        :loading="state.loading"
+        name="main"
+        v-model:index="state.navIndex"
+    />
+    <div class="sub-type"
+         :class="state.subTypeIsTop?'top':''"
+         ref="subTypeRef">
+      <div class="local">
+        <div class="card" @touchmove.capture="stop">
+          <div class="nav-item">
+            <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+            <span>美食</span>
+          </div>
+          <div class="nav-item">
+            <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+            <span>休闲娱乐</span>
+          </div>
+          <div class="nav-item">
+            <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+            <span>游玩</span>
+          </div>
+          <div class="nav-item">
+            <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+            <span>丽人/美发</span>
+          </div>
+          <div class="nav-item">
+            <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+            <span>住宿</span>
+          </div>
+          <div class="nav-item">
+            <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+            <span>游玩</span>
+          </div>
+          <div class="nav-item">
+            <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+            <span>丽人/美发</span>
+          </div>
+          <div class="nav-item">
+            <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+            <span>住宿</span>
           </div>
         </div>
-        <div class="sub-type-notice"
-             v-if="state.subType===-1"
-             @click="showSubType">附近吃喝玩乐
-        </div>
-        <H class="h"
-           name="main"
-           v-model:index="state.navIndex">
-          <SlideItem class=" gray">
-            <div class="big">热点</div>
-          </SlideItem>
-          <SlideItem class=" gray">
-            <div class="big">社区</div>
-          </SlideItem>
-          <SlideItem class=" gray">
-            <div class="big">关注</div>
-          </SlideItem>
-          <SlideItem class=" gray">
-            <div class="big">商城</div>
-          </SlideItem>
-          <SlideItem>
-            <VInfinite
-                name="main"
-                v-model:index="state.itemIndex"
-                :render="render"
-                :list="state.recommendVideos"
-                :position="{
+      </div>
+    </div>
+    <div class="sub-type-notice"
+         v-if="state.subType===-1"
+         @click="showSubType">附近吃喝玩乐
+    </div>
+    <div class="slide-content" id="slideHook"
+         @touchstart="pageClick"
+         v-love="'slideHook'">
+      <H v-model:index="state.baseIndex">
+        <SlideItem>
+          <H class="h"
+             name="main"
+             v-model:index="state.navIndex">
+            <SlideItem class=" gray">
+              <div class="big">热点</div>
+            </SlideItem>
+            <SlideItem class=" gray">
+              <div class="big">社区</div>
+            </SlideItem>
+            <SlideItem class=" gray">
+              <div class="big">关注</div>
+            </SlideItem>
+            <SlideItem class=" gray">
+              <div class="big">商城</div>
+            </SlideItem>
+            <SlideItem>
+              <VInfinite
+                  name="main"
+                  v-model:index="state.itemIndex"
+                  :render="render"
+                  :list="state.recommendVideos"
+                  :position="{
                   baseIndex:0,
                   navIndex:5,
                 }"
-            >
-            </VInfinite>
-          </SlideItem>
-        </H>
-        <div>
-          <span>{{ state.baseIndex }}</span>
-          <button @click="state.baseIndex++">加</button>
-          <button @click="state.baseIndex--">减</button>
-        </div>
-        <div>
-          <span>{{ state.navIndex }}</span>
-          <button @click="state.navIndex++">加</button>
-          <button @click="state.navIndex--">减</button>
-        </div>
-        <Footer v-bind:init-tab="1"/>
-      </SlideItem>
-      <SlideItem class=" gray">
-        <div class="big" v-for="i in 100">主页</div>
-      </SlideItem>
-    </H>
+                  @loadMore="loadMore"
+                  @refresh="refresh"
+              >
+              </VInfinite>
+            </SlideItem>
+          </H>
+          <div>
+            <span>{{ state.baseIndex }}</span>
+            <button @click="state.baseIndex++">加</button>
+            <button @click="state.baseIndex--">减</button>
+          </div>
+          <div>
+            <span>{{ state.navIndex }}</span>
+            <button @click="state.navIndex++">加</button>
+            <button @click="state.navIndex--">减</button>
+          </div>
+          <Footer v-bind:init-tab="1"/>
+        </SlideItem>
+        <SlideItem class=" gray">
+          <div class="big" v-for="i in 100">主页</div>
+        </SlideItem>
+      </H>
+    </div>
+    <Comment page-id="slideHook" v-model="state.commentVisible"
+             @close="closeComments"
+    />
   </div>
-  <Comment page-id="slideHook" v-model="state.commentVisible"
-           @close="closeComments"
-  />
 </template>
 
 <script setup lang="jsx">
@@ -120,10 +124,11 @@ import {onMounted, onUnmounted, provide, reactive, ref} from "vue";
 import bus, {EVENT_KEY} from "../../utils/bus";
 import {useNav} from "../../utils/hooks/useNav";
 import Utils from "@/utils";
+import {shuffle} from "lodash";
 
 const nav = useNav()
 
-const videos = resource.videos.slice(0, 16).map(v => {
+const videos = resource.videos.slice().map(v => {
   v.type = 'recommend-video'
   return v
 })
@@ -131,7 +136,6 @@ const videos = resource.videos.slice(0, 16).map(v => {
 function stop(e) {
   e.stopPropagation()
 }
-
 
 const subTypeRef = ref(null)
 const state = reactive({
@@ -143,11 +147,11 @@ const state = reactive({
     //   type: 'img',
     //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
     // },
-    // {
-    //   type: 'imgs',
-    //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
-    // },
-    ...videos
+    {
+      type: 'imgs',
+      src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
+    },
+    // ...videos
   ],
 
   isSharing: false,
@@ -175,6 +179,32 @@ const state = reactive({
   subTypeIsTop: false,
 })
 
+function loadMore() {
+  if (state.loading) return
+  state.loading = true
+  console.log('loadMore')
+  setTimeout(() => {
+    state.recommendVideos = state.recommendVideos.concat(shuffle(resource.videos).slice(0, 10).map(v => {
+      v.type = 'recommend-video'
+      return v
+    }))
+    state.loading = false
+  }, 500)
+}
+
+function refresh() {
+  if (state.loading) return
+  state.loading = true
+  console.log('refresh')
+  setTimeout(() => {
+    state.recommendVideos = shuffle(resource.videos).slice(0, 5).map(v => {
+      v.type = 'recommend-video'
+      return v
+    })
+    state.loading = false
+  }, 500)
+}
+
 function showSubType(e) {
   Utils.$stopPropagation(e)
   console.log('subTypeRef',)
@@ -189,6 +219,7 @@ function showSubType(e) {
 }
 
 function pageClick(e) {
+  // console.log('pageClick')
   if (state.subType !== -1) {
     state.subType = -1
     state.subTypeIsTop = false
@@ -233,6 +264,7 @@ function closeComments() {
 }
 
 function render(item, itemIndex, play, position) {
+  console.log(item)
   let node
   if (item.type === 'img') {
     node = <img src={item.src} style="height:100%;"/>
@@ -357,6 +389,12 @@ function render(item, itemIndex, play, position) {
   .big {
     font-weight: bold;
     font-size: 100rem;
+  }
+
+  .slide-content {
+    width: 100%;
+    height: 100%;
+
   }
 }
 
