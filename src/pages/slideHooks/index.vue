@@ -114,7 +114,8 @@
 import H from './H'
 import VInfinite from './VInfinite.vue'
 import SlideItem from './SlideItem'
-import SlideImgs from "../../components/slide/SlideAlbum";
+import SlideAlbum from "../../components/slide/SlideAlbum";
+import SlideUser from "../../components/slide/SlideUser";
 import BVideo from "../../components/slide/BVideo";
 import Comment from "../../components/Comment";
 import IndicatorHome from "../slide/IndicatorHome";
@@ -149,6 +150,10 @@ const state = reactive({
     // },
     {
       type: 'imgs',
+      src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
+    },
+    {
+      type: 'user',
       src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
     },
     // ...videos
@@ -264,13 +269,16 @@ function closeComments() {
 }
 
 function render(item, itemIndex, play, position) {
-  console.log(item)
+  console.log('item',item)
   let node
   if (item.type === 'img') {
     node = <img src={item.src} style="height:100%;"/>
   }
   if (item.type === 'imgs') {
-    node = <SlideImgs/>
+    node = <SlideAlbum/>
+  }
+  if (item.type === 'user') {
+    node = <SlideUser/>
   }
   if (item.type === 'recommend-video') {
     node = <BVideo
@@ -284,26 +292,7 @@ function render(item, itemIndex, play, position) {
   return node
 }
 
-// function render1(item, itemIndex, play) {
-//   let node
-//   if (item.type === 'recommend-video') {
-//     node = <SlideVideo
-//         isPlay={play}
-//         video={item}
-//         index={itemIndex}
-//         onShowComments={e => this.isCommenting = true}
-//         onShowShare={e => this.isSharing = true}
-//         onGoUserInfo={e => this.baseActiveIndex = 1}
-//         onGoMusic={e => this.$nav('/home/music')}
-//         v-model={[this.videos[itemIndex], 'video']}
-//     />
-//   }
-//   if (item.type === 'img') {
-//     node = <img src={item.src} style="height:100%;"/>
-//   }
-//   if (item.type === 'imgs') {
-//     node = <SlideImgs/>
-//   }
+
 //   if (item.type === 'send-video') {
 //     node = <video src={item.src} style="height:100%;"/>
 //   }

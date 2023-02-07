@@ -131,7 +131,8 @@ function insertContent(list = props.list) {
 }
 
 function getInsEl(item, index, play = false) {
-  // console.log('index',index,play)
+  debugger
+  console.log('index',index,play)
   let slideVNode = props.render(item, index, play, props.position)
   const app = createApp({
     render() {
