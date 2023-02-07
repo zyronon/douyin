@@ -48,17 +48,17 @@ export default {
   overflow: auto;
 
   .content {
-    padding-top: 6rem;
+    padding-top: 60rem;
 
     .nearby {
 
       .title {
-        padding: 1rem 2rem;
+        padding: 10rem 20rem;
 
         img {
-          width: 1rem;
-          height: 1rem;
-          margin-right: .2rem;
+          width: 10rem;
+          height: 10rem;
+          margin-right: 2rem;
         }
       }
 

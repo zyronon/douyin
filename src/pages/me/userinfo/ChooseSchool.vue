@@ -29,7 +29,7 @@
         </div>
         <div v-else class="item">无法获取</div>
       </div>
-      <div class="line" style="width: calc(100% - 4rem);margin-left: 2rem;"></div>
+      <div class="line" style="width: calc(100% - 40rem);margin-left: 20rem;"></div>
       <div class="schools" v-if="!isSearch">
         <div class="item" v-for="item in schools"
              @click="setSchool(item)"
@@ -110,26 +110,26 @@ export default {
 
 
   .content {
-    padding-top: 12rem;
+    padding-top: 120rem;
 
     .nearby {
 
       .title {
-        padding: 1rem 2rem;
+        padding: 10rem 20rem;
 
         img {
-          width: 1rem;
-          height: 1rem;
-          margin-right: .2rem;
+          width: 10rem;
+          height: 10rem;
+          margin-right: 2rem;
         }
       }
 
     }
 
     .item {
-      padding: 0 2rem;
-      font-size: 1.4rem;
-      height: 5rem;
+      padding: 0 20rem;
+      font-size: 14rem;
+      height: 50rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -146,27 +146,27 @@ export default {
       text-align: center;
 
       .title {
-        margin-top: 6rem;
-        font-size: 1.8rem;
+        margin-top: 60rem;
+        font-size: 18rem;
       }
 
       .sub-title {
         color: @second-text-color;
-        margin-top: 2rem;
-        font-size: 1.4rem;
+        margin-top: 20rem;
+        font-size: 14rem;
       }
 
       img {
-        margin-top: 6rem;
-        height: 10rem;
+        margin-top: 60rem;
+        height: 100rem;
         border-radius: 50%;
       }
 
       .btn {
-        margin-top: 15rem;
+        margin-top: 150rem;
         display: inline-block;
         background: @second-btn-color;
-        padding: 1.5rem 4rem;
+        padding: 15rem 40rem;
         border-radius: 2px;
       }
     }

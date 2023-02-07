@@ -27,7 +27,7 @@
       </div>
       <div class="l-row" v-if="type === 2">
         <div class="notice">我的抖音号</div>
-        <div class="input-ctn" style="margin-bottom: 1rem;">
+        <div class="input-ctn" style="margin-bottom: 10rem;">
           <input type="text" v-model="localUserinfo.unique_id">
           <img
               v-if="localUserinfo.unique_id" style="transform: scale(2)"
@@ -122,11 +122,11 @@ export default {
   }
 
   .content {
-    padding: 2rem;
-    padding-top: 7rem;
+    padding: 20rem;
+    padding-top: 70rem;
 
     .notice, .num {
-      font-size: 1.2rem;
+      font-size: 12rem;
       color: @second-text-color;
     }
 
@@ -137,9 +137,9 @@ export default {
       align-items: center;
 
       input {
-        margin: .5rem 0;
+        margin: 5rem 0;
         color: white;
-        height: 3rem;
+        height: 30rem;
         width: 100%;
         outline: none;
         border: none;
@@ -153,17 +153,17 @@ export default {
       .close {
         position: absolute;
         right: 0;
-        top: 1.5rem;
-        width: 1rem;
+        top: 15rem;
+        width: 10rem;
       }
     }
 
     .textarea-ctn {
       width: 100%;
       background: @active-main-bg;
-      padding: 1.5rem;
+      padding: 15rem;
       box-sizing: border-box;
-      margin-top: 1rem;
+      margin-top: 10rem;
       border-radius: 2px;
 
 

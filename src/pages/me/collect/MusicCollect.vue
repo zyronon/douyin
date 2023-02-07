@@ -143,14 +143,14 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .content {
-    padding-top: 6rem;
+    padding-top: 60rem;
 
     .list {
       .item {
-        padding: 2rem 1.5rem;
+        padding: 20rem 15rem;
         padding-bottom: 0;
         display: flex;
         align-items: center;
@@ -160,21 +160,21 @@ export default {
           display: flex;
 
           .cover-wrapper {
-            margin-right: 1rem;
+            margin-right: 10rem;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
 
             .play {
-              width: 3rem;
-              height: 3rem;
+              width: 30rem;
+              height: 30rem;
               position: absolute;
             }
 
             .cover {
-              border-radius: .2rem;
-              @width: 6rem;
+              border-radius: 2rem;
+              @width: 60rem;
               width: @width;
               object-fit: cover;
               height: @width;
@@ -194,7 +194,7 @@ export default {
             }
 
             .author, .desc-bottom {
-              font-size: 1.2rem;
+              font-size: 12rem;
               color: @second-text-color;
             }
 
@@ -202,7 +202,7 @@ export default {
               display: flex;
 
               .duration {
-                margin-right: 1.4rem;
+                margin-right: 14rem;
                 position: relative;
               }
             }
@@ -211,9 +211,9 @@ export default {
 
         .option {
           img {
-            width: 2rem;
-            height: 2rem;
-            margin-left: 2rem;
+            width: 20rem;
+            height: 20rem;
+            margin-left: 20rem;
           }
         }
 
@@ -242,7 +242,7 @@ export default {
     .music-wrapper {
       width: 100vw;
       border-top: 1px solid #414141;
-      padding: 1rem 1.5rem;
+      padding: 10rem 15rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -251,22 +251,22 @@ export default {
         display: flex;
 
         .cover-wrapper {
-          margin-right: 1rem;
+          margin-right: 10rem;
           position: relative;
           display: flex;
           align-items: center;
           justify-content: center;
 
           .play {
-            width: 3rem;
-            height: 3rem;
+            width: 30rem;
+            height: 30rem;
             position: absolute;
           }
 
           .cover {
-            border-radius: .2rem;
+            border-radius: 2rem;
             object-fit: cover;
-            @width: 5rem;
+            @width: 50rem;
             width: @width;
             height: @width;
           }
@@ -285,7 +285,7 @@ export default {
           }
 
           .author, .desc-bottom {
-            font-size: 1.2rem;
+            font-size: 12rem;
             color: @second-text-color;
           }
 
@@ -293,7 +293,7 @@ export default {
             display: flex;
 
             .duration {
-              margin-right: 1.4rem;
+              margin-right: 14rem;
               position: relative;
             }
           }

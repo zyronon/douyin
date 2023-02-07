@@ -18,7 +18,7 @@
     <from-bottom-dialog
         mask-mode="lightgray"
         page-id="CollectMusic"
-        border-radius="1.5rem 1.5rem 0 0"
+        border-radius="15rem 15rem 0 0"
         :show-heng-gang="false"
         height="70vh"
         v-model="isShowList">
@@ -169,7 +169,7 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 }
 
 .music-list-dialog {
@@ -186,34 +186,34 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 5rem;
+    height: 50rem;
     padding: 0 @padding-page;
-    border-radius: 1.5rem 1.5rem 0 0;
+    border-radius: 15rem 15rem 0 0;
     z-index: 9;
 
     .left {
-      font-size: 1.6rem;
+      font-size: 16rem;
     }
 
     .right {
       display: flex;
       align-items: center;
-      font-size: 1.2rem;
+      font-size: 12rem;
 
       img {
-        width: 2rem;
-        margin-right: .5rem;
+        width: 20rem;
+        margin-right: 5rem;
       }
     }
   }
 
   .wrapper {
-    padding-top: 5rem;
+    padding-top: 50rem;
   }
 
   .l-row {
     background: @bg-color;
-    height: 5rem;
+    height: 50rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -228,38 +228,38 @@ export default {
       align-items: center;
 
       .author {
-        font-size: 1.2rem;
+        font-size: 12rem;
         color: @second-text-color;
-        margin-left: 2rem;
+        margin-left: 20rem;
         position: relative;
         display: flex;
         align-items: center;
 
         &:after {
           content: '';
-          width: .6rem;
+          width: 6rem;
           height: .5px;
           background: @second-text-color;
           position: absolute;
-          left: -1.2rem;
+          left: -12rem;
         }
       }
 
       .play-icon {
-        width: 1.5rem;
-        margin-right: 1rem;
+        width: 15rem;
+        margin-right: 10rem;
       }
     }
 
     .right {
-      width: 1.5rem;
+      width: 15rem;
     }
   }
 
   .footer {
     background: @bg-color;
     border-top: 1px solid #2a2828;
-    height: 6rem;
+    height: 60rem;
     display: flex;
     align-items: center;
     justify-content: center;

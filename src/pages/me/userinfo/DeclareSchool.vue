@@ -69,7 +69,7 @@ export default {
 
 
   .content {
-    padding: 7rem 2rem 0 2rem;
+    padding: 70rem 20rem 0 20rem;
 
     .row {
       display: flex;
@@ -77,13 +77,13 @@ export default {
 
       .label {
         color: white;
-        font-size: 1.6rem;
-        margin-right: 3rem;
+        font-size: 16rem;
+        margin-right: 30rem;
       }
 
       input {
         flex: 1;
-        height: 4rem;
+        height: 40rem;
         background: transparent;
         outline: none;
         border-top: none;
@@ -101,19 +101,19 @@ export default {
 
       .label {
         color: white;
-        font-size: 1.6rem;
-        margin-right: 3rem;
+        font-size: 16rem;
+        margin-right: 30rem;
       }
 
       .right {
-        padding: 1.2rem 0;
+        padding: 12rem 0;
         display: flex;
         align-items: center;
         color: @second-text-color;
 
         img {
           margin-left: 5px;
-          width: 1.2rem;
+          width: 12rem;
         }
       }
 
@@ -121,20 +121,20 @@ export default {
     }
 
     .notice {
-      margin-top: 2rem;
+      margin-top: 20rem;
       color: @second-text-color;
     }
 
     .btn {
       position: fixed;
-      bottom: 2rem;
-      left: 2rem;
-      right: 2rem;
+      bottom: 20rem;
+      left: 20rem;
+      right: 20rem;
       color: white;
-      font-size: 1.6rem;
+      font-size: 16rem;
       background: @primary-btn-color;
       text-align: center;
-      padding: 1rem 0;
+      padding: 10rem 0;
       border-radius: 2px;
     }
   }
