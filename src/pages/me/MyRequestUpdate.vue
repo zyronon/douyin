@@ -50,17 +50,17 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .content {
-    padding: 6rem 1.5rem 6rem 1.5rem;
+    padding: 60rem 15rem 60rem 15rem;
 
 
     .request {
       .list {
 
         .item {
-          padding: 1rem 0;
+          padding: 10rem 0;
 
           display: flex;
           justify-content: space-between;
@@ -69,18 +69,18 @@ export default {
           .left {
             display: flex;
             align-items: center;
-            @width: 4.2rem;
+            @width: 42rem;
 
             img {
               width: @width;
               height: @width;
               border-radius: 50%;
-              margin-right: 1rem;
+              margin-right: 10rem;
             }
           }
 
           .time{
-            font-size: 1.2rem;
+            font-size: 12rem;
             color: @second-text-color;
           }
         }

@@ -211,14 +211,14 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .header {
     z-index: 9;
     position: fixed;
     width: 100vw;
     top: 0;
-    height: 5rem;
+    height: 50rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -236,17 +236,17 @@ export default {
   }
 
   .my-collect {
-    margin-top: 5rem;
+    margin-top: 50rem;
     color: rgba(88, 88, 96);
     position: relative;
 
     .wrapper {
       padding: @padding-page;
-      padding-bottom: 8rem;
+      padding-bottom: 80rem;
     }
 
     .play-all {
-      margin-bottom: 2rem;
+      margin-bottom: 20rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -257,19 +257,19 @@ export default {
         align-items: center;
 
         img {
-          width: 3rem;
-          margin-right: 1rem;
+          width: 30rem;
+          margin-right: 10rem;
         }
 
         .num {
-          font-size: 1.3rem;
+          font-size: 13rem;
           color: gray;
-          margin-left: .5rem;
+          margin-left: 5rem;
         }
       }
 
       .menu {
-        height: 2rem;
+        height: 20rem;
       }
     }
 
@@ -278,21 +278,21 @@ export default {
         color: white;
         display: flex;
         justify-content: space-between;
-        margin-bottom: 1.5rem;
+        margin-bottom: 15rem;
 
         .left {
           display: flex;
 
           .cover-wrapper {
-            margin-right: 1rem;
+            margin-right: 10rem;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
 
             .cover {
-              border-radius: .2rem;
-              @width: 6rem;
+              border-radius: 2rem;
+              @width: 60rem;
               width: @width;
               object-fit: cover;
               height: @width;
@@ -312,7 +312,7 @@ export default {
             }
 
             .author, .desc-bottom {
-              font-size: 1.2rem;
+              font-size: 12rem;
               color: @second-text-color;
             }
 
@@ -321,14 +321,14 @@ export default {
               align-items: center;
 
               .tag {
-                font-size: 1rem;
+                font-size: 10rem;
                 background: @second-btn-color-tran;
-                padding: .2rem .5rem;
-                margin-right: .5rem;
+                padding: 2rem 5rem;
+                margin-right: 5rem;
               }
 
               .duration {
-                margin-right: 1.4rem;
+                margin-right: 14rem;
                 position: relative;
               }
             }
@@ -340,14 +340,14 @@ export default {
           align-items: center;
 
           .playing-icon {
-            width: 2.4rem;
+            width: 24rem;
           }
 
           .collect-icon {
-            margin-left: 3rem;
+            margin-left: 30rem;
 
             img {
-              width: 2.4rem;
+              width: 24rem;
             }
           }
         }
@@ -357,7 +357,7 @@ export default {
 
     .recommend {
       color: white;
-      margin: 3rem 0;
+      margin: 30rem 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -368,9 +368,9 @@ export default {
         justify-content: space-between;
 
         .auto-play {
-          font-size: 1.3rem;
+          font-size: 13rem;
           color: @second-text-color;
-          margin-right: 1rem;
+          margin-right: 10rem;
         }
 
       }
@@ -386,7 +386,7 @@ export default {
       background: rgba(56, 59, 68);
 
       .playing-wrapper {
-        transform: translateY(-1rem);
+        transform: translateY(-10rem);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -394,13 +394,13 @@ export default {
 
       .cover-wrapper {
         background: rgba(56, 59, 68);
-        padding: .7rem;
+        padding: 7rem;
         border-radius: 50%;
 
         .cover {
           background: rgba(97, 98, 103);
-          padding: .3rem;
-          @width: 5rem;
+          padding: 3rem;
+          @width: 50rem;
           height: @width;
           width: @width;
           object-fit: cover;
@@ -409,20 +409,20 @@ export default {
       }
 
       .name {
-        margin: 0 1rem;
+        margin: 0 10rem;
         flex: 1;
 
       }
 
       .option {
-        width: 3.8rem;
-        height: 3.8rem;
-        margin-right: 2rem;
+        width: 38rem;
+        height: 38rem;
+        margin-right: 20rem;
       }
 
       .menu-list {
-        width: 2.8rem;
-        height: 2.8rem;
+        width: 28rem;
+        height: 28rem;
       }
     }
   }
@@ -437,13 +437,13 @@ export default {
 
     .dialog-header {
       z-index: 9;
-      font-size: 1.6rem;
+      font-size: 16rem;
       position: fixed;
       top: 0;
       width: 100vw;
       padding: @padding-page;
       box-sizing: border-box;
-      height: 5rem;
+      height: 50rem;
       display: flex;
       align-items: center;
       justify-content: space-between;

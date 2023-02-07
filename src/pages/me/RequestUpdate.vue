@@ -6,7 +6,7 @@
       </template>
       <template v-slot:right>
         <div>
-          <img src="../../assets/img/icon/menu-gray.png" style="width: 2rem;" @click="isShowOption = true">
+          <img src="../../assets/img/icon/menu-gray.png" style="width: 20rem;" @click="isShowOption = true">
         </div>
       </template>
     </BaseHeader>
@@ -40,7 +40,7 @@
 
     <from-bottom-dialog
         page-id="RequestUpdate"
-        height="16rem"
+        height="160rem"
         :show-heng-gang="false"
         mode="white"
         v-model="isShowOption">
@@ -107,10 +107,10 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .content {
-    padding: 6rem 1.5rem 6rem 1.5rem;
+    padding: 60rem 15rem 60rem 15rem;
 
     .none {
       display: flex;
@@ -118,8 +118,8 @@ export default {
       align-items: center;
 
       img {
-        margin-top: 10rem;
-        height: 12rem;
+        margin-top: 100rem;
+        height: 120rem;
       }
     }
 
@@ -128,7 +128,7 @@ export default {
         margin-top: @padding-page;
 
         .item {
-          padding: 1rem 0;
+          padding: 10rem 0;
 
           display: flex;
           justify-content: space-between;
@@ -137,18 +137,18 @@ export default {
           .left {
             display: flex;
             align-items: center;
-            @width: 4.2rem;
+            @width: 42rem;
 
             img {
               width: @width;
               height: @width;
               border-radius: 50%;
-              margin-right: 1rem;
+              margin-right: 10rem;
             }
           }
 
           .time {
-            font-size: 1.2rem;
+            font-size: 12rem;
             color: @second-text-color;
           }
         }
@@ -156,19 +156,19 @@ export default {
     }
 
     .title {
-      margin-top: 1rem;
-      font-size: 1.6rem;
+      margin-top: 10rem;
+      font-size: 16rem;
     }
 
     .subtitle {
-      margin-top: 1rem;
-      font-size: 1.4rem;
+      margin-top: 10rem;
+      font-size: 14rem;
       color: @second-text-color;
     }
   }
 
   .l-row {
-    padding: 1.5rem;
+    padding: 15rem;
     color: black;
     text-align: center;
 
@@ -178,13 +178,13 @@ export default {
   }
 
   .space {
-    height: 1rem;
+    height: 10rem;
     background: whitesmoke;
   }
 
   .buttons {
     position: fixed;
-    padding: 0 1.5rem 1.5rem 1.5rem;
+    padding: 0 15rem 15rem 15rem;
     bottom: 0;
     left: 0;
     right: 0;
@@ -196,11 +196,11 @@ export default {
       flex: 1;
 
       &:nth-child(1) {
-        margin-right: 0.5rem;
+        margin-right: 5rem;
       }
 
       &:nth-child(2) {
-        margin-left: 0.5rem;
+        margin-left: 5rem;
       }
     }
   }

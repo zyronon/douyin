@@ -389,16 +389,16 @@ export default {
   .search-wrapper {
     z-index: 9;
     position: fixed;
-    top: 1rem;
-    left: 1.5rem;
-    right: 1.5rem;
+    top: 10rem;
+    left: 15rem;
+    right: 15rem;
     display: flex;
     align-items: center;
 
     .back {
-      width: 2rem;
-      height: 2rem;
-      margin-right: 1rem;
+      width: 20rem;
+      height: 20rem;
+      margin-right: 10rem;
     }
 
     .search-ctn {
@@ -444,7 +444,7 @@ export default {
     .right {
       display: flex;
       align-items: center;
-      font-size: 1.4rem;
+      font-size: 14rem;
 
       img {
         margin-right: 10px;
@@ -465,12 +465,12 @@ export default {
   .share-dialog {
     .collection {
       background: white;
-      margin: 0 1rem 1rem 1rem;
-      width: calc(100% - 2rem);
+      margin: 0 10rem 10rem 10rem;
+      width: calc(100% - 20rem);
       border-radius: 6px;
       display: flex;
       align-items: center;
-      font-size: 1.6rem;
+      font-size: 16rem;
       font-weight: bold;
       padding: 10px;
       box-sizing: border-box;
@@ -485,8 +485,8 @@ export default {
     }
 
     .friends {
-      margin: 1rem 1rem 0 1rem;
-      width: calc(100% - 2rem);
+      margin: 10rem 10rem 0 10rem;
+      width: calc(100% - 20rem);
       background: white;
       border-radius: 6px 6px 0 0;
 
@@ -507,14 +507,14 @@ export default {
 
         .right {
           margin: 0 5px 0 15px;
-          font-size: 1.6rem;
+          font-size: 16rem;
           width: 100%;
           display: flex;
           align-items: center;
           justify-content: space-between;
 
           .share-btn {
-            font-size: 1.4rem;
+            font-size: 14rem;
             color: white;
             padding: 5px 20px;
             background: @primary-btn-color;
@@ -528,14 +528,14 @@ export default {
 
   .permission-dialog {
     .space {
-      height: 1rem;
+      height: 10rem;
       background: whitesmoke;
     }
 
     .setting {
       background: white;
       box-sizing: border-box;
-      padding: 1rem 2rem;
+      padding: 10rem 20rem;
       width: 100%;
       display: flex;
       align-items: center;
@@ -544,24 +544,24 @@ export default {
 
       img {
         border-radius: 50%;
-        width: 3rem;
-        height: 3rem;
+        width: 30rem;
+        height: 30rem;
       }
 
       .right {
-        margin: 0 .5rem 0 1.5rem;
-        font-size: 1.4rem;
+        margin: 0 5rem 0 15rem;
+        font-size: 14rem;
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
 
         .share-btn {
-          font-size: 1.4rem;
+          font-size: 14rem;
           color: white;
-          padding: .5rem 2rem;
+          padding: 5rem 20rem;
           background: @primary-btn-color;
-          border-radius: .2rem;
+          border-radius: 2rem;
         }
       }
     }

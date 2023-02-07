@@ -65,12 +65,12 @@ export default {
 
 
   .content {
-    padding-top: 6rem;
+    padding-top: 60rem;
 
     .item {
-      padding: 0 2rem;
-      font-size: 1.4rem;
-      height: 5rem;
+      padding: 0 20rem;
+      font-size: 14rem;
+      height: 50rem;
       display: flex;
       justify-content: space-between;
       align-items: center;

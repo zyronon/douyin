@@ -286,7 +286,7 @@ export default {
 
 .SlideItemMusic {
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
   min-width: 100vw;
   min-height: 100%;
   display: flex;
@@ -297,34 +297,34 @@ export default {
 
 
   .cover {
-    margin-top: 8rem;
+    margin-top: 80rem;
     width: 80vw;
     height: 80vw;
 
     img {
-      border-radius: 2.5rem;
+      border-radius: 25rem;
       object-fit: cover;
       width: 100%;
       height: 100%;
-      box-shadow: 0 0 1.5rem .5rem #514f4f;
+      box-shadow: 0 0 15rem 5rem #514f4f;
     }
 
   }
 
   .lyrics-wrapper {
-    margin-top: 3rem;
+    margin-top: 30rem;
     overflow: auto;
-    height: 8rem;
+    height: 80rem;
 
     .container {
-      min-height: 8rem;
+      min-height: 80rem;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
     }
 
     .lyrics {
-      height: 4rem;
+      height: 40rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -332,14 +332,14 @@ export default {
   }
 
   .lyrics-mask {
-    top: calc(80vw + 7rem);
-    height: 8rem;
+    top: calc(80vw + 70rem);
+    height: 80rem;
     width: 100vw;
     position: absolute;
   }
 
   .lyrics-full {
-    margin-top: 8rem;
+    margin-top: 80rem;
     width: 100vw;
     height: 60vh;
     display: flex;
@@ -351,7 +351,7 @@ export default {
       .item {
         display: flex;
         justify-content: center;
-        height: 4rem;
+        height: 40rem;
       }
     }
 
@@ -371,17 +371,17 @@ export default {
       align-items: flex-end;
 
       img {
-        width: 3.5rem;
+        width: 35rem;
       }
 
       .left {
         .name {
-          font-size: 1.8rem;
-          margin-bottom: .4rem;
+          font-size: 18rem;
+          margin-bottom: 4rem;
         }
 
         .author {
-          font-size: 1.4rem;
+          font-size: 14rem;
         }
       }
 
@@ -390,15 +390,15 @@ export default {
           display: flex;
           align-items: center;
           flex-direction: column;
-          margin-top: 2rem;
-          font-size: 1.2rem;
+          margin-top: 20rem;
+          font-size: 12rem;
         }
       }
     }
 
     .progress {
       width: 100vw;
-      font-size: 1.2rem;
+      font-size: 12rem;
       padding: 0 @padding-page;
       box-sizing: border-box;
       display: flex;
@@ -407,15 +407,15 @@ export default {
       color: gainsboro;
 
       .bar {
-        margin: 0 .6rem;
+        margin: 0 6rem;
         flex: 1;
         position: relative;
 
         .slide-bar {
           position: absolute;
-          height: 2rem;
+          height: 20rem;
           width: 100%;
-          top: -1rem;
+          top: -10rem;
           z-index: 9;
         }
 
@@ -444,8 +444,8 @@ export default {
           position: absolute;
           left: 50vw;
           top: -3px;
-          height: .8rem;
-          width: .8rem;
+          height: 8rem;
+          width: 8rem;
           border-radius: 50%;
           background: white;
         }
@@ -461,8 +461,8 @@ export default {
       justify-content: space-between;
 
       img {
-        width: 3.8rem;
-        height: 3.8rem;
+        width: 38rem;
+        height: 38rem;
       }
 
       .center {
@@ -470,12 +470,12 @@ export default {
         align-items: center;
 
         img {
-          margin: 0 1rem;
+          margin: 0 10rem;
         }
 
         .control {
-          width: 5.5rem;
-          height: 5.5rem;
+          width: 55rem;
+          height: 55rem;
         }
       }
     }

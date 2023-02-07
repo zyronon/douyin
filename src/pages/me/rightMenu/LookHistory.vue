@@ -141,10 +141,10 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .content {
-    padding-top: 6rem;
+    padding-top: 60rem;
 
     .SlideRowList, .Scroll {
       height: calc(100vh - @indicator-height - @header-height) !important;
@@ -158,12 +158,12 @@ export default {
       flex-direction: column;
 
       img {
-        height: 12rem;
+        height: 120rem;
       }
 
       .title {
-        font-size: 1.3rem;
-        margin-top: 1rem;
+        font-size: 13rem;
+        margin-top: 10rem;
         color: @second-text-color;
       }
     }
