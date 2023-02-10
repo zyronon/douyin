@@ -208,27 +208,27 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .content {
-    padding-top: 6rem;
+    padding-top: 60rem;
 
     .title {
       color: @second-text-color;
-      font-size: 1.3rem;
-      margin: 2rem 0 0 2rem;
+      font-size: 13rem;
+      margin: 20rem 0 0 20rem;
     }
 
     .version {
       color: @second-text-color;
-      font-size: 1.3rem;
-      margin: 4rem;
+      font-size: 13rem;
+      margin: 40rem;
       text-align: center;
     }
 
     .line {
-      width: calc(100% - 3rem);
-      margin-left: 1.5rem;
+      width: calc(100% - 30rem);
+      margin-left: 15rem;
       background: @line-color;
     }
   }

@@ -169,7 +169,7 @@ export default {
   bottom: 0;
   top: 0;
   overflow: auto;
-  font-size: 1.4rem;
+  font-size: 14rem;
 }
 
 .title {
@@ -201,16 +201,16 @@ export default {
 
   .download {
     position: absolute;
-    bottom: 2rem;
-    right: 2rem;
-    padding: .3rem;
+    bottom: 20rem;
+    right: 20rem;
+    padding: 3rem;
     background: @second-btn-color-tran;
-    width: 2rem;
+    width: 20rem;
   }
 }
 
 .userinfo {
-  padding-top: 6rem;
+  padding-top: 60rem;
   color: white;
 
   .change-avatar {
@@ -218,15 +218,15 @@ export default {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 3rem 0;
-    @avatar-width: 8rem;
+    margin: 30rem 0;
+    @avatar-width: 80rem;
 
     .avatar-ctn {
       position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 1rem;
+      margin-bottom: 10rem;
 
       width: @avatar-width;
       height: @avatar-width;
@@ -240,7 +240,7 @@ export default {
       }
 
       .change {
-        width: 2.8rem;
+        width: 28rem;
         z-index: 9;
         position: relative;
       }
@@ -265,13 +265,13 @@ export default {
   .content {
     background: white;
     width: 80%;
-    padding: .5rem 0;
+    padding: 5rem 0;
     border-radius: 2px;
     box-sizing: border-box;
 
     .item {
-      font-size: 1.5rem;
-      padding: 1.5rem 2rem;
+      font-size: 15rem;
+      padding: 15rem 20rem;
       transition: all .2s;
 
       &:active {

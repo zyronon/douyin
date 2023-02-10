@@ -74,66 +74,6 @@
   }
 }
 
-.button {
-  color: white;
-  height: 4rem;
-  line-height: 4rem;
-  text-align: center;
-  border-radius: .3rem;
-  //width: 100%;
-  font-size: 1.4rem;
-
-  &.primary {
-    background: @primary-btn-color;
-
-    &:active {
-      background: @disable-primary-btn-color;
-    }
-  }
-
-  &.no-active {
-    &:active {
-      &.primary {
-        background: @primary-btn-color;
-      }
-
-      &.dark {
-        background: @second-btn-color;
-      }
-
-      &.white {
-        background: white;
-      }
-    }
-  }
-
-  &.disabled {
-    &.primary {
-      background: gainsboro;
-      color: white;
-    }
-
-    &:active {
-      &.primary {
-        background: gainsboro;
-      }
-    }
-  }
-
-  &.dark {
-    background: @second-btn-color;
-
-    &:active {
-      background: @second-btn-color-tran;
-    }
-  }
-
-  &.white {
-    background: white;
-    color: black;
-    border: 1px solid gainsboro;
-  }
-}
 
 .not-read {
   @width: .7rem;

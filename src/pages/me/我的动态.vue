@@ -108,7 +108,7 @@ export default {
   color: #b8b9c1;
 
   header {
-    font-size: 1.5rem;
+    font-size: 15rem;
     height: 50px;
     display: flex;
     justify-content: center;

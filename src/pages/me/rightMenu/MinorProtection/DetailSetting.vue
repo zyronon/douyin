@@ -96,7 +96,7 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .content {
     padding-top: @header-height;
@@ -104,29 +104,29 @@ export default {
 
   .footer {
     position: fixed;
-    bottom: 1.5rem;
-    left: 1rem;
-    right: 1rem;
+    bottom: 15rem;
+    left: 10rem;
+    right: 10rem;
 
     .notice {
-      font-size: 1.3rem;
-      margin-bottom: 1.5rem;
+      font-size: 13rem;
+      margin-bottom: 15rem;
     }
   }
 
   .type1 {
     .notice {
-      margin: 6rem 0;
+      margin: 60rem 0;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      font-size: 1.6rem;
+      font-size: 16rem;
       color: @second-text-color;
 
       img {
-        width: 1.5rem;
-        margin-bottom: 1.5rem;
+        width: 15rem;
+        margin-bottom: 15rem;
       }
 
     }
@@ -134,7 +134,7 @@ export default {
 
   .type2 {
     .desc {
-      margin-top: 4rem;
+      margin-top: 40rem;
       width: 100%;
     }
   }

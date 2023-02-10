@@ -222,7 +222,7 @@ export default {
     // eventTester("durationchange", '资源长度改变'); //资源长度改变
     // eventTester("volumechange", '音量改变'); //音量改变
 
-    console.log('mounted')
+    // console.log('mounted')
     // bus.off('singleClickBroadcast')
     bus.on(EVENT_KEY.SINGLE_CLICK_BROADCAST, this.click)
     bus.on(EVENT_KEY.DIALOG_MOVE, this.onDialogMove)
@@ -233,13 +233,14 @@ export default {
     bus.on(EVENT_KEY.CLOSE_SUB_TYPE, this.onCloseSubType)
   },
   unmounted() {
-    console.log('unmounted')
+    // console.log('unmounted')
     bus.off(EVENT_KEY.SINGLE_CLICK_BROADCAST, this.click)
     bus.off(EVENT_KEY.DIALOG_MOVE, this.onDialogMove)
     bus.off(EVENT_KEY.DIALOG_END, this.onDialogEnd)
     bus.off(EVENT_KEY.OPEN_COMMENTS, this.onOpenComments)
     bus.off(EVENT_KEY.CLOSE_COMMENTS, this.onCloseComments)
-    bus.off(EVENT_KEY.OPEN_SUB_TYPE, this.onCloseSubType)
+    bus.off(EVENT_KEY.OPEN_SUB_TYPE, this.onOpenSubType)
+    bus.off(EVENT_KEY.CLOSE_SUB_TYPE, this.onCloseSubType)
   },
   methods: {
     onOpenSubType({index, height}) {
