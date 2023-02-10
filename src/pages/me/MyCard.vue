@@ -105,7 +105,7 @@ export default {
   bottom: 0;
   top: 0;
   overflow: auto;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .header {
     position: fixed;
@@ -113,16 +113,16 @@ export default {
     top: 0;
     width: 100%;
     box-sizing: border-box;
-    padding: 0 1.5rem;
-    height: 6rem;
+    padding: 0 15rem;
+    height: 60rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     .share {
-      width: 2.4rem;
-      height: 2.4rem;
-      margin-left: 1.5rem;
+      width: 24rem;
+      height: 24rem;
+      margin-left: 15rem;
     }
   }
 
@@ -153,15 +153,15 @@ export default {
 
     .name {
       font-weight: bold;
-      margin-top: 2rem;
-      font-size: 1.6rem;
+      margin-top: 20rem;
+      font-size: 16rem;
       color: white;
     }
 
     .notice {
       color: white;
-      font-size: 1.4rem;
-      margin-top: 2rem;
+      font-size: 14rem;
+      margin-top: 20rem;
       opacity: .4;
     }
 
@@ -170,7 +170,7 @@ export default {
 
   .footer {
     position: absolute;
-    bottom: 3rem;
+    bottom: 30rem;
     display: flex;
     justify-content: space-around;
     width: 100%;
@@ -180,20 +180,20 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: center;
-      font-size: 1.2rem;
+      font-size: 12rem;
 
       .wrapper {
         background: rgba(252, 250, 250, 0.3);
         border-radius: 50%;
         display: flex;
-        padding: 1.8rem;
+        padding: 18rem;
         align-items: center;
         justify-content: center;
-        margin-bottom: 1rem;
+        margin-bottom: 10rem;
       }
 
       img {
-        width: 2.6rem;
+        width: 26rem;
       }
     }
   }

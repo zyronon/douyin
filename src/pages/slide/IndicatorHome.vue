@@ -131,6 +131,11 @@ export default {
     })
     bus.on(this.name + '-end', this.end)
   },
+  unmounted() {
+    bus.off(this.name + '-moveX', this.move)
+    bus.off(this.name + '-moveY',)
+    bus.off(this.name + '-end', this.end)
+  },
   methods: {
     toggleType(type) {
       if (type !== this.type) {
@@ -158,14 +163,14 @@ export default {
         this.lefts.push(
             item.getBoundingClientRect().x - tabs.children[0].getBoundingClientRect().x + (tabWidth * 0.5 - indicatorWidth / 2))
       }
-      this.indicatorSpace = this.lefts[1] - this.lefts[this.index]
+      this.indicatorSpace = this.lefts[1] - this.lefts[0]
       this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
       this.$setCss(this.indicatorRef, 'left', this.lefts[this.index] + 'px')
     },
     move(e) {
       this.$setCss(this.indicatorRef, 'transition-duration', `0ms`)
       this.$setCss(this.indicatorRef, 'left',
-          this.lefts[this.index] +
+          this.lefts[this.index] -
           e / (this.$store.state.bodyWidth / this.indicatorSpace) + 'px')
     },
     end(index) {

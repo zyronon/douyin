@@ -6,6 +6,7 @@ import {SlideType} from "../../utils/const_var";
 import SlideItem from './SlideItem'
 import bus from "../../utils/bus";
 import {useStore} from 'vuex'
+import Utils from "../../utils";
 
 const props = defineProps({
   index: {
@@ -41,10 +42,10 @@ const props = defineProps({
     default: () => ''
   },
 })
-const emit = defineEmits(['update:index'])
+const emit = defineEmits(['update:index', 'loadMore'])
 
 const appInsMap = new Map()
-const slideItemClassName = 'slide-item2'
+const itemClassName = 'slide-item2'
 const wrapperEl = ref(null)
 const state = reactive({
   name: props.name,
@@ -60,14 +61,33 @@ const homeRefresh = computed(() => store.state.homeRefresh)
 const judgeValue = computed(() => store.state.judgeValue)
 
 watch(
-    () => props.index,
-    (newVal) => {
-      if (state.localIndex !== newVal) {
-        state.localIndex = newVal
-        GM.$setCss(wrapperEl.value, 'transition-duration', `300ms`)
-        GM.$setCss(wrapperEl.value, 'transform', `translate3d(0,${getSlideDistance(state, SlideType.VERTICAL)}px, 0)`)
+    () => props.list,
+    (newVal, oldVal) => {
+      // console.log('watch', newVal.length, oldVal.length, props.list)
+      //新数据比老数据小或等于，是刷新
+      if (newVal.length <= oldVal.length) {
+        insertContent()
+      } else {
+        if (oldVal.length === 0) {
+          insertContent()
+        } else {
+          let end = oldVal.length + 3
+          if (end >= newVal) end = newVal
+          let top = $(wrapperEl.value).find(`.${itemClassName}:last`).css('top')
+
+          newVal.slice(oldVal.length, end).map((item, index) => {
+            let el = getInsEl(item, oldVal.length + index)
+            //这里必须要设置个top值，不然会把前面的条目给覆盖掉
+            //2022-3-27，这里不用计算，直接用已用slide-item最后一条的top值，
+            //因为有一条情况：当滑动最后一条和二条的时候top值不会继续加。此时新增的数据如果还
+            // 计算top值的，会和前面的对不上
+            $(el).css('top', top)
+            wrapperEl.value.appendChild(el)
+            state.wrapper.childrenLength++
+          })
+        }
       }
-    }
+    },
 )
 
 onMounted(() => {
@@ -77,15 +97,16 @@ onMounted(() => {
 
 //默认使用this.list,刷新时，考虑到vue可能更新外面的videos到this.list数据没有那么快，因为我要立即刷新
 function insertContent(list = props.list) {
+  $(wrapperEl.value).empty()
+  let half = (props.virtualTotal - 1) / 2
   let start = 0
-
-  if (state.localIndex >= (props.virtualTotal - 1) / 2) {
-    start = state.localIndex - (props.virtualTotal - 1) / 2
+  if (state.localIndex >= half) {
+    start = state.localIndex - half
   }
-  let end = start + 5
+  let end = start + props.virtualTotal
   if (end >= list.length) {
     end = list.length
-    start = end - 5
+    start = end - props.virtualTotal
   }
   if (start < 0) start = 0
   list.slice(start, end).map(
@@ -95,11 +116,10 @@ function insertContent(list = props.list) {
         wrapperEl.value.appendChild(el)
       }
   )
-  GM.$setCss(wrapperEl.value, 'transform', `translate3d(0px,
-             ${-state.localIndex * state.wrapper.height}px,  0px)`)
+  GM.$setCss(wrapperEl.value, 'transform', `translate3d(0px,${getSlideDistance(state, SlideType.VERTICAL)}px,  0px)`)
 
   if (state.localIndex > 2 && list.length > 5) {
-    $(wrapperEl.value).find(`.${slideItemClassName}`).each(function () {
+    $(wrapperEl.value).find(`.${itemClassName}`).each(function () {
       if ((list.length - state.localIndex) > 2) {
         $(this).css('top', (state.localIndex - 2) * state.wrapper.height)
       } else {
@@ -111,7 +131,8 @@ function insertContent(list = props.list) {
 }
 
 function getInsEl(item, index, play = false) {
-  // console.log('index',index,play)
+  debugger
+  console.log('index',index,play)
   let slideVNode = props.render(item, index, play, props.position)
   const app = createApp({
     render() {
@@ -125,7 +146,6 @@ function getInsEl(item, index, play = false) {
   return ins.$el
 }
 
-
 function touchStart(e) {
   slideTouchStart(e, wrapperEl.value, state)
 }
@@ -137,13 +157,16 @@ function touchMove(e) {
 function touchEnd(e) {
   let isNext = state.move.y < 0
   if (state.localIndex === 0 && !isNext && state.move.y > (homeRefresh.value + judgeValue.value)) {
-    console.log('loading')
-    // bus.emit(props.prefix + '-loading')
+    emit('refresh')
   }
   slideTouchEnd(e, state, canNext, (isNext) => {
     if (isNext) {
+      let half = (props.virtualTotal + 1) / 2
+      if (state.localIndex > props.list.length - props.virtualTotal && state.localIndex >= half) {
+        emit('loadMore')
+      }
       let addItemIndex = state.localIndex + 2
-      let res = $(wrapperEl.value).find(`.${slideItemClassName}[data-index=${addItemIndex}]`)
+      let res = $(wrapperEl.value).find(`.${itemClassName}[data-index=${addItemIndex}]`)
       if (state.wrapper.childrenLength < props.virtualTotal) {
         if (res.length === 0) {
           wrapperEl.value.appendChild(getInsEl(props.list[addItemIndex], addItemIndex))
@@ -155,15 +178,15 @@ function touchEnd(e) {
       ) {
         if (res.length === 0) {
           wrapperEl.value.appendChild(getInsEl(props.list[addItemIndex], addItemIndex))
-          appInsMap.get($(wrapperEl.value).find(`.${slideItemClassName}:first`).data('index')).unmount()
+          appInsMap.get($(wrapperEl.value).find(`.${itemClassName}:first`).data('index')).unmount()
           // $(wrapperEl.value).find(".base-slide-item:first").remove()
-          $(wrapperEl.value).find(`.${slideItemClassName}`).each(function () {
+          $(wrapperEl.value).find(`.${itemClassName}`).each(function () {
             $(this).css('top', (state.localIndex - 2) * state.wrapper.height)
           })
         }
       }
       if (state.wrapper.childrenLength > props.virtualTotal) {
-        $(wrapperEl.value).find(`.${slideItemClassName}`).each(function () {
+        $(wrapperEl.value).find(`.${itemClassName}`).each(function () {
           let index = $(this).data('index')
           if (index < (state.localIndex - 2)) {
             appInsMap.get(index).unmount()
@@ -173,21 +196,21 @@ function touchEnd(e) {
       }
     } else {
       let addItemIndex = state.localIndex - 2
-      let res = $(wrapperEl.value).find(`.${slideItemClassName}[data-index=${addItemIndex}]`)
+      let res = $(wrapperEl.value).find(`.${itemClassName}[data-index=${addItemIndex}]`)
 
       if (state.localIndex > 1 && state.localIndex <= props.list.length - 4) {
         if (res.length === 0) {
           wrapperEl.value.prepend(getInsEl(props.list[addItemIndex], addItemIndex))
-          appInsMap.get($(wrapperEl.value).find(`.${slideItemClassName}:last`).data('index')).unmount()
+          appInsMap.get($(wrapperEl.value).find(`.${itemClassName}:last`).data('index')).unmount()
           // $(wrapperEl.value).find(".base-slide-item:last").remove()
-          $(wrapperEl.value).find(`.${slideItemClassName}`).each(function () {
+          $(wrapperEl.value).find(`.${itemClassName}`).each(function () {
             $(this).css('top', (state.localIndex - 2) * state.wrapper.height)
           })
         }
       }
 
       if (state.wrapper.childrenLength > props.virtualTotal) {
-        appInsMap.get($(wrapperEl.value).find(`.${slideItemClassName}:last`).data('index')).unmount()
+        appInsMap.get($(wrapperEl.value).find(`.${itemClassName}:last`).data('index')).unmount()
       }
     }
 
@@ -198,7 +221,7 @@ function touchEnd(e) {
 
 
 function canNext(isNext) {
-  return !((state.localIndex === 0 && !isNext) || (state.localIndex === state.wrapper.childrenLength - 1 && isNext));
+  return !((state.localIndex === 0 && !isNext) || (state.localIndex === props.list.length - 1 && isNext));
 }
 </script>
 

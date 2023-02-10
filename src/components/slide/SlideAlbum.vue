@@ -6,21 +6,20 @@
            @touchstart.passive="touchStart"
            @touchmove="touchMove"
            @touchend="touchEnd">
-        <div class="img-slide-item" v-for="img in props.modelValue.imgs">
+        <div class="img-slide-item" v-for="img in props.item.imgs">
           <img :ref="e=>setItemRef(e,'itemRefs')"
                :src="img">
         </div>
       </div>
     </div>
     <template v-if=" state.operationStatus === SlideAlbumOperationStatus.Normal">
-      <ItemToolbar :item="props.modelValue"
-                   :index="0"
-                   prefix="sadfa"
+      <ItemToolbar v-model:item="state.localItem"
+                   :position="position"
+                   v-bind="$attrs"
       />
       <ItemDesc
-          :item="props.modelValue"
-          :index="0"
-          prefix="sadfa"
+          v-model:item="state.localItem"
+          :position="position"
       />
     </template>
     <!--不知为啥touch事件，在下部20px的空间内不触发，加上click事件不好了  -->
@@ -31,7 +30,7 @@
          @touchmove="progressBarTouchMove"
          @touchend="progressBarTouchMEnd"
     >
-      <div class="bar" v-for="(img,index) in modelValue.imgs">
+      <div class="bar" v-for="(img,index) in item.imgs">
         <div class="progress"
              :style="getProgressWidth(index)"></div>
       </div>
@@ -41,12 +40,12 @@
         <div class="preview-wrapper">
           <img :src="img"
                :class="{'preview-img':index === state.localIndex}"
-               v-for="(img,index) in props.modelValue.imgs"
+               v-for="(img,index) in props.item.imgs"
                :ref="e=>setItemRef(e,'previewImgs')"
           >
         </div>
         <div class="indicator">
-          <span class="index">{{ state.localIndex + 1 }}</span>&nbsp;/&nbsp;{{ props.modelValue.imgs.length }}
+          <span class="index">{{ state.localIndex + 1 }}</span>&nbsp;/&nbsp;{{ props.item.imgs.length }}
         </div>
       </div>
     </Teleport>
@@ -67,7 +66,7 @@
 import enums from "../../utils/enums";
 import Utils from '../../utils'
 import {mat4} from 'gl-matrix'
-import {onMounted, onBeforeUpdate, reactive, ref, watch, computed} from "vue";
+import {onMounted, onBeforeUpdate, reactive, ref, watch, computed, provide} from "vue";
 import {
   getSlideDistance,
   slideInit,
@@ -97,8 +96,11 @@ let ov = new Float32Array([
 ]);
 let origin = cloneDeep(ov)
 const rectMap = new Map()
+
+// provide('isPlaying', computed(() => this.isPlaying))
+provide('isPlaying', false)
 const props = defineProps({
-  modelValue: {
+  item: {
     type: Object,
     default() {
       return {
@@ -197,7 +199,13 @@ const props = defineProps({
         }
       }
     }
-  }
+  },
+  position: {
+    type: Object,
+    default: () => {
+      return {}
+    }
+  },
 })
 const judgeValue = 20
 const wrapperEl = ref(null)
@@ -228,6 +236,7 @@ const state = reactive({
   status: 'play',//stop,custom
   progress: 0,
   cycleFn: null,
+  localItem: props.item,
 })
 
 onMounted(() => {
@@ -236,7 +245,7 @@ onMounted(() => {
   state.cycleFn = () => {
     return
     if (state.status !== 'play') return cancelAnimationFrame(state.cycleFn)
-    if (state.progress < props.modelValue.imgs.length * 100) {
+    if (state.progress < props.item.imgs.length * 100) {
       state.progress += .4
       state.localIndex = parseInt(state.progress / 100)
       if (wrapperEl.value) {
@@ -455,7 +464,7 @@ function setItemRef(el, key) {
 }
 
 function canNext(isNext, e) {
-  let res = !((state.localIndex === 0 && !isNext) || (state.localIndex === props.modelValue.imgs.length - 1 && isNext));
+  let res = !((state.localIndex === 0 && !isNext) || (state.localIndex === props.item.imgs.length - 1 && isNext));
   if (!res && state.operationStatus === SlideAlbumOperationStatus.Detail && e) {
     Utils.$stopPropagation(e)
   }

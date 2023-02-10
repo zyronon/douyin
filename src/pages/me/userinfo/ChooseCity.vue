@@ -79,29 +79,29 @@ export default {
   overflow: auto;
 
   .content {
-    padding-top: 6rem;
+    padding-top: 60rem;
 
     .nearby {
 
       .title {
-        padding: 1rem 2rem;
+        padding: 10rem 20rem;
 
         img {
-          width: 1rem;
-          height: 1rem;
-          margin-right: .2rem;
+          width: 10rem;
+          height: 10rem;
+          margin-right: 2rem;
         }
       }
 
     }
 
     .row {
-      padding: 0 1.5rem;
+      padding: 0 15rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 5rem;
-      font-size: 1.4rem;
+      height: 50rem;
+      font-size: 14rem;
       transition: all .1s;
       background: @main-bg;
 
@@ -112,7 +112,7 @@ export default {
         color: @second-text-color;
 
         img {
-          margin-left: 1rem;
+          margin-left: 10rem;
           width: 15px;
         }
       }
