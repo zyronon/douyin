@@ -1,63 +1,64 @@
 <template>
   <div class="test-slide-wrapper">
-    <IndicatorHome
-        v-if="!state.fullScreen"
-        v-hide="state.isUp"
-        :loading="state.loading"
-        name="main"
-        v-model:index="state.navIndex"
-    />
-    <div class="sub-type"
-         :class="state.subTypeIsTop?'top':''"
-         ref="subTypeRef">
-      <div class="local">
-        <div class="card" @touchmove.capture="stop">
-          <div class="nav-item">
-            <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-            <span>美食</span>
-          </div>
-          <div class="nav-item">
-            <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-            <span>休闲娱乐</span>
-          </div>
-          <div class="nav-item">
-            <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-            <span>游玩</span>
-          </div>
-          <div class="nav-item">
-            <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-            <span>丽人/美发</span>
-          </div>
-          <div class="nav-item">
-            <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-            <span>住宿</span>
-          </div>
-          <div class="nav-item">
-            <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-            <span>游玩</span>
-          </div>
-          <div class="nav-item">
-            <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-            <span>丽人/美发</span>
-          </div>
-          <div class="nav-item">
-            <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-            <span>住宿</span>
+    <H v-model:index="state.baseIndex">
+      <SlideItem>
+        <IndicatorHome
+            v-if="!state.fullScreen"
+            v-hide="state.isUp"
+            :loading="state.loading"
+            name="main"
+            v-model:index="state.navIndex"
+        />
+        <div class="sub-type"
+             :class="state.subTypeIsTop?'top':''"
+             ref="subTypeRef">
+          <div class="local">
+            <div class="card" @touchmove.capture="stop">
+              <div class="nav-item">
+                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                <span>美食</span>
+              </div>
+              <div class="nav-item">
+                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                <span>休闲娱乐</span>
+              </div>
+              <div class="nav-item">
+                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                <span>游玩</span>
+              </div>
+              <div class="nav-item">
+                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                <span>丽人/美发</span>
+              </div>
+              <div class="nav-item">
+                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                <span>住宿</span>
+              </div>
+              <div class="nav-item">
+                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                <span>游玩</span>
+              </div>
+              <div class="nav-item">
+                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                <span>丽人/美发</span>
+              </div>
+              <div class="nav-item">
+                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                <span>住宿</span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="sub-type-notice"
-         v-if="state.subType===-1"
-         @click="showSubType">附近吃喝玩乐
-    </div>
-    <div class="slide-content" id="slideHook"
-         @touchstart="pageClick"
-         v-love="'slideHook'">
-      <H v-model:index="state.baseIndex">
-        <SlideItem>
-          <H class="h"
+        <div class="sub-type-notice"
+             v-if="state.subType===-1"
+             @click="showSubType">附近吃喝玩乐
+        </div>
+        <div class="slide-content"
+             @touchstart="pageClick">
+          <H class="first-horizontal-item"
              name="main"
+             id="slideHook"
+             v-love="'slideHook'"
              v-model:index="state.navIndex">
             <SlideItem class=" gray">
               <div class="big">热点</div>
@@ -87,23 +88,33 @@
               </VInfinite>
             </SlideItem>
           </H>
-          <div>
-            <span>{{ state.baseIndex }}</span>
-            <button @click="state.baseIndex++">加</button>
-            <button @click="state.baseIndex--">减</button>
-          </div>
-          <div>
-            <span>{{ state.navIndex }}</span>
-            <button @click="state.navIndex++">加</button>
-            <button @click="state.navIndex--">减</button>
-          </div>
-          <Footer v-bind:init-tab="1"/>
-        </SlideItem>
-        <SlideItem class=" gray">
-          <div class="big" v-for="i in 100">主页</div>
-        </SlideItem>
-      </H>
-    </div>
+        </div>
+        <div>
+          <span>{{ state.baseIndex }}</span>
+          <button @click="state.baseIndex++">加</button>
+          <button @click="state.baseIndex--">减</button>
+        </div>
+        <div>
+          <span>{{ state.navIndex }}</span>
+          <button @click="state.navIndex++">加</button>
+          <button @click="state.navIndex--">减</button>
+        </div>
+        <Footer v-bind:init-tab="1"/>
+      </SlideItem>
+      <SlideItem class=" gray">
+        <!--          <div class="big" v-for="i in 100">主页</div>-->
+        <Uploader
+            ref="uploader"
+            :isOnThisPage="state.baseIndex === 1"
+            :author="state.recommendVideos[state.itemIndex]?.author"
+            @toggleCanMove="e => state.canMove = e"
+            @back="state.baseIndex = 0"
+            @showFollowSetting="state.showFollowSetting = true"
+            @showFollowSetting2="state.showFollowSetting2 = true"
+        />
+      </SlideItem>
+    </H>
+
     <Comment page-id="slideHook" v-model="state.commentVisible"
              @close="closeComments"
     />
@@ -125,6 +136,39 @@
            @share2Webo="state.shareType = 8"
            @download="state.shareType = 9"
     />
+
+    <PlayFeedback v-model="state.showPlayFeedback"/>
+
+    <DouyinCode v-model="state.showDouyinCode"/>
+
+    <Duoshan v-model="state.showShareDuoshan"/>
+
+    <ShareTo v-model:type="state.shareType"
+             :videoId="state.recommendVideos[state.itemIndex]?.id"
+             :canDownload="state.recommendVideos[state.itemIndex]?.canDownload"
+    />
+
+    <FollowSetting
+        @showChangeNote="delayShowDialog( e => state.showChangeNote = true)"
+        @showBlockDialog="delayShowDialog(e => state.showBlockDialog = true)"
+        @showShare="delayShowDialog( e => state.isSharing = true)"
+        v-model="state.showFollowSetting"/>
+
+    <FollowSetting2
+        @cancelFollow="$refs.uploader.cancelFollow()"
+        v-model="state.showFollowSetting2"/>
+
+    <BlockDialog v-model="state.showBlockDialog"/>
+
+    <ConfirmDialog
+        title="设置备注名"
+        ok-text="确认"
+        v-model:visible="state.showChangeNote"
+    >
+      <Search mode="light" v-model="state.test" :isShowSearchIcon="false"/>
+    </ConfirmDialog>
+
+    <ShareToFriend v-model="state.shareToFriend"/>
   </div>
 </template>
 
@@ -137,13 +181,27 @@ import SlideUser from "../../components/slide/SlideUser";
 import BVideo from "../../components/slide/BVideo";
 import Comment from "../../components/Comment";
 import Share from "../../components/Share";
-import IndicatorHome from "../slide/IndicatorHome";
+import IndicatorHome from "./IndicatorHome.vue";
 import {computed, onMounted, onUnmounted, reactive, ref} from "vue";
 import bus, {EVENT_KEY} from "../../utils/bus";
-import {useNav} from "../../utils/hooks/useNav";
+import {useNav} from "@/utils/hooks/useNav";
 import Utils from "@/utils";
 import api from "@/api";
 import {useStore} from "vuex";
+import PlayFeedback from "@/pages/home/components/PlayFeedback";
+import FromBottomDialog from "../../components/dialog/FromBottomDialog";
+import Duoshan from "@/pages/home/components/Duoshan";
+import ShareTo from "@/pages/home/components/ShareTo";
+import DouyinCode from "../../components/DouyinCode";
+import Uploader from "../me/Uploader";
+import FollowSetting from "@/pages/home/components/FollowSetting";
+import BlockDialog from "../message/components/BlockDialog";
+import Search from "../../components/Search";
+import ConfirmDialog from "../../components/dialog/ConfirmDialog";
+import FollowSetting2 from "@/pages/home/components/FollowSetting2";
+import Dom from "../../utils/dom";
+import ShareToFriend from "@/pages/home/components/ShareToFriend";
+import resource from "@/assets/data/resource";
 
 const nav = useNav()
 
@@ -161,6 +219,7 @@ const state = reactive({
   baseIndex: 0,
   navIndex: 4,
   itemIndex: 0,
+  test: '',
   recommendVideos: [
     // {
     //   type: 'img',
@@ -205,6 +264,10 @@ const state = reactive({
 })
 
 async function getData(refresh = false) {
+  // if (process.env.NODE_ENV !== 'development') {
+  //   state.totalSize = 11
+  //   return state.recommendVideos = resource.videos
+  // }
   if (state.loading) return
   state.loading = true
   let res = await api.videos.recommended({pageNo: refresh ? 0 : state.pageNo, pageSize: state.pageSize})
@@ -323,6 +386,7 @@ function render(item, itemIndex, play, position) {
         isPlay={false}
         item={item}
         position={{...position, itemIndex}}
+        onGoMusic={e => nav('/home/music')}
         onShowShare={e => state.isSharing = true}
         onGoUserInfo={e => state.baseIndex = 1}
     />
@@ -402,6 +466,7 @@ function render(item, itemIndex, play, position) {
   font-size: 14rem;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 
   .big {
     font-weight: bold;
@@ -415,7 +480,7 @@ function render(item, itemIndex, play, position) {
   }
 }
 
-.h {
+.first-horizontal-item {
   width: 90vw;
   height: 80vh;
   //height: calc(100vh - @footer-height);

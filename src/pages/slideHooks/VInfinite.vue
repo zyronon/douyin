@@ -7,6 +7,7 @@ import SlideItem from './SlideItem'
 import bus from "../../utils/bus";
 import {useStore} from 'vuex'
 import Utils from "../../utils";
+import Dom from "@/utils/dom";
 
 const props = defineProps({
   index: {
@@ -87,7 +88,16 @@ watch(
           })
         }
       }
-    },
+    }
+)
+watch(
+    ()=>props.index,
+    ()=>{
+      // new Dom(this.wrapper).find(`.v-${this.prefix}-${newVal}-video`).trigger('play')
+      // setTimeout(() => {
+      //   new Dom(this.wrapper).find(`.v-${this.prefix}-${oldVal}-video`).trigger('stop')
+      // }, 200)
+    }
 )
 
 onMounted(() => {
@@ -149,6 +159,7 @@ function touchStart(e) {
   slideTouchStart(e, wrapperEl.value, state)
 }
 
+//TODO 2022-3-28:在最顶部，反复滑动会抖动一下，初步猜测是因为方向变了，导致的加判断距离变成了减
 function touchMove(e) {
   slideTouchMove(e, wrapperEl.value, state, judgeValue.value, canNext, null, SlideType.VERTICAL)
 }

@@ -46,7 +46,7 @@
   </div>
 </template>
 <script>
-import Loading from "../../components/Loading";
+import Loading from "../../components/Loading.vue";
 import bus from "../../utils/bus";
 import {mapState} from "vuex";
 
