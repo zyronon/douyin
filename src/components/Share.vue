@@ -7,7 +7,7 @@
       :show-heng-gang="false"
       :touch-moved="false"
       maskMode="light"
-      height="37rem"
+      height="370rem"
       mode="dark">
     <div class="share">
       <div class="title">
@@ -279,7 +279,7 @@ export default {
 
   .title {
     font-size: 14rem;
-    padding: 20px;
+    padding: 20rem;
     position: relative;
     display: flex;
     align-items: center;

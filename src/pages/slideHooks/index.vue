@@ -82,7 +82,7 @@
                   navIndex:5,
                 }"
                   @loadMore="loadMore"
-                  @refresh="refresh"
+                  @refresh="() => getData(true)"
               >
               </VInfinite>
             </SlideItem>
@@ -107,6 +107,24 @@
     <Comment page-id="slideHook" v-model="state.commentVisible"
              @close="closeComments"
     />
+
+    <Share v-model="state.isSharing"
+           ref="share"
+           page-id="slideHook"
+           @dislike="dislike"
+           :videoId="state.recommendVideos[state.itemIndex]?.id"
+           :canDownload="state.recommendVideos[state.itemIndex]?.canDownload"
+           @play-feedback="state.showPlayFeedback = true"
+           @showShareDuoshan="delayShowDialog(e => state.showShareDuoshan = true)"
+           @shareToFriend="delayShowDialog(e => state.shareToFriend = true)"
+           @showDouyinCode="state.showDouyinCode = true"
+           @showShare2WeChatZone="state.shareType = 2"
+           @share2WeChat="state.shareType = 3"
+           @share2QQZone="state.shareType = 4"
+           @share2QQ="state.shareType = 5"
+           @share2Webo="state.shareType = 8"
+           @download="state.shareType = 9"
+    />
   </div>
 </template>
 
@@ -118,25 +136,25 @@ import SlideAlbum from "../../components/slide/SlideAlbum";
 import SlideUser from "../../components/slide/SlideUser";
 import BVideo from "../../components/slide/BVideo";
 import Comment from "../../components/Comment";
+import Share from "../../components/Share";
 import IndicatorHome from "../slide/IndicatorHome";
-
-import resource from "../../assets/data/resource.js";
-import {onMounted, onUnmounted, provide, reactive, ref} from "vue";
+import {computed, onMounted, onUnmounted, reactive, ref} from "vue";
 import bus, {EVENT_KEY} from "../../utils/bus";
 import {useNav} from "../../utils/hooks/useNav";
 import Utils from "@/utils";
-import {shuffle} from "lodash";
+import api from "@/api";
+import {useStore} from "vuex";
 
 const nav = useNav()
-
-const videos = resource.videos.slice().map(v => {
-  v.type = 'recommend-video'
-  return v
-})
 
 function stop(e) {
   e.stopPropagation()
 }
+
+const store = useStore()
+const friends = computed(() => store.state.friends)
+const bodyHeight = computed(() => store.state.bodyHeight)
+const bodyWidth = computed(() => store.state.bodyWidth)
 
 const subTypeRef = ref(null)
 const state = reactive({
@@ -156,7 +174,6 @@ const state = reactive({
       type: 'user',
       src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
     },
-    // ...videos
   ],
 
   isSharing: false,
@@ -182,32 +199,33 @@ const state = reactive({
   subType: -1,
   //用于改变zindex的层级到上层，反正比slide高就行。不然摸不到subType.
   subTypeIsTop: false,
+  totalSize: 0,
+  pageSize: 10,
+  pageNo: 0,
 })
 
-function loadMore() {
+async function getData(refresh = false) {
   if (state.loading) return
   state.loading = true
-  console.log('loadMore')
-  setTimeout(() => {
-    state.recommendVideos = state.recommendVideos.concat(shuffle(resource.videos).slice(0, 10).map(v => {
-      v.type = 'recommend-video'
-      return v
-    }))
-    state.loading = false
-  }, 500)
+  let res = await api.videos.recommended({pageNo: refresh ? 0 : state.pageNo, pageSize: state.pageSize})
+  console.log('loadMore-', 'refresh', refresh, res)
+  state.loading = false
+  if (res.code === 200) {
+    state.totalSize = res.data.total
+    if (refresh) {
+      state.recommendVideos = []
+    }
+    state.recommendVideos = state.recommendVideos.concat(res.data.list)
+  } else {
+    state.pageNo--
+  }
 }
 
-function refresh() {
-  if (state.loading) return
-  state.loading = true
-  console.log('refresh')
-  setTimeout(() => {
-    state.recommendVideos = shuffle(resource.videos).slice(0, 5).map(v => {
-      v.type = 'recommend-video'
-      return v
-    })
-    state.loading = false
-  }, 500)
+function loadMore() {
+  if (!state.loading) {
+    state.pageNo++
+    getData()
+  }
 }
 
 function showSubType(e) {
@@ -233,7 +251,24 @@ function pageClick(e) {
   }
 }
 
+function delayShowDialog(cb) {
+  setTimeout(() => {
+    cb()
+  }, 400)
+}
+
+function dislike() {
+  // this.$refs.virtualList.dislike(this.videos[10])
+  // this.videos[this.videoIndex] = this.videos[10]
+  // this.$notice('操作成功，将减少此类视频的推荐')
+}
+
+function end() {
+  // this.$notice('暂时没有更多了')
+}
+
 onMounted(() => {
+  getData()
   bus.on('singleClick', () => {
     let id = ''
     if (state.navIndex === 4) {
@@ -269,7 +304,7 @@ function closeComments() {
 }
 
 function render(item, itemIndex, play, position) {
-  console.log('item',item)
+  // console.log('item', item)
   let node
   if (item.type === 'img') {
     node = <img src={item.src} style="height:100%;"/>
@@ -279,6 +314,9 @@ function render(item, itemIndex, play, position) {
   }
   if (item.type === 'user') {
     node = <SlideUser/>
+  }
+  if (item.type === 'send-video') {
+    node = <video src={item.src} style="height:100%;"/>
   }
   if (item.type === 'recommend-video') {
     node = <BVideo
@@ -291,16 +329,6 @@ function render(item, itemIndex, play, position) {
   }
   return node
 }
-
-
-//   if (item.type === 'send-video') {
-//     node = <video src={item.src} style="height:100%;"/>
-//   }
-//   if (item.type === 'user') {
-//     node = <SlideUser onClose={this.t} modelValue={item}/>
-//   }
-//   return node
-// }
 
 </script>
 

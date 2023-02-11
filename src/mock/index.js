@@ -1,6 +1,7 @@
 import Mock from 'mockjs'
 import globalMethods from '../utils'
 import resource from "../assets/data/resource.js";
+import {shuffle} from "lodash";
 
 function getParams(options) {
   let params = globalMethods.$parseURL(options.url).params
@@ -19,21 +20,28 @@ function getPage(options) {
 Mock.setup({
   timeout: '500-1000'
 })
-let allRecommendVideos = []
+let allRecommendVideos = resource.videos.map(v => {
+  v.type = 'recommend-video'
+  return v
+})
 
-for (let i = 0; i < 10; i++) {
-  allRecommendVideos = allRecommendVideos.concat(resource.videos)
+for (let i = 0; i < 50; i++) {
+  allRecommendVideos = allRecommendVideos.concat(
+      shuffle(resource.videos)
+          .slice(0, 10)
+          .map(v => {
+            v.type = 'recommend-video'
+            return v
+          }))
 }
 Mock.mock(/recommended/, options => {
-    let page = getPage(options)
-    return Mock.mock({
-      data: {
-        total: allRecommendVideos.length,
-        list: allRecommendVideos.slice(page.offset, page.limit),
-      }, code: 200, msg: '',
-    })
-  }
-)
+  let page = getPage(options)
+  return Mock.mock({
+    data: {
+      total: allRecommendVideos.length, list: allRecommendVideos.slice(page.offset, page.limit),
+    }, code: 200, msg: '',
+  })
+})
 
 // Mock.Random.extend({
 //   imgs: function (date) {
@@ -84,9 +92,7 @@ Mock.mock(/my/, options => {
   console.log('mock', page)
   return Mock.mock({
     data: {
-      pageNo: page.pageNo,
-      total: resource.my.length,
-      list: resource.my.slice(page.offset, page.limit),
+      pageNo: page.pageNo, total: resource.my.length, list: resource.my.slice(page.offset, page.limit),
     }, code: 200, msg: '',
   })
 })
@@ -94,9 +100,7 @@ Mock.mock(/like/, options => {
   let page = getPage(options)
   return Mock.mock({
     data: {
-      pageNo: page.pageNo,
-      total: resource.like.length,
-      list: resource.like.slice(page.offset, page.limit),
+      pageNo: page.pageNo, total: resource.like.length, list: resource.like.slice(page.offset, page.limit),
     }, code: 200, msg: '',
   })
 })
@@ -104,9 +108,7 @@ Mock.mock(/private1/, options => {
   let page = getPage(options)
   return Mock.mock({
     data: {
-      pageNo: page.pageNo,
-      total: resource.private1.length,
-      list: resource.private1.slice(page.offset, page.limit),
+      pageNo: page.pageNo, total: resource.private1.length, list: resource.private1.slice(page.offset, page.limit),
     }, code: 200, msg: '',
   })
 })
@@ -114,12 +116,9 @@ Mock.mock(/collect/, options => {
   return Mock.mock({
     data: {
       video: {
-        total: resource.videos.length,
-        list: resource.videos,
-      },
-      music: {
-        total: resource.music.length,
-        list: resource.music,
+        total: resource.videos.length, list: resource.videos,
+      }, music: {
+        total: resource.music.length, list: resource.music,
       }
     }, code: 200, msg: '',
   })
@@ -128,10 +127,8 @@ Mock.mock(/historyVideo/, options => {
   let page = getPage(options)
   return Mock.mock({
     data: {
-      pageNo: page.pageNo,
-      // total: resource.my.length,
-      total: 50,
-      list: resource.my.slice(page.offset, page.limit),
+      pageNo: page.pageNo, // total: resource.my.length,
+      total: 50, list: resource.my.slice(page.offset, page.limit),
     }, code: 200, msg: '',
   })
 })
@@ -139,9 +136,7 @@ Mock.mock(/historyOther/, options => {
   let page = getPage(options)
   return Mock.mock({
     data: {
-      pageNo: page.pageNo,
-      total: 0,
-      list: [],
+      pageNo: page.pageNo, total: 0, list: [],
     }, code: 200, msg: '',
   })
 })

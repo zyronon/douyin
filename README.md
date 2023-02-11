@@ -1,17 +1,14 @@
 ### 简体中文 | [English](README-en-US.md)
 
 ## 预览
-
-### 注：电脑端请用Chrome手机模式访问
-
-### 注：手机请用安卓Via浏览器预览。其他浏览器检测到页面内有视频会强制将视频全屏，并显示控制按钮，导致css和js都失效
-
 [在线预览DEMO](https://ttentau.github.io/ttentau/dy/)
+### 注意：电脑端请用Chrome手机模式访问
+### 注意：安卓手机请用Via浏览器预览。其他浏览器检测到页面内有视频会强制将视频全屏，并显示控制按钮，导致css和js都失效
 
 ## 简介
 
-**douyin** 是一个模仿抖音的移动端短视频项目，它基于 [vue 3](https://v3.cn.vuejs.org/),
-[vite 2](https://cn.vitejs.dev/)
+**douyin** 是一个模仿抖音的移动端短视频项目，它基于 [Vue 3](https://v3.cn.vuejs.org/),
+[Vite](https://cn.vitejs.dev/)
 实现。使用了最新的Vue全家桶技术栈，后台数据通过[mock-js](http://mockjs.com)搭建。相信不管你是处于哪个段位的工程师，本项目都能帮助到你。
 
 ## 功能点
