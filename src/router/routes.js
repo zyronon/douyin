@@ -64,11 +64,9 @@ import VerificationCode from "../pages/login/VerificationCode";
 import RetrievePassword from "../pages/login/RetrievePassword";
 import Help from "../pages/login/Help";
 import Uploader from "../pages/me/Uploader";
-import Slide from "../pages/slide/Slide";
 
 const routes = [
   {path: '/', redirect: '/test'},
-  {path: '/slide', component: Slide},
   {path: '/test', component: Test},
   {path: '/test4', component: Test4},
   {path: '/home', component: Index2},
