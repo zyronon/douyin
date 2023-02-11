@@ -131,8 +131,7 @@ function insertContent(list = props.list) {
 }
 
 function getInsEl(item, index, play = false) {
-  debugger
-  console.log('index',index,play)
+  console.log('index', index, play)
   let slideVNode = props.render(item, index, play, props.position)
   const app = createApp({
     render() {
@@ -160,61 +159,62 @@ function touchEnd(e) {
     emit('refresh')
   }
   slideTouchEnd(e, state, canNext, (isNext) => {
-    if (isNext) {
-      let half = (props.virtualTotal + 1) / 2
-      if (state.localIndex > props.list.length - props.virtualTotal && state.localIndex >= half) {
-        emit('loadMore')
-      }
-      let addItemIndex = state.localIndex + 2
-      let res = $(wrapperEl.value).find(`.${itemClassName}[data-index=${addItemIndex}]`)
-      if (state.wrapper.childrenLength < props.virtualTotal) {
-        if (res.length === 0) {
-          wrapperEl.value.appendChild(getInsEl(props.list[addItemIndex], addItemIndex))
+    let half = (props.virtualTotal + 1) / 2
+    if (props.list.length > props.virtualTotal) {
+      if (isNext) {
+        if (state.localIndex > props.list.length - props.virtualTotal && state.localIndex >= half) {
+          emit('loadMore')
         }
-      }
-      if (state.wrapper.childrenLength === props.virtualTotal
-          && state.localIndex >= (props.virtualTotal + 1) / 2
-          && state.localIndex <= props.list.length - 3
-      ) {
-        if (res.length === 0) {
-          wrapperEl.value.appendChild(getInsEl(props.list[addItemIndex], addItemIndex))
-          appInsMap.get($(wrapperEl.value).find(`.${itemClassName}:first`).data('index')).unmount()
-          // $(wrapperEl.value).find(".base-slide-item:first").remove()
-          $(wrapperEl.value).find(`.${itemClassName}`).each(function () {
-            $(this).css('top', (state.localIndex - 2) * state.wrapper.height)
-          })
-        }
-      }
-      if (state.wrapper.childrenLength > props.virtualTotal) {
-        $(wrapperEl.value).find(`.${itemClassName}`).each(function () {
-          let index = $(this).data('index')
-          if (index < (state.localIndex - 2)) {
-            appInsMap.get(index).unmount()
+        let addItemIndex = state.localIndex + 2
+        let res = $(wrapperEl.value).find(`.${itemClassName}[data-index=${addItemIndex}]`)
+        if (state.wrapper.childrenLength < props.virtualTotal) {
+          if (res.length === 0) {
+            wrapperEl.value.appendChild(getInsEl(props.list[addItemIndex], addItemIndex))
           }
-          $(this).css('top', (state.localIndex - 2) * state.wrapper.height)
-        })
-      }
-    } else {
-      let addItemIndex = state.localIndex - 2
-      let res = $(wrapperEl.value).find(`.${itemClassName}[data-index=${addItemIndex}]`)
-
-      if (state.localIndex > 1 && state.localIndex <= props.list.length - 4) {
-        if (res.length === 0) {
-          wrapperEl.value.prepend(getInsEl(props.list[addItemIndex], addItemIndex))
-          appInsMap.get($(wrapperEl.value).find(`.${itemClassName}:last`).data('index')).unmount()
-          // $(wrapperEl.value).find(".base-slide-item:last").remove()
+        }
+        if (state.wrapper.childrenLength === props.virtualTotal
+            && state.localIndex >= (props.virtualTotal + 1) / 2
+            && state.localIndex <= props.list.length - 3
+        ) {
+          if (res.length === 0) {
+            wrapperEl.value.appendChild(getInsEl(props.list[addItemIndex], addItemIndex))
+            appInsMap.get($(wrapperEl.value).find(`.${itemClassName}:first`).data('index')).unmount()
+            // $(wrapperEl.value).find(".base-slide-item:first").remove()
+            $(wrapperEl.value).find(`.${itemClassName}`).each(function () {
+              $(this).css('top', (state.localIndex - 2) * state.wrapper.height)
+            })
+          }
+        }
+        if (state.wrapper.childrenLength > props.virtualTotal) {
           $(wrapperEl.value).find(`.${itemClassName}`).each(function () {
+            let index = $(this).data('index')
+            if (index < (state.localIndex - 2)) {
+              appInsMap.get(index).unmount()
+            }
             $(this).css('top', (state.localIndex - 2) * state.wrapper.height)
           })
         }
-      }
+      } else {
+        let addItemIndex = state.localIndex - 2
+        let res = $(wrapperEl.value).find(`.${itemClassName}[data-index=${addItemIndex}]`)
 
-      if (state.wrapper.childrenLength > props.virtualTotal) {
-        appInsMap.get($(wrapperEl.value).find(`.${itemClassName}:last`).data('index')).unmount()
+        if (state.localIndex > 1 && state.localIndex <= props.list.length - 4) {
+          if (res.length === 0) {
+            wrapperEl.value.prepend(getInsEl(props.list[addItemIndex], addItemIndex))
+            appInsMap.get($(wrapperEl.value).find(`.${itemClassName}:last`).data('index')).unmount()
+            // $(wrapperEl.value).find(".base-slide-item:last").remove()
+            $(wrapperEl.value).find(`.${itemClassName}`).each(function () {
+              $(this).css('top', (state.localIndex - 2) * state.wrapper.height)
+            })
+          }
+        }
+
+        if (state.wrapper.childrenLength > props.virtualTotal) {
+          appInsMap.get($(wrapperEl.value).find(`.${itemClassName}:last`).data('index')).unmount()
+        }
       }
+      state.wrapper.childrenLength = wrapperEl.value.children.length
     }
-
-    state.wrapper.childrenLength = wrapperEl.value.children.length
   }, null, SlideType.VERTICAL)
   slideReset(wrapperEl.value, state, SlideType.VERTICAL, emit)
 }
