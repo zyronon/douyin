@@ -1,10 +1,14 @@
 <template>
   <div id="SlideUser">
     <div class="content">
-      <img @click="$emit('close')" class="close" src="../../assets/img/icon/components/gray-close-full2.png" alt="">
+      <img @click="$emit('close')" class="close" src="../../assets/img/icon/components/gray-close-full.png" alt="">
       <img class="avatar" :src="modelValue.avatar">
       <div class="name">{{ modelValue.name }}</div>
-      <div class="age">{{ modelValue.age }}岁</div>
+      <div class="desc">
+        <div class="tag">{{ modelValue.age }}岁</div>
+        <div class="tag">成都</div>
+        <div class="tag">清华大学</div>
+      </div>
       <div class="realName">通讯录朋友{{ modelValue.realName }}</div>
       <div class="poster-wrapper">
         <div class="poster-item" v-for="(i,index) in modelValue.videos.slice(0,3)" @click="globalMethods.$no">
@@ -17,7 +21,7 @@
       </div>
     </div>
     <div class="options">
-      <base-button type="white">换一个</base-button>
+      <base-button type="info">换一个</base-button>
       <base-button type="primary">关注</base-button>
     </div>
   </div>
@@ -246,7 +250,7 @@ export default {
   width: 100%;
   height: 100%;
   //background: #e1e1e1;
-  background: linear-gradient(to bottom, rgb(69, 63, 73), rgb(25, 20, 42));
+  background: linear-gradient(to bottom, rgb(49, 75, 98), rgb(65, 48, 40));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -254,7 +258,7 @@ export default {
 
   .content {
     width: 85%;
-    background: white;
+    background: linear-gradient(to bottom, rgb(71, 90, 110), rgb(97, 84, 75));
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -281,25 +285,35 @@ export default {
     .name {
       margin-top: 20rem;
       margin-bottom: 20rem;
-      font-weight: bold;
-      font-size: 16rem;
+      font-size: 20rem;
+      letter-spacing: 4rem;
+      color: white;
     }
 
-    .age {
-      font-size: 10rem;
-      background: #f1f1f1;
-      padding: 3px;
-      border-radius: 2px;
+
+    .desc {
+      display: flex;
+
+      .tag {
+        margin: 0 3rem;
+        font-size: 10rem;
+        background: rgba(161, 158, 156, 0.3);
+        color: gainsboro;
+        padding: 3rem 5rem;
+        border-radius: 4rem;
+      }
     }
+
 
     .realName {
       text-align: center;
-      color: black;
-      border-top: 1px solid #f1f1f1;
-      border-bottom: 1px solid #f1f1f1;
+      color: gainsboro;
+      border-top: 1px solid #5e5a5a;
+      border-bottom: 1px solid #5e5a5a;
       padding: 10rem 0;
       margin: 15rem 0;
-      font-size: 12rem;
+      font-size: 14rem;
+      letter-spacing: 1.5rem;
       width: 90%;
     }
 

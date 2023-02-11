@@ -84,7 +84,7 @@ export default {
   color: white;
   height: 40rem;
   line-height: 40rem;
-  border-radius: 3rem;
+  border-radius: 8rem;
   //width: 100%;
   font-size: 14rem;
   display: flex;
@@ -156,6 +156,11 @@ export default {
     background: white;
     color: black;
     border: 1px solid gainsboro;
+  }
+
+  &.info {
+    background: rgba(161, 139, 129, 0.3);
+    color: white;
   }
 
   &:active {
