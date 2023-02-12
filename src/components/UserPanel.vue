@@ -90,76 +90,92 @@
             {{ state.localAuthor.school?.name }}
           </div>
         </div>
-
-        <div class="other">
+      </div>
+      <div class="other">
+        <div class="scroll-x" @touchmove="stop">
           <div class="item">
             <img src="@/assets/img/icon/me/shopping-cart-white.png" alt="">
             <div class="right">
-              <div class="top">抖音商城</div>
-              <div class="bottom">发现超值好物</div>
+              <div class="top">进入橱窗</div>
+              <div class="bottom">9件好物</div>
+            </div>
+          </div>
+          <div class="item">
+            <img src="@/assets/img/icon/me/play.png" alt="">
+            <div class="right">
+              <div class="top">直播动态</div>
+              <div class="bottom">可预约明天直播</div>
             </div>
           </div>
           <div class="item">
             <img src="@/assets/img/icon/me/music-white.png" alt="">
             <div class="right">
-              <div class="top">我的音乐</div>
-              <div class="bottom">已收藏20首</div>
+              <div class="top">Ta的音乐</div>
+              <div class="bottom">听听ta的歌单</div>
             </div>
           </div>
-        </div>
-
-        <div class="my-buttons">
-          <div class="follow-display">
-            <div class="follow-wrapper" :class="state.localAuthor.is_follow ? 'follow-wrapper-followed' : ''">
-              <div class="no-follow" @click="state.localAuthor.is_follow = true">
-                <img src="@/assets/img/icon/add-white.png" alt="">
-                <span>关注</span>
-              </div>
-              <div class="followed">
-                <div class="l-button" @click="$emit('showFollowSetting2')">
-                  <span>已关注</span>
-                  <img src="@/assets/img/icon/arrow-up-white.png" alt="">
-                </div>
-                <div class="l-button" @click="$nav('/message/chat')">
-                  <span>私信</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="option"
-               :class="state.isShowRecommend?'option-recommend':''"
-               @click="state.isShowRecommend = !state.isShowRecommend">
-            <img v-if="state.loadings.showRecommend" class="loading" src="@/assets/img/icon/loading-gray.png"
-                 alt="">
-            <img v-else class="arrow" src="@/assets/img/icon/arrow-up-white.png" alt="">
-          </div>
-        </div>
-
-        <div class="recommend" :class="{hidden:!state.isShowRecommend}">
-          <div class="title">
-            <span>你可能感兴趣</span>
-            <img src="@/assets/img/icon/about-gray.png">
-          </div>
-          <div class="friends"
-               @touchmove="stop">
-            <div class="friend" v-for="item in friends.all">
-              <img :style="item.select?'opacity: .5;':''" class="avatar" :src="$imgPreview(item.avatar)" alt="">
-              <span class="name">{{ item.name }}</span>
-              <span class="tips">可能感兴趣的人</span>
-              <b-button type="primary">关注</b-button>
-              <div class="close">
-                <dy-back img="close" scale=".6"></dy-back>
-              </div>
-            </div>
-            <div class="more" @click="$nav('/people/find-acquaintance')">
-              <div class="notice">
-                <div>点击查看</div>
-                <div>更多好友</div>
-              </div>
+          <div class="item">
+            <img src="@/assets/img/icon/people/address-book.png" alt="">
+            <div class="right">
+              <div class="top">粉丝群</div>
+              <div class="bottom">1个群聊</div>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="my-buttons">
+        <div class="follow-display">
+          <div class="follow-wrapper" :class="state.localAuthor.is_follow ? 'follow-wrapper-followed' : ''">
+            <div class="no-follow" @click="state.localAuthor.is_follow = true">
+              <img src="@/assets/img/icon/add-white.png" alt="">
+              <span>关注</span>
+            </div>
+            <div class="followed">
+              <div class="l-button" @click="$emit('showFollowSetting2')">
+                <span>已关注</span>
+                <img src="@/assets/img/icon/arrow-up-white.png" alt="">
+              </div>
+              <div class="l-button" @click="$nav('/message/chat')">
+                <span>私信</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="option"
+             :class="state.isShowRecommend?'option-recommend':''"
+             @click="state.isShowRecommend = !state.isShowRecommend">
+          <img v-if="state.loadings.showRecommend" class="loading" src="@/assets/img/icon/loading-gray.png"
+               alt="">
+          <img v-else class="arrow" src="@/assets/img/icon/arrow-up-white.png" alt="">
+        </div>
+      </div>
+
+      <div class="recommend" :class="{hidden:!state.isShowRecommend}">
+        <div class="title">
+          <span>你可能感兴趣</span>
+          <img src="@/assets/img/icon/about-gray.png">
+        </div>
+        <div class="friends"
+             @touchmove="stop">
+          <div class="friend" v-for="item in friends.all">
+            <img :style="item.select?'opacity: .5;':''" class="avatar" :src="$imgPreview(item.avatar)" alt="">
+            <span class="name">{{ item.name }}</span>
+            <span class="tips">可能感兴趣的人</span>
+            <b-button type="primary">关注</b-button>
+            <div class="close">
+              <dy-back img="close" scale=".6"></dy-back>
+            </div>
+          </div>
+          <div class="more" @click="$nav('/people/find-acquaintance')">
+            <div class="notice">
+              <div>点击查看</div>
+              <div>更多好友</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="total" ref="total">
         作品 62
         <img class="arrow" src="@/assets/img/icon/arrow-up-white.png" alt="">
@@ -276,9 +292,10 @@ onMounted(() => {
   state.videos.my.total = resource.my.length
 })
 
-function stop(e){
+function stop(e) {
   e.stopPropagation()
 }
+
 function followButton() {
 }
 
@@ -669,240 +686,251 @@ function touchEnd(e) {
         }
       }
 
-      .other {
+
+    }
+
+    .other {
+      display: flex;
+      margin-bottom: 20rem;
+      overflow: hidden;
+
+      .scroll-x {
+        padding-left: 20rem;
         display: flex;
-        margin-bottom: 20rem;
+        overflow-x: scroll;
+      }
 
-        .item {
-          margin-right: 25rem;
+      .item {
+        margin-right: 25rem;
+        display: flex;
+        flex-shrink: 0;
+
+        img {
+          margin-right: 8rem;
+          border-radius: 4rem;
+          background: @second-btn-color-tran;
+          padding: 8rem;
+          height: 22rem;
+        }
+
+        .right {
           display: flex;
+          justify-content: space-between;
+          flex-direction: column;
 
-          img {
-            margin-right: 8rem;
-            border-radius: 4rem;
-            background: @second-btn-color-tran;
-            padding: 8rem;
-            height: 22rem;
+          .top {
+            color: white;
+            font-size: 14rem;
           }
 
-          .right {
-            display: flex;
-            justify-content: space-between;
-            flex-direction: column;
-
-            .top {
-              color: white;
-              font-size: 14rem;
-            }
-
-            .bottom {
-              color: @second-text-color;
-              font-size: 12rem;
-            }
+          .bottom {
+            color: @second-text-color;
+            font-size: 12rem;
           }
         }
       }
+    }
 
-      .my-buttons {
-        margin-top: 20rem;
-        margin-bottom: 20rem;
+    .my-buttons {
+      margin: 20rem;
+      overflow: hidden;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      @width: 36rem;
+
+      .follow-display {
+        flex: 1;
         overflow: hidden;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        @width: 36rem;
 
-        .follow-display {
-          flex: 1;
-          overflow: hidden;
+        .follow-wrapper {
+          width: 200%;
+          display: flex;
+          flex-wrap: nowrap;
+          transition: all .3s ease;
 
-          .follow-wrapper {
-            width: 200%;
+          &.follow-wrapper-followed {
+            transform: translate3d(-50%, 0, 0);
+          }
+
+          .no-follow {
+            width: calc(100% - 5rem);
+            color: white;
+            border-radius: 4rem;
+            background: @primary-btn-color;
+            height: @width;
             display: flex;
-            flex-wrap: nowrap;
-            transition: all .3s ease;
+            align-items: center;
+            justify-content: center;
+            margin-right: 5rem;
+            box-sizing: border-box;
 
-            &.follow-wrapper-followed {
-              transform: translate3d(-50%, 0, 0);
+            span {
+              margin-left: 2rem;
             }
+          }
 
-            .no-follow {
-              width: calc(100% - 5rem);
+          .followed {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            .l-button {
               color: white;
               border-radius: 4rem;
-              background: @primary-btn-color;
+              background: @second-btn-color;
               height: @width;
+              width: 50%;
+              margin-right: 5rem;
+              box-sizing: border-box;
               display: flex;
               align-items: center;
               justify-content: center;
-              margin-right: 5rem;
-              box-sizing: border-box;
 
               span {
                 margin-left: 2rem;
               }
-            }
 
-            .followed {
-              width: 100%;
-              display: flex;
-              justify-content: space-around;
-              align-items: center;
-
-              .l-button {
-                color: white;
-                border-radius: 4rem;
-                background: @second-btn-color;
-                height: @width;
-                width: 50%;
-                margin-right: 5rem;
-                box-sizing: border-box;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                span {
-                  margin-left: 2rem;
-                }
-
-                img {
-                  transform: rotate(180deg);
-                }
+              img {
+                transform: rotate(180deg);
               }
             }
           }
-
-          img {
-            @width: 14rem;
-            width: @width;
-            height: @width;
-          }
         }
 
-        .option {
-          position: relative;
-          width: @width;
-          height: @width;
-          font-size: 12rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-radius: 4rem;
-          background: @second-btn-color;
-          color: white;
-
-          &.option-recommend {
-            .arrow {
-              transform: rotate(0deg);
-            }
-          }
-        }
-
-        .loading {
-          @width: 12rem;
-          width: @width;
-          height: @width;
-          animation: rotate .6s linear infinite;
-
-          @keyframes rotate {
-            from {
-              transform: rotate(0deg)
-            }
-            to {
-              transform: rotate(360deg)
-            }
-          }
-        }
-
-        .arrow {
-          transition: transform .3s ease;
-          transform: rotate(180deg);
-          @width: 16rem;
+        img {
+          @width: 14rem;
           width: @width;
           height: @width;
         }
       }
 
-      .recommend {
-        transition: all .3s ease;
-        height: 230rem;
-        overflow: hidden;
+      .option {
+        position: relative;
+        width: @width;
+        height: @width;
+        font-size: 12rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4rem;
+        background: @second-btn-color;
+        color: white;
+
+        &.option-recommend {
+          .arrow {
+            transform: rotate(0deg);
+          }
+        }
+      }
+
+      .loading {
+        @width: 12rem;
+        width: @width;
+        height: @width;
+        animation: rotate .6s linear infinite;
+
+        @keyframes rotate {
+          from {
+            transform: rotate(0deg)
+          }
+          to {
+            transform: rotate(360deg)
+          }
+        }
+      }
+
+      .arrow {
+        transition: transform .3s ease;
+        transform: rotate(180deg);
+        @width: 16rem;
+        width: @width;
+        height: @width;
+      }
+    }
+
+    .recommend {
+      transition: all .3s ease;
+      height: 250rem;
+      overflow: hidden;
+
+      &.hidden {
+        height: 0;
+      }
+
+      .title {
+        padding-left: 20rem;
+        font-size: 12rem;
+        color: @second-text-color;
+        display: flex;
+        align-items: center;
+
+        img {
+          margin-left: 3rem;
+          width: 13rem;
+          height: 13rem;
+        }
+      }
+
+      .friends {
+        padding-left: 20rem;
+        margin-top: 10rem;
+        display: flex;
+        overflow-x: scroll;
         margin-bottom: 20rem;
 
-        &.hidden {
-          height: 0;
-        }
-
-        .title {
-          font-size: 12rem;
-          color: @second-text-color;
+        .friend {
+          position: relative;
+          background: @second-btn-color-tran;
+          margin-right: 10rem;
+          padding: 10rem;
           display: flex;
+          flex-direction: column;
           align-items: center;
 
-          img {
-            margin-left: 3rem;
-            width: 13rem;
-            height: 13rem;
+          .avatar {
+            @width: 100rem;
+            border-radius: 50%;
+            width: @width;
+            height: @width;
+          }
+
+          .name {
+            margin-top: 10rem;
+            font-size: 12rem;
+            color: white;
+          }
+
+          .tips {
+            margin-top: 5rem;
+            font-size: 12rem;
+            color: @second-text-color;
+          }
+
+          .button {
+            margin-top: 10rem;
+            width: 150rem;
+            height: 26rem;
+            font-size: 12rem;
+          }
+
+          .close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
           }
         }
 
-        .friends {
-          margin-top: 10rem;
-          display: flex;
-          overflow-x: scroll;
-
-          .friend {
-            position: relative;
-            background: @second-btn-color-tran;
-            margin-right: 10rem;
-            padding: 10rem;
+        .more {
+          .notice {
+            width: 100rem;
+            height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-
-            .avatar {
-              @width: 100rem;
-              border-radius: 50%;
-              width: @width;
-              height: @width;
-            }
-
-            .name {
-              margin-top: 10rem;
-              font-size: 12rem;
-              color: white;
-            }
-
-            .tips {
-              margin-top: 5rem;
-              font-size: 12rem;
-              color: @second-text-color;
-            }
-
-            .button {
-              margin-top: 10rem;
-              width: 150rem;
-              height: 26rem;
-              font-size: 12rem;
-            }
-
-            .close {
-              position: absolute;
-              top: 2rem;
-              right: 2rem;
-            }
-          }
-
-          .more {
-            .notice {
-              width: 100rem;
-              height: 100%;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              color: @second-text-color;
-            }
+            justify-content: center;
+            color: @second-text-color;
           }
         }
       }
