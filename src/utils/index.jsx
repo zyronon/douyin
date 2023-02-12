@@ -73,12 +73,12 @@ export default {
     const app = Vue.createApp({
       render() {
         return <SimpleConfirmDialog
-          onCancel={tempCancelCb}
-          onDismiss={remove}
-          title={title}
-          okText={okText}
-          cancelText={cancelText}
-          onOk={tempOkCb}/>
+            onCancel={tempCancelCb}
+            onDismiss={remove}
+            title={title}
+            okText={okText}
+            cancelText={cancelText}
+            onOk={tempOkCb}/>
       },
     })
     let parent = document.createElement('div')
@@ -237,7 +237,7 @@ export default {
       params: (function () {
         const ret = {}
         const seg = a.search.replace(/^\?/, '')
-          .split('&')
+            .split('&')
         const len = seg.length
         let i = 0
         let s
@@ -265,14 +265,6 @@ export default {
       return url
     }
     return Config.filePreview + url
-  },
-  formatNumber(num) {
-    if (!num) return
-    if (num < 10000) {
-      return num
-    } else {
-      return (num / 10000).toFixed(1) + 'w'
-    }
   },
   $getTransform(el) {
     let transform = el.style.transform
@@ -354,6 +346,19 @@ export default {
     }
     return str
   },
+  formatNumber(num) {
+    if (!num) return
+    if (num < 10000) {
+      return num
+    } else {
+      return (num / 10000).toFixed(1) + 'w'
+    }
+  },
+  filterAge(age) {
+    if (!age) return
+    let date = new Date(age)
+    return new Date().getFullYear() - date.getFullYear()
+  },
   randomNum(minNum, maxNum) {
     switch (arguments.length) {
       case 1:
@@ -378,5 +383,17 @@ export default {
     old[key] = val
     emit('update:item', old)
     bus.emit('update:item', {position: props.position, item: old})
+  },
+  copy(val) {
+    const input = document.createElement('input');
+    input.setAttribute('readonly', 'readonly');
+    input.setAttribute('value', val);
+    document.body.appendChild(input);
+    input.setSelectionRange(0, 9999);
+    if (document.execCommand('copy')) {
+      document.execCommand('copy');
+      this.$notice('已复制')
+    }
+    document.body.removeChild(input);
   }
 }
