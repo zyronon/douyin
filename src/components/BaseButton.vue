@@ -1,5 +1,7 @@
 <template>
-  <div class="button" :class="class1" @click.capture.stop="check">
+  <div class="button" :class="class1"
+       :style="{'border-radius':radius+'rem'}"
+       @click.capture.stop="check">
     <img v-show="loading" src="../assets/img/icon/loading-white.png" alt="">
     <slot name="prefix"></slot>
     <slot v-if="showText"></slot>
@@ -44,6 +46,10 @@ export default {
       default: 'normal'
       //small
     },
+    radius: {
+      type: String,
+      default: '3',
+    }
   },
   data() {
     return {}
@@ -84,7 +90,6 @@ export default {
   color: white;
   height: 40rem;
   line-height: 40rem;
-  border-radius: 8rem;
   //width: 100%;
   font-size: 14rem;
   display: flex;
