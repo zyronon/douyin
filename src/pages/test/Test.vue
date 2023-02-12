@@ -3,8 +3,8 @@
   <!--  <SlideUser></SlideUser>-->
   <!--  <SlideImgs></SlideImgs>-->
   <!--  <TestSwiperJs></TestSwiperJs>-->
-<!--  <slideHooks></slideHooks>-->
-  <UserPanel/>
+  <slideHooks/>
+<!--  <UserPanel/>-->
 
   <!--  <div class="body">-->
   <!--    <div class="wrapper">-->

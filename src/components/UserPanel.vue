@@ -1,13 +1,42 @@
 <template>
-  <div id="UserPanel">
+  <div id="UserPanel"
+       @scroll="scroll"
+       ref="page">
+    <div ref="float" class="float" :class="state.floatFixed?'fixed':''">
+      <div class="left" @click="back">
+        <img class="back" src="@/assets/img/icon/next.svg" alt="">
+        <transition name="fade">
+          <div class="float-user" v-if="state.floatFixed">
+            <img v-lazy="Utils.$imgPreview(state.localAuthor.avatar)" class="avatar"/>
+            <img v-if="!state.localAuthor.is_follow" src="@/assets/img/icon/add-light.png" alt="" class="add">
+            <span @click="followButton">{{ state.localAuthor.is_follow ? '私信' : '关注' }}</span>
+          </div>
+        </transition>
+      </div>
+      <div class="right">
+        <transition name="fade">
+          <div class="request" v-if="!state.floatFixed && state.localAuthor.is_follow">
+            <img @click="$nav('/me/request-update')" src="@/assets/img/icon/me/finger-right.png" alt="">
+            <span>求更新</span>
+          </div>
+        </transition>
+        <img class="menu" src="@/assets/img/icon/search-light.png" alt="">
+        <img class="menu" src="@/assets/img/icon/more.svg" alt="" @click.stop="$emit('showFollowSetting')">
+      </div>
+    </div>
     <div class="main"
-         ref="scroll"
-         @touchstart="touchStart($event)"
-         @touchmove="touchMove($event)"
-         @touchend="touchEnd($event)">
-      <header ref="header"
-              :style='{backgroundImage: `url(${state.localAuthor.cover})`}'
-              @click="state.previewImg = state.localAuthor.cover">
+         ref="main"
+         @touchstart="touchStart"
+         @touchmove="touchMove"
+         @touchend="touchEnd">
+      <!--   src="@/assets/img/header-bg.png"   -->
+      <header>
+        <img
+            ref="cover"
+            :src="state.localAuthor.cover"
+            @click="state.previewImg = state.localAuthor.cover"
+            alt=""
+            class="cover">
         <div class="avatar-wrapper">
           <img v-lazy="Utils.$imgPreview(state.localAuthor.avatar)" class="avatar"
                @click="state.previewImg = state.localAuthor.avatar">
@@ -99,7 +128,7 @@
           </div>
           <div class="option"
                :class="state.isShowRecommend?'option-recommend':''"
-               @click="state.toggleRecommend">
+               @click="state.isShowRecommend = !state.isShowRecommend">
             <img v-if="state.loadings.showRecommend" class="loading" src="@/assets/img/icon/loading-gray.png"
                  alt="">
             <img v-else class="arrow" src="@/assets/img/icon/arrow-up-white.png" alt="">
@@ -108,25 +137,18 @@
 
         <div class="recommend" :class="{hidden:!state.isShowRecommend}">
           <div class="title">
-            <div class="left">
-              <span>你可能感兴趣</span>
-              <img src="@/assets/img/icon/about-gray.png">
-            </div>
-            <div class="right" @click="$nav('/people/find-acquaintance')">
-              <span>查看更多</span>
-              <back direction="right"></back>
-            </div>
+            <span>你可能感兴趣</span>
+            <img src="@/assets/img/icon/about-gray.png">
           </div>
           <div class="friends"
-               @touchstart="friendsTouchStart"
-               @touchend="friendsTouchEnd">
+               @touchmove="stop">
             <div class="friend" v-for="item in friends.all">
               <img :style="item.select?'opacity: .5;':''" class="avatar" :src="$imgPreview(item.avatar)" alt="">
               <span class="name">{{ item.name }}</span>
               <span class="tips">可能感兴趣的人</span>
               <b-button type="primary">关注</b-button>
               <div class="close">
-                <back img="close" scale=".6"></back>
+                <dy-back img="close" scale=".6"></dy-back>
               </div>
             </div>
             <div class="more" @click="$nav('/people/find-acquaintance')">
@@ -137,11 +159,10 @@
             </div>
           </div>
         </div>
-
-        <div class="total">
-          作品 62
-          <img class="arrow" src="@/assets/img/icon/arrow-up-white.png" alt="">
-        </div>
+      </div>
+      <div class="total" ref="total">
+        作品 62
+        <img class="arrow" src="@/assets/img/icon/arrow-up-white.png" alt="">
       </div>
       <div class="videos">
         <Posters v-if="state.videos.my.total !== -1" :list="state.videos.my.list"></Posters>
@@ -151,7 +172,7 @@
 </template>
 
 <script setup>
-import {onMounted, reactive} from "vue";
+import {computed, onMounted, reactive, ref} from "vue";
 import Utils from "@/utils";
 import {useNav} from "@/utils/hooks/useNav";
 import {useStore} from "vuex";
@@ -171,10 +192,13 @@ const props = defineProps({
   }
 })
 
-const friends = () => store.friends
+const friends = computed(() => store.state.friends)
+const main = ref(null)
+const page = ref(null)
+const cover = ref(null)
+const total = ref(null)
 const state = reactive({
   isShowRecommend: false,//是否显示推荐
-  isLoadRecommendFriends: false,//是否已经加载了显示推荐，直接判断friends.all数据长度的话，没有一开始的加载动画
   previewImg: '',
   contentIndex: 0,
   baseActiveIndex: 0,
@@ -236,7 +260,15 @@ const state = reactive({
   acceleration: 1.2,
   sprint: 15,
   canScroll: true,
-  localAuthor: resource.videos[0].author
+  localAuthor: resource.videos[0].author,
+  start: {x: 0, y: 0, time: 0},
+  move: {x: 0, y: 0},
+  isTop: false,
+  coverHeight: 240,
+  //能移动的高度
+  canMoveMaxHeight: document.body.clientHeight / 4,
+  //是否自动放大Cover
+  isAutoScaleCover: false
 })
 
 onMounted(() => {
@@ -244,19 +276,66 @@ onMounted(() => {
   state.videos.my.total = resource.my.length
 })
 
-function friendsTouchStart() {
+function stop(e){
+  e.stopPropagation()
+}
+function followButton() {
 }
 
-function friendsTouchEnd() {
+function back() {
 }
 
-function touchStart() {
+function scroll(e) {
+  // console.log('scroll', page.value.scrollTop)
+  let scrollTop = page.value.scrollTop
+  let totalY = total.value.getBoundingClientRect().y
+  state.floatFixed = totalY <= 46
+  let isTop = scrollTop === 0
+  if (isTop && state.isAutoScaleCover) {
+    cover.value.style.transition = 'all .1s'
+    cover.value.style.height = `calc(${state.coverHeight}rem + ${state.canMoveMaxHeight}px)`
+    setTimeout(() => {
+      cover.value.style.transition = 'all .4s'
+      cover.value.style.height = `calc(${state.coverHeight}rem)`
+      state.isAutoScaleCover = false
+    }, 200)
+  }
 }
 
-function touchMove() {
+function touchStart(e) {
+  state.start.x = e.touches[0].pageX
+  state.start.y = e.touches[0].pageY
+  state.start.time = Date.now()
+  state.isTop = page.value.scrollTop === 0
+  if (state.isTop) {
+    cover.value.style.transition = 'none'
+  }
+  console.log('touchStart', page.value.scrollTop)
 }
 
-function touchEnd() {
+function touchMove(e) {
+  state.move.x = e.touches[0].pageX - state.start.x
+  state.move.y = e.touches[0].pageY - state.start.y
+  let isNext = state.move.y < 0
+
+  // console.log('touchMove', page.value.scrollTop)
+  //todo 有空了加个，越滑越紧的效果
+  if (state.isTop && !isNext && (document.body.clientHeight / 4 > state.move.y)) {
+    // if (state.isTop && !isNext) {
+    let scrollHeight = state.move.y
+    cover.value.style.height = `calc(${state.coverHeight}rem + ${scrollHeight}px)`
+  }
+}
+
+function touchEnd(e) {
+  if (state.isTop) {
+    state.isTop = false
+    cover.value.style.transition = 'all .3s'
+    cover.value.style.height = `calc(${state.coverHeight}rem)`
+  }
+  let endTime = Date.now()
+  state.isAutoScaleCover = (endTime - state.start.time) < 100
+  console.log('touchEnd')
 }
 
 </script>
@@ -285,6 +364,7 @@ function touchEnd() {
   background: @main-bg;
   height: 100%;
   width: 100%;
+  overflow: auto;
   font-size: 14rem;
 
   .preview-img {
@@ -461,17 +541,17 @@ function touchEnd() {
     }
 
     header {
-      color: white;
-      height: 240rem;
-      background-image: url('@/assets/img/header-bg.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      box-sizing: border-box;
       position: relative;
+      color: white;
+
+      .cover {
+        height: 240rem;
+        object-fit: cover;
+        width: 100vw;
+        //transition: height .3s;
+      }
 
       .avatar-wrapper {
-        width: 100%;
         display: flex;
         align-items: center;
         box-sizing: border-box;
@@ -526,7 +606,7 @@ function touchEnd() {
       position: relative;
       z-index: 1;
       background: @main-bg;
-      padding: 0 20rem 15rem 20rem;
+      padding: 0 20rem;
       border-radius: 10rem 10rem 0 0;
       margin-top: -20rem;
 
@@ -625,6 +705,7 @@ function touchEnd() {
 
       .my-buttons {
         margin-top: 20rem;
+        margin-bottom: 20rem;
         overflow: hidden;
         display: flex;
         justify-content: flex-end;
@@ -698,7 +779,6 @@ function touchEnd() {
           }
         }
 
-
         .option {
           position: relative;
           width: @width;
@@ -745,39 +825,28 @@ function touchEnd() {
 
       .recommend {
         transition: all .3s ease;
-        height: 220rem;
+        height: 230rem;
         overflow: hidden;
+        margin-bottom: 20rem;
 
         &.hidden {
           height: 0;
         }
 
         .title {
-          padding: 0 20rem 0 20rem;
           font-size: 12rem;
           color: @second-text-color;
           display: flex;
-          justify-content: space-between;
-
-          .left {
-            display: flex;
-            align-items: center;
-          }
+          align-items: center;
 
           img {
             margin-left: 3rem;
             width: 13rem;
             height: 13rem;
           }
-
-          .right {
-            display: flex;
-            align-items: center;
-          }
         }
 
         .friends {
-          padding-left: 20rem;
           margin-top: 10rem;
           display: flex;
           overflow-x: scroll;
@@ -837,19 +906,24 @@ function touchEnd() {
           }
         }
       }
+    }
 
-      .total {
-        color: white;
-        display: flex;
-        align-items: center;
-        margin-top: 20rem;
+    .total {
+      background: @main-bg;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 15rem 20rem;
+      padding-top: 0rem;
+      position: sticky;
+      top: 46rem;
+      z-index: 2;
 
-        img {
-          transform: rotate(180deg);
-          margin-left: 5rem;
-          width: 12rem;
-          height: 12rem;
-        }
+      img {
+        transform: rotate(180deg);
+        margin-left: 5rem;
+        width: 12rem;
+        height: 12rem;
       }
     }
 
@@ -871,12 +945,6 @@ function touchEnd() {
     background: transparent;
     transition: all .2s;
 
-    .center {
-      left: 50%;
-      transform: translateX(-50%);
-      position: absolute;
-      color: white;
-    }
 
     &.fixed {
       background: @main-bg;
@@ -887,29 +955,40 @@ function touchEnd() {
     }
 
     .left {
-      img {
+      display: flex;
+      align-items: center;
+
+      .back {
         transform: rotate(180deg);
         border-radius: 50%;
         background: rgba(82, 80, 80, 0.5);
         padding: 6rem;
         width: 18rem;
       }
-    }
 
-    .follow-btn {
-      color: white;
-      position: absolute;
-      font-size: 12rem;
-      padding: 3rem 12rem;
-      border-radius: 2rem;
-      right: 60rem;
-      background: @primary-btn-color;
+      .float-user {
+        display: inline-flex;
+        margin-left: 32rem;
+        color: white;
+        font-size: 12rem;
+        align-items: center;
+        background: @second-btn-color-tran;
+        height: 22rem;
+        border-radius: 40rem;
+        padding: 1rem 10rem 1rem 1rem;
 
-      &.followed {
-        background: @second-btn-color;
+        .add {
+          width: 12rem;
+          margin-right: 2rem;
+        }
+
+        .avatar {
+          width: 20rem;
+          border-radius: 50%;
+          margin-right: 5rem;
+        }
       }
     }
-
 
     .right {
       display: flex;

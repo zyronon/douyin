@@ -31,7 +31,7 @@ export default {
     Footer,
     Mask,
     NoMore,
-    Back,
+    'dy-back': Back,
     Loading,
     'b-button': BaseButton
   },

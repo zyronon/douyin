@@ -103,7 +103,7 @@
       </SlideItem>
       <SlideItem class=" gray">
         <!--          <div class="big" v-for="i in 100">主页</div>-->
-        <Uploader
+        <UserPanel
             ref="uploader"
             :isOnThisPage="state.baseIndex === 1"
             :author="state.recommendVideos[state.itemIndex]?.author"
@@ -202,6 +202,7 @@ import FollowSetting2 from "@/pages/home/components/FollowSetting2";
 import Dom from "../../utils/dom";
 import ShareToFriend from "@/pages/home/components/ShareToFriend";
 import resource from "@/assets/data/resource";
+import UserPanel from "@/components/UserPanel.vue";
 
 const nav = useNav()
 
