@@ -3,7 +3,8 @@
   <!--  <SlideUser></SlideUser>-->
   <!--  <SlideImgs></SlideImgs>-->
   <!--  <TestSwiperJs></TestSwiperJs>-->
-  <slideHooks></slideHooks>
+<!--  <slideHooks></slideHooks>-->
+  <UserPanel/>
 
   <!--  <div class="body">-->
   <!--    <div class="wrapper">-->
@@ -21,10 +22,12 @@ import TestImg from "./TestImg";
 import slideHooks from '../slideHooks'
 import TestSwiperJs from "./TestSwiperJs";
 import {mat4} from "gl-matrix";
+import UserPanel from "@/components/UserPanel.vue";
 
 export default {
   name: "Test",
   components: {
+    UserPanel,
     slideHooks,
     TestSlide,
     SlideUser,
