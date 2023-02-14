@@ -29,10 +29,30 @@
           <div class="nav" v-for="i in 20">推荐</div>
         </div>
       </div>
-      <div class="goods-list">
-        <div class="goods" v-for="item in state.list">
-          <!--                <img class="poster" v-lazy="Utils.$imgPreview(item.src)"/>-->
-          <img class="poster" :src="Utils.$imgPreview(item.src)"/>
+      <div v-masonry class="goods-list"
+           transition-duration="0s"
+           item-selector=".goods">
+        <div v-masonry-tile class="goods" v-for="(item, index) in  state.list">
+          <div class="card">
+            <!--          <img class="poster" v-lazy="Utils.$imgPreview(item.src)"/>-->
+            <img class="poster" :src="Utils.$imgPreview(item.src)"/>
+            <div class="bottom">
+              <div class="desc">
+                2022新款Apple/苹果iPhone 14 Plus手机6.7
+              </div>
+              <div class="discounts">满4减3</div>
+              <div class="info">
+                <div class="price">
+                  ￥
+                  <div class="big">6099</div>
+                </div>
+                <div class="num">已售223件</div>
+              </div>
+              <div class="low">
+                近30天低价
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </Scroll>
@@ -45,7 +65,8 @@ import Utils from "@/utils";
 import Scroll from "@/components/Scroll.vue";
 
 const state = reactive({
-  list: []
+  list: [],
+  listEl: null
 })
 
 function loadData() {
@@ -67,23 +88,6 @@ onMounted(() => {
     }
     state.list.push(temp)
   }
-  setTimeout(() => {
-    // var $grid = $('.goods-list').imagesLoaded( function() {
-    //   // init Isotope after all images have loaded
-    //   $grid.isotope({
-    //     itemSelector: '.goods',
-    //   });
-    // });
-    let $grid = $('.goods-list').isotope({
-      // options...
-      itemSelector: '.goods',
-    });
-    console.log('$grid', $grid)
-    $grid.imagesLoaded().progress(function () {
-      $grid.isotope('layout');
-    });
-  })
-
 })
 </script>
 
@@ -176,12 +180,71 @@ onMounted(() => {
   }
 
   .goods-list {
-    .goods {
-      width: 50%;
+
+  }
+
+
+  .goods {
+    width: 50%;
+    padding: 10rem;
+    box-sizing: border-box;
+
+    .card {
+      border-radius: 8rem;
       overflow: hidden;
+      background: white;
 
       img {
         width: 100%;
+      }
+
+      .bottom {
+        padding: 10rem;
+
+        .desc {
+          color: black;
+          font-size: 16rem;
+          margin-bottom: 8rem;
+        }
+
+        .discounts {
+          display: inline-block;
+          @c: rgb(199, 89, 106);
+          border: 1rem solid @c;
+          padding: 0 4rem;
+          color: @c;
+          font-size: 12rem;
+          margin-bottom: 4rem;
+        }
+
+        .info {
+          display: flex;
+          align-items: flex-end;
+
+          .price {
+            color: rgb(248, 38, 74);
+            display: flex;
+            align-items: flex-end;
+            font-size: 14rem;
+            margin-right: 5rem;
+
+            .big {
+              font-size: 22rem;
+              font-weight: bold;
+              transform: translateY(2rem);
+            }
+          }
+
+          .num {
+            color: darkgray;
+            font-size: 12rem;
+          }
+        }
+
+        .low {
+          margin-top: 2rem;
+          color: rgb(230, 153, 92);
+        }
       }
     }
   }
