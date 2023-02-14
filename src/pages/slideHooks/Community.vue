@@ -69,11 +69,12 @@ onMounted(() => {
 #Community {
   font-size: 14rem;
   color: white;
-  background: black;
+  padding-top: @header-height;
 
   .Scroll {
+    background: black;
     //height: calc(100vh - @header-height) !important;
-    height: calc(100vh - @header-height) !important;
+    height: calc(100vh - @header-height - @footer-height) !important;
   }
 
   .goods-list {
