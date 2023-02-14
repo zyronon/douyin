@@ -110,7 +110,7 @@
               </div>
               <div class="right" @click="$nav('/people/find-acquaintance')">
                 <span>查看更多</span>
-                <back direction="right"></back>
+                <back direction="right"></dy-back>
               </div>
             </div>
             <div class="friends"
@@ -122,7 +122,7 @@
                 <span class="tips">可能感兴趣的人</span>
                 <b-button type="primary">关注</b-button>
                 <div class="close">
-                  <back img="close" scale=".6"></back>
+                  <back img="close" scale=".6"></dy-back>
                 </div>
               </div>
               <div class="more" @click="$nav('/people/find-acquaintance')">

@@ -1,7 +1,7 @@
 <template>
   <div id='BaseHeader' :class="[mode,isFixed?'fixed':'']">
     <div class="header">
-      <back
+      <dy-back
           :mode="backMode"
           :img="backImg"
           @click="back()"

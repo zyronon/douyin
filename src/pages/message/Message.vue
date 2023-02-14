@@ -43,7 +43,7 @@
                 </div>
               </div>
               <div class="right">
-                <back class="arrow" mode="gray" img="back" direction="right"/>
+                <dy-back class="arrow" mode="gray" img="back" direction="right"/>
               </div>
             </div>
           </div>
@@ -62,7 +62,7 @@
                 </div>
               </div>
               <div class="right">
-                <back class="arrow" mode="gray" img="back" direction="right"/>
+                <dy-back class="arrow" mode="gray" img="back" direction="right"/>
               </div>
             </div>
           </div>
@@ -287,7 +287,7 @@
               <img class="left" src="../../assets/img/icon/people-gray.png" alt="">
               <div class="right">
                 <span>已加入的群聊</span>
-                <back direction="right" mode="light"></back>
+                <dy-back direction="right" mode="light"></dy-back>
               </div>
             </div>
             <div class="friend-list">
@@ -309,7 +309,7 @@
         </div>
         <div class="joined-chat-wrapper" v-show="showJoinedChat">
           <div class="nav">
-            <back @click="showJoinedChat = false" mode="light" scale="1.2"></back>
+            <dy-back @click="showJoinedChat = false" mode="light" scale="1.2"></dy-back>
             <span>已加入的群聊</span>
             <span>&nbsp;</span>
           </div>
@@ -322,7 +322,7 @@
                   <div class="name">{{ text.length > 20 ? text.substr(0, 20) + '...' : text }}</div>
                   <div class="num">(3)</div>
                 </div>
-                <back direction="right" mode="light"></back>
+                <dy-back direction="right" mode="light"></dy-back>
               </div>
             </div>
           </div>
@@ -372,7 +372,7 @@
             <span>联系人</span>
             <div class="right" v-if="searchFriendsAll.length > 3" @click="$nav('/message/more-search',{key:searchKey})">
               <span>更多联系人</span>
-              <back mode="gray" img="back" scale=".6" direction="right"/>
+              <dy-back mode="gray" img="back" scale=".6" direction="right"/>
             </div>
           </div>
           <People v-for="(item,index) in searchFriendsAll.slice(0,3)"

@@ -12,7 +12,7 @@
     <div class="share">
       <div class="title">
         <span>私信给朋友</span>
-        <back mode="light" img="close" direction="right" @click.stop="closeShare"></back>
+        <dy-back mode="light" img="close" direction="right" @click.stop="closeShare"></dy-back>
       </div>
       <div class="friends">
         <div class="friend" v-for="item in friends.all" @click.stop="toggleCall(item)">
@@ -21,7 +21,7 @@
           <img v-if="item.select" class="checked" src="../assets/img/icon/components/check/check-red-share.png">
         </div>
         <div class="more" @click.stop="closeShare($nav('/message/share-to-friend'))">
-          <back mode="light" direction="right"></back>
+          <dy-back mode="light" direction="right"></dy-back>
           <span>更多</span>
         </div>
       </div>

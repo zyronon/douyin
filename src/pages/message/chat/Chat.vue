@@ -3,7 +3,7 @@
     <div class="chat-content" @touchstart="tooltipTop = -1">
       <div class="header">
         <div class="left">
-          <back @click="$back"></back>
+          <dy-back @click="$back"></dy-back>
           <div class="badge">12</div>
           <span>zzzz</span>
         </div>
@@ -115,7 +115,7 @@
 
     <div class="preview-img" v-if="false">
       <div class="header">
-        <back mode="light"/>
+        <dy-back mode="light"/>
         <img src="../../../assets/img/icon/search-light.png" alt="">
       </div>
       <img :src="previewImg" alt="" class="img-src">

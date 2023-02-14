@@ -10,7 +10,7 @@
         <div class="row" @click="$nav('/me/choose-city')" v-for="item in list">
           <span>{{ item }}</span>
           <div class="right">
-            <back scale=".8" direction="right"></back>
+            <dy-back scale=".8" direction="right"></dy-back>
           </div>
         </div>
       </div>

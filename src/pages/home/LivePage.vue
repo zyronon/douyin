@@ -33,13 +33,13 @@
             <img src="../../assets/img/icon/avatar/2.png" alt="" class="round">
             <img src="../../assets/img/icon/avatar/3.png" alt="" class="round">
             <div class="round count">107</div>
-            <back class="round close" img="close" mode="light" @click="$back"/>
+            <dy-back class="round close" img="close" mode="light" @click="$back"/>
           </div>
           <div class="more">
             <div class="wrapper">
               <!--              缺个icon-->
               <span>更多同城</span>
-              <back scale=".5" direction="right" class="back" img="back" mode="light"/>
+              <dy-back scale=".5" direction="right" class="back" img="back" mode="light"/>
             </div>
           </div>
         </div>

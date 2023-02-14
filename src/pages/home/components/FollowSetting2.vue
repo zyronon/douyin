@@ -14,7 +14,7 @@
           <span class="title">成都验证码</span>
           <span class="subtitle">私信给朋友</span>
         </div>
-        <back mode="dark" img="close" direction="right" @click="cancel()"></back>
+        <dy-back mode="dark" img="close" direction="right" @click="cancel()"></dy-back>
       </div>
       <div class="l-rows">
 

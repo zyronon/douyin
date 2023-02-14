@@ -15,21 +15,21 @@
         <div class="left">学校</div>
         <div class="right">
           <span>{{ isEmpty(localSchool.name) }}</span>
-          <back scale='1' direction="right"></back>
+          <dy-back scale='1' direction="right"></dy-back>
         </div>
       </div>
       <div class="row" @click="checkGo('/me/choose-department')">
         <div class="left">院系</div>
         <div class="right">
           <span>{{ isEmpty(localSchool.department) }}</span>
-          <back scale='1' direction="right"></back>
+          <dy-back scale='1' direction="right"></dy-back>
         </div>
       </div>
       <div class="row" @click="showJoinTimeDialog">
         <div class="left">入学时间</div>
         <div class="right">
           <span>{{ isEmpty(localSchool.joinTime) }}</span>
-          <back scale='1' direction="right"></back>
+          <dy-back scale='1' direction="right"></dy-back>
           <div v-show="false" id="trigger1"></div>
         </div>
       </div>
@@ -37,14 +37,14 @@
         <div class="left">学历</div>
         <div class="right">
           <span>{{ isEmpty(localSchool.education) }}</span>
-          <back scale='1' direction="right"></back>
+          <dy-back scale='1' direction="right"></dy-back>
         </div>
       </div>
       <div class="row" @click="$nav('/me/display-type',{displayType : localSchool.displayType})">
         <div class="left">展示范围</div>
         <div class="right">
           <span>{{ displayType }}</span>
-          <back scale='1' direction="right"></back>
+          <dy-back scale='1' direction="right"></dy-back>
         </div>
       </div>
     </div>

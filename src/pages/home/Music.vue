@@ -1,7 +1,7 @@
 <template>
   <div id="Music">
     <div class="header">
-      <back mode="light" @click="$back"/>
+      <dy-back mode="light" @click="$back"/>
       <transition name="fade">
         <div class="center" v-if="isFixed">
           <span class="f16">{{ music.name }}</span>

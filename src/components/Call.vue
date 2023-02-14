@@ -36,7 +36,7 @@
               <span>免提</span>
             </div>
             <div class="option">
-              <back mode="light" @click="isExpand = !isExpand" img="back" class="shrink"/>
+              <dy-back mode="light" @click="isExpand = !isExpand" img="back" class="shrink"/>
               <!--              <img src="@/assets/img/icon/message/chat/narrow.png" alt="">-->
             </div>
           </div>
