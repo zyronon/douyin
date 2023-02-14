@@ -43,7 +43,7 @@
 
             <div class="look-detail">
               <span>查看详情</span>
-              <back direction="right" scale=".6"/>
+              <dy-back direction="right" scale=".6"/>
             </div>
           </div>
         </div>

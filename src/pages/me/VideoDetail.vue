@@ -3,7 +3,7 @@
     <SlideList key1="父" style="width: 100vw;" v-model:can-move="canMove">
       <SlideItem>
         <div class="search-wrapper">
-          <back class="back" @click="$back"/>
+          <dy-back class="back" @click="$back"/>
           <Search></Search>
         </div>
         <SlideList key1="子" direction="column" v-model:active-index="videoActiveIndex">

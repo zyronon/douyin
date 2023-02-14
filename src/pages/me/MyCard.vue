@@ -1,7 +1,7 @@
 <template>
   <div id='MyCard'>
     <div class="header">
-      <back mode="light" @click="$back"/>
+      <dy-back mode="light" @click="$back"/>
       <!--      todo 差一-->
       <img class="share" src="../../assets/img/icon/share-white.png" @click="isSharing = true">
     </div>

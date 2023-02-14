@@ -34,19 +34,19 @@
         <div class="row" @click="$nav('/set-remark')">
           <div class="left">设备备注</div>
           <div class="right">
-            <back direction="right" scale=".7"></back>
+            <dy-back direction="right" scale=".7"></dy-back>
           </div>
         </div>
         <div class="row" @click="$nav('/home/report',{mode:'chat'})">
           <div class="left">举报</div>
           <div class="right">
-            <back direction="right" scale=".7"></back>
+            <dy-back direction="right" scale=".7"></dy-back>
           </div>
         </div>
         <div class="row" @click="blockDialog = true">
           <div class="left">拉黑</div>
           <div class="right">
-            <back direction="right" scale=".7"></back>
+            <dy-back direction="right" scale=".7"></dy-back>
           </div>
         </div>
       </div>

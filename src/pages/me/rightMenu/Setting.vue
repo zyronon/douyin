@@ -13,7 +13,7 @@
           <span>帐号与安全</span>
         </div>
         <div class="right">
-          <back direction="right"></back>
+          <dy-back direction="right"></dy-back>
         </div>
       </div>
       <div class="row">
@@ -22,7 +22,7 @@
           <span>隐私设置</span>
         </div>
         <div class="right">
-          <back direction="right"></back>
+          <dy-back direction="right"></dy-back>
         </div>
       </div>
 
@@ -35,7 +35,7 @@
           <span>通知设置</span>
         </div>
         <div class="right">
-          <back direction="right"></back>
+          <dy-back direction="right"></dy-back>
         </div>
       </div>
       <div class="row">
@@ -44,7 +44,7 @@
           <span>动态壁纸</span>
         </div>
         <div class="right">
-          <back direction="right"></back>
+          <dy-back direction="right"></dy-back>
         </div>
       </div>
       <div class="row">
@@ -53,7 +53,7 @@
           <span>通用设置</span>
         </div>
         <div class="right">
-          <back direction="right"></back>
+          <dy-back direction="right"></dy-back>
         </div>
       </div>
       <div class="line"></div>
@@ -66,7 +66,7 @@
           <span>头条主页</span>
         </div>
         <div class="right">
-          <back direction="right"></back>
+          <dy-back direction="right"></dy-back>
         </div>
       </div>
       <div class="line"></div>
@@ -79,7 +79,7 @@
           <span>广告反馈与设置</span>
         </div>
         <div class="right">
-          <back direction="right"></back>
+          <dy-back direction="right"></dy-back>
         </div>
       </div>
       <div class="row">
@@ -88,7 +88,7 @@
           <span>用户协议</span>
         </div>
         <div class="right">
-          <back direction="right"></back>
+          <dy-back direction="right"></dy-back>
         </div>
       </div>
       <div class="row">
@@ -97,7 +97,7 @@
           <span>社区自律公约</span>
         </div>
         <div class="right">
-          <back direction="right"></back>
+          <dy-back direction="right"></dy-back>
         </div>
       </div>
       <div class="row">
@@ -106,7 +106,7 @@
           <span>隐私政策</span>
         </div>
         <div class="right">
-          <back direction="right"></back>
+          <dy-back direction="right"></dy-back>
         </div>
       </div>
       <div class="row">
@@ -115,7 +115,7 @@
           <span>应用权限</span>
         </div>
         <div class="right">
-          <back direction="right"></back>
+          <dy-back direction="right"></dy-back>
         </div>
       </div>
       <div class="row">
@@ -124,7 +124,7 @@
           <span>第三方SDK列表</span>
         </div>
         <div class="right">
-          <back direction="right"></back>
+          <dy-back direction="right"></dy-back>
         </div>
       </div>
       <div class="row">
@@ -133,7 +133,7 @@
           <span>关于抖音</span>
         </div>
         <div class="right">
-          <back direction="right"></back>
+          <dy-back direction="right"></dy-back>
         </div>
       </div>
       <div class="row">
@@ -142,7 +142,7 @@
           <span>反馈与帮助</span>
         </div>
         <div class="right">
-          <back direction="right"></back>
+          <dy-back direction="right"></dy-back>
         </div>
       </div>
       <div class="row">
@@ -151,7 +151,7 @@
           <span>清理占用空间</span>
         </div>
         <div class="right">
-          <back direction="right"></back>
+          <dy-back direction="right"></dy-back>
         </div>
       </div>
       <div class="line"></div>
@@ -163,7 +163,7 @@
           <span>切换空间</span>
         </div>
         <div class="right">
-          <back direction="right"></back>
+          <dy-back direction="right"></dy-back>
         </div>
       </div>
       <div class="row">
@@ -172,7 +172,7 @@
           <span>退出登录</span>
         </div>
         <div class="right">
-          <back direction="right"></back>
+          <dy-back direction="right"></dy-back>
         </div>
       </div>
 

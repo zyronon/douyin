@@ -1,13 +1,13 @@
 <template>
   <div class="MyMusic">
     <div class="header">
-      <back class="back" mode="light" img="back" @click="$back"/>
+      <dy-back class="back" mode="light" img="back" @click="$back"/>
       <IndicatorLight
           name="myMusicList"
           :tabTexts="['猜你爱听','我的收藏']"
           v-model:active-index="slideIndex">
       </IndicatorLight>
-      <back style="opacity: 0;" mode="light" img="back"/>
+      <dy-back style="opacity: 0;" mode="light" img="back"/>
     </div>
     <SlideRowList name="myMusicList" v-model:active-index="slideIndex">
       <SlideItem>
@@ -102,9 +102,9 @@
     <transition name="my-collect-dialog">
       <div class="my-collect-dialog" v-show="isShowCollectDialog">
         <div class="dialog-header">
-          <back class="close" mode="light" img="back" @click="isShowCollectDialog = false"/>
+          <dy-back class="close" mode="light" img="back" @click="isShowCollectDialog = false"/>
           <span>我的收藏</span>
-          <back style="opacity: 0;" mode="light" img="back"/>
+          <dy-back style="opacity: 0;" mode="light" img="back"/>
         </div>
         <CollectMusic ref="CollectMusic" :list="page2Music" v-model:page2SlideIndex="page2SlideIndex"/>
       </div>

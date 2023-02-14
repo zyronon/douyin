@@ -41,7 +41,7 @@
               <div class="name">{{ item.name }}</div>
               <div class="author">{{ item.author }}</div>
             </div>
-            <back class="right" mode="gray" img="close"/>
+            <dy-back class="right" mode="gray" img="close"/>
           </div>
         </div>
         <div class="footer" @click="isShowList = false">取消</div>

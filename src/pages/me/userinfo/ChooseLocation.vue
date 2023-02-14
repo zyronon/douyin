@@ -23,7 +23,7 @@
         <div class="row" @click="$nav('/me/choose-province')">
           <span>中国</span>
           <div class="right">
-            <back scale=".8" direction="right"></back>
+            <dy-back scale=".8" direction="right"></dy-back>
           </div>
         </div>
         <div v-for="(value, name)  of countryOk">

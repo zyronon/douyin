@@ -1,6 +1,6 @@
 <template>
   <div class="MusicRankList" @scroll="scroll">
-    <back
+    <dy-back
         mode="light"
         img="back"
         @click="$back()"

@@ -30,7 +30,7 @@
         </div>
         <div class="right">
           <span>{{ triggerTime }}分钟</span>
-          <back direction="right"></back>
+          <dy-back direction="right"></dy-back>
         </div>
       </div>
       <div class="footer">

@@ -1,7 +1,7 @@
 <template>
   <div class="Search">
     <div class="header">
-      <back mode="light" @click="$back" class="mr1r"></back>
+      <dy-back mode="light" @click="$back" class="mr1r"></dy-back>
       <BSearch placeholder="搜索用户名字/抖音号"
                :isShowRightText="true"
                rightTextColor="white"
@@ -17,7 +17,7 @@
             <img src="../../assets/img/icon/home/time-white.png" alt="">
             <span> {{ item }}</span>
           </div>
-          <back img="close" mode="gray" @click="history.splice(index,1)" scale=".7"></back>
+          <dy-back img="close" mode="gray" @click="history.splice(index,1)" scale=".7"></dy-back>
         </div>
         <div v-if="history.length>2" class="history-expand" @click="toggle">
           {{ isExpand ? '清除全部搜索记录' : '展开全部' }}

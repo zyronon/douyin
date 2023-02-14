@@ -58,7 +58,7 @@
       <div class="list">
         <div class="row" @click="$nav('/message/joined-group-chat')">
           <span>已加入的群聊</span>
-          <back :scale=".7" direction="right"></back>
+          <dy-back :scale=".7" direction="right"></dy-back>
         </div>
         <div class="title">最近聊天</div>
         <div class="local-row" v-for="item  of friends.recent" @click="toggleSelect(item)">

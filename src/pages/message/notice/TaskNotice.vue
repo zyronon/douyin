@@ -31,7 +31,7 @@
             <div class="content-text">{{ item.content }}</div>
             <div class="look-detail" v-if="item.detail">
               <span>查看详情</span>
-              <back direction="right" scale=".6"/>
+              <dy-back direction="right" scale=".6"/>
             </div>
           </div>
         </div>

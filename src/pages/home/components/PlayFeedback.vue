@@ -4,7 +4,7 @@
       <div class="feedback-header">
         <span>&nbsp;</span>
         <div class="title">播放反馈</div>
-        <back mode="dark" img="close" @click="cancel"></back>
+        <dy-back mode="dark" img="close" @click="cancel"></dy-back>
       </div>
       <div class="content">
         <div class="notice">请选择要反馈的问题</div>

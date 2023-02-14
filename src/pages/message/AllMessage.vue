@@ -100,7 +100,7 @@
           </div>
           <div class="look-all" v-if="!showAll" @click="showAll = true">
             <span>查看全部</span>
-            <back/>
+            <dy-back/>
           </div>
         </div>
         <div class="title">

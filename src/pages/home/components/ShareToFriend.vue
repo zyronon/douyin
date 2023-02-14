@@ -52,7 +52,7 @@
             <img class="left" src="../../../assets/img/icon/people-gray.png" alt="">
             <div class="right">
               <span>已加入的群聊</span>
-              <back direction="right" mode="gray" scale=".7"/>
+              <dy-back direction="right" mode="gray" scale=".7"/>
             </div>
           </div>
           <div class="friend-list">
@@ -71,7 +71,7 @@
       </div>
       <div class="joined-chat-group" v-show="showJoinedChat">
         <div class="nav">
-          <back @click="showJoinedChat = false" mode="light" scale="1"></back>
+          <dy-back @click="showJoinedChat = false" mode="light" scale="1"></dy-back>
           <span>已加入的群聊</span>
           <span>&nbsp;</span>
         </div>

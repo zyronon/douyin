@@ -1,7 +1,7 @@
 <template>
   <div class="FindAcquaintance" id="FindAcquaintance">
     <div class="header">
-      <back mode="light" @click="back"></back>
+      <dy-back mode="light" @click="back"></dy-back>
       <Indicator
           style="width: 50%;"
           tabStyleWidth="40%"
@@ -30,7 +30,7 @@
                 <div class="text1">查看通讯录朋友</div>
                 <div class="text2">看看有谁在抖音</div>
               </div>
-              <back direction="right"></back>
+              <dy-back direction="right"></dy-back>
             </div>
           </div>
           <div class="line"></div>

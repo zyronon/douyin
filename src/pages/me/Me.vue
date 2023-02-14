@@ -163,7 +163,7 @@
                     </div>
                     <div class="right">
                       <span>全部</span>
-                      <back direction="right"></back>
+                      <dy-back direction="right"></dy-back>
                     </div>
                   </div>
                   <div class="list">
@@ -186,7 +186,7 @@
                     </div>
                     <div class="right">
                       <span>全部</span>
-                      <back direction="right"></back>
+                      <dy-back direction="right"></dy-back>
                     </div>
                   </div>
                   <div class="list">
