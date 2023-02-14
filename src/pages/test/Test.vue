@@ -4,7 +4,8 @@
   <!--  <SlideImgs></SlideImgs>-->
   <!--  <TestSwiperJs></TestSwiperJs>-->
 <!--  <slideHooks/>-->
-  <Shop/>
+<!--  <Shop/>-->
+  <Community/>
 <!--  <UserPanel/>-->
 
   <!--  <div class="body">-->
@@ -25,10 +26,12 @@ import TestSwiperJs from "./TestSwiperJs";
 import {mat4} from "gl-matrix";
 import UserPanel from "@/components/UserPanel.vue";
 import Shop from "@/pages/slideHooks/Shop.vue";
+import Community from "@/pages/slideHooks/Community.vue";
 
 export default {
   name: "Test",
   components: {
+    Community,
     Shop,
     UserPanel,
     slideHooks,
