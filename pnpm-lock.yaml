@@ -18,6 +18,7 @@ specifiers:
   vconsole: ^3.15.0
   vite: 4.0.4
   vue: 3.2.45
+  vue-masonry: ^0.16.0
   vue-router: 4.0.14
   vue-switches: 2.0.1
   vuex: 4.0.2
@@ -35,6 +36,7 @@ dependencies:
   swiper: 8.4.6
   vconsole: 3.15.0
   vue: 3.2.45
+  vue-masonry: 0.16.0_vue@3.2.45
   vue-router: 4.0.14_vue@3.2.45
   vue-switches: 2.0.1
   vuex: 4.0.2_vue@3.2.45
@@ -946,6 +948,10 @@ packages:
     dev: false
     optional: true
 
+  /desandro-matches-selector/2.0.2:
+    resolution: {integrity: sha512-+1q0nXhdzg1IpIJdMKalUwvvskeKnYyEe3shPRwedNcWtnhEKT3ZxvFjzywHDeGcKViIxTCAoOYQWP1qD7VNyg==}
+    dev: false
+
   /detect-libc/2.0.1:
     resolution: {integrity: sha512-463v3ZeIrcWtdgIg6vI6XUncguvr2TnGl4SzDXinkt9mSLpBJKXT3mW6xT3VQdDN11+WVs29pgvivTc4Lp8v+w==}
     engines: {node: '>=8'}
@@ -1019,6 +1025,16 @@ packages:
   /estree-walker/2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
 
+  /ev-emitter/1.1.1:
+    resolution: {integrity: sha512-ipiDYhdQSCZ4hSbX4rMW+XzNKMD1prg/sTvoVmSLkuQ1MVlwjJQQA+sW8tMYR3BLUr9KjodFV4pvzunvRhd33Q==}
+    dev: false
+
+  /fizzy-ui-utils/2.0.7:
+    resolution: {integrity: sha512-CZXDVXQ1If3/r8s0T+v+qVeMshhfcuq0rqIFgJnrtd+Bu8GmDmqMjntjUePypVtjHXKJ6V4sw9zeyox34n9aCg==}
+    dependencies:
+      desandro-matches-selector: 2.0.2
+    dev: false
+
   /follow-redirects/1.15.2:
     resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
     engines: {node: '>=4.0'}
@@ -1074,6 +1090,10 @@ packages:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
     dev: true
+
+  /get-size/2.0.3:
+    resolution: {integrity: sha512-lXNzT/h/dTjTxRbm9BXb+SGxxzkm97h/PCIKtlN/CBCxxmkkIVV21udumMS93MuVTDX583gqc94v3RjuHmI+2Q==}
+    dev: false
 
   /gl-matrix/3.4.3:
     resolution: {integrity: sha512-wcCp8vu8FT22BnvKVPjXa/ICBWRq/zjFfdofZy1WSpQZpphblv12/bOQLBC1rMM7SGOFS9ltVmKOHil5+Ml7gA==}
@@ -1150,6 +1170,12 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /imagesloaded/4.1.4:
+    resolution: {integrity: sha512-ltiBVcYpc/TYTF5nolkMNsnREHW+ICvfQ3Yla2Sgr71YFwQ86bDwV9hgpFhFtrGPuwEx5+LqOHIrdXBdoWwwsA==}
+    dependencies:
+      ev-emitter: 1.1.1
+    dev: false
 
   /inflight/1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
@@ -1260,6 +1286,13 @@ packages:
       semver: 6.3.0
     dev: false
     optional: true
+
+  /masonry-layout/4.2.2:
+    resolution: {integrity: sha512-iGtAlrpHNyxaR19CvKC3npnEcAwszXoyJiI8ARV2ePi7fmYhIud25MHK8Zx4P0LCC4d3TNO9+rFa1KoK1OEOaA==}
+    dependencies:
+      get-size: 2.0.3
+      outlayer: 2.1.1
+    dev: false
 
   /mime/1.6.0:
     resolution: {integrity: sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==}
@@ -1419,6 +1452,14 @@ packages:
       wrappy: 1.0.2
     dev: false
     optional: true
+
+  /outlayer/2.1.1:
+    resolution: {integrity: sha512-+GplXsCQ3VrbGujAeHEzP9SXsBmJxzn/YdDSQZL0xqBmAWBmortu2Y9Gwdp9J0bgDQ8/YNIPMoBM13nTwZfAhw==}
+    dependencies:
+      ev-emitter: 1.1.1
+      fizzy-ui-utils: 2.0.7
+      get-size: 2.0.3
+    dev: false
 
   /parse-node-version/1.0.1:
     resolution: {integrity: sha512-3YHlOa/JgH6Mnpr05jP9eDG254US9ek25LyIxZlDItp2iJtwyaXQb57lBYLdT3MowkUFYEV2XXNAYIPlESvJlA==}
@@ -1703,6 +1744,37 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /vue-demi/0.13.11_vue@3.2.45:
+    resolution: {integrity: sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==}
+    engines: {node: '>=12'}
+    hasBin: true
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^3.0.0-0 || ^2.6.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      vue: 3.2.45
+    dev: false
+
+  /vue-masonry/0.16.0_vue@3.2.45:
+    resolution: {integrity: sha512-0Wi/BH4iYYRrAAFY/wokczz0lWWPg1vmOvFW4aC2nKybKf6kVqUvFfR9/+izDfzG657/vY+Om0gqOB5YPxPxuQ==}
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^2.0.0 || >=3.0.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      imagesloaded: 4.1.4
+      masonry-layout: 4.2.2
+      mitt: 3.0.0
+      vue: 3.2.45
+      vue-demi: 0.13.11_vue@3.2.45
+    dev: false
 
   /vue-router/4.0.14_vue@3.2.45:
     resolution: {integrity: sha512-wAO6zF9zxA3u+7AkMPqw9LjoUCjSxfFvINQj3E/DceTt6uEz1XZLraDhdg2EYmvVwTBSGlLYsUw8bDmx0754Mw==}
