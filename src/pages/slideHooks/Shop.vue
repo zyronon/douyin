@@ -181,15 +181,17 @@ onMounted(() => {
     height: calc(100vh - @header-height - @footer-height) !important;
   }
 
-  .goods-list {
+  @p: 5rem;
 
+  .goods-list {
+    padding: @p;
+    background: white;
   }
 
-
   .goods {
-    width: 50%;
-    padding: 10rem;
+    width: calc(50% - @p);
     box-sizing: border-box;
+    padding: 5rem;
 
     .card {
       border-radius: 8rem;
