@@ -60,17 +60,17 @@
              id="slideHook"
              v-love="'slideHook'"
              v-model:index="state.navIndex">
-            <SlideItem class=" gray">
+            <SlideItem>
               <div class="big">热点</div>
             </SlideItem>
-            <SlideItem class=" gray">
-              <div class="big">社区</div>
+            <SlideItem>
+              <Community/>
             </SlideItem>
             <SlideItem class=" gray">
               <div class="big">关注</div>
             </SlideItem>
-            <SlideItem class=" gray">
-              <div class="big">商城</div>
+            <SlideItem>
+              <Shop/>
             </SlideItem>
             <SlideItem>
               <VInfinite
@@ -203,6 +203,8 @@ import Dom from "../../utils/dom";
 import ShareToFriend from "@/pages/home/components/ShareToFriend";
 import resource from "@/assets/data/resource";
 import UserPanel from "@/components/UserPanel.vue";
+import Community from "@/pages/slideHooks/Community.vue";
+import Shop from "@/pages/slideHooks/Shop.vue";
 
 const nav = useNav()
 
@@ -477,14 +479,14 @@ function render(item, itemIndex, play, position) {
   .slide-content {
     width: 100%;
     height: 100%;
-
   }
 }
 
 .first-horizontal-item {
-  width: 90vw;
-  height: 80vh;
-  //height: calc(100vh - @footer-height);
+  //width: 90vw;
+  //height: 80vh;
+  width: 100vw;
+  height: calc(100vh - @footer-height);
   overflow: hidden;
 
   .red {

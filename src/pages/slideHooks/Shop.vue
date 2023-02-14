@@ -97,11 +97,13 @@ onMounted(() => {
 #Shop {
   font-size: 14rem;
   color: white;
+  padding-top: @header-height;
 
   .search {
     display: flex;
     align-items: center;
-    padding: 20rem;
+    height: @header-height;
+    padding: 0 20rem;
 
     img {
       width: 20rem;
@@ -176,7 +178,7 @@ onMounted(() => {
 
   .Scroll {
     //height: calc(100vh - @header-height) !important;
-    height: calc(100vh - 90rem) !important;
+    height: calc(100vh - @header-height - @footer-height) !important;
   }
 
   .goods-list {

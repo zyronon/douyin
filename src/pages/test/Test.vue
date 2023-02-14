@@ -3,9 +3,9 @@
   <!--  <SlideUser></SlideUser>-->
   <!--  <SlideImgs></SlideImgs>-->
   <!--  <TestSwiperJs></TestSwiperJs>-->
-<!--  <slideHooks/>-->
+  <slideHooks/>
 <!--  <Shop/>-->
-  <Community/>
+<!--  <Community/>-->
 <!--  <UserPanel/>-->
 
   <!--  <div class="body">-->
