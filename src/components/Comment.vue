@@ -11,9 +11,9 @@
       mode="white">
     <template v-slot:header>
       <div class="title">
-        <back mode="dark" img="close" direction="right" style="opacity: 0;"/>
+        <dy-back mode="dark" img="close" direction="right" style="opacity: 0;"/>
         <span>2.7w条评论</span>
-        <back mode="dark" img="close" direction="right" @click.stop="cancel"/>
+        <dy-back mode="dark" img="close" direction="right" @click.stop="cancel"/>
       </div>
     </template>
     <div class="comment">
