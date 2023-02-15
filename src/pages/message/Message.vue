@@ -387,7 +387,7 @@
                 <span>搜索 <span style="color: yellow">{{ searchKey }}</span></span>
                 <span class="second-text-color f12">视频、用户、音乐、话题、地点等</span>
               </div>
-              <back mode="gray" img="back" direction="right" scale=".7"/>
+              <dy-back mode="gray" img="back" direction="right" scale=".7"/>
             </div>
           </div>
 
