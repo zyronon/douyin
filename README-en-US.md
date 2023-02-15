@@ -13,7 +13,7 @@
 **Douyin** is a mobile short video project imitating Tiktok，It is based on [vue 3](https://v3.cn.vuejs.org/),
 [vite 2](https://cn.vitejs.dev/)
 implementation。
-The latest Vue family bucket technology stack is used, and the background data is built through [mock-js](http://mockjs.com). I believe that no matter what level of engineer you are, this project can help you.
+The latest Vue family bucket technology stack is used, and the background data is built through [mock-js](http://mockjs.com). 
 
 ## Function point
 
