@@ -70,19 +70,21 @@ onMounted(() => {
   font-size: 14rem;
   color: white;
   padding-top: @header-height;
+  background: rgb(21, 23, 36);
 
   .Scroll {
-    background: black;
-    //height: calc(100vh - @header-height) !important;
     height: calc(100vh - @header-height - @footer-height) !important;
   }
 
-  .goods-list {
+  @p: 1rem;
 
+  .goods-list {
+    padding: @p;
+    box-sizing: border-box;
   }
 
   .goods {
-    width: 50%;
+    width: calc(50% - @p);
     padding: 3rem;
     box-sizing: border-box;
 

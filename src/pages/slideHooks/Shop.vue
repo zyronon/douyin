@@ -1,5 +1,9 @@
 <template>
   <div id="Shop">
+    <div class="bg">
+      <div class="top"></div>
+      <div class="bottom"></div>
+    </div>
     <div class="search">
       <div class="search-input">
         <img src="@/assets/img/icon/search-gray.png" alt="">
@@ -13,6 +17,8 @@
       </div>
     </div>
     <Scroll class="Scroll"
+            fixedHeight="100"
+            @fixed="e=>state.fixed = e"
             @pulldown="loadData">
       <div class="options">
         <div class="option">
@@ -30,6 +36,7 @@
         </div>
       </div>
       <div v-masonry class="goods-list"
+           :class="{fixed:state.fixed}"
            transition-duration="0s"
            item-selector=".goods">
         <div v-masonry-tile class="goods" v-for="(item, index) in  state.list">
@@ -66,7 +73,8 @@ import Scroll from "@/components/Scroll.vue";
 
 const state = reactive({
   list: [],
-  listEl: null
+  listEl: null,
+  fixed: false
 })
 
 function loadData() {
@@ -98,12 +106,39 @@ onMounted(() => {
   font-size: 14rem;
   color: white;
   padding-top: @header-height;
+  position: relative;
+  background: white;
+
+  .bg {
+    top: 0;
+    position: absolute;
+    width: 100vw;
+    height: 30vh;
+    //background: red;
+
+    @th: 70%;
+    @eColor: rgb(32, 28, 58);
+
+    .top {
+      height: @th;
+      background: linear-gradient(to bottom, rgb(56, 30, 77), @eColor);
+    }
+
+    .bottom {
+      height: 100% - @th;
+      background: red;
+      background: linear-gradient(to bottom, @eColor, white);
+    }
+  }
 
   .search {
+    position: relative;
+    z-index: 2;
     display: flex;
     align-items: center;
     height: @header-height;
-    padding: 0 20rem;
+    padding: 9rem 20rem;
+    box-sizing: border-box;
 
     img {
       width: 20rem;
@@ -112,9 +147,11 @@ onMounted(() => {
     .search-input {
       border: 3rem solid rgb(140, 48, 74);
       border-radius: 8rem;
-      padding: 10rem 20rem;
+      height: 100%;
+      padding: 0 10rem;
       flex: 1;
       display: flex;
+      align-items: center;
 
       .placeholder {
         flex: 1;
@@ -143,7 +180,9 @@ onMounted(() => {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20rem;
-    padding: 0 20rem;
+    height: 40rem;
+    padding: 4rem 20rem;
+    box-sizing: border-box;
 
     img {
       width: 20rem;
@@ -151,11 +190,12 @@ onMounted(() => {
     }
 
     .option {
+      font-size: 13rem;
       flex: 1;
       display: flex;
       background: rgb(63, 58, 78);
-      padding: 8rem;
-      border-radius: 8rem;
+      padding: 6rem 8rem;
+      border-radius: 6rem;
     }
   }
 
@@ -170,22 +210,26 @@ onMounted(() => {
 
     .nav {
       margin: 10rem;
-      padding-bottom: 10rem;
       word-break: keep-all;
       //border-bottom: 2rem solid white;
     }
   }
 
   .Scroll {
+    position: relative;
+    z-index: 2;
     //height: calc(100vh - @header-height) !important;
-    height: calc(100vh - @header-height - @footer-height) !important;
+    height: calc(100vh - @header-height * 2 - @footer-height) !important;
+  }
+
+  .fixed {
+    background: white;
   }
 
   @p: 5rem;
 
   .goods-list {
     padding: @p;
-    background: white;
   }
 
   .goods {

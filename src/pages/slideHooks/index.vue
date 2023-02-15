@@ -50,7 +50,7 @@
           </div>
         </div>
         <div class="sub-type-notice"
-             v-if="state.subType===-1"
+             v-if="state.subType===-1 && state.navIndex === 0"
              @click="showSubType">附近吃喝玩乐
         </div>
         <div class="slide-content"
@@ -74,6 +74,7 @@
             </SlideItem>
             <SlideItem>
               <VInfinite
+                  :style="{background: 'black'}"
                   name="main"
                   v-model:index="state.itemIndex"
                   :render="render"
@@ -88,16 +89,6 @@
               </VInfinite>
             </SlideItem>
           </H>
-        </div>
-        <div>
-          <span>{{ state.baseIndex }}</span>
-          <button @click="state.baseIndex++">加</button>
-          <button @click="state.baseIndex--">减</button>
-        </div>
-        <div>
-          <span>{{ state.navIndex }}</span>
-          <button @click="state.navIndex++">加</button>
-          <button @click="state.navIndex--">减</button>
         </div>
         <Footer v-bind:init-tab="1"/>
       </SlideItem>
@@ -301,8 +292,9 @@ function showSubType(e) {
   setTimeout(() => {
     state.subTypeIsTop = true
   }, 300)
+  let id = state.recommendVideos[state.itemIndex].id
   bus.emit(EVENT_KEY.OPEN_SUB_TYPE, {
-    index: 0,
+    id,
     height: subTypeRef.value.getBoundingClientRect().height
   })
 }
@@ -312,7 +304,8 @@ function pageClick(e) {
   if (state.subType !== -1) {
     state.subType = -1
     state.subTypeIsTop = false
-    bus.emit(EVENT_KEY.CLOSE_SUB_TYPE, {index: 0,})
+    let id = state.recommendVideos[state.itemIndex].id
+    bus.emit(EVENT_KEY.CLOSE_SUB_TYPE, {id})
     Utils.$stopPropagation(e)
   }
 }
