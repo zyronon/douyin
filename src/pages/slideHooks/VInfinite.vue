@@ -4,7 +4,7 @@ import GM from '../../utils'
 import {getSlideDistance, slideInit, slideReset, slideTouchEnd, slideTouchMove, slideTouchStart} from "./common";
 import {SlideType} from "../../utils/const_var";
 import SlideItem from './SlideItem'
-import bus from "../../utils/bus";
+import bus, {EVENT_KEY} from "../../utils/bus";
 import {useStore} from 'vuex'
 import Utils from "../../utils";
 import Dom from "@/utils/dom";
@@ -91,12 +91,19 @@ watch(
     }
 )
 watch(
-    ()=>props.index,
-    ()=>{
-      // new Dom(this.wrapper).find(`.v-${this.prefix}-${newVal}-video`).trigger('play')
-      // setTimeout(() => {
-      //   new Dom(this.wrapper).find(`.v-${this.prefix}-${oldVal}-video`).trigger('stop')
-      // }, 200)
+    () => props.index,
+    (newVal, oldVal) => {
+      // console.log('watch-index', newVal, oldVal, props.list[newVal].id)
+      bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
+        id: props.list[newVal].id,
+        type: EVENT_KEY.ITEM_PLAY
+      })
+      setTimeout(() => {
+        bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
+          id: props.list[oldVal].id,
+          type: EVENT_KEY.ITEM_STOP
+        })
+      }, 200)
     }
 )
 

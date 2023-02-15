@@ -335,12 +335,12 @@ function end() {
 
 onMounted(() => {
   getData()
-  bus.on('singleClick', () => {
+  bus.on(EVENT_KEY.SINGLE_CLICK, () => {
     let id = ''
     if (state.navIndex === 4) {
       id = state.recommendVideos[state.itemIndex].id
     }
-    bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, id)
+    bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {id, type: EVENT_KEY.ITEM_TOGGLE})
   })
   bus.on('update:item', val => {
     const {baseIndex, navIndex, itemIndex} = val.position

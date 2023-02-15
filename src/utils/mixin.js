@@ -15,7 +15,7 @@ import Loading from "../components/Loading";
 import BaseButton from "../components/BaseButton";
 import CONST_VAR from "./const_var";
 import Dom from "./dom";
-import bus from "./bus";
+import bus, {EVENT_KEY} from "./bus";
 import {random} from "lodash";
 
 export default {
@@ -152,7 +152,7 @@ export default {
           } else {
             clickTimer = setTimeout(() => {
               console.log('单击')
-              bus.emit('singleClick')
+              bus.emit(EVENT_KEY.SINGLE_CLICK)
             }, checkTime);
           }
           lastClickTime = nowTime;
