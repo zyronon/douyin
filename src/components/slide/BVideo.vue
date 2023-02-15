@@ -53,8 +53,8 @@
            @touchend="touchend"
       >
         <div class="time" v-if="isMove">
-          <span class="currentTime">{{ $duration(currentTime) }}</span>
-          <span class="duration"> / {{ $duration(duration) }}</span>
+          <span class="currentTime">{{ LUtils.$duration(currentTime) }}</span>
+          <span class="duration"> / {{ LUtils.$duration(duration) }}</span>
         </div>
         <div class="bg"></div>
         <div class="progress-line" :style="durationStyle"></div>
@@ -158,7 +158,7 @@ export default {
       height: 0,
       width: 0,
       isMove: false,
-      isSingleClick: false,
+      ignoreWaiting: false,//忽略waiting事件。因为改变进度会触发waiting事件，烦的一批
       test: [1, 2],
       localItem: this.item,
       progressBarRect: {},
@@ -166,6 +166,7 @@ export default {
       videoPoster: `?vframe/jpg/offset/0/w/${document.body.clientWidth}`,
       commentVisible: false,
       isMarginTop: false,
+      LUtils: Utils
     }
   },
   mounted() {
@@ -188,9 +189,10 @@ export default {
 
     let eventTester = (e, t) => {
       video.addEventListener(e, () => {
+        // console.log('eventTester', e, this.item.id)
         if (e === 'playing') this.loading = false
         if (e === 'waiting') {
-          if (!this.paused && !this.isSingleClick) {
+          if (!this.paused && !this.ignoreWaiting) {
             this.loading = true
           }
         }
@@ -283,35 +285,37 @@ export default {
         this.commentVisible = false
       }
     },
-    click(val) {
-      if (this.item.id === val) {
-        if (this.status === SlideItemPlayStatus.Play) {
-          this.pause()
-        } else {
-          this.play()
-          //这里playg事件，触发之后，会马上触发一次waiting事件。就很烦，会出现点完播放之后闪一下loading的情况，所以用一个变量来规避一下
-          // this.isSingleClick = true
-          setTimeout(() => {
-            // this.isSingleClick = false
-          }, 300)
+    click({id, type}) {
+      if (this.item.id === id) {
+        if (type === EVENT_KEY.ITEM_TOGGLE) {
+          if (this.status === SlideItemPlayStatus.Play) {
+            this.pause()
+          } else {
+            this.play()
+          }
         }
-        this.loading = false
+        if (type === EVENT_KEY.ITEM_STOP) {
+          this.$refs.video.currentTime = 0
+          this.ignoreWaiting = true
+          this.pause()
+          setTimeout(() => this.ignoreWaiting = false, 300)
+        }
+        if (type === EVENT_KEY.ITEM_PLAY) {
+          this.$refs.video.currentTime = 0
+          this.ignoreWaiting = true
+          this.play()
+          setTimeout(() => this.ignoreWaiting = false, 300)
+        }
       }
     },
     play() {
       this.status = SlideItemPlayStatus.Play
-      if (this.currentTime !== -1) {
-        this.$refs.video.currentTime = this.currentTime
-      }
       this.$refs.video.volume = 1
       this.$refs.video.play()
     },
     pause() {
       this.status = SlideItemPlayStatus.Pause
       this.$refs.video.pause()
-    },
-    formatNumber(v) {
-      return Utils.formatNumber(v)
     },
     touchstart(e) {
       Utils.$stopPropagation(e)
@@ -335,6 +339,7 @@ export default {
       Utils.$stopPropagation(e)
       if (this.isPlaying) return
       setTimeout(() => this.isMove = false, 1000)
+      this.$refs.video.currentTime = this.currentTime
       this.play()
     }
   }
