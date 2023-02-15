@@ -54,7 +54,7 @@ cd douyin
 npm install
 
 # Start the service
-npm run serve
+npm run dev
 
 # Visit
 Chrome browser access http://localhost:8080
