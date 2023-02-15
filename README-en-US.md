@@ -1,12 +1,10 @@
 ### English | [简体中文](README.md)
 
 ## Preview Demo
-
-### Notice:Please use Chrome phone mode to access the PC side
-
-### Notice:Preview your phone with Android Via browser. When other browsers detect a video on the page, they force the video to be in full screen and display the control button. As a result, both css and js are invalid
-
 [Online Demo](https://ttentau.github.io/ttentau/dy/)
+
+### Note: Please use mobile mode of Chrome browser to access the PC side. To switch Chrome to mobile mode, press F12 to bring up the console, then Ctrl+Shift+M
+### Note: For Android phones please use [Via mobile browser](https://viayoo.com/zh-cn/) or Chrome mobile version preview. When other browsers detect a video on the page, they force the video to be in full screen and display the control button. As a result, both css and js are invalid
 
 ## Introduction
 
@@ -57,7 +55,7 @@ npm install
 npm run dev
 
 # Visit
-Chrome browser access http://localhost:8080
+Chrome browser access http://localhost:5173
 Chrome switches to mobile mode by pressing F12 to bring up the console, then Ctrl+Shift+M
 
 ```
