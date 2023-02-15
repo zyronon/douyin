@@ -2,8 +2,8 @@
 
 ## 预览
 [在线预览DEMO](https://ttentau.github.io/ttentau/dy/)
-### 注意：电脑端请用Chrome手机模式访问
-### 注意：安卓手机请用Via浏览器预览。其他浏览器检测到页面内有视频会强制将视频全屏，并显示控制按钮，导致css和js都失效
+### 注意：电脑端请用Chrome浏览器的手机模式访问。Chrome切换成手机模式快捷键，先按F12调出控制台，再按Ctrl+Shift+M
+### 注意：安卓手机请用[Via手机浏览器](https://viayoo.com/zh-cn/)或者Chrome浏览器手机版本预览。其他浏览器检测到页面内有视频会强制将视频全屏，并显示控制按钮，导致css和js都失效
 
 ## 简介
 
@@ -53,8 +53,8 @@ npm install
 npm run dev
 
 # 访问
-Chrome浏览器访问 http://localhost:8080
-Chrome切换成移动端模式快捷键，先按F12调出控制台，再按Ctrl+Shift+M
+Chrome浏览器访问 http://localhost:5173
+Chrome切换成手机模式快捷键，先按F12调出控制台，再按Ctrl+Shift+M
 
 ```
 
