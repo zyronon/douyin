@@ -2,7 +2,6 @@
 
 ## 预览
 [在线预览DEMO](https://ttentau.github.io/ttentau/dy/)
-### 注意： 无法加载视频，因为GitPage把http强制https请求cdn了
 ### 注意：电脑端请用Chrome手机模式访问
 ### 注意：安卓手机请用Via浏览器预览。其他浏览器检测到页面内有视频会强制将视频全屏，并显示控制按钮，导致css和js都失效
 
