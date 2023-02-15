@@ -245,11 +245,13 @@ export default {
     bus.off(EVENT_KEY.CLOSE_SUB_TYPE, this.onCloseSubType)
   },
   methods: {
-    onOpenSubType({index, height}) {
+    onOpenSubType({id, height}) {
+      if (id !== this.item.id) return
       this.isMarginTop = true
       Utils.$setCss(this.$refs.video, 'margin-top', `${height}px`)
     },
-    onCloseSubType({index}) {
+    onCloseSubType({id}) {
+      if (id !== this.item.id) return
       this.isMarginTop = false
       Utils.$setCss(this.$refs.video, 'margin-top', `0px`)
     },
@@ -370,7 +372,7 @@ export default {
     width: 100%;
     height: 100%;
     transition: height, margin-top .3s;
-    background: black;
+    //background: black;
     /*position: absolute;*/
   }
 

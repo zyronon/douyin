@@ -97,7 +97,7 @@ export default {
       }
     },
     scrollBottom() {
-      nextTick(()=>{
+      nextTick(() => {
         this.wrapper.scrollTo({top: this.wrapper.scrollHeight - this.wrapper.clientHeight})
       })
     }

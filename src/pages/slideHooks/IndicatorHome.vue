@@ -188,8 +188,6 @@ export default {
 <style scoped lang="less">
 @import "@/assets/less/index";
 
-@height: 60rem;
-
 .indicator-home {
   position: fixed;
   font-size: 16rem;
@@ -198,7 +196,7 @@ export default {
   z-index: 2;
   width: 100%;
   color: white;
-  height: @height;
+  height: @header-height;
   transition: all .3s;
 
   .notice {
