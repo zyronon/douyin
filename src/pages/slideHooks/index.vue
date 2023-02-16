@@ -9,50 +9,7 @@
             name="main"
             v-model:index="state.navIndex"
         />
-        <div class="sub-type"
-             :class="state.subTypeIsTop?'top':''"
-             ref="subTypeRef">
-          <div class="local">
-            <div class="card" @touchmove.capture="stop">
-              <div class="nav-item">
-                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                <span>美食</span>
-              </div>
-              <div class="nav-item">
-                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                <span>休闲娱乐</span>
-              </div>
-              <div class="nav-item">
-                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                <span>游玩</span>
-              </div>
-              <div class="nav-item">
-                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                <span>丽人/美发</span>
-              </div>
-              <div class="nav-item">
-                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                <span>住宿</span>
-              </div>
-              <div class="nav-item">
-                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                <span>游玩</span>
-              </div>
-              <div class="nav-item">
-                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                <span>丽人/美发</span>
-              </div>
-              <div class="nav-item">
-                <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                <span>住宿</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="sub-type-notice"
-             v-if="state.subType===-1 && state.navIndex === 0"
-             @click="showSubType">附近吃喝玩乐
-        </div>
+
         <div class="slide-content"
              @touchstart="pageClick">
           <H class="first-horizontal-item"
@@ -61,7 +18,64 @@
              v-love="'slideHook'"
              v-model:index="state.navIndex">
             <SlideItem>
-              <div class="big">热点</div>
+              <div class="sub-type"
+                   :class="state.subTypeIsTop?'top':''"
+                   ref="subTypeRef">
+                <div class="local">
+                  <div class="card" @touchmove.capture="stop">
+                    <div class="nav-item">
+                      <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                      <span>美食</span>
+                    </div>
+                    <div class="nav-item">
+                      <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                      <span>休闲娱乐</span>
+                    </div>
+                    <div class="nav-item">
+                      <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                      <span>游玩</span>
+                    </div>
+                    <div class="nav-item">
+                      <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                      <span>丽人/美发</span>
+                    </div>
+                    <div class="nav-item">
+                      <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                      <span>住宿</span>
+                    </div>
+                    <div class="nav-item">
+                      <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                      <span>游玩</span>
+                    </div>
+                    <div class="nav-item">
+                      <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                      <span>丽人/美发</span>
+                    </div>
+                    <div class="nav-item">
+                      <img src="../../assets/img/icon/msg-icon9.webp" alt="">
+                      <span>住宿</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="sub-type-notice"
+                   v-if="state.subType===-1 && state.navIndex === 0"
+                   @click="showSubType">附近吃喝玩乐
+              </div>
+              <VInfinite
+                  :style="{background: 'black'}"
+                  name="main"
+                  v-model:index="state.itemIndex"
+                  :render="render"
+                  :list="state.recommendVideos"
+                  :position="{
+                  baseIndex:0,
+                  navIndex:5,
+                }"
+                  @loadMore="loadMore"
+                  @refresh="() => getData(true)"
+              >
+              </VInfinite>
             </SlideItem>
             <SlideItem>
               <Community/>
@@ -92,8 +106,7 @@
         </div>
         <Footer v-bind:init-tab="1"/>
       </SlideItem>
-      <SlideItem class=" gray">
-        <!--          <div class="big" v-for="i in 100">主页</div>-->
+      <SlideItem>
         <UserPanel
             ref="uploader"
             :isOnThisPage="state.baseIndex === 1"
