@@ -122,3 +122,4 @@ export function getSlideDistance(state, type = SlideType.HORIZONTAL) {
     return -state.localIndex * state.wrapper.height
   }
 }
+

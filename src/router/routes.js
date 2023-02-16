@@ -69,16 +69,16 @@ const routes = [
   {path: '/', redirect: '/test'},
   {path: '/test', component: Test},
   {path: '/test4', component: Test4},
-  {path: '/home', component: Index2},
-  {path: '/home/music', component: Music},
-  {path: '/home/music-rank-list', component: MusicRankList},
-  {path: '/home/search', component: Search},
-  {path: '/home/live', component: LivePage},
 
   {path: '/video-detail', component: VideoDetail},
   {path: '/attention', component: Attention},
   {path: '/publish', component: Publish},
 
+  {path: '/home', component: Index2},
+  {path: '/home/music', component: Music},
+  {path: '/home/music-rank-list', component: MusicRankList},
+  {path: '/home/live', component: LivePage},
+  {path: '/home/search', component: Search},
 
   {path: '/me', component: Me,},
   {path: '/me/edit-userinfo', component: EditUserInfo},

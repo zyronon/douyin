@@ -3,7 +3,7 @@
        @scroll="scroll"
        ref="page">
     <div ref="float" class="float" :class="state.floatFixed?'fixed':''">
-      <div class="left" @click="back">
+      <div class="left" @click="$emit('back')">
         <img class="back" src="@/assets/img/icon/next.svg" alt="">
         <transition name="fade">
           <div class="float-user" v-if="state.floatFixed">
@@ -195,6 +195,7 @@ import {useStore} from "vuex";
 import resource from "@/assets/data/resource";
 import Posters from '@/components/Posters'
 
+const emit = defineEmits(['back'])
 const $nav = useNav()
 const store = useStore()
 const props = defineProps({
