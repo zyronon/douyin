@@ -226,7 +226,7 @@ const bodyWidth = computed(() => store.state.bodyWidth)
 const subTypeRef = ref(null)
 const state = reactive({
   baseIndex: 0,
-  navIndex: 0,
+  navIndex: 4,
   itemIndex: 0,
   test: '',
   recommendVideos: [
@@ -234,14 +234,14 @@ const state = reactive({
     //   type: 'img',
     //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
     // },
-    {
-      type: 'imgs',
-      src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
-    },
-    {
-      type: 'user',
-      src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
-    },
+    // {
+    //   type: 'imgs',
+    //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
+    // },
+    // {
+    //   type: 'user',
+    //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
+    // },
   ],
 
   isSharing: false,
@@ -403,7 +403,6 @@ function render(item, itemIndex, play, position) {
 
 <style scoped lang="less">
 @import "@/assets/less/index";
-
 
 .test-slide-wrapper {
   font-size: 14rem;

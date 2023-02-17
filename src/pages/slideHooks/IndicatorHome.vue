@@ -1,5 +1,5 @@
 <template>
-  <div class="indicator-home" :class="isLight">
+  <div class="indicator-home" :class="{isLight}">
     <transition name="fade">
       <div class="mask" v-if="open" @click="open = false"></div>
     </transition>
@@ -205,7 +205,11 @@ export default {
   font-weight: bold;
 
   &.isLight {
-    color: black;
+    .tab{
+      &.active {
+        color: black!important;
+      }
+    }
   }
 
   .notice {

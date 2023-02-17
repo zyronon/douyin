@@ -340,10 +340,10 @@ export default {
       margin-bottom: @space-width;
 
       img {
-        width: @icon-width - 2.6;
-        height: @icon-width - 2.6;
+        width: 20rem;
         padding: 13rem;
         border-radius: 50%;
+        margin-bottom: 3rem;
         background: @second-btn-color-tran;
         //background: rgb(56, 58, 57);
       }

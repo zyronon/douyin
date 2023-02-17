@@ -246,6 +246,7 @@ export default {
 </script>
 
 <style scoped lang="less">
+@p: 15rem;
 #SlideUser {
   width: 100%;
   height: 100%;
@@ -255,9 +256,11 @@ export default {
   align-items: center;
   justify-content: center;
   position: relative;
+  padding: 0 @p;
+  box-sizing: border-box;
 
   .content {
-    width: 85%;
+    width: 100%;
     background: linear-gradient(to bottom, rgb(71, 90, 110), rgb(97, 84, 75));
     display: flex;
     flex-direction: column;
@@ -362,11 +365,11 @@ export default {
     bottom: 20rem;
     display: flex;
     justify-content: space-between;
-    left: 15rem;
-    right: 15rem;
+    left: @p;
+    right: @p;
 
     .button {
-      width: 49%;
+      width: 48%;
     }
 
 
