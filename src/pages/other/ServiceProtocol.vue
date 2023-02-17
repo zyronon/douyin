@@ -1734,9 +1734,9 @@ export default {
   overflow: auto;
 
   .content {
-    padding: 6rem 1rem 10rem 2rem;
+    padding: 60rem 10rem 100rem 20rem;
     color: white;
-    font-size: 1.4rem;
+    font-size: 14rem;
   }
 }
 </style>

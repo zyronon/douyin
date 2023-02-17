@@ -37,7 +37,7 @@ export default {
   color: white;
 
   .content {
-    padding-top: 6rem;
+    padding-top: 60rem;
   }
 }
 </style>

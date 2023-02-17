@@ -19,7 +19,7 @@
             v-model:active-index="slideIndex">
         </Indicator>
       </div>
-      <SlideRowList v-model:active-index="slideIndex" style="height: calc(100vh - 11.1rem)">
+      <SlideRowList v-model:active-index="slideIndex" style="height: calc(100vh - 111rem)">
         <SlideItem class="tab1">
           <Search v-model="searchKey" placeholder="搜索用户备注或名字" :is-show-right-text="false"/>
           <div class="is-search" v-if="searchKey">
@@ -117,7 +117,7 @@ export default {
   bottom: 0;
   top: 0;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .content {
     padding-top: @header-height;
@@ -133,7 +133,7 @@ export default {
       position: fixed;
       width: 100vw;
       box-sizing: border-box;
-      padding: 1rem @padding-page 0 @padding-page;
+      padding: 10rem @padding-page 0 @padding-page;
     }
   }
 
@@ -147,17 +147,17 @@ export default {
     .title {
       display: flex;
       align-items: center;
-      margin-bottom: 1rem;
+      margin-bottom: 10rem;
       color: @second-text-color;
-      font-size: 1.2rem;
+      font-size: 12rem;
     }
 
     .no-search {
-      padding-top: 6rem;
+      padding-top: 60rem;
     }
 
     .is-search {
-      padding-top: 5rem;
+      padding-top: 50rem;
 
       .no-result {
         display: flex;
@@ -165,18 +165,18 @@ export default {
         align-items: center;
 
         img {
-          margin-top: 15rem;
-          height: 15rem;
+          margin-top: 150rem;
+          height: 150rem;
         }
 
         .n1 {
-          margin-top: 4rem;
-          font-size: 1.6rem;
+          margin-top: 40rem;
+          font-size: 16rem;
         }
 
         .n2 {
-          margin-top: 2rem;
-          font-size: 1.2rem;
+          margin-top: 20rem;
+          font-size: 12rem;
           color: @second-text-color;
         }
       }

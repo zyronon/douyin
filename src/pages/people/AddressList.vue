@@ -56,11 +56,11 @@ export default {
   color: white;
 
   .content {
-    padding-top: 6rem;
+    padding-top: 60rem;
 
     .recommend {
       .title {
-        padding: 20px 20px 10px 20px;
+        padding: 20rem 20rem 10rem 20rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -69,25 +69,25 @@ export default {
           color: @second-text-color;
 
           img {
-            width: 10px;
-            height: 10px;
+            width: 10rem;
+            height: 10rem;
           }
         }
 
         .right {
           border-radius: 50%;
           background: @second-text-color;
-          padding: 5px;
-          width: 10px;
-          height: 10px;
+          padding: 5rem;
+          width: 10rem;
+          height: 10rem;
         }
       }
     }
 
     .footer {
       text-align: center;
-      line-height: 6rem;
-      height: 6rem;
+      line-height: 60rem;
+      height: 60rem;
       color: @second-text-color;
 
     }
