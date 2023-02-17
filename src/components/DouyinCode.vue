@@ -2,19 +2,15 @@
   <transition name="fade">
     <div class="DouyinCode" v-if="modelValue">
       <div class="content">
-        <img class="top" src="../assets/img/icon/components/video/douyin-code-bg.png" alt="">
+        <div class="video-poster">
+          <img src="../assets/img/poster/1.jpg" class="poster">
+        </div>
         <div class="desc">
           <div class="left">
             <div class="user">@名字</div>
             <div class="title">#窃书不能算偷……窃书！……读书人的事，能算偷么？</div>
           </div>
           <img class="code" src="../assets/img/icon/components/video/douyin-code.jpg" alt="">
-        </div>
-        <img class="bottom" src="../assets/img/icon/components/video/douyin-code-bottom.jpg" alt="">
-
-        <div class="video-poster">
-          <img src="../assets/img/poster/1.jpg" class="poster">
-          <img src="../assets/img/icon/play-white.png" class="play">
         </div>
       </div>
       <div class="toolbar">
@@ -38,7 +34,7 @@
           </div>
           <div class="share-to" @click="$no">
             <img src="../assets/img/icon/components/video/todownload.webp" alt="">
-            <span>保存</span>
+            <span>保存到相册</span>
           </div>
         </div>
         <div class="cancel" @click="cancel">取消</div>
@@ -80,16 +76,15 @@ export default {
   align-items: center;
   justify-content: flex-end;
   background: transparent;
+  @w: 70vw;
 
   .content {
     background: white;
-    width: 80vw;
-    margin-bottom: 20rem;
+    width: @w;
+    margin-bottom: 40rem;
     position: relative;
-
-    .top {
-      width: 100%;
-    }
+    border-radius: 10rem;
+    overflow: hidden;
 
     .desc {
       margin-bottom: 20rem;
@@ -103,42 +98,21 @@ export default {
           font-size: 14rem;
           color: @second-text-color;
         }
-
       }
-
       .code {
         width: 60rem;
       }
     }
 
-    .bottom {
-      width: 100%;
-    }
-
     .video-poster {
-      width: 35vw;
-      height: calc(35vw * 1.5);
-      position: absolute;
-      top: 80rem;
-      left: 50%;
-      transform: translateX(-50%);
+      width: @w;
+      height: @w;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
 
       .poster {
-        position: absolute;
-        top: 0;
-        left: 0;
         width: 100%;
         height: 100%;
-      }
-
-      .play {
-        position: relative;
-        z-index: 9;
-        width: 40rem;
+        object-fit: cover;
       }
     }
   }
@@ -151,7 +125,7 @@ export default {
 
     .title {
       font-size: 12rem;
-      padding: 10rem;
+      padding: 14rem;
       text-align: center;
     }
 
@@ -163,15 +137,14 @@ export default {
       padding-right: @space-width * 2;
 
       .share-to {
-        margin-left: @space-width;
+        margin-left: 28rem;
         margin-bottom: @space-width;
 
-
         img {
-
           width: @icon-width;
           height: @icon-width;
           border-radius: 50%;
+          margin-bottom: 5rem;
         }
 
         span {
@@ -185,7 +158,7 @@ export default {
 
     .cancel {
       font-size: 16rem;
-      background: rgb(38,38,38);
+      background: rgb(38, 38, 38);
       padding: 15rem;
       text-align: center;
     }

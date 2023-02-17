@@ -14,7 +14,7 @@
         >
           <H class="first-horizontal-item"
              name="main"
-             id="slideHook"
+             id="home-index"
              v-model:index="state.navIndex">
             <SlideItem id="slide1">
               <div class="sub-type"
@@ -63,7 +63,7 @@
               </div>
               <VInfinite
                   @touchstart="pageClick"
-                  v-love="'slideHook'"
+                  v-love="'home-index'"
                   :style="{background: 'black',marginTop:state.subTypeVisible?state.subTypeHeight:0}"
                   name="main"
                   id="slide1-infinite"
@@ -121,18 +121,17 @@
       </SlideItem>
     </H>
 
-    <Comment page-id="slideHook" v-model="state.commentVisible"
+    <Comment page-id="home-index" v-model="state.commentVisible"
              @close="closeComments"
     />
 
     <Share v-model="state.isSharing"
            ref="share"
-           page-id="slideHook"
+           page-id="home-index"
            @dislike="dislike"
            :videoId="state.recommendVideos[state.itemIndex]?.id"
            :canDownload="state.recommendVideos[state.itemIndex]?.canDownload"
            @play-feedback="state.showPlayFeedback = true"
-           @showShareDuoshan="delayShowDialog(e => state.showShareDuoshan = true)"
            @shareToFriend="delayShowDialog(e => state.shareToFriend = true)"
            @showDouyinCode="state.showDouyinCode = true"
            @showShare2WeChatZone="state.shareType = 2"
@@ -146,8 +145,6 @@
     <PlayFeedback v-model="state.showPlayFeedback"/>
 
     <DouyinCode v-model="state.showDouyinCode"/>
-
-    <Duoshan v-model="state.showShareDuoshan"/>
 
     <ShareTo v-model:type="state.shareType"
              :videoId="state.recommendVideos[state.itemIndex]?.id"
@@ -195,19 +192,14 @@ import Utils from "@/utils";
 import api from "@/api";
 import {useStore} from "vuex";
 import PlayFeedback from "@/pages/home/components/PlayFeedback";
-import FromBottomDialog from "../../components/dialog/FromBottomDialog";
-import Duoshan from "@/pages/home/components/Duoshan";
 import ShareTo from "@/pages/home/components/ShareTo";
 import DouyinCode from "../../components/DouyinCode";
-import Uploader from "../me/Uploader";
 import FollowSetting from "@/pages/home/components/FollowSetting";
 import BlockDialog from "../message/components/BlockDialog";
 import Search from "../../components/Search";
 import ConfirmDialog from "../../components/dialog/ConfirmDialog";
 import FollowSetting2 from "@/pages/home/components/FollowSetting2";
-import Dom from "../../utils/dom";
 import ShareToFriend from "@/pages/home/components/ShareToFriend";
-import resource from "@/assets/data/resource";
 import UserPanel from "@/components/UserPanel.vue";
 import Community from "@/pages/slideHooks/Community.vue";
 import Shop from "@/pages/slideHooks/Shop.vue";
