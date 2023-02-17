@@ -21,12 +21,12 @@ import TestSlide from "./TestSlide";
 import SlideUser from "../../components/slide/SlideUser";
 import SlideImgs from "../../components/slide/SlideAlbum";
 import TestImg from "./TestImg";
-import slideHooks from '../slideHooks'
+import slideHooks from '../home/index.vue'
 import TestSwiperJs from "./TestSwiperJs";
 import {mat4} from "gl-matrix";
 import UserPanel from "@/components/UserPanel.vue";
-import Shop from "@/pages/slideHooks/Shop.vue";
-import Community from "@/pages/slideHooks/Community.vue";
+import Shop from "@/pages/home/components/Shop.vue";
+import Community from "@/pages/home/components/Community.vue";
 
 export default {
   name: "Test",

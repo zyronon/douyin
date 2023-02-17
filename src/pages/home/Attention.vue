@@ -14,9 +14,7 @@
 
 <script setup lang="jsx">
 
-import VInfinite from '@/pages/slideHooks/VInfinite.vue'
 import {reactive} from "vue";
-import api from "@/api";
 import {useNav} from "@/utils/hooks/useNav";
 import InfiniteList from "@/pages/slideHooks/InfiniteList.vue";
 

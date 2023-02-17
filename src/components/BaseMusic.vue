@@ -25,7 +25,7 @@ const style = computed(() => {
 .music-wrapper {
   display: flex;
   justify-content: center;
-  @w: 40rem;
+  @w: 45rem;
 
   .music {
     border-radius: 50%;

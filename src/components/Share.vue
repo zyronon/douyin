@@ -99,7 +99,7 @@
         </template>
         <template v-if="mode === 'video'">
           <div class="tool" @click.stop="$no">
-<!--TODO icon不对            -->
+            <!--TODO icon不对            -->
             <img src="../assets/img/icon/components/video/feedback.webp" alt="">
             <span>建群分享</span>
           </div>
@@ -144,7 +144,13 @@
             <Check mode="red" v-model="isCreateChat"/>
             <span>创建群聊</span>
           </div>
-          <b-button type="primary" @click.stop="$no">{{ selectFriends.length > 1 ? '分别发送' : '发送' }}</b-button>
+          <div class="btns">
+            <dy-button type="dark2" radius="7" @click.stop="$no">一起看视频</dy-button>
+            <dy-button type="primary" radius="7" @click.stop="$no">{{
+                selectFriends.length > 1 ? '分别发送' : '私信发送'
+              }}
+            </dy-button>
+          </div>
         </div>
       </div>
     </div>
@@ -210,6 +216,10 @@ export default {
       item.select = !item.select
     },
     closeShare() {
+      this.friends.all = this.friends.all.map(v => {
+        v.select = false
+        return v
+      })
       this.$emit("update:modelValue", false)
     }
   }
@@ -418,9 +428,12 @@ export default {
       }
     }
 
-    .button {
-
+    .btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10rem;
     }
+
   }
 }
 

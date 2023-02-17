@@ -23,9 +23,9 @@
         </span>
       </div>
 
-      <b-button  type="primary"  :loading="loading" :active="false" :disabled="code.length < 4" @click="login">
+      <dy-button  type="primary"  :loading="loading" :active="false" :disabled="code.length < 4" @click="login">
         {{ loading ? '登录中' : '登录' }}
-      </b-button>
+      </dy-button>
 
     </div>
   </div>

@@ -94,7 +94,7 @@
             <Check mode="red" v-model="isCreateChat"/>
             <span>创建群聊</span>
           </div>
-          <b-button type="primary">{{ selectFriends.length > 1 ? '分别发送' : '发送' }}</b-button>
+          <dy-button type="primary">{{ selectFriends.length > 1 ? '分别发送' : '发送' }}</dy-button>
         </div>
       </div>
     </div>

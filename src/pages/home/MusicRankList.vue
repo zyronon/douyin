@@ -66,7 +66,7 @@
                     <div class="follow_count">粉丝：83.4w</div>
                   </div>
                 </div>
-                <b-button type="primary">关注</b-button>
+                <dy-button type="primary">关注</dy-button>
                 <div class="arrow"></div>
               </div>
             </div>
@@ -114,7 +114,7 @@
                     <div class="follow_count">粉丝：83.4w</div>
                   </div>
                 </div>
-                <b-button type="primary">关注</b-button>
+                <dy-button type="primary">关注</dy-button>
                 <div class="arrow"></div>
               </div>
             </div>
@@ -162,7 +162,7 @@
                     <div class="follow_count">粉丝：83.4w</div>
                   </div>
                 </div>
-                <b-button type="primary">关注</b-button>
+                <dy-button type="primary">关注</dy-button>
                 <div class="arrow"></div>
               </div>
             </div>

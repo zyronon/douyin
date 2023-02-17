@@ -5,7 +5,7 @@
     </transition>
     <div class="notice" :style="noticeStyle"><span>下拉刷新内容</span></div>
     <div class="toolbar" ref="toolbar" :style="toolbarStyle">
-      <img src="../../assets/img/icon/scan.png"
+      <img src="../../../assets/img/icon/scan.png"
            class="search"
            @click="$nav('/home/live')"
            style="margin-top: .5rem;">
@@ -13,11 +13,11 @@
         <div class="tabs" ref="tabs">
           <div class="tab" :class="tabOneClass" @click.stop="change(0)">
             <span>热点</span>
-            <img v-show="index === 0" src="../../assets/img/icon/arrow-up-white.png" class="tab1-img">
+            <img v-show="index === 0" src="../../../assets/img/icon/arrow-up-white.png" class="tab1-img">
           </div>
           <div class="tab" :class="{active:index === 1}" @click.stop="change(1)">
             <span>社区</span>
-            <img src="../../assets/img/icon/live.webp" class="tab2-img">
+            <img src="../../../assets/img/icon/live.webp" class="tab2-img">
           </div>
           <div class="tab" :class="{active:index === 2}" @click.stop="change(2)"><span>关注</span>
           </div>
@@ -28,7 +28,7 @@
         </div>
         <div class="indicator" ref="indicator"></div>
       </div>
-      <img v-hide="loading" src="../../assets/img/icon/search-light.png"
+      <img v-hide="loading" src="../../../assets/img/icon/search-light.png"
            class="search"
            @click="$nav('/home/search')"
            style="margin-top: .5rem;">
@@ -36,7 +36,7 @@
     <div class="toggle-type" :class="{open}">
       <div class="l-button" :class="{active:type === 0}" @click="toggleType(0)">
         <span>同城</span>
-        <img v-if="type === 0" src="../../assets/img/icon/switch.png" alt="">
+        <img v-if="type === 0" src="../../../assets/img/icon/switch.png" alt="">
       </div>
       <div class="l-button" :class="{active:type === 1}" @click="toggleType(1)">学习</div>
       <div class="l-button" :class="{active:type === 2}" @click="toggleType(2)">热点</div>
@@ -46,8 +46,8 @@
   </div>
 </template>
 <script>
-import Loading from "../../components/Loading.vue";
-import bus from "../../utils/bus";
+import Loading from "../../../components/Loading.vue";
+import bus from "../../../utils/bus";
 import {mapState} from "vuex";
 
 export default {

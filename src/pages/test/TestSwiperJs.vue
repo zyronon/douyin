@@ -12,7 +12,6 @@
 
 </template>
 <script lang="jsx" setup>
-import SlideItem from "../slideHooks/SlideItem";
 import {onMounted, reactive, ref, watch} from "vue";
 import GM from "@/utils";
 import {
@@ -22,7 +21,7 @@ import {
   slideTouchEnd,
   slideTouchMove,
   slideTouchStart
-} from "@/pages/slideHooks/common";
+} from "@/components/slide/common";
 import {SlideType} from "@/utils/const_var";
 
 const emit = defineEmits(['update:index'])

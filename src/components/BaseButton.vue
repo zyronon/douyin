@@ -132,9 +132,8 @@ export default {
   }
 
   &.dark2 {
-    border: 1px solid @second-btn-color;
-    background: white;
-    color: #000;
+    background: rgb(36,36,36);
+    color: #fff;
   }
 
   &.green {

@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <b-button type="primary" @click="$no">提交</b-button>
+      <dy-button type="primary" @click="$no">提交</dy-button>
     </div>
   </div>
 </template>

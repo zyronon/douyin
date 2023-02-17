@@ -1,6 +1,6 @@
 <template>
   <div class="test-slide-wrapper">
-    <H v-model:index="state.baseIndex">
+    <SlideHorizontal v-model:index="state.baseIndex">
       <SlideItem>
         <IndicatorHome
             :isLight="state.subTypeVisible"
@@ -12,10 +12,11 @@
 
         <div class="slide-content"
         >
-          <H class="first-horizontal-item"
-             name="main"
-             id="home-index"
-             v-model:index="state.navIndex">
+          <SlideHorizontal class="first-horizontal-item"
+                           name="main"
+                           id="home-index"
+                           :change-active-index-use-anim="false"
+                           v-model:index="state.navIndex">
             <SlideItem id="slide1">
               <div class="sub-type"
                    :class="state.subTypeIsTop?'top':''"
@@ -61,7 +62,7 @@
                    v-if="state.subType===-1 && !state.subTypeVisible"
                    @click="showSubType">附近吃喝玩乐
               </div>
-              <VInfinite
+              <SlideVerticalInfinite
                   @touchstart="pageClick"
                   v-love="'home-index'"
                   :style="{background: 'black',marginTop:state.subTypeVisible?state.subTypeHeight:0}"
@@ -69,7 +70,7 @@
                   id="slide1-infinite"
                   v-model:index="state.itemIndex"
                   :render="render"
-                  :list="state.recommendVideos"
+                  :list="state.recommendList"
                   :position="{
                   baseIndex:0,
                   navIndex:5,
@@ -77,7 +78,7 @@
                   @loadMore="loadMore"
                   @refresh="() => getData(true)"
               >
-              </VInfinite>
+              </SlideVerticalInfinite>
             </SlideItem>
             <SlideItem>
               <Community/>
@@ -89,12 +90,13 @@
               <Shop/>
             </SlideItem>
             <SlideItem>
-              <VInfinite
+              <SlideVerticalInfinite
+                  ref="recommendListRef"
                   :style="{background: 'black'}"
                   name="main"
                   v-model:index="state.itemIndex"
                   :render="render"
-                  :list="state.recommendVideos"
+                  :list="state.recommendList"
                   :position="{
                   baseIndex:0,
                   navIndex:5,
@@ -102,9 +104,9 @@
                   @loadMore="loadMore"
                   @refresh="() => getData(true)"
               >
-              </VInfinite>
+              </SlideVerticalInfinite>
             </SlideItem>
-          </H>
+          </SlideHorizontal>
         </div>
         <Footer v-bind:init-tab="1"/>
       </SlideItem>
@@ -112,14 +114,14 @@
         <UserPanel
             ref="uploader"
             :isOnThisPage="state.baseIndex === 1"
-            :author="state.recommendVideos[state.itemIndex]?.author"
+            :author="state.recommendList[state.itemIndex]?.author"
             @toggleCanMove="e => state.canMove = e"
             @back="state.baseIndex = 0"
             @showFollowSetting="state.showFollowSetting = true"
             @showFollowSetting2="state.showFollowSetting2 = true"
         />
       </SlideItem>
-    </H>
+    </SlideHorizontal>
 
     <Comment page-id="home-index" v-model="state.commentVisible"
              @close="closeComments"
@@ -129,8 +131,8 @@
            ref="share"
            page-id="home-index"
            @dislike="dislike"
-           :videoId="state.recommendVideos[state.itemIndex]?.id"
-           :canDownload="state.recommendVideos[state.itemIndex]?.canDownload"
+           :videoId="state.recommendList[state.itemIndex]?.id"
+           :canDownload="state.recommendList[state.itemIndex]?.canDownload"
            @play-feedback="state.showPlayFeedback = true"
            @shareToFriend="delayShowDialog(e => state.shareToFriend = true)"
            @showDouyinCode="state.showDouyinCode = true"
@@ -147,8 +149,8 @@
     <DouyinCode v-model="state.showDouyinCode"/>
 
     <ShareTo v-model:type="state.shareType"
-             :videoId="state.recommendVideos[state.itemIndex]?.id"
-             :canDownload="state.recommendVideos[state.itemIndex]?.canDownload"
+             :videoId="state.recommendList[state.itemIndex]?.id"
+             :canDownload="state.recommendList[state.itemIndex]?.canDownload"
     />
 
     <FollowSetting
@@ -176,33 +178,33 @@
 </template>
 
 <script setup lang="jsx">
-import H from './H'
-import VInfinite from './VInfinite.vue'
-import SlideItem from './SlideItem'
-import SlideAlbum from "../../components/slide/SlideAlbum";
-import SlideUser from "../../components/slide/SlideUser";
-import BVideo from "../../components/slide/BVideo";
-import Comment from "../../components/Comment";
-import Share from "../../components/Share";
-import IndicatorHome from "./IndicatorHome.vue";
+import SlideHorizontal from '../../components/slide/SlideHorizontal.vue'
+import SlideVerticalInfinite from '../../components/slide/SlideVerticalInfinite.vue'
+import SlideItem from '@/components/slide/SlideItem.vue'
+import SlideAlbum from "../../components/slide/SlideAlbum.vue";
+import SlideUser from "../../components/slide/SlideUser.vue";
+import BVideo from "../../components/slide/BVideo.vue";
+import Comment from "../../components/Comment.vue";
+import Share from "../../components/Share.vue";
+import IndicatorHome from "./components/IndicatorHome.vue";
 import {computed, onMounted, onUnmounted, reactive, ref} from "vue";
 import bus, {EVENT_KEY} from "../../utils/bus";
 import {useNav} from "@/utils/hooks/useNav";
 import Utils from "@/utils";
 import api from "@/api";
 import {useStore} from "vuex";
-import PlayFeedback from "@/pages/home/components/PlayFeedback";
-import ShareTo from "@/pages/home/components/ShareTo";
-import DouyinCode from "../../components/DouyinCode";
-import FollowSetting from "@/pages/home/components/FollowSetting";
-import BlockDialog from "../message/components/BlockDialog";
-import Search from "../../components/Search";
-import ConfirmDialog from "../../components/dialog/ConfirmDialog";
-import FollowSetting2 from "@/pages/home/components/FollowSetting2";
-import ShareToFriend from "@/pages/home/components/ShareToFriend";
+import PlayFeedback from "@/pages/home/components/PlayFeedback.vue";
+import ShareTo from "@/pages/home/components/ShareTo.vue";
+import DouyinCode from "../../components/DouyinCode.vue";
+import FollowSetting from "@/pages/home/components/FollowSetting.vue";
+import BlockDialog from "../message/components/BlockDialog.vue";
+import Search from "../../components/Search.vue";
+import ConfirmDialog from "../../components/dialog/ConfirmDialog.vue";
+import FollowSetting2 from "@/pages/home/components/FollowSetting2.vue";
+import ShareToFriend from "@/pages/home/components/ShareToFriend.vue";
 import UserPanel from "@/components/UserPanel.vue";
-import Community from "@/pages/slideHooks/Community.vue";
-import Shop from "@/pages/slideHooks/Shop.vue";
+import Community from "@/pages/home/components/Community.vue";
+import Shop from "@/pages/home/components/Shop.vue";
 
 const nav = useNav()
 
@@ -216,12 +218,13 @@ const bodyHeight = computed(() => store.state.bodyHeight)
 const bodyWidth = computed(() => store.state.bodyWidth)
 
 const subTypeRef = ref(null)
+const recommendListRef = ref(null)
 const state = reactive({
   baseIndex: 0,
   navIndex: 4,
   itemIndex: 0,
   test: '',
-  recommendVideos: [
+  recommendList: [
     // {
     //   type: 'img',
     //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
@@ -235,7 +238,6 @@ const state = reactive({
     //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
     // },
   ],
-
   isSharing: false,
   canMove: true,
   loading: false,
@@ -278,9 +280,9 @@ async function getData(refresh = false) {
   if (res.code === 200) {
     state.totalSize = res.data.total
     if (refresh) {
-      state.recommendVideos = []
+      state.recommendList = []
     }
-    state.recommendVideos = state.recommendVideos.concat(res.data.list)
+    state.recommendList = state.recommendList.concat(res.data.list)
   } else {
     state.pageNo--
   }
@@ -318,9 +320,9 @@ function delayShowDialog(cb) {
 }
 
 function dislike() {
-  // this.$refs.virtualList.dislike(this.videos[10])
-  // this.videos[this.videoIndex] = this.videos[10]
-  // this.$notice('操作成功，将减少此类视频的推荐')
+  recommendListRef.value.dislike(state.recommendList[1])
+  state.recommendList[state.itemIndex] = state.recommendList[1]
+  Utils.$notice('操作成功，将减少此类视频的推荐')
 }
 
 function end() {
@@ -332,14 +334,14 @@ onMounted(() => {
   bus.on(EVENT_KEY.SINGLE_CLICK, () => {
     let id = ''
     if (state.navIndex === 4) {
-      id = state.recommendVideos[state.itemIndex].id
+      id = state.recommendList[state.itemIndex].id
     }
     bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {id, type: EVENT_KEY.ITEM_TOGGLE})
   })
   bus.on('update:item', val => {
     const {baseIndex, navIndex, itemIndex} = val.position
     if (navIndex === 5) {
-      state.recommendVideos[itemIndex] = val.item
+      state.recommendList[itemIndex] = val.item
     }
   })
 
@@ -380,7 +382,7 @@ function render(item, itemIndex, play, position) {
   }
   if (item.type === 'recommend-video') {
     node = <BVideo
-        isPlay={false}
+        isPlay={play}
         item={item}
         position={{...position, itemIndex}}
         onGoMusic={e => nav('/home/music')}
@@ -417,7 +419,7 @@ function render(item, itemIndex, play, position) {
   //width: 90vw;
   //height: 80vh;
   width: 100vw;
-  height: calc(100vh - @footer-height)!important;
+  height: calc(100vh - @footer-height) !important;
   overflow: hidden;
 
   #slide1 {

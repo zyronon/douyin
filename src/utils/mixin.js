@@ -33,7 +33,7 @@ export default {
     NoMore,
     'dy-back': Back,
     Loading,
-    'b-button': BaseButton
+    'dy-button': BaseButton
   },
   data() {
     return {
