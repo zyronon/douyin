@@ -324,7 +324,7 @@ function progressBarTouchMEnd(e) {
 }
 
 function touchStart(e) {
-  console.log('start', e.touches.length)
+  // console.log('start', e.touches.length)
   if (e.touches.length === 1) {
     slideTouchStart(e, wrapperEl.value, state)
   } else {
@@ -338,10 +338,10 @@ function touchStart(e) {
 }
 
 function touchMove(e) {
-  console.log('move', e.touches.length,)
+  // console.log('move', e.touches.length,)
   let current1 = {x: e.touches[0].pageX, y: e.touches[0].pageY}
   if (isZooming.value && e.touches.length === 1) {
-    console.log('m1')
+    // console.log('m1')
     state.status = 'pause'
     Utils.$stopPropagation(e)
 
@@ -355,7 +355,7 @@ function touchMove(e) {
     state.last.point1 = current1
   } else {
     if (e.touches.length === 1) {
-      console.log('m2')
+      // console.log('m2')
       slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext,
           () => {
             state.status = 'pause'
@@ -366,7 +366,7 @@ function touchMove(e) {
             }
           })
     } else {
-      console.log('m3')
+      // console.log('m3')
       state.operationStatus = SlideAlbumOperationStatus.Zooming
       Utils.$stopPropagation(e)
       state.status = 'pause'

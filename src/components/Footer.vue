@@ -10,9 +10,7 @@
     </div>
     <div class="l-button" @click="tab(3)">
       <div class="add-ctn">
-        <div class="add-one">
-          <img src="../assets/img/icon/add-light.png" alt="" class="add">
-        </div>
+        <img src="../assets/img/icon/add-light.png" alt="" class="add">
       </div>
     </div>
     <div class="l-button" @click="tab(4)">
@@ -125,24 +123,17 @@ export default {
 
     .add-ctn {
       @height: 27rem;
-      @width: 40rem;
+      @width: 36rem;
       height: @height;
       width: @width;
-      background: linear-gradient(to right, #59dcdf, #ff5f75);
-      border-radius: 5rem;
+      border-radius: 6rem;
       box-sizing: border-box;
       padding: 0 2rem;
-
-      .add-one {
-        box-sizing: border-box;
-        height: 100%;
-        border-radius: 5rem;
-        border: 2px solid white;
-        background: black;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+      border: 3rem solid white;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       img {
         width: 20rem;
