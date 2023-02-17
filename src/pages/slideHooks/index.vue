@@ -11,13 +11,12 @@
         />
 
         <div class="slide-content"
-             @touchstart="pageClick">
+        >
           <H class="first-horizontal-item"
              name="main"
              id="slideHook"
-             v-love="'slideHook'"
              v-model:index="state.navIndex">
-            <SlideItem>
+            <SlideItem id="slide1">
               <div class="sub-type"
                    :class="state.subTypeIsTop?'top':''"
                    ref="subTypeRef">
@@ -59,12 +58,15 @@
                 </div>
               </div>
               <div class="sub-type-notice"
-                   v-if="state.subType===-1 && state.navIndex === 0"
+                   v-if="state.subType===-1 && !state.subTypeVisible"
                    @click="showSubType">附近吃喝玩乐
               </div>
               <VInfinite
-                  :style="{background: 'black'}"
+                  @touchstart="pageClick"
+                  v-love="'slideHook'"
+                  :style="{background: 'black',marginTop:state.subTypeVisible?state.subTypeHeight:0}"
                   name="main"
+                  id="slide1-infinite"
                   v-model:index="state.itemIndex"
                   :render="render"
                   :list="state.recommendVideos"
@@ -224,7 +226,7 @@ const bodyWidth = computed(() => store.state.bodyWidth)
 const subTypeRef = ref(null)
 const state = reactive({
   baseIndex: 0,
-  navIndex: 4,
+  navIndex: 0,
   itemIndex: 0,
   test: '',
   recommendVideos: [
@@ -263,6 +265,8 @@ const state = reactive({
   commentVisible: false,
   fullScreen: false,
   subType: -1,
+  subTypeVisible: false,
+  subTypeHeight: '0',
   //用于改变zindex的层级到上层，反正比slide高就行。不然摸不到subType.
   subTypeIsTop: false,
   totalSize: 0,
@@ -301,24 +305,17 @@ function loadMore() {
 function showSubType(e) {
   Utils.$stopPropagation(e)
   console.log('subTypeRef',)
-  state.subType = 0
-  setTimeout(() => {
-    state.subTypeIsTop = true
-  }, 300)
-  let id = state.recommendVideos[state.itemIndex].id
-  bus.emit(EVENT_KEY.OPEN_SUB_TYPE, {
-    id,
-    height: subTypeRef.value.getBoundingClientRect().height
-  })
+  state.subTypeHeight = subTypeRef.value.getBoundingClientRect().height + 'px'
+  state.subTypeVisible = true
+  setTimeout(() => state.subTypeIsTop = true, 300)
+  bus.emit(EVENT_KEY.OPEN_SUB_TYPE,)
 }
 
 function pageClick(e) {
   // console.log('pageClick')
-  if (state.subType !== -1) {
-    state.subType = -1
-    state.subTypeIsTop = false
-    let id = state.recommendVideos[state.itemIndex].id
-    bus.emit(EVENT_KEY.CLOSE_SUB_TYPE, {id})
+  if (state.subTypeVisible) {
+    state.subTypeIsTop = state.subTypeVisible = false
+    bus.emit(EVENT_KEY.CLOSE_SUB_TYPE,)
     Utils.$stopPropagation(e)
   }
 }
@@ -408,68 +405,6 @@ function render(item, itemIndex, play, position) {
 <style scoped lang="less">
 @import "@/assets/less/index";
 
-.sub-type {
-  width: 100%;
-  position: fixed;
-  top: 0;
-
-  &.top {
-    z-index: 1;
-  }
-
-  .local {
-    transition: all .3s;
-    font-size: 14rem;
-    color: gray;
-    background: linear-gradient(to right, rgb(36, 34, 84), rgb(7, 5, 16));
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .card {
-      margin: 20rem;
-      margin-top: @header-height;
-      padding: 20rem;
-      border-radius: 8rem;
-      width: 100%;
-      background: red;
-      background: linear-gradient(to right, rgb(53, 51, 110), rgb(29, 21, 66));
-      box-sizing: border-box;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      overflow: auto;
-    }
-
-    .nav-item {
-      @width: 35rem;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      flex-shrink: 0;
-      width: 17vw;
-
-      img {
-        width: @width;
-        height: @width;
-        margin-bottom: 5rem;
-      }
-    }
-  }
-}
-
-.sub-type-notice {
-  position: fixed;
-  background: rgba(black, .4);
-  top: 100rem;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 3rem 12rem;
-  border-radius: 10rem;
-  z-index: 3;
-  font-size: 12rem;
-  color: white;
-}
 
 .test-slide-wrapper {
   font-size: 14rem;
@@ -495,21 +430,79 @@ function render(item, itemIndex, play, position) {
   height: calc(100vh - @footer-height);
   overflow: hidden;
 
-  .red {
-    background-color: red;
+  #slide1 {
+    position: relative;
+
+    .sub-type {
+      width: 100%;
+      position: fixed;
+      top: 0;
+
+      &.top {
+        z-index: 2;
+      }
+
+      .local {
+        transition: all .3s;
+        font-size: 14rem;
+        color: gray;
+        background: linear-gradient(to right, rgb(36, 34, 84), rgb(7, 5, 16));
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .card {
+          margin: 20rem;
+          margin-top: @header-height;
+          padding: 20rem;
+          border-radius: 8rem;
+          width: 100%;
+          background: red;
+          background: linear-gradient(to right, rgb(53, 51, 110), rgb(29, 21, 66));
+          box-sizing: border-box;
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          overflow: auto;
+        }
+
+        .nav-item {
+          @width: 35rem;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          flex-shrink: 0;
+          width: 17vw;
+
+          img {
+            width: @width;
+            height: @width;
+            margin-bottom: 5rem;
+          }
+        }
+      }
+    }
+
+    .sub-type-notice {
+      position: fixed;
+      background: rgba(black, .4);
+      top: 100rem;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 3rem 12rem;
+      border-radius: 10rem;
+      z-index: 3;
+      font-size: 12rem;
+      color: white;
+    }
+
+    #slide1-infinite {
+      z-index: 1;
+      margin-top: 0;
+      transition: height, margin-top .3s;
+    }
   }
 
-  .yellow {
-    background-color: yellow;
-  }
-
-  .blue {
-    background-color: blue;
-  }
-
-  .gray {
-    background-color: gray;
-  }
 }
 
 </style>
