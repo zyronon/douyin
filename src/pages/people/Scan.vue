@@ -51,14 +51,14 @@ export default {
 
   .back {
     z-index: 3;
-    margin: 2rem 0 0 2rem;
+    margin: 20rem 0 0 20rem;
     position: fixed;
-    height: 2rem;
+    height: 20rem;
   }
 
   .float {
     position: fixed;
-    bottom: 6rem;
+    bottom: 60rem;
     display: flex;
     justify-content: space-between;
     width: 80vw;
@@ -72,15 +72,15 @@ export default {
       img {
         border-radius: 50%;
         background: @second-btn-color-tran;
-        padding: 1.6rem;
-        height: 2.4rem;
-        margin-bottom: 1rem;
+        padding: 16rem;
+        height: 24rem;
+        margin-bottom: 10rem;
       }
     }
 
     .open-light {
       position: fixed;
-      bottom: 16rem;
+      bottom: 160rem;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -88,8 +88,8 @@ export default {
       transform: translateX(-50%);
 
       img {
-        height: 2.4rem;
-        margin-bottom: 1rem;
+        height: 24rem;
+        margin-bottom: 10rem;
       }
     }
   }

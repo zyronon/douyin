@@ -154,15 +154,15 @@ export default {
 
   .notice {
     color: @second-text-color;
-    font-size: 1.2rem;
-    height: 4rem;
+    font-size: 12rem;
+    height: 40rem;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
   .row {
-    height: 5rem;
+    height: 50rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -178,7 +178,7 @@ export default {
   }
 
   .space {
-    height: 1rem;
+    height: 10rem;
     background: whitesmoke;
   }
 }

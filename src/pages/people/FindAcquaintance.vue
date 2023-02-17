@@ -17,7 +17,7 @@
                   placeholder="搜索用户名字/抖音号"
                   :is-show-right-text="false"
                   @click="isShowRightText = true">
-            <img src="../../assets/img/icon/scan-gray.png" style="width: 1rem;transform: scale(1.5)"
+            <img src="../../assets/img/icon/scan-gray.png" style="width: 10rem;transform: scale(1.5)"
                  @click.stop="$nav('/scan')">
           </Search>
           <Search v-else v-model="searchKey" :is-show-right-text="true" @notice="search" @clear="isSearch = false"></Search>
@@ -36,13 +36,13 @@
           <div class="line"></div>
           <div class="title">
             朋友推荐
-            <img src="../../assets/img/icon/about-gray.png" style="width: 1rem;margin-left: .2rem;">
+            <img src="../../assets/img/icon/about-gray.png" style="width: 10rem;margin-left: 2rem;">
           </div>
           <People v-for="item in friends.all " :people="item" mode="recommend"></People>
         </div>
         <div class="is-search" v-else>
           <div class="tooltip" v-if="searchKey && !isSearch">
-            <img src="../../assets/img/icon/close.svg" style="width: 1rem;">
+            <img src="../../assets/img/icon/close.svg" style="width: 10rem;">
             搜索用户名字/抖音号：<span class="searchKey">{{ searchKey }}</span>
           </div>
           <!--          TODO -->
@@ -84,7 +84,7 @@
         page-id="FindAcquaintance"
         v-model="moreOptionDialog"
         :show-heng-gang="false"
-        height="21rem"
+        height="210rem"
         mode="white">
       <div class="more-option-dialog">
         <div class="row" @click="outWebImgAccountDialog = true;moreOptionDialog = false">
@@ -224,31 +224,31 @@ export default {
   bottom: 0;
   top: 0;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .header {
-    height: 6rem;
-    font-size: 1.4rem;
-    padding: 0 2rem;
+    height: 60rem;
+    font-size: 14rem;
+    padding: 0 20rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid @line-color;
 
     img {
-      height: 2rem;
+      height: 20rem;
     }
   }
 
   .tab2 {
     box-sizing: border-box;
-    padding: 2rem;
+    padding: 20rem;
 
     .title {
       margin-top: @padding-page;
-      margin-bottom: 1rem;
+      margin-bottom: 10rem;
       color: @second-text-color;
-      font-size: 1.2rem;
+      font-size: 12rem;
     }
   }
 
@@ -256,21 +256,21 @@ export default {
     .title {
       display: flex;
       align-items: center;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
+      margin-top: 20rem;
+      margin-bottom: 10rem;
       color: @second-text-color;
-      font-size: 1.2rem;
+      font-size: 12rem;
 
       img {
-        width: 1rem;
+        width: 10rem;
       }
     }
 
     .no-search {
-      padding: 2rem;
+      padding: 20rem;
 
       .look-address-list {
-        margin: 0 0 2rem 0;
+        margin: 0 0 20rem 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -278,9 +278,9 @@ export default {
         .left {
           background: @second-btn-color-tran;
           border-radius: 50%;
-          padding: 1.2rem;
-          width: 2.2rem;
-          margin-right: 1.5rem;
+          padding: 12rem;
+          width: 22rem;
+          margin-right: 15rem;
         }
 
         .right {
@@ -290,17 +290,17 @@ export default {
           align-items: center;
 
           img {
-            width: 1.4rem;
+            width: 14rem;
           }
 
           .notice {
             .text1 {
-              font-size: 1.4rem;
-              margin-bottom: .5rem;
+              font-size: 14rem;
+              margin-bottom: 5rem;
             }
 
             .text2 {
-              font-size: 1.2rem;
+              font-size: 12rem;
               color: @second-text-color;
             }
           }
@@ -309,18 +309,18 @@ export default {
     }
 
     .is-search {
-      padding: 0 2rem 2rem 2rem;
+      padding: 0 20rem 20rem 20rem;
 
       .tooltip {
-        font-size: 1.2rem;
-        margin-top: 2rem;
+        font-size: 12rem;
+        margin-top: 20rem;
         display: flex;
         align-items: center;
         color: @second-text-color;
 
         img {
-          margin-right: 1rem;
-          width: 1.5rem;
+          margin-right: 10rem;
+          width: 15rem;
         }
 
         .searchKey {
@@ -340,30 +340,30 @@ export default {
     color: black;
     background: white;
     box-sizing: border-box;
-    border-radius: .3rem;
+    border-radius: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
 
     .body {
-      padding: 2rem;
+      padding: 20rem;
       display: flex;
       flex-direction: column;
       align-items: center;
 
       img {
-        height: 6rem;
-        margin-bottom: 2rem;
+        height: 60rem;
+        margin-bottom: 20rem;
       }
 
       .title {
-        font-size: 1.6rem;
+        font-size: 16rem;
         font-weight: bold;
-        margin-bottom: 1rem;
+        margin-bottom: 10rem;
       }
 
       .desc {
-        font-size: 1rem;
+        font-size: 10rem;
         color: gray;
       }
 
@@ -377,9 +377,9 @@ export default {
     .footer {
       width: 100%;
       display: flex;
-      height: 4rem;
+      height: 40rem;
       border-top: 1px solid @footer-border-color;
-      font-size: 1.4rem;
+      font-size: 14rem;
 
       div {
         display: flex;
@@ -400,15 +400,15 @@ export default {
   }
 
   .more-option-dialog {
-    font-size: 1.4rem;
+    font-size: 14rem;
 
     .space {
-      height: 1rem;
+      height: 10rem;
       background: whitesmoke;
     }
 
     .row {
-      height: 5rem;
+      height: 50rem;
       color: black;
       background: white;
       box-sizing: border-box;
@@ -431,56 +431,56 @@ export default {
     color: black;
     background: white;
     box-sizing: border-box;
-    border-radius: .3rem;
+    border-radius: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem;
+    padding: 20rem;
 
     .img-account {
 
     }
 
     .close {
-      top: 1rem;
-      right: 1rem;
+      top: 10rem;
+      right: 10rem;
       position: absolute;
       background: @second-btn-color-tran;
-      padding: .4rem;
-      width: 1rem;
+      padding: 4rem;
+      width: 10rem;
       border-radius: 50%;
     }
 
     .desc {
-      margin-top: 2rem;
+      margin-top: 20rem;
       text-align: center;
 
     }
 
     .notice {
-      margin-top: 2rem;
+      margin-top: 20rem;
       display: flex;
       align-items: center;
       color: @second-text-color;
 
       img {
-        margin-right: 1rem;
-        width: 1rem;
+        margin-right: 10rem;
+        width: 10rem;
       }
     }
 
     .btn {
       width: 100%;
-      height: 4rem;
-      border-radius: .3rem;
-      margin-top: 2rem;
+      height: 40rem;
+      border-radius: 3rem;
+      margin-top: 20rem;
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
 
       &:nth-last-child(1) {
-        margin-top: 1rem;
+        margin-top: 10rem;
       }
 
       &.wechat {
@@ -492,8 +492,8 @@ export default {
       }
 
       img {
-        margin-right: 1rem;
-        width: 1rem;
+        margin-right: 10rem;
+        width: 10rem;
       }
     }
   }
