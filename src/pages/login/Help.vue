@@ -38,11 +38,11 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .content {
-    margin-top: 6rem;
-    height: calc(100vh - 6rem);
+    margin-top: 60rem;
+    height: calc(100vh - 60rem);
 
     iframe {
       padding: 0;

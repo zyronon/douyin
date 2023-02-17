@@ -2442,22 +2442,22 @@ export default {
   bottom: 0;
   top: 0;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
   overflow: hidden;
 
   .indicator-ctn {
-    width: 2.5rem;
+    width: 25rem;
     height: 100vh;
     position: fixed;
     z-index: 3;
     top: 0;
-    right: 0.5rem;
+    right: 5rem;
     display: flex;
     align-items: center;
     justify-content: center;
 
     .indicator {
-      width: 2.5rem;
+      width: 25rem;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -2466,16 +2466,16 @@ export default {
       div {
         color: @second-text-color;
         //transition: all .3s;
-        font-size: 1rem;
-        padding: .1rem;
+        font-size: 10rem;
+        padding: 1rem;
       }
 
       .arrow {
-        padding: 0 0 .3rem 0;
+        padding: 0 0 3rem 0;
         width: 0;
         height: 0;
-        border: .5rem solid transparent;
-        border-bottom: 1rem solid @second-text-color;
+        border: 5rem solid transparent;
+        border-bottom: 10rem solid @second-text-color;
       }
     }
   }
@@ -2483,30 +2483,30 @@ export default {
 
   .fixed {
     position: fixed;
-    top: 11rem;
-    left: 2rem;
-    right: 2rem;
+    top: 110rem;
+    left: 20rem;
+    right: 20rem;
   }
 
   .content {
-    height: calc(100% - 11rem);
-    margin-top: 11rem;
-    padding: 0 2.5rem 0 2rem;
+    height: calc(100% - 110rem);
+    margin-top: 110rem;
+    padding: 0 25rem 0 20rem;
     box-sizing: border-box;
     width: 100%;
     overflow-y: scroll;
 
     .top {
-      padding-bottom: 1rem;
+      padding-bottom: 10rem;
       border-bottom: 1px solid @line-color;
 
       .cities {
         .city {
-          margin-right: .4rem;
-          margin-bottom: .4rem;
-          border-radius: .2rem;
-          height: 4rem;
-          line-height: 4rem;
+          margin-right: 4rem;
+          margin-bottom: 4rem;
+          border-radius: 2rem;
+          height: 40rem;
+          line-height: 40rem;
           background: @second-btn-color-tran;
           display: inline-block;
           width: 32%;
@@ -2516,7 +2516,7 @@ export default {
     }
 
     .list {
-      //padding-right: 2.5rem;
+      //padding-right: 25rem;
 
       .row {
         background: @main-bg;

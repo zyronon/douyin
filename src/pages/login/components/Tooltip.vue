@@ -42,20 +42,20 @@ export default {
 .Tooltip {
   z-index: 2;
   position: absolute;
-  font-size: 1.2rem;
+  font-size: 12rem;
   color: white;
-  padding: 1rem;
-  border-radius: .8rem;
+  padding: 10rem;
+  border-radius: 8rem;
   background: black;
 
   .arrow {
     width: 0;
     height: 0;
-    border: .7rem solid transparent;
-    border-top: .7rem solid black;
+    border: 7rem solid transparent;
+    border-top: 7rem solid black;
     position: absolute;
-    left: 1rem;
-    bottom: -1.4rem;
+    left: 10rem;
+    bottom: -14rem;
   }
 }
 

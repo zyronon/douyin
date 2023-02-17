@@ -102,15 +102,15 @@ export default {
   top: 0;
   overflow: auto;
   color: black;
-  font-size: 1.4rem;
+  font-size: 14rem;
   background: white;
 
   .options{
-    margin-top: 1rem;
+    margin-top: 10rem;
   }
 
   .button{
-    margin-top: 2rem;
+    margin-top: 20rem;
   }
 
 }

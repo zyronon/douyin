@@ -18,7 +18,7 @@
       </div>
 
       <div class="protocol" :class="showAnim?'anim-bounce':''">
-        <Tooltip style="top: -150%;left: -1rem;" v-model="showTooltip"/>
+        <Tooltip style="top: -150%;left: -10rem;" v-model="showTooltip"/>
         <div class="left">
           <Check v-model="isAgree"/>
         </div>
@@ -44,7 +44,7 @@
           page-id="other-login"
           v-model="isOtherLogin"
           :show-heng-gang="false"
-          height="27rem"
+          height="270rem"
           mode="white">
         <div class="block-dialog">
           <div class="item" @click="$no">
@@ -128,22 +128,22 @@ export default {
   top: 0;
   overflow: auto;
   color: black;
-  font-size: 1.4rem;
+  font-size: 14rem;
   background: white;
 
   .block-dialog {
     color: black;
 
     .item {
-      height: 5rem;
+      height: 50rem;
       display: flex;
       justify-content: center;
       align-items: center;
       border-top: 1px solid gainsboro;
 
       img {
-        height: 2.5rem;
-        margin-right: 1rem;
+        height: 25rem;
+        margin-right: 10rem;
       }
 
       &:nth-last-child(1) {
@@ -152,7 +152,7 @@ export default {
     }
 
     .space {
-      height: 1rem;
+      height: 10rem;
       background: whitesmoke;
     }
   }
