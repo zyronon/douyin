@@ -126,7 +126,6 @@
            :videoId="videos[videoActiveIndex]?.id"
            :canDownload="videos[videoActiveIndex]?.canDownload"
            @play-feedback="showPlayFeedback = true"
-           @showShareDuoshan="delayShowDialog(e => this.showShareDuoshan = true)"
            @shareToFriend="delayShowDialog(e => this.shareToFriend = true)"
            @showDouyinCode="showDouyinCode = true"
            @showShare2WeChatZone="shareType = 2"
@@ -141,7 +140,6 @@
 
     <DouyinCode v-model="showDouyinCode"/>
 
-    <Duoshan v-model="showShareDuoshan"/>
 
     <ShareTo v-model:type="shareType"
              :videoId="videos[videoActiveIndex]?.id"
@@ -180,7 +178,6 @@ import SlideColumnList from "../../components/slide/SlideColumnList";
 import SlideRowList from "../../components/slide/SlideRowList";
 import PlayFeedback from "./components/PlayFeedback";
 import FromBottomDialog from "../../components/dialog/FromBottomDialog";
-import Duoshan from "./components/Duoshan";
 import ShareTo from "./components/ShareTo";
 import DouyinCode from "../../components/DouyinCode";
 import Uploader from "../me/Uploader";
@@ -204,7 +201,6 @@ export default {
     Share,
     Uploader,
     PlayFeedback,
-    Duoshan,
     ShareTo,
     DouyinCode,
     FollowSetting,

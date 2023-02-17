@@ -11,7 +11,7 @@
       mode="dark">
     <div class="share">
       <div class="title">
-        <span>私信给朋友</span>
+        <span>分享给朋友</span>
         <dy-back mode="light" img="close" direction="right" @click.stop="closeShare"></dy-back>
       </div>
       <div class="friends">
@@ -30,65 +30,53 @@
         <template v-if="mode === 'video'">
           <div class="share-to" @click.stop="$no">
             <img src="../assets/img/icon/components/video/torichang.png" alt="">
-            <span>分享日常</span>
+            <span>转发</span>
           </div>
           <div class="share-to" @click.stop="closeShare($emit('ShareToFriend'))">
             <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
             <span>私信朋友</span>
           </div>
-          <div class="share-to" @click.stop="closeShare($emit('showShare2WeChatZone'))">
+          <div class="share-to" @click.stop="copyLink">
             <img src="../assets/img/icon/components/video/towechat.webp" alt="">
-            <span>朋友圈</span>
+            <span>复制链接</span>
           </div>
-          <div class="share-to" @click.stop="closeShare($emit('share2WeChat'))">
-            <img src="../assets/img/icon/components/video/towechatchat.webp" alt="">
-            <span>微信好友</span>
+          <div class="share-to" v-if="canDownload" @click.stop="closeShare($emit('download'))">
+            <img src="../assets/img/icon/components/video/towechat.webp" alt="">
+            <span>保存本地</span>
           </div>
-          <div class="share-to" @click.stop="closeShare($emit('share2QQZone'))">
-            <img src="../assets/img/icon/components/video/tozone.webp" alt="">
-            <span>QQ空间</span>
+          <div class="share-to" @click.stop="closeShare($emit('showDouyinCode'))">
+            <img src="../assets/img/icon/components/video/towechat.webp" alt="">
+            <span>生成图片</span>
           </div>
-          <div class="share-to" @click.stop="closeShare($emit('share2QQ'))">
-            <img src="../assets/img/icon/components/video/toqq.webp" alt="">
-            <span>QQ好友</span>
-          </div>
-          <div class="share-to" @click.stop="closeShare($emit('showShareDuoshan'))">
-            <img src="../assets/img/icon/components/video/duoshan.png" alt="">
-            <span>多闪</span>
-          </div>
-          <div class="share-to" @click.stop="$no">
-            <img src="../assets/img/icon/components/video/totoutiao.webp" alt="">
-            <span>今日头条</span>
-          </div>
-          <div class="share-to" @click.stop="closeShare($emit('share2Webo'))">
-            <img src="../assets/img/icon/components/video/toweibo.webp" alt="">
-            <span>微博</span>
-          </div>
+          <!--          <div class="share-to" @click.stop="closeShare($emit('showShare2WeChatZone'))">-->
+          <!--            <img src="../assets/img/icon/components/video/towechat.webp" alt="">-->
+          <!--            <span>朋友圈</span>-->
+          <!--          </div>-->
+          <!--          <div class="share-to" @click.stop="closeShare($emit('share2WeChat'))">-->
+          <!--            <img src="../assets/img/icon/components/video/towechatchat.webp" alt="">-->
+          <!--            <span>微信好友</span>-->
+          <!--          </div>-->
+          <!--          <div class="share-to" @click.stop="closeShare($emit('share2QQZone'))">-->
+          <!--            <img src="../assets/img/icon/components/video/tozone.webp" alt="">-->
+          <!--            <span>QQ空间</span>-->
+          <!--          </div>-->
+          <!--          <div class="share-to" @click.stop="closeShare($emit('share2QQ'))">-->
+          <!--            <img src="../assets/img/icon/components/video/toqq.webp" alt="">-->
+          <!--            <span>QQ好友</span>-->
+          <!--          </div>-->
+          <!--          <div class="share-to" @click.stop="$no">-->
+          <!--            <img src="../assets/img/icon/components/video/totoutiao.webp" alt="">-->
+          <!--            <span>今日头条</span>-->
+          <!--          </div>-->
+          <!--          <div class="share-to" @click.stop="closeShare($emit('share2Webo'))">-->
+          <!--            <img src="../assets/img/icon/components/video/toweibo.webp" alt="">-->
+          <!--            <span>微博</span>-->
+          <!--          </div>-->
         </template>
         <template v-if="mode === 'music'">
           <div class="share-to" @click.stop="closeShare($emit('ShareToFriend'))">
             <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
             <span>私信朋友</span>
-          </div>
-          <div class="share-to" @click.stop="closeShare($emit('showShare2WeChatZone'))">
-            <img src="../assets/img/icon/components/video/towechat.webp" alt="">
-            <span>朋友圈</span>
-          </div>
-          <div class="share-to" @click.stop="closeShare($emit('share2WeChat'))">
-            <img src="../assets/img/icon/components/video/towechatchat.webp" alt="">
-            <span>微信好友</span>
-          </div>
-          <div class="share-to" @click.stop="closeShare($emit('share2QQZone'))">
-            <img src="../assets/img/icon/components/video/tozone.webp" alt="">
-            <span>QQ空间</span>
-          </div>
-          <div class="share-to" @click.stop="closeShare($emit('share2QQ'))">
-            <img src="../assets/img/icon/components/video/toqq.webp" alt="">
-            <span>QQ好友</span>
-          </div>
-          <div class="share-to" @click.stop="closeShare($emit('share2Webo'))">
-            <img src="../assets/img/icon/components/video/toweibo.webp" alt="">
-            <span>微博</span>
           </div>
         </template>
         <template v-if="mode === 'my-music'">
@@ -103,27 +91,18 @@
         </template>
       </div>
       <div class="toolbar ">
-        <template v-if="mode === 'qrcode'">
-          <div class="tool" @click.stop="copyLink">
-            <img src="../assets/img/icon/components/video/link.png" alt="">
-            <span>复制链接</span>
-          </div>
-        </template>
         <template v-if="mode === 'music'">
-          <div class="tool" @click.stop="copyLink">
-            <img src="../assets/img/icon/components/video/link.png" alt="">
-            <span>复制链接</span>
-          </div>
           <div class="tool" @click.stop="$nav('/home/report',{mode:this.mode})">
             <img src="../assets/img/icon/components/video/warring.png" alt="">
             <span>举报音乐</span>
           </div>
-          <div class="tool" @click.stop="closeShare($emit('showDouyinCode'))">
-            <img src="../assets/img/icon/components/video/qrcode.png" alt="">
-            <span>抖音码</span>
-          </div>
         </template>
         <template v-if="mode === 'video'">
+          <div class="tool" @click.stop="$no">
+<!--TODO icon不对            -->
+            <img src="../assets/img/icon/components/video/feedback.webp" alt="">
+            <span>建群分享</span>
+          </div>
           <div class="tool" @click.stop="$no">
             <img src="../assets/img/icon/components/video/comeonlook.webp" alt="">
             <span>一起视频</span>
@@ -131,16 +110,6 @@
           <div class="tool" @click.stop="$nav('/home/report',{mode:this.mode})">
             <img src="../assets/img/icon/components/video/warring.png" alt="">
             <span>举报</span>
-          </div>
-          <div class="tool" @click.stop="canDownload && closeShare($emit('download'))"
-               :style="{ opacity : canDownload ? '1' : '0.5' }">
-            <img src="../assets/img/icon/components/video/download.png" alt="">
-            <span>保存本地</span>
-          </div>
-          <div class="tool" @click.stop="toggleCollect">
-            <img v-if="isCollect" src="../assets/img/icon/components/video/star-full.png" alt="">
-            <img v-else src="../assets/img/icon/components/video/star.png" alt="">
-            <span>收藏</span>
           </div>
           <div class="tool" @click.stop="$no">
             <img src="../assets/img/icon/components/video/comeonplay.png" alt="">
@@ -150,22 +119,13 @@
             <img src="../assets/img/icon/components/video/bizhi.webp" alt="">
             <span>动态壁纸</span>
           </div>
-          <!--        todo-->
-          <div class="tool" @click.stop="closeShare($emit('dislike'))">
-            <img src="../assets/img/icon/components/video/dislike.png" alt="">
-            <span>不感兴趣</span>
-          </div>
-          <div class="tool" @click.stop="copyLink">
-            <img src="../assets/img/icon/components/video/link.png" alt="">
-            <span>复制链接</span>
-          </div>
-          <div class="tool" @click.stop="closeShare($emit('showDouyinCode'))">
-            <img src="../assets/img/icon/components/video/qrcode.png" alt="">
-            <span>抖音码</span>
-          </div>
           <div class="tool" @click.stop="$no">
             <img src="../assets/img/icon/components/video/dou.webp" alt="">
             <span>帮上热门</span>
+          </div>
+          <div class="tool" @click.stop="closeShare($emit('dislike'))">
+            <img src="../assets/img/icon/components/video/dislike.png" alt="">
+            <span>不感兴趣</span>
           </div>
           <div class="tool" @click.stop="closeShare($emit('play-feedback'))">
             <img src="../assets/img/icon/components/video/feedback.webp" alt="">
@@ -234,7 +194,6 @@ export default {
   data() {
     return {
       isCreateChat: false,
-      isCollect: false
     }
   },
   methods: {
@@ -243,17 +202,10 @@ export default {
       this.$showLoading()
       await this.$sleep(500)
       this.$hideLoading()
+      //TODO 抖音样式改了
       this.$notice('复制成功')
     },
-    toggleCollect() {
-      this.closeShare()
-      if (this.isCollect) {
-        this.$notice('取消收藏成功')
-      } else {
-        this.$notice('收藏成功')
-      }
-      this.isCollect = !this.isCollect
-    },
+
     toggleCall(item) {
       item.select = !item.select
     },
@@ -275,7 +227,8 @@ export default {
   box-sizing: border-box;
 
   @space-width: 18rem;
-  @icon-width: 48rem;
+  @avatar-width: 48rem;
+  @icon-width: 28rem;
 
   .title {
     font-size: 14rem;
@@ -301,7 +254,7 @@ export default {
     padding-right: @space-width * 2;
 
     .friend {
-      width: @icon-width;
+      width: @avatar-width;
       position: relative;
       margin-left: @space-width;
       margin-bottom: @space-width;
@@ -311,15 +264,15 @@ export default {
       align-items: center;
 
       .avatar {
-        width: @icon-width;
-        height: @icon-width;
+        width: @avatar-width;
+        height: @avatar-width;
         border-radius: 50%;
       }
 
       span {
         margin-top: 5rem;
         text-align: center;
-        width: @icon-width;
+        width: @avatar-width;
         //white-space: nowrap;
         //overflow: hidden;
         //text-overflow: ellipsis;
@@ -327,7 +280,7 @@ export default {
 
       .checked {
         position: absolute;
-        top: @icon-width - 1.5;
+        top: @avatar-width - 1.5;
         right: -2px;
         width: 20rem;
         height: 20rem;
@@ -376,9 +329,8 @@ export default {
 
 
       img {
-
-        width: @icon-width;
-        height: @icon-width;
+        width: @avatar-width;
+        height: @avatar-width;
         border-radius: 50%;
       }
 
@@ -403,8 +355,8 @@ export default {
       margin-bottom: @space-width;
 
       img {
-        width: @icon-width - 2;
-        height: @icon-width - 2;
+        width: @icon-width;
+        height: @icon-width;
         padding: 10rem;
         border-radius: 50%;
         //background: @second-btn-color;

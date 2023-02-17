@@ -85,7 +85,7 @@
 
         <template v-if="showDownload">
           <b-button type="primary" @click="$no">
-            去相册查看
+            已保存，请去相册查看
             <dy-back scale="0.7" mode="light" direction="right"></dy-back>
           </b-button>
 

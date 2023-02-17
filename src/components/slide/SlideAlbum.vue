@@ -35,7 +35,7 @@
              :style="getProgressWidth(index)"></div>
       </div>
     </div>
-    <Teleport to="#slideHook" v-if="state.isPreview">
+    <Teleport to="#home-index" v-if="state.isPreview">
       <div class="preview">
         <div class="preview-wrapper">
           <img :src="img"
@@ -49,7 +49,7 @@
         </div>
       </div>
     </Teleport>
-    <Teleport to="#slideHook" v-if="state.operationStatus === SlideAlbumOperationStatus.Detail">
+    <Teleport to="#home-index" v-if="state.operationStatus === SlideAlbumOperationStatus.Detail">
       <div class="album-toolbar">
         <div class="left">关闭</div>
         <div class="right">
