@@ -145,7 +145,7 @@
                 <img :style="item.select?'opacity: .5;':''" class="avatar" :src="$imgPreview(item.avatar)" alt="">
                 <span class="name">{{ item.name }}</span>
                 <span class="tips">可能感兴趣的人</span>
-                <b-button type="primary">关注</b-button>
+                <dy-button type="primary">关注</dy-button>
                 <div class="close">
                   <dy-back img="close" scale=".6"></dy-back>
                 </div>

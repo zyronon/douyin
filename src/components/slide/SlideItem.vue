@@ -1,21 +1,17 @@
 <template>
-  <div class="base-slide-item">
+  <div class="slide-item">
     <slot></slot>
   </div>
 </template>
 
-<script>
-export default {
-  name: "BaseSlideItem"
-}
+<script setup>
 </script>
 
 <style lang="less">
-.base-slide-item {
-  //min-width: 100vw;
-  //min-height: 100vh;
-  min-width: 100%;
-  min-height: 100%;
+.slide-item {
+  height: 100%;
+  width: 100%;
+  flex-shrink: 0;
   position: relative;
 }
 

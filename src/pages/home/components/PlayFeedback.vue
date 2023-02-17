@@ -44,7 +44,7 @@
           </div>
           <div class="text-num">{{ desc.length }}/300</div>
         </div>
-        <b-button type="primary" :disabled="!disabled" @click="submit">提交</b-button>
+        <dy-button type="primary" :disabled="!disabled" @click="submit">提交</dy-button>
       </div>
     </div>
   </transition>

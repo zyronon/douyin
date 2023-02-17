@@ -74,7 +74,7 @@ function showComments() {
       <img src="../../assets/img/icon/message.svg" alt="" class="message-image">
       <span>{{ Utils.formatNumber(props.item.comment_count) }}</span>
     </div>
-<!--TODO     -->
+    <!--TODO     -->
     <div class="message mb2r" @click.stop="showComments">
       <img v-if="item.isCollect" src="@/assets/img/icon/components/video/star-full.png" alt="" class="message-image">
       <img v-else src="@/assets/img/icon/components/video/star.png" alt="" class="message-image">
@@ -108,9 +108,12 @@ function showComments() {
   .avatar-ctn {
     position: relative;
 
+    @w: 45rem;
+
     .avatar {
-      width: 55px;
-      height: 55px;
+      width: @w;
+      height: @w;
+      border: 3rem solid white;
       border-radius: 50%;
     }
 

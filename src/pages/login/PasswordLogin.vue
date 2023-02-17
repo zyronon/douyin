@@ -31,9 +31,9 @@
         {{ notice }}
       </div>
 
-      <b-button  type="primary"  :loading="loading" :active="false" :disabled="disabled" @click="login">
+      <dy-button  type="primary"  :loading="loading" :active="false" :disabled="disabled" @click="login">
         {{ loading ? '登录中' : '登录' }}
-      </b-button>
+      </dy-button>
 
       <div class="options">
         <span>

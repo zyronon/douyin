@@ -47,7 +47,7 @@
           </div>
         </div>
         <div class="option">
-          <b-button type="primary" size="small" @click="$no">使用</b-button>
+          <dy-button type="primary" size="small" @click="$no">使用</dy-button>
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 <template>
   <div id="GuessMusic">
-    <SlideColumnList
+    <SlideVertical
         :changeActiveIndexUseAnim="false"
-        v-model:active-index="guessSlideIndex"
+        v-model:index="guessSlideIndex"
         :canMove="slideCanMove">
       <SlideItemMusic
           :ref="setItemRef"
@@ -14,7 +14,7 @@
           v-model="list[index]"
           v-model:isLoop="isLoop"
           v-for="(item,index) in list "/>
-    </SlideColumnList>
+    </SlideVertical>
     <from-bottom-dialog
         mask-mode="lightgray"
         page-id="GuessMusic"
@@ -63,18 +63,18 @@ import FromBottomDialog from "../../../components/dialog/FromBottomDialog";
 import Switches from "../../message/components/swtich/switches";
 import SlideItemMusic from "./SlideItemMusic";
 import IndicatorLight from "../../../components/slide/IndicatorLight";
-import SlideColumnList from "../../../components/slide/SlideColumnList";
 import Share from "../../../components/Share";
 import ShareToFriend from "../../home/components/ShareToFriend";
+import SlideVertical from "@/components/slide/SlideVertical.vue";
 
 export default {
   name: "GuessMusic",
   components: {
+    SlideVertical,
     FromBottomDialog,
     Switches,
     SlideItemMusic,
     IndicatorLight,
-    SlideColumnList,
     Share,
     ShareToFriend
   },

@@ -1,4 +1,4 @@
-import Index2 from "../pages/home/Index2";
+import Home from "../pages/home";
 import Test from "../pages/test/Test";
 import Test4 from "../pages/test/Test4";
 import SubmitReport from "../pages/home/SubmitReport";
@@ -66,7 +66,7 @@ import Help from "../pages/login/Help";
 import Uploader from "../pages/me/Uploader";
 
 const routes = [
-  {path: '/', redirect: '/test'},
+  {path: '/', redirect: '/home'},
   {path: '/test', component: Test},
   {path: '/test4', component: Test4},
 
@@ -74,7 +74,7 @@ const routes = [
   {path: '/attention', component: Attention},
   {path: '/publish', component: Publish},
 
-  {path: '/home', component: Index2},
+  {path: '/home', component: Home},
   {path: '/home/music', component: Music},
   {path: '/home/music-rank-list', component: MusicRankList},
   {path: '/home/live', component: LivePage},

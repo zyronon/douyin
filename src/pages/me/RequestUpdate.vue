@@ -34,8 +34,8 @@
       </div>
     </div>
     <div class="buttons">
-      <b-button type="white" :border="false" :active="false" @click="$nav('/publish')">发布作品</b-button>
-      <b-button type="primary" :active="false" @click="$no">去直播</b-button>
+      <dy-button type="white" :border="false" :active="false" @click="$nav('/publish')">发布作品</dy-button>
+      <dy-button type="primary" :active="false" @click="$no">去直播</dy-button>
     </div>
 
     <from-bottom-dialog

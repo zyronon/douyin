@@ -1,13 +1,11 @@
 <script setup lang="jsx">
-import {onMounted, reactive, ref, watch, createApp, computed} from "vue";
+import {computed, createApp, onMounted, reactive, ref, watch} from "vue";
 import GM from '../../utils'
 import {getSlideDistance, slideInit, slideReset, slideTouchEnd, slideTouchMove, slideTouchStart} from "./common";
-import {SlideType} from "../../utils/const_var";
-import SlideItem from './SlideItem'
+import {SlideType} from "@/utils/const_var";
+import SlideItem from '@/components/slide/SlideItem.vue'
 import bus, {EVENT_KEY} from "../../utils/bus";
 import {useStore} from 'vuex'
-import Utils from "../../utils";
-import Dom from "@/utils/dom";
 
 const props = defineProps({
   index: {
@@ -146,6 +144,15 @@ function insertContent(list = props.list) {
   }
   state.wrapper.childrenLength = wrapperEl.value.children.length
 }
+
+function dislike(item) {
+  let currentItem = $(wrapperEl.value).find(`.${itemClassName}[data-index=${state.localIndex}]`)
+  let replaceItem = getInsEl(item, state.localIndex, true)
+  $(replaceItem).css('top', currentItem.css('top'))
+  currentItem.replaceWith(replaceItem)
+}
+
+defineExpose({dislike})
 
 function getInsEl(item, index, play = false) {
   console.log('index', index, play)

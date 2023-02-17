@@ -74,7 +74,7 @@ import {
   slideTouchEnd,
   slideTouchMove,
   slideTouchStart
-} from "../../pages/slideHooks/common";
+} from "./common";
 import {SlideAlbumOperationStatus, SlideType} from "../../utils/const_var";
 import ItemToolbar from "./ItemToolbar";
 import ItemDesc from "./ItemDesc";

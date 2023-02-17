@@ -44,7 +44,7 @@
         {{ notice }}
       </div>
 
-      <b-button
+      <dy-button
           type="primary"
           :loading="loading"
           :active="false"
@@ -52,7 +52,7 @@
           :disabled="disabled"
           @click="login">
         完成
-      </b-button>
+      </dy-button>
 
       <div class="options" v-if="showVoiceCode">
         <span>

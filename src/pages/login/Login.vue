@@ -13,10 +13,10 @@
         <div class="sub-title">认证服务由中国移动提供</div>
       </div>
 
-      <b-button type="primary" :loading="loading.login" :active="false" :loadingWithText="true" @click="login">
+      <dy-button type="primary" :loading="loading.login" :active="false" :loadingWithText="true" @click="login">
         {{ loading.login ? '登录中' : '一键登录' }}
-      </b-button>
-      <b-button :active="false" type="white" @click="$nav('/login/other')">其他手机号码登录</b-button>
+      </dy-button>
+      <dy-button :active="false" type="white" @click="$nav('/login/other')">其他手机号码登录</dy-button>
 
       <div class="protocol" :class="showAnim?'anim-bounce':''">
         <Tooltip style="top: -100%;left: -10rem;" v-model="showTooltip"/>

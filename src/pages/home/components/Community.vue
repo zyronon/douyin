@@ -45,8 +45,8 @@ function loadData() {
   console.log('loadData')
   for (let i = 1; i < 12; i++) {
     let temp = {
-      src: new URL(`../../assets/img/poster/${i}.jpg`, import.meta.url).href,
-      author: new URL(`../../assets/img/avatar.png`, import.meta.url).href,
+      src: new URL(`../../../assets/img/poster/${i}.jpg`, import.meta.url).href,
+      author: new URL(`../../../assets/img/avatar.png`, import.meta.url).href,
     }
     state.list.push(temp)
   }
@@ -55,8 +55,8 @@ function loadData() {
 onMounted(() => {
   for (let i = 1; i < 12; i++) {
     let temp = {
-      src: new URL(`../../assets/img/poster/${i}.jpg`, import.meta.url).href,
-      author: new URL(`../../assets/img/avatar.png`, import.meta.url).href,
+      src: new URL(`../../../assets/img/poster/${i}.jpg`, import.meta.url).href,
+      author: new URL(`../../../assets/img/avatar.png`, import.meta.url).href,
     }
     state.list.push(temp)
   }

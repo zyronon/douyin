@@ -32,9 +32,9 @@
                       <span v-else>{{ item.name }}</span>
                   </span>
                 </div>
-                <b-button :type="item.shared?'dark':'primary'" @click="item.shared = true">
+                <dy-button :type="item.shared?'dark':'primary'" @click="item.shared = true">
                   {{ item.shared ? '已' : '' }}分享
-                </b-button>
+                </dy-button>
               </div>
             </div>
           </div>
@@ -61,9 +61,9 @@
               <img class="left" v-lazy="$imgPreview(item.avatar)" alt="">
               <div class="right">
                 <span>{{ item.name }}</span>
-                <b-button :type="item.shared?'dark':'primary'" @click="item.shared = true">
+                <dy-button :type="item.shared?'dark':'primary'" @click="item.shared = true">
                   {{ item.shared ? '已' : '' }}分享
-                </b-button>
+                </dy-button>
               </div>
             </div>
           </div>
@@ -84,9 +84,9 @@
                 <div class="name">{{ text }}</div>
                 <div class="num">(3)</div>
               </div>
-              <b-button :type="item.shared?'dark':'primary'" @click="item.shared = true">
+              <dy-button :type="item.shared?'dark':'primary'" @click="item.shared = true">
                 {{ item.shared ? '已' : '' }}分享
-              </b-button>
+              </dy-button>
             </div>
           </div>
         </div>

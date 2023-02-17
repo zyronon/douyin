@@ -40,10 +40,10 @@
           <img class="left" v-lazy="$imgPreview(item.avatar)" alt="">
           <div class="right">
             <span>{{ item.name }}</span>
-            <b-button size="small" :type="item.shared?'dark':'primary'"
+            <dy-button size="small" :type="item.shared?'dark':'primary'"
                       @click="item.shared = true">
               {{ item.shared ? '已' : '' }}分享
-            </b-button>
+            </dy-button>
           </div>
         </div>
         <div class="more" @click="closeShare($nav('/message/share-to-friend'))">

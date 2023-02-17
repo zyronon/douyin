@@ -31,9 +31,9 @@
         </div>
       </div>
 
-      <b-button type="primary" :loading="loading" :active="false" :disabled="phone.length < 10" @click="getCode">
+      <dy-button type="primary" :loading="loading" :active="false" :disabled="phone.length < 10" @click="getCode">
         获取短信验证码
-      </b-button>
+      </dy-button>
 
       <div class="options">
         <span class="link" @click="$nav('/login/password')">密码登录</span>

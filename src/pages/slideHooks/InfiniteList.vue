@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="jsx">
-import VInfinite from './VInfinite.vue'
+import VInfinite from '../../components/slide/SlideVerticalInfinite.vue'
 import SlideAlbum from "../../components/slide/SlideAlbum";
 import SlideUser from "../../components/slide/SlideUser";
 import BVideo from "../../components/slide/BVideo";
