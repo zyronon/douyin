@@ -3,8 +3,8 @@
     <H v-model:index="state.baseIndex">
       <SlideItem>
         <IndicatorHome
+            :isLight="state.subTypeVisible"
             v-if="!state.fullScreen"
-            v-hide="state.isUp"
             :loading="state.loading"
             name="main"
             v-model:index="state.navIndex"
@@ -247,7 +247,6 @@ const state = reactive({
   isSharing: false,
   canMove: true,
   loading: false,
-  isUp: false,
 
   shareType: -1,
 
@@ -446,7 +445,7 @@ function render(item, itemIndex, play, position) {
         transition: all .3s;
         font-size: 14rem;
         color: gray;
-        background: linear-gradient(to right, rgb(36, 34, 84), rgb(7, 5, 16));
+        background: #f9f9f9;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -457,8 +456,7 @@ function render(item, itemIndex, play, position) {
           padding: 20rem;
           border-radius: 8rem;
           width: 100%;
-          background: red;
-          background: linear-gradient(to right, rgb(53, 51, 110), rgb(29, 21, 66));
+          background: white;
           box-sizing: border-box;
           display: flex;
           align-items: flex-end;

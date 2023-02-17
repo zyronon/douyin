@@ -1,5 +1,5 @@
 <template>
-  <div class="indicator-home">
+  <div class="indicator-home" :class="isLight">
     <transition name="fade">
       <div class="mask" v-if="open" @click="open = false"></div>
     </transition>
@@ -66,6 +66,10 @@ export default {
       type: Number,
       default: () => 0
     },
+    isLight: {
+      type: Boolean,
+      default: () => false
+    }
   },
   data() {
     return {
@@ -198,6 +202,11 @@ export default {
   color: white;
   height: @header-height;
   transition: all .3s;
+  font-weight: bold;
+
+  &.isLight {
+    color: black;
+  }
 
   .notice {
     opacity: 0;
@@ -236,7 +245,6 @@ export default {
       .tabs {
         display: flex;
         justify-content: space-between;
-        font-weight: bold;
 
         .tab {
           transition: color .3s;
