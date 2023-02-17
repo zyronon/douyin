@@ -13,7 +13,7 @@
     <img src="../../assets/img/icon/play-white.png" class="pause" v-if="!isPlaying">
     <div class="float" :style="{opacity: isUp?0:1}">
       <div :style="{opacity:isMove ? 0:1}" class="normal">
-        <template v-if="!commentVisible && !isMarginTop">
+        <template v-if="!commentVisible">
           <ItemToolbar v-model:item="localItem"
                        :position="position"
                        v-bind="$attrs"
@@ -165,7 +165,6 @@ export default {
       videoScreenHeight: 0,
       videoPoster: `?vframe/jpg/offset/0/w/${document.body.clientWidth}`,
       commentVisible: false,
-      isMarginTop: false,
       LUtils: Utils
     }
   },
@@ -245,15 +244,11 @@ export default {
     bus.off(EVENT_KEY.CLOSE_SUB_TYPE, this.onCloseSubType)
   },
   methods: {
-    onOpenSubType({id, height}) {
-      if (id !== this.item.id) return
-      this.isMarginTop = true
-      Utils.$setCss(this.$refs.video, 'margin-top', `${height}px`)
+    onOpenSubType() {
+      this.commentVisible = true
     },
-    onCloseSubType({id}) {
-      if (id !== this.item.id) return
-      this.isMarginTop = false
-      Utils.$setCss(this.$refs.video, 'margin-top', `0px`)
+    onCloseSubType() {
+      this.commentVisible = false
     },
     onDialogMove({tag, e}) {
       if (this.commentVisible && tag === 'comment') {
