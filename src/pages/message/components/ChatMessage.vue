@@ -167,8 +167,8 @@ export default {
 @import "../../../assets/less/index";
 
 .ChatMessage {
-  padding: 0 1rem;
-  margin-bottom: 2rem;
+  padding: 0 10rem;
+  margin-bottom: 20rem;
   display: flex;
   //@chat-bg-color: dodgerblue;
   @chat-bg-right-color: rgb(72, 116, 230);
@@ -178,13 +178,13 @@ export default {
     justify-content: flex-end;
 
     .avatar {
-      margin-left: 1rem;
-      height: 3.6rem;
+      margin-left: 10rem;
+      height: 36rem;
       border-radius: 50%;
     }
 
     .audio-icon {
-      margin-left: 5rem;
+      margin-left: 50rem;
     }
 
     .chat-text, .call, .audio {
@@ -196,13 +196,13 @@ export default {
     justify-content: flex-start;
 
     .avatar {
-      margin-right: 1rem;
-      height: 3.6rem;
+      margin-right: 10rem;
+      height: 36rem;
       border-radius: 50%;
     }
 
     .audio-icon {
-      margin-right: 5rem;
+      margin-right: 50rem;
     }
 
     .chat-text, .call, .audio {
@@ -210,7 +210,7 @@ export default {
     }
   }
 
-  @border-radius: 1rem;
+  @border-radius: 10rem;
 
   .chat-wrapper {
   }
@@ -219,9 +219,9 @@ export default {
     width: 100%;
     color: @second-text-color;
     text-align: center;
-    height: 4rem;
-    line-height: 4rem;
-    font-size: 1.2rem;
+    height: 40rem;
+    line-height: 40rem;
+    font-size: 12rem;
   }
 
   .red_packet {
@@ -239,30 +239,30 @@ export default {
     }
 
     .top {
-      padding: 1rem;
+      padding: 10rem;
       display: flex;
       align-items: center;
       border-bottom: 1px solid rgb(253, 124, 81);
 
       img {
-        border-radius: .3rem;
-        height: 3.8rem;
-        margin-right: 1rem;
+        border-radius: 3rem;
+        height: 38rem;
+        margin-right: 10rem;
       }
 
       .title {
-        font-size: 1.4rem;
+        font-size: 14rem;
       }
 
       .state {
-        font-size: 1.2rem;
+        font-size: 12rem;
         color: rgba(255, 231, 206, .8);
       }
     }
 
     .bottom {
-      font-size: 1.2rem;
-      padding: .5rem 1rem 1rem 1rem;
+      font-size: 12rem;
+      padding: 5rem 10rem 10rem 10rem;
     }
   }
 
@@ -283,19 +283,19 @@ export default {
   }
 
   .call {
-    padding: 1rem;
+    padding: 10rem;
     border-radius: @border-radius;
     display: flex;
     align-items: center;
-    font-size: 1.4rem;
+    font-size: 14rem;
 
     .resolve {
       display: flex;
       align-items: center;
 
       .icon {
-        margin-right: 1rem;
-        width: 2rem;
+        margin-right: 10rem;
+        width: 20rem;
       }
     }
 
@@ -304,22 +304,22 @@ export default {
       align-items: center;
 
       .icon {
-        padding: .6rem;
+        padding: 60rem;
         border-radius: 50%;
         background: rgba(27, 100, 172, 0.8);
-        margin-right: 1rem;
-        width: 1.8rem;
+        margin-right: 10rem;
+        width: 18rem;
       }
 
       .notice {
-        font-size: 1.3rem;
+        font-size: 13rem;
         display: flex;
         flex-direction: column;
         color: #dedede;
 
         .state {
-          margin-bottom: .2rem;
-          font-size: 1.5rem;
+          margin-bottom: 2rem;
+          font-size: 15rem;
           color: white;
         }
       }
@@ -328,17 +328,17 @@ export default {
 
   .audio {
     max-width: 60vw;
-    padding: 1rem;
-    padding-right: 1.5rem;
+    padding: 10rem;
+    padding-right: 15rem;
     border-radius: @border-radius;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 1.4rem;
+    font-size: 14rem;
 
     .audio-icon {
-      width: 1.5rem;
-      height: 1.5rem;
+      width: 15rem;
+      height: 15rem;
     }
   }
 
@@ -350,21 +350,21 @@ export default {
       top: 50%;
       left: 50%;
       transform: translateY(-50%) translateX(-50%);;
-      width: 2.4rem;
+      width: 24rem;
     }
 
     .title {
       position: absolute;
-      font-size: 1.6rem;
-      bottom: 3.5rem;
-      width: calc(100% - 2rem);
+      font-size: 16rem;
+      bottom: 35rem;
+      width: calc(100% - 20rem);
       word-break: break-word;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-      left: 1rem;
+      left: 10rem;
     }
 
     .poster {
@@ -374,16 +374,16 @@ export default {
     }
 
     .author {
-      width: calc(100% - 2rem);
-      left: 1rem;
+      width: calc(100% - 20rem);
+      left: 10rem;
       position: absolute;
-      bottom: 1rem;
+      bottom: 10rem;
       display: flex;
       align-items: center;
 
       .video-avatar {
-        margin-right: .5rem;
-        height: 1.6rem;
+        margin-right: 5rem;
+        height: 16rem;
         border-radius: 50%;
       }
 
@@ -399,20 +399,20 @@ export default {
   .chat-text {
     border-radius: @border-radius;
     max-width: 60vw;
-    padding: 1rem;
+    padding: 10rem;
     display: flex;
     align-items: center;
-    font-size: 1.4rem;
+    font-size: 14rem;
   }
 
   .loves {
-    margin-top: 1rem;
+    margin-top: 10rem;
 
     img {
-      width: 1.6rem;
-      height: 1.6rem;
+      width: 16rem;
+      height: 16rem;
       border-radius: 50%;
-      margin-right: .5rem;
+      margin-right: 5rem;
     }
   }
 }

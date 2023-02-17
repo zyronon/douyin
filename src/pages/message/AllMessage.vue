@@ -229,14 +229,14 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .center {
     display: flex;
     align-items: center;
 
     img {
-      width: 1.5rem;
+      width: 15rem;
       transform: rotate(180deg);
       transition: all .3s;
     }
@@ -257,7 +257,7 @@ export default {
       background: @main-bg;
 
       img {
-        width: 1.6rem;
+        width: 16rem;
       }
     }
 
@@ -280,11 +280,11 @@ export default {
 
     .messages {
       .message {
-        margin-bottom: 2rem;
+        margin-bottom: 20rem;
         display: flex;
 
         &:first-child {
-          margin-top: 2rem;
+          margin-top: 20rem;
         }
 
         .left {
@@ -293,21 +293,21 @@ export default {
           position: relative;
 
           .avatar {
-            width: 4.8rem;
+            width: 48rem;
             border-radius: 50%;
           }
 
           .type {
             position: absolute;
             right: 0;
-            bottom: 1rem;
-            width: 1.7rem;
-            padding: .25rem;
+            bottom: 10rem;
+            width: 17rem;
+            padding: 2.5rem;
             border-radius: 50%;
             background: black;
           }
 
-          margin-right: 1rem;
+          margin-right: 10rem;
         }
 
         .right {
@@ -321,70 +321,70 @@ export default {
             justify-content: space-between;
 
             .top {
-              //margin-bottom: 1rem;
+              //margin-bottom: 10rem;
               display: flex;
               align-items: center;
 
               .tag {
                 color: @second-text-color;
-                padding: .1rem .4rem;
-                margin-left: 1rem;
-                border-radius: .2rem;
+                padding: 1rem 4rem;
+                margin-left: 10rem;
+                border-radius: 2rem;
                 background: @second-btn-color-tran;
-                font-size: 1rem;
+                font-size: 10rem;
               }
             }
 
             .bottom {
-              //margin-top: 1rem;
+              //margin-top: 10rem;
               display: flex;
               align-items: center;
-              font-size: 1.2rem;
+              font-size: 12rem;
               color: @second-text-color;
 
               .type {
-                margin-right: 1rem;
+                margin-right: 10rem;
               }
             }
           }
 
           .poster {
-            margin-left: 1rem;
-            width: 6.4rem;
-            height: 6.4rem;
+            margin-left: 10rem;
+            width: 64rem;
+            height: 64rem;
             object-fit: cover;
-            border-radius: .3rem;
+            border-radius: 3rem;
           }
         }
       }
 
       .look-all {
-        font-size: 1.2rem;
+        font-size: 12rem;
         color: @second-text-color;
         display: flex;
         justify-content: center;
         align-items: center;
 
         .close {
-          margin-left: 1rem;
+          margin-left: 10rem;
           transform: rotate(270deg) !important;
-          width: 1.2rem;
-          height: 1.2rem;
+          width: 12rem;
+          height: 12rem;
         }
       }
     }
 
 
     .title {
-      margin-top: 1.5rem;
-      margin-bottom: 1rem;
-      font-size: 1.2rem;
+      margin-top: 15rem;
+      margin-bottom: 10rem;
+      font-size: 12rem;
       display: flex;
       align-items: center;
 
       img {
-        margin-left: .5rem;
-        width: 1.3rem;
+        margin-left: 5rem;
+        width: 13rem;
       }
     }
   }

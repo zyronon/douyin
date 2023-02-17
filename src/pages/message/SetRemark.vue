@@ -81,11 +81,11 @@ export default {
   }
 
   .content {
-    padding: 2rem;
-    padding-top: 7rem;
+    padding: 20rem;
+    padding-top: 70rem;
 
     .notice, .num {
-      font-size: 1.2rem;
+      font-size: 12rem;
       color: @second-text-color;
     }
 
@@ -96,9 +96,9 @@ export default {
       align-items: center;
 
       input {
-        margin: .5rem 0;
+        margin: 5rem 0;
         color: white;
-        height: 3rem;
+        height: 30rem;
         width: 100%;
         outline: none;
         border: none;
@@ -112,8 +112,8 @@ export default {
       .close {
         position: absolute;
         right: 0;
-        top: 1.5rem;
-        width: 1rem;
+        top: 15rem;
+        width: 10rem;
       }
     }
   }

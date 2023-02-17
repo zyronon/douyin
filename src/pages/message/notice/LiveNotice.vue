@@ -89,7 +89,7 @@ export default {
   bottom: 0;
   top: 0;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .scroll {
     height: calc(100vh - @header-height);
@@ -106,32 +106,32 @@ export default {
       .item {
         padding: @padding-page;
         background: @second-btn-color-tran;
-        border-radius: .5rem;
-        margin-bottom: 2rem;
+        border-radius: 5rem;
+        margin-bottom: 20rem;
 
 
         .title {
           display: flex;
           align-items: center;
-          font-size: 1.6rem;
-          margin-bottom: 1rem;
+          font-size: 16rem;
+          margin-bottom: 10rem;
         }
 
         .time {
-          font-size: 1.2rem;
+          font-size: 12rem;
           color: @second-text-color;
-          margin-bottom: 2rem;
+          margin-bottom: 20rem;
         }
 
         .content-text {
-          margin-bottom: 2rem;
+          margin-bottom: 20rem;
         }
       }
     }
 
     .footer {
       border-top: 1px solid @line-color;
-      height: 6rem;
+      height: 60rem;
       display: flex;
       align-items: center;
       justify-content: center;

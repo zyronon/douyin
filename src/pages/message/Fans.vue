@@ -102,7 +102,7 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .content {
     padding: @padding-page;
@@ -117,15 +117,15 @@ export default {
     }
 
     .title {
-      margin-top: 1.5rem;
-      margin-bottom: 1rem;
-      font-size: 1.2rem;
+      margin-top: 15rem;
+      margin-bottom: 10rem;
+      font-size: 12rem;
       display: flex;
       align-items: center;
 
       img {
-        margin-left: .5rem;
-        width: 1.3rem;
+        margin-left: 5rem;
+        width: 13rem;
       }
     }
   }

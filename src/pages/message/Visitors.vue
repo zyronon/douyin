@@ -44,7 +44,7 @@
         v-model="isShowSetting"
         mode="white"
         mask-mode="dark"
-        height="27rem"
+        height="270rem"
         :show-heng-gang="false"
     >
       <div class="setting-dialog">
@@ -139,7 +139,7 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .content {
     padding: @padding-page;
@@ -150,7 +150,7 @@ export default {
     text-align: center;
 
     .header {
-      margin-top: 10rem;
+      margin-top: 100rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -161,36 +161,36 @@ export default {
       }
 
       .icon1 {
-        left: -2rem;
-        bottom: 2rem;
+        left: -20rem;
+        bottom: 20rem;
         position: absolute;
-        width: 3rem;
+        width: 30rem;
       }
 
       .icon2 {
         z-index: 2;
         position: relative;
-        padding: .25rem;
+        padding: 2.5rem;
         background: black;
         border-radius: 50%;
-        width: 8rem;
+        width: 80rem;
       }
 
       .icon3 {
-        bottom: .5rem;
-        right: -3rem;
+        bottom: 5rem;
+        right: -30rem;
         z-index: 3;
         position: absolute;
-        padding: .2rem;
+        padding: 2rem;
         background: black;
         border-radius: 50%;
-        width: 4rem;
+        width: 40rem;
       }
     }
 
     .title {
-      margin-top: 3rem;
-      font-size: 1.6rem;
+      margin-top: 30rem;
+      font-size: 16rem;
       font-weight: bold;
     }
 
@@ -225,8 +225,8 @@ export default {
 
     .header {
       padding: @padding-page;
-      padding-top: 3rem;
-      padding-bottom: 2rem;
+      padding-top: 30rem;
+      padding-bottom: 20rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -235,17 +235,17 @@ export default {
         position: relative;
 
         .icon {
-          width: 6.4rem;
+          width: 64rem;
         }
 
         .remove {
           bottom: 0;
           right: 0;
           position: absolute;
-          padding: .2rem;
+          padding: 2rem;
           border-radius: 50%;
           background: white;
-          width: 2rem;
+          width: 20rem;
         }
       }
 
@@ -253,17 +253,17 @@ export default {
         top: @padding-page;
         right: @padding-page;
         position: absolute;
-        width: 2rem;
+        width: 20rem;
       }
     }
 
     .title {
-      font-size: 1.6rem;
+      font-size: 16rem;
     }
 
     .sub-title {
       padding: @padding-page;
-      font-size: 1.2rem;
+      font-size: 12rem;
       color: @second-text-color;
     }
 
@@ -275,7 +275,7 @@ export default {
     }
 
     .row {
-      margin-bottom: 1rem;
+      margin-bottom: 10rem;
 
       .left {
         color: black !important;
