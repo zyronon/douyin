@@ -56,7 +56,7 @@
         mask-mode="dark"
         :show-heng-gang="false"
         v-model="isShowSetting"
-        height="16rem"
+        height="160rem"
     >
       <div class="setting-dialog">
         <div class="row disabled">钱包任务</div>
@@ -135,7 +135,7 @@ export default {
   bottom: 0;
   top: 0;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .scroll {
     height: calc(100vh - @header-height);
@@ -152,8 +152,8 @@ export default {
       .item {
         padding: @padding-page;
         background: @second-btn-color-tran;
-        border-radius: .5rem;
-        margin-bottom: 2rem;
+        border-radius: 5rem;
+        margin-bottom: 20rem;
 
         .header {
           display: flex;
@@ -167,19 +167,19 @@ export default {
             align-items: center;
 
             img {
-              width: 2.5rem;
+              width: 25rem;
             }
           }
 
           .right {
-            margin-left: 1rem;
+            margin-left: 10rem;
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: space-between;
 
             img {
-              width: 2rem;
+              width: 20rem;
             }
           }
         }
@@ -187,22 +187,22 @@ export default {
         .title {
           display: flex;
           align-items: center;
-          font-size: 1.6rem;
-          margin-bottom: 1rem;
+          font-size: 16rem;
+          margin-bottom: 10rem;
         }
 
         .time {
-          font-size: 1.2rem;
+          font-size: 12rem;
           color: @second-text-color;
-          margin-bottom: 2rem;
+          margin-bottom: 20rem;
         }
 
         .content-text {
-          margin-bottom: .3rem;
+          margin-bottom: 3rem;
         }
 
         .look-detail {
-          margin-top: 3rem;
+          margin-top: 30rem;
           border-top: 1px solid @line-color2;
           padding-top: @padding-page;
           color: @second-text-color;
@@ -218,7 +218,7 @@ export default {
 
     .row {
       color: black !important;
-      height: 5rem;
+      height: 50rem;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -229,13 +229,13 @@ export default {
       }
 
       &.disabled {
-        font-size: 1.2rem;
+        font-size: 12rem;
         opacity: .5;
       }
     }
 
     .space {
-      height: 1rem;
+      height: 10rem;
       background: whitesmoke;
     }
   }

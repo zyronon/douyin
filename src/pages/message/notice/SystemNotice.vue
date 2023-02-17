@@ -160,7 +160,7 @@ export default {
   bottom: 0;
   top: 0;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .scroll {
     height: calc(100vh - @header-height - @header-height);
@@ -176,24 +176,24 @@ export default {
       .item {
         padding: @padding-page;
         background: @second-btn-color-tran;
-        border-radius: .5rem;
-        margin-bottom: 2rem;
+        border-radius: 5rem;
+        margin-bottom: 20rem;
 
         .title {
           display: flex;
           align-items: center;
-          font-size: 1.6rem;
-          margin-bottom: 1rem;
+          font-size: 16rem;
+          margin-bottom: 10rem;
         }
 
         .time {
-          font-size: 1.2rem;
+          font-size: 12rem;
           color: @second-text-color;
-          margin-bottom: 2rem;
+          margin-bottom: 20rem;
         }
 
         .content-text {
-          margin-bottom: 3rem;
+          margin-bottom: 30rem;
         }
 
         .look-detail {
@@ -211,7 +211,7 @@ export default {
 
     .options {
       border-top: 1px solid @line-color;
-      height: 6rem;
+      height: 60rem;
       display: flex;
       align-items: center;
 
@@ -227,9 +227,9 @@ export default {
         }
 
         img {
-          width: 1rem;
-          height: 1.5rem;
-          margin-right: .4rem;
+          width: 10rem;
+          height: 15rem;
+          margin-right: 4rem;
         }
       }
     }
@@ -237,10 +237,10 @@ export default {
     .hover-dialog {
       z-index: 9;
       position: fixed;
-      bottom: 8rem;
-      border-radius: .6rem;
+      bottom: 80rem;
+      border-radius: 6rem;
       background: rgba(0, 0, 0, 0.9);
-      font-size: 1.2rem;
+      font-size: 12rem;
 
       &.left {
         left: 0;
@@ -253,20 +253,20 @@ export default {
       .arrow {
         width: 0;
         height: 0;
-        border: .7rem solid transparent;
-        border-top: .7rem solid rgba(0, 0, 0, 0.9);
+        border: 7rem solid transparent;
+        border-top: 7rem solid rgba(0, 0, 0, 0.9);
         position: absolute;
-        right: 5rem;
-        bottom: -1.4rem;
+        right: 50rem;
+        bottom: -14rem;
       }
 
       .l-row {
-        width: 12rem;
-        height: 4rem;
+        width: 120rem;
+        height: 40rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        //padding: 1rem 2.2rem;
+        //padding: 10rem 22rem;
         border-top: 1px solid #2c2c2c;
         text-align: center;
 

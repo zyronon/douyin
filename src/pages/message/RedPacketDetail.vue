@@ -50,11 +50,11 @@ export default {
   bottom: 0;
   top: 0;
   overflow: auto;
-  font-size: 1.4rem;
+  font-size: 14rem;
   background: white;
 
   .content {
-    padding-top: 6rem;
+    padding-top: 60rem;
 
     .wrapper {
       color: rgb(110, 87, 63);
@@ -63,32 +63,32 @@ export default {
       align-items: center;
 
       .avatar {
-        margin-top: 5.5rem;
-        width: 5.5rem;
+        margin-top: 55rem;
+        width: 55rem;
         border-radius: 50%;
-        margin-bottom: 2rem;
+        margin-bottom: 20rem;
       }
 
       .money {
         color: rgb(193, 135, 79);
-        font-size: 4rem;
+        font-size: 40rem;
         font-weight: bold;
-        margin-top: 2.5rem;
-        margin-bottom: 1rem;
+        margin-top: 25rem;
+        margin-bottom: 10rem;
       }
 
       .belong {
         font-weight: bold;
-        font-size: 1.3rem;
-        margin-bottom: 1rem;
+        font-size: 13rem;
+        margin-bottom: 10rem;
       }
 
       .notice {
-        font-size: 1.2rem;
+        font-size: 12rem;
       }
 
       .password {
-        font-size: 1.2rem;
+        font-size: 12rem;
         opacity: .6;
       }
     }

@@ -18,7 +18,7 @@
       </template>
     </BaseHeader>
     <div class="is-search"
-         :style="{ height : (selectFriends.length && searchResult.length) ? 'calc(100% - 27.2rem)' : 'calc(100% - 11.2rem)' }"
+         :style="{ height : (selectFriends.length && searchResult.length) ? 'calc(100% - 272rem)' : 'calc(100% - 112rem)' }"
          v-show="searchKey">
       <div class="list" v-if="searchResult.length">
         <div class="local-row" v-for="item of searchResult" @click="toggleSelect(item);searchKey = '';">
@@ -52,7 +52,7 @@
       </div>
     </div>
     <div ref="list"
-         :style="{ paddingBottom : selectFriends.length ? '16rem' : 0 }"
+         :style="{ paddingBottom : selectFriends.length ? '160rem' : 0 }"
          class="content"
          @scroll="scroll">
       <div class="list">
@@ -334,14 +334,14 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .search {
     border-bottom: 1px solid #cccccc11;
-    font-size: 1.4rem;
+    font-size: 14rem;
     padding: 0;
     padding-left: @padding-page;
-    height: 5rem;
+    height: 50rem;
     border-radius: 2px;
     display: flex;
     align-items: center;
@@ -353,22 +353,22 @@ export default {
         overflow-x: auto;
 
         img {
-          height: 3rem;
-          width: 3rem;
-          margin-right: 1rem;
+          height: 30rem;
+          width: 30rem;
+          margin-right: 10rem;
           border-radius: 50%;
         }
       }
     }
 
     .search-icon {
-      height: 2rem;
-      width: 2rem;
-      margin: 0 1rem;
+      height: 20rem;
+      width: 20rem;
+      margin: 0 10rem;
     }
 
     input {
-      //margin-top: .4rem;
+      //margin-top: 4rem;
       color: white;
       height: 50%;
       width: 100%;
@@ -383,26 +383,26 @@ export default {
     }
 
     .clear {
-      height: 1.8rem;
-      width: 1.8rem;
-      margin-left: 1rem;
-      margin-right: 1rem;
+      height: 18rem;
+      width: 18rem;
+      margin-left: 10rem;
+      margin-right: 10rem;
     }
   }
 
   .indicator-ctn {
-    width: 2.5rem;
+    width: 25rem;
     height: 100vh;
     top: 0;
     position: fixed;
     z-index: 3;
-    right: 0.5rem;
+    right: 5rem;
     display: flex;
     align-items: center;
     justify-content: center;
 
     .indicator {
-      width: 2.5rem;
+      width: 25rem;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -411,23 +411,23 @@ export default {
       div {
         color: @second-text-color;
         //transition: all .3s;
-        font-size: 1rem;
-        padding: .1rem;
+        font-size: 10rem;
+        padding: 1rem;
       }
 
       .arrow {
-        padding: 0 0 .3rem 0;
+        padding: 0 0 3rem 0;
         width: 0;
         height: 0;
-        border: .5rem solid transparent;
-        border-bottom: 1rem solid @second-text-color;
+        border: 5rem solid transparent;
+        border-bottom: 10rem solid @second-text-color;
       }
     }
   }
 
   .content {
-    height: calc(100% - 11.2rem);
-    margin-top: 11.2rem;
+    height: calc(100% - 112rem);
+    margin-top: 112rem;
     box-sizing: border-box;
     width: 100%;
     overflow-y: scroll;
@@ -438,14 +438,14 @@ export default {
       bottom: 0;
       box-sizing: border-box;
       width: 100vw;
-      height: 16rem;
+      height: 160rem;
       background: @main-bg;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
 
       .comment {
-        padding: 0 2rem;
+        padding: 0 20rem;
         display: flex;
         flex: 1;
 
@@ -458,26 +458,26 @@ export default {
         }
 
         .poster {
-          margin-left: 2rem;
-          height: 4rem;
-          width: 4rem;
+          margin-left: 20rem;
+          height: 40rem;
+          width: 40rem;
         }
       }
 
       .wrapper {
-        padding: 1rem;
+        padding: 10rem;
       }
 
       .create-chat {
-        margin: 1rem;
+        margin: 10rem;
         display: flex;
         align-items: center;
         color: @second-text-color;
 
         .check {
-          margin-right: 1rem;
-          width: 1.6rem;
-          height: 1.6rem;
+          margin-right: 10rem;
+          width: 16rem;
+          height: 16rem;
           //transform: scale(1.2);
         }
       }
@@ -490,20 +490,20 @@ export default {
 
   .hover {
     position: absolute;
-    right: 4rem;
-    top: 20rem;
+    right: 40rem;
+    top: 200rem;
     display: flex;
     align-items: center;
     justify-content: center;
 
     span {
       position: absolute;
-      margin-right: 1rem;
-      font-size: 1.8rem;
+      margin-right: 10rem;
+      font-size: 18rem;
     }
 
     img {
-      height: 5rem;
+      height: 50rem;
     }
   }
 
@@ -512,8 +512,8 @@ export default {
     position: fixed;
     z-index: 5;
     left: 0;
-    height: calc(100% - 11.2rem);
-    top: 11.2rem;
+    height: calc(100% - 112rem);
+    top: 112rem;
     box-sizing: border-box;
     width: 100%;
     overflow-y: scroll;
@@ -524,53 +524,53 @@ export default {
       align-items: center;
 
       img {
-        margin-top: 15rem;
-        height: 15rem;
+        margin-top: 150rem;
+        height: 150rem;
       }
 
       .n1 {
-        margin-top: 4rem;
-        font-size: 1.6rem;
+        margin-top: 40rem;
+        font-size: 16rem;
       }
 
       .n2 {
-        margin-top: 2rem;
-        font-size: 1.2rem;
+        margin-top: 20rem;
+        font-size: 12rem;
         color: @second-text-color;
       }
     }
   }
 
   .list {
-    //padding-right: 2.5rem;
+    //padding-right: 25rem;
 
     .title {
-      font-size: 1.2rem;
+      font-size: 12rem;
       color: @second-text-color;
-      padding: 1rem 2rem;
+      padding: 10rem 20rem;
     }
 
 
     .local-row {
       display: flex;
       align-items: center;
-      padding: 1rem 2rem;
+      padding: 10rem 20rem;
 
       &:active {
         background: rgb(35, 41, 58);
       }
 
       .check {
-        height: 2.2rem;
-        width: 2.2rem;
-        margin-right: 1.5rem;
+        height: 22rem;
+        width: 22rem;
+        margin-right: 15rem;
       }
 
       img {
-        height: 4.5rem;
-        width: 4.5rem;
+        height: 45rem;
+        width: 45rem;
         border-radius: 50%;
-        margin-right: 1.5rem;
+        margin-right: 15rem;
       }
 
       .desc {
@@ -582,8 +582,8 @@ export default {
         }
 
         .account {
-          margin-top: .5rem;
-          font-size: 1.2rem;
+          margin-top: 5rem;
+          font-size: 12rem;
           color: @second-text-color;
         }
       }

@@ -97,10 +97,10 @@ export default {
   top: 0;
   overflow: auto;
   color: white;
-  font-size: 1.4rem;
+  font-size: 14rem;
 
   .content {
-    padding-top: 6rem;
+    padding-top: 60rem;
   }
 
 
@@ -117,28 +117,28 @@ export default {
     .local-row {
       display: flex;
       align-items: center;
-      padding: 1rem 2rem;
+      padding: 10rem 20rem;
 
       &:active {
         background: rgb(35, 41, 58);
       }
 
       .check {
-        height: 2.2rem;
-        width: 2.2rem;
-        margin-right: 1.5rem;
+        height: 22rem;
+        width: 22rem;
+        margin-right: 15rem;
       }
 
       img {
-        height: 4.5rem;
-        width: 4.5rem;
+        height: 45rem;
+        width: 45rem;
         border-radius: 50%;
-        margin-right: 1.5rem;
+        margin-right: 15rem;
       }
 
       .desc {
         .num {
-          margin-left: .5rem;
+          margin-left: 5rem;
           color: @second-text-color;
         }
       }
