@@ -19,7 +19,7 @@
       <b-button :active="false" type="white" @click="$nav('/login/other')">其他手机号码登录</b-button>
 
       <div class="protocol" :class="showAnim?'anim-bounce':''">
-        <Tooltip style="top: -100%;left: -1rem;" v-model="showTooltip"/>
+        <Tooltip style="top: -100%;left: -10rem;" v-model="showTooltip"/>
         <div class="left">
           <Check v-model="isAgree"/>
         </div>
@@ -118,68 +118,68 @@ export default {
   top: 0;
   overflow: auto;
   color: black;
-  font-size: 1.4rem;
+  font-size: 14rem;
   background: white;
 
   .content {
-    padding: 6rem 3rem;
+    padding: 60rem 30rem;
 
     .desc {
-      margin-bottom: 6rem;
-      margin-top: 12rem;
+      margin-bottom: 60rem;
+      margin-top: 120rem;
       display: flex;
       align-items: center;
       flex-direction: column;
 
       .title {
-        margin-bottom: 2rem;
+        margin-bottom: 20rem;
       }
 
       .phone-number {
-        letter-spacing: .3rem;
-        font-size: 3rem;
-        margin-bottom: 1rem;
+        letter-spacing: 3rem;
+        font-size: 30rem;
+        margin-bottom: 10rem;
       }
 
       .sub-title {
-        font-size: 1.2rem;
+        font-size: 12rem;
         color: @second-text-color;
       }
     }
 
     .button {
       width: 100%;
-      margin-bottom: .5rem;
+      margin-bottom: 5rem;
     }
 
     .protocol {
       position: relative;
       color: gray;
-      margin-top: 2rem;
-      font-size: 1.2rem;
+      margin-top: 20rem;
+      font-size: 12rem;
       display: flex;
 
       .left {
-        padding-top: .1rem;
-        margin-right: .5rem;
+        padding-top: 1rem;
+        margin-right: 5rem;
       }
     }
 
 
     .other-login {
       position: absolute;
-      bottom: 4rem;
-      font-size: 1.2rem;
+      bottom: 40rem;
+      font-size: 12rem;
       display: flex;
       justify-content: center;
-      width: calc(100vw - 6rem);
+      width: calc(100vw - 60rem);
       transform: translateX(-50%);
       left: 50%;
 
       .icons {
         img {
-          width: 4rem;
-          margin-right: 1.5rem;
+          width: 40rem;
+          margin-right: 15rem;
 
           &:nth-last-child(1) {
             margin-right: 0;
@@ -190,8 +190,8 @@ export default {
 
     .other-login-text {
       position: absolute;
-      bottom: 5.5rem;
-      font-size: 1.2rem;
+      bottom: 55rem;
+      font-size: 12rem;
       transform: translateX(-50%);
       left: 50%;
     }

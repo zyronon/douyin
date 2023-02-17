@@ -14,7 +14,7 @@
       <LoginInput autofocus class="mt1r" type="password" v-model="password" placeholder="请输入密码"/>
 
       <div class="protocol" :class="showAnim?'anim-bounce':''">
-        <Tooltip style="top: -150%;left: -1rem;" v-model="showTooltip"/>
+        <Tooltip style="top: -150%;left: -10rem;" v-model="showTooltip"/>
         <div class="left">
           <Check v-model="isAgree"/>
         </div>
@@ -96,7 +96,7 @@ export default {
   top: 0;
   overflow: auto;
   color: black;
-  font-size: 1.4rem;
+  font-size: 14rem;
   background: white;
 
 }
