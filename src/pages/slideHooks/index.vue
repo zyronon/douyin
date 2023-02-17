@@ -417,7 +417,7 @@ function render(item, itemIndex, play, position) {
   //width: 90vw;
   //height: 80vh;
   width: 100vw;
-  height: calc(100vh - @footer-height);
+  height: calc(100vh - @footer-height)!important;
   overflow: hidden;
 
   #slide1 {
