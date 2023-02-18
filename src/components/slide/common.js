@@ -44,7 +44,6 @@ export function slideTouchMove(e, el, state, judgeValue, canNextCb, nextCb, type
 
   let canSlideRes = canSlide(state, judgeValue, type)
 
-  //当
   if (canSlideRes && state.localIndex === 0 && !isNext && type === SlideType.VERTICAL) {
     bus.emit(state.name + '-moveY', state.move.y)
   }

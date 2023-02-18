@@ -282,8 +282,13 @@ export default {
         this.commentVisible = false
       }
     },
-    click({id, type}) {
-      if (this.item.id === id) {
+    click({baseIndex, navIndex, itemIndex, type}) {
+      // console.log(baseIndex, navIndex, itemIndex, this.position)
+      if (
+          this.position.baseIndex === baseIndex &&
+          this.position.navIndex === navIndex &&
+          this.position.itemIndex === itemIndex
+      ) {
         if (type === EVENT_KEY.ITEM_TOGGLE) {
           if (this.status === SlideItemPlayStatus.Play) {
             this.pause()
