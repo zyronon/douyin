@@ -5,19 +5,17 @@
         <IndicatorHome
             :isLight="state.subTypeVisible"
             v-if="!state.fullScreen"
-            :loading="state.loading"
+            :loading="loading"
             name="main"
             v-model:index="state.navIndex"
         />
-
-        <div class="slide-content"
-        >
+        <div class="slide-content">
           <SlideHorizontal class="first-horizontal-item"
                            name="main"
                            id="home-index"
                            :change-active-index-use-anim="false"
                            v-model:index="state.navIndex">
-            <SlideItem id="slide1">
+            <SlideItem id="slide0">
               <div class="sub-type"
                    :class="state.subTypeIsTop?'top':''"
                    ref="subTypeRef">
@@ -62,23 +60,23 @@
                    v-if="state.subType===-1 && !state.subTypeVisible"
                    @click="showSubType">附近吃喝玩乐
               </div>
+              <Loading v-if="state.slide0.loading && state.slide0.list.length === 0"/>
               <SlideVerticalInfinite
                   @touchstart="pageClick"
-                  v-love="'home-index'"
+                  v-love="'slide0-infinite'"
                   :style="{background: 'black',marginTop:state.subTypeVisible?state.subTypeHeight:0}"
                   name="main"
-                  id="slide1-infinite"
-                  v-model:index="state.itemIndex"
+                  id="slide0-infinite"
+                  v-model:index="state.slide0.index"
                   :render="render"
-                  :list="state.recommendList"
+                  :list="state.slide0.list"
                   :position="{
                   baseIndex:0,
-                  navIndex:5,
+                  navIndex:0,
                 }"
-                  @loadMore="loadMore"
-                  @refresh="() => getData(true)"
-              >
-              </SlideVerticalInfinite>
+                  @loadMore="loadSlide1More"
+                  @refresh="() => getSlide0Data(true)"
+              />
             </SlideItem>
             <SlideItem>
               <Community/>
@@ -90,19 +88,20 @@
               <Shop/>
             </SlideItem>
             <SlideItem>
+              <Loading style="position: absolute" v-if="state.slide4.loading && state.slide4.list.length === 0"/>
               <SlideVerticalInfinite
                   ref="recommendListRef"
                   :style="{background: 'black'}"
                   name="main"
-                  v-model:index="state.itemIndex"
+                  v-model:index="state.slide4.index"
                   :render="render"
-                  :list="state.recommendList"
+                  :list="state.slide4.list"
                   :position="{
                   baseIndex:0,
-                  navIndex:5,
+                  navIndex:4,
                 }"
-                  @loadMore="loadMore"
-                  @refresh="() => getData(true)"
+                  @loadMore="loadSlide4More"
+                  @refresh="() => getSlide4Data(true)"
               >
               </SlideVerticalInfinite>
             </SlideItem>
@@ -187,7 +186,7 @@ import BVideo from "../../components/slide/BVideo.vue";
 import Comment from "../../components/Comment.vue";
 import Share from "../../components/Share.vue";
 import IndicatorHome from "./components/IndicatorHome.vue";
-import {computed, onMounted, onUnmounted, reactive, ref} from "vue";
+import {computed, onMounted, onUnmounted, reactive, ref, watch} from "vue";
 import bus, {EVENT_KEY} from "../../utils/bus";
 import {useNav} from "@/utils/hooks/useNav";
 import Utils from "@/utils";
@@ -205,6 +204,7 @@ import ShareToFriend from "@/pages/home/components/ShareToFriend.vue";
 import UserPanel from "@/components/UserPanel.vue";
 import Community from "@/pages/home/components/Community.vue";
 import Shop from "@/pages/home/components/Shop.vue";
+import Loading from "@/components/Loading.vue";
 
 const nav = useNav()
 
@@ -221,9 +221,49 @@ const subTypeRef = ref(null)
 const recommendListRef = ref(null)
 const state = reactive({
   baseIndex: 0,
-  navIndex: 4,
-  itemIndex: 0,
+  navIndex: 0,
   test: '',
+  slide0: {
+    loading: false,
+    index: 0,
+    list: [],
+    totalSize: 0,
+    pageSize: 10,
+    pageNo: 0,
+  },
+  slide1: {
+    loading: false,
+    index: 0,
+    list: [],
+    totalSize: 0,
+    pageSize: 10,
+    pageNo: 0,
+  },
+  slide2: {
+    loading: false,
+    index: 0,
+    list: [],
+    totalSize: 0,
+    pageSize: 10,
+    pageNo: 0,
+  },
+  slide3: {
+    loading: false,
+    index: 0,
+    list: [],
+    totalSize: 0,
+    pageSize: 10,
+    pageNo: 0,
+  },
+  slide4: {
+    loading: false,
+    index: 0,
+    list: [],
+    totalSize: 0,
+    pageSize: 10,
+    pageNo: 0,
+  },
+  slideOneList: [],
   recommendList: [
     // {
     //   type: 'img',
@@ -240,7 +280,6 @@ const state = reactive({
   ],
   isSharing: false,
   canMove: true,
-  loading: false,
 
   shareType: -1,
 
@@ -262,36 +301,90 @@ const state = reactive({
   subTypeHeight: '0',
   //用于改变zindex的层级到上层，反正比slide高就行。不然摸不到subType.
   subTypeIsTop: false,
-  totalSize: 0,
-  pageSize: 10,
-  pageNo: 0,
 })
 
-async function getData(refresh = false) {
-  // if (process.env.NODE_ENV !== 'development') {
-  //   state.totalSize = 11
-  //   return state.recommendVideos = resource.videos
-  // }
-  if (state.loading) return
-  state.loading = true
-  let res = await api.videos.recommended({pageNo: refresh ? 0 : state.pageNo, pageSize: state.pageSize})
-  console.log('loadMore-', 'refresh', refresh, res)
-  state.loading = false
-  if (res.code === 200) {
-    state.totalSize = res.data.total
-    if (refresh) {
-      state.recommendList = []
-    }
-    state.recommendList = state.recommendList.concat(res.data.list)
-  } else {
-    state.pageNo--
+const loading = computed(() => {
+  return state[`slide${state.navIndex}`].loading
+})
+
+watch(
+    () => state.navIndex,
+    (newVal, oldValue) => {
+      if (newVal === 0 && state.slide0.list.length === 0) {
+        return getSlide0Data()
+      }
+      if (newVal === 4 && state.slide4.list.length === 0) {
+        return getSlide4Data()
+      }
+      if (newVal === 2) return
+      if ([0, 2, 4].includes(newVal)) {
+        let playItemIndex = state[`slide${newVal}`].index
+        bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
+          baseIndex: state.baseIndex,
+          navIndex: newVal,
+          itemIndex: playItemIndex,
+          type: EVENT_KEY.ITEM_TOGGLE
+        })
+      }
+      if ([0, 2, 4].includes(oldValue)) {
+        let stopItemIndex = state[`slide${oldValue}`].index
+        setTimeout(() => {
+          bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
+            baseIndex: state.baseIndex,
+            navIndex: oldValue,
+            itemIndex: stopItemIndex,
+            type: EVENT_KEY.ITEM_STOP
+          })
+        }, 200)
+      }
+
+    })
+
+function loadSlide1More() {
+  if (!state.loading) {
+    state.slide0.pageNo++
+    getSlide0Data()
   }
 }
 
-function loadMore() {
+async function getSlide0Data(refresh = false) {
+  if (state.slide0.loading) return
+  state.slide0.loading = true
+  let res = await api.videos.recommended({pageNo: refresh ? 0 : state.slide0.pageNo, pageSize: state.slide0.pageSize})
+  console.log('getSlide0Data-', 'refresh', refresh, res)
+  state.slide0.loading = false
+  if (res.code === 200) {
+    state.slide0.totalSize = res.data.total
+    if (refresh) {
+      state.slide0.list = []
+    }
+    state.slide0.list = state.slide0.list.concat(res.data.list)
+  } else {
+    state.slide0.pageNo--
+  }
+}
+
+async function getSlide4Data(refresh = false) {
+  if (state.slide4.loading) return
+  state.slide4.loading = true
+  let res = await api.videos.recommended({pageNo: refresh ? 0 : state.slide4.pageNo, pageSize: state.slide4.pageSize})
+  console.log('getSlide4Data-', 'refresh', refresh, res)
+  state.slide4.loading = false
+  if (res.code === 200) {
+    state.slide4.totalSize = res.data.total
+    if (refresh) {
+      state.slide4.list = []
+    }
+    state.slide4.list = state.slide4.list.concat(res.data.list)
+  } else {
+    state.slide4.pageNo--
+  }
+}
+
+function loadSlide4More() {
   if (!state.loading) {
     state.pageNo++
-    getData()
+    getSlide4Data()
   }
 }
 
@@ -330,13 +423,22 @@ function end() {
 }
 
 onMounted(() => {
-  getData()
+  // getData()
+  getSlide0Data()
   bus.on(EVENT_KEY.SINGLE_CLICK, () => {
-    let id = ''
+    let itemIndex = -1
     if (state.navIndex === 4) {
-      id = state.recommendList[state.itemIndex].id
+      itemIndex = state.slide4.index
     }
-    bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {id, type: EVENT_KEY.ITEM_TOGGLE})
+    if (state.navIndex === 0) {
+      itemIndex = state.slide0.index
+    }
+    bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
+      baseIndex: state.baseIndex,
+      navIndex: state.navIndex,
+      itemIndex,
+      type: EVENT_KEY.ITEM_TOGGLE
+    })
   })
   bus.on('update:item', val => {
     const {baseIndex, navIndex, itemIndex} = val.position
@@ -422,7 +524,7 @@ function render(item, itemIndex, play, position) {
   height: calc(100vh - @footer-height) !important;
   overflow: hidden;
 
-  #slide1 {
+  #slide0 {
     position: relative;
 
     .sub-type {
@@ -487,7 +589,7 @@ function render(item, itemIndex, play, position) {
       color: white;
     }
 
-    #slide1-infinite {
+    #slide0-infinite {
       z-index: 1;
       margin-top: 0;
       transition: height, margin-top .3s;

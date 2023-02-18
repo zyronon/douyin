@@ -44,7 +44,7 @@ const props = defineProps({
 const emit = defineEmits(['update:index', 'loadMore'])
 
 const appInsMap = new Map()
-const itemClassName = 'slide-item2'
+const itemClassName = 'slide-item'
 const wrapperEl = ref(null)
 const state = reactive({
   name: props.name,
@@ -91,14 +91,16 @@ watch(
 watch(
     () => props.index,
     (newVal, oldVal) => {
-      // console.log('watch-index', newVal, oldVal, props.list[newVal].id)
+      // console.log('watch-index', newVal, oldVal,props.list, props.list[newVal].id)
       bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
-        id: props.list[newVal].id,
+        ...props.position,
+        itemIndex: newVal,
         type: EVENT_KEY.ITEM_PLAY
       })
       setTimeout(() => {
         bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
-          id: props.list[oldVal].id,
+          ...props.position,
+          itemIndex: oldVal,
           type: EVENT_KEY.ITEM_STOP
         })
       }, 200)
@@ -110,7 +112,6 @@ onMounted(() => {
   insertContent()
 })
 
-//默认使用this.list,刷新时，考虑到vue可能更新外面的videos到this.list数据没有那么快，因为我要立即刷新
 function insertContent(list = props.list) {
   $(wrapperEl.value).empty()
   let half = (props.virtualTotal - 1) / 2
@@ -155,7 +156,7 @@ function dislike(item) {
 defineExpose({dislike})
 
 function getInsEl(item, index, play = false) {
-  console.log('index', index, play)
+  // console.log('index', index, play)
   let slideVNode = props.render(item, index, play, props.position)
   const app = createApp({
     render() {
