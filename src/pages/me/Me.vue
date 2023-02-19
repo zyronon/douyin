@@ -317,7 +317,7 @@
     <transition name="fade">
       <div class="preview-img" v-if="previewImg" @click="previewImg = ''">
         <img class="resource" :src="previewImg" alt="">
-        <img class="download" src="../../assets/img/icon/components/video/download.png" alt="" @click.stop="$no">
+        <img class="download" src="@/assets/img/icon/components/video/download.png" alt="" @click.stop="$no">
       </div>
     </transition>
 
