@@ -1,5 +1,4 @@
 <template>
-  <Loading v-if="state.loading && state.list.length === 0"/>
   <SlideVerticalInfinite
       ref="listRef"
       v-love="htmlId"

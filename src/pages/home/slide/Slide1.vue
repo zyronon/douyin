@@ -44,6 +44,7 @@
          v-if="state.subType===-1 && !state.subTypeVisible"
          @click="showSubType">附近吃喝玩乐
     </div>
+    <Loading v-if="state.loading && state.list.length === 0"/>
     <SlideList
         :style="{background: 'black',marginTop:state.subTypeVisible?state.subTypeHeight:0}"
         :api="api.videos.recommended"
