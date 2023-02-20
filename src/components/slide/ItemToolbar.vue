@@ -45,6 +45,7 @@ function attention(e) {
 }
 
 function showComments() {
+  // emit('showComments')
   bus.emit(EVENT_KEY.OPEN_COMMENTS, props.item.id)
 }
 
@@ -54,14 +55,13 @@ function showComments() {
   <div class="toolbar mb1r">
     <div class="avatar-ctn mb3r">
       <img class="avatar" :src="props.item.author.avatar" alt=""
-           @click.stop="$emit('goUserInfo')">
+           @click.stop="bus.emit(EVENT_KEY.GO_USERINFO)">
       <transition name="fade">
         <div v-if="!props.item.isAttention" @click.stop="attention" class="options">
           <img class="no" src="../../assets/img/icon/add-light.png" alt="">
           <img class="yes" src="../../assets/img/icon/ok-red.png" alt="">
         </div>
       </transition>
-
     </div>
     <div class="love mb2r" @click.stop="loved($event)">
       <div>
@@ -80,11 +80,11 @@ function showComments() {
       <img v-else src="@/assets/img/icon/components/video/star.png" alt="" class="message-image">
       <span>{{ Utils.formatNumber(props.item.comment_count) }}</span>
     </div>
-    <div v-if="!isMy" class="share mb2r" @click.stop="$emit('showShare')">
+    <div v-if="!isMy" class="share mb2r" @click.stop="bus.emit(EVENT_KEY.SHOW_SHARE)">
       <img src="../../assets/img/icon/share-white-full.png" alt="" class="share-image">
       <span>{{ Utils.formatNumber(props.item.share_count) }}</span>
     </div>
-    <div v-else class="share mb2r" @click.stop="$emit('showShare')">
+    <div v-else class="share mb2r" @click.stop="bus.emit(EVENT_KEY.SHOW_SHARE)">
       <img src="../../assets/img/icon/menu-white.png" alt="" class="share-image">
     </div>
     <!--    <BaseMusic-->
@@ -92,7 +92,7 @@ function showComments() {
     <!--        @click.stop="$nav('/home/music')"-->
     <!--    /> -->
     <BaseMusic
-        :cover="props.item.music.cover"
+        :item="props.item"
     />
   </div>
 </template>
