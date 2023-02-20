@@ -15,69 +15,7 @@
                            id="home-index"
                            :change-active-index-use-anim="false"
                            v-model:index="state.navIndex">
-            <SlideItem id="slide0">
-              <div class="sub-type"
-                   :class="state.subTypeIsTop?'top':''"
-                   ref="subTypeRef">
-                <div class="local">
-                  <div class="card" @touchmove.capture="stop">
-                    <div class="nav-item">
-                      <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                      <span>美食</span>
-                    </div>
-                    <div class="nav-item">
-                      <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                      <span>休闲娱乐</span>
-                    </div>
-                    <div class="nav-item">
-                      <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                      <span>游玩</span>
-                    </div>
-                    <div class="nav-item">
-                      <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                      <span>丽人/美发</span>
-                    </div>
-                    <div class="nav-item">
-                      <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                      <span>住宿</span>
-                    </div>
-                    <div class="nav-item">
-                      <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                      <span>游玩</span>
-                    </div>
-                    <div class="nav-item">
-                      <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                      <span>丽人/美发</span>
-                    </div>
-                    <div class="nav-item">
-                      <img src="../../assets/img/icon/msg-icon9.webp" alt="">
-                      <span>住宿</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="sub-type-notice"
-                   v-if="state.subType===-1 && !state.subTypeVisible"
-                   @click="showSubType">附近吃喝玩乐
-              </div>
-              <Loading v-if="state.slide0.loading && state.slide0.list.length === 0"/>
-              <SlideVerticalInfinite
-                  @touchstart="pageClick"
-                  v-love="'slide0-infinite'"
-                  :style="{background: 'black',marginTop:state.subTypeVisible?state.subTypeHeight:0}"
-                  name="main"
-                  id="slide0-infinite"
-                  v-model:index="state.slide0.index"
-                  :render="render"
-                  :list="state.slide0.list"
-                  :position="{
-                  baseIndex:0,
-                  navIndex:0,
-                }"
-                  @loadMore="loadSlide1More"
-                  @refresh="() => getSlide0Data(true)"
-              />
-            </SlideItem>
+            <Slide1 :cbs="p" :active="state.navIndex === 0 && state.baseIndex === 0"/>
             <SlideItem>
               <Community/>
             </SlideItem>
@@ -205,11 +143,18 @@ import UserPanel from "@/components/UserPanel.vue";
 import Community from "@/pages/home/components/Community.vue";
 import Shop from "@/pages/home/components/Shop.vue";
 import Loading from "@/components/Loading.vue";
+import Slide1 from "@/pages/home/slide/Slide1.vue";
 
 const nav = useNav()
 
 function stop(e) {
   e.stopPropagation()
+}
+
+const p = {
+  onGoUserInfo() {
+    console.log('parent-goUserInfo')
+  }
 }
 
 const store = useStore()
@@ -311,7 +256,6 @@ watch(
     () => state.navIndex,
     (newVal, oldValue) => {
       if (newVal === 0 && state.slide0.list.length === 0) {
-        return getSlide0Data()
       }
       if (newVal === 4 && state.slide4.list.length === 0) {
         return getSlide4Data()
@@ -340,29 +284,6 @@ watch(
 
     })
 
-function loadSlide1More() {
-  if (!state.loading) {
-    state.slide0.pageNo++
-    getSlide0Data()
-  }
-}
-
-async function getSlide0Data(refresh = false) {
-  if (state.slide0.loading) return
-  state.slide0.loading = true
-  let res = await api.videos.recommended({pageNo: refresh ? 0 : state.slide0.pageNo, pageSize: state.slide0.pageSize})
-  console.log('getSlide0Data-', 'refresh', refresh, res)
-  state.slide0.loading = false
-  if (res.code === 200) {
-    state.slide0.totalSize = res.data.total
-    if (refresh) {
-      state.slide0.list = []
-    }
-    state.slide0.list = state.slide0.list.concat(res.data.list)
-  } else {
-    state.slide0.pageNo--
-  }
-}
 
 async function getSlide4Data(refresh = false) {
   if (state.slide4.loading) return
@@ -388,24 +309,6 @@ function loadSlide4More() {
   }
 }
 
-function showSubType(e) {
-  Utils.$stopPropagation(e)
-  console.log('subTypeRef',)
-  state.subTypeHeight = subTypeRef.value.getBoundingClientRect().height + 'px'
-  state.subTypeVisible = true
-  setTimeout(() => state.subTypeIsTop = true, 300)
-  bus.emit(EVENT_KEY.OPEN_SUB_TYPE,)
-}
-
-function pageClick(e) {
-  // console.log('pageClick')
-  if (state.subTypeVisible) {
-    state.subTypeIsTop = state.subTypeVisible = false
-    bus.emit(EVENT_KEY.CLOSE_SUB_TYPE,)
-    Utils.$stopPropagation(e)
-  }
-}
-
 function delayShowDialog(cb) {
   setTimeout(() => {
     cb()
@@ -423,23 +326,7 @@ function end() {
 }
 
 onMounted(() => {
-  // getData()
-  getSlide0Data()
-  bus.on(EVENT_KEY.SINGLE_CLICK, () => {
-    let itemIndex = -1
-    if (state.navIndex === 4) {
-      itemIndex = state.slide4.index
-    }
-    if (state.navIndex === 0) {
-      itemIndex = state.slide0.index
-    }
-    bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
-      baseIndex: state.baseIndex,
-      navIndex: state.navIndex,
-      itemIndex,
-      type: EVENT_KEY.ITEM_TOGGLE
-    })
-  })
+
   bus.on('update:item', val => {
     const {baseIndex, navIndex, itemIndex} = val.position
     if (navIndex === 5) {
@@ -457,7 +344,13 @@ onMounted(() => {
     bus.emit(EVENT_KEY.EXIT_FULLSCREEN)
     state.commentVisible = false
   })
-  bus.on('nav', path => nav(path))
+  bus.on(EVENT_KEY.SHOW_SHARE, (e) => {
+    state.isSharing = true
+  })
+  bus.on(EVENT_KEY.NAV, ({path, query}) => nav(path, query))
+  bus.on(EVENT_KEY.GO_USERINFO, () => {
+    state.baseIndex = 1
+  })
 })
 onUnmounted(() => {
   bus.offAll()

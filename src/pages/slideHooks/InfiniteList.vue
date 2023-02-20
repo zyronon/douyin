@@ -39,7 +39,7 @@ const bodyHeight = computed(() => store.state.bodyHeight)
 const bodyWidth = computed(() => store.state.bodyWidth)
 
 const subTypeRef = ref(null)
-const state = reactive( {
+const state = reactive({
   baseIndex: 0,
   navIndex: 4,
   itemIndex: 0,
@@ -124,38 +124,6 @@ function dislike() {
 function end() {
   // this.$notice('暂时没有更多了')
 }
-
-onMounted(() => {
-  getData()
-  bus.on(EVENT_KEY.SINGLE_CLICK, () => {
-    let id = ''
-    if (state.navIndex === 4) {
-      id = state.recommendVideos[state.itemIndex].id
-    }
-    bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {id, type: EVENT_KEY.ITEM_TOGGLE})
-  })
-  bus.on('update:item', val => {
-    const {baseIndex, navIndex, itemIndex} = val.position
-    if (navIndex === 5) {
-      state.recommendVideos[itemIndex] = val.item
-    }
-  })
-
-  bus.on(EVENT_KEY.ENTER_FULLSCREEN, (e) => state.fullScreen = true)
-  bus.on(EVENT_KEY.EXIT_FULLSCREEN, (e) => state.fullScreen = false)
-  bus.on(EVENT_KEY.OPEN_COMMENTS, (e) => {
-    bus.emit(EVENT_KEY.ENTER_FULLSCREEN)
-    state.commentVisible = true
-  })
-  bus.on(EVENT_KEY.CLOSE_COMMENTS, (e) => {
-    bus.emit(EVENT_KEY.EXIT_FULLSCREEN)
-    state.commentVisible = false
-  })
-  bus.on('nav', path => nav(path))
-})
-onUnmounted(() => {
-  bus.offAll()
-})
 
 function closeComments() {
   bus.emit(EVENT_KEY.CLOSE_COMMENTS)

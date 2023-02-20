@@ -1,18 +1,22 @@
 <template>
   <div class="music-wrapper">
-    <img class="music" :src="props.cover" :style="style" @click.stop="bus.emit('nav','/home/music')">
+    <img class="music" :src="props.item.music?.cover" :style="style"
+         @click.stop="bus.emit(EVENT_KEY.NAV,{path:'/home/music',query:{id:props.item.id}})">
   </div>
 </template>
 <script setup>
 import {computed, inject} from "vue";
-import bus from "../utils/bus";
+import bus, {EVENT_KEY} from "@/utils/bus";
 
 const props = defineProps({
-  cover: {
-    type: String,
-    default: ''
+  item: {
+    type: Object,
+    default: () => {
+      return {}
+    }
   },
 })
+
 const isPlaying = inject('isPlaying')
 
 const style = computed(() => {

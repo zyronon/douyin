@@ -245,14 +245,13 @@ function touchEnd(e) {
   slideReset(wrapperEl.value, state, SlideType.VERTICAL, emit)
 }
 
-
 function canNext(isNext) {
   return !((state.localIndex === 0 && !isNext) || (state.localIndex === props.list.length - 1 && isNext));
 }
 </script>
 
 <template>
-  <div class="slide v-infinite">
+  <div class="slide slide-infinite">
     <div class="slide-list flex-direction-column"
          ref="wrapperEl"
          @click="null"

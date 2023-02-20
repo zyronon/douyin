@@ -151,8 +151,8 @@ export default {
             dbClickTimer = setTimeout(() => isDbClick = false, dbCheckCancelTime);
           } else {
             clickTimer = setTimeout(() => {
-              console.log('单击')
-              bus.emit(EVENT_KEY.SINGLE_CLICK)
+              console.log('单击', binding.value)
+              bus.emit(EVENT_KEY.SINGLE_CLICK, binding.value)
             }, checkTime);
           }
           lastClickTime = nowTime;
