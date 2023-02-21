@@ -12,7 +12,7 @@ const props = defineProps({
   index: {
     type: Number,
     default: () => {
-      return 0
+      return -1
     }
   },
   render: {
@@ -48,7 +48,7 @@ const props = defineProps({
     default: () => false
   },
 })
-const emit = defineEmits(['update:index', 'loadMore'])
+const emit = defineEmits(['update:index', 'loadMore', 'refresh'])
 
 const appInsMap = new Map()
 const itemClassName = 'slide-item'
@@ -116,13 +116,16 @@ watch(
 watch(
     () => props.active,
     (newVal, oldVal) => {
-      console.log('newVal', newVal, 'oldVal', oldVal)
+      // console.log('newVal', newVal, 'oldVal', oldVal)
+      if (newVal && !props.list.length) {
+        return emit('refresh')
+      }
       bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
         uniqueId: props.uniqueId,
         index: state.localIndex,
         type: newVal === false ? EVENT_KEY.ITEM_STOP : EVENT_KEY.ITEM_PLAY
       })
-    })
+    }, {immediate: true})
 
 onMounted(() => {
   slideInit(wrapperEl.value, state, SlideType.VERTICAL)

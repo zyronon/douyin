@@ -163,7 +163,7 @@ export default {
     }
   },
   mounted() {
-    console.log('video', this.localItem.id)
+    // console.log('video', this.localItem.id)
     // console.log(this.commentVisible)
     this.height = document.body.clientHeight
     this.width = document.body.clientWidth

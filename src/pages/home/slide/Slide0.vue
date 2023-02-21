@@ -1,5 +1,5 @@
 <template>
-  <SlideItem id="slide0">
+  <SlideItem class="slide-item-class">
     <div class="sub-type"
          :class="state.subTypeIsTop?'top':''"
          ref="subTypeRef">
@@ -49,7 +49,6 @@
         :style="{background: 'black',marginTop:state.subTypeVisible?state.subTypeHeight:0}"
         :api="api.videos.recommended"
         @touchstart="pageClick"
-        html-id="slide0-list"
     />
   </SlideItem>
 </template>
@@ -94,9 +93,7 @@ const p = {
   }
 }
 
-const render = useSlideListItemRender({...props.cbs, ...p})
 const subTypeRef = ref(null)
-const listRef = ref(null)
 const state = reactive({
   index: 0,
   subType: -1,
@@ -136,12 +133,12 @@ onUnmounted(() => {
 <style scoped lang="less">
 @import "@/assets/less/index";
 
-#slide0 {
+.slide-item-class {
   position: relative;
 
   .sub-type {
     width: 100%;
-    position: fixed;
+    position: absolute;
     top: 0;
 
     &.top {
@@ -152,7 +149,9 @@ onUnmounted(() => {
       transition: all .3s;
       font-size: 14rem;
       color: gray;
-      background: #f9f9f9;
+      //background: #f9f9f9;
+      background: linear-gradient(to right, rgb(36, 34, 84), rgb(7, 5, 16));
+
       display: flex;
       justify-content: center;
       align-items: center;
@@ -163,7 +162,8 @@ onUnmounted(() => {
         padding: 20rem;
         border-radius: 8rem;
         width: 100%;
-        background: white;
+        //background: white;
+        background: linear-gradient(to right, rgb(53, 51, 110), rgb(29, 21, 66));
         box-sizing: border-box;
         display: flex;
         align-items: flex-end;
@@ -189,7 +189,7 @@ onUnmounted(() => {
   }
 
   .sub-type-notice {
-    position: fixed;
+    position: absolute;
     background: rgba(black, .4);
     top: 100rem;
     left: 50%;
@@ -199,12 +199,6 @@ onUnmounted(() => {
     z-index: 3;
     font-size: 12rem;
     color: white;
-  }
-
-  #slide0-infinite {
-    z-index: 1;
-    margin-top: 0;
-    transition: all .3s;
   }
 }
 </style>
