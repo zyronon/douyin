@@ -3,7 +3,7 @@ import SlideUser from "@/components/slide/SlideUser.vue";
 import BVideo from "@/components/slide/BVideo.vue";
 
 export function useSlideListItemRender(props) {
-  return function render(item, itemIndex, play, position) {
+  return function render(item, index, play, uniqueId) {
     // console.log('item', item)
     let node
     if (item.type === 'img') {
@@ -23,7 +23,8 @@ export function useSlideListItemRender(props) {
       node = <BVideo
           isPlay={play}
           item={item}
-          position={{...position, itemIndex}}
+          index={index}
+          position={{uniqueId, index}}
           {...props}
       />
     }

@@ -45,8 +45,12 @@ const store = Vuex.createStore({
     excludeRoutes: [],
     judgeValue: 20,
     homeRefresh: 60,
+    loading: false,
   },
   mutations: {
+    setLoading(store, val) {
+      store.loading = val
+    },
     setUserinfo(store, val) {
       store.userinfo = val
     },

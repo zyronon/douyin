@@ -94,12 +94,6 @@ export default {
         return {}
       }
     },
-    index: {
-      type: Number,
-      default: () => {
-        return -1
-      }
-    },
     position: {
       type: Object,
       default: () => {
@@ -169,6 +163,7 @@ export default {
     }
   },
   mounted() {
+    console.log('video', this.localItem.id)
     // console.log(this.commentVisible)
     this.height = document.body.clientHeight
     this.width = document.body.clientWidth
@@ -282,12 +277,11 @@ export default {
         this.commentVisible = false
       }
     },
-    click({baseIndex, navIndex, itemIndex, type}) {
-      // console.log(baseIndex, navIndex, itemIndex, this.position)
+    click({uniqueId, index, type}) {
+      // console.log(this.position)
       if (
-          this.position.baseIndex === baseIndex &&
-          this.position.navIndex === navIndex &&
-          this.position.itemIndex === itemIndex
+          this.position.uniqueId === uniqueId &&
+          this.position.index === index
       ) {
         if (type === EVENT_KEY.ITEM_TOGGLE) {
           if (this.status === SlideItemPlayStatus.Play) {

@@ -44,8 +44,8 @@
          v-if="state.subType===-1 && !state.subTypeVisible"
          @click="showSubType">附近吃喝玩乐
     </div>
-    <Loading v-if="state.loading && state.list.length === 0"/>
     <SlideList
+        :active="props.active"
         :style="{background: 'black',marginTop:state.subTypeVisible?state.subTypeHeight:0}"
         :api="api.videos.recommended"
         @touchstart="pageClick"
@@ -94,31 +94,10 @@ const p = {
   }
 }
 
-watch(
-    () => props.active,
-    (newVal, oldVal) => {
-      console.log('newVal', newVal, 'oldVal', oldVal)
-      if (newVal === false) {
-        bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
-          baseIndex: 0,
-          navIndex: 0,
-          itemIndex: state.index,
-          type: EVENT_KEY.ITEM_STOP
-        })
-      } else {
-        bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
-          baseIndex: 0,
-          navIndex: 0,
-          itemIndex: state.index,
-          type: EVENT_KEY.ITEM_PLAY
-        })
-      }
-    })
 const render = useSlideListItemRender({...props.cbs, ...p})
 const subTypeRef = ref(null)
 const listRef = ref(null)
 const state = reactive({
-  loading: false,
   index: 0,
   subType: -1,
   subTypeVisible: false,
@@ -145,17 +124,6 @@ function pageClick(e) {
     Utils.$stopPropagation(e)
   }
 }
-
-function dislike() {
-  listRef.value.dislike(state.list[1])
-  state.list[state.index] = state.list[1]
-  Utils.$notice('操作成功，将减少此类视频的推荐')
-}
-
-function end() {
-  // this.$notice('暂时没有更多了')
-}
-
 
 onMounted(() => {
   // getData()

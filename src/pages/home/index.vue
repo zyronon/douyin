@@ -158,6 +158,7 @@ const p = {
 }
 
 const store = useStore()
+const loading = computed(() => store.state.loading)
 const friends = computed(() => store.state.friends)
 const bodyHeight = computed(() => store.state.bodyHeight)
 const bodyWidth = computed(() => store.state.bodyWidth)
@@ -168,14 +169,6 @@ const state = reactive({
   baseIndex: 0,
   navIndex: 0,
   test: '',
-  slide0: {
-    loading: false,
-    index: 0,
-    list: [],
-    totalSize: 0,
-    pageSize: 10,
-    pageNo: 0,
-  },
   slide1: {
     loading: false,
     index: 0,
@@ -225,9 +218,7 @@ const state = reactive({
   ],
   isSharing: false,
   canMove: true,
-
   shareType: -1,
-
   showPlayFeedback: false,
   showShareDuoshan: false,
   showShareDialog: false,
@@ -247,42 +238,10 @@ const state = reactive({
   //用于改变zindex的层级到上层，反正比slide高就行。不然摸不到subType.
   subTypeIsTop: false,
 })
-
-const loading = computed(() => {
-  return state[`slide${state.navIndex}`].loading
-})
-
-watch(
-    () => state.navIndex,
-    (newVal, oldValue) => {
-      if (newVal === 0 && state.slide0.list.length === 0) {
-      }
-      if (newVal === 4 && state.slide4.list.length === 0) {
-        return getSlide4Data()
-      }
-      if (newVal === 2) return
-      if ([0, 2, 4].includes(newVal)) {
-        let playItemIndex = state[`slide${newVal}`].index
-        bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
-          baseIndex: state.baseIndex,
-          navIndex: newVal,
-          itemIndex: playItemIndex,
-          type: EVENT_KEY.ITEM_TOGGLE
-        })
-      }
-      if ([0, 2, 4].includes(oldValue)) {
-        let stopItemIndex = state[`slide${oldValue}`].index
-        setTimeout(() => {
-          bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
-            baseIndex: state.baseIndex,
-            navIndex: oldValue,
-            itemIndex: stopItemIndex,
-            type: EVENT_KEY.ITEM_STOP
-          })
-        }, 200)
-      }
-
-    })
+//
+// const loading = computed(() => {
+//   return state[`slide${state.navIndex}`].loading
+// })
 
 
 async function getSlide4Data(refresh = false) {
@@ -416,78 +375,6 @@ function render(item, itemIndex, play, position) {
   width: 100vw;
   height: calc(100vh - @footer-height) !important;
   overflow: hidden;
-
-  #slide0 {
-    position: relative;
-
-    .sub-type {
-      width: 100%;
-      position: fixed;
-      top: 0;
-
-      &.top {
-        z-index: 2;
-      }
-
-      .local {
-        transition: all .3s;
-        font-size: 14rem;
-        color: gray;
-        background: #f9f9f9;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .card {
-          margin: 20rem;
-          margin-top: @header-height;
-          padding: 20rem;
-          border-radius: 8rem;
-          width: 100%;
-          background: white;
-          box-sizing: border-box;
-          display: flex;
-          align-items: flex-end;
-          justify-content: space-between;
-          overflow: auto;
-        }
-
-        .nav-item {
-          @width: 35rem;
-          display: flex;
-          align-items: center;
-          flex-direction: column;
-          flex-shrink: 0;
-          width: 17vw;
-
-          img {
-            width: @width;
-            height: @width;
-            margin-bottom: 5rem;
-          }
-        }
-      }
-    }
-
-    .sub-type-notice {
-      position: fixed;
-      background: rgba(black, .4);
-      top: 100rem;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 3rem 12rem;
-      border-radius: 10rem;
-      z-index: 3;
-      font-size: 12rem;
-      color: white;
-    }
-
-    #slide0-infinite {
-      z-index: 1;
-      margin-top: 0;
-      transition: height, margin-top .3s;
-    }
-  }
 
 }
 
