@@ -6,18 +6,13 @@ import {SlideType} from "@/utils/const_var";
 import SlideItem from '@/components/slide/SlideItem.vue'
 import bus, {EVENT_KEY} from "../../utils/bus";
 import {useStore} from 'vuex'
+import Loading from "@/components/Loading.vue";
 
 const props = defineProps({
   index: {
     type: Number,
     default: () => {
       return 0
-    }
-  },
-  position: {
-    type: Object,
-    default: () => {
-      return {}
     }
   },
   render: {
@@ -39,6 +34,18 @@ const props = defineProps({
   name: {
     type: String,
     default: () => ''
+  },
+  uniqueId: {
+    type: String,
+    default: () => ''
+  },
+  loading: {
+    type: Boolean,
+    default: () => false
+  },
+  active: {
+    type: Boolean,
+    default: () => false
   },
 })
 const emit = defineEmits(['update:index', 'loadMore'])
@@ -86,26 +93,36 @@ watch(
           })
         }
       }
-    }
-)
+    })
+
 watch(
     () => props.index,
     (newVal, oldVal) => {
       // console.log('watch-index', newVal, oldVal,props.list, props.list[newVal].id)
       bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
-        ...props.position,
-        itemIndex: newVal,
+        uniqueId: props.uniqueId,
+        index: newVal,
         type: EVENT_KEY.ITEM_PLAY
       })
       setTimeout(() => {
         bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
-          ...props.position,
-          itemIndex: oldVal,
+          uniqueId: props.uniqueId,
+          index: oldVal,
           type: EVENT_KEY.ITEM_STOP
         })
       }, 200)
-    }
-)
+    })
+
+watch(
+    () => props.active,
+    (newVal, oldVal) => {
+      console.log('newVal', newVal, 'oldVal', oldVal)
+      bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
+        uniqueId: props.uniqueId,
+        index: state.localIndex,
+        type: newVal === false ? EVENT_KEY.ITEM_STOP : EVENT_KEY.ITEM_PLAY
+      })
+    })
 
 onMounted(() => {
   slideInit(wrapperEl.value, state, SlideType.VERTICAL)
@@ -157,7 +174,7 @@ defineExpose({dislike})
 
 function getInsEl(item, index, play = false) {
   // console.log('index', index, play)
-  let slideVNode = props.render(item, index, play, props.position)
+  let slideVNode = props.render(item, index, play, props.uniqueId)
   const app = createApp({
     render() {
       return <SlideItem data-index={index}>{slideVNode}</SlideItem>
@@ -252,6 +269,7 @@ function canNext(isNext) {
 
 <template>
   <div class="slide slide-infinite">
+    <Loading v-if="props.loading && props.list.length === 0"/>
     <div class="slide-list flex-direction-column"
          ref="wrapperEl"
          @click="null"

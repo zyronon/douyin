@@ -19,6 +19,7 @@ function getPage(options) {
 
 Mock.setup({
   timeout: '500-1000'
+  // timeout: '5000'
 })
 let allRecommendVideos = resource.videos.map(v => {
   v.type = 'recommend-video'

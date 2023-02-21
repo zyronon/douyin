@@ -8,6 +8,7 @@ import NoticeDialog from "../components/dialog/NoticeDialog";
 import dayjs from 'dayjs'
 import bus from "./bus";
 import {cloneDeep} from "lodash";
+import {EVENT_KEY} from "./bus";
 
 export default {
   require2(url) {
@@ -382,7 +383,7 @@ export default {
     let old = cloneDeep(props.item)
     old[key] = val
     emit('update:item', old)
-    bus.emit('update:item', {position: props.position, item: old})
+    bus.emit(EVENT_KEY.UPDATE_ITEM, {position: props.position, item: old})
   },
   copy(val) {
     const input = document.createElement('input');
