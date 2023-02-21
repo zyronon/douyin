@@ -169,6 +169,9 @@ function delayShowDialog(cb) {
   }, 400)
 }
 
+bus.on(EVENT_KEY.CURRENT_ITEM, item => {
+  console.log('item', item)
+})
 onMounted(() => {
   bus.on(EVENT_KEY.ENTER_FULLSCREEN, (e) => state.fullScreen = true)
   bus.on(EVENT_KEY.EXIT_FULLSCREEN, (e) => state.fullScreen = false)
