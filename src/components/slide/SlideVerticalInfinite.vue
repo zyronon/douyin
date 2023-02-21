@@ -98,7 +98,9 @@ watch(
 watch(
     () => props.index,
     (newVal, oldVal) => {
-      // console.log('watch-index', newVal, oldVal,props.list, props.list[newVal].id)
+      if (!props.list.length) return
+      console.log('watch-index', newVal, oldVal)
+      bus.emit(EVENT_KEY.CURRENT_ITEM, props.list[newVal])
       bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
         uniqueId: props.uniqueId,
         index: newVal,
@@ -111,14 +113,17 @@ watch(
           type: EVENT_KEY.ITEM_STOP
         })
       }, 200)
-    })
+    },)
 
 watch(
     () => props.active,
     (newVal, oldVal) => {
-      // console.log('newVal', newVal, 'oldVal', oldVal)
       if (newVal && !props.list.length) {
         return emit('refresh')
+      }
+      console.log('active', 'newVal', newVal, 'oldVal', oldVal)
+      if (newVal) {
+        bus.emit(EVENT_KEY.CURRENT_ITEM, props.list[state.localIndex])
       }
       bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
         uniqueId: props.uniqueId,
@@ -133,6 +138,7 @@ onMounted(() => {
 })
 
 function insertContent(list = props.list) {
+  if (!list.length) return
   $(wrapperEl.value).empty()
   let half = (props.virtualTotal - 1) / 2
   let start = 0
@@ -164,6 +170,8 @@ function insertContent(list = props.list) {
     })
   }
   state.wrapper.childrenLength = wrapperEl.value.children.length
+  bus.emit(EVENT_KEY.CURRENT_ITEM, list[state.localIndex])
+
 }
 
 function dislike(item) {

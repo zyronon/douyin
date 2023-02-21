@@ -1,7 +1,7 @@
-import bus from "../../utils/bus";
-import Utils from '../../utils'
-import {SlideType} from "../../utils/const_var";
-import GM from "../../utils";
+import bus from "@/utils/bus";
+import Utils from '@/utils'
+import {SlideType} from "@/utils/const_var";
+import GM from "@/utils";
 
 export function slideInit(el, state, type) {
   state.wrapper.width = GM.$getCss(el, 'width')

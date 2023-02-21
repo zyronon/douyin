@@ -40,13 +40,6 @@ const props = defineProps({
     default: void 0
   },
 })
-const emit = defineEmits([
-  'update:item',
-  'goUserInfo',
-  'showComments',
-  'showShare',
-  'goMusic',
-])
 
 const store = useStore()
 const loading = computed(() => store.state.loading)
