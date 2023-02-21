@@ -17,11 +17,10 @@
 
 <script setup lang="jsx">
 import SlideVerticalInfinite from '@/components/slide/SlideVerticalInfinite.vue'
-import {computed, onMounted, onUnmounted, reactive, ref, watch} from "vue";
+import {computed, onMounted, onUnmounted, reactive, ref} from "vue";
 import bus, {EVENT_KEY} from "@/utils/bus";
 import Utils from "@/utils";
 import {useSlideListItemRender} from "@/utils/hooks/useSlideListItemRender";
-import Loading from "@/components/Loading.vue";
 import {useStore} from "vuex";
 import {uniqueId} from "lodash";
 
@@ -51,10 +50,6 @@ const emit = defineEmits([
 
 const store = useStore()
 const loading = computed(() => store.state.loading)
-
-function stop(e) {
-  e.stopPropagation()
-}
 
 const p = {
   onShowComments() {
@@ -122,14 +117,12 @@ function click(uniqueId) {
 }
 
 function updateItem({position, item}) {
-  console.log('po', position)
   if (position.uniqueId === state.uniqueId) {
     state.list[position.index] = item
   }
 }
 
 onMounted(() => {
-  getData()
   bus.on(EVENT_KEY.SINGLE_CLICK, click)
   bus.on(EVENT_KEY.UPDATE_ITEM, updateItem)
 })

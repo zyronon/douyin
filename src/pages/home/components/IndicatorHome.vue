@@ -17,9 +17,10 @@
           </div>
           <div class="tab" :class="{active:index === 1}" @click.stop="change(1)">
             <span>社区</span>
-            <img src="../../../assets/img/icon/live.webp" class="tab2-img">
           </div>
-          <div class="tab" :class="{active:index === 2}" @click.stop="change(2)"><span>关注</span>
+          <div class="tab" :class="{active:index === 2}" @click.stop="change(2)">
+            <span>关注</span>
+            <img src="../../../assets/img/icon/live.webp" class="tab2-img">
           </div>
           <div class="tab" :class="{active:index === 3}" @click.stop="change(3)"><span>商城</span>
           </div>
