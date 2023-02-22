@@ -102,12 +102,14 @@ onMounted(() => {
 <style scoped lang="less">
 @import "@/assets/less/index";
 
+@fColor: #f1f1f1;
+
 #Shop {
   font-size: 14rem;
   color: white;
   padding-top: @header-height;
   position: relative;
-  background: white;
+  background: @fColor;
 
   .bg {
     top: 0;
@@ -127,7 +129,7 @@ onMounted(() => {
     .bottom {
       height: 100% - @th;
       background: red;
-      background: linear-gradient(to bottom, @eColor, #e1e1e1);
+      background: linear-gradient(to bottom, @eColor, @fColor);
     }
   }
 
@@ -223,7 +225,7 @@ onMounted(() => {
   }
 
   .fixed {
-    background: #e1e1e1;
+    background: @fColor;
   }
 
   @p: 5rem;
