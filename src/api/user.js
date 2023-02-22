@@ -7,4 +7,7 @@ export default {
   author(params, data) {
     return request({url: '/user/author', method: 'get', params, data})
   },
+  profile(params, data) {
+    return request({url: '/user/profile/other', method: 'get', params, data})
+  },
 }
