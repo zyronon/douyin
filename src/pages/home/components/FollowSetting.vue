@@ -6,13 +6,13 @@
       :show-heng-gang="false"
       maskMode="dark"
       @cancel="cancel()"
-      height="330rem"
+      height="480rem"
       mode="light">
     <div class="follow-setting-dialog">
       <div class="dialog-header">
         <div class="title-wrapper">
-          <span class="title">成都验证码</span>
-          <span class="subtitle">私信给朋友</span>
+          <span class="title">{{ currentItem.user.nickname }}</span>
+          <span class="subtitle">抖音号：{{ currentItem.user.short_id }}</span>
         </div>
         <dy-back mode="dark" img="close" direction="right" @click="cancel()"></dy-back>
       </div>
@@ -36,9 +36,21 @@
       </div>
       <div class="l-rows">
         <div class="l-row" @click="cancel(e => $emit('showChangeNote'))">
+          <div class="left">设置分组</div>
+          <div class="right">
+            <img src="../../../assets/img/icon/components/follow/write.png" alt="">
+          </div>
+        </div>
+        <div class="l-row" @click="cancel(e => $emit('showChangeNote'))">
           <div class="left">设置备注名</div>
           <div class="right">
             <img src="../../../assets/img/icon/components/follow/write.png" alt="">
+          </div>
+        </div>
+        <div class="l-row">
+          <div class="left">设置更新和开播通知</div>
+          <div class="right">
+            <dy-back mode="dark" direction="right" @click="cancel()"></dy-back>
           </div>
         </div>
         <div class="l-row">
@@ -53,14 +65,20 @@
             <switches v-model="switches1" theme="bootstrap" color="success"></switches>
           </div>
         </div>
+        <div class="l-row " @click="cancel(e => $emit('cancelFollow'))">
+          <div class="left" style="color: red;">取消关注</div>
+          <div class="right">
+            <img src="../../../assets/img/icon/components/follow/reduce.png" alt="">
+          </div>
+        </div>
       </div>
     </div>
   </from-bottom-dialog>
 </template>
 <script>
-
 import FromBottomDialog from "../../../components/dialog/FromBottomDialog";
 import Switches from "../../message/components/swtich/switches";
+import {DefaultUser} from "@/utils/const_var";
 
 export default {
   name: "FollowSetting",
@@ -69,6 +87,14 @@ export default {
     Switches
   },
   props: {
+    currentItem: {
+      type: Object,
+      default: {
+        user: DefaultUser,
+        isRequest: false,
+        post: [],
+      }
+    },
     modelValue: false
   },
   data() {
@@ -166,11 +192,11 @@ export default {
       justify-content: space-between;
       border-bottom: 1px solid rgba(222, 222, 222, 0.42);
 
-      &:nth-child(1) {
+      &:first-child {
         border-radius: 10rem 10rem 0 0;
       }
 
-      &:nth-child(3) {
+      &:last-child {
         border-bottom: none;
         border-radius: 0 0 10rem 10rem;
       }
