@@ -7,15 +7,15 @@
         <img class="back" src="@/assets/img/icon/next.svg" alt="">
         <transition name="fade">
           <div class="float-user" v-if="state.floatFixed">
-            <img v-lazy="Utils.$imgPreview(state.localAuthor.avatar)" class="avatar"/>
-            <img v-if="!state.localAuthor.is_follow" src="@/assets/img/icon/add-light.png" alt="" class="add">
-            <span @click="followButton">{{ state.localAuthor.is_follow ? '私信' : '关注' }}</span>
+            <img v-lazy="Utils.$imgPreview(props.currentItem.user.avatar)" class="avatar"/>
+            <img v-if="!props.currentItem.user.is_follow" src="@/assets/img/icon/add-light.png" alt="" class="add">
+            <span @click="followButton">{{ props.currentItem.user.is_follow ? '私信' : '关注' }}</span>
           </div>
         </transition>
       </div>
       <div class="right">
         <transition name="fade">
-          <div class="request" v-if="!state.floatFixed && state.localAuthor.is_follow">
+          <div class="request" v-if="!state.floatFixed && props.currentItem.user.is_follow">
             <img @click="$nav('/me/request-update')" src="@/assets/img/icon/me/finger-right.png" alt="">
             <span>求更新</span>
           </div>
@@ -32,22 +32,23 @@
       <!--   src="@/assets/img/header-bg.png"   -->
       <header>
         <img
+            :style="{opacity:props.currentItem.user.cover_url[0].url_list.length?1:0}"
             ref="cover"
-            :src="state.localAuthor.cover"
-            @click="state.previewImg = state.localAuthor.cover"
+            :src="props.currentItem.user.cover_url[0].url_list[0]"
+            @click="state.previewImg = props.currentItem.user.cover_url[0].url_list[0]"
             alt=""
             class="cover">
         <div class="avatar-wrapper">
-          <img v-lazy="Utils.$imgPreview(state.localAuthor.avatar)" class="avatar"
-               @click="state.previewImg = state.localAuthor.avatar">
+          <img v-lazy="Utils.$imgPreview(props.currentItem.user.avatar_thumb.url_list[0])" class="avatar"
+               @click="state.previewImg = props.currentItem.user.avatar_thumb.url_list[0]">
           <div class="description">
-            <div class="name f22 mb1r">{{ state.localAuthor.nickname }}</div>
-            <div class="certification" v-if="state.localAuthor.certification ">
+            <div class="name f22 mb1r">{{ props.currentItem.user.nickname }}</div>
+            <div class="certification" v-if="props.currentItem.user.certification ">
               <img src="@/assets/img/icon/me/certification.webp">
-              {{ state.localAuthor.certification }}
+              {{ props.currentItem.user.certification }}
             </div>
             <div class="number" v-else>
-              <span>抖音号：{{ state.localAuthor.unique_id }}</span>
+              <span>抖音号：{{ props.currentItem.user.short_id }}</span>
               <img src="@/assets/img/icon/me/copy.png" alt="" @click.stop="Utils.copy">
             </div>
           </div>
@@ -56,164 +57,156 @@
       <div class="info">
         <div class="heat">
           <div class="text">
-            <span class="num">{{ Utils.formatNumber(state.localAuthor.aweme_count) }}</span>
+            <span class="num">{{ Utils.formatNumber(props.currentItem.user.total_favorited) }}</span>
             <span>获赞</span>
           </div>
           <div class="text">
-            <span class="num">{{ state.localAuthor.following_count }}</span>
+            <span class="num">{{ Utils.formatNumber(props.currentItem.user.following_count) }}</span>
             <span>关注</span>
           </div>
           <div class="text">
-            <span class="num">{{ Utils.formatNumber(state.localAuthor.follower_count) }}</span>
+            <span class="num">{{ Utils.formatNumber(props.currentItem.user.mplatform_followers_count) }}</span>
             <span>粉丝</span>
           </div>
         </div>
 
-        <div class="signature f12" v-if="state.localAuthor.desc">
-          <div class="text" v-html="state.localAuthor.desc"></div>
+        <div class="signature f12" v-if="props.currentItem.user.signature">
+          <div class="text" v-html="props.currentItem.user.signature"></div>
         </div>
-
         <div class="more">
-          <div class="age item" v-if="state.localAuthor.birthday">
-            <img v-if="state.localAuthor.sex === '0'" src="@/assets/img/icon/me/woman.png" alt="">
-            <img v-if="state.localAuthor.sex === '1'" src="@/assets/img/icon/me/man.png" alt="">
-            <span>{{ Utils.filterAge(state.localAuthor.birthday) }}岁</span>
+          <div class="age item" v-if="props.currentItem.user.user_age !== -1">
+            <img v-if="props.currentItem.user.gender" src="@/assets/img/icon/me/man.png" alt="">
+            <img v-else src="@/assets/img/icon/me/woman.png" alt="">
+            <span>{{ props.currentItem.user.user_age }}岁</span>
           </div>
-          <div class="item" v-if="state.localAuthor.province || state.localAuthor.city">
-            {{ state.localAuthor.province }}
-            <template v-if="state.localAuthor.province &&  state.localAuthor.city">
-              -
-            </template>
-            {{ state.localAuthor.city }}
+          <div class="item" v-if="props.currentItem.user.ip_location">
+            {{ props.currentItem.user.ip_location }}
           </div>
-          <div class="item" v-if="state.localAuthor.school?.name">
-            {{ state.localAuthor.school?.name }}
+          <template v-else>
+            <div class="item" v-if="props.currentItem.user.province || props.currentItem.user.city">
+              {{ props.currentItem.user.province }}
+              <template v-if="props.currentItem.user.province &&  props.currentItem.user.city">
+                ·
+              </template>
+              {{ props.currentItem.user.city }}
+            </div>
+          </template>
+          <div class="item" v-if="props.currentItem.user.school?.name">
+            {{ props.currentItem.user.school?.name }}
           </div>
         </div>
       </div>
-      <div class="other">
-        <div class="scroll-x" @touchmove="stop">
-          <div class="item">
-            <img src="@/assets/img/icon/me/shopping-cart-white.png" alt="">
-            <div class="right">
-              <div class="top">进入橱窗</div>
-              <div class="bottom">9件好物</div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="@/assets/img/icon/me/play.png" alt="">
-            <div class="right">
-              <div class="top">直播动态</div>
-              <div class="bottom">可预约明天直播</div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="@/assets/img/icon/me/music-white.png" alt="">
-            <div class="right">
-              <div class="top">Ta的音乐</div>
-              <div class="bottom">听听ta的歌单</div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="@/assets/img/icon/people/address-book.png" alt="">
-            <div class="right">
-              <div class="top">粉丝群</div>
-              <div class="bottom">1个群聊</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="my-buttons">
-        <div class="follow-display">
-          <div class="follow-wrapper" :class="state.localAuthor.is_follow ? 'follow-wrapper-followed' : ''">
-            <div class="no-follow" @click="state.localAuthor.is_follow = true">
-              <img src="@/assets/img/icon/add-white.png" alt="">
-              <span>关注</span>
-            </div>
-            <div class="followed">
-              <div class="l-button" @click="$emit('showFollowSetting2')">
-                <span>已关注</span>
-                <img src="@/assets/img/icon/arrow-up-white.png" alt="">
-              </div>
-              <div class="l-button" @click="$nav('/message/chat')">
-                <span>私信</span>
+      <template v-if="props.currentItem.isRequest">
+        <div class="other">
+          <div class="scroll-x" @touchmove="stop">
+            <div class="item" v-for="item in props.currentItem.user.card_entries">
+              <img :src="item.icon_dark.url_list[0]" alt="">
+              <div class="right">
+                <div class="top">{{ item.title }}</div>
+                <div class="bottom">{{ item.sub_title }}</div>
               </div>
             </div>
           </div>
         </div>
-        <div class="option"
-             :class="state.isShowRecommend?'option-recommend':''"
-             @click="state.isShowRecommend = !state.isShowRecommend">
-          <img v-if="state.loadings.showRecommend" class="loading" src="@/assets/img/icon/loading-gray.png"
-               alt="">
-          <img v-else class="arrow" src="@/assets/img/icon/arrow-up-white.png" alt="">
-        </div>
-      </div>
 
-      <div class="recommend" :class="{hidden:!state.isShowRecommend}">
-        <div class="title">
-          <span>你可能感兴趣</span>
-          <img src="@/assets/img/icon/about-gray.png">
-        </div>
-        <div class="friends"
-             @touchmove="stop">
-          <div class="friend" v-for="item in friends.all">
-            <img :style="item.select?'opacity: .5;':''" class="avatar" :src="$imgPreview(item.avatar)" alt="">
-            <span class="name">{{ item.name }}</span>
-            <span class="tips">可能感兴趣的人</span>
-            <dy-button type="primary">关注</dy-button>
-            <div class="close">
-              <dy-back img="close" scale=".6"></dy-back>
+        <div class="my-buttons">
+          <div class="follow-display">
+            <div class="follow-wrapper" :class="props.currentItem.user.follow_status ? 'follow-wrapper-followed' : ''">
+              <div class="no-follow" @click="props.currentItem.user.follow_status = 1">
+                <img src="@/assets/img/icon/add-white.png" alt="">
+                <span>关注</span>
+              </div>
+              <div class="followed">
+                <div class="l-button" @click="$emit('showFollowSetting2')">
+                  <span>已关注</span>
+                  <img src="@/assets/img/icon/arrow-up-white.png" alt="">
+                </div>
+                <div class="l-button" @click="$nav('/message/chat')">
+                  <span>私信</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="more" @click="$nav('/people/find-acquaintance')">
-            <div class="notice">
-              <div>点击查看</div>
-              <div>更多好友</div>
+          <div class="option"
+               :class="state.isShowRecommend?'option-recommend':''"
+               @click="state.isShowRecommend = !state.isShowRecommend">
+            <img v-if="state.loadings.showRecommend" class="loading" src="@/assets/img/icon/loading-gray.png"
+                 alt="">
+            <img v-else class="arrow" src="@/assets/img/icon/arrow-up-white.png" alt="">
+          </div>
+        </div>
+
+        <div class="recommend" :class="{hidden:!state.isShowRecommend}">
+          <div class="title">
+            <span>你可能感兴趣</span>
+            <img src="@/assets/img/icon/about-gray.png">
+          </div>
+          <div class="friends"
+               @touchmove="stop">
+            <div class="friend" v-for="item in friends.all">
+              <img :style="item.select?'opacity: .5;':''" class="avatar" :src="$imgPreview(item.avatar)" alt="">
+              <span class="name">{{ item.name }}</span>
+              <span class="tips">可能感兴趣的人</span>
+              <dy-button type="primary">关注</dy-button>
+              <div class="close">
+                <dy-back img="close" scale=".6"></dy-back>
+              </div>
+            </div>
+            <div class="more" @click="$nav('/people/find-acquaintance')">
+              <div class="notice">
+                <div>点击查看</div>
+                <div>更多好友</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="total" ref="total">
-        作品 62
-        <img class="arrow" src="@/assets/img/icon/arrow-up-white.png" alt="">
-      </div>
-      <div class="videos">
-        <Posters v-if="state.videos.my.total !== -1" :list="state.videos.my.list"></Posters>
-      </div>
+        <div class="total" ref="total">
+          作品 {{ props.currentItem.user.aweme_count }}
+          <img class="arrow" src="@/assets/img/icon/arrow-up-white.png" alt="">
+        </div>
+        <div class="videos">
+          <Posters v-if="state.videos.my.total !== -1" :list="state.videos.my.list"></Posters>
+        </div>
+      </template>
     </div>
   </div>
 </template>
 
 <script setup>
-import {computed, onMounted, reactive, ref} from "vue";
+import {computed, onMounted, reactive, ref, watch} from "vue";
 import Utils from "@/utils";
 import {useNav} from "@/utils/hooks/useNav";
 import {useStore} from "vuex";
 import resource from "@/assets/data/resource";
 import Posters from '@/components/Posters'
+import api from "@/api";
+import {merge} from 'lodash'
+import {DefaultUser} from "@/utils/const_var";
 
-const emit = defineEmits(['back'])
 const $nav = useNav()
 const store = useStore()
+const emit = defineEmits(['update:currentItem', 'back'])
 const props = defineProps({
-  author: {
+  currentItem: {
     type: Object,
-    default: {}
+    default: {
+      user: DefaultUser,
+      isRequest: false,
+      videos: [],
+    }
   },
-  isOnThisPage: {
+  active: {
     type: Boolean,
     default: false
   }
 })
-
 const friends = computed(() => store.state.friends)
 const main = ref(null)
 const page = ref(null)
 const cover = ref(null)
 const total = ref(null)
+
 const state = reactive({
   isShowRecommend: false,//是否显示推荐
   previewImg: '',
@@ -277,7 +270,6 @@ const state = reactive({
   acceleration: 1.2,
   sprint: 15,
   canScroll: true,
-  localAuthor: resource.videos[0].author,
   start: {x: 0, y: 0, time: 0},
   move: {x: 0, y: 0},
   isTop: false,
@@ -287,6 +279,17 @@ const state = reactive({
   //是否自动放大Cover
   isAutoScaleCover: false
 })
+
+watch(() => props.active,
+    async (newVal) => {
+      if (newVal && !props.currentItem.isRequest) {
+        let res = await api.user.profile()
+        console.log('res', res)
+        if (res.code === 200) {
+          emit('update:currentItem', merge(props.currentItem, {user: res.data.user, isRequest: true}))
+        }
+      }
+    })
 
 onMounted(() => {
   state.videos.my.list = resource.my
@@ -709,9 +712,7 @@ function touchEnd(e) {
         img {
           margin-right: 8rem;
           border-radius: 4rem;
-          background: @second-btn-color-tran;
-          padding: 8rem;
-          height: 22rem;
+          height: 40rem;
         }
 
         .right {

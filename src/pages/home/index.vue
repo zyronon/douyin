@@ -30,7 +30,8 @@
       <SlideItem>
         <UserPanel
             ref="uploader"
-            :isOnThisPage="state.baseIndex === 1"
+            v-model:currentItem="state.currentItem"
+            :active="state.baseIndex === 1"
             :author="state.recommendList[state.itemIndex]?.author"
             @toggleCanMove="e => state.canMove = e"
             @back="state.baseIndex = 0"
@@ -119,6 +120,7 @@ import Shop from "@/pages/home/components/Shop.vue";
 import Slide0 from "@/pages/home/slide/Slide0.vue";
 import Slide2 from "@/pages/home/slide/Slide2.vue";
 import Slide4 from "@/pages/home/slide/Slide4.vue";
+import {DefaultUser} from "@/utils/const_var";
 
 const nav = useNav()
 const store = useStore()
@@ -161,6 +163,10 @@ const state = reactive({
 
   commentVisible: false,
   fullScreen: false,
+  currentItem: {
+    user: DefaultUser,
+    videos: [],
+  }
 })
 
 function delayShowDialog(cb) {
@@ -169,9 +175,23 @@ function delayShowDialog(cb) {
   }, 400)
 }
 
-bus.on(EVENT_KEY.CURRENT_ITEM, item => {
+function setCurrentItem(item) {
+  if (state.currentItem.user.unique_id !== item.author.unique_id) {
+    state.currentItem = {
+      ...item,
+      user: {
+        ...DefaultUser,
+        desc: item.author.desc,
+        nickname: item.author.nickname,
+        unique_id: item.author.unique_id,
+      },
+      videos: [],
+    }
+  }
   console.log('item', item)
-})
+}
+
+bus.once(EVENT_KEY.CURRENT_ITEM, setCurrentItem)
 onMounted(() => {
   bus.on(EVENT_KEY.ENTER_FULLSCREEN, (e) => state.fullScreen = true)
   bus.on(EVENT_KEY.EXIT_FULLSCREEN, (e) => state.fullScreen = false)
@@ -190,6 +210,7 @@ onMounted(() => {
   bus.on(EVENT_KEY.GO_USERINFO, () => {
     state.baseIndex = 1
   })
+  bus.once(EVENT_KEY.CURRENT_ITEM, setCurrentItem)
 })
 onUnmounted(() => {
   bus.offAll()

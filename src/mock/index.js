@@ -1,7 +1,8 @@
 import Mock from 'mockjs'
 import globalMethods from '../utils'
 import resource from "../assets/data/resource.js";
-import {shuffle} from "lodash";
+import users from '@/assets/data/users.json'
+import {sample, shuffle} from "lodash";
 
 function getParams(options) {
   let params = globalMethods.$parseURL(options.url).params
@@ -144,5 +145,19 @@ Mock.mock(/historyOther/, options => {
 Mock.mock(/user\/friends/, options => {
   return Mock.mock({
     data: resource.users, code: 200, msg: '',
+  })
+})
+
+Mock.mock(/user\/profile\/other/, options => {
+  return Mock.mock({
+    // data: sample(users), code: 200, msg: '',
+    data: users[0], code: 200, msg: '',
+  })
+})
+
+Mock.mock(/aweme\/post/, options => {
+  return Mock.mock({
+    // data: sample(users), code: 200, msg: '',
+    data: users[0], code: 200, msg: '',
   })
 })
