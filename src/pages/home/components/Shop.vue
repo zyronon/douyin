@@ -127,7 +127,7 @@ onMounted(() => {
     .bottom {
       height: 100% - @th;
       background: red;
-      background: linear-gradient(to bottom, @eColor, white);
+      background: linear-gradient(to bottom, @eColor, #e1e1e1);
     }
   }
 
@@ -223,7 +223,7 @@ onMounted(() => {
   }
 
   .fixed {
-    background: white;
+    background: #e1e1e1;
   }
 
   @p: 5rem;
