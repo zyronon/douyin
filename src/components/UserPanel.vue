@@ -7,9 +7,9 @@
         <img class="back" src="@/assets/img/icon/next.svg" alt="">
         <transition name="fade">
           <div class="float-user" v-if="state.floatFixed">
-            <img v-lazy="Utils.$imgPreview(props.currentItem.user.avatar)" class="avatar"/>
-            <img v-if="!props.currentItem.user.is_follow" src="@/assets/img/icon/add-light.png" alt="" class="add">
-            <span @click="followButton">{{ props.currentItem.user.is_follow ? '私信' : '关注' }}</span>
+            <img v-lazy="Utils.$imgPreview(props.currentItem.user.avatar_thumb.url_list[0])" class="avatar"/>
+            <img v-if="!props.currentItem.user.follow_status" src="@/assets/img/icon/add-light.png" alt="" class="add">
+            <span @click="followButton">{{ props.currentItem.user.follow_status ? '私信' : '关注' }}</span>
           </div>
         </transition>
       </div>
@@ -166,7 +166,7 @@
           <img class="arrow" src="@/assets/img/icon/arrow-up-white.png" alt="">
         </div>
         <div class="videos">
-          <Posters v-if="state.videos.my.total !== -1" :list="state.videos.my.list"></Posters>
+          <Posters v-if="props.currentItem.post.length" :list="props.currentItem.post"></Posters>
         </div>
       </template>
     </div>
@@ -193,7 +193,7 @@ const props = defineProps({
     default: {
       user: DefaultUser,
       isRequest: false,
-      videos: [],
+      post: [],
     }
   },
   active: {
@@ -286,7 +286,16 @@ watch(() => props.active,
         let res = await api.user.profile()
         console.log('res', res)
         if (res.code === 200) {
-          emit('update:currentItem', merge(props.currentItem, {user: res.data.user, isRequest: true}))
+          res.data.post = res.data.post.map(v => {
+            return {
+              cover: v.video.cover.url_list[0],
+              digg_count: v.statistics.digg_count,
+              create_time: v.create_time
+            }
+          })
+          //去年保存的老数据有id。现在去网页版复制数据没id了。。。
+          res.data.user.unique_id = props.currentItem.user.unique_id
+          emit('update:currentItem', merge(props.currentItem, {...res.data, isRequest: true}))
         }
       }
     })

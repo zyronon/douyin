@@ -1,5 +1,5 @@
 <template>
-  <div class="test-slide-wrapper">
+  <div class="test-slide-wrapper" id="home-index">
     <SlideHorizontal v-model:index="state.baseIndex">
       <SlideItem>
         <IndicatorHome
@@ -11,10 +11,9 @@
         <div class="slide-content">
           <SlideHorizontal class="first-horizontal-item"
                            name="main"
-                           id="home-index"
                            :change-active-index-use-anim="false"
                            v-model:index="state.navIndex">
-            <Slide0 :cbs="p" :active="state.navIndex === 0 && state.baseIndex === 0"/>
+            <Slide0 :active="state.navIndex === 0 && state.baseIndex === 0"/>
             <SlideItem>
               <Community/>
             </SlideItem>
@@ -32,7 +31,6 @@
             ref="uploader"
             v-model:currentItem="state.currentItem"
             :active="state.baseIndex === 1"
-            :author="state.recommendList[state.itemIndex]?.author"
             @toggleCanMove="e => state.canMove = e"
             @back="state.baseIndex = 0"
             @showFollowSetting="state.showFollowSetting = true"
@@ -72,6 +70,7 @@
     />
 
     <FollowSetting
+        v-model:currentItem="state.currentItem"
         @showChangeNote="delayShowDialog( e => state.showChangeNote = true)"
         @showBlockDialog="delayShowDialog(e => state.showBlockDialog = true)"
         @showShare="delayShowDialog( e => state.isSharing = true)"
@@ -165,7 +164,8 @@ const state = reactive({
   fullScreen: false,
   currentItem: {
     user: DefaultUser,
-    videos: [],
+    isRequest: false,
+    post: [],
   }
 })
 
@@ -185,7 +185,8 @@ function setCurrentItem(item) {
         nickname: item.author.nickname,
         unique_id: item.author.unique_id,
       },
-      videos: [],
+      isRequest: false,
+      post: [],
     }
   }
   console.log('item', item)

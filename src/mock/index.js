@@ -2,6 +2,7 @@ import Mock from 'mockjs'
 import globalMethods from '../utils'
 import resource from "../assets/data/resource.js";
 import users from '@/assets/data/users.json'
+import post from '@/assets/data/post.json'
 import {sample, shuffle} from "lodash";
 
 function getParams(options) {
@@ -28,13 +29,12 @@ let allRecommendVideos = resource.videos.map(v => {
 })
 
 for (let i = 0; i < 50; i++) {
-  allRecommendVideos = allRecommendVideos.concat(
-      shuffle(resource.videos)
-          .slice(0, 10)
-          .map(v => {
-            v.type = 'recommend-video'
-            return v
-          }))
+  allRecommendVideos = allRecommendVideos.concat(shuffle(resource.videos)
+      .slice(0, 10)
+      .map(v => {
+        v.type = 'recommend-video'
+        return v
+      }))
 }
 Mock.mock(/recommended/, options => {
   let page = getPage(options)
@@ -151,13 +151,16 @@ Mock.mock(/user\/friends/, options => {
 Mock.mock(/user\/profile\/other/, options => {
   return Mock.mock({
     // data: sample(users), code: 200, msg: '',
-    data: users[0], code: 200, msg: '',
+    data: {
+      user: users[0].user,
+      post: post
+    }, code: 200, msg: '',
   })
 })
 
 Mock.mock(/aweme\/post/, options => {
   return Mock.mock({
     // data: sample(users), code: 200, msg: '',
-    data: users[0], code: 200, msg: '',
+    data: post, code: 200, msg: '',
   })
 })
