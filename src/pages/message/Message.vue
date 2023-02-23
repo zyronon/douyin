@@ -36,7 +36,7 @@
             <div class="content">
               <div class="left">
                 <div class="name">
-                  <span>粉丝</span>
+                  <span>新朋友</span>
                 </div>
                 <div class="detail">
                   xxx 关注了你
@@ -357,7 +357,6 @@
         </div>
       </transition>
       <Footer v-bind:init-tab="4"/>
-
     </div>
 
     <div class="searching" v-show="searching">
@@ -400,7 +399,6 @@
         </template>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -508,7 +506,7 @@ export default {
   left: 0;
   right: 0;
   font-size: 14rem;
-  background: @main-bg;
+  background: @msg-bg;
   color: white;
 
   .no-search {
@@ -830,7 +828,7 @@ export default {
         }
 
         &:active {
-          background: @active-main-bg;
+          background: rgb(57, 57, 57);
         }
 
         .avatar {
@@ -858,14 +856,12 @@ export default {
           }
         }
 
-
         .content {
           flex: 1;
           display: flex;
           justify-content: space-between;
           @padding: 14rem;
           padding: @padding 0 @padding 0;
-          border-bottom: 1px solid @line-color2;
 
           .left {
             .name {
@@ -909,7 +905,7 @@ export default {
           }
 
           .right {
-            margin-right: 30rem;
+            margin-right: 20rem;
             display: flex;
             align-items: center;
 
@@ -921,6 +917,10 @@ export default {
             .camera {
               width: 20rem;
               height: 20rem;
+            }
+
+            .not-read {
+              margin-right: 5rem;
             }
           }
         }

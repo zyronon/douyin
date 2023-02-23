@@ -7,7 +7,11 @@
       <img class="center" src="@/assets/img/icon/add-light.png" alt="">
       <img class='right' src="@/assets/img/icon/search-light.png" alt="" @click="nav('/home/search')">
     </header>
-    <InfiniteList id="InfiniteList"/>
+    <SlideList
+        style="background:#000;"
+        :active="true"
+        :api="api.videos.recommended"
+    />
     <Footer v-bind:init-tab="2" style="position: fixed;"/>
   </div>
 </template>
@@ -17,6 +21,8 @@
 import {reactive} from "vue";
 import {useNav} from "@/utils/hooks/useNav";
 import InfiniteList from "@/pages/slideHooks/InfiniteList.vue";
+import api from "@/api";
+import SlideList from "@/pages/home/slide/SlideList.vue";
 
 const nav = useNav()
 

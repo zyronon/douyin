@@ -1,5 +1,5 @@
 <template>
-  <div id='BaseHeader' :class="[mode,isFixed?'fixed':'']">
+  <div id='BaseHeader' :class="[isFixed?'fixed':'']">
     <div class="header">
       <dy-back
           :mode="backMode"
@@ -18,10 +18,6 @@ export default {
   name: "BaseHeader",
   components: {},
   props: {
-    mode: {
-      type: String,
-      default: 'dark'
-    },
     backMode: {
       type: String,
       default: 'gray'
@@ -62,21 +58,12 @@ export default {
 
 #BaseHeader {
   width: 100%;
+  color: white;
 
   &.fixed {
     z-index: 2;
     top: 0;
     position: fixed;
-  }
-
-  &.light {
-    background: white;
-    color: black;
-  }
-
-  &.dark {
-    background: @main-bg;
-    color: white;
   }
 
   .header {
