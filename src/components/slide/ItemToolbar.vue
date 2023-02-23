@@ -75,12 +75,12 @@ function showComments() {
       <span>{{ Utils.formatNumber(props.item.comment_count) }}</span>
     </div>
     <!--TODO     -->
-    <div class="message mb2r" @click.stop="showComments">
-      <img v-if="item.isCollect" src="@/assets/img/icon/components/video/star-full.png" alt="" class="message-image">
+    <div class="message mb2r" @click.stop="Utils.updateItem(props, 'isCollect', !props.item.isCollect, emit)">
+      <img v-if="props.item.isCollect" src="@/assets/img/icon/components/video/star-full.png" alt="" class="message-image">
       <img v-else src="@/assets/img/icon/components/video/star.png" alt="" class="message-image">
       <span>{{ Utils.formatNumber(props.item.comment_count) }}</span>
     </div>
-    <div v-if="!isMy" class="share mb2r" @click.stop="bus.emit(EVENT_KEY.SHOW_SHARE)">
+    <div v-if="!props.isMy" class="share mb2r" @click.stop="bus.emit(EVENT_KEY.SHOW_SHARE)">
       <img src="../../assets/img/icon/share-white-full.png" alt="" class="share-image">
       <span>{{ Utils.formatNumber(props.item.share_count) }}</span>
     </div>

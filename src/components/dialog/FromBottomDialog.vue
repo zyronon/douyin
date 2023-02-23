@@ -193,7 +193,7 @@ export default {
   z-index: 9;
   position: fixed;
   width: 100%;
-  overflow: auto;
+  overflow-y: auto;
   padding-top: 24rem;
   bottom: 0;
   left: 0;

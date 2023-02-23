@@ -205,14 +205,6 @@ export default {
   transition: all .3s;
   font-weight: bold;
 
-  &.isLight {
-    .tab{
-      &.active {
-        color: black!important;
-      }
-    }
-  }
-
   .notice {
     opacity: 0;
     top: 0;
