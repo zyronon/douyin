@@ -28,17 +28,19 @@
                   <div class="name">{{ item.name }}</div>
                   <div class="detail">{{ item.text }}</div>
                   <div class="time-wrapper">
-                    <div class="time">{{ $time(item.time) }}</div>
-                    <div class="reply-text">回复</div>
+                    <div class="left">
+                      <div class="time">{{ $time(item.time) }} · 上海</div>
+                      <div class="reply-text">回复</div>
+                    </div>
+                    <div class="love" @click="loved(item)">
+                      <img v-show="item.isLoved" src="../assets/img/icon/components/like-red-small.png" alt=""
+                           class="love-image">
+                      <img v-show="!item.isLoved" src="../assets/img/icon/components/like-gray-small.png" alt=""
+                           class="love-image">
+                      <span>{{ formatNumber(item.loveNum) }}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="love" @click="loved(item)">
-                <img v-show="item.isLoved" src="../assets/img/icon/components/like-red-small.png" alt=""
-                     class="love-image">
-                <img v-show="!item.isLoved" src="../assets/img/icon/components/like-gray-small.png" alt=""
-                     class="love-image">
-                <span>{{ formatNumber(item.loveNum) }}</span>
               </div>
             </div>
             <div class="replies">
@@ -54,16 +56,19 @@
                     </div>
                     <div class="detail">{{ child.text }}</div>
                     <div class="time-wrapper">
-                      <div class="time">{{ $time(child.time) }}</div>
-                      <div class="reply-text">回复</div>
+                      <div class="left">
+                        <div class="time">{{ $time(item.time) }} · 上海</div>
+                        <div class="reply-text">回复</div>
+                      </div>
+                      <div class="love" @click="loved(item)">
+                        <img v-show="item.isLoved" src="../assets/img/icon/components/like-red-small.png" alt=""
+                             class="love-image">
+                        <img v-show="!item.isLoved" src="../assets/img/icon/components/like-gray-small.png" alt=""
+                             class="love-image">
+                        <span>{{ formatNumber(item.loveNum) }}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="love" @click="loved(child)">
-                  <img v-if="child.isLoved" src="../assets/img/icon/components/like-red-small.png" alt=""
-                       class="love-image">
-                  <img v-else src="../assets/img/icon/components/like-gray-small.png" alt="" class="love-image">
-                  <span>{{ formatNumber(child.loveNum) }}</span>
                 </div>
               </div>
               <div class="more">
@@ -176,6 +181,9 @@ export default {
       isCall: false,
     }
   },
+  mounted() {
+    this.getData()
+  },
   methods: {
     send() {
       this.comments.push({
@@ -211,7 +219,7 @@ export default {
               text: '要么之前吴京说了一句话对一个小女孩说，以后别来娱乐圈',
               loveNum: 9174,
               isLoved: false,
-              time: '2021-08-24 20:25',
+              time: '2022-08-24 20:25',
             },
             {
               id: '11',
@@ -221,7 +229,7 @@ export default {
               text: '@nana max',
               loveNum: 695,
               isLoved: false,
-              time: '2021-08-24 20:29',
+              time: '2023-01-24 20:29',
             },
             {
               id: '12',
@@ -231,7 +239,7 @@ export default {
               text: '对对 我也刷到过这个视频',
               loveNum: 1253,
               isLoved: false,
-              time: '2021-08-24 20:59',
+              time: '2023-02-23 20:59',
             },
           ]
         },
@@ -311,19 +319,6 @@ export default {
     //     this.isCommenting = !this.isCommenting;
     //     console.log(666)
     // }
-    $time(time) {
-      let date = new Date(time)
-      let now = new Date()
-      let day = now.getDate() - date.getDate()
-      let str = ''
-      if (day === 0) {
-        let hour = now.getHours() - date.getHours()
-        str = ` ${hour}小时前`
-      } else if (day === 1) str = `昨天${date.getHours()}:${date.getMinutes()}`
-      else if (day === 2) str = `前天${date.getHours()}:${date.getMinutes()}`
-      else str = time
-      return str
-    },
     call() {
       console.log(this.commit)
     }
@@ -359,21 +354,27 @@ export default {
 }
 
 .comment {
-  width: 100%;
+  width: 100vw;
   height: v-bind(height);
   background: #fff;
   z-index: 5;
   border-radius: 10rem 10rem 0 0;
 
   .wrapper {
+    width: 100%;
     position: relative;
     padding-top: 40rem;
     padding-bottom: 60rem;
   }
 
   .items {
+    width: 100%;
+
     .item {
+      width: 100%;
+
       .main {
+        width: 100%;
         padding: 5rem 0;
         display: flex;
 
@@ -435,12 +436,14 @@ export default {
       }
 
       .content {
+        width: 100%;
         display: flex;
-        flex: 1;
         font-size: 14rem;
 
         .comment-container {
-          width: 85%;
+          flex: 1;
+          margin-right: 20rem;
+
 
           .name {
             color: @second-text-color;
@@ -465,33 +468,38 @@ export default {
           .time-wrapper {
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            font-size: 12rem;
 
-            .time {
-              color: #c4c3c3;
-              margin-right: 15rem;
+            .left {
+              display: flex;
+
+              .time {
+                color: #c4c3c3;
+                margin-right: 10rem;
+              }
+
+              .reply-text {
+                color: @second-text-color;
+              }
             }
 
-            .reply-text {
+            .love {
               color: @second-text-color;
+              display: flex;
+              align-items: center;
+
+              .love-image {
+                width: 18rem;
+                border-radius: 50%;
+              }
+
+              span {
+                font-size: 10rem;
+                word-break: keep-all;
+              }
             }
           }
-        }
-      }
-
-      .love {
-        color: @second-text-color;
-        text-align: center;
-        width: 30rem;
-        padding-right: 10rem;
-
-        .love-image {
-          width: 25rem;
-          border-radius: 50%;
-        }
-
-        span {
-          font-size: 10rem;
-          transform: translateY(-5rem);
         }
       }
     }

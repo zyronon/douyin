@@ -324,6 +324,30 @@ export default {
         return dayjs(val).format('YYYY-MM-DD HH:mm:ss')
     }
   },
+  $time(time) {
+    let date = new dayjs(time)
+    let now = new dayjs()
+    let d = now.valueOf() - date.valueOf()
+    let str = ''
+    if (d < 1000 * 60) {
+      str = '刚刚'
+    } else if (d < 1000 * 60 * 60) {
+      str = `${(d / (1000 * 60)).toFixed()}分钟前`
+    } else if (d < 1000 * 60 * 60 * 24) {
+      str = `${(d / (1000 * 60 * 60)).toFixed()}小时前`
+    } else if (d < 1000 * 60 * 60 * 24 * 2) {
+      str = '1天前'
+    } else if (d < 1000 * 60 * 60 * 24 * 3) {
+      str = '2天前'
+    } else if (d < 1000 * 60 * 60 * 24 * 4) {
+      str = '3天前'
+    } else if (date.isSame(now, 'year')) {
+      str = dayjs(time).format('MM-DD')
+    } else {
+      str = dayjs(time).format('YYYY-MM-DD')
+    }
+    return str
+  },
   $duration(v) {
     if (!v) return '00:00'
     let m = Math.floor(v / 60)
