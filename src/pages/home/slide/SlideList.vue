@@ -31,7 +31,7 @@ const props = defineProps({
       return {}
     }
   },
-  active: {
+   active: {
     type: Boolean,
     default: false
   },

@@ -19,27 +19,16 @@
         <ChatMessage @itemClick="clickItem" v-longpress="showTooltip" :message="item"
                      v-for="(item,index) in messages" :key="item"></ChatMessage>
       </div>
-      <div class="footer" :class="isTyping ? 'typing' : ''">
+      <div class="footer">
         <div class="toolbar" v-if="!recording">
           <img src="../../../assets/img/icon/message/camera.png" alt="" class="camera">
           <input @click="typing = true"
                  @blur="typing = false"
                  type="text" placeholder="发送信息...">
-          <template v-if="!isTyping">
-            <img @click="recording = true;showOption = false" src="../../../assets/img/icon/message/voice-white.png"
-                 alt="">
-            <img src="../../../assets/img/icon/message/emoji-white.png" alt="">
-            <img @click="showOption = !showOption" src="../../../assets/img/icon/message/add-white.png" alt="">
-          </template>
-          <template v-else>
-            <img @click="recording = true;showOption = false" src="../../../assets/img/icon/message/voice-black.png"
-                 alt="">
-            <img src="../../../assets/img/icon/message/emoji-black.png" alt="">
-            <img v-if="showOption" @click="showOption = !showOption"
-                 src="../../../assets/img/icon/message/close-black.png"
-                 alt="">
-            <img v-else @click="showOption = !showOption" src="../../../assets/img/icon/message/add-black.png" alt="">
-          </template>
+          <img @click="recording = true;showOption = false" src="../../../assets/img/icon/message/voice-white.png"
+               alt="">
+          <img src="../../../assets/img/icon/message/emoji-white.png" alt="">
+          <img @click="showOption = !showOption" src="../../../assets/img/icon/message/add-white.png" alt="">
         </div>
         <div class="record" v-else>
           <span>按住 说话</span>
@@ -551,11 +540,11 @@ export default {
   overflow: auto;
   color: white;
   font-size: 14rem;
+  background: @msg-bg;
 
   .chat-content {
     > .header {
       z-index: 2;
-      background: @main-bg;
       width: 100%;
       box-sizing: border-box;
       height: @header-height;
@@ -587,7 +576,7 @@ export default {
         }
       }
 
-      .right{
+      .right {
         display: flex;
       }
     }
@@ -603,23 +592,8 @@ export default {
 
     .footer {
       @chat-bg-color: rgb(105, 143, 244);
-      @typing-bg-color: whitesmoke;
-      background: @main-bg;
-      @normal-bg-color: rgb(35, 38, 47);
+      @normal-bg-color: rgb(57, 57, 57);
       padding: 10rem 0;
-      border-top: 1px solid @second-btn-color-tran;
-
-      &.typing {
-        background: white;
-
-        .toolbar {
-          background: @typing-bg-color;
-        }
-
-        input {
-          background: @typing-bg-color !important;
-        }
-      }
 
       .toolbar {
         box-sizing: border-box;
@@ -686,7 +660,7 @@ export default {
         .option-wrapper {
           box-sizing: border-box;
           @grid-width: calc((100vw - 30rem) / 4);
-          color: black;
+          color: gray;
           display: grid;
           grid-template-columns:@grid-width @grid-width @grid-width @grid-width;
 
@@ -699,7 +673,7 @@ export default {
 
             img {
               border-radius: 4rem;
-              background: whitesmoke;
+              background: @normal-bg-color;
               padding: 10rem;
               width: 30rem;
               margin-bottom: 10rem;

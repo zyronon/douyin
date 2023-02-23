@@ -151,7 +151,7 @@ export default {
 
       .item {
         padding: @padding-page;
-        background: @second-btn-color-tran;
+        background: @msg-subpage-card-bg;
         border-radius: 5rem;
         margin-bottom: 20rem;
 
