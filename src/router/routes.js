@@ -64,6 +64,7 @@ import VerificationCode from "../pages/login/VerificationCode";
 import RetrievePassword from "../pages/login/RetrievePassword";
 import Help from "../pages/login/Help";
 import Uploader from "../pages/me/Uploader";
+import GoodsDetail from "@/pages/shop/GoodsDetail.vue";
 
 const routes = [
   {path: '/', redirect: '/home'},
@@ -79,6 +80,8 @@ const routes = [
   {path: '/home/music-rank-list', component: MusicRankList},
   {path: '/home/live', component: LivePage},
   {path: '/home/search', component: Search},
+
+  {path: '/shop/detail', component: GoodsDetail},
 
   {path: '/me', component: Me,},
   {path: '/me/edit-userinfo', component: EditUserInfo},

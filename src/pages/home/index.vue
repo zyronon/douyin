@@ -115,7 +115,7 @@ import FollowSetting2 from "@/pages/home/components/FollowSetting2.vue";
 import ShareToFriend from "@/pages/home/components/ShareToFriend.vue";
 import UserPanel from "@/components/UserPanel.vue";
 import Community from "@/pages/home/slide/Community.vue";
-import Shop from "@/pages/home/slide/Shop.vue";
+import Shop from "@/pages/shop/Shop.vue";
 import Slide0 from "@/pages/home/slide/Slide0.vue";
 import Slide2 from "@/pages/home/slide/Slide2.vue";
 import Slide4 from "@/pages/home/slide/Slide4.vue";
@@ -130,7 +130,7 @@ const bodyWidth = computed(() => store.state.bodyWidth)
 
 const state = reactive({
   baseIndex: 0,
-  navIndex: 4,
+  navIndex: 3,
   test: '',
   recommendList: [
     // {

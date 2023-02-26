@@ -39,23 +39,24 @@
            :class="{fixed:state.fixed}"
            transition-duration="0s"
            item-selector=".goods">
-        <div v-masonry-tile class="goods" v-for="(item, index) in  state.list">
+        <div v-masonry-tile class="goods"
+             @click="nav('/shop/detail')"
+             v-for="(item, index) in  state.list">
           <div class="card">
-            <!--          <img class="poster" v-lazy="Utils.$imgPreview(item.src)"/>-->
-            <img class="poster" :src="Utils.$imgPreview(item.src)"/>
+            <img class="poster" :src="Utils.$imgPreview(item.cover)"/>
             <div class="bottom">
               <div class="desc">
-                2022新款Apple/苹果iPhone 14 Plus手机6.7
+                {{ item.name }}
               </div>
-              <div class="discounts">满4减3</div>
+              <div class="discounts" v-if="item.discount">{{ item.discount }}</div>
               <div class="info">
                 <div class="price">
                   ￥
-                  <div class="big">6099</div>
+                  <div class="big">{{ item.price }}</div>
                 </div>
-                <div class="num">已售223件</div>
+                <div class="num">已售{{ item.sold }}件</div>
               </div>
-              <div class="low">
+              <div class="low" v-if="item.isLowPrice">
                 近30天低价
               </div>
             </div>
@@ -70,9 +71,12 @@
 import {onMounted, reactive} from "vue";
 import Utils from "@/utils";
 import Scroll from "@/components/Scroll.vue";
+import goods from "@/assets/data/goods";
+import {useNav} from "@/utils/hooks/useNav";
 
+const nav = useNav()
 const state = reactive({
-  list: [],
+  list: goods.list,
   listEl: null,
   fixed: false
 })
@@ -84,7 +88,7 @@ function loadData() {
       src: new URL(`../../../assets/img/poster/${i}.jpg`, import.meta.url).href,
       author: new URL(`../../../assets/img/avatar.png`, import.meta.url).href,
     }
-    state.list.push(temp)
+    // state.list.push(temp)
   }
 }
 
@@ -94,7 +98,7 @@ onMounted(() => {
       src: new URL(`../../../assets/img/poster/${i}.jpg`, import.meta.url).href,
       author: new URL(`../../../assets/img/avatar.png`, import.meta.url).href,
     }
-    state.list.push(temp)
+    // state.list.push(temp)
   }
 })
 </script>
@@ -255,6 +259,10 @@ onMounted(() => {
           color: black;
           font-size: 16rem;
           margin-bottom: 8rem;
+          @lh: 18rem;
+          line-height: @lh;
+          height: @lh * 2;
+          overflow: hidden;
         }
 
         .discounts {
