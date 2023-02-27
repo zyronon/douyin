@@ -3,6 +3,13 @@ export default {
     {
       "name": "小米电视6 65\" OLED 65英寸",
       "cover": new URL('../img/goods/g6-0.jpg', import.meta.url).href,
+      imgs:[
+        new URL('../img/goods/g6-0.jpg', import.meta.url).href,
+        new URL('../img/goods/g6-1.jpg', import.meta.url).href,
+        new URL('../img/goods/g6-2.jpg', import.meta.url).href,
+        new URL('../img/goods/g6-3.jpg', import.meta.url).href,
+        new URL('../img/goods/g6-4.jpg', import.meta.url).href,
+      ],
       price: 6699,
       isLowPrice: false,
       discount: '',
@@ -11,6 +18,12 @@ export default {
     {
       "name": "红白撞色条纹软糯针织上衣女2022年秋季新款甜美减龄短款毛衣开衫",
       "cover": new URL('../img/goods/g1-0.jpg', import.meta.url).href,
+      imgs:[
+        new URL('../img/goods/g1-0.jpg', import.meta.url).href,
+        new URL('../img/goods/g1-1.jpg', import.meta.url).href,
+        new URL('../img/goods/g1-2.jpg', import.meta.url).href,
+        new URL('../img/goods/g1-3.jpg', import.meta.url).href,
+      ],
       isLowPrice: true,
       discount: '满4减3',
       sold: 134,
