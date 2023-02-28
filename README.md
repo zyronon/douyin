@@ -1,9 +1,28 @@
 ### 简体中文 | [English](README-en-US.md)
 
 ## 预览
+
 [在线预览DEMO](https://ttentau.github.io/ttentau/dy/)
+
 #### 注意：电脑端请用Chrome浏览器的手机模式访问。Chrome切换成手机模式快捷键，先按F12调出控制台，再按Ctrl+Shift+M
+
 #### 注意：安卓手机请用[Via手机浏览器](https://viayoo.com/zh-cn/)或者Chrome浏览器手机版本预览。其他浏览器检测到页面内有视频会强制将视频全屏，并显示控制按钮，导致css和js都失效
+
+<div style="text-align:center">
+<img height='200px'  src='http://www.ttentau.top/dy/imgs/0.png' />
+<img  height='200px'  src='http://www.ttentau.top/dy/imgs/6.png' />
+<img  height='200px'  src='http://www.ttentau.top/dy/imgs/5.png' />
+<img  height='200px'  src='http://www.ttentau.top/dy/imgs/7.png' />
+<img height='200px'  src='http://www.ttentau.top/dy/imgs/1.png' />
+<img  height='200px'  src='http://www.ttentau.top/dy/imgs/3.png' />
+<img  height='200px'  src='http://www.ttentau.top/dy/imgs/2.png' />
+<img  height='200px'  src='http://www.ttentau.top/dy/imgs/4.png' />
+<img  height='200px'  src='http://www.ttentau.top/dy/imgs/8.png' />
+<img  height='200px'  src='http://www.ttentau.top/dy/imgs/9.png' />
+<img  height='200px'  src='http://www.ttentau.top/dy/imgs/10.png' />
+<img  height='200px'  src='http://www.ttentau.top/dy/imgs/11.png' />
+<img  height='200px'  src='http://www.ttentau.top/dy/imgs/12.png' />
+</div>
 
 ## 简介
 
