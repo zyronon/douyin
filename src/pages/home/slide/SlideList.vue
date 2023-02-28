@@ -31,7 +31,7 @@ const props = defineProps({
       return {}
     }
   },
-   active: {
+  active: {
     type: Boolean,
     default: false
   },
@@ -56,8 +56,25 @@ const state = reactive({
   index: 0,
   list: [
     // {
+    //   type: 'img',
+    //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`,
+    //   author: {
+    //     unique_id: uniqueId('list_')
+    //   }
+    // },
+    // {
+    //   type: 'imgs',
+    //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`,
+    //   author: {
+    //     unique_id: uniqueId('list_')
+    //   }
+    // },
+    // {
     //   type: 'user',
-    //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
+    //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`,
+    //   author: {
+    //     unique_id: uniqueId('list_')
+    //   }
     // },
   ],
   uniqueId: uniqueId('uniqueId_'),

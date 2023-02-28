@@ -304,7 +304,7 @@ export default {
       align-items: center;
 
       .icon {
-        padding: 60rem;
+        padding: 6rem;
         border-radius: 50%;
         background: rgba(27, 100, 172, 0.8);
         margin-right: 10rem;
