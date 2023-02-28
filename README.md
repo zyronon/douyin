@@ -9,19 +9,14 @@
 #### 注意：安卓手机请用[Via手机浏览器](https://viayoo.com/zh-cn/)或者Chrome浏览器手机版本预览。其他浏览器检测到页面内有视频会强制将视频全屏，并显示控制按钮，导致css和js都失效
 
 <div style="text-align:center">
-<img width="120px"    src='http://www.ttentau.top/dy/imgs/0.png' />
-<img width="120px"   src='http://www.ttentau.top/dy/imgs/6.png' />
-<img width="120px"    src='http://www.ttentau.top/dy/imgs/5.png' />
-<img width="120px"    src='http://www.ttentau.top/dy/imgs/7.png' />
-<img width="120px"   src='http://www.ttentau.top/dy/imgs/1.png' />
-<img width="120px"    src='http://www.ttentau.top/dy/imgs/3.png' />
-<img width="120px"    src='http://www.ttentau.top/dy/imgs/2.png' />
-<img width="120px"    src='http://www.ttentau.top/dy/imgs/4.png' />
-<img width="120px"   src='http://www.ttentau.top/dy/imgs/8.png' />
-<img width="120px"    src='http://www.ttentau.top/dy/imgs/9.png' />
-<img width="120px"    src='http://www.ttentau.top/dy/imgs/10.png' />
-<img width="120px"    src='http://www.ttentau.top/dy/imgs/11.png' />
-<img width="120px"    src='http://www.ttentau.top/dy/imgs/12.png' />
+<img width="140px"    src='http://www.ttentau.top/dy/imgs/0.png' />
+<img width="140px"   src='http://www.ttentau.top/dy/imgs/1.png' />
+<img width="140px"   src='http://www.ttentau.top/dy/imgs/6.png' />
+<img width="140px"    src='http://www.ttentau.top/dy/imgs/3.png' />
+<img width="140px"    src='http://www.ttentau.top/dy/imgs/2.png' />
+<img width="140px"   src='http://www.ttentau.top/dy/imgs/8.png' />
+<img width="140px"    src='http://www.ttentau.top/dy/imgs/9.png' />
+<img width="140px"    src='http://www.ttentau.top/dy/imgs/11.png' />
 </div>
 
 ## 简介
