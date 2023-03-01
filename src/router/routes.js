@@ -25,7 +25,7 @@ import ChooseLocation from "../pages/me/userinfo/ChooseLocation";
 import ChooseProvince from "../pages/me/userinfo/ChooseProvince";
 import ChooseCity from "../pages/me/userinfo/ChooseCity";
 import LookHistory from "../pages/me/rightMenu/LookHistory";
-import MinorProtectionIndex from "../pages/me/rightMenu/MinorProtection";
+import MinorProtectionIndex from "../pages/me/rightMenu/MinorProtection/Index";
 import MinorProtectionDetailSetting from "../pages/me/rightMenu/MinorProtection/DetailSetting";
 import TriggerTime from "../pages/me/rightMenu/MinorProtection/TriggerTime";
 import Setting from "../pages/me/rightMenu/Setting";
