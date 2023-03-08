@@ -130,7 +130,7 @@ const bodyWidth = computed(() => store.state.bodyWidth)
 
 const state = reactive({
   baseIndex: 0,
-  navIndex: 3,
+  navIndex: 4,
   test: '',
   recommendList: [
     // {
