@@ -57,10 +57,10 @@ dependencies:
 devDependencies:
   '@vitejs/plugin-vue':
     specifier: 4.0.0
-    version: 4.0.0(vite@4.0.4)(vue@3.2.45)
+    version: 4.0.0(vite@4.0.5)(vue@3.2.45)
   '@vitejs/plugin-vue-jsx':
     specifier: 3.0.0
-    version: 3.0.0(vite@4.0.4)(vue@3.2.45)
+    version: 3.0.0(vite@4.0.5)(vue@3.2.45)
   less:
     specifier: 4.1.3
     version: 4.1.3
@@ -68,8 +68,8 @@ devDependencies:
     specifier: 1.1.2
     version: 1.1.2
   vite:
-    specifier: 4.0.4
-    version: 4.0.4(less@4.1.3)
+    specifier: 4.0.5
+    version: 4.0.5(less@4.1.3)
 
 packages:
 
@@ -642,7 +642,7 @@ packages:
     dev: false
     optional: true
 
-  /@vitejs/plugin-vue-jsx@3.0.0(vite@4.0.4)(vue@3.2.45):
+  /@vitejs/plugin-vue-jsx@3.0.0(vite@4.0.5)(vue@3.2.45):
     resolution: {integrity: sha512-vurkuzgac5SYuxd2HUZqAFAWGTF10diKBwJNbCvnWijNZfXd+7jMtqjPFbGt7idOJUn584fP1Ar9j/GN2jQ3Ew==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -652,20 +652,20 @@ packages:
       '@babel/core': 7.20.12
       '@babel/plugin-transform-typescript': 7.20.13(@babel/core@7.20.12)
       '@vue/babel-plugin-jsx': 1.1.1(@babel/core@7.20.12)
-      vite: 4.0.4(less@4.1.3)
+      vite: 4.0.5(less@4.1.3)
       vue: 3.2.45
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@vitejs/plugin-vue@4.0.0(vite@4.0.4)(vue@3.2.45):
+  /@vitejs/plugin-vue@4.0.0(vite@4.0.5)(vue@3.2.45):
     resolution: {integrity: sha512-e0X4jErIxAB5oLtDqbHvHpJe/uWNkdpYV83AOG2xo2tEVSzCzewgJMtREZM30wXnM5ls90hxiOtAuVU6H5JgbA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.0.4(less@4.1.3)
+      vite: 4.0.5(less@4.1.3)
       vue: 3.2.45
     dev: true
 
@@ -1734,8 +1734,8 @@ packages:
       mutation-observer: 1.0.3
     dev: false
 
-  /vite@4.0.4(less@4.1.3):
-    resolution: {integrity: sha512-xevPU7M8FU0i/80DMR+YhgrzR5KS2ORy1B4xcX/cXLsvnUWvfHuqMmVU6N0YiJ4JWGRJJsLCgjEzKjG9/GKoSw==}
+  /vite@4.0.5(less@4.1.3):
+    resolution: {integrity: sha512-7m87RC+caiAxG+8j3jObveRLqaWA/neAdCat6JAZwMkSWqFHOvg8MYe5fAQxVBRAuKAQ1S6XDh3CBQuLNbY33w==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
