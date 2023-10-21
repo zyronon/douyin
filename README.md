@@ -2,7 +2,7 @@
 
 ## 预览
 
-[在线预览DEMO](http://www.ttentau.top/dy)
+[在线预览DEMO](https://douyins.netlify.app/)
 
 #### 注意：电脑端请用Chrome浏览器的手机模式访问。Chrome切换成手机模式快捷键，先按F12调出控制台，再按Ctrl+Shift+M
 
