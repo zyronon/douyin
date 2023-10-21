@@ -1,11 +1,28 @@
 import enums from "../../utils/enums";
 import CONST_VAR from "../../utils/const_var";
+import mp40 from '../video/0.mp4'
+import mp41 from '../video/1.mp4'
+import mp42 from '../video/2.mp4'
+import mp43 from '../video/3.mp4'
+import mp44 from '../video/4.mp4'
+import mp45 from '../video/5.mp4'
+import mp46 from '../video/6.mp4'
+import mp47 from '../video/7.mp4'
+import mp48 from '../video/8.mp4'
+import mp49 from '../video/9.mp4'
+import mp410 from '../video/10.mp4'
+import mp411 from '../video/11.mp4'
+import mp412 from '../video/12.mp4'
+import mp413 from '../video/13.mp4'
+import mp414 from '../video/14.mp4'
+import mp415 from '../video/15.mp4'
 
 export default {
   videos: [
     {
       "id": "034ae83b-ca0a-401a-b7c6-cf78361bae7b",
-      video: 'http://douyin.ttentau.top/0.mp4',
+      // video: 'http://douyin.ttentau.top/0.mp4',
+      video: mp40,
       "video_data_size": 26829508,
       "duration": 427780,
       "desc": "1我不管我们宿舍第一好看",
@@ -90,7 +107,8 @@ export default {
     },
     {
       "id": "0423ff88-ea37-40f6-ab88-0a90759b12ab",
-      video: 'http://douyin.ttentau.top/1.mp4',
+      // video: 'http://douyin.ttentau.top/1.mp4',
+      video: mp41,
       "video_data_size": 6038796,
       "duration": 90927,
       "desc": "2只要速度够快，小姐姐就追不上...",
@@ -181,7 +199,8 @@ export default {
     },
     {
       "id": "05042932-a921-4c7b-9f88-618bb3100e51",
-      video: 'http://douyin.ttentau.top/2.mp4',
+      // video: 'http://douyin.ttentau.top/2.mp4',
+      video: mp42,
       "video_data_size": 8996120,
       "duration": 118703,
       "desc": "3注意安全",
@@ -293,7 +312,8 @@ export default {
     },
     {
       "id": "08a90c93-807b-4a7a-aad3-68f75d65a9c8",
-      video: 'http://douyin.ttentau.top/3.mp4',
+      // video: 'http://douyin.ttentau.top/3.mp4',
+      video:mp43,
       "video_data_size": 12371092,
       "duration": 139652,
       "desc": "4秋天来了，新疆的可可托海~",
@@ -383,7 +403,8 @@ export default {
     },
     {
       "id": "09c9b531-4381-4542-b7bc-ca6e59389ee1",
-      video: 'http://douyin.ttentau.top/5.mp4',
+      // video: 'http://douyin.ttentau.top/3.mp4',
+      video:mp44,
       "video_data_size": 16916839,
       "duration": 384068,
       "desc": "5在地铁上看见一个女生，刷着刷着屏幕突然把手机倒过来，然后露出了诡异的笑容，我基本已经知道她在看什么了",
@@ -451,7 +472,8 @@ export default {
     },
     {
       "id": "0aeeb9f4-5160-4d07-a468-a1fddd2a425c",
-      video: 'http://douyin.ttentau.top/6.mp4',
+      // video: 'http://douyin.ttentau.top/3.mp4',
+      video:mp45,
       "video_data_size": 26944285,
       "duration": 276000,
       "desc": "6终于找到爱情公寓拍摄取景地了，熟悉的场景配上熟悉的音乐仿佛青春就在昨天，简直一代一人回忆",
@@ -519,7 +541,8 @@ export default {
     },
     {
       "id": "0b1fb9c4-9d5c-40f7-9a01-1310674cbfeb",
-      video: 'http://douyin.ttentau.top/7.mp4',
+      // video: 'http://douyin.ttentau.top/3.mp4',
+      video:mp46,
       "video_data_size": 9321536,
       "duration": 129583,
       "desc": "7一定要跟心爱的人来看一次西岭的日出，at对你很重要的人一起来吧",
@@ -617,7 +640,8 @@ export default {
     },
     {
       "id": "0ba38940-a395-474a-a7f6-b45c123f9c4d",
-      video: 'http://douyin.ttentau.top/8.mp4',
+      // video: 'http://douyin.ttentau.top/3.mp4',
+      video:mp47,
       "video_data_size": 25251313,
       "duration": 449263,
       "desc": "8这车应该叫啥名字",
@@ -693,7 +717,8 @@ export default {
     },
     {
       "id": "f6e8-0be47c89-4d5d-820a-adsfaswewer",
-      video: 'http://douyin.ttentau.top/9.mp4',
+      // video: 'http://douyin.ttentau.top/3.mp4',
+      video:mp48,
       "video_data_size": 17839401,
       "duration": 262127,
       "desc": "9遍历山河，人音值得....",
@@ -770,7 +795,8 @@ export default {
     },
     {
       "id": "0be47c89-f6e8-wqeq-820a-qerq",
-      video: 'http://douyin.ttentau.top/10.mp4',
+      // video: 'http://douyin.ttentau.top/3.mp4',
+      video:mp49,
       "video_data_size": 17839401,
       "duration": 262127,
       "desc": "10当你找不到答案的时候 就来西藏看看。",
@@ -854,7 +880,8 @@ export default {
     },
     {
       "id": "0be47c89-qwerqw-4derq5d-r-072e75c52fbf",
-      video: 'http://douyin.ttentau.top/11.mp4',
+      // video: 'http://douyin.ttentau.top/3.mp4',
+      video:mp410,
       "video_data_size": 17839401,
       "duration": 262127,
       "desc": "11在家门口画一个坑，差点被丈母娘打了！",
@@ -923,7 +950,8 @@ export default {
     },
     {
       "id": "0be47c89qwerqwerqwerqwerbf",
-      video: 'http://douyin.ttentau.top/12.mp4',
+      // video: 'http://douyin.ttentau.top/3.mp4',
+      video:mp411,
       "video_data_size": 17839401,
       "duration": 262127,
       "desc": "12他乡纵有当头月，不抵家乡一盏灯",
@@ -1014,7 +1042,8 @@ export default {
     },
     {
       "id": "0be47c8fasdfwer1221312-072e75c52fbf",
-      video: 'http://douyin.ttentau.top/13.mp4',
+      // video: 'http://douyin.ttentau.top/3.mp4',
+      video:mp412,
       "video_data_size": 17839401,
       "duration": 262127,
       "desc": "13去爬山游玩不要在乱拍视频了，来...!我教你拍。最后的云海太美啦",
@@ -1112,7 +1141,8 @@ export default {
     },
     {
       "id": "0be47cadfasdf23234fbf",
-      video: 'http://douyin.ttentau.top/14.mp4',
+      // video: 'http://douyin.ttentau.top/3.mp4',
+      video:mp413,
       "video_data_size": 17839401,
       "duration": 262127,
       "desc": "14这是什么鱼",
@@ -1174,7 +1204,8 @@ export default {
     },
     {
       "id": "0besdfsdfgwe2342123f",
-      video: 'http://douyin.ttentau.top/15.mp4',
+      // video: 'http://douyin.ttentau.top/3.mp4',
+      video:mp414,
       "video_data_size": 17839401,
       "duration": 262127,
       "desc": "15这个秋天来成都吧，和喜欢的人一起来看一场日出云海",
@@ -1258,7 +1289,8 @@ export default {
     },
     {
       "id": "0be4asdfasdf5466452375c52fbf",
-      video: 'http://douyin.ttentau.top/16.mp4',
+      // video: 'http://douyin.ttentau.top/3.mp4',
+      video:mp415,
       "video_data_size": 17839401,
       "duration": 262127,
       "desc": "16水刀的原理，为什么被称为最锋利的刀？",

@@ -2,11 +2,13 @@
   <div class="video-wrapper" ref="videoWrapper" :class="positionName">
     <Loading v-if="loading" style="position: absolute"/>
     <!--    <video :src="item.video + '?v=123'"-->
-    <video :src="item.video"
+    <video
+        :src="item.video"
            :poster="item.video + videoPoster"
            ref="video"
            muted
            preload
+           :playsinline="true"
            :autoplay="isPlay" loop>
       <p> 您的浏览器不支持 video 标签。</p>
     </video>
