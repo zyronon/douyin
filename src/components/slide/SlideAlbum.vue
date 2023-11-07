@@ -66,7 +66,7 @@
 import enums from "../../utils/enums";
 import Utils from '../../utils'
 import {mat4} from 'gl-matrix'
-import {onMounted, onBeforeUpdate, reactive, ref, watch, computed, provide} from "vue";
+import {onMounted, onBeforeUpdate, reactive, ref, watch, computed, provide, nextTick} from "vue";
 import {
   getSlideDistance,
   slideInit,
@@ -239,7 +239,9 @@ const state = reactive({
   localItem: props.item,
 })
 
-onMounted(() => {
+onMounted(async () => {
+  await nextTick();
+  
   slideInit(wrapperEl.value, state, SlideType.HORIZONTAL)
 
   state.cycleFn = () => {
