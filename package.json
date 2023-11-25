@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@jambonn/vue-lazyload": "1.0.9",
-    "axios": "0.26.1",
+    "axios": "1.6.0",
     "core-js": "3.21.1",
     "dayjs": "1.11.0",
     "gl-matrix": "3.4.3",
