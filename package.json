@@ -15,20 +15,22 @@
     "lodash": "4.17.21",
     "mitt": "3.0.0",
     "mockjs": "1.1.0",
+    "pinia": "^2.1.7",
     "pinyin": "2.11.1",
     "swiper": "8.4.6",
     "vconsole": "3.15.1",
-    "vue": "3.2.45",
+    "vue": "3.4.21",
     "vue-masonry": "0.16.0",
-    "vue-router": "4.0.14",
+    "vue-router": "4.3.0",
     "vue-switches": "2.0.1",
-    "vuex": "4.0.2"
+    "vuex": "4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "4.0.0",
     "@vitejs/plugin-vue-jsx": "3.0.0",
     "less": "4.1.3",
     "mobile-select": "1.1.2",
-    "vite": "4.5.2"
+    "unplugin-vue-macros": "^2.7.10",
+    "vite": "5.1.4"
   }
 }

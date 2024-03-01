@@ -95,7 +95,7 @@
 </template>
 
 <script setup lang="jsx">
-import SlideHorizontal from '../../components/slide/SlideHorizontal.vue'
+import SlideHorizontal from '@/components/slide/SlideHorizontal.vue'
 import SlideItem from '@/components/slide/SlideItem.vue'
 import Comment from "../../components/Comment.vue";
 import Share from "../../components/Share.vue";

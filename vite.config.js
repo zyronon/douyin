@@ -1,6 +1,7 @@
 import {defineConfig, searchForWorkspaceRoot} from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
+import Vue from '@vitejs/plugin-vue'
+import VueJsx from '@vitejs/plugin-vue-jsx'
+import VueMacros from 'unplugin-vue-macros/vite'
 import {resolve} from 'path'
 
 function pathResolve(dir) {
@@ -17,8 +18,18 @@ export const ssrTransformCustomDir = () => {
 export default defineConfig({
   base: './',
   plugins: [
-    vue(),
-    vueJsx(),
+    // VueMacros({
+    //   plugins: {
+    //     vue: Vue(),
+    //     vueJsx: VueJsx(), // if needed
+    //   },
+    //   betterDefine: true,
+    //   // reactivityTransform: {
+    //   //   exclude: [/node_modules/, /jQuery\.js/]
+    //   // }
+    // }),
+    Vue(),
+    VueJsx(),
   ],
   resolve: {
     alias: {
