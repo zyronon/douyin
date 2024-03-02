@@ -55,12 +55,10 @@
 
 <script setup lang="jsx">
 import SlideItem from '@/components/slide/SlideItem.vue'
-import {onMounted, onUnmounted, reactive, ref, watch} from "vue";
+import {onMounted, onUnmounted, reactive, ref} from "vue";
 import bus, {EVENT_KEY} from "@/utils/bus";
 import Utils from "@/utils";
 import api from "@/api";
-import Loading from "@/components/Loading.vue";
-import {useSlideListItemRender} from "@/utils/hooks/useSlideListItemRender";
 import SlideList from './SlideList.vue';
 
 const props = defineProps({

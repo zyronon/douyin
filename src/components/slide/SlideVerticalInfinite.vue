@@ -1,5 +1,5 @@
 <script setup lang="jsx">
-import {computed, createApp, onMounted, reactive, ref, watch} from "vue";
+import {computed, createApp, h, onMounted, reactive, ref, render, watch} from "vue";
 import GM from '../../utils'
 import {getSlideDistance, slideInit, slideReset, slideTouchEnd, slideTouchMove, slideTouchStart} from "./common";
 import {SlideType} from "@/utils/const_var";
@@ -93,7 +93,8 @@ watch(
           })
         }
       }
-    })
+    }
+)
 
 watch(
     () => props.index,
@@ -113,7 +114,8 @@ watch(
           type: EVENT_KEY.ITEM_STOP
         })
       }, 200)
-    },)
+    }
+)
 
 watch(
     () => props.active,
@@ -130,7 +132,9 @@ watch(
         index: state.localIndex,
         type: newVal === false ? EVENT_KEY.ITEM_STOP : EVENT_KEY.ITEM_PLAY
       })
-    }, {immediate: true})
+    },
+    {immediate: true}
+)
 
 onMounted(() => {
   slideInit(wrapperEl.value, state, SlideType.VERTICAL)
@@ -186,16 +190,25 @@ defineExpose({dislike})
 function getInsEl(item, index, play = false) {
   // console.log('index', index, play)
   let slideVNode = props.render(item, index, play, props.uniqueId)
-  const app = createApp({
-    render() {
-      return <SlideItem data-index={index}>{slideVNode}</SlideItem>
+  const parent = document.createElement('div')
+  parent.classList.add('slide-item')
+  parent.setAttribute('data-index', index)
+  render(slideVNode, parent)
+  // const app = createApp({
+  //   render() {
+  //     return <SlideItem data-index={index}>{slideVNode}</SlideItem>
+  //   }
+  // })
+  // const ins = app.mount(parent)
+  // appInsMap.set(index, ins)
+  // return ins.$el
+  appInsMap.set(index, {
+    unmount: () => {
+      render(null, parent)
+      parent.remove()
     }
   })
-  const parent = document.createElement('div')
-  const ins = app.mount(parent)
-  appInsMap.set(index, app)
-  // this.appInsMap.set(index, ins)
-  return ins.$el
+  return parent
 }
 
 function touchStart(e) {

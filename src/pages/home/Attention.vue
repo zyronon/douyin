@@ -20,7 +20,6 @@
 
 import {reactive} from "vue";
 import {useNav} from "@/utils/hooks/useNav";
-import InfiniteList from "@/pages/slideHooks/InfiniteList.vue";
 import api from "@/api";
 import SlideList from "@/pages/home/slide/SlideList.vue";
 

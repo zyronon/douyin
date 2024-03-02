@@ -3,7 +3,6 @@ import BaseHeader from "../components/BaseHeader";
 import SlideList from "../components/slide/SlideList";
 import SlideRowList from "../components/slide/SlideRowList";
 import SlideColumnList from "../components/slide/SlideColumnList";
-import SlideColumnVirtualList from "../components/slide/SlideColumnVirtualList";
 import SlideItem from "../components/slide/SlideItem";
 import Indicator from "../components/slide/Indicator";
 import Video from "../components/Video";
@@ -24,7 +23,6 @@ export default {
     SlideList,
     SlideRowList,
     SlideColumnList,
-    SlideColumnVirtualList,
     SlideItem,
     Indicator,
     'Video1': Video,
