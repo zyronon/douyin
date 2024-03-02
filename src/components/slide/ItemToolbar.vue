@@ -54,7 +54,7 @@ function showComments() {
 
 <template>
   <div class="toolbar mb1r">
-    <div class="avatar-ctn mb3r">
+    <div class="avatar-ctn mb2r">
       <img class="avatar" :src="props.item.author.avatar" alt=""
            @click.stop="bus.emit(EVENT_KEY.GO_USERINFO)">
       <transition name="fade">

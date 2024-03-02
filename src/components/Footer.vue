@@ -105,6 +105,7 @@ export default {
     justify-content: center;
     align-items: center;
     position: relative;
+    font-size: 16rem;
 
     .refresh {
       width: 25%;
@@ -141,6 +142,7 @@ export default {
     }
 
     span {
+      font-weight: bold;
       opacity: .7;
 
       &.active {
