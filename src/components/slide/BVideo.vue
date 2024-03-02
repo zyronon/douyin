@@ -12,7 +12,7 @@
            :autoplay="isPlay" loop>
       <p> 您的浏览器不支持 video 标签。</p>
     </video>
-    <img src="../../assets/img/icon/play-white.png" class="pause" v-if="!isPlaying">
+    <Icon icon="fluent:play-28-filled" class="pause"   v-if="!isPlaying"/>
     <div class="float" :style="{opacity: isUp?0:1}">
       <div :style="{opacity:isMove ? 0:1}" class="normal">
         <template v-if="!commentVisible">
@@ -68,20 +68,21 @@
 
 <script>
 import Utils from '../../utils'
-import Dom from "../../utils/dom";
 import Loading from "../Loading";
 import ItemToolbar from "./ItemToolbar";
 import ItemDesc from "./ItemDesc";
 import bus, {EVENT_KEY} from "../../utils/bus";
 import {SlideItemPlayStatus} from "../../utils/const_var";
 import {computed} from "vue";
+import {Icon} from "@iconify/vue";
 
 export default {
   name: "BVideo",
   components: {
     Loading,
     ItemToolbar,
-    ItemDesc
+    ItemDesc,
+    Icon
   },
   provide() {
     return {
@@ -373,15 +374,16 @@ export default {
   }
 
   .pause {
-    width: 100rem;
-    height: 100rem;
-    opacity: 0.5;
+    width: 60rem;
+    height: 60rem;
+    opacity: 0.3;
     position: absolute;
     margin: auto;
     left: 0;
     top: 0;
     bottom: 0;
     right: 0;
+    color: white;
     animation: pause-animation 1.1s linear;
 
     @scale: scale(1.2);
@@ -392,12 +394,12 @@ export default {
         transform: scale(2);
       }
       10% {
-        opacity: 0.5;
+        opacity: 0.3;
         transform: @scale;
       }
       100% {
         transform: @scale;
-        opacity: 0.5;
+        opacity: 0.3;
       }
     }
   }

@@ -77,11 +77,9 @@ watch(
         if (oldVal.length === 0) {
           insertContent()
         } else {
-          let end = oldVal.length + 3
-          if (end >= newVal) end = newVal
+          let endIndex = oldVal.length + 3
           let top = $(wrapperEl.value).find(`.${itemClassName}:last`).css('top')
-
-          newVal.slice(oldVal.length, end).map((item, index) => {
+          newVal.slice(oldVal.length, endIndex).map((item, index) => {
             let el = getInsEl(item, oldVal.length + index)
             //这里必须要设置个top值，不然会把前面的条目给覆盖掉
             //2022-3-27，这里不用计算，直接用已用slide-item最后一条的top值，
@@ -100,7 +98,7 @@ watch(
     () => props.index,
     (newVal, oldVal) => {
       if (!props.list.length) return
-      console.log('watch-index', newVal, oldVal)
+      // console.log('watch-index', newVal, oldVal)
       bus.emit(EVENT_KEY.CURRENT_ITEM, props.list[newVal])
       bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
         uniqueId: props.uniqueId,

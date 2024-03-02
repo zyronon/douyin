@@ -14,6 +14,7 @@
     "gl-matrix": "3.4.3",
     "lodash": "4.17.21",
     "mitt": "3.0.0",
+    "lodash-es": "^4.17.21",
     "mockjs": "1.1.0",
     "pinia": "^2.1.7",
     "pinyin": "2.11.1",
@@ -26,6 +27,8 @@
     "vuex": "4.1.0"
   },
   "devDependencies": {
+    "@iconify/vue": "^4.1.1",
+    "@types/lodash-es": "^4.17.9",
     "@vitejs/plugin-vue": "4.0.0",
     "@vitejs/plugin-vue-jsx": "3.0.0",
     "less": "4.1.3",

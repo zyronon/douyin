@@ -2,13 +2,14 @@ import bus from "@/utils/bus";
 import Utils from '@/utils'
 import {SlideType} from "@/utils/const_var";
 import GM from "@/utils";
+import {sum} from "lodash-es";
 
 export function slideInit(el, state, type) {
   state.wrapper.width = GM.$getCss(el, 'width')
   state.wrapper.height = GM.$getCss(el, 'height')
   state.wrapper.childrenLength = el.children.length
 
-  let t = getSlideDistance(state, type)
+  let t = getSlideDistance(state, type, el)
   let dx1 = 0, dx2 = 0
   if (type === SlideType.HORIZONTAL) dx1 = t
   else dx2 = t
@@ -55,7 +56,7 @@ export function slideTouchMove(e, el, state, judgeValue, canNextCb, nextCb, type
       bus.emit(state.name + '-moveX', state.move.x)
     }
     Utils.$stopPropagation(e)
-    let t = getSlideDistance(state, type) + (isNext ? judgeValue : -judgeValue)
+    let t = getSlideDistance(state, type, el) + (isNext ? judgeValue : -judgeValue)
     let dx1 = 0
     let dx2 = 0
     if (type === SlideType.HORIZONTAL) {
@@ -97,7 +98,7 @@ export function slideTouchEnd(e, state, canNextCb, nextCb, notNextCb, type = Sli
 
 export function slideReset(el, state, type, emit) {
   Utils.$setCss(el, 'transition-duration', `300ms`)
-  let t = getSlideDistance(state, type)
+  let t = getSlideDistance(state, type, el)
   let dx1 = 0
   let dx2 = 0
   if (type === SlideType.HORIZONTAL) {
@@ -114,8 +115,16 @@ export function slideReset(el, state, type, emit) {
   emit?.('update:index', state.localIndex)
 }
 
-export function getSlideDistance(state, type = SlideType.HORIZONTAL) {
+export function getSlideDistance(state, type = SlideType.HORIZONTAL, el) {
   if (type === SlideType.HORIZONTAL) {
+    //TODO 统一
+    if (el) {
+      let widths = []
+      Array.from(el.children).map(v => {
+        widths.push(v.getBoundingClientRect().width)
+      })
+      return -sum(widths.splice(0, state.localIndex))
+    }
     return -state.localIndex * state.wrapper.width
   } else {
     return -state.localIndex * state.wrapper.height

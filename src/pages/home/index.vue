@@ -1,6 +1,11 @@
 <template>
   <div class="test-slide-wrapper" id="home-index">
     <SlideHorizontal v-model:index="state.baseIndex">
+      <SlideItem class="sidebar">
+        <div class="sidebar1">
+
+        </div>
+      </SlideItem>
       <SlideItem>
         <IndicatorHome
             v-if="!state.fullScreen"
@@ -13,15 +18,15 @@
                            name="main"
                            :change-active-index-use-anim="false"
                            v-model:index="state.navIndex">
-            <Slide0 :active="state.navIndex === 0 && state.baseIndex === 0"/>
+            <Slide0 :active="state.navIndex === 0 && state.baseIndex === 1"/>
             <SlideItem>
               <Community/>
             </SlideItem>
-            <Slide2 :active="state.navIndex === 2 && state.baseIndex === 0"/>
+            <Slide2 :active="state.navIndex === 2 && state.baseIndex === 1"/>
             <SlideItem>
               <Shop/>
             </SlideItem>
-            <Slide4 :active="state.navIndex === 4 && state.baseIndex === 0"/>
+            <Slide4 :active="state.navIndex === 4 && state.baseIndex === 1"/>
           </SlideHorizontal>
         </div>
         <Footer v-bind:init-tab="1"/>
@@ -38,6 +43,7 @@
         />
       </SlideItem>
     </SlideHorizontal>
+
 
     <Comment page-id="home-index" v-model="state.commentVisible"
              @close="closeComments"
@@ -129,7 +135,7 @@ const bodyHeight = computed(() => store.state.bodyHeight)
 const bodyWidth = computed(() => store.state.bodyWidth)
 
 const state = reactive({
-  baseIndex: 0,
+  baseIndex: 1,
   navIndex: 4,
   test: '',
   recommendList: [
@@ -237,6 +243,13 @@ function dislike() {
   width: 100%;
   height: 100%;
   overflow: hidden;
+
+  .sidebar {
+    width: 70vw;
+    height: 100vh;
+    overflow: auto;
+    background: red;
+  }
 
   .slide-content {
     width: 100%;

@@ -3,6 +3,7 @@ import BaseMusic from "../BaseMusic";
 import Utils from "../../utils";
 import {reactive,} from "vue";
 import bus, {EVENT_KEY} from "@/utils/bus";
+import {Icon} from '@iconify/vue'
 
 const props = defineProps({
   item: {
@@ -71,13 +72,13 @@ function showComments() {
       <span>{{ Utils.formatNumber(props.item.digg_count) }}</span>
     </div>
     <div class="message mb2r" @click.stop="showComments">
-      <img src="../../assets/img/icon/message.svg" alt="" class="message-image">
+      <Icon icon="mage:message-dots-round-fill" class="icon" style="color: white"/>
       <span>{{ Utils.formatNumber(props.item.comment_count) }}</span>
     </div>
     <!--TODO     -->
     <div class="message mb2r" @click.stop="Utils.updateItem(props, 'isCollect', !props.item.isCollect, emit)">
-      <img v-if="props.item.isCollect" src="@/assets/img/icon/components/video/star-full.png" alt="" class="message-image">
-      <img v-else src="@/assets/img/icon/components/video/star.png" alt="" class="message-image">
+      <Icon v-if="props.item.isCollect" icon="ic:round-star" class="icon" style="color: yellow"/>
+      <Icon v-else icon="ic:round-star" class="icon" style="color: white"/>
       <span>{{ Utils.formatNumber(props.item.comment_count) }}</span>
     </div>
     <div v-if="!props.isMy" class="share mb2r" @click.stop="bus.emit(EVENT_KEY.SHOW_SHARE)">
@@ -177,6 +178,10 @@ function showComments() {
     span {
       font-size: 12rem;
     }
+  }
+
+  .icon {
+    font-size: 40rem;
   }
 
   .loved {

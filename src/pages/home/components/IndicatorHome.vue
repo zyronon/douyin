@@ -5,10 +5,11 @@
     </transition>
     <div class="notice" :style="noticeStyle"><span>下拉刷新内容</span></div>
     <div class="toolbar" ref="toolbar" :style="toolbarStyle">
-      <img src="../../../assets/img/icon/scan.png"
-           class="search"
-           @click="$nav('/home/live')"
-           style="margin-top: .5rem;">
+      <Icon
+          icon="tabler:menu-deep"
+          class="search"
+          @click="$nav('/home/live')"
+          style="transform: rotateY(180deg)"/>
       <div class="tab-ctn">
         <div class="tabs" ref="tabs">
           <div class="tab" :class="tabOneClass" @click.stop="change(0)">
@@ -29,10 +30,10 @@
         </div>
         <div class="indicator" ref="indicator"></div>
       </div>
-      <img v-hide="loading" src="../../../assets/img/icon/search-light.png"
-           class="search"
-           @click="$nav('/home/search')"
-           style="margin-top: .5rem;">
+      <Icon v-hide="loading"
+            icon="ion:search"
+            class="search"
+            @click="$nav('/home/search')"/>
     </div>
     <div class="toggle-type" :class="{open}">
       <div class="l-button" :class="{active:type === 0}" @click="toggleType(0)">
@@ -194,7 +195,7 @@ export default {
 @import "@/assets/less/index";
 
 .indicator-home {
-  position: fixed;
+  position: absolute;
   font-size: 16rem;
   top: 0;
   left: 0;
@@ -218,8 +219,8 @@ export default {
 
   .loading {
     opacity: 0;
-    top: 13rem;
-    right: 15rem;
+    top: 7rem;
+    right: 7rem;
     position: absolute;
   }
 
@@ -290,7 +291,8 @@ export default {
     }
 
     .search {
-      width: 20rem;
+      color: white;
+      font-size: 24rem;
     }
   }
 

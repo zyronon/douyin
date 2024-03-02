@@ -119,7 +119,6 @@ import globalMethods from '../../utils'
 import BaseMarquee from "../BaseMarquee";
 import Dom from "../../utils/dom";
 import BaseMusic from "../BaseMusic";
-import {mapState} from "vuex";
 import Loading from "../Loading";
 
 export default {
@@ -127,7 +126,7 @@ export default {
   components: {
     BaseMarquee,
     BaseMusic,
-    Loading
+    Loading,
   },
   props: {
     video: {

@@ -16,6 +16,7 @@ import CONST_VAR from "./const_var";
 import Dom from "./dom";
 import bus, {EVENT_KEY} from "./bus";
 import {random} from "lodash";
+import {Icon} from '@iconify/vue'
 
 export default {
   components: {
@@ -31,7 +32,8 @@ export default {
     NoMore,
     'dy-back': Back,
     Loading,
-    'dy-button': BaseButton
+    'dy-button': BaseButton,
+    Icon
   },
   data() {
     return {

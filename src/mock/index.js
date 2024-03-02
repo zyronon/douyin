@@ -3,7 +3,7 @@ import globalMethods from '../utils'
 import resource from "../assets/data/resource.js";
 import users from '@/assets/data/users.json'
 import post from '@/assets/data/post.json'
-import {sample, shuffle} from "lodash";
+import {sample, shuffle, uniqueId} from "lodash";
 
 function getParams(options) {
   let params = globalMethods.$parseURL(options.url).params
@@ -27,14 +27,51 @@ let allRecommendVideos = resource.videos.map(v => {
   v.type = 'recommend-video'
   return v
 })
-
+let t = [
+  {
+    type: 'imgs',
+    src: `https://imgapi.cn/bing.php`,
+    author: {
+      unique_id: uniqueId('list_')
+    }
+  },
+  {
+    type: 'user',
+    src: `https://imgapi.cn/bing.php`,
+    author: {
+      unique_id: uniqueId('list_')
+    }
+  },
+  {
+    type: 'img',
+    src: `https://imgapi.cn/bing.php`,
+    author: {
+      unique_id: uniqueId('list_')
+    }
+  },
+]
+allRecommendVideos.unshift(...t)
+// {
+//   type: 'imgs',
+//   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`,
+//   author: {
+//     unique_id: uniqueId('list_')
+//   }
+// },
+// {
+//   type: 'user',
+//   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`,
+//   author: {
+//     unique_id: uniqueId('list_')
+//   }
+// },
 for (let i = 0; i < 50; i++) {
   allRecommendVideos = allRecommendVideos.concat(shuffle(resource.videos)
-      .slice(0, 10)
-      .map(v => {
-        v.type = 'recommend-video'
-        return v
-      }))
+    .slice(0, 10)
+    .map(v => {
+      v.type = 'recommend-video'
+      return v
+    }))
 }
 Mock.mock(/recommended/, options => {
   let page = getPage(options)
