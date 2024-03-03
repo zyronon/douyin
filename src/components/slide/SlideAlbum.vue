@@ -13,11 +13,14 @@
       </div>
     </div>
     <template v-if=" state.operationStatus === SlideAlbumOperationStatus.Normal">
-      <ItemToolbar v-model:item="state.localItem"
-                   :position="position"
-                   v-bind="$attrs"
+      <ItemToolbar
+          class="mb3r"
+          v-model:item="state.localItem"
+          :position="position"
+          v-bind="$attrs"
       />
       <ItemDesc
+          class="mb3r"
           v-model:item="state.localItem"
           :position="position"
       />
@@ -32,7 +35,7 @@
     >
       <div class="bar" v-for="(img,index) in item.imgs">
         <div class="progress"
-             :style="getProgressWidth(index)"></div>
+             :style="getWidth(index)"></div>
       </div>
     </div>
     <Teleport to="#home-index" v-if="state.isPreview">
@@ -49,13 +52,15 @@
         </div>
       </div>
     </Teleport>
-    <Teleport to="#home-index" v-if="state.operationStatus === SlideAlbumOperationStatus.Detail">
+    <Teleport to="#home-index" v-if="state.operationStatus !== SlideAlbumOperationStatus.Normal">
       <div class="album-toolbar">
-        <div class="left">关闭</div>
+        <div class="left">
+          <Icon icon="iconamoon:close" @click="state.operationStatus = SlideAlbumOperationStatus.Normal"/>
+        </div>
         <div class="right">
-          <div class="option">评论</div>
-          <div class="option">切换</div>
-          <div class="option">下载</div>
+          <Icon icon="heroicons-outline:menu-alt-1" @click="Utils.$no"/>
+          <Icon icon="fluent:play-28-filled" class="pause" @click="Utils.$no"/>
+          <Icon icon="system-uicons:push-down" @click="Utils.$no"/>
         </div>
       </div>
     </Teleport>
@@ -66,6 +71,7 @@
 import enums from "../../utils/enums";
 import Utils from '../../utils'
 import {mat4} from 'gl-matrix'
+import {Icon} from "@iconify/vue";
 import {onMounted, onBeforeUpdate, reactive, ref, watch, computed, provide, nextTick} from "vue";
 import {
   getSlideDistance,
@@ -80,7 +86,7 @@ import ItemToolbar from "./ItemToolbar";
 import ItemDesc from "./ItemDesc";
 import GM from "../../utils";
 import {cloneDeep} from "lodash";
-import bus from "../../utils/bus";
+import bus, {EVENT_KEY} from "../../utils/bus";
 
 let out = new Float32Array([
   0, 0, 0, 0,
@@ -234,27 +240,35 @@ const state = reactive({
   itemRefs: [],
   previewImgs: [],
   status: 'play',//stop,custom
-  progress: 0,
-  cycleFn: 0,
+  cycleFn: -1,
+  isAutoPlay: true,
   localItem: props.item,
 })
 
-function start() {
-  state.cycleFn = setTimeout(() => {
-    if (state.status !== 'play') return clearTimeout(state.cycleFn)
+function stopPlay() {
+  clearInterval(state.cycleFn)
+  state.cycleFn = -1
+}
+
+function startPlay() {
+  if (state.cycleFn !== -1) return
+  if (!state.isAutoPlay) return
+  state.cycleFn = setInterval(() => {
     if (state.localIndex < props.item.imgs.length - 1) {
       state.localIndex++
     } else {
       state.localIndex = 0
     }
-    start()
   }, 1500)
 }
 
 onMounted(async () => {
   await nextTick();
   slideInit(wrapperEl.value, state, SlideType.HORIZONTAL)
-  start()
+  // startPlay()
+  setTimeout(() => {
+    state.operationStatus = SlideAlbumOperationStatus.Zooming
+  }, 1000)
 })
 
 // 确保在每次更新之前重置ref
@@ -268,17 +282,16 @@ watch(
     (newVal) => {
       GM.$setCss(wrapperEl.value, 'transition-duration', `300ms`)
       GM.$setCss(wrapperEl.value, 'transform', `translate3d(${getSlideDistance(state, SlideType.HORIZONTAL)}px, 0, 0)`)
-      // state.progress = (state.localIndex + 1) * 100
     }
 )
 
 watch(
     () => state.operationStatus,
     (newVal) => {
-      if (newVal === SlideAlbumOperationStatus.Zooming) {
-        bus.emit('enterFullscreen')
+      if (newVal !== SlideAlbumOperationStatus.Normal) {
+        bus.emit(EVENT_KEY.ENTER_FULLSCREEN)
       } else {
-        bus.emit('exitFullscreen')
+        bus.emit(EVENT_KEY.EXIT_FULLSCREEN)
       }
     }
 )
@@ -320,8 +333,10 @@ function progressBarTouchMEnd(e) {
 }
 
 function touchStart(e) {
+  // Utils.$showNoticeDialog('start'+e.touches.length)
   // console.log('start', e.touches.length)
   if (e.touches.length === 1) {
+    isZooming.value = false
     slideTouchStart(e, wrapperEl.value, state)
   } else {
     if (isZooming.value) return
@@ -334,123 +349,126 @@ function touchStart(e) {
 }
 
 function touchMove(e) {
+  // Utils.$showNoticeDialog('move'+e.touches.length)
   // console.log('move', e.touches.length,)
   let current1 = {x: e.touches[0].pageX, y: e.touches[0].pageY}
-  if (isZooming.value && e.touches.length === 1) {
-    // console.log('m1')
-    state.status = 'pause'
-    Utils.$stopPropagation(e)
+  stopPlay()
 
-    // console.log('单手移动',)
-    let movementX = current1.x - state.last.point1.x
-    let movementY = current1.y - state.last.point1.y
-    // console.log(movementX, movementY)
-    const t = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, movementX, movementY, 0, 1,]);
-    ov = mat4.multiply(out, t, ov);
-    state.itemRefs[state.localIndex].style.transform = `matrix3d(${ov.toString()})`;
-    state.last.point1 = current1
-  } else {
-    if (e.touches.length === 1) {
+  //单手移动
+  if (e.touches.length === 1) {
+    if (isZooming.value) {
+      // console.log('m1')
+      Utils.$stopPropagation(e)
+
+      // console.log('单手移动',)
+      let movementX = current1.x - state.last.point1.x
+      let movementY = current1.y - state.last.point1.y
+      // console.log(movementX, movementY)
+      const t = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, movementX, movementY, 0, 1,]);
+      ov = mat4.multiply(out, t, ov);
+      state.itemRefs[state.localIndex].style.transform = `matrix3d(${ov.toString()})`;
+      state.last.point1 = current1
+    } else {
       // console.log('m2')
+      state.isAutoPlay = false
       slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext,
           () => {
-            state.status = 'pause'
           }, SlideType.HORIZONTAL,
           () => {
             if (state.operationStatus === SlideAlbumOperationStatus.Detail) {
               Utils.$stopPropagation(e)
             }
           })
-    } else {
-      // console.log('m3')
-      state.operationStatus = SlideAlbumOperationStatus.Zooming
-      Utils.$stopPropagation(e)
-      state.status = 'pause'
-
-      let rect = {x: 0, y: 0}
-      if (rectMap.has(state.localIndex)) {
-        rect = rectMap.get(state.localIndex)
-      } else {
-        //getBoundingClientRect在手机上获取不到值
-        let offset = $(state.itemRefs[state.localIndex]).offset()
-        rect = {x: offset.left, y: offset.top}
-        rectMap.set(state.localIndex, rect)
-      }
-
-      let current2 = {x: e.touches[1].pageX, y: e.touches[1].pageY}
-
-      // 双指缩放比例，就是对应的放大倍数
-      let currentRatio = Utils.getDistance(current1, current2) / Utils.getDistance(state.start.point1, state.start.point2);
-
-      let center = Utils.getCenter(current1, current2)
-
-      center.x -= rect.x
-      center.y -= rect.y
-      //用最新的放大倍数ratio除以之前的放大ov[0]倍数，算出本次要累加放大的倍数
-      let zoom = currentRatio / ov[0]
-      const x = center.x * (1 - zoom);
-      const y = center.y * (1 - zoom);
-      const t = new Float32Array([zoom, 0, 0, 0, 0, zoom, 0, 0, 0, 0, 1, 0, x, y, 0, 1,]);
-      //如果zoom是每次都是最后放大倍数，第三个参数用原值（即，矩阵x乘时，都是乘以单位矩阵）
-      //如果zoom是累加放大（比如每次都是0.15），第三个参数用ov。这里还是采用累加计算
-      ov = mat4.multiply(out, t, ov);
-
-      let movementRatio = currentRatio - ov[0]
-      //如果本次比例和上次的不超过0.02。那么判定为平移
-      if (Math.abs(movementRatio) <= 0.02) {
-        let movementX = current1.x - state.last.point1.x
-        let movementY = current1.y - state.last.point1.y
-        let movement2X = current2.x - state.last.point2.x
-        let movement2Y = current2.y - state.last.point2.y
-
-        let minX = Math.min(movementX, movement2X)
-        let minY = Math.min(movementY, movement2Y)
-        const t1 = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, minX, minY, 0, 1,]);
-        ov = mat4.multiply(out, t1, ov);
-      }
-
-      state.itemRefs[state.localIndex].style.transform = `matrix3d(${ov.toString()})`;
-      state.last.point1 = current1
-      state.last.point2 = current2
     }
+  } else {
+    // console.log('m3')
+    state.operationStatus = SlideAlbumOperationStatus.Zooming
+    Utils.$stopPropagation(e)
+
+    let rect = {x: 0, y: 0}
+    if (rectMap.has(state.localIndex)) {
+      rect = rectMap.get(state.localIndex)
+    } else {
+      //getBoundingClientRect在手机上获取不到值
+      let offset = $(state.itemRefs[state.localIndex]).offset()
+      rect = {x: offset.left, y: offset.top}
+      rectMap.set(state.localIndex, rect)
+    }
+
+    let current2 = {x: e.touches[1].pageX, y: e.touches[1].pageY}
+
+    // 双指缩放比例，就是对应的放大倍数
+    let currentRatio = Utils.getDistance(current1, current2) / Utils.getDistance(state.start.point1, state.start.point2);
+
+    let center = Utils.getCenter(current1, current2)
+
+    center.x -= rect.x
+    center.y -= rect.y
+    //用最新的放大倍数ratio除以之前的放大ov[0]倍数，算出本次要累加放大的倍数
+    let zoom = currentRatio / ov[0]
+    const x = center.x * (1 - zoom);
+    const y = center.y * (1 - zoom);
+    const t = new Float32Array([zoom, 0, 0, 0, 0, zoom, 0, 0, 0, 0, 1, 0, x, y, 0, 1,]);
+    //如果zoom是每次都是最后放大倍数，第三个参数用原值（即，矩阵x乘时，都是乘以单位矩阵）
+    //如果zoom是累加放大（比如每次都是0.15），第三个参数用ov。这里还是采用累加计算
+    ov = mat4.multiply(out, t, ov);
+
+    let movementRatio = currentRatio - ov[0]
+    //如果本次比例和上次的不超过0.02。那么判定为平移
+    if (Math.abs(movementRatio) <= 0.02) {
+      let movementX = current1.x - state.last.point1.x
+      let movementY = current1.y - state.last.point1.y
+      let movement2X = current2.x - state.last.point2.x
+      let movement2Y = current2.y - state.last.point2.y
+
+      let minX = Math.min(movementX, movement2X)
+      let minY = Math.min(movementY, movement2Y)
+      const t1 = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, minX, minY, 0, 1,]);
+      ov = mat4.multiply(out, t1, ov);
+    }
+
+    state.itemRefs[state.localIndex].style.transform = `matrix3d(${ov.toString()})`;
+    state.last.point1 = current1
+    state.last.point2 = current2
   }
 }
 
 function touchEnd(e) {
   state.isPreview = false
-  console.log('end', e.touches.length, state.operationStatus)
-  //双指缩放，但只松开了一只手
-  if (isZooming.value && e.touches.length === 1) {
-    Utils.$stopPropagation(e)
-    state.last.point1 = {x: e.touches[0].pageX, y: e.touches[0].pageY}
-  } else {
+  //这里获取到的手指数一直为0，所以用之前的变量来判断
+  // console.log('end', e.touches.length, state.operationStatus)
+  // Utils.$showNoticeDialog('1' + e.touches.length)
+
+  if (e.touches.length === 1) {
+    //双指缩放状态下，但只松开了一只手
     if (isZooming.value) {
-      state.operationStatus = SlideAlbumOperationStatus.Detail
-      ov = origin
       Utils.$stopPropagation(e)
-      state.itemRefs[state.localIndex].style['transition-duration'] = '300ms';
-      state.itemRefs[state.localIndex].style.transform = `matrix3d(${origin.toString()})`;
+      state.last.point1 = {x: e.touches[0].pageX, y: e.touches[0].pageY}
+      startPlay()
     } else {
       slideTouchEnd(e, state, canNext,
           () => {
-            state.status = 'custom'
-            state.progress = (state.localIndex + 1) * 100
+            console.log('nextCb')
           },
           () => {
-            console.log('notNextCb')
+            console.log('doNotNextCb')
             state.operationStatus = SlideAlbumOperationStatus.Normal
-            if (state.status !== 'custom') {
-              state.status = 'play'
-              requestAnimationFrame(state.cycleFn)
-            }
+            startPlay()
           }
       )
       slideReset(wrapperEl.value, state, SlideType.HORIZONTAL, null)
     }
+  } else {
+    state.operationStatus = SlideAlbumOperationStatus.Detail
+    ov = origin
+    Utils.$stopPropagation(e)
+    state.itemRefs[state.localIndex].style['transition-duration'] = '300ms';
+    state.itemRefs[state.localIndex].style.transform = `matrix3d(${origin.toString()})`;
+    startPlay()
   }
 }
 
-function getProgressWidth(index) {
+function getWidth(index) {
   if (state.localIndex >= index) return {width: '100%'}
 }
 
@@ -510,7 +528,7 @@ function canNext(isNext, e) {
   .progress-bar {
     position: absolute;
     width: 100%;
-    bottom: 8rem;
+    bottom: 10rem;
     display: flex;
     box-sizing: border-box;
     padding: 0 5rem;
@@ -562,9 +580,9 @@ function canNext(isNext, e) {
       width: 30rem;
       height: 50rem;
       background-color: black;
-      object-fit: contain;
       border-radius: 3rem;
       overflow: hidden;
+      object-fit: cover;
 
       &.preview-img {
         width: 40rem;
@@ -590,6 +608,8 @@ function canNext(isNext, e) {
 .album-toolbar {
   position: absolute;
   bottom: 0;
+  color: white;
+  font-size: 24rem;
   background: @footer-color;
   width: 100%;
   box-sizing: border-box;
@@ -599,12 +619,12 @@ function canNext(isNext, e) {
   justify-content: space-between;
   padding: 0 10rem;
 
-  @padding: 12rem;
+  @padding: 18rem;
 
   .left {
-    height: 34rem;
-    background-color: gray;
-    border-radius: 6rem;
+    height: 40rem;
+    background-color: rgba(71, 71, 86, 0.53);
+    border-radius: 10rem;
     padding: 0 @padding;
     display: flex;
     align-items: center;
@@ -614,11 +634,10 @@ function canNext(isNext, e) {
   .right {
     .left;
 
-    .option {
-      margin: 0 5rem;
-    }
+    display: flex;
+    align-items: center;
+    gap: 20rem;
   }
-
 }
 
 </style>

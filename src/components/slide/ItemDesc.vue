@@ -32,8 +32,8 @@ const state = reactive({
 
 </script>
 <template>
-  <div class="item-desc">
-    <div class="content ml1r mb1r" v-if="!props.isMy">
+  <div class="item-desc ml1r mb1r">
+    <div class="content" v-if="!props.isMy">
       <div class="location-wrapper" v-if=" props.item.city || item.address">
         <div class="location">
           <img src="../../assets/img/icon/location.webp" alt="">
@@ -80,12 +80,12 @@ const state = reactive({
 @import "../../assets/less/color";
 
 .item-desc {
+  position: absolute;
+  bottom: 0;
 
   .content {
     color: #fff;
-    position: absolute;
-    bottom: 0;
-    width: 75%;
+    width: 75vw;
     //display: flex;
     //flex-direction: column;
 

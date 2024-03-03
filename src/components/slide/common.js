@@ -71,11 +71,11 @@ export function slideTouchMove(e, el, state, judgeValue, canNextCb, nextCb, type
   }
 }
 
-export function slideTouchEnd(e, state, canNextCb, nextCb, notNextCb, type = SlideType.HORIZONTAL) {
+export function slideTouchEnd(e, state, canNextCb, nextCb, doNotNextCb, type = SlideType.HORIZONTAL) {
   let isHorizontal = type === SlideType.HORIZONTAL;
   let isNext = isHorizontal ? state.move.x < 0 : state.move.y < 0
 
-  if (!canNextCb?.(isNext)) return notNextCb?.()
+  if (!canNextCb?.(isNext)) return doNotNextCb?.()
   if (state.next) {
     Utils.$stopPropagation(e)
     let endTime = Date.now()
@@ -93,7 +93,7 @@ export function slideTouchEnd(e, state, canNextCb, nextCb, notNextCb, type = Sli
       return nextCb?.(isNext)
     }
   }
-  notNextCb?.()
+  doNotNextCb?.()
 }
 
 export function slideReset(el, state, type, emit) {
