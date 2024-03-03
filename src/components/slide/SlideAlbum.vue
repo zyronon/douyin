@@ -235,32 +235,26 @@ const state = reactive({
   previewImgs: [],
   status: 'play',//stop,custom
   progress: 0,
-  cycleFn: null,
+  cycleFn: 0,
   localItem: props.item,
 })
 
+function start() {
+  state.cycleFn = setTimeout(() => {
+    if (state.status !== 'play') return clearTimeout(state.cycleFn)
+    if (state.localIndex < props.item.imgs.length - 1) {
+      state.localIndex++
+    } else {
+      state.localIndex = 0
+    }
+    start()
+  }, 1500)
+}
+
 onMounted(async () => {
   await nextTick();
-
   slideInit(wrapperEl.value, state, SlideType.HORIZONTAL)
-
-  state.cycleFn = () => {
-    return
-    if (state.status !== 'play') return cancelAnimationFrame(state.cycleFn)
-    if (state.progress < props.item.imgs.length * 100) {
-      state.progress += .4
-      state.localIndex = parseInt(state.progress / 100)
-      if (wrapperEl.value) {
-        Utils.$setCss(wrapperEl.value, 'transition-duration', `300ms`)
-        Utils.$setCss(wrapperEl.value, 'transform', `translate3d(${getSlideDistance(state)}px, 0px, 0px)`)
-      }
-    } else {
-      state.progress = 0
-      // cancelAnimationFrame(this.cycleFn)
-    }
-    requestAnimationFrame(state.cycleFn)
-  }
-  requestAnimationFrame(state.cycleFn)
+  start()
 })
 
 // 确保在每次更新之前重置ref
@@ -274,7 +268,7 @@ watch(
     (newVal) => {
       GM.$setCss(wrapperEl.value, 'transition-duration', `300ms`)
       GM.$setCss(wrapperEl.value, 'transform', `translate3d(${getSlideDistance(state, SlideType.HORIZONTAL)}px, 0, 0)`)
-      state.progress = (state.localIndex + 1) * 100
+      // state.progress = (state.localIndex + 1) * 100
     }
 )
 
@@ -457,7 +451,7 @@ function touchEnd(e) {
 }
 
 function getProgressWidth(index) {
-  return {width: `${(state.localIndex + 1 - index) * 100}%`}
+  if (state.localIndex >= index) return {width: '100%'}
 }
 
 function setItemRef(el, key) {
