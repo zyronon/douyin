@@ -6,7 +6,7 @@
            @touchstart.passive="touchStart"
            @touchmove="touchMove"
            @touchend="touchEnd">
-        <div class="img-slide-item" v-for="img in props.item.imgs">
+        <div class="img-slide-item" v-for="img in item.imgs">
           <img :ref="e=>setItemRef(e,'itemRefs')"
                :src="img">
         </div>
@@ -106,13 +106,13 @@ const props = defineProps({
       return {
         type: 'imgs',
         imgs: [
+          new URL('../../assets/img/poster/6.jpg', import.meta.url).href,
           new URL('../../assets/img/poster/0.jpg', import.meta.url).href,
           new URL('../../assets/img/poster/1.jpg', import.meta.url).href,
           new URL('../../assets/img/poster/2.jpg', import.meta.url).href,
           new URL('../../assets/img/poster/3.jpg', import.meta.url).href,
           new URL('../../assets/img/poster/4.jpg', import.meta.url).href,
           new URL('../../assets/img/poster/5.jpg', import.meta.url).href,
-          new URL('../../assets/img/poster/6.jpg', import.meta.url).href,
         ],
         "id": "034ae83b-ca0a-401a-b7c6-cf78361bae7b",
         video: 'http://douyin.ttentau.top/0.mp4',
@@ -241,7 +241,7 @@ const state = reactive({
 
 onMounted(async () => {
   await nextTick();
-  
+
   slideInit(wrapperEl.value, state, SlideType.HORIZONTAL)
 
   state.cycleFn = () => {
@@ -457,8 +457,7 @@ function touchEnd(e) {
 }
 
 function getProgressWidth(index) {
-  if (state.progress >= (index + 1) * 100) return {width: '100%'}
-  return {width: `${state.progress - index * 100 < 0 ? 0 : state.progress - index * 100}%`}
+  return {width: `${(state.localIndex + 1 - index) * 100}%`}
 }
 
 function setItemRef(el, key) {
@@ -517,7 +516,7 @@ function canNext(isNext, e) {
   .progress-bar {
     position: absolute;
     width: 100%;
-    bottom: 0;
+    bottom: 8rem;
     display: flex;
     box-sizing: border-box;
     padding: 0 5rem;
