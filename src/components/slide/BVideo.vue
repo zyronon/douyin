@@ -12,7 +12,7 @@
            :autoplay="isPlay" loop>
       <p> 您的浏览器不支持 video 标签。</p>
     </video>
-    <Icon icon="fluent:play-28-filled" class="pause"   v-if="!isPlaying"/>
+    <Icon icon="fluent:play-28-filled" class="pause-icon"   v-if="!isPlaying"/>
     <div class="float" :style="{opacity: isUp?0:1}">
       <div :style="{opacity:isMove ? 0:1}" class="normal">
         <template v-if="!commentVisible">
@@ -371,37 +371,6 @@ export default {
     transition: height, margin-top .3s;
     //background: black;
     /*position: absolute;*/
-  }
-
-  .pause {
-    width: 60rem;
-    height: 60rem;
-    opacity: 0.3;
-    position: absolute;
-    margin: auto;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    color: white;
-    animation: pause-animation 1.1s linear;
-
-    @scale: scale(1.2);
-
-    @keyframes pause-animation {
-      0% {
-        opacity: 0;
-        transform: scale(2);
-      }
-      10% {
-        opacity: 0.3;
-        transform: @scale;
-      }
-      100% {
-        transform: @scale;
-        opacity: 0.3;
-      }
-    }
   }
 
   .float {

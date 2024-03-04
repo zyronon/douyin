@@ -28,6 +28,7 @@ export const SlideType = {
 export const SlideAlbumOperationStatus = {
   Normal: 'Normal',
   Zooming: 'Zooming',
+  Look: 'Look',
   Detail: 'Detail',
 }
 /*图集播放状态*/

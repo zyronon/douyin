@@ -189,24 +189,27 @@ function getInsEl(item, index, play = false) {
   // console.log('index', index, play)
   let slideVNode = props.render(item, index, play, props.uniqueId)
   const parent = document.createElement('div')
-  parent.classList.add('slide-item')
-  parent.setAttribute('data-index', index)
-  render(slideVNode, parent)
-  // const app = createApp({
-  //   render() {
-  //     return <SlideItem data-index={index}>{slideVNode}</SlideItem>
-  //   }
-  // })
-  // const ins = app.mount(parent)
-  // appInsMap.set(index, ins)
-  // return ins.$el
-  appInsMap.set(index, {
-    unmount: () => {
-      render(null, parent)
-      parent.remove()
+  //TODO 打包到线上时用这个，这个在开发时任何修改都会刷新页面
+  if (import.meta.env.PROD) {
+    parent.classList.add('slide-item')
+    parent.setAttribute('data-index', index)
+    render(slideVNode, parent)
+    appInsMap.set(index, {
+      unmount: () => {
+        render(null, parent)
+        parent.remove()
+      }
+    })
+    return parent
+  }
+  const app = createApp({
+    render() {
+      return <SlideItem data-index={index}>{slideVNode}</SlideItem>
     }
   })
-  return parent
+  const ins = app.mount(parent)
+  appInsMap.set(index, ins)
+  return ins.$el
 }
 
 function touchStart(e) {

@@ -10,7 +10,12 @@ export function useSlideListItemRender(props) {
       node = <img src={item.src} style="height:100%;"/>
     }
     if (item.type === 'imgs') {
-      node = <SlideAlbum/>
+      node = <SlideAlbum
+        isPlay={play}
+        index={index}
+        position={{uniqueId, index}}
+        {...props}
+      />
     }
     if (item.type === 'user') {
       node = <SlideUser  {...props}/>
