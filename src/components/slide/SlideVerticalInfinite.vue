@@ -208,7 +208,7 @@ function getInsEl(item, index, play = false) {
     }
   })
   const ins = app.mount(parent)
-  appInsMap.set(index, ins)
+  appInsMap.set(index, app)
   return ins.$el
 }
 

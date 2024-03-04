@@ -50,7 +50,7 @@ watch(
         if (props.changeActiveIndexUseAnim) {
           GM.$setCss(wrapperEl.value, 'transition-duration', `300ms`)
         }
-        GM.$setCss(wrapperEl.value, 'transform', `translate3d(${getSlideDistance(state, SlideType.HORIZONTAL)}px, 0, 0)`)
+        GM.$setCss(wrapperEl.value, 'transform', `translate3d(${getSlideDistance(state, SlideType.HORIZONTAL,wrapperEl.value)}px, 0, 0)`)
       }
     }
 )

@@ -32,12 +32,16 @@
                       <div class="time">{{ $time(item.time) }} · 上海</div>
                       <div class="reply-text">回复</div>
                     </div>
-                    <div class="love" @click="loved(item)">
-                      <img v-show="item.isLoved" src="../assets/img/icon/components/like-red-small.png" alt=""
-                           class="love-image">
-                      <img v-show="!item.isLoved" src="../assets/img/icon/components/like-gray-small.png" alt=""
-                           class="love-image">
-                      <span>{{ formatNumber(item.loveNum) }}</span>
+                    <div class="right d-flex" style="gap: 10rem">
+                      <div class="love" :class="item.isLoved && 'loved'" @click="loved(item)">
+                        <Icon icon="icon-park-solid:like" v-show="item.isLoved" class="love-image"/>
+                        <Icon icon="icon-park-outline:like" v-show="!item.isLoved" class="love-image"/>
+                        <span>{{ formatNumber(item.loveNum) }}</span>
+                      </div>
+                      <div class="love" @click="$no(item)">
+                        <Icon icon="icon-park-outline:dislike" class="love-image"/>
+                        <span>{{ formatNumber(item.loveNum) }}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -60,11 +64,9 @@
                         <div class="time">{{ $time(item.time) }} · 上海</div>
                         <div class="reply-text">回复</div>
                       </div>
-                      <div class="love" @click="loved(item)">
-                        <img v-show="item.isLoved" src="../assets/img/icon/components/like-red-small.png" alt=""
-                             class="love-image">
-                        <img v-show="!item.isLoved" src="../assets/img/icon/components/like-gray-small.png" alt=""
-                             class="love-image">
+                      <div class="love" :class="item.isLoved && 'loved'" @click="loved(item)">
+                        <Icon icon="icon-park-solid:like" v-show="item.isLoved" class="love-image"/>
+                        <Icon icon="icon-park-outline:like" v-show="!item.isLoved" class="love-image"/>
                         <span>{{ formatNumber(item.loveNum) }}</span>
                       </div>
                     </div>
@@ -74,7 +76,7 @@
               <div class="more">
                 <div class="gang"></div>
                 <span>展开更多回复</span>
-                <div class="arrow"></div>
+                <Icon icon="ep:arrow-down-bold"/>
               </div>
             </div>
           </div>
@@ -100,10 +102,10 @@
 
         <div class="toolbar">
           <div class="input-wrapper">
-            <AutoInput v-model="comment"></AutoInput>
+            <AutoInput v-model="comment" placeholder="善语结善缘，恶言伤人心"></AutoInput>
             <div class="right">
               <img src="../assets/img/icon/message/call.png" @click="isCall = !isCall">
-              <img src="../assets/img/icon/message/emoji-black.png">
+              <img src="../assets/img/icon/message/emoji-black.png" @click="$no">
             </div>
           </div>
           <img v-if="comment" src="../assets/img/icon/message/up.png" @click="send">
@@ -127,6 +129,7 @@ import {mapState} from "vuex";
 import FromBottomDialog from "./dialog/FromBottomDialog";
 import Loading from "./Loading";
 import Search from "./Search";
+import {$no} from "@/utils";
 
 export default {
   name: "Comment",
@@ -185,6 +188,7 @@ export default {
     this.getData()
   },
   methods: {
+    $no,
     send() {
       this.comments.push({
         id: '2',
@@ -411,7 +415,7 @@ export default {
         }
 
         .more {
-          font-size: 12rem;
+          font-size: 13rem;
           margin: 5rem;
           display: flex;
           align-items: center;
@@ -424,13 +428,8 @@ export default {
             height: 1px;
           }
 
-          .arrow {
-            margin-left: 5rem;
-            margin-top: 8rem;
-            width: 0;
-            height: 0;
-            border: 5rem solid transparent;
-            border-top: 6rem solid @second-text-color;
+          span {
+            margin-right: 5rem;
           }
         }
       }
@@ -469,7 +468,7 @@ export default {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 12rem;
+            font-size: 13rem;
 
             .left {
               display: flex;
@@ -489,13 +488,16 @@ export default {
               display: flex;
               align-items: center;
 
+              &.loved {
+                color: rgb(231, 58, 87);
+              }
+
               .love-image {
-                width: 18rem;
-                border-radius: 50%;
+                font-size: 17rem;
+                margin-right: 4rem;
               }
 
               span {
-                font-size: 10rem;
                 word-break: keep-all;
               }
             }

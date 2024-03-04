@@ -23,12 +23,13 @@ export function slideTouchStart(e, el, state) {
   state.start.time = Date.now()
 }
 
+//检测能否滑动
 export function canSlide(state, judgeValue, type = SlideType.HORIZONTAL) {
   if (state.needCheck) {
     if (Math.abs(state.move.x) > judgeValue || Math.abs(state.move.y) > judgeValue) {
       let angle = (Math.abs(state.move.x) * 10) / (Math.abs(state.move.y) * 10)
       state.next = type === SlideType.HORIZONTAL ? angle > 1 : angle <= 1;
-      // console.log(angle)
+      console.log('angle', angle, state.next)
       state.needCheck = false
     } else {
       return false
@@ -37,7 +38,10 @@ export function canSlide(state, judgeValue, type = SlideType.HORIZONTAL) {
   return state.next
 }
 
-export function slideTouchMove(e, el, state, judgeValue, canNextCb, nextCb, type = SlideType.HORIZONTAL, notNextCb) {
+/**
+* @param slideOtherDirectionCb 滑动其他方向时的回调，目前用于图集进于放大模式后，上下滑动推出放大模式
+* */
+export function slideTouchMove(e, el, state, judgeValue, canNextCb, nextCb, type = SlideType.HORIZONTAL, notNextCb, slideOtherDirectionCb = null) {
   state.move.x = e.touches[0].pageX - state.start.x
   state.move.y = e.touches[0].pageY - state.start.y
 
@@ -48,26 +52,29 @@ export function slideTouchMove(e, el, state, judgeValue, canNextCb, nextCb, type
   if (canSlideRes && state.localIndex === 0 && !isNext && type === SlideType.VERTICAL) {
     bus.emit(state.name + '-moveY', state.move.y)
   }
-  if (!canNextCb?.(isNext, e)) return
 
   if (canSlideRes) {
-    nextCb?.()
-    if (type === SlideType.HORIZONTAL) {
-      bus.emit(state.name + '-moveX', state.move.x)
-    }
-    Utils.$stopPropagation(e)
-    let t = getSlideDistance(state, type, el) + (isNext ? judgeValue : -judgeValue)
-    let dx1 = 0
-    let dx2 = 0
-    if (type === SlideType.HORIZONTAL) {
-      dx1 = t + state.move.x
+    if (canNextCb?.(isNext, e)) {
+      nextCb?.()
+      if (type === SlideType.HORIZONTAL) {
+        bus.emit(state.name + '-moveX', state.move.x)
+      }
+      Utils.$stopPropagation(e)
+      let t = getSlideDistance(state, type, el) + (isNext ? judgeValue : -judgeValue)
+      let dx1 = 0
+      let dx2 = 0
+      if (type === SlideType.HORIZONTAL) {
+        dx1 = t + state.move.x
+      } else {
+        dx2 = t + state.move.y
+      }
+      Utils.$setCss(el, 'transition-duration', `0ms`)
+      Utils.$setCss(el, 'transform', `translate3d(${dx1}px, ${dx2}px, 0)`)
     } else {
-      dx2 = t + state.move.y
+      notNextCb?.()
     }
-    Utils.$setCss(el, 'transition-duration', `0ms`)
-    Utils.$setCss(el, 'transform', `translate3d(${dx1}px, ${dx2}px, 0)`)
   } else {
-    notNextCb?.()
+    slideOtherDirectionCb?.(e)
   }
 }
 

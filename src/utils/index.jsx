@@ -10,7 +10,7 @@ import bus from "./bus";
 import {cloneDeep} from "lodash";
 import {EVENT_KEY} from "./bus";
 
-export default {
+const Utils = {
   require2(url) {
     return new URL(url, import.meta.url).href
   },
@@ -74,12 +74,12 @@ export default {
     const app = Vue.createApp({
       render() {
         return <SimpleConfirmDialog
-            onCancel={tempCancelCb}
-            onDismiss={remove}
-            title={title}
-            okText={okText}
-            cancelText={cancelText}
-            onOk={tempOkCb}/>
+          onCancel={tempCancelCb}
+          onDismiss={remove}
+          title={title}
+          okText={okText}
+          cancelText={cancelText}
+          onOk={tempOkCb}/>
       },
     })
     let parent = document.createElement('div')
@@ -238,7 +238,7 @@ export default {
       params: (function () {
         const ret = {}
         const seg = a.search.replace(/^\?/, '')
-            .split('&')
+          .split('&')
         const len = seg.length
         let i = 0
         let s
@@ -423,4 +423,13 @@ export default {
     }
     document.body.removeChild(input);
   }
+}
+
+export default Utils
+
+export function $no() {
+  Utils.$no(arguments)
+}
+export function $notice(val) {
+  Utils.$notice(val)
 }

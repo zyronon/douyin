@@ -2,7 +2,7 @@
   <div class="test-slide-wrapper" id="home-index">
     <SlideHorizontal v-model:index="state.baseIndex">
       <SlideItem class="sidebar">
-        <div class="sidebar1">
+        <div class="card">
 
         </div>
       </SlideItem>
@@ -11,6 +11,7 @@
             v-if="!state.fullScreen"
             :loading="loading"
             name="main"
+            @showSlidebar="state.baseIndex = 0"
             v-model:index="state.navIndex"
         />
         <div class="slide-content">
@@ -30,6 +31,9 @@
           </SlideHorizontal>
         </div>
         <Footer v-bind:init-tab="1"/>
+        <Mask v-if="state.baseIndex === 0"
+              @click="state.baseIndex = 1"
+              mode="white" style="position: absolute"/>
       </SlideItem>
       <SlideItem>
         <UserPanel
@@ -135,7 +139,7 @@ const bodyHeight = computed(() => store.state.bodyHeight)
 const bodyWidth = computed(() => store.state.bodyWidth)
 
 const state = reactive({
-  baseIndex: 1,
+  baseIndex: 0,
   navIndex: 4,
   test: '',
   recommendList: [
@@ -245,7 +249,7 @@ function dislike() {
   overflow: hidden;
 
   .sidebar {
-    width: 70vw;
+    width: 75vw;
     height: 100vh;
     overflow: auto;
     background: red;

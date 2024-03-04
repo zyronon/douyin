@@ -8,7 +8,7 @@
       <Icon
           icon="tabler:menu-deep"
           class="search"
-          @click="$nav('/home/live')"
+          @click="$emit('showSlidebar')"
           style="transform: rotateY(180deg)"/>
       <div class="tab-ctn">
         <div class="tabs" ref="tabs">

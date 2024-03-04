@@ -6,13 +6,14 @@
            @touchstart.passive="touchStart"
            @touchmove="touchMove"
            @touchend="touchEnd">
-        <div class="img-slide-item" v-for="img in item.imgs">
+        <div class="img-slide-item" v-for="(img,index) in item.imgs">
           <img :ref="e=>setItemRef(e,'itemRefs')"
-               :src="img">
+               :src="img+'&d='+index">
         </div>
       </div>
     </div>
-    <Icon icon="fluent:play-28-filled" class="pause-icon" v-if="state.status === SlideItemPlayStatus.Pause"/>
+    <Icon icon="fluent:play-28-filled" class="pause-icon"
+          v-if="state.status === SlideItemPlayStatus.Pause && state.operationStatus === SlideAlbumOperationStatus.Normal"/>
 
     <template v-if="state.operationStatus === SlideAlbumOperationStatus.Normal">
       <ItemToolbar
@@ -43,10 +44,11 @@
     <Teleport to="#home-index" v-if="state.isPreview">
       <div class="preview">
         <div class="preview-wrapper">
-          <img :src="img"
-               :class="{'preview-img':index === state.localIndex}"
-               v-for="(img,index) in props.item.imgs"
-               :ref="e=>setItemRef(e,'previewImgs')"
+          <img
+              :src="img+'&d='+index"
+              :class="{'preview-img':index === state.localIndex}"
+              v-for="(img,index) in props.item.imgs"
+              :ref="e=>setItemRef(e,'previewImgs')"
           >
         </div>
         <div class="indicator">
@@ -69,7 +71,7 @@
                 v-else
                 class="pause"
                 @click="stopPlay"/>
-          <Icon icon="system-uicons:push-down" @click="Utils.$no"/>
+          <Icon icon="system-uicons:push-down" @click="$notice('已保存到系统相册')"/>
         </div>
       </div>
     </Teleport>
@@ -78,7 +80,7 @@
 
 <script setup lang="jsx">
 import enums from "../../utils/enums";
-import Utils from '../../utils'
+import Utils, {$no, $notice} from '../../utils'
 import {mat4} from 'gl-matrix'
 import {Icon} from "@iconify/vue";
 import {onMounted, onBeforeUpdate, reactive, ref, watch, computed, provide, nextTick, onUnmounted} from "vue";
@@ -281,12 +283,13 @@ function startLoop() {
   if (state.cycleFn !== -1) return
   if (!state.isAutoPlay) return
   state.cycleFn = setInterval(() => {
+    state.status = SlideItemPlayStatus.Play
     if (state.localIndex < props.item.imgs.length - 1) {
       state.localIndex++
     } else {
       state.localIndex = 0
     }
-  }, 1500)
+  }, 2000)
 }
 
 onMounted(async () => {
@@ -296,7 +299,6 @@ onMounted(async () => {
   // setTimeout(() => {
   //   state.operationStatus = SlideAlbumOperationStatus.Zooming
   // }, 1000)
-
   bus.on(EVENT_KEY.SINGLE_CLICK_BROADCAST, click)
 })
 
@@ -319,13 +321,13 @@ function click({uniqueId, index, type}) {
       stopPlay()
       setTimeout(() => {
         state.localIndex = 0
+        state.status = SlideItemPlayStatus.Play
+        state.operationStatus = SlideAlbumOperationStatus.Normal
       }, 500)
     }
     if (type === EVENT_KEY.ITEM_PLAY) {
       state.localIndex = 0
-      state.isAutoPlay = true
-      state.status = SlideItemPlayStatus.Play
-      startLoop()
+      startPlay()
     }
   }
 }
@@ -395,22 +397,21 @@ function touchStart(e) {
   if (e.touches.length === 1) {
     slideTouchStart(e, wrapperEl.value, state)
   } else {
-    state.last.point2 = state.start.point2 = {x: e.touches[1].pageX, y: e.touches[1].pageY};
     if (state.operationStatus === SlideAlbumOperationStatus.Zooming) {
-      state.start.center = Utils.getCenter(state.start.point1, state.start.point2)
+      // state.start.center = Utils.getCenter(state.start.point1, state.start.point2)
       return
     }
     state.operationStatus = SlideAlbumOperationStatus.Zooming
     state.itemRefs[state.localIndex].style['transition-duration'] = '0ms';
     state.last.point1 = state.start.point1 = {x: e.touches[0].pageX, y: e.touches[0].pageY};
-    // state.last.point2 = state.start.point2 = {x: e.touches[1].pageX, y: e.touches[1].pageY};
+    state.last.point2 = state.start.point2 = {x: e.touches[1].pageX, y: e.touches[1].pageY};
     state.start.center = Utils.getCenter(state.start.point1, state.start.point2)
   }
 }
 
 function touchMove(e) {
   // Utils.$showNoticeDialog('move'+e.touches.length)
-  console.log('move', e.touches.length,state.operationStatus )
+  // console.log('move', e.touches.length, state.operationStatus)
   let current1 = {x: e.touches[0].pageX, y: e.touches[0].pageY}
   stopLoop()
 
@@ -433,12 +434,22 @@ function touchMove(e) {
       state.isAutoPlay = false
       slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext,
           () => {
+            // console.log('move-nextcb')
+
           }, SlideType.HORIZONTAL,
           () => {
-            if (state.operationStatus === SlideAlbumOperationStatus.Detail) {
+            if (state.operationStatus !== SlideAlbumOperationStatus.Normal) {
               Utils.$stopPropagation(e)
             }
-          })
+            // console.log('move-notNextcb')
+            // state.operationStatus = SlideAlbumOperationStatus.Normal
+          },
+          () => {
+            if (state.operationStatus !== SlideAlbumOperationStatus.Normal) {
+              Utils.$stopPropagation(e)
+            }
+          }
+      )
     }
   } else {
     // console.log('m3')
@@ -503,8 +514,10 @@ function touchMove(e) {
 }
 
 function touchEnd(e) {
-  console.log('Date.now() - lockDatetime', Date.now() - lockDatetime,)
-  if (Date.now() - lockDatetime < 300 && state.move.x === 0 && state.move.y === 0) {
+  // console.log('Date.now() - lockDatetime', Date.now() - lockDatetime,)
+  if (Date.now() - lockDatetime < 300
+      && state.move.x === 0 && state.move.y === 0
+      && state.operationStatus !== SlideAlbumOperationStatus.Zooming) {
     if (state.status === SlideItemPlayStatus.Play) {
       stopPlay()
     } else {
@@ -516,7 +529,7 @@ function touchEnd(e) {
   state.isPreview = false
   //这里，如果是双指触控的话，会触发两次事件，第一次touches长度为1，第二次为0
   //如果是单指触控的话，触发一次事件，touches长度为0
-  console.log('end', e.touches.length)
+  console.log('end', e.touches.length, state.operationStatus)
 
   // e.touches.length === 1 说明，松开了第一只手指
   if (e.touches.length === 1) {
@@ -540,6 +553,9 @@ function touchEnd(e) {
             console.log('nextCb')
           },
           () => {
+            if (state.operationStatus !== SlideAlbumOperationStatus.Normal) {
+              state.operationStatus = SlideAlbumOperationStatus.Normal
+            }
             console.log('doNotNextCb')
             startLoop()
           }
@@ -559,9 +575,6 @@ function setItemRef(el, key) {
 
 function canNext(isNext, e) {
   let res = !((state.localIndex === 0 && !isNext) || (state.localIndex === props.item.imgs.length - 1 && isNext));
-  if (!res && state.operationStatus === SlideAlbumOperationStatus.Detail && e) {
-    Utils.$stopPropagation(e)
-  }
   return res
 }
 
@@ -626,7 +639,7 @@ function canNext(isNext, e) {
       flex: 1;
       margin: 0 2rem;
       height: @h;
-      background: rgba(#000, .5);
+      background: #75757580;
       position: relative;
       overflow: hidden;
 
@@ -635,7 +648,7 @@ function canNext(isNext, e) {
         position: absolute;
         left: 0;
         height: @h;
-        background: white;
+        background: #e5e5e587;
       }
     }
   }
@@ -657,16 +670,17 @@ function canNext(isNext, e) {
 
   .preview-wrapper {
     img {
-      transition: width .3s;
+      transition: all .3s;
       margin: 0 5rem;
       width: 30rem;
-      height: 50rem;
+      height: 45rem;
       background-color: black;
       border-radius: 3rem;
       overflow: hidden;
       object-fit: cover;
 
       &.preview-img {
+        margin: 0 15rem;
         width: 40rem;
       }
     }
