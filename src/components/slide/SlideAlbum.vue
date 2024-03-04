@@ -122,15 +122,13 @@ const props = defineProps({
         type: 'imgs',
         imgs: [
           'https://cdn.seovx.com/ha/?mom=302',
-          'https://imgapi.cn/bing.php',
-          'https://www.dmoe.cc/random.php',
-          new URL('../../assets/img/poster/6.jpg', import.meta.url).href,
-          new URL('../../assets/img/poster/0.jpg', import.meta.url).href,
-          new URL('../../assets/img/poster/1.jpg', import.meta.url).href,
-          new URL('../../assets/img/poster/2.jpg', import.meta.url).href,
-          new URL('../../assets/img/poster/3.jpg', import.meta.url).href,
-          new URL('../../assets/img/poster/4.jpg', import.meta.url).href,
-          new URL('../../assets/img/poster/5.jpg', import.meta.url).href,
+          'https://cdn.seovx.com/?mom=302',
+          'https://cdn.seovx.com/?mom=302',
+          'https://cdn.seovx.com/?mom=302',
+          'https://cdn.seovx.com/?mom=302',
+          'https://cdn.seovx.com/?mom=302',
+          'https://cdn.seovx.com/?mom=302',
+          'https://cdn.seovx.com/?mom=302',
         ],
         "id": "034ae83b-ca0a-401a-b7c6-cf78361bae7b",
         video: 'http://douyin.ttentau.top/0.mp4',
@@ -294,10 +292,10 @@ function startLoop() {
 onMounted(async () => {
   await nextTick();
   slideInit(wrapperEl.value, state, SlideType.HORIZONTAL)
-  // startLoop()
-  setTimeout(() => {
-    state.operationStatus = SlideAlbumOperationStatus.Zooming
-  }, 1000)
+  startPlay()
+  // setTimeout(() => {
+  //   state.operationStatus = SlideAlbumOperationStatus.Zooming
+  // }, 1000)
 
   bus.on(EVENT_KEY.SINGLE_CLICK_BROADCAST, click)
 })
@@ -412,7 +410,7 @@ function touchStart(e) {
 
 function touchMove(e) {
   // Utils.$showNoticeDialog('move'+e.touches.length)
-  console.log('move', e.touches.length)
+  console.log('move', e.touches.length,state.operationStatus )
   let current1 = {x: e.touches[0].pageX, y: e.touches[0].pageY}
   stopLoop()
 
