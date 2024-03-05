@@ -2,7 +2,6 @@ import globalMethods from "./index";
 import BaseHeader from "../components/BaseHeader";
 import SlideList from "../components/slide/SlideList";
 import SlideRowList from "../components/slide/SlideRowList";
-import SlideColumnList from "../components/slide/SlideColumnList";
 import SlideItem from "../components/slide/SlideItem";
 import Indicator from "../components/slide/Indicator";
 import Video from "../components/Video";
@@ -17,13 +16,14 @@ import Dom from "./dom";
 import bus, {EVENT_KEY} from "./bus";
 import {random} from "lodash";
 import {Icon} from '@iconify/vue'
+import SlideHorizontal from "@/components/slide/SlideHorizontal.vue";
 
 export default {
   components: {
     BaseHeader,
+    SlideHorizontal,
     SlideList,
     SlideRowList,
-    SlideColumnList,
     SlideItem,
     Indicator,
     'Video1': Video,

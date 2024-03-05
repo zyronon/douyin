@@ -46,7 +46,7 @@
           <div class="tab" :class="{active:slideIndex === 3}" @click="slideIndex = 3">品牌榜</div>
         </div>
         <!--        TODO 滚动到下面的时候，应该禁止slide-move，因为第个slideitem的高度不一样，高的切到矮的，会闪屏-->
-        <SlideRowList v-model:active-index="slideIndex" :style="slideListHeight">
+        <SlideHorizontal v-model:index="slideIndex" :style="slideListHeight">
           <SlideItem>
             <div class="slide0" ref="slide0">
               <div class="l-row">
@@ -191,7 +191,7 @@
               </SlideRowList>
             </div>
           </SlideItem>
-        </SlideRowList>
+        </SlideHorizontal>
       </div>
     </div>
   </div>

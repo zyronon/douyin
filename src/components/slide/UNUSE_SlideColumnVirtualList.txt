@@ -271,7 +271,7 @@ export default {
         this.$setCss(this.slideList, 'transform', `translate3d(0px, ${-this.getHeight(this.currentSlideItemIndex)}px,  0px)`)
       }
       this.resetConfig()
-      this.$attrs['onUpdate:active-index'] && this.$emit('update:active-index', this.currentSlideItemIndex)
+      this.$attrs['onUpdate:activeIndex'] && this.$emit('update:active-index', this.currentSlideItemIndex)
     },
     resetConfig() {
       this.isCanDownWiping = false

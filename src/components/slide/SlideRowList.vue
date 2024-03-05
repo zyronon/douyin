@@ -1,31 +1,5 @@
 <template>
   <div id="base-slide-wrapper" ref="slideWrapper">
-    <div class="indicator-home" v-if="indicatorType === 'home'">
-      <div class="notice" :style="noticeStyle"><span>下拉刷新内容</span></div>
-      <div class="toolbar" ref="toolbar" :style="toolbarStyle">
-        <div class="left" @click="$nav('/home/live')">直播</div>
-        <div class="tab-ctn">
-          <div class="tabs" ref="tabs">
-            <div class="tab"
-                 :class="currentSlideItemIndex === 0?'active':''"
-                 @click="changeIndex(false,0)">
-              <span>关注</span>
-            </div>
-            <div class="tab"
-                 :class="currentSlideItemIndex === 1?'active':''"
-                 @click="changeIndex(false,1)"><span>推荐</span>
-            </div>
-          </div>
-          <div class="indicator" ref="indicator"></div>
-        </div>
-        <img src="../../assets/img/icon/search-gray.png" alt=""
-             :style="{opacity:loading ? 0 : 1}"
-             @click="$nav('/home/search')"
-             style="margin-top: 5rem;">
-      </div>
-      <Loading class="loading" style="width: 40rem;" :style="loadingStyle" :is-full-screen="false"/>
-    </div>
-
     <div class="indicator-bullets" v-if="indicatorType === 'bullets' && slideItems.length">
       <div class="bullet" :class="{active:currentSlideItemIndex === item-1}" v-for="item in slideItems.length"></div>
     </div>
@@ -177,7 +151,7 @@ export default {
       if (this.isHome) {
         this.$setCss(this.indicatorRef, 'left', this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px')
       }
-      this.$attrs['onUpdate:active-index'] && this.$emit('update:active-index', this.currentSlideItemIndex)
+      this.$attrs['onUpdate:activeIndex'] && this.$emit('update:active-index', this.currentSlideItemIndex)
     },
     initTabs() {
       let tabs = this.$refs.tabs
@@ -293,7 +267,7 @@ export default {
         }
       }
       this.resetConfig()
-      this.$attrs['onUpdate:active-index'] && this.$emit('update:active-index', this.currentSlideItemIndex)
+      this.$attrs['onUpdate:activeIndex'] && this.$emit('update:active-index', this.currentSlideItemIndex)
       this.$attrs['onEnd'] && this.$emit('end')
       bus.emit(this.name + '-end', this.currentSlideItemIndex)
     },
@@ -358,80 +332,6 @@ export default {
     height: 100%;
     width: 100%;
     position: relative;
-  }
-
-  .indicator-home {
-    position: fixed;
-    font-size: 16rem;
-    top: 0;
-    left: 0;
-    height: 60px;
-    z-index: 2;
-    width: 100%;
-    color: white;
-
-    .notice {
-      opacity: 0;
-      top: 0;
-      position: absolute;
-      width: 100vw;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .loading {
-      opacity: 0;
-      top: 13rem;
-      right: 15rem;
-      position: absolute;
-
-    }
-
-    .toolbar {
-      z-index: 2;
-      position: relative;
-      color: white;
-      width: 100%;
-      height: 100%;
-      box-sizing: border-box;
-      padding: 0 15rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      .tab-ctn {
-        width: 30%;
-        position: relative;
-
-        .tabs {
-          display: flex;
-          justify-content: space-between;
-          font-weight: bold;
-
-          .tab {
-            transition: color .3s;
-            color: gray;
-
-            &.active {
-              color: white;
-            }
-          }
-        }
-
-
-        .indicator {
-          //transition: left .3s;
-          position: absolute;
-          bottom: -8rem;
-          height: 3rem;
-          width: 20rem;
-          background: #fff;
-          border-radius: 5rem;
-        }
-      }
-    }
   }
 
   .indicator-bullets {

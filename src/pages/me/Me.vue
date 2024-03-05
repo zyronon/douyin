@@ -2,7 +2,8 @@
   <div class="Me">
     <SlideRowList
         name="baseSlide"
-        style="width: 100vw;" v-model:active-index="baseActiveIndex">
+        style="width: 100vw;"
+        v-model:active-index="baseActiveIndex">
       <SlideItem>
         <div ref="float" class="float" :class="floatFixed?'fixed':''">
           <div
@@ -14,7 +15,7 @@
           </div>
           <transition name="fade">
             <div class="center" v-if="floatShowName">
-              <p class="name f20 mt1r mb1r">{{ userinfo.nickname }}</p>
+              <p class="name f15 mt1r mb1r">{{ userinfo.nickname }}</p>
             </div>
           </transition>
           <div class="right">
@@ -224,7 +225,7 @@
           <div class="mask" v-if="baseActiveIndex === 1" @click="baseActiveIndex = 0"></div>
         </transition>
       </SlideItem>
-      <SlideItem style="min-width: 70vw; overflow:auto;">
+      <SlideItem style="width: 70vw; overflow:auto;">
         <transition name="fade1">
           <div class="ul" v-if="!isMoreFunction">
             <div class="li" @click="$no">
@@ -359,10 +360,11 @@ import {mapState} from "vuex";
 import bus from "../../utils/bus";
 import ConfirmDialog from "../../components/dialog/ConfirmDialog";
 import {$no} from "@/utils";
+import SlideHorizontal from "@/components/slide/SlideHorizontal.vue";
 
 export default {
   name: "Me",
-  components: {Posters, Footer, Indicator, ConfirmDialog},
+  components: {Posters, Footer, Indicator, ConfirmDialog, SlideHorizontal},
   data() {
     return {
       previewImg: '',

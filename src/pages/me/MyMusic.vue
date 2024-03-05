@@ -9,7 +9,7 @@
       </IndicatorLight>
       <dy-back style="opacity: 0;" mode="light" img="back"/>
     </div>
-    <SlideRowList name="myMusicList" v-model:active-index="slideIndex">
+    <SlideHorizontal name="myMusicList" v-model:index="slideIndex">
       <SlideItem>
         <GuessMusic :list="guessMusic"/>
       </SlideItem>
@@ -98,7 +98,7 @@
           </transition>
         </div>
       </SlideItem>
-    </SlideRowList>
+    </SlideHorizontal>
     <transition name="my-collect-dialog">
       <div class="my-collect-dialog" v-show="isShowCollectDialog">
         <div class="dialog-header">

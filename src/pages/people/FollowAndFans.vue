@@ -19,7 +19,7 @@
             v-model:active-index="slideIndex">
         </Indicator>
       </div>
-      <SlideRowList v-model:active-index="slideIndex" style="height: calc(100vh - 111rem)">
+      <SlideHorizontal v-model:index="slideIndex" style="height: calc(100vh - 111rem)">
         <SlideItem class="tab1">
           <Search v-model="searchKey" placeholder="搜索用户备注或名字" :is-show-right-text="false"/>
           <div class="is-search" v-if="searchKey">
@@ -42,7 +42,7 @@
           <People v-for="item in friends.all" :people="item"></People>
           <NoMore/>
         </SlideItem>
-      </SlideRowList>
+      </SlideHorizontal>
     </div>
   </div>
 </template>

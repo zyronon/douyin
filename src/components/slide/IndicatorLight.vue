@@ -76,7 +76,7 @@ export default {
   methods: {
     changeIndex(index) {
       this.currentSlideItemIndex = index
-      this.$attrs['onUpdate:active-index'] && this.$emit('update:active-index', this.currentSlideItemIndex)
+      this.$attrs['onUpdate:activeIndex'] && this.$emit('update:active-index', this.currentSlideItemIndex)
       this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
       this.$setCss(this.indicatorRef, 'left', this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px')
     },

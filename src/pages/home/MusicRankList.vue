@@ -21,9 +21,9 @@
           :tabTexts="['热歌榜','飙升樘','原创榜']"
           v-model:active-index="contentIndex">
       </Indicator>
-      <SlideRowList
+      <SlideHorizontal
           name="musicRankList"
-          v-model:active-index="contentIndex">
+          v-model:index="contentIndex">
         <SlideItem>
           <div class="list">
             <div class="item" v-for="(item,index) in hotList" @click="togglePlay(item,hotList)">
@@ -168,7 +168,7 @@
             </div>
           </div>
         </SlideItem>
-      </SlideRowList>
+      </SlideHorizontal>
     </div>
   </div>
 </template>

@@ -2,22 +2,24 @@
   <div class="Publish">
     <video id="video" autoplay="autoplay" style="width: 100%;height:calc(100% - 60rem);"></video>
     <div class="footer">
-      <SlideRowList v-model:active-index="activeIndex">
-        <SlideItem style="min-width: 20vw;min-height: 60rem;"></SlideItem>
-        <SlideItem style="min-width: 20vw;min-height: 60rem;"></SlideItem>
-        <SlideItem style="min-width: 25vw;min-height: 60rem;" @click="activeIndex = 0">
+      <SlideHorizontal
+          style="height: 60rem;"
+          v-model:index="activeIndex">
+        <SlideItem style="width: 20vw"></SlideItem>
+        <SlideItem style="width: 20vw"></SlideItem>
+        <SlideItem style="width: 25vw" @click="activeIndex = 0">
           <span :class="activeIndex + 2 === 2?'active':''">分段拍</span>
         </SlideItem>
-        <SlideItem style="min-width: 20vw;min-height: 60rem;" @click="activeIndex = 1">
+        <SlideItem style="width: 20vw" @click="activeIndex = 1">
           <span :class="activeIndex + 2 === 3?'active':''">快拍</span>
         </SlideItem>
-        <SlideItem style="min-width: 20vw;min-height: 60rem;" @click="activeIndex = 2">
+        <SlideItem style="width: 20vw" @click="activeIndex = 2">
           <span :class="activeIndex + 2 === 4?'active':''">影集</span>
         </SlideItem>
-        <SlideItem style="min-width: 20vw;min-height: 60rem;" @click="activeIndex = 3">
+        <SlideItem style="width: 20vw" @click="activeIndex = 3">
           <span :class="activeIndex + 2 === 5?'active':''">开直播</span>
         </SlideItem>
-      </SlideRowList>
+      </SlideHorizontal>
     </div>
     <div class="float">
       <img class="close" src="../../assets/img/icon/close-white.png" alt="" @click="$back">

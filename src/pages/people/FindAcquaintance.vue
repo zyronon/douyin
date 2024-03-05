@@ -10,7 +10,7 @@
       </Indicator>
       <img src="../../assets/img/icon/menu-gray.png" alt="" class="option" @click="moreOptionDialog = true">
     </div>
-    <SlideRowList v-model:active-index="currentSlideItemIndex">
+    <SlideHorizontal v-model:index="currentSlideItemIndex">
       <SlideItem class="tab1" style="overflow: auto;">
         <div class="mr2r ml2r mt1r">
           <Search v-if="!isShowRightText"
@@ -55,7 +55,7 @@
         <People v-for="item in friends.all " :people="item" mode="friend"></People>
         <NoMore class="mb5r"/>
       </SlideItem>
-    </SlideRowList>
+    </SlideHorizontal>
 
     <transition name="fade">
       <Mask v-if="maskDialog" @click="maskDialog = false"></Mask>

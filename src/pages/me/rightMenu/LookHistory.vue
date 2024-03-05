@@ -15,7 +15,8 @@
           :tabTexts="['视频','影视综']"
           v-model:active-index="currentSlideItemIndex">
       </Indicator>
-      <SlideRowList v-model:active-index="currentSlideItemIndex" class="SlideRowList">
+      <SlideHorizontal
+          v-model:index="currentSlideItemIndex" class="SlideRowList">
         <SlideItem class="tab1" style="overflow:auto;">
           <Scroll class="Scroll"
                   @pulldown="getHistoryVideo">
@@ -36,7 +37,7 @@
             <div class="title">暂无观影历史记录</div>
           </div>
         </SlideItem>
-      </SlideRowList>
+      </SlideHorizontal>
     </div>
   </div>
 </template>
