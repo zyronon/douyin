@@ -6,9 +6,8 @@ import Loading from "../components/Loading.vue";
 import Config from '../config'
 import NoticeDialog from "../components/dialog/NoticeDialog";
 import dayjs from 'dayjs'
-import bus from "./bus";
+import bus, {EVENT_KEY} from "./bus";
 import {cloneDeep} from "lodash";
-import {EVENT_KEY} from "./bus";
 
 const Utils = {
   require2(url) {
@@ -430,6 +429,7 @@ export default Utils
 export function $no() {
   Utils.$no(arguments)
 }
+
 export function $notice(val) {
   Utils.$notice(val)
 }

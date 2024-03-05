@@ -2,8 +2,95 @@
   <div class="test-slide-wrapper" id="home-index">
     <SlideHorizontal v-model:index="state.baseIndex">
       <SlideItem class="sidebar">
+        <div class="header">
+          <div class="left">下午好</div>
+          <div class="right"
+               @click="nav('/home/live')">
+            <Icon icon="iconamoon:scanner"/>
+            <span>扫一扫</span>
+          </div>
+        </div>
         <div class="card">
+          <div class="header">
+            <div class="left">常用小程序</div>
+            <div class="right">
+              <span>全部</span>
+              <Icon icon="icon-park-outline:right"/>
+            </div>
+          </div>
+          <div class="content">
+            <div class="item" @click="$no">
+              <img class="xcx"
+                   src="https://lf3-static.bytednsdoc.com/obj/eden-cn/pipieh7nupabozups/toutiao_web_pc/tt-icon.png"
+                   alt="">
+              <span>今日头条</span>
+            </div>
+            <div class="item" @click="$no">
+              <img class="xcx"
+                   src="https://gd-hbimg.huaban.com/65130a3e6a139530bb03bd118e21a2603af7df4e1303b-OOzcBu_fw658webp"
+                   alt="">
+              <span>西瓜视频</span>
+            </div>
+          </div>
+        </div>
 
+        <div class="card">
+          <div class="header">
+            <div class="left">最近常看</div>
+            <div class="right">
+              <span>全部</span>
+              <Icon icon="icon-park-outline:right"/>
+            </div>
+          </div>
+          <div class="content">
+            <div class="item avatar" @click="$no" v-for="i in 6">
+              <img
+                  src="https://img.tol.vip/avatar/WEIXIN/3aSuTGYTzjHvcHy0y0tH1eiShKRk9Sgd.jpg?_upt=de4a5c251709635127"/>
+              <span>随机名字</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="header">
+            <div class="left">常用功能</div>
+            <div class="right">
+            </div>
+          </div>
+          <div class="content">
+            <div class="item" @click="$no">
+              <Icon icon="ion:wallet-outline"/>
+              <span>我的钱包</span>
+            </div>
+            <div class="item" @click="$no">
+              <Icon icon="mingcute:coupon-line"/>
+              <span>券包</span>
+            </div>
+            <div class="item" @click="$no">
+              <Icon icon="icon-park-outline:bytedance-applets"/>
+              <span>小程序</span>
+            </div>
+            <div class="item" @click="$no">
+              <Icon icon="solar:history-linear"/>
+              <span>观看历史</span>
+            </div>
+            <div class="item" @click="$no">
+              <Icon icon="fluent:content-settings-24-regular"/>
+              <span>内容偏好</span>
+            </div>
+            <div class="item" @click="$no">
+              <Icon icon="iconoir:cloud-download"/>
+              <span>离线模式</span>
+            </div>
+            <div class="item" @click="$no">
+              <Icon icon="ep:setting"/>
+              <span>设置</span>
+            </div>
+            <div class="item" @click="$no">
+              <Icon icon="icon-park-outline:baggage-delay"/>
+              <span>稍后再看</span>
+            </div>
+          </div>
         </div>
       </SlideItem>
       <SlideItem>
@@ -130,6 +217,7 @@ import Slide0 from "@/pages/home/slide/Slide0.vue";
 import Slide2 from "@/pages/home/slide/Slide2.vue";
 import Slide4 from "@/pages/home/slide/Slide4.vue";
 import {DefaultUser} from "@/utils/const_var";
+import {$no} from "@/utils";
 
 const nav = useNav()
 const store = useStore()
@@ -252,7 +340,93 @@ function dislike() {
     width: 75vw;
     height: 100vh;
     overflow: auto;
-    background: red;
+    background: rgb(22, 22, 22);
+    padding: 10rem;
+    box-sizing: border-box;
+
+    & > .header {
+      font-size: 16rem;
+      display: flex;
+      color: white;
+      justify-content: space-between;
+      align-items: center;
+
+      .right {
+        border-radius: 20rem;
+        padding: 8rem 15rem;
+        background: rgb(36, 36, 36);
+        display: flex;
+        align-items: center;
+        font-size: 14rem;
+        gap: 10rem;
+
+        svg {
+          font-size: 18rem;
+        }
+      }
+    }
+
+    .card {
+      margin-top: 20rem;
+      border-radius: 12rem;
+      padding: 15rem;
+      background: rgb(29, 29, 29);
+
+      .header {
+        margin-bottom: 16rem;
+        font-size: 14rem;
+        display: flex;
+        color: white;
+        justify-content: space-between;
+        align-items: center;
+
+        .right {
+          display: flex;
+          align-items: center;
+          font-size: 14rem;
+          gap: 4rem;
+          color: gray;
+
+          svg {
+            font-size: 18rem;
+          }
+        }
+      }
+
+      .content {
+        color: white;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+
+        .item {
+          min-height: 20vw;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          font-size: 16rem;
+          gap: 8rem;
+
+          svg {
+            font-size: 30rem;
+          }
+
+          .xcx {
+            border-radius: 12rem;
+            width: 55rem;
+          }
+        }
+
+        .avatar {
+          height: 25vw;
+
+          img {
+            border-radius: 50%;
+            width: 55rem;
+          }
+        }
+      }
+    }
   }
 
   .slide-content {

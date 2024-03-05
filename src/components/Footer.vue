@@ -87,7 +87,7 @@ export default {
   font-size: 14rem;
   position: fixed;
   width: 100%;
-  height: 50rem;
+  height: @footer-height;
   //border-top: 1px solid #7b7878;
   z-index: 2;
   //不用bottom：0是因为，在进行页面切换的时候，vue的transition
