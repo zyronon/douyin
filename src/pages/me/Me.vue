@@ -5,9 +5,12 @@
         style="width: 100vw;" v-model:active-index="baseActiveIndex">
       <SlideItem>
         <div ref="float" class="float" :class="floatFixed?'fixed':''">
-          <div class="left" style="opacity: 0;">
-            <img src="../../assets/img/icon/next.svg" alt="">
-            <span>切换账号</span>
+          <div
+              :style="floatFixed?'opacity: 0;':''"
+              class="left"
+              @click="$nav('/me/edit-userinfo')">
+            <Icon icon="ri:edit-fill"/>
+            <span>编辑资料</span>
           </div>
           <transition name="fade">
             <div class="center" v-if="floatShowName">
@@ -15,10 +18,22 @@
             </div>
           </transition>
           <div class="right">
-            <img @click="$nav('/me/request-update')"
+            <div class="item"
                  :style="floatFixed?'opacity: 0;':''"
-                 src="../../assets/img/icon/me/finger-right.png" alt="">
-            <img src="../../assets/img/icon/me/menu.png" alt="" @click.stop="baseActiveIndex = 1">
+                 @click="$nav('/me/request-update')">
+              <Icon class="finger" icon="fluent-emoji-high-contrast:middle-finger"/>
+            </div>
+            <div class="item"
+                 :style="floatFixed?'opacity: 0;':''"
+                 @click="$no">
+              <Icon icon="eva:people-outline"/>
+            </div>
+            <div class="item" @click="$no">
+              <Icon icon="ic:round-search"/>
+            </div>
+            <div class="item" @click.stop="baseActiveIndex = 1">
+              <Icon icon="ic:round-menu"/>
+            </div>
           </div>
         </div>
         <div class="scroll"
@@ -27,82 +42,82 @@
              @touchmove="touchMove($event)"
              @touchend="touchEnd($event)">
           <div ref="desc" class="desc">
-            <header ref="header" @click="previewImg = new URL('../../assets/img/header-bg.png')"></header>
-            <div class="detail">
-              <div class="head">
-                <img  :src="$imgPreview(userinfo.avatar)" class="head-image"
+            <header ref="header" @click="previewImg = new URL('../../assets/img/header-bg.png')">
+              <div class="info">
+                <img :src="$imgPreview(userinfo.avatar)" class="avatar"
                      @click="previewImg = userinfo.avatar">
-                <div class="heat">
-                  <div class="text" @click="isShowStarCount = true">
-                    <span>获赞</span>
-                    <span class="num">{{ formatNumber(userinfo.aweme_count) }}</span>
-                  </div>
-                  <div class="text" @click="$nav('/people/follow-and-fans',{type:0})">
-                    <span>关注</span>
-                    <span class="num">{{ formatNumber(userinfo.following_count) }}</span>
-                  </div>
-                  <div class="text" @click="$nav('/people/follow-and-fans',{type:1})">
-                    <span>粉丝</span>
-                    <span class="num">{{ formatNumber(userinfo.follower_count) }}</span>
+                <div class="right">
+                  <p class="name">{{ userinfo.nickname }}</p>
+                  <div class="number mb1r">
+                    <span class="mr1r" v-if="userinfo.is_private">私密账号</span>
+                    <span>抖音号：{{ userinfo.unique_id }}</span>
+                    <img src="../../assets/img/icon/me/qrcode-gray.png" alt="" @click.stop="$nav('/me/my-card')">
                   </div>
                 </div>
               </div>
-              <div class="description">
-                <p class="name f22 mt1r mb1r">{{ userinfo.nickname }}</p>
-                <div class="number mb1r">
-                  <span class="mr1r" v-if="userinfo.is_private">私密账号</span>
-                  <span>抖音号：{{ userinfo.unique_id }}</span>
-                  <img src="../../assets/img/icon/me/qrcode-gray.png" alt="" @click.stop="$nav('/me/my-card')">
+            </header>
+            <div class="detail">
+              <div class="head">
+                <div class="heat">
+                  <div class="text" @click="isShowStarCount = true">
+                    <span class="num">{{ formatNumber(userinfo.aweme_count) }}</span>
+                    <span>获赞</span>
+                  </div>
+                  <div class="text" @click="$nav('/people/follow-and-fans',{type:0})">
+                    <span class="num">{{ formatNumber(userinfo.following_count) }}</span>
+                    <span>朋友</span>
+                  </div>
+                  <div class="text" @click="$nav('/people/follow-and-fans',{type:0})">
+                    <span class="num">{{ formatNumber(userinfo.following_count) }}</span>
+                    <span>关注</span>
+                  </div>
+                  <div class="text" @click="$nav('/people/follow-and-fans',{type:1})">
+                    <span class="num">{{ formatNumber(userinfo.follower_count) }}</span>
+                    <span>粉丝</span>
+                  </div>
                 </div>
-                <div class="signature f12" @click="$nav('/me/edit-userinfo-item',{type:3})">
-                  <template v-if="!userinfo.desc">
-                    <span>点击添加介绍，让大家认识你...</span>
-                    <img src="../../assets/img/icon/me/write-gray.png" alt="">
+                <div class="button" @click="$nav('/people/find-acquaintance')">添加朋友</div>
+              </div>
+              <div class="signature" @click="$nav('/me/edit-userinfo-item',{type:3})">
+                <template v-if="!userinfo.desc">
+                  <span>点击添加介绍，让大家认识你...</span>
+                  <img src="../../assets/img/icon/me/write-gray.png" alt="">
+                </template>
+                <div v-else class="text" v-html="userinfo.desc"></div>
+              </div>
+              <div class="more" @click="$nav('/me/edit-userinfo')">
+                <div class="age item" v-if="userinfo.birthday">
+                  <img v-if="userinfo.sex == 0" src="../../assets/img/icon/me/woman.png" alt="">
+                  <img v-if="userinfo.sex == 1" src="../../assets/img/icon/me/man.png" alt="">
+                  <span>{{ filterAge(userinfo.birthday) }}岁</span>
+                </div>
+                <div class="item" v-if="userinfo.province || userinfo.city">
+                  {{ userinfo.province }}
+                  <template v-if="userinfo.province &&  userinfo.city">
+                    -
                   </template>
-                  <div v-else class="text" v-html="userinfo.desc"></div>
+                  {{ userinfo.city }}
                 </div>
-                <div class="more" @click="$nav('/me/edit-userinfo')">
-                  <div class="age item" v-if="userinfo.birthday">
-                    <img v-if="userinfo.sex == 0" src="../../assets/img/icon/me/woman.png" alt="">
-                    <img v-if="userinfo.sex == 1" src="../../assets/img/icon/me/man.png" alt="">
-                    <span>{{ filterAge(userinfo.birthday) }}岁</span>
-                  </div>
-                  <div class="item" v-if="userinfo.province || userinfo.city">
-                    {{ userinfo.province }}
-                    <template v-if="userinfo.province &&  userinfo.city">
-                      -
-                    </template>
-                    {{ userinfo.city }}
-                  </div>
-                  <div class="item" v-if="userinfo.school.name">
-                    {{ userinfo.school.name }}
-                  </div>
+                <div class="item" v-if="userinfo.school.name">
+                  {{ userinfo.school.name }}
                 </div>
-
               </div>
               <div class="other">
                 <div class="item" @click="$no">
-                  <img src="../../assets/img/icon/me/shopping-cart-white.png" alt="">
-                  <div class="right">
-                    <div class="top">抖音商城</div>
-                    <div class="bottom">发现超值好物</div>
-                  </div>
+                  <Icon icon="iconamoon:shopping-card-light"/>
+                  <span>抖音商城</span>
                 </div>
                 <div class="item" @click="$nav('/me/my-music')">
-                  <img src="../../assets/img/icon/me/music-white.png" alt="">
-                  <div class="right">
-                    <div class="top">我的音乐</div>
-                    <div class="bottom">已收藏20首</div>
-                  </div>
+                  <Icon icon="iconamoon:music-2-light"/>
+                  <span>我的音乐</span>
                 </div>
-              </div>
-              <div class="my-buttons">
-                <div class="button" @click="$nav('/me/edit-userinfo')">
-                  <span>编辑资料</span>
+                <div class="item" @click="$no">
+                  <Icon icon="streamline:chat-two-bubbles-oval"/>
+                  <span>我的群聊</span>
                 </div>
-                <div class="button" @click="$nav('/people/find-acquaintance')">
-                  <span>添加朋友</span>
-                  <div class="not-read"></div>
+                <div class="item" @click="$no">
+                  <Icon icon="iconamoon:shopping-card-light"/>
+                  <span>查看更多</span>
                 </div>
               </div>
             </div>
@@ -343,6 +358,7 @@ import {nextTick} from 'vue'
 import {mapState} from "vuex";
 import bus from "../../utils/bus";
 import ConfirmDialog from "../../components/dialog/ConfirmDialog";
+import {$no} from "@/utils";
 
 export default {
   name: "Me",
@@ -450,6 +466,7 @@ export default {
     bus.on('baseSlide-end', () => this.canScroll = true)
   },
   methods: {
+    $no,
     setLoadingFalse() {
       this.loadings.loading0 = false
       this.loadings.loading1 = false

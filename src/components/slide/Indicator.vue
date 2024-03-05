@@ -132,13 +132,14 @@ export default {
     font-weight: bold;
 
     .tab {
-      height: 45rem;
+      height: 40rem;
       width: 45%;
       display: flex;
       justify-content: center;
       align-items: center;
       color: gray;
       transition: color .3s;
+      font-size: 16rem;
 
       &.active {
         color: white;

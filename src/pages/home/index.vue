@@ -337,11 +337,12 @@ function dislike() {
   overflow: hidden;
 
   .sidebar {
-    width: 75vw;
+    width: 80vw;
     height: 100vh;
     overflow: auto;
     background: rgb(22, 22, 22);
     padding: 10rem;
+    padding-bottom: 20rem;
     box-sizing: border-box;
 
     & > .header {
@@ -367,13 +368,13 @@ function dislike() {
     }
 
     .card {
-      margin-top: 20rem;
+      margin-top: 10rem;
       border-radius: 12rem;
       padding: 15rem;
       background: rgb(29, 29, 29);
 
       .header {
-        margin-bottom: 16rem;
+        margin-bottom: 8rem;
         font-size: 14rem;
         display: flex;
         color: white;
@@ -383,12 +384,12 @@ function dislike() {
         .right {
           display: flex;
           align-items: center;
-          font-size: 14rem;
+          font-size: 12rem;
           gap: 4rem;
           color: gray;
 
           svg {
-            font-size: 18rem;
+            font-size: 16rem;
           }
         }
       }
@@ -404,16 +405,17 @@ function dislike() {
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          font-size: 16rem;
+          font-size: 14rem;
           gap: 8rem;
 
           svg {
-            font-size: 30rem;
+            font-size: 28rem;
           }
 
           .xcx {
             border-radius: 12rem;
-            width: 55rem;
+            width: 50rem;
+            height: 50rem;
           }
         }
 
@@ -422,7 +424,7 @@ function dislike() {
 
           img {
             border-radius: 50%;
-            width: 55rem;
+            width: 50rem;
           }
         }
       }
