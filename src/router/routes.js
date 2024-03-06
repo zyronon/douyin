@@ -67,7 +67,8 @@ import Uploader from "../pages/me/Uploader";
 import GoodsDetail from "@/pages/shop/GoodsDetail.vue";
 
 const routes = [
-  {path: '/', redirect: '/home'},
+  {path: '/', redirect: '/attention'},
+  // {path: '/', redirect: '/home'},
   {path: '/test', component: Test},
   {path: '/test4', component: Test4},
 

@@ -1,17 +1,13 @@
 <template>
   <div id="Message" ref="app" :class="createChatDialog?'disable-scroll':''">
     <div class="no-search" v-show="!searching">
-      <BaseHeader :isFixed="false">
-        <template v-slot:center>
-          <span class="f16">消息</span>
-        </template>
-        <template v-slot:right>
-          <span class="f14" @click="createChatDialog = true">创建群聊</span>
-        </template>
-      </BaseHeader>
+      <header>
+        <Icon @click="createChatDialog = true" icon="formkit:add"/>
+        <Icon icon="tabler:camera-selfie" />
+        <Icon  @click="searching = true" icon="tabler:search"/>
+      </header>
 
       <Scroll ref="mainScroll">
-        <Search class="ml2r mr2r mb2r" @click="searching = true"></Search>
         <div class="friends  pl1r ">
           <div class="friend pr1r pl1r"
                @click="$nav('/message/chat')"
@@ -512,6 +508,19 @@ export default {
   .no-search {
     height: 100vh;
 
+    > header {
+      padding: 0 20rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: @header-height;
+      box-sizing: border-box;
+      border-bottom: 1px solid #cccccc11;
+      position: relative;
+      font-size: 24rem;
+
+    }
+
     .create-chat-wrapper {
       min-height: 70vh;
       padding-bottom: 60rem;
@@ -756,6 +765,7 @@ export default {
 
     .scroll {
       height: calc(100% - @header-height - @footer-height);
+      padding-top: 10rem;
     }
 
     .friends {
@@ -837,7 +847,7 @@ export default {
           .head-image {
             margin-left: 20rem;
             margin-right: 15rem;
-            @width: 45rem;
+            @width: 55rem;
             width: @width;
             height: @width;
             border-radius: 50%;

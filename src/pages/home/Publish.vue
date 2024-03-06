@@ -22,31 +22,29 @@
       </SlideHorizontal>
     </div>
     <div class="float">
-      <img class="close" src="../../assets/img/icon/close-white.png" alt="" @click="$back">
+      <Icon class="close" icon="mingcute:close-line" @click="$back"/>
       <div class="choose-music">
-        <img src="../../assets/img/icon/close-white.png" alt="">
+        <Icon icon="vaadin:music"/>
         <span>选择音乐</span>
       </div>
       <div class="toolbar">
         <div class="tool" @click.stop="$emit('showComments')">
-          <img src="../../assets/img/icon/close-white.png" alt="">
-          <span>翻转</span>
+          <Icon icon="tabler:refresh"/>
         </div>
         <div class="tool" @click.stop="$emit('showComments')">
-          <img src="../../assets/img/icon/close-white.png" alt="">
-          <span>快慢速</span>
+          <Icon icon="pepicons-pop:electricity-off"/>
         </div>
         <div class="tool" @click.stop="$emit('showComments')">
-          <img src="../../assets/img/icon/close-white.png" alt="">
-          <span>滤镜</span>
+          <Icon icon="lets-icons:setting-fill"/>
         </div>
         <div class="tool" @click.stop="$emit('showComments')">
-          <img src="../../assets/img/icon/close-white.png" alt="">
-          <span>美化</span>
+          <Icon icon="bxs:alarm"/>
         </div>
         <div class="tool" @click.stop="$emit('showComments')">
-          <img src="../../assets/img/icon/close-white.png" alt="">
-          <span>倒计时</span>
+          <Icon icon="fluent:pen-sparkle-16-filled"/>
+        </div>
+        <div class="tool" @click.stop="$emit('showComments')">
+          <Icon icon="ri:color-filter-fill"/>
         </div>
       </div>
     </div>
@@ -54,6 +52,25 @@
 </template>
 <script>
 import {mapState} from "vuex";
+
+
+//访问用户媒体设备的兼容方法
+function getUserMedia(constrains, success, error) {
+  if (navigator.mediaDevices.getUserMedia) {
+    //最新标准API
+    navigator.mediaDevices.getUserMedia(constrains).then(success).catch(error);
+  } else if (navigator.webkitGetUserMedia) {
+    //webkit内核浏览器
+    navigator.webkitGetUserMedia(constrains).then(success).catch(error);
+  } else if (navigator.mozGetUserMedia) {
+    //Firefox浏览器
+    navagator.mozGetUserMedia(constrains).then(success).catch(error);
+  } else if (navigator.getUserMedia) {
+    //旧版API
+    navigator.getUserMedia(constrains).then(success).catch(error);
+  }
+}
+
 
 export default {
   name: "Publish",
@@ -73,14 +90,15 @@ export default {
   },
   methods: {
     getMedia() {
-      let constraints = {video: {width: this.bodyWidth, height: this.bodyHeight - 60}, audio: false};
-      let promise = navigator.mediaDevices.getUserMedia(constraints);
-      promise.then((MediaStream) => {
+      // let constraints = {video: {width: this.bodyWidth, height: this.bodyHeight - 60}, audio: false};
+      // let constraints = {video:{width:480,height:320}, audio: false};
+      let constraints = {video: true, audio: false};
+      getUserMedia(constraints, (MediaStream) => {
         this.video.srcObject = MediaStream;
         this.video.play();
-      }).catch(function (PermissionDeniedError) {
+      }, function (PermissionDeniedError) {
         console.log(PermissionDeniedError);
-      })
+      });
     },
   },
 }
@@ -122,11 +140,10 @@ export default {
     height: calc(100% - 60px);
 
     .close {
+      font-size: 28rem;
       position: absolute;
       left: 20rem;
       top: 20rem;
-      width: 20rem;
-      height: 20rem;
     }
 
     .choose-music {
@@ -139,8 +156,10 @@ export default {
       padding: 5rem 15rem;
       display: flex;
       align-items: center;
+      font-size: 14rem;
 
-      img {
+      svg {
+        font-size: 30rem;
         margin-right: 5rem;
         width: 12rem;
         height: 12rem;
@@ -157,13 +176,7 @@ export default {
         flex-direction: column;
         align-items: center;
         margin-bottom: 20rem;
-        font-size: 10rem;
-
-        img {
-          width: 20rem;
-          height: 20rem;
-          margin-bottom: 5rem;
-        }
+        font-size: 26rem;
       }
     }
   }

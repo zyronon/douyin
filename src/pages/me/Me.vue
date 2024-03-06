@@ -26,7 +26,7 @@
             </div>
             <div class="item"
                  :style="floatFixed?'opacity: 0;':''"
-                 @click="$no">
+                 @click="$nav('/message/visitors')">
               <Icon icon="eva:people-outline"/>
             </div>
             <div class="item" @click="$no">
