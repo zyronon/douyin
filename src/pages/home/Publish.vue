@@ -93,12 +93,16 @@ export default {
       // let constraints = {video: {width: this.bodyWidth, height: this.bodyHeight - 60}, audio: false};
       // let constraints = {video:{width:480,height:320}, audio: false};
       let constraints = {video: true, audio: false};
-      getUserMedia(constraints, (MediaStream) => {
-        this.video.srcObject = MediaStream;
-        this.video.play();
-      }, function (PermissionDeniedError) {
-        console.log(PermissionDeniedError);
-      });
+      try {
+        getUserMedia(constraints, (MediaStream) => {
+          this.video.srcObject = MediaStream;
+          this.video.play();
+        }, function (PermissionDeniedError) {
+          console.log(PermissionDeniedError);
+        });
+      } catch (e) {
+        console.log('e', e)
+      }
     },
   },
 }
