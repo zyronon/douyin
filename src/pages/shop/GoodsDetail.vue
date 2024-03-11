@@ -22,6 +22,17 @@
       <div class="index">{{ state.index + 1 }}/{{ state.detail.imgs.length }}</div>
     </div>
     <div class="content">
+      <div class="info">
+        <div class="price-wrap">
+          <div class="price">
+            <span class="symbol">￥</span>
+            <span class="int">8</span>
+            <span class="decimal">.8</span>
+          </div>
+        </div>
+        <div class="name">{{ state.detail.name }}</div>
+        <div class="num">已售20/100</div>
+      </div>
       <div class="card">
         <div class="price-item">
           <div class="price">
@@ -181,8 +192,52 @@ const state = reactive({
 
   .content {
     //background: rgb(247, 247, 249);
-    background: gray;
-    padding: 5rem;
+    background: #f1f1f1;
+    padding: 8rem;
+    border-radius: 16rem 16rem 0 0;
+    transform: translateY(-20rem);
+
+    .info {
+      padding: 0 8rem;
+
+      .price-wrap {
+        margin-bottom: 10rem;
+        .price {
+          color: red;
+          font-weight: bold;
+
+          .symbol {
+            font-size: 16rem;
+          }
+
+          .int {
+            font-size: 26rem;
+          }
+
+          .decimal {
+            letter-spacing: 2px;
+            font-size: 20rem;
+          }
+        }
+      }
+
+      .name {
+        color: black;
+        font-size: 16rem;
+        margin-bottom: 8rem;
+        @lh: 18rem;
+        line-height: @lh;
+        height: @lh * 2;
+        overflow: hidden;
+        font-weight: bold;
+        letter-spacing: 1rem;
+      }
+
+      .num {
+        font-size: 12rem;
+        color: gray;
+      }
+    }
 
     .card {
       margin: 5rem;
@@ -302,17 +357,7 @@ const state = reactive({
         }
       }
 
-      .title {
-        color: black;
-        font-size: 16rem;
-        margin-bottom: 8rem;
-        @lh: 18rem;
-        line-height: @lh;
-        height: @lh * 2;
-        overflow: hidden;
-        font-weight: bold;
-        letter-spacing: 1rem;
-      }
+
     }
   }
 
