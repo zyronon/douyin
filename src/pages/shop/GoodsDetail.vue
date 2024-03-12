@@ -44,6 +44,7 @@
         <div class="name">{{ state.detail.name }}</div>
         <div class="num">已售20/100</div>
       </div>
+
       <div class="card desc-wrapper">
         <div class="item">
           <div class="label">保障</div>
@@ -115,6 +116,62 @@
               </div>
             </div>
             <img src="https://cdn.seovx.com/ha/?mom=302" alt="" class="avatar">
+          </div>
+        </div>
+      </div>
+
+      <div class="card shop">
+        <header>
+          <img src="https://cdn.seovx.com/ha/?mom=302" alt="" class="avatar">
+          <div class="right">
+            <div class="l">
+              <div class="name">店铺名</div>
+              <div class="tags">
+                <div class="tag">金牌店铺</div>
+                <div class="tag">好评过千</div>
+                <div class="tag">销量超10万</div>
+              </div>
+              <div class="gray">店铺口碑4.90分</div>
+            </div>
+            <div class="r">进店</div>
+          </div>
+        </header>
+
+        <div class="desc">
+          <div class="grid">
+            <div class="gray">商品质量</div>
+            <div>商品评价一般</div>
+          </div>
+          <div class="line"></div>
+          <div class="grid">
+            <div class="gray">物流速度</div>
+            <div>平均24小时发货</div>
+          </div>
+          <div class="line"></div>
+          <div class="grid">
+            <div class="gray">商品质量</div>
+            <div>商品评价一般</div>
+          </div>
+        </div>
+
+        <div class="recommend">
+          <header>
+            <span class="left">店铺推荐</span>
+            <div class="right">
+              <span class="gray">查看全部</span>
+              <Icon class="right-arrow" icon="mingcute:right-line"/>
+            </div>
+          </header>
+          <div class="wrap">
+            <div class="item" v-for="i in 4">
+              <img src="https://cdn.seovx.com/ha/?mom=302" alt="" class="avatar">
+              <div class="name"></div>
+              <div class="price">
+                <span class="symbol">￥</span>
+                <span class="int">8</span>
+                <span class="decimal">.8</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -226,6 +283,24 @@ const state = reactive({
     border-radius: 16rem 16rem 0 0;
     transform: translateY(-20rem);
 
+    .price {
+      color: red;
+      font-weight: bold;
+
+      .symbol {
+        font-size: 16rem;
+      }
+
+      .int {
+        font-size: 26rem;
+      }
+
+      .decimal {
+        letter-spacing: 2px;
+        font-size: 20rem;
+      }
+    }
+
     .info {
       padding: 0 8rem;
       margin-bottom: 20rem;
@@ -234,24 +309,6 @@ const state = reactive({
         margin-bottom: 20rem;
         display: flex;
         align-items: flex-end;
-
-        .price {
-          color: red;
-          font-weight: bold;
-
-          .symbol {
-            font-size: 16rem;
-          }
-
-          .int {
-            font-size: 26rem;
-          }
-
-          .decimal {
-            letter-spacing: 2px;
-            font-size: 20rem;
-          }
-        }
 
         .discount {
           margin-left: 10rem;
@@ -272,7 +329,6 @@ const state = reactive({
             transform: translateY(4rem);
           }
         }
-
       }
 
       .name {
@@ -412,6 +468,7 @@ const state = reactive({
 
       .comment {
         margin-bottom: 20rem;
+
         & > header {
           margin-bottom: 10rem;
           display: flex;
@@ -429,7 +486,7 @@ const state = reactive({
           display: flex;
           gap: 10rem;
 
-          .d{
+          .d {
             margin-bottom: 10rem;
           }
 
@@ -438,6 +495,138 @@ const state = reactive({
             height: 50rem;
             width: 50rem;
           }
+        }
+      }
+    }
+
+    .shop {
+      & > header {
+        display: flex;
+        align-items: center;
+        gap: 10rem;
+
+        img {
+          width: 60rem;
+          height: 60rem;
+          border-radius: 50%;
+        }
+
+        .right {
+          flex: 1;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .l {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 4rem;
+
+            .name {
+              font-size: 16rem;
+              font-weight: bold;
+            }
+
+            .tags {
+              display: flex;
+              font-size: 12rem;
+              gap: 10rem;
+
+              .tag {
+                padding: 2rem 3rem;
+                background: rgb(253, 245, 243);
+                color: rgb(217, 143, 80);
+              }
+            }
+
+            .gray {
+              font-size: 12rem;
+            }
+          }
+
+          .r {
+            border-radius: 4rem;
+            padding: 5rem 14rem;
+            font-weight: bold;
+            background: @primary-btn-color;
+            color: white;
+          }
+        }
+      }
+
+      .desc {
+        margin-top: 16rem;
+        display: flex;
+        align-items: center;
+        gap: 3rem;
+
+        .grid {
+          width: 33%;
+          text-align: center;
+
+          .gray {
+            font-size: 12rem;
+            margin-bottom: 3rem;
+          }
+        }
+
+        .line {
+          width: 1px;
+          height: 30rem;
+          background: lightgrey;
+        }
+      }
+
+      .recommend {
+        margin-top: 16rem;
+
+        & > header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .left {
+            font-weight: bold;
+          }
+
+          .right {
+            display: flex;
+            align-items: center;
+          }
+        }
+
+        .wrap {
+          margin-top: 16rem;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          //grid-template-rows: repeat(3, 1fr);
+          gap: 10rem;
+
+          .item {
+            img {
+              border-radius: 12rem;
+              object-fit: cover;
+              height: 28vw;
+              width: 100%;
+            }
+
+            .price {
+              .symbol {
+                font-size: 14rem;
+              }
+
+              .int {
+                font-size: 18rem;
+              }
+
+              .decimal {
+                letter-spacing: 2px;
+                font-size: 14rem;
+              }
+            }
+          }
+
         }
       }
     }
