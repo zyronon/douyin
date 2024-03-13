@@ -16,7 +16,7 @@
         </div>
       </div>
     </header>
-    <div class="imgs">
+    <div class="slide-imgs">
       <SlideHorizontal v-model:index="state.index">
         <SlideItem v-for="item in state.detail.imgs">
           <img :src="item" alt="">
@@ -24,7 +24,7 @@
       </SlideHorizontal>
       <div class="index">{{ state.index + 1 }}/{{ state.detail.imgs.length }}</div>
     </div>
-    <div class="content">
+    <div class="content p">
       <div class="info">
         <div class="price-wrap">
           <div class="price">
@@ -50,7 +50,7 @@
           <div class="label">保障</div>
           <div class="desc">
             假一赔四·运费险·极速退款
-            <Icon class="right-arrow" icon="mingcute:right-line"/>
+            <Icon class="arrow" icon="mingcute:right-line"/>
           </div>
         </div>
         <div class="item">
@@ -67,14 +67,14 @@
                 <div class="count">共3种规格可选</div>
               </div>
             </div>
-            <Icon class="right-arrow" icon="mingcute:right-line"/>
+            <Icon class="arrow" icon="mingcute:right-line"/>
           </div>
         </div>
         <div class="item">
           <div class="label">活动</div>
           <div class="desc">
             <div class="ellipsis">优惠新人券 立减4新人券立减4新人券立减4新人券 立减4新人券 立减4</div>
-            <Icon class="right-arrow" icon="mingcute:right-line"/>
+            <Icon class="arrow" icon="mingcute:right-line"/>
           </div>
         </div>
         <div class="item">
@@ -93,7 +93,7 @@
       <div class="card comments">
         <header>
           <span>商品评论(507)</span>
-          <Icon class="right-arrow" icon="mingcute:right-line"/>
+          <Icon class="arrow" icon="mingcute:right-line"/>
         </header>
         <div class="tags">
           <div class="tag">物美价廉 <span class="gray">29</span></div>
@@ -159,13 +159,13 @@
             <span class="left">店铺推荐</span>
             <div class="right">
               <span class="gray">查看全部</span>
-              <Icon class="right-arrow" icon="mingcute:right-line"/>
+              <Icon class="arrow" icon="mingcute:right-line"/>
             </div>
           </header>
           <div class="wrap">
             <div class="item" v-for="i in 4">
               <img src="https://cdn.seovx.com/ha/?mom=302" alt="" class="avatar">
-              <div class="name"></div>
+              <div class="name">【热销中】袜子男潮流百搭中筒袜子袜子男潮流百搭中筒袜子</div>
               <div class="price">
                 <span class="symbol">￥</span>
                 <span class="int">8</span>
@@ -176,16 +176,83 @@
         </div>
       </div>
     </div>
+
+    <div class="img-list" v-if="false">
+      <header>
+        <div class="l"></div>
+        <span class="gray">商品详情</span>
+        <div class="r"></div>
+      </header>
+
+      <div class="imgs">
+        <img src="https://cdn.seovx.com/ha/?mom=302" alt="" class="avatar" v-for="i in 5">
+      </div>
+    </div>
+
+    <div class="p">
+      <div class="card other-desc">
+        <div class="item"
+             :class="activeIndexs.includes(i) && 'active'"
+             @click="toggle(i)"
+             v-for="(item,i) in 3">
+          <header>
+            <div class="l">价格说明</div>
+            <Icon class="arrow" icon="mingcute:right-line"/>
+          </header>
+          <div class="text">
+            价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明
+          </div>
+        </div>
+      </div>
+
+      <div class="other-recommend">
+        <header>
+          你可以还会喜欢
+        </header>
+
+        <div v-masonry class="goods-list"
+             :class="{fixed:state.fixed}"
+             transition-duration="0s"
+             item-selector=".goods">
+          <div v-masonry-tile class="goods"
+               @click="nav('/shop/detail')"
+               v-for="(item, index) in  state.list">
+            <div class="item">
+              <img class="poster" :src="Utils.$imgPreview(item.cover)"/>
+              <div class="bottom">
+                <div class="desc">
+                  {{ item.name }}
+                </div>
+                <div class="discounts" v-if="item.discount">{{ item.discount }}</div>
+                <div class="info">
+                  <div class="price">
+                    ￥
+                    <div class="big">{{ item.price }}</div>
+                  </div>
+                  <div class="num">已售{{ item.sold }}件</div>
+                </div>
+                <div class="low" v-if="item.isLowPrice">
+                  近30天低价
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import SlideHorizontal from "@/components/slide/SlideHorizontal.vue";
 import SlideItem from "@/components/slide/SlideItem.vue";
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
 import goods from "@/assets/data/goods";
 import {useNav} from "@/utils/hooks/useNav";
+import Utils from "@/utils";
 
+let activeIndexs = ref([])
 const nav = useNav()
 const props = defineProps({
   id: {
@@ -196,16 +263,30 @@ const props = defineProps({
 
 const state = reactive({
   detail: goods.list[1],
-  index: 2
+  index: 2,
+  list: goods.list,
+  listEl: null,
+  fixed: false
 })
+
+function toggle(i) {
+  let rIndex = activeIndexs.value.findIndex(v => v === i)
+  if (rIndex > -1) {
+    activeIndexs.value.splice(rIndex, 1)
+  } else {
+    activeIndexs.value.push(i)
+  }
+}
 </script>
 
 <style scoped lang="less">
 @import "@/assets/less/index.less";
 
 .goods-detail {
+  background: #f5f5f5;
   color: black;
   font-size: 14rem;
+  @c: #a2a2a2;
 
   & > header {
     background: white;
@@ -253,7 +334,7 @@ const state = reactive({
     }
   }
 
-  .imgs {
+  .slide-imgs {
     position: relative;
     height: 30vh;
 
@@ -276,10 +357,27 @@ const state = reactive({
     }
   }
 
+  .p {
+    padding: 8rem;
+  }
+
+  .card {
+    margin: 5rem;
+    margin-bottom: 10rem;
+    background: white;
+    border-radius: 10rem;
+    padding: 10rem 15rem;
+  }
+
+  .arrow {
+    font-size: 18rem;
+    color: @c;
+  }
+
   .content {
     //background: rgb(247, 247, 249);
     background: #f5f5f5;
-    padding: 8rem;
+    padding-bottom: 0;
     border-radius: 16rem 16rem 0 0;
     transform: translateY(-20rem);
 
@@ -346,22 +444,7 @@ const state = reactive({
       }
     }
 
-    .card {
-      margin: 5rem;
-      margin-bottom: 10rem;
-      background: white;
-      border-radius: 10rem;
-      padding: 10rem 15rem;
-    }
-
-    @c: #a2a2a2;
-
     .gray {
-      color: @c;
-    }
-
-    .right-arrow {
-      font-size: 18rem;
       color: @c;
     }
 
@@ -530,7 +613,8 @@ const state = reactive({
 
             .tags {
               display: flex;
-              font-size: 12rem;
+              font-size: 10rem;
+              font-weight: bold;
               gap: 10rem;
 
               .tag {
@@ -564,8 +648,11 @@ const state = reactive({
         .grid {
           width: 33%;
           text-align: center;
+          font-weight: bold;
+          font-size: 13rem;
 
           .gray {
+            font-weight: normal;
             font-size: 12rem;
             margin-bottom: 3rem;
           }
@@ -611,6 +698,14 @@ const state = reactive({
               width: 100%;
             }
 
+            .name {
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box; //作为弹性伸缩盒子模型显示。
+              -webkit-box-orient: vertical; //设置伸缩盒子的子元素排列方式--从上到下垂直排列
+              -webkit-line-clamp: 2; //显示的行
+            }
+
             .price {
               .symbol {
                 font-size: 14rem;
@@ -627,6 +722,160 @@ const state = reactive({
             }
           }
 
+        }
+      }
+    }
+
+  }
+
+  .img-list {
+    background: #f5f5f5;
+
+    & > header {
+      font-size: 16rem;
+      padding-bottom: 20rem;
+      display: flex;
+      justify-content: center;
+      gap: 10rem;
+      align-items: center;
+
+      .l {
+        width: 0;
+        height: 0;
+        border-right: 40px solid black;
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+      }
+
+      .r {
+        .l;
+        border-left: 40px solid black;
+        border-right: unset;
+      }
+    }
+
+    .imgs {
+      img {
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+
+  .other-desc {
+    .item {
+      & > header {
+        padding: 15rem 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .text {
+        display: none;
+      }
+
+      &.active {
+        .text {
+          display: block;
+        }
+      }
+
+      &:last-child {
+        & > header {
+          padding-bottom: 10rem;
+        }
+      }
+
+      &:first-child {
+        & > header {
+          padding-top: 10rem;
+        }
+      }
+    }
+  }
+
+  .other-recommend {
+    & > header {
+      padding: 15rem;
+    }
+    @fColor: #f1f1f1;
+
+    .fixed {
+      background: @fColor;
+    }
+
+    @p: 5rem;
+
+    .goods-list {
+      padding-bottom: 20rem;
+    }
+
+    .goods {
+      width: 50%;
+      box-sizing: border-box;
+      padding: 5rem;
+
+      .item {
+        border-radius: 8rem;
+        overflow: hidden;
+        background: white;
+
+        img {
+          width: 100%;
+        }
+
+        .bottom {
+          padding: 10rem;
+
+          .desc {
+            color: black;
+            font-size: 16rem;
+            margin-bottom: 8rem;
+            @lh: 18rem;
+            line-height: @lh;
+            height: @lh * 2;
+            overflow: hidden;
+          }
+
+          .discounts {
+            display: inline-block;
+            @c: rgb(199, 89, 106);
+            border: 1rem solid @c;
+            padding: 0 4rem;
+            color: @c;
+            font-size: 12rem;
+            margin-bottom: 4rem;
+          }
+
+          .info {
+            display: flex;
+            align-items: flex-end;
+
+            .price {
+              color: rgb(248, 38, 74);
+              display: flex;
+              align-items: flex-end;
+              font-size: 14rem;
+              margin-right: 5rem;
+
+              .big {
+                font-size: 22rem;
+                font-weight: bold;
+                transform: translateY(2rem);
+              }
+            }
+
+            .num {
+              color: darkgray;
+              font-size: 12rem;
+            }
+          }
+
+          .low {
+            margin-top: 2rem;
+            color: rgb(230, 153, 92);
+          }
         }
       }
     }
