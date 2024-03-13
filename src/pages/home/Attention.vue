@@ -113,7 +113,9 @@
         </div>
       </div>
     </Scroll>
-    <Footer v-bind:init-tab="2" style="position: fixed;left: 0;"/>
+    <Footer v-bind:init-tab="2"
+            :is-white="true"
+            style="position: fixed;left: 0;"/>
 
   </div>
 </template>
