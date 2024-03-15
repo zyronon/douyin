@@ -34,7 +34,7 @@ const state = reactive({
 <template>
   <div class="item-desc ml1r mb1r">
     <div class="content" v-if="!props.isMy">
-      <div class="location-wrapper" v-if=" props.item.city || item.address">
+      <div class="location-wrapper" v-if="props.item.city || item.address">
         <div class="location">
           <img src="../../assets/img/icon/location.webp" alt="">
           <span>{{ props.item.city }}</span>

@@ -14,7 +14,7 @@
  * cover_url[0].url_list[0] 背景cover
  * */
 
-const users = [
+export const users = [
   {
     "avatar_168x168": {
       "height": 720,

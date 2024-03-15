@@ -2,17 +2,18 @@
   <div class="video-wrapper" ref="videoWrapper" :class="positionName">
     <Loading v-if="loading" style="position: absolute"/>
     <!--    <video :src="item.video + '?v=123'"-->
+
     <video
-        :src="item.video"
-           :poster="item.video + videoPoster"
-           ref="video"
-           muted
-           preload
-           :playsinline="true"
-           :autoplay="isPlay" loop>
+        :src="item.video.play_addr.url_list[0]"
+        :poster="$checkImgUrl(item.video.cover.url_list[0])"
+        ref="video"
+        muted
+        preload
+        :playsinline="true"
+        :autoplay="isPlay" loop>
       <p> 您的浏览器不支持 video 标签。</p>
     </video>
-    <Icon icon="fluent:play-28-filled" class="pause-icon"   v-if="!isPlaying"/>
+    <Icon icon="fluent:play-28-filled" class="pause-icon" v-if="!isPlaying"/>
     <div class="float" :style="{opacity: isUp?0:1}">
       <div :style="{opacity:isMove ? 0:1}" class="normal">
         <template v-if="!commentVisible">
@@ -67,7 +68,7 @@
 </template>
 
 <script>
-import Utils from '../../utils'
+import Utils, {$checkImgUrl} from '../../utils'
 import Loading from "../Loading";
 import ItemToolbar from "./ItemToolbar";
 import ItemDesc from "./ItemDesc";
@@ -160,7 +161,6 @@ export default {
       localItem: this.item,
       progressBarRect: {},
       videoScreenHeight: 0,
-      videoPoster: `?vframe/jpg/offset/0/w/${document.body.clientWidth}`,
       commentVisible: false,
       LUtils: Utils
     }
@@ -242,6 +242,7 @@ export default {
     bus.off(EVENT_KEY.CLOSE_SUB_TYPE, this.onCloseSubType)
   },
   methods: {
+    $checkImgUrl,
     onOpenSubType() {
       this.commentVisible = true
     },

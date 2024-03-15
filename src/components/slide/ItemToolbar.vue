@@ -55,7 +55,7 @@ function showComments() {
 <template>
   <div class="toolbar mb1r">
     <div class="avatar-ctn mb2r">
-      <img class="avatar" :src="props.item.author.avatar" alt=""
+      <img class="avatar" :src="props.item.author.avatar_168x168.url_list[0]" alt=""
            @click.stop="bus.emit(EVENT_KEY.GO_USERINFO)">
       <transition name="fade">
         <div v-if="!props.item.isAttention" @click.stop="attention" class="options">
@@ -69,21 +69,21 @@ function showComments() {
         <img src="../../assets/img/icon/love.svg" class="love-image" v-if="!props.item.isLoved">
         <img src="../../assets/img/icon/loved.svg" class="love-image" v-if="props.item.isLoved">
       </div>
-      <span>{{ Utils.formatNumber(props.item.digg_count) }}</span>
+      <span>{{ Utils.formatNumber(props.item.statistics.digg_count) }}</span>
     </div>
     <div class="message mb2r" @click.stop="showComments">
       <Icon icon="mage:message-dots-round-fill" class="icon" style="color: white"/>
-      <span>{{ Utils.formatNumber(props.item.comment_count) }}</span>
+      <span>{{ Utils.formatNumber(props.item.statistics.comment_count) }}</span>
     </div>
     <!--TODO     -->
     <div class="message mb2r" @click.stop="Utils.updateItem(props, 'isCollect', !props.item.isCollect, emit)">
       <Icon v-if="props.item.isCollect" icon="ic:round-star" class="icon" style="color: yellow"/>
       <Icon v-else icon="ic:round-star" class="icon" style="color: white"/>
-      <span>{{ Utils.formatNumber(props.item.comment_count) }}</span>
+      <span>{{ Utils.formatNumber(props.item.statistics.comment_count) }}</span>
     </div>
     <div v-if="!props.isMy" class="share mb2r" @click.stop="bus.emit(EVENT_KEY.SHOW_SHARE)">
       <img src="../../assets/img/icon/share-white-full.png" alt="" class="share-image">
-      <span>{{ Utils.formatNumber(props.item.share_count) }}</span>
+      <span>{{ Utils.formatNumber(props.item.statistics.share_count) }}</span>
     </div>
     <div v-else class="share mb2r" @click.stop="bus.emit(EVENT_KEY.SHOW_SHARE)">
       <img src="../../assets/img/icon/menu-white.png" alt="" class="share-image">

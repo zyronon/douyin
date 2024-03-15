@@ -433,3 +433,18 @@ export function $no() {
 export function $notice(val) {
   Utils.$notice(val)
 }
+
+export function $checkImgUrl(url) {
+  // console.log(url)
+  if (!url) return
+  //本地图片
+  if (url.includes('data:image')) {
+    return url
+  }
+  //网络，全路径图片
+  if (url.includes('http')) {
+    return url
+  } else {
+    return '/imgs/' + url
+  }
+}

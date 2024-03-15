@@ -1,6 +1,7 @@
 import Mock from 'mockjs'
 import globalMethods from '../utils'
 import resource from "../assets/data/resource.js";
+import posts6 from "@/assets/data/posts6.json";
 import users from '@/assets/data/users.json'
 import post from '@/assets/data/post.json'
 import {sample, shuffle, uniqueId} from "lodash";
@@ -23,10 +24,13 @@ Mock.setup({
   timeout: '500-1000'
   // timeout: '5000'
 })
-let allRecommendVideos = resource.videos.map(v => {
+// console.log('posts20',posts20)
+let allRecommendVideos = posts6.map(v => {
   v.type = 'recommend-video'
   return v
 })
+
+console.log('allRecommendVideos', allRecommendVideos)
 let t = [
   {
     type: 'imgs',
@@ -65,19 +69,24 @@ let t = [
 //     unique_id: uniqueId('list_')
 //   }
 // },
-for (let i = 0; i < 50; i++) {
-  allRecommendVideos = allRecommendVideos.concat(shuffle(resource.videos)
-    .slice(0, 10)
-    .map(v => {
-      v.type = 'recommend-video'
-      return v
-    }))
-}
+
+// for (let i = 0; i < 50; i++) {
+//   allRecommendVideos = allRecommendVideos.concat(shuffle(resource.videos)
+//     .slice(0, 10)
+//     .map(v => {
+//       v.type = 'recommend-video'
+//       return v
+//     }))
+// }
+
 Mock.mock(/recommended/, options => {
+  console.log('recommended', options)
   let page = getPage(options)
   return Mock.mock({
     data: {
-      total: allRecommendVideos.length, list: allRecommendVideos.slice(page.offset, page.limit),
+      total: allRecommendVideos.length,
+      // list: allRecommendVideos.slice(page.offset, page.limit),
+      list: allRecommendVideos.slice(0, 6),
     }, code: 200, msg: '',
   })
 })
