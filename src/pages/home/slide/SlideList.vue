@@ -63,7 +63,7 @@ const state = reactive({
     //   }
     // },
     // {
-    //   type: 'imgs',
+    //   type: 'user-imgs',
     //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`,
     //   author: {
     //     unique_id: uniqueId('list_')

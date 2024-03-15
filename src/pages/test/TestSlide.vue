@@ -72,7 +72,7 @@ export default {
       //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
       // })
       // list.unshift({
-      //   type: 'imgs',
+      //   type: 'user-imgs',
       //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
       // })
       // list.unshift({

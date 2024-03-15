@@ -52,7 +52,7 @@ let t = [
 ]
 // allRecommendVideos.unshift(...t)
 // {
-//   type: 'imgs',
+//   type: 'user-imgs',
 //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`,
 //   author: {
 //     unique_id: uniqueId('list_')
@@ -83,7 +83,7 @@ Mock.mock(/recommended/, options => {
 })
 
 // Mock.Random.extend({
-//   imgs: function (date) {
+//   user-imgs: function (date) {
 //     return this.pick([
 //       require('../assets/img/poster/1.jpg'),
 //       require('../assets/img/poster/2.jpg'),
@@ -101,16 +101,16 @@ Mock.mock(/recommended/, options => {
 // })
 // !(function me() {
 //   let my = {total: Mock.Random.natural(1, 20)}
-//   my[`list|${my.total > 10 ? 10 : my.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
+//   my[`list|${my.total > 10 ? 10 : my.total}`] = [{'like|10000-990000': 1000000, src: '@user-imgs'}]
 //
 //   let private1 = {total: Mock.Random.natural(1, 20)}
-//   private1[`list|${private1.total > 10 ? 10 : private1.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
+//   private1[`list|${private1.total > 10 ? 10 : private1.total}`] = [{'like|10000-990000': 1000000, src: '@user-imgs'}]
 //
 //   let like = {total: Mock.Random.natural(1, 20)}
-//   like[`list|${like.total > 10 ? 10 : like.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
+//   like[`list|${like.total > 10 ? 10 : like.total}`] = [{'like|10000-990000': 1000000, src: '@user-imgs'}]
 //
 //   let collect = {total: Mock.Random.natural(1, 20)}
-//   collect[`list|${collect.total > 10 ? 10 : collect.total}`] = [{'like|10000-990000': 1000000, src: '@imgs'}]
+//   collect[`list|${collect.total > 10 ? 10 : collect.total}`] = [{'like|10000-990000': 1000000, src: '@user-imgs'}]
 //
 //   const data = Mock.mock({
 //     'data': {

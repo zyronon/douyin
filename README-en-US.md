@@ -1,7 +1,7 @@
 ### English | [简体中文](README.md)
 
 ## Preview Demo
-[Online Demo](https://douyins.netlify.app/)
+[Online Demo](http://douyin.ttentau.top/)
 
 ### Note: Please use mobile mode of Chrome browser to access the PC side. To switch Chrome to mobile mode, press F12 to bring up the console, then Ctrl+Shift+M
 ### Note: For Android phones please use [Via mobile browser](https://viayoo.com/zh-cn/) or Chrome mobile version preview. When other browsers detect a video on the page, they force the video to be in full screen and display the control button. As a result, both css and js are invalid

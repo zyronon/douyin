@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "post-img": "cd post && node process-post-img.js",
+    "post-list": "node process-post-list.js"
   },
   "author": "",
   "license": "ISC",

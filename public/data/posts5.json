@@ -1,0 +1,738 @@
+[
+  {
+    "aweme_id": "7293100687989148943",
+    "desc": "",
+    "create_time": 1698057333,
+    "music": {
+      "id": 7293100719706607000,
+      "title": "@条子创作的原声",
+      "author": "条子",
+      "cover_medium": {
+        "uri": "720x720/aweme-avatar/tos-cn-avt-0015_75c5ef8973e1d665252306ea58f7d10b",
+        "url_list": [
+          "https://p3-pc.douyinpic.com/aweme/720x720/aweme-avatar/tos-cn-avt-0015_75c5ef8973e1d665252306ea58f7d10b.jpeg?from=116350172"
+        ],
+        "width": 720,
+        "height": 720
+      },
+      "cover_thumb": {
+        "uri": "100x100/aweme-avatar/tos-cn-avt-0015_75c5ef8973e1d665252306ea58f7d10b",
+        "url_list": [
+          "https://p3-pc.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_75c5ef8973e1d665252306ea58f7d10b.jpeg?from=116350172"
+        ],
+        "width": 720,
+        "height": 720
+      },
+      "play_url": {
+        "uri": "https://sf5-hl-cdn-tos.douyinstatic.com/obj/ies-music/7293100718108855066.mp3",
+        "url_list": [
+          "https://sf5-hl-cdn-tos.douyinstatic.com/obj/ies-music/7293100718108855066.mp3",
+          "https://sf3-cdn-tos.douyinstatic.com/obj/ies-music/7293100718108855066.mp3"
+        ],
+        "width": 720,
+        "height": 720,
+        "url_key": "7293100719706606362"
+      },
+      "duration": 7,
+      "user_count": 0,
+      "owner_id": "83160533866",
+      "owner_nickname": "条子",
+      "is_original": false
+    },
+    "video": {
+      "play_addr": {
+        "uri": "v0d00fg10000ckr4oi3c77u3000mqn80",
+        "url_list": [
+          "https://www.douyin.com/aweme/v1/play/?video_id=v0d00fg10000ckr4oi3c77u3000mqn80&line=0&file_id=b61dffe646234c2d878ad146ff3b0f84&sign=ee67beedc41d34486373772d1f75e814&is_play_url=1&source=PackSourceEnum_PUBLISH"
+        ],
+        "width": 1920,
+        "height": 1080,
+        "url_key": "v0d00fg10000ckr4oi3c77u3000mqn80_h264_1080p_6334292",
+        "data_size": 5624852,
+        "file_hash": "ee67beedc41d34486373772d1f75e814",
+        "file_cs": "c:0-7318-308e|d:0-2812425-a706,2812426-5624851-2694|a:v0d00fg10000ckr4oi3c77u3000mqn80"
+      },
+      "cover": {
+        "uri": "tos-cn-p-0015/o4zA2HNYFFXyyfbAnEDBAkNQhmIATEAgetYaSq",
+        "url_list": [
+          "sZtkmLJnK30efnC-WgFMn.png"
+        ],
+        "width": 720,
+        "height": 720
+      },
+      "height": 1080,
+      "width": 1920,
+      "ratio": "1080p",
+      "duration": 7104,
+      "horizontal_type": 1
+    },
+    "share_url": "https://www.iesdouyin.com/share/video/7293100687989148943/?region=CN&mid=7293100719706606362&u_code=13kgm680k&did=MS4wLjABAAAAiOgYyZm8XbWZMr5o3OvhR-TEOuNygb_hQOwkie-VXJpDYaR4vZfpiIGBfAWKCFHB&iid=MS4wLjABAAAANwkJuWIRFOzg5uCpDRpMj4OX-QryoDgn-yYlXQnRwQQ&with_sec_did=1&titleType=&share_sign=_4aJPKwtrZCzJ3yBQv1bvbEo_Kmz_zQNYja43cXi.48-&share_version=170400&ts=1710489511&from_aid=6383&from_ssr=1",
+    "statistics": {
+      "admire_count": 11,
+      "comment_count": 14468,
+      "digg_count": 361226,
+      "collect_count": 39090,
+      "play_count": 0,
+      "share_count": 304604
+    },
+    "status": {
+      "listen_video_status": 0,
+      "is_delete": false,
+      "allow_share": true,
+      "is_prohibited": false,
+      "in_reviewing": false,
+      "part_see": 0,
+      "private_status": 0,
+      "review_result": {
+        "review_status": 0
+      }
+    },
+    "text_extra": [],
+    "is_top": 1,
+    "share_info": {
+      "share_url": "https://www.iesdouyin.com/share/video/7293100687989148943/?region=CN&mid=7293100719706606362&u_code=13kgm680k&did=MS4wLjABAAAAiOgYyZm8XbWZMr5o3OvhR-TEOuNygb_hQOwkie-VXJpDYaR4vZfpiIGBfAWKCFHB&iid=MS4wLjABAAAANwkJuWIRFOzg5uCpDRpMj4OX-QryoDgn-yYlXQnRwQQ&with_sec_did=1&titleType=&share_sign=_4aJPKwtrZCzJ3yBQv1bvbEo_Kmz_zQNYja43cXi.48-&share_version=170400&ts=1710489511&from_aid=6383&from_ssr=1",
+      "share_link_desc": "2.87 GiP:/ q@R.kc 07/09   %s 复制此链接，打开Dou音搜索，直接观看视频！"
+    },
+    "duration": 7104,
+    "image_infos": null,
+    "risk_infos": {
+      "vote": false,
+      "warn": false,
+      "risk_sink": false,
+      "type": 0,
+      "content": ""
+    },
+    "position": null,
+    "author_user_id": 83160533866,
+    "prevent_download": false,
+    "long_video": null,
+    "aweme_control": {
+      "can_forward": true,
+      "can_share": true,
+      "can_comment": true,
+      "can_show_comment": true
+    },
+    "images": null
+  },
+  {
+    "aweme_id": "7128686458763889956",
+    "desc": "你们爱看的又来了！《黑白战袍  双倍快乐》#战袍 #丢钱摇摆舞",
+    "create_time": 1659776662,
+    "music": {
+      "id": 7114247812346760000,
+      "title": "@E.T外星人街舞创作的原声",
+      "author": "E.T外星人街舞",
+      "cover_medium": {
+        "uri": "720x720/aweme-avatar/mosaic-legacy_3156d000cadb4a328bd3c",
+        "url_list": [
+          "https://p3-pc.douyinpic.com/aweme/720x720/aweme-avatar/mosaic-legacy_3156d000cadb4a328bd3c.jpeg?from=116350172"
+        ],
+        "width": 720,
+        "height": 720
+      },
+      "cover_thumb": {
+        "uri": "100x100/aweme-avatar/mosaic-legacy_3156d000cadb4a328bd3c",
+        "url_list": [
+          "https://p3-pc.douyinpic.com/aweme/100x100/aweme-avatar/mosaic-legacy_3156d000cadb4a328bd3c.jpeg?from=116350172"
+        ],
+        "width": 720,
+        "height": 720
+      },
+      "play_url": {
+        "uri": "https://sf5-hl-cdn-tos.douyinstatic.com/obj/ies-music/7114247810710604558.mp3",
+        "url_list": [
+          "https://sf5-hl-cdn-tos.douyinstatic.com/obj/ies-music/7114247810710604558.mp3",
+          "https://sf6-cdn-tos.douyinstatic.com/obj/ies-music/7114247810710604558.mp3"
+        ],
+        "width": 720,
+        "height": 720,
+        "url_key": "7114247812346759973"
+      },
+      "duration": 7,
+      "user_count": 0,
+      "owner_id": "58921834409",
+      "owner_nickname": "E.T外星人街舞",
+      "is_original": false
+    },
+    "video": {
+      "play_addr": {
+        "uri": "v0200fg10000cbn2sfbc77u0vpvt4ei0",
+        "url_list": [
+          "https://www.douyin.com/aweme/v1/play/?video_id=v0200fg10000cbn2sfbc77u0vpvt4ei0&line=0&file_id=692d7d4f382f40e8a571a40e35f0c887&sign=6acbd42bf63d4a70836d80e20afe60f7&is_play_url=1&source=PackSourceEnum_PUBLISH"
+        ],
+        "width": 1080,
+        "height": 1920,
+        "url_key": "v0200fg10000cbn2sfbc77u0vpvt4ei0_h264_1080p_1968470",
+        "data_size": 5193317,
+        "file_hash": "6acbd42bf63d4a70836d80e20afe60f7",
+        "file_cs": "c:0-24097-2b3e|d:0-2596657-0d26,2596658-5193316-23be|a:v0200fg10000cbn2sfbc77u0vpvt4ei0"
+      },
+      "cover": {
+        "uri": "tos-cn-p-0015/254cc2f4142c490697a3cedd195283ab_1659776667",
+        "url_list": [
+          "FL8H8KGmqTyGhOAFLQp14.png"
+        ],
+        "width": 720,
+        "height": 720
+      },
+      "height": 1920,
+      "width": 1080,
+      "ratio": "1080p",
+      "use_static_cover": false,
+      "duration": 21106
+    },
+    "share_url": "https://www.iesdouyin.com/share/video/7128686458763889956/?region=CN&mid=7114247812346759973&u_code=13kgm680k&did=MS4wLjABAAAAiOgYyZm8XbWZMr5o3OvhR-TEOuNygb_hQOwkie-VXJpDYaR4vZfpiIGBfAWKCFHB&iid=MS4wLjABAAAANwkJuWIRFOzg5uCpDRpMj4OX-QryoDgn-yYlXQnRwQQ&with_sec_did=1&titleType=title&share_sign=SELVg8Wyd9H7KERrJQG8kfe1Npi3rWJOtIvFaWXF4wk-&share_version=170400&ts=1710488945&from_aid=6383&from_ssr=1",
+    "statistics": {
+      "admire_count": 3,
+      "comment_count": 3324,
+      "digg_count": 213063,
+      "collect_count": 19801,
+      "play_count": 0,
+      "share_count": 39050
+    },
+    "status": {
+      "listen_video_status": 0,
+      "is_delete": false,
+      "allow_share": true,
+      "is_prohibited": false,
+      "in_reviewing": false,
+      "part_see": 0,
+      "private_status": 0,
+      "review_result": {
+        "review_status": 0
+      }
+    },
+    "text_extra": [
+      {
+        "start": 21,
+        "end": 24,
+        "type": 1,
+        "hashtag_name": "战袍",
+        "hashtag_id": "1605750455572509",
+        "is_commerce": false,
+        "caption_start": 0,
+        "caption_end": 0
+      },
+      {
+        "start": 25,
+        "end": 31,
+        "type": 1,
+        "hashtag_name": "丢钱摇摆舞",
+        "hashtag_id": "1737393107869707",
+        "is_commerce": false,
+        "caption_start": 0,
+        "caption_end": 0
+      }
+    ],
+    "is_top": 1,
+    "share_info": {
+      "share_url": "https://www.iesdouyin.com/share/video/7128686458763889956/?region=CN&mid=7114247812346759973&u_code=13kgm680k&did=MS4wLjABAAAAiOgYyZm8XbWZMr5o3OvhR-TEOuNygb_hQOwkie-VXJpDYaR4vZfpiIGBfAWKCFHB&iid=MS4wLjABAAAANwkJuWIRFOzg5uCpDRpMj4OX-QryoDgn-yYlXQnRwQQ&with_sec_did=1&titleType=title&share_sign=SELVg8Wyd9H7KERrJQG8kfe1Npi3rWJOtIvFaWXF4wk-&share_version=170400&ts=1710488945&from_aid=6383&from_ssr=1",
+      "share_link_desc": "9.99 TYZ:/ P@k.pq 01/04 你们爱看的又来了！《黑白战袍 双倍快乐》# 战袍 # 丢钱摇摆舞  %s 复制此链接，打开Dou音搜索，直接观看视频！"
+    },
+    "duration": 21106,
+    "image_infos": null,
+    "risk_infos": {
+      "vote": false,
+      "warn": false,
+      "risk_sink": false,
+      "type": 0,
+      "content": ""
+    },
+    "position": null,
+    "author_user_id": 2739632844317827,
+    "prevent_download": false,
+    "long_video": null,
+    "aweme_control": {
+      "can_forward": true,
+      "can_share": true,
+      "can_comment": true,
+      "can_show_comment": true
+    },
+    "images": null,
+    "suggest_words": {
+      "suggest_words": [
+        {
+          "words": [
+            {
+              "word": "白色战衣",
+              "word_id": "6614728916642829575",
+              "info": "{\"qrec_for_search\":\"{\\\"video_ecom\\\":\\\"1\\\",\\\"query_ecom\\\":\\\"1\\\"}\"}"
+            }
+          ],
+          "scene": "comment_top_rec",
+          "icon_url": "",
+          "hint_text": "大家都在搜：",
+          "extra_info": "{}"
+        },
+        {
+          "words": [
+            {
+              "word": "白色战衣",
+              "word_id": "6614728916642829575",
+              "info": "{\"qrec_for_search\":\"{\\\"video_ecom\\\":\\\"1\\\",\\\"query_ecom\\\":\\\"1\\\"}\"}"
+            }
+          ],
+          "scene": "detail_inbox_rex",
+          "icon_url": "",
+          "hint_text": "",
+          "extra_info": "{}"
+        }
+      ]
+    }
+  },
+  {
+    "aweme_id": "6923214072347512068",
+    "desc": "仿不来观音就仿个敦煌飞天吧~#有何不敢见观音 #敦煌壁画仿妆绝了",
+    "create_time": 1611936456,
+    "music": {
+      "id": 6832584550674091000,
+      "title": "@编曲太难了 - 任柯创作的原声",
+      "author": "编曲太难了 - 任柯",
+      "cover_medium": {
+        "uri": "720x720/aweme-avatar/mosaic-legacy_315090004b1df1c43716c",
+        "url_list": [
+          "https://p3-pc.douyinpic.com/aweme/720x720/aweme-avatar/mosaic-legacy_315090004b1df1c43716c.jpeg?from=116350172"
+        ],
+        "width": 720,
+        "height": 720
+      },
+      "cover_thumb": {
+        "uri": "100x100/aweme-avatar/mosaic-legacy_315090004b1df1c43716c",
+        "url_list": [
+          "https://p3-pc.douyinpic.com/aweme/100x100/aweme-avatar/mosaic-legacy_315090004b1df1c43716c.jpeg?from=116350172"
+        ],
+        "width": 720,
+        "height": 720
+      },
+      "play_url": {
+        "uri": "https://sf6-cdn-tos.douyinstatic.com/obj/ies-music/de298387187bc97d819bc4e07ec6e5d3.mp3",
+        "url_list": [
+          "https://sf6-cdn-tos.douyinstatic.com/obj/ies-music/de298387187bc97d819bc4e07ec6e5d3.mp3",
+          "https://sf5-hl-cdn-tos.douyinstatic.com/obj/ies-music/de298387187bc97d819bc4e07ec6e5d3.mp3"
+        ],
+        "width": 720,
+        "height": 720,
+        "url_key": "6832584550674090759"
+      },
+      "duration": 19,
+      "user_count": 0,
+      "owner_id": "64390442829",
+      "owner_nickname": "编曲太难了 - 任柯",
+      "is_original": false
+    },
+    "video": {
+      "play_addr": {
+        "uri": "v0300fe30000c0a35fnsml2qmkctkcsg",
+        "url_list": [
+          "https://www.douyin.com/aweme/v1/play/?video_id=v0300fe30000c0a35fnsml2qmkctkcsg&line=0&file_id=27fe563493c447dca8bcd98067b2a9b9&sign=bb8f5c705f6466d41de94434e182013e&is_play_url=1&source=PackSourceEnum_PUBLISH"
+        ],
+        "width": 720,
+        "height": 1280,
+        "url_key": "v0300fe30000c0a35fnsml2qmkctkcsg_h264_720p_1262855",
+        "data_size": 1597986,
+        "file_hash": "bb8f5c705f6466d41de94434e182013e",
+        "file_cs": "c:0-12314-6386|d:0-798992-b9db,798993-1597985-5335"
+      },
+      "cover": {
+        "uri": "tos-cn-p-0015/9975a3ff7baf4c4391da36112920574a",
+        "url_list": [
+          "zE-I6gDNlO7OyVRN1Rl7T.png"
+        ],
+        "width": 720,
+        "height": 720
+      },
+      "height": 1920,
+      "width": 1080,
+      "ratio": "720p",
+      "use_static_cover": false,
+      "duration": 10123
+    },
+    "share_url": "https://www.iesdouyin.com/share/video/6923214072347512068/?region=CN&mid=6832584550674090759&u_code=13kgm680k&did=MS4wLjABAAAAiOgYyZm8XbWZMr5o3OvhR-TEOuNygb_hQOwkie-VXJpDYaR4vZfpiIGBfAWKCFHB&iid=MS4wLjABAAAANwkJuWIRFOzg5uCpDRpMj4OX-QryoDgn-yYlXQnRwQQ&with_sec_did=1&titleType=title&share_sign=KkdpNFCQ6Y6dVUVYYBPJb1bwUr53Ndkd08.saJx4kro-&share_version=170400&ts=1710492054&from_aid=6383&from_ssr=1",
+    "statistics": {
+      "admire_count": 0,
+      "comment_count": 108509,
+      "digg_count": 3664300,
+      "collect_count": 113816,
+      "play_count": 0,
+      "share_count": 116835
+    },
+    "status": {
+      "listen_video_status": 0,
+      "is_delete": false,
+      "allow_share": true,
+      "is_prohibited": false,
+      "in_reviewing": false,
+      "part_see": 0,
+      "private_status": 0,
+      "review_result": {
+        "review_status": 0
+      }
+    },
+    "text_extra": [
+      {
+        "start": 14,
+        "end": 22,
+        "type": 1,
+        "hashtag_name": "有何不敢见观音",
+        "hashtag_id": "1689770054408232",
+        "is_commerce": false,
+        "caption_start": 0,
+        "caption_end": 0
+      },
+      {
+        "start": 23,
+        "end": 32,
+        "type": 1,
+        "hashtag_name": "敦煌壁画仿妆绝了",
+        "hashtag_id": "1714108974080003",
+        "is_commerce": false,
+        "caption_start": 0,
+        "caption_end": 0
+      }
+    ],
+    "is_top": 1,
+    "share_info": {
+      "share_url": "https://www.iesdouyin.com/share/video/6923214072347512068/?region=CN&mid=6832584550674090759&u_code=13kgm680k&did=MS4wLjABAAAAiOgYyZm8XbWZMr5o3OvhR-TEOuNygb_hQOwkie-VXJpDYaR4vZfpiIGBfAWKCFHB&iid=MS4wLjABAAAANwkJuWIRFOzg5uCpDRpMj4OX-QryoDgn-yYlXQnRwQQ&with_sec_did=1&titleType=title&share_sign=KkdpNFCQ6Y6dVUVYYBPJb1bwUr53Ndkd08.saJx4kro-&share_version=170400&ts=1710492054&from_aid=6383&from_ssr=1",
+      "share_link_desc": "9.20 ZZM:/ 03/10 x@F.hO 仿不来观音就仿个敦煌飞天吧~# 有何不敢见观音 # 敦煌壁画仿妆绝了  %s 复制此链接，打开Dou音搜索，直接观看视频！"
+    },
+    "duration": 10123,
+    "image_infos": null,
+    "risk_infos": {
+      "vote": false,
+      "warn": false,
+      "risk_sink": false,
+      "type": 0,
+      "content": ""
+    },
+    "position": null,
+    "author_user_id": 60043717321,
+    "prevent_download": false,
+    "long_video": null,
+    "aweme_control": {
+      "can_forward": true,
+      "can_share": true,
+      "can_comment": true,
+      "can_show_comment": true
+    },
+    "images": null,
+    "suggest_words": {
+      "suggest_words": [
+        {
+          "words": [
+            {
+              "word": "我是mc水观音",
+              "word_id": "6595861167791412488",
+              "info": "{\"qrec_for_search\":\"{}\"}"
+            }
+          ],
+          "scene": "detail_inbox_rex",
+          "icon_url": "",
+          "hint_text": "",
+          "extra_info": "{}"
+        }
+      ]
+    }
+  },
+  {
+    "aweme_id": "7005490661592026405",
+    "desc": "清凉爽口，凉菜界知名选手——拍黄瓜 #抖音美食创作人 ",
+    "create_time": 1631092941,
+    "music": {
+      "id": 7005490868798918000,
+      "title": "@李子柒创作的原声",
+      "author": "李子柒",
+      "cover_medium": {
+        "uri": "720x720/aweme-avatar/mosaic-legacy_330b002fd56a93e8b6f1",
+        "url_list": [
+          "https://p3-pc.douyinpic.com/aweme/720x720/aweme-avatar/mosaic-legacy_330b002fd56a93e8b6f1.jpeg?from=116350172"
+        ],
+        "width": 720,
+        "height": 720
+      },
+      "cover_thumb": {
+        "uri": "100x100/aweme-avatar/mosaic-legacy_330b002fd56a93e8b6f1",
+        "url_list": [
+          "https://p3-pc.douyinpic.com/aweme/100x100/aweme-avatar/mosaic-legacy_330b002fd56a93e8b6f1.jpeg?from=116350172"
+        ],
+        "width": 720,
+        "height": 720
+      },
+      "play_url": {
+        "uri": "https://sf5-hl-cdn-tos.douyinstatic.com/obj/ies-music/7005490870229338911.mp3",
+        "url_list": [
+          "https://sf5-hl-cdn-tos.douyinstatic.com/obj/ies-music/7005490870229338911.mp3",
+          "https://sf3-cdn-tos.douyinstatic.com/obj/ies-music/7005490870229338911.mp3"
+        ],
+        "width": 720,
+        "height": 720,
+        "url_key": "7005490868798917390"
+      },
+      "duration": 56,
+      "user_count": 0,
+      "owner_id": "68310389333",
+      "owner_nickname": "李子柒",
+      "is_original": false
+    },
+    "video": {
+      "play_addr": {
+        "uri": "v0300fg10000c4s7r3rc77u313isbq90",
+        "url_list": [
+          "https://www.douyin.com/aweme/v1/play/?video_id=v0300fg10000c4s7r3rc77u313isbq90&line=0&file_id=79a7251ebd49450e87dff8c6c2045193&sign=bfbfd045b09a5fffe2175c946ae37716&is_play_url=1&source=PackSourceEnum_PUBLISH"
+        ],
+        "width": 1920,
+        "height": 1080,
+        "url_key": "v0300fg10000c4s7r3rc77u313isbq90_h264_1080p_3432446",
+        "data_size": 24027125,
+        "file_hash": "bfbfd045b09a5fffe2175c946ae37716",
+        "file_cs": "c:0-72544-ab64|d:0-12013561-7e8e,12013562-24027124-0456|a:v0300fg10000c4s7r3rc77u313isbq90"
+      },
+      "cover": {
+        "uri": "tos-cn-i-0813/dec79ae450c643f59e7ac007bffac735",
+        "url_list": [
+          "B6zqJFdOWWsbZqYtqCxbM.png"
+        ],
+        "width": 720,
+        "height": 720
+      },
+      "height": 1080,
+      "width": 1920,
+      "ratio": "1080p",
+      "use_static_cover": true,
+      "duration": 56000,
+      "horizontal_type": 1
+    },
+    "share_url": "https://www.iesdouyin.com/share/video/7005490661592026405/?region=CN&mid=7005490868798917390&u_code=13kgm680k&did=MS4wLjABAAAAiOgYyZm8XbWZMr5o3OvhR-TEOuNygb_hQOwkie-VXJpDYaR4vZfpiIGBfAWKCFHB&iid=MS4wLjABAAAANwkJuWIRFOzg5uCpDRpMj4OX-QryoDgn-yYlXQnRwQQ&with_sec_did=1&titleType=title&share_sign=YM4fGcPXX3UAXUGDDS3qqzMmYOP4R5wlnXRqTmvFhvU-&share_version=170400&ts=1710480908&from_aid=6383&from_ssr=1",
+    "statistics": {
+      "admire_count": 0,
+      "comment_count": 72495,
+      "digg_count": 1175927,
+      "collect_count": 34025,
+      "play_count": 0,
+      "share_count": 36331
+    },
+    "status": {
+      "listen_video_status": 0,
+      "is_delete": false,
+      "allow_share": true,
+      "is_prohibited": false,
+      "in_reviewing": false,
+      "part_see": 0,
+      "private_status": 0,
+      "review_result": {
+        "review_status": 0
+      }
+    },
+    "text_extra": [
+      {
+        "start": 18,
+        "end": 26,
+        "type": 1,
+        "hashtag_name": "抖音美食创作人",
+        "hashtag_id": "1674623569250317",
+        "is_commerce": false,
+        "caption_start": 0,
+        "caption_end": 0
+      }
+    ],
+    "is_top": 0,
+    "share_info": {
+      "share_url": "https://www.iesdouyin.com/share/video/7005490661592026405/?region=CN&mid=7005490868798917390&u_code=13kgm680k&did=MS4wLjABAAAAiOgYyZm8XbWZMr5o3OvhR-TEOuNygb_hQOwkie-VXJpDYaR4vZfpiIGBfAWKCFHB&iid=MS4wLjABAAAANwkJuWIRFOzg5uCpDRpMj4OX-QryoDgn-yYlXQnRwQQ&with_sec_did=1&titleType=title&share_sign=YM4fGcPXX3UAXUGDDS3qqzMmYOP4R5wlnXRqTmvFhvU-&share_version=170400&ts=1710480908&from_aid=6383&from_ssr=1",
+      "share_link_desc": "9.48 rRk:/ 12/13 J@v.SY 清凉爽口，凉菜界知名选手——拍黄瓜 # 抖音美食创作人   %s 复制此链接，打开Dou音搜索，直接观看视频！"
+    },
+    "duration": 56000,
+    "image_infos": null,
+    "risk_infos": {
+      "vote": false,
+      "warn": false,
+      "risk_sink": false,
+      "type": 0,
+      "content": ""
+    },
+    "position": null,
+    "author_user_id": 68310389333,
+    "prevent_download": false,
+    "long_video": null,
+    "aweme_control": {
+      "can_forward": true,
+      "can_share": true,
+      "can_comment": true,
+      "can_show_comment": true
+    },
+    "images": null,
+    "suggest_words": {
+      "suggest_words": [
+        {
+          "words": [
+            {
+              "word": "李佳佳",
+              "word_id": "6595514035314103565",
+              "info": "{\"qrec_for_search\":\"{}\"}"
+            }
+          ],
+          "scene": "comment_top_rec",
+          "icon_url": "",
+          "hint_text": "大家都在搜：",
+          "extra_info": "{}"
+        },
+        {
+          "words": [
+            {
+              "word": "李佳佳",
+              "word_id": "6595514035314103565",
+              "info": "{\"qrec_for_search\":\"{}\"}"
+            }
+          ],
+          "scene": "detail_inbox_rex",
+          "icon_url": "",
+          "hint_text": "",
+          "extra_info": "{}"
+        }
+      ]
+    },
+    "video_tag": [
+      {
+        "tag_id": 2001,
+        "tag_name": "美食",
+        "level": 1
+      },
+      {
+        "tag_id": 2001007,
+        "tag_name": "美食展示",
+        "level": 2
+      },
+      {
+        "tag_id": 2001007001,
+        "tag_name": "普通美食展示",
+        "level": 3
+      }
+    ]
+  },
+  {
+    "aweme_id": "7094870216416447744",
+    "desc": "与生俱来的羁绊，别被岁月的小偷拆散  #我心中最好的妈妈",
+    "create_time": 1651903204,
+    "music": {
+      "id": 6951229812707019000,
+      "title": "记忆停留",
+      "author": "蓝心羽",
+      "cover_medium": {
+        "uri": "tos-cn-v-2774c002/d29257b2a8fe4af6889b9fd08b277120",
+        "url_list": [
+          "https://p11.douyinpic.com/aweme/200x200/tos-cn-v-2774c002/d29257b2a8fe4af6889b9fd08b277120.jpeg",
+          "https://p3.douyinpic.com/aweme/200x200/tos-cn-v-2774c002/d29257b2a8fe4af6889b9fd08b277120.jpeg"
+        ],
+        "width": 720,
+        "height": 720
+      },
+      "cover_thumb": {
+        "uri": "tos-cn-v-2774c002/d29257b2a8fe4af6889b9fd08b277120",
+        "url_list": [
+          "https://p11.douyinpic.com/aweme/100x100/tos-cn-v-2774c002/d29257b2a8fe4af6889b9fd08b277120.jpeg",
+          "https://p3.douyinpic.com/aweme/100x100/tos-cn-v-2774c002/d29257b2a8fe4af6889b9fd08b277120.jpeg"
+        ],
+        "width": 720,
+        "height": 720
+      },
+      "play_url": {
+        "uri": "https://sf3-cdn-tos.douyinstatic.com/obj/tos-cn-ve-2774/e1ae3b10baad4ddd98eafb85c39f39d5",
+        "url_list": [
+          "https://sf3-cdn-tos.douyinstatic.com/obj/tos-cn-ve-2774/e1ae3b10baad4ddd98eafb85c39f39d5",
+          "https://sf5-hl-cdn-tos.douyinstatic.com/obj/tos-cn-ve-2774/e1ae3b10baad4ddd98eafb85c39f39d5"
+        ],
+        "width": 720,
+        "height": 720,
+        "url_key": "6951229812707018759"
+      },
+      "duration": 20,
+      "user_count": 0,
+      "owner_id": "62723822455",
+      "owner_nickname": "",
+      "is_original": true
+    },
+    "video": {
+      "play_addr": {
+        "uri": "v0d00fg10000c9r0h6jc77u4odr941ig",
+        "url_list": [
+          "https://www.douyin.com/aweme/v1/play/?video_id=v0d00fg10000c9r0h6jc77u4odr941ig&line=0&file_id=8bf9ef73d8214b12bd213de349ff0eb3&sign=549ad270c321940da066cbbb26bc5025&is_play_url=1&source=PackSourceEnum_PUBLISH"
+        ],
+        "width": 1080,
+        "height": 1920,
+        "url_key": "v0d00fg10000c9r0h6jc77u4odr941ig_h264_1080p_1226363",
+        "data_size": 1551810,
+        "file_hash": "549ad270c321940da066cbbb26bc5025",
+        "file_cs": "c:0-12261-0187|d:0-775904-4aaf,775905-1551809-5740|a:v0d00fg10000c9r0h6jc77u4odr941ig"
+      },
+      "cover": {
+        "uri": "tos-cn-p-0015/cb7b6d969e1e4d9a802fd47993c2a794_1651903208",
+        "url_list": [
+          "ePgMHa9z0yD97JjROSm0K.png"
+        ],
+        "width": 720,
+        "height": 720
+      },
+      "height": 1920,
+      "width": 1080,
+      "ratio": "1080p",
+      "use_static_cover": true,
+      "duration": 10123
+    },
+    "share_url": "https://www.iesdouyin.com/share/video/7094870216416447744/?region=CN&mid=6951229812707018759&u_code=13kgm680k&did=MS4wLjABAAAAiOgYyZm8XbWZMr5o3OvhR-TEOuNygb_hQOwkie-VXJpDYaR4vZfpiIGBfAWKCFHB&iid=MS4wLjABAAAANwkJuWIRFOzg5uCpDRpMj4OX-QryoDgn-yYlXQnRwQQ&with_sec_did=1&titleType=title&share_sign=_.WBeq3B8GSIN3MYCJblYER15_AjbvTY94bZOLj9.OA-&share_version=170400&ts=1710492180&from_aid=6383&from_ssr=1",
+    "statistics": {
+      "admire_count": 0,
+      "comment_count": 76,
+      "digg_count": 18811,
+      "collect_count": 215,
+      "play_count": 0,
+      "share_count": 84
+    },
+    "status": {
+      "listen_video_status": 0,
+      "is_delete": false,
+      "allow_share": true,
+      "is_prohibited": false,
+      "in_reviewing": false,
+      "part_see": 0,
+      "private_status": 0,
+      "review_result": {
+        "review_status": 0
+      }
+    },
+    "text_extra": [
+      {
+        "start": 19,
+        "end": 28,
+        "type": 1,
+        "hashtag_name": "我心中最好的妈妈",
+        "hashtag_id": "1699224719640591",
+        "is_commerce": false,
+        "caption_start": 0,
+        "caption_end": 0
+      }
+    ],
+    "is_top": 1,
+    "share_info": {
+      "share_url": "https://www.iesdouyin.com/share/video/7094870216416447744/?region=CN&mid=6951229812707018759&u_code=13kgm680k&did=MS4wLjABAAAAiOgYyZm8XbWZMr5o3OvhR-TEOuNygb_hQOwkie-VXJpDYaR4vZfpiIGBfAWKCFHB&iid=MS4wLjABAAAANwkJuWIRFOzg5uCpDRpMj4OX-QryoDgn-yYlXQnRwQQ&with_sec_did=1&titleType=title&share_sign=_.WBeq3B8GSIN3MYCJblYER15_AjbvTY94bZOLj9.OA-&share_version=170400&ts=1710492180&from_aid=6383&from_ssr=1",
+      "share_link_desc": "7.46 H@i.Px iCH:/ 07/05 与生俱来的羁绊，别被岁月的小偷拆散 # 我心中最好的妈妈  %s 复制此链接，打开Dou音搜索，直接观看视频！"
+    },
+    "duration": 10123,
+    "image_infos": null,
+    "risk_infos": {
+      "vote": false,
+      "warn": false,
+      "risk_sink": false,
+      "type": 0,
+      "content": ""
+    },
+    "position": null,
+    "author_user_id": 61069823274,
+    "prevent_download": false,
+    "long_video": null,
+    "aweme_control": {
+      "can_forward": true,
+      "can_share": true,
+      "can_comment": true,
+      "can_show_comment": true
+    },
+    "images": null
+  }
+]
