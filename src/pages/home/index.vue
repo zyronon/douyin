@@ -112,7 +112,7 @@
             </SlideItem>
             <Slide2 :active="state.navIndex === 2 && state.baseIndex === 1"/>
             <SlideItem>
-              <Shop/>
+              <LongVideo/>
             </SlideItem>
             <Slide4 :active="state.navIndex === 4 && state.baseIndex === 1"/>
           </SlideHorizontal>
@@ -218,6 +218,7 @@ import Slide2 from "@/pages/home/slide/Slide2.vue";
 import Slide4 from "@/pages/home/slide/Slide4.vue";
 import {DefaultUser} from "@/utils/const_var";
 import {$no} from "@/utils";
+import LongVideo from "@/pages/home/slide/LongVideo.vue";
 
 const nav = useNav()
 const store = useStore()
@@ -227,7 +228,7 @@ const bodyHeight = computed(() => store.state.bodyHeight)
 const bodyWidth = computed(() => store.state.bodyWidth)
 
 const state = reactive({
-  baseIndex: 0,
+  baseIndex: 1,
   navIndex: 4,
   test: '',
   recommendList: [

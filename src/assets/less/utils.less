@@ -85,7 +85,7 @@ margin
 }
 
 .mb(7);
-.mb(@n, @i: 1) when (@i =< @n) {
+.mb(@n, @i: 0) when (@i =< @n) {
   .mb@{i}r {
     margin-bottom: (10rem * @i) !important;
   }

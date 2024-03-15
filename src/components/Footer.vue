@@ -1,5 +1,5 @@
 <template>
-  <div v-if="visible" class="footer">
+  <div v-if="visible" class="footer" :class="{isWhite}">
     <div class="l-button" @click="refresh(1)">
       <span v-if="!isRefresh1" :class="{active:currentTab===1}">首页</span>
       <img v-if="isRefresh1 " src="../assets/img/icon/refresh1.png" alt="" class="refresh">
@@ -28,7 +28,7 @@ import bus, {EVENT_KEY} from "../utils/bus";
 
 export default {
   name: "Footer",
-  props: ['initTab'],
+  props: ['initTab', 'isWhite'],
   data() {
     return {
       isRefresh1: false,
@@ -98,6 +98,11 @@ export default {
   color: white;
   display: flex;
   //justify-content: space-between;
+
+  &.isWhite {
+    background: white!important;
+    color: #000!important;
+  }
 
   .l-button {
     width: 20%;

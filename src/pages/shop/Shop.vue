@@ -1,40 +1,89 @@
 <template>
   <div id="Shop">
-    <div class="bg">
-      <div class="top"></div>
-      <div class="bottom"></div>
-    </div>
-    <div class="search">
-      <div class="search-input">
-        <img src="@/assets/img/icon/search-gray.png" alt="">
-        <div class="placeholder">50元话费充值</div>
-        <img src="@/assets/img/icon/scan-gray.png" alt="">
-        <div class="search-notice">搜索</div>
-      </div>
-      <div class="more">
-        <img src="@/assets/img/icon/category-gray.png" alt="">
-        <span>更多</span>
+    <div class="wrapper">
+      <div class="search">
+        <div class="search-input">
+          <Icon icon="tabler:search"/>
+          <div class="placeholder">50元话费充值</div>
+          <Icon color="gray" icon="lucide:camera"/>
+          <div class="search-notice">搜索</div>
+        </div>
+        <div class="more">
+          <Icon icon="ep:shopping-cart"/>
+        </div>
       </div>
     </div>
     <Scroll class="Scroll"
             fixedHeight="100"
             @fixed="e=>state.fixed = e"
             @pulldown="loadData">
-      <div class="options">
-        <div class="option">
-          <img src="@/assets/img/icon/scan-gray.png" alt="">
-          <span>我的订单 快捷查单</span>
+      <div class="wrapper">
+        <div class="card">
+          <div class="options">
+            <div class="option" @click="$no">
+              <Icon icon="lets-icons:order-light"/>
+              <div>我的订单</div>
+            </div>
+            <div class="option" @click="$no">
+              <Icon icon="material-symbols-light:charging-station-outline"/>
+              <div>手机充值</div>
+            </div>
+            <div class="option" @click="$no">
+              <Icon icon="lucide:message-square-quote"/>
+              <div>购物消息</div>
+            </div>
+            <div class="option" @click="$no">
+              <Icon icon="fluent:location-16-regular"/>
+              <div>小时达</div>
+            </div>
+            <div class="option" @click="$no">
+              <Icon icon="ri:refund-2-fill"/>
+              <div>退款/售后</div>
+            </div>
+            <div class="option" @click="$no">
+              <Icon icon="icon-park-outline:clothes-turtleneck"/>
+              <div>潮流服饰</div>
+            </div>
+          </div>
         </div>
-        <div class="option">
-          <img src="@/assets/img/icon/scan-gray.png" alt="">
-          <span>购物车 空空如也</span>
+        <div class="card" style="margin-bottom: 5rem;">
+          <div class="baiyibutie">
+            <div class="item">
+              <img src="@/assets/img/icon/shop/baiyibutie.png" alt="">
+              <span>38节补贴</span>
+            </div>
+            <div class="item">
+              <img src="@/assets/img/icon/shop/1.webp" alt="">
+              <span class="price">
+              <span class="m">￥</span>
+              <span>470</span>
+            </span>
+            </div>
+            <div class="item">
+              <img src="@/assets/img/icon/shop/2.webp" alt="">
+              <span class="price">
+              <span class="m">￥</span>
+              <span>699</span>
+            </span>
+            </div>
+            <div class="item">
+              <img src="@/assets/img/icon/shop/3.png" alt="">
+              <span class="price">
+              <span class="m">￥</span>
+              <span>8.8</span>
+            </span>
+            </div>
+            <div class="item">
+              <img src="@/assets/img/icon/shop/4.jpg" alt="">
+              <span class="price">
+              <span class="m">￥</span>
+              <span>2.99</span>
+            </span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="navs">
-        <div class="wrapper">
-          <div class="nav" v-for="i in 20">推荐</div>
-        </div>
-      </div>
+
       <div v-masonry class="goods-list"
            :class="{fixed:state.fixed}"
            transition-duration="0s"
@@ -42,7 +91,7 @@
         <div v-masonry-tile class="goods"
              @click="nav('/shop/detail')"
              v-for="(item, index) in  state.list">
-          <div class="card">
+          <div class="item">
             <img class="poster" :src="Utils.$imgPreview(item.cover)"/>
             <div class="bottom">
               <div class="desc">
@@ -67,12 +116,15 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="jsx">
+
 import {onMounted, reactive} from "vue";
-import Utils from "@/utils";
+import {useNav} from "@/utils/hooks/useNav";
+import api from "@/api";
+import SlideList from "@/pages/home/slide/SlideList.vue";
+import Utils, {$no} from "@/utils";
 import Scroll from "@/components/Scroll.vue";
 import goods from "@/assets/data/goods";
-import {useNav} from "@/utils/hooks/useNav";
 
 const nav = useNav()
 const state = reactive({
@@ -110,31 +162,14 @@ onMounted(() => {
 
 #Shop {
   font-size: 14rem;
-  color: white;
-  padding-top: @header-height;
   position: relative;
   background: @fColor;
+  background: #f1f1f1;
+  padding: 10rem 5rem;
+  color: black;
 
-  .bg {
-    top: 0;
-    position: absolute;
-    width: 100vw;
-    height: 30vh;
-    //background: red;
-
-    @th: 70%;
-    @eColor: rgb(32, 28, 58);
-
-    .top {
-      height: @th;
-      background: linear-gradient(to bottom, rgb(56, 30, 77), @eColor);
-    }
-
-    .bottom {
-      height: 100% - @th;
-      background: red;
-      background: linear-gradient(to bottom, @eColor, @fColor);
-    }
+  .wrapper {
+    padding: 0 5rem;
   }
 
   .search {
@@ -142,20 +177,22 @@ onMounted(() => {
     z-index: 2;
     display: flex;
     align-items: center;
-    height: @header-height;
-    padding: 9rem 20rem;
+    height: 36rem;
     box-sizing: border-box;
+    margin-bottom: 10rem;
 
-    img {
-      width: 20rem;
+    svg {
+      font-size: 22rem;
     }
 
     .search-input {
-      border: 3rem solid rgb(140, 48, 74);
+      border: 1rem solid rgb(140, 48, 74);
       border-radius: 8rem;
       height: 100%;
       padding: 0 10rem;
+      padding-right: 3rem;
       flex: 1;
+      gap: 10rem;
       display: flex;
       align-items: center;
 
@@ -168,12 +205,19 @@ onMounted(() => {
       }
 
       .search-notice {
-        color: rgb(242, 62, 92);
+        background: rgb(242, 62, 92);
+        padding: 0 10rem;
+        height: 85%;
+        border-radius: 6rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
       }
     }
 
     .more {
-      margin-left: 20rem;
+      margin-left: 10rem;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -182,50 +226,66 @@ onMounted(() => {
     }
   }
 
+  .card {
+    background: white;
+    padding: 10rem 15rem;
+    margin-bottom: 10rem;
+    border-radius: 8rem;
+  }
+
   .options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20rem;
-    height: 40rem;
-    padding: 4rem 20rem;
+    display: flex;
+    overflow-x: auto;
     box-sizing: border-box;
 
-    img {
-      width: 20rem;
-      margin-right: 10rem;
-    }
-
     .option {
+      width: 17vw;
+      flex-shrink: 0;
       font-size: 13rem;
-      flex: 1;
       display: flex;
-      background: rgb(63, 58, 78);
-      padding: 6rem 8rem;
-      border-radius: 6rem;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      svg {
+        font-size: 30rem;
+        margin-bottom: 3rem;
+      }
     }
   }
 
-  .navs {
-    overflow: auto;
-    padding: 0 10rem;
+  .baiyibutie {
+    display: flex;
 
-    .wrapper {
+    .item {
       display: flex;
-      //flex-wrap: wrap;
-    }
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 25%;
+      font-size: 12rem;
+      color: gray;
 
-    .nav {
-      margin: 10rem;
-      word-break: keep-all;
-      //border-bottom: 2rem solid white;
+      img {
+        width: 80%;
+      }
+
+      .price {
+        color: red;
+        font-size: 16rem;
+        font-weight: bold;
+
+        .m {
+          font-size: 10rem;
+        }
+      }
     }
   }
 
   .Scroll {
     position: relative;
     z-index: 2;
-    //height: calc(100vh - @header-height) !important;
-    height: calc(100vh - @header-height * 2 - @footer-height) !important;
+    height: calc(100vh - @footer-height * 2) !important;
   }
 
   .fixed {
@@ -235,15 +295,15 @@ onMounted(() => {
   @p: 5rem;
 
   .goods-list {
-    padding: @p;
+    padding-bottom: 20rem;
   }
 
   .goods {
-    width: calc(50% - @p);
+    width: 50%;
     box-sizing: border-box;
     padding: 5rem;
 
-    .card {
+    .item {
       border-radius: 8rem;
       overflow: hidden;
       background: white;

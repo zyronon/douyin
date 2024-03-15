@@ -1,22 +1,59 @@
 <template>
-  <div class="goods-detail base-page">
-    <header>
-      <Icon
-          @click="$back()"
-          icon="material-symbols-light:arrow-back-ios-new"/>
-      <div class="right">
-        <div class="search">
-          <Icon icon="jam:search"/>
-          <div class="placeholder">多功能电源插座</div>
-        </div>
-        <div class="option">
-          <Icon icon="jam:search"/>
-          <Icon icon="mynaui:star"/>
-          <Icon icon="ph:share-fat"/>
+  <div class="goods-detail base-page"
+       ref="page"
+       @scroll="scroll"
+  >
+    <header ref="header">
+      <div class="top">
+        <Icon
+            @click="$back()"
+            icon="material-symbols-light:arrow-back-ios-new"/>
+        <div class="right">
+          <div class="search">
+            <Icon icon="jam:search"/>
+            <div class="placeholder">多功能电源插座</div>
+          </div>
+          <div class="option">
+            <Icon icon="jam:search"/>
+            <Icon icon="mynaui:star"/>
+            <Icon icon="ph:share-fat"/>
+          </div>
         </div>
       </div>
     </header>
-    <div class="imgs">
+    <header class="shadow" ref="headerShadow">
+      <div class="top">
+        <Icon
+            @click="$back()"
+            icon="material-symbols-light:arrow-back-ios-new"/>
+        <div class="right">
+          <div class="search">
+            <Icon icon="jam:search"/>
+            <div class="placeholder">多功能电源插座</div>
+          </div>
+          <div class="option">
+            <Icon icon="mynaui:star"/>
+            <Icon icon="ph:share-fat"/>
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="tab active">
+          <div class="text">商品</div>
+        </div>
+        <div class="tab">
+          <div class="text">评价</div>
+        </div>
+        <div class="tab">
+          <div class="text">详情</div>
+        </div>
+        <div class="tab">
+          <div class="text">推荐</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="slide-imgs">
       <SlideHorizontal v-model:index="state.index">
         <SlideItem v-for="item in state.detail.imgs">
           <img :src="item" alt="">
@@ -24,7 +61,7 @@
       </SlideHorizontal>
       <div class="index">{{ state.index + 1 }}/{{ state.detail.imgs.length }}</div>
     </div>
-    <div class="content">
+    <div class="content p">
       <div class="info">
         <div class="price-wrap">
           <div class="price">
@@ -50,7 +87,7 @@
           <div class="label">保障</div>
           <div class="desc">
             假一赔四·运费险·极速退款
-            <Icon class="right-arrow" icon="mingcute:right-line"/>
+            <Icon class="arrow" icon="mingcute:right-line"/>
           </div>
         </div>
         <div class="item">
@@ -67,14 +104,7 @@
                 <div class="count">共3种规格可选</div>
               </div>
             </div>
-            <Icon class="right-arrow" icon="mingcute:right-line"/>
-          </div>
-        </div>
-        <div class="item">
-          <div class="label">活动</div>
-          <div class="desc">
-            <div class="ellipsis">优惠新人券 立减4新人券立减4新人券立减4新人券 立减4新人券 立减4</div>
-            <Icon class="right-arrow" icon="mingcute:right-line"/>
+            <Icon class="arrow" icon="mingcute:right-line"/>
           </div>
         </div>
         <div class="item">
@@ -85,7 +115,21 @@
               <span style="color: #dedede">|</span>
               <span>免运费</span>
             </div>
-            <div>48小时内发货</div>
+            <div class="flex space-between mb1r mt1r">
+              <div>48小时内发货</div>
+              <Icon class="arrow" icon="mingcute:right-line"/>
+            </div>
+            <div class="flex space-between mt1r">
+              <div class="gray">送至 四川省成都市</div>
+              <Icon class="arrow" icon="mingcute:right-line"/>
+            </div>
+          </div>
+        </div>
+        <div class="item mb0r">
+          <div class="label">参数</div>
+          <div class="desc">
+            <div class="ellipsis">优惠新人券 立减4新人券立减4新人券立减4新人券 立减4新人券 立减4</div>
+            <Icon class="arrow" icon="mingcute:right-line"/>
           </div>
         </div>
       </div>
@@ -93,7 +137,7 @@
       <div class="card comments">
         <header>
           <span>商品评论(507)</span>
-          <Icon class="right-arrow" icon="mingcute:right-line"/>
+          <Icon class="arrow" icon="mingcute:right-line"/>
         </header>
         <div class="tags">
           <div class="tag">物美价廉 <span class="gray">29</span></div>
@@ -111,7 +155,7 @@
               <div class="d">
                 东西不错质量也很好 性价比很高 良心商家就冲这图必须给好评
               </div>
-              <div class="gray">
+              <div class="c2">
                 china款/超值【买る双+送2双】共5双
               </div>
             </div>
@@ -131,7 +175,7 @@
                 <div class="tag">好评过千</div>
                 <div class="tag">销量超10万</div>
               </div>
-              <div class="gray">店铺口碑4.90分</div>
+              <div class="c2">店铺口碑4.90分</div>
             </div>
             <div class="r">进店</div>
           </div>
@@ -139,17 +183,17 @@
 
         <div class="desc">
           <div class="grid">
-            <div class="gray">商品质量</div>
+            <div class="c2">商品质量</div>
             <div>商品评价一般</div>
           </div>
           <div class="line"></div>
           <div class="grid">
-            <div class="gray">物流速度</div>
+            <div class="c2">物流速度</div>
             <div>平均24小时发货</div>
           </div>
           <div class="line"></div>
           <div class="grid">
-            <div class="gray">商品质量</div>
+            <div class="c2">商品质量</div>
             <div>商品评价一般</div>
           </div>
         </div>
@@ -159,13 +203,13 @@
             <span class="left">店铺推荐</span>
             <div class="right">
               <span class="gray">查看全部</span>
-              <Icon class="right-arrow" icon="mingcute:right-line"/>
+              <Icon class="arrow" icon="mingcute:right-line"/>
             </div>
           </header>
           <div class="wrap">
             <div class="item" v-for="i in 4">
               <img src="https://cdn.seovx.com/ha/?mom=302" alt="" class="avatar">
-              <div class="name"></div>
+              <div class="name">【热销中】袜子男潮流百搭中筒袜子袜子男潮流百搭中筒袜子</div>
               <div class="price">
                 <span class="symbol">￥</span>
                 <span class="int">8</span>
@@ -176,16 +220,104 @@
         </div>
       </div>
     </div>
+
+    <div class="img-list" v-if="true">
+      <header>
+        <div class="l"></div>
+        <span class="gray">商品详情</span>
+        <div class="r"></div>
+      </header>
+
+      <div class="imgs">
+        <img v-lazy="`https://cdn.seovx.com/ha/?mom=302&d=${i}`" alt="" class="avatar" v-for="i in 5">
+      </div>
+    </div>
+
+    <div class="p">
+      <div class="card other-desc">
+        <div class="item"
+             :class="activeIndexs.includes(i) && 'active'"
+             @click="toggle(i)"
+             v-for="(item,i) in 3">
+          <header>
+            <div class="l">价格说明</div>
+            <Icon class="arrow" icon="mingcute:right-line"/>
+          </header>
+          <div class="text">
+            价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明价格说明
+          </div>
+        </div>
+      </div>
+
+      <div class="other-recommend">
+        <header>
+          你可以还会喜欢
+        </header>
+
+        <div v-masonry class="goods-list"
+             :class="{fixed:state.fixed}"
+             transition-duration="0s"
+             item-selector=".goods">
+          <div v-masonry-tile class="goods"
+               @click="nav('/shop/detail')"
+               v-for="(item, index) in  state.list">
+            <div class="item">
+              <img class="poster" v-lazy="Utils.$imgPreview(item.cover)"/>
+              <div class="bottom">
+                <div class="desc">
+                  {{ item.name }}
+                </div>
+                <div class="discounts" v-if="item.discount">{{ item.discount }}</div>
+                <div class="info">
+                  <div class="price">
+                    ￥
+                    <div class="big">{{ item.price }}</div>
+                  </div>
+                  <div class="num">已售{{ item.sold }}件</div>
+                </div>
+                <div class="low" v-if="item.isLowPrice">
+                  近30天低价
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="options">
+        <div class="option">
+          <Icon icon="iconoir:shop-window"/>
+          <div class="text">进店</div>
+        </div>
+        <div class="option">
+          <Icon icon="icon-park-outline:message-emoji"/>
+          <div class="text">客服</div>
+        </div>
+        <div class="option">
+          <Icon icon="icon-park-outline:shopping"/>
+          <div class="text">购物车</div>
+        </div>
+      </div>
+      <div class="btns">
+        <div class="btn">加入购物车</div>
+        <div class="btn">领券购买</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import SlideHorizontal from "@/components/slide/SlideHorizontal.vue";
 import SlideItem from "@/components/slide/SlideItem.vue";
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
 import goods from "@/assets/data/goods";
 import {useNav} from "@/utils/hooks/useNav";
+import Utils from "@/utils";
 
+let activeIndexs = ref([])
 const nav = useNav()
 const props = defineProps({
   id: {
@@ -193,69 +325,156 @@ const props = defineProps({
     default: () => ''
   }
 })
+let page = ref()
+let header = ref()
+let headerShadow = ref()
+
+function scroll() {
+  let d = page.value.scrollTop / 200
+  // console.log('s', d, header.value)
+  if (d > 0) {
+    header.value.style.opacity = 1 - d
+  } else {
+    header.value.style.opacity = 1 - d
+  }
+  headerShadow.value.style.opacity = d
+}
 
 const state = reactive({
   detail: goods.list[1],
-  index: 2
+  index: 2,
+  list: goods.list,
+  listEl: null,
+  fixed: false
 })
+
+function toggle(i) {
+  let rIndex = activeIndexs.value.findIndex(v => v === i)
+  if (rIndex > -1) {
+    activeIndexs.value.splice(rIndex, 1)
+  } else {
+    activeIndexs.value.push(i)
+  }
+}
 </script>
 
 <style scoped lang="less">
 @import "@/assets/less/index.less";
 
 .goods-detail {
+  background: #f5f5f5;
   color: black;
   font-size: 14rem;
+  @c: #a2a2a2;
+  @c2: #c0c0c0;
+  @red: rgb(248, 38, 74);
 
   & > header {
-    background: white;
-    height: @header-height;
-    display: flex;
-    align-items: center;
-    padding: 0 10rem;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    z-index: 9;
 
-    svg {
-      font-size: 22rem;
-      background: rgba(176, 176, 176, 0.5);
-      padding: 5rem;
-      border-radius: 50%;
-    }
-
-    .right {
-      margin-left: 10rem;
-      flex: 1;
+    .top {
+      height: @header-height;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      padding: 0 10rem;
 
-      .search {
-        font-size: 12rem;
-        border-radius: 20rem;
-        padding: 5rem 10rem;
+      svg {
+        font-size: 22rem;
+        background: rgba(176, 176, 176, 0.4);
+        padding: 5rem;
+        color: white;
+        border-radius: 50%;
+      }
+
+      .right {
+        margin-left: 10rem;
         flex: 1;
-        background: rgb(243, 243, 243);
         display: flex;
         align-items: center;
-        color: gray;
+        justify-content: space-between;
 
-        svg {
-          padding: 0;
-          background: unset;
+        .search {
+          font-size: 12rem;
+          border-radius: 20rem;
+          padding: 5rem 10rem;
+          flex: 1;
+          background: rgb(243, 243, 243);
+          display: flex;
+          align-items: center;
+          color: gray;
+          visibility: hidden;
+
+          svg {
+            padding: 0;
+            background: unset;
+          }
+        }
+
+        .option {
+          margin-left: 15rem;
+          display: flex;
+          align-items: center;
+          gap: 8rem;
+        }
+      }
+    }
+
+    .bottom {
+      display: flex;
+      display: none;
+
+      .tab {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #646464;
+
+        .text {
+          padding: 10rem 0;
+          padding-bottom: 15rem;
         }
       }
 
-      .option {
-        margin-left: 20rem;
-        display: flex;
-        align-items: center;
-        gap: 20rem;
+      .active {
+        color: black;
+
+        .text {
+          border-bottom: 2.5rem solid black;
+        }
       }
     }
   }
 
-  .imgs {
+  .shadow {
+    opacity: 0;
+    background: white;
+
+    svg {
+      background: unset !important;
+      color: black !important;
+    }
+
+    .search {
+      svg {
+        color: gray !important;
+      }
+
+      visibility: unset !important;
+    }
+
+    .bottom {
+      display: flex;
+    }
+  }
+
+  .slide-imgs {
     position: relative;
-    height: 30vh;
+    height: 55vh;
 
     img {
       height: 100%;
@@ -276,16 +495,42 @@ const state = reactive({
     }
   }
 
+  .p {
+    padding: 8rem;
+  }
+
+  .gray {
+    color: @c;
+  }
+
+  .c2 {
+    color: @c2;
+    font-size: 13rem;
+  }
+
+  .card {
+    margin: 5rem;
+    margin-bottom: 10rem;
+    background: white;
+    border-radius: 10rem;
+    padding: 10rem 15rem;
+  }
+
+  .arrow {
+    font-size: 18rem;
+    color: @c;
+  }
+
   .content {
     //background: rgb(247, 247, 249);
     background: #f5f5f5;
-    padding: 8rem;
+    padding-bottom: 0;
     border-radius: 16rem 16rem 0 0;
     transform: translateY(-20rem);
 
     .price {
       color: red;
-      font-weight: bold;
+      font-weight: 900;
 
       .symbol {
         font-size: 16rem;
@@ -312,12 +557,14 @@ const state = reactive({
 
         .discount {
           margin-left: 10rem;
-          color: rgb(248, 38, 74);
+          //color: rgb(248, 38, 74);
+          color: white !important;
           display: flex;
           align-items: flex-end;
           padding: 2rem 15rem;
           padding-bottom: 4rem;
-          background: rgb(255 167 183 / 25%);
+          //background: rgb(255 167 183 / 25%);
+          background: rgb(248, 38, 74);
           border-radius: 20rem;
 
           .text {
@@ -325,6 +572,7 @@ const state = reactive({
           }
 
           .price {
+            color: white !important;
             margin-top: -6rem;
             transform: translateY(4rem);
           }
@@ -336,7 +584,7 @@ const state = reactive({
         font-size: 16rem;
         margin-bottom: 8rem;
         overflow: hidden;
-        font-weight: bold;
+        font-weight: 900;
         letter-spacing: 1rem;
       }
 
@@ -346,24 +594,6 @@ const state = reactive({
       }
     }
 
-    .card {
-      margin: 5rem;
-      margin-bottom: 10rem;
-      background: white;
-      border-radius: 10rem;
-      padding: 10rem 15rem;
-    }
-
-    @c: #a2a2a2;
-
-    .gray {
-      color: @c;
-    }
-
-    .right-arrow {
-      font-size: 18rem;
-      color: @c;
-    }
 
     .desc-wrapper {
       .item {
@@ -446,8 +676,8 @@ const state = reactive({
         align-items: center;
 
         span {
-          font-size: 18rem;
-          font-weight: bold;
+          font-size: 16rem;
+          font-weight: 900;
         }
       }
 
@@ -525,12 +755,13 @@ const state = reactive({
 
             .name {
               font-size: 16rem;
-              font-weight: bold;
+              font-weight: 900;
             }
 
             .tags {
               display: flex;
-              font-size: 12rem;
+              font-size: 10rem;
+              font-weight: 900;
               gap: 10rem;
 
               .tag {
@@ -548,7 +779,7 @@ const state = reactive({
           .r {
             border-radius: 4rem;
             padding: 5rem 14rem;
-            font-weight: bold;
+            font-weight: 900;
             background: @primary-btn-color;
             color: white;
           }
@@ -564,10 +795,13 @@ const state = reactive({
         .grid {
           width: 33%;
           text-align: center;
+          font-size: 13rem;
+          font-weight: bold;
 
-          .gray {
+          .c2 {
+            font-weight: normal;
             font-size: 12rem;
-            margin-bottom: 3rem;
+            margin-bottom: 6rem;
           }
         }
 
@@ -587,7 +821,7 @@ const state = reactive({
           justify-content: space-between;
 
           .left {
-            font-weight: bold;
+            font-weight: 900;
           }
 
           .right {
@@ -611,6 +845,14 @@ const state = reactive({
               width: 100%;
             }
 
+            .name {
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box; //作为弹性伸缩盒子模型显示。
+              -webkit-box-orient: vertical; //设置伸缩盒子的子元素排列方式--从上到下垂直排列
+              -webkit-line-clamp: 2; //显示的行
+            }
+
             .price {
               .symbol {
                 font-size: 14rem;
@@ -630,6 +872,228 @@ const state = reactive({
         }
       }
     }
+  }
+
+  .img-list {
+    background: #f5f5f5;
+
+    & > header {
+      font-size: 16rem;
+      padding-bottom: 20rem;
+      display: flex;
+      justify-content: center;
+      gap: 10rem;
+      align-items: center;
+
+      .l {
+        width: 0;
+        height: 0;
+        border-right: 40px solid @c;
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+      }
+
+      .r {
+        .l;
+        border-left: 40px solid @c;
+        border-right: unset;
+      }
+    }
+
+    .imgs {
+      img {
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+
+  .other-desc {
+    .item {
+      & > header {
+        padding: 15rem 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .text {
+        display: none;
+      }
+
+      &.active {
+        .text {
+          display: block;
+        }
+      }
+
+      &:last-child {
+        & > header {
+          padding-bottom: 10rem;
+        }
+      }
+
+      &:first-child {
+        & > header {
+          padding-top: 10rem;
+        }
+      }
+    }
+  }
+
+  .other-recommend {
+    margin-bottom: 60rem;
+
+    & > header {
+      padding: 15rem;
+      padding-bottom: 5rem;
+      font-weight: 900;
+      font-size: 15rem;
+    }
+
+    @fColor: #f1f1f1;
+
+    .fixed {
+      background: @fColor;
+    }
+
+    @p: 5rem;
+
+    .goods-list {
+      padding-bottom: 20rem;
+    }
+
+    .goods {
+      width: 50%;
+      box-sizing: border-box;
+      padding: 5rem;
+
+      .item {
+        border-radius: 8rem;
+        overflow: hidden;
+        background: white;
+
+        img {
+          width: 100%;
+        }
+
+        .bottom {
+          padding: 10rem;
+
+          .desc {
+            color: black;
+            font-size: 16rem;
+            margin-bottom: 8rem;
+            @lh: 18rem;
+            line-height: @lh;
+            height: @lh * 2;
+            overflow: hidden;
+          }
+
+          .discounts {
+            display: inline-block;
+            @c: rgb(199, 89, 106);
+            border: 1rem solid @c;
+            padding: 0 4rem;
+            color: @c;
+            font-size: 12rem;
+            margin-bottom: 4rem;
+          }
+
+          .info {
+            display: flex;
+            align-items: flex-end;
+
+            .price {
+              color: rgb(248, 38, 74);
+              display: flex;
+              align-items: flex-end;
+              font-size: 14rem;
+              margin-right: 5rem;
+
+              .big {
+                font-size: 22rem;
+                font-weight: 900;
+                transform: translateY(2rem);
+              }
+            }
+
+            .num {
+              color: darkgray;
+              font-size: 12rem;
+            }
+          }
+
+          .low {
+            margin-top: 2rem;
+            color: rgb(230, 153, 92);
+          }
+        }
+      }
+    }
+  }
+
+  .toolbar {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    left: 0;
+    background: white;
+    display: flex;
+    padding: 10rem;
+    box-sizing: border-box;
+    gap: 6rem;
+
+    .options {
+      flex: 1;
+      display: flex;
+
+      .option {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-size: 11rem;
+        color: #646464;
+
+        svg {
+          font-size: 18rem;
+        }
+
+        &:first-child {
+          svg {
+            color: red;
+          }
+        }
+      }
+    }
+
+    .btns {
+      width: 60%;
+      display: flex;
+      font-size: 15rem;
+      font-weight: bold;
+      background: @red;
+      color: white;
+      border-radius: 12rem;
+      overflow: hidden;
+      height: 45rem;
+
+      .btn {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:first-child {
+          color: @red;
+          background: rgb(255, 233, 237);
+        }
+      }
+
+    }
+
   }
 }
 
