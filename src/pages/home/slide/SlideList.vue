@@ -94,7 +94,7 @@ async function getData(refresh = false) {
   if (loading.value) return
   store.commit('setLoading', true)
   let res = await props.api({pageNo: refresh ? 0 : state.pageNo, pageSize: state.pageSize})
-  console.log('getSlide4Data-', 'refresh', refresh, res)
+  // console.log('getSlide4Data-', 'refresh', refresh, res)
   store.commit('setLoading', false)
   if (res.code === 200) {
     state.totalSize = res.data.total

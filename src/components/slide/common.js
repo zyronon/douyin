@@ -29,7 +29,7 @@ export function canSlide(state, judgeValue, type = SlideType.HORIZONTAL) {
     if (Math.abs(state.move.x) > judgeValue || Math.abs(state.move.y) > judgeValue) {
       let angle = (Math.abs(state.move.x) * 10) / (Math.abs(state.move.y) * 10)
       state.next = type === SlideType.HORIZONTAL ? angle > 1 : angle <= 1;
-      console.log('angle', angle, state.next)
+      // console.log('angle', angle, state.next)
       state.needCheck = false
     } else {
       return false

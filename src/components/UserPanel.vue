@@ -4,24 +4,25 @@
        ref="page">
     <div ref="float" class="float" :class="state.floatFixed?'fixed':''">
       <div class="left" @click="$emit('back')">
-        <img class="back" src="@/assets/img/icon/next.svg" alt="">
+        <Icon class="icon" icon="eva:arrow-ios-back-fill"/>
         <transition name="fade">
           <div class="float-user" v-if="state.floatFixed">
-            <img v-lazy="Utils.$imgPreview(props.currentItem.user.avatar_thumb.url_list[0])" class="avatar"/>
-            <img v-if="!props.currentItem.user.follow_status" src="@/assets/img/icon/add-light.png" alt="" class="add">
-            <span @click="followButton">{{ props.currentItem.user.follow_status ? '私信' : '关注' }}</span>
+            <img v-lazy="Utils.$imgPreview(props.currentItem.author.avatar_168x168.url_list[0])" class="avatar"/>
+            <img v-if="!props.currentItem.author.follow_status" src="@/assets/img/icon/add-light.png" alt=""
+                 class="add">
+            <span @click="followButton">{{ props.currentItem.author.follow_status ? '私信' : '关注' }}</span>
           </div>
         </transition>
       </div>
       <div class="right">
         <transition name="fade">
-          <div class="request" v-if="!state.floatFixed && props.currentItem.user.is_follow">
+          <div class="request" v-if="!state.floatFixed && props.currentItem.author.is_follow">
             <img @click="$nav('/me/request-update')" src="@/assets/img/icon/me/finger-right.png" alt="">
             <span>求更新</span>
           </div>
         </transition>
-        <img class="menu" src="@/assets/img/icon/search-light.png" alt="">
-        <img class="menu" src="@/assets/img/icon/more.svg" alt="" @click.stop="$emit('showFollowSetting')">
+        <Icon class="icon" icon="ion:search"/>
+        <Icon class="icon" icon="ri:more-line" @click.stop="$emit('showFollowSetting')"/>
       </div>
     </div>
     <div class="main"
@@ -32,24 +33,25 @@
       <!--   src="@/assets/img/header-bg.png"   -->
       <header>
         <img
-            :style="{opacity:props.currentItem.user.cover_url[0].url_list.length?1:0}"
+            :style="{opacity:props.currentItem.author.cover_url[0].url_list.length?1:0}"
             ref="cover"
-            :src="props.currentItem.user.cover_url[0].url_list[0]"
-            @click="state.previewImg = props.currentItem.user.cover_url[0].url_list[0]"
+            :src="$checkImgUrl(props.currentItem.author.cover_url[0].url_list[0])"
+            @click="state.previewImg = $checkImgUrl(props.currentItem.author.cover_url[0].url_list[0])"
             alt=""
             class="cover">
         <div class="avatar-wrapper">
-          <img v-lazy="Utils.$imgPreview(props.currentItem.user.avatar_thumb.url_list[0])" class="avatar"
-               @click="state.previewImg = props.currentItem.user.avatar_thumb.url_list[0]">
+          <img v-lazy="$checkImgUrl(props.currentItem.author.avatar_168x168.url_list[0])" class="avatar"
+               @click="state.previewImg = $checkImgUrl(props.currentItem.author.avatar_300x300.url_list[0])">
           <div class="description">
-            <div class="name f22 mb1r">{{ props.currentItem.user.nickname }}</div>
-            <div class="certification" v-if="props.currentItem.user.certification ">
+            <div class="name f22 mb1r">{{ props.currentItem.author.nickname }}</div>
+            <div class="certification" v-if="props.currentItem.author.certification ">
               <img src="@/assets/img/icon/me/certification.webp">
-              {{ props.currentItem.user.certification }}
+              {{ props.currentItem.author.certification }}
             </div>
             <div class="number" v-else>
-              <span>抖音号：{{ props.currentItem.user.short_id }}</span>
-              <img src="@/assets/img/icon/me/copy.png" alt="" @click.stop="Utils.copy">
+              <span>抖音号：{{ props.currentItem.author.unique_id || props.currentItem.author.short_id }}</span>
+              <img src="@/assets/img/icon/me/copy.png" alt=""
+                   @click.stop="Utils.copy(props.currentItem.author.unique_id || props.currentItem.author.short_id)">
             </div>
           </div>
         </div>
@@ -57,49 +59,47 @@
       <div class="info">
         <div class="heat">
           <div class="text">
-            <span class="num">{{ Utils.formatNumber(props.currentItem.user.total_favorited) }}</span>
+            <span class="num">{{ Utils.formatNumber(props.currentItem.author.total_favorited) }}</span>
             <span>获赞</span>
           </div>
           <div class="text">
-            <span class="num">{{ Utils.formatNumber(props.currentItem.user.following_count) }}</span>
+            <span class="num">{{ Utils.formatNumber(props.currentItem.author.following_count) }}</span>
             <span>关注</span>
           </div>
           <div class="text">
-            <span class="num">{{ Utils.formatNumber(props.currentItem.user.mplatform_followers_count) }}</span>
+            <span class="num">{{ Utils.formatNumber(props.currentItem.author.mplatform_followers_count) }}</span>
             <span>粉丝</span>
           </div>
         </div>
 
-        <div class="signature f12" v-if="props.currentItem.user.signature">
-          <div class="text" v-html="props.currentItem.user.signature"></div>
+        <div class="signature f12" v-if="props.currentItem.author.signature">
+          <div class="text" v-html="props.currentItem.author.signature"></div>
         </div>
         <div class="more">
-          <div class="age item" v-if="props.currentItem.user.user_age !== -1">
-            <img v-if="props.currentItem.user.gender" src="@/assets/img/icon/me/man.png" alt="">
-            <img v-else src="@/assets/img/icon/me/woman.png" alt="">
-            <span>{{ props.currentItem.user.user_age }}岁</span>
+          <div class="age item" v-if="props.currentItem.author.user_age !== -1">
+            <img v-if="props.currentItem.author.gender == 1" src="@/assets/img/icon/me/man.png" alt="">
+            <img v-if="props.currentItem.author.gender == 2" src="@/assets/img/icon/me/woman.png" alt="">
+            <span>{{ props.currentItem.author.user_age }}岁</span>
           </div>
-          <div class="item" v-if="props.currentItem.user.ip_location">
-            {{ props.currentItem.user.ip_location }}
+          <div class="item" v-if="props.currentItem.author.ip_location">
+            {{ props.currentItem.author.ip_location }}
           </div>
-          <template v-else>
-            <div class="item" v-if="props.currentItem.user.province || props.currentItem.user.city">
-              {{ props.currentItem.user.province }}
-              <template v-if="props.currentItem.user.province &&  props.currentItem.user.city">
-                ·
-              </template>
-              {{ props.currentItem.user.city }}
-            </div>
-          </template>
-          <div class="item" v-if="props.currentItem.user.school?.name">
-            {{ props.currentItem.user.school?.name }}
+          <div class="item" v-if="props.currentItem.author.province || props.currentItem.author.city">
+            {{ props.currentItem.author.province }}
+            <template v-if="props.currentItem.author.province &&  props.currentItem.author.city">
+              ·
+            </template>
+            {{ props.currentItem.author.city }}
+          </div>
+          <div class="item" v-if="props.currentItem.author.school?.name">
+            {{ props.currentItem.author.school?.name }}
           </div>
         </div>
       </div>
       <template v-if="props.currentItem.isRequest">
         <div class="other">
           <div class="scroll-x" @touchmove="stop">
-            <div class="item" v-for="item in props.currentItem.user.card_entries">
+            <div class="item" v-for="item in props.currentItem.author.card_entries">
               <img :src="item.icon_dark.url_list[0]" alt="">
               <div class="right">
                 <div class="top">{{ item.title }}</div>
@@ -111,8 +111,9 @@
 
         <div class="my-buttons">
           <div class="follow-display">
-            <div class="follow-wrapper" :class="props.currentItem.user.follow_status ? 'follow-wrapper-followed' : ''">
-              <div class="no-follow" @click="props.currentItem.user.follow_status = 1">
+            <div class="follow-wrapper"
+                 :class="props.currentItem.author.follow_status ? 'follow-wrapper-followed' : ''">
+              <div class="no-follow" @click="props.currentItem.author.follow_status = 1">
                 <img src="@/assets/img/icon/add-white.png" alt="">
                 <span>关注</span>
               </div>
@@ -144,7 +145,7 @@
           <div class="friends"
                @touchmove="stop">
             <div class="friend" v-for="item in friends.all">
-              <img :style="item.select?'opacity: .5;':''" class="avatar" :src="$imgPreview(item.avatar)" alt="">
+              <img :style="item.select?'opacity: .5;':''" class="avatar" :src="$checkImgUrl(item.avatar)" alt="">
               <span class="name">{{ item.name }}</span>
               <span class="tips">可能感兴趣的人</span>
               <dy-button type="primary">关注</dy-button>
@@ -162,11 +163,11 @@
         </div>
 
         <div class="total" ref="total">
-          作品 {{ props.currentItem.user.aweme_count }}
+          作品 {{ props.currentItem.author.aweme_count }}
           <img class="arrow" src="@/assets/img/icon/arrow-up-white.png" alt="">
         </div>
         <div class="videos">
-          <Posters v-if="props.currentItem.post.length" :list="props.currentItem.post"></Posters>
+          <Posters v-if="props.currentItem.aweme_list.length" :list="props.currentItem.aweme_list"></Posters>
         </div>
       </template>
     </div>
@@ -175,7 +176,7 @@
 
 <script setup>
 import {computed, onMounted, reactive, ref, watch} from "vue";
-import Utils from "@/utils";
+import Utils, {$checkImgUrl} from "@/utils";
 import {useNav} from "@/utils/hooks/useNav";
 import {useStore} from "vuex";
 import resource from "@/assets/data/resource";
@@ -191,9 +192,9 @@ const props = defineProps({
   currentItem: {
     type: Object,
     default: {
-      user: DefaultUser,
+      author: DefaultUser,
       isRequest: false,
-      post: [],
+      aweme_list: [],
     }
   },
   active: {
@@ -286,7 +287,7 @@ watch(() => props.active,
         let res = await api.user.profile()
         console.log('res', res)
         if (res.code === 200) {
-          res.data.post = res.data.post.map(v => {
+          res.data.aweme_list = res.data.aweme_list.map(v => {
             return {
               cover: v.video.cover.url_list[0],
               digg_count: v.statistics.digg_count,
@@ -294,7 +295,7 @@ watch(() => props.active,
             }
           })
           //去年保存的老数据有id。现在去网页版复制数据没id了。。。
-          res.data.user.unique_id = props.currentItem.user.unique_id
+          res.data.user.unique_id = props.currentItem.author.unique_id
           emit('update:currentItem', merge(props.currentItem, {...res.data, isRequest: true}))
         }
       }
@@ -993,21 +994,21 @@ function touchEnd(e) {
       }
     }
 
+    .icon {
+      color: white;
+      border-radius: 50%;
+      background: rgba(82, 80, 80, 0.5);
+      padding: 6rem;
+      font-size: 16rem;
+    }
+
     .left {
       display: flex;
       align-items: center;
 
-      .back {
-        transform: rotate(180deg);
-        border-radius: 50%;
-        background: rgba(82, 80, 80, 0.5);
-        padding: 6rem;
-        width: 18rem;
-      }
-
       .float-user {
         display: inline-flex;
-        margin-left: 32rem;
+        margin-left: 22rem;
         color: white;
         font-size: 12rem;
         align-items: center;
@@ -1034,6 +1035,7 @@ function touchEnd(e) {
       color: white;
       align-items: center;
       position: relative;
+      gap: 15rem;
 
       .request {
         font-size: 12rem;
@@ -1051,13 +1053,6 @@ function touchEnd(e) {
         }
       }
 
-      .menu {
-        margin-left: 15rem;
-        border-radius: 50%;
-        background: rgba(82, 80, 80, 0.5);
-        padding: 6rem;
-        width: 18rem;
-      }
     }
   }
 }

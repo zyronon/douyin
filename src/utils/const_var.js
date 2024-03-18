@@ -76,7 +76,10 @@ export const DefaultUser = {
       "url_list": []
     }
   ],
-  avatar_thumb: {
+  avatar_168x168: {
+    "url_list": []
+  },
+  avatar_300x300: {
     "url_list": []
   }
 }

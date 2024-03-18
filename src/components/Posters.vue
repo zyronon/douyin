@@ -2,10 +2,10 @@
   <div class="posters">
     <div class="poster-item" v-for="(i,index) in list" @click="$no">
       <!--       @click="$nav('/video-detail')"-->
-      <img class="poster" v-lazy="$imgPreview(i.cover)" alt="">
+      <img class="poster" v-lazy="$checkImgUrl(i.video.cover.url_list[0])" alt="">
       <div class="num" v-if="mode === 'normal'">
-        <img class="love" src="../assets/img/icon/love.svg" alt="">
-        <span>{{ formatNumber(i.digg_count) }}</span>
+        <Icon icon="icon-park-outline:like" />
+        <span>{{ formatNumber(i.statistics.digg_count) }}</span>
       </div>
       <div class="date" v-if="mode === 'date'">
         <div class="day">{{ getDay(i.create_time) }}</div>
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import {$checkImgUrl, $no} from "@/utils";
+
 export default {
   /*@click="$nav('/video-detail')"*/
   name: "Posters",
@@ -37,6 +39,8 @@ export default {
     }
   },
   methods: {
+    $no,
+    $checkImgUrl,
     getDay(time) {
       let date = new Date(time * 1000)
       return date.getDate()
@@ -91,6 +95,7 @@ export default {
     width: 100%;
     height: 100%;
     display: block;
+    object-fit: cover;
   }
 
   .music {
@@ -112,6 +117,7 @@ export default {
     display: flex;
     align-items: center;
     font-size: 14rem;
+    gap: 3rem;
 
     .love {
       width: 14rem;

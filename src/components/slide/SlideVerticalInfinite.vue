@@ -77,10 +77,12 @@ watch(
         if (oldVal.length === 0) {
           insertContent()
         } else {
-          let endIndex = oldVal.length + 3
-          let top = $(wrapperEl.value).find(`.${itemClassName}:last`).css('top')
-          newVal.slice(oldVal.length, endIndex).map((item, index) => {
-            let el = getInsEl(item, oldVal.length + index)
+          let lastSlideItem = $(wrapperEl.value).find(`.${itemClassName}:last`)
+          let top = lastSlideItem.css('top')
+          let lastIndex = Number(lastSlideItem.attr('data-index')) + 1
+          console.log('lastIndex', lastIndex)
+          newVal.slice(lastIndex, lastIndex + 3).map((item, index) => {
+            let el = getInsEl(item, lastIndex + index)
             //这里必须要设置个top值，不然会把前面的条目给覆盖掉
             //2022-3-27，这里不用计算，直接用已用slide-item最后一条的top值，
             //因为有一条情况：当滑动最后一条和二条的时候top值不会继续加。此时新增的数据如果还
@@ -121,7 +123,7 @@ watch(
       if (newVal && !props.list.length) {
         return emit('refresh')
       }
-      console.log('active', 'newVal', newVal, 'oldVal', oldVal)
+      // console.log('active', 'newVal', newVal, 'oldVal', oldVal)
       if (newVal) {
         bus.emit(EVENT_KEY.CURRENT_ITEM, props.list[state.localIndex])
       }

@@ -2,7 +2,6 @@
   <div class="video-wrapper" ref="videoWrapper" :class="positionName">
     <Loading v-if="loading" style="position: absolute"/>
     <!--    <video :src="item.video + '?v=123'"-->
-
     <video
         :src="item.video.play_addr.url_list[0]"
         :poster="$checkImgUrl(item.video.cover.url_list[0])"
@@ -61,7 +60,7 @@
         </div>
         <div class="bg"></div>
         <div class="progress-line" :style="durationStyle"></div>
-        <div class="point"></div>
+        <div class="point" v-if="duration > 15 || isMove"></div>
       </div>
     </div>
   </div>

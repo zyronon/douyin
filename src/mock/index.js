@@ -80,7 +80,7 @@ let t = [
 // }
 
 Mock.mock(/recommended/, options => {
-  console.log('recommended', options)
+  // console.log('recommended', options)
   let page = getPage(options)
   return Mock.mock({
     data: {

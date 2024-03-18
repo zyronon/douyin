@@ -128,7 +128,7 @@
             v-model:currentItem="state.currentItem"
             :active="state.baseIndex === 1"
             @toggleCanMove="e => state.canMove = e"
-            @back="state.baseIndex = 0"
+            @back="state.baseIndex = 1"
             @showFollowSetting="state.showFollowSetting = true"
             @showFollowSetting2="state.showFollowSetting2 = true"
         />
@@ -262,9 +262,9 @@ const state = reactive({
   commentVisible: false,
   fullScreen: false,
   currentItem: {
-    user: DefaultUser,
+    author: DefaultUser,
     isRequest: false,
-    post: [],
+    aweme_list: [],
   }
 })
 
@@ -275,23 +275,25 @@ function delayShowDialog(cb) {
 }
 
 function setCurrentItem(item) {
-  if (state.currentItem.user.unique_id !== item.author.unique_id) {
+  if (state.currentItem.author.uid !== item.author.uid) {
+    let id = item.author.unique_id || item.author.short_id
+    console.log('item', id)
     state.currentItem = {
       ...item,
-      user: {
-        ...DefaultUser,
-        desc: item.author.desc,
-        nickname: item.author.nickname,
-        unique_id: item.author.unique_id,
-      },
-      isRequest: false,
-      post: [],
+      isRequest: true,
+      aweme_list: [],
     }
+    fetch(`/data/user-${id}.json`).then(r => {
+      r.json().then(l => {
+        // console.log('k', l)
+        state.currentItem.aweme_list = l
+      })
+    })
+
   }
-  console.log('item', item)
+  // console.log('item', item)
 }
 
-bus.once(EVENT_KEY.CURRENT_ITEM, setCurrentItem)
 onMounted(() => {
   bus.on(EVENT_KEY.ENTER_FULLSCREEN, (e) => state.fullScreen = true)
   bus.on(EVENT_KEY.EXIT_FULLSCREEN, (e) => state.fullScreen = false)
@@ -308,7 +310,7 @@ onMounted(() => {
   })
   bus.on(EVENT_KEY.NAV, ({path, query}) => nav(path, query))
   bus.on(EVENT_KEY.GO_USERINFO, () => {
-    state.baseIndex = 1
+    state.baseIndex = 2
   })
   bus.once(EVENT_KEY.CURRENT_ITEM, setCurrentItem)
 })

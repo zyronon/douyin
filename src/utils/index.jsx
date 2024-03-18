@@ -411,16 +411,17 @@ const Utils = {
     bus.emit(EVENT_KEY.UPDATE_ITEM, {position: props.position, item: old})
   },
   copy(val) {
-    const input = document.createElement('input');
-    input.setAttribute('readonly', 'readonly');
-    input.setAttribute('value', val);
-    document.body.appendChild(input);
-    input.setSelectionRange(0, 9999);
-    if (document.execCommand('copy')) {
-      document.execCommand('copy');
+    let textarea = document.createElement('textarea');
+    document.body.appendChild(textarea);
+    textarea.style.position = 'absolute';
+    textarea.style.clip = 'rect(0 0 0 0)';
+    textarea.value = val;
+    textarea.select();
+    if (document.execCommand) {
+      document.execCommand('copy', true);
       this.$notice('已复制')
     }
-    document.body.removeChild(input);
+    document.body.removeChild(textarea);
   }
 }
 
