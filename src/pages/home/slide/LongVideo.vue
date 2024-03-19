@@ -1,6 +1,61 @@
 <script setup>
 
+import {computed, onMounted, onUnmounted, reactive, ref} from "vue";
+import {uniqueId} from "lodash";
+import api from "@/api";
+import {useStore} from "vuex";
+import {_checkImgUrl, _duration, _formatNumber} from "@/utils";
+
+const store = useStore()
+const loading = computed(() => store.state.loading)
+
+const p = {
+  onShowComments() {
+    console.log('onShowComments')
+  }
+}
+
+const listRef = ref(null)
+const state = reactive({
+  index: 0,
+  list: [],
+  uniqueId: uniqueId('uniqueId_'),
+  totalSize: 0,
+  pageSize: 10,
+  pageNo: 0,
+})
+
+function loadMore() {
+  if (!loading.value) {
+    state.pageNo++
+    getData()
+  }
+}
+
+async function getData(refresh = false) {
+  if (loading.value) return
+  store.commit('setLoading', true)
+  let res = await api.videos.recommended({pageNo: refresh ? 0 : state.pageNo, pageSize: state.pageSize})
+  // console.log('getSlide4Data-', 'refresh', refresh, res)
+  store.commit('setLoading', false)
+  if (res.code === 200) {
+    state.totalSize = res.data.total
+    if (refresh) {
+      state.list = []
+    }
+    state.list = state.list.concat(res.data.list)
+  } else {
+    state.pageNo--
+  }
+}
+
+onMounted(() => {
+  getData()
+})
+onUnmounted(() => {
+})
 </script>
+
 
 <template>
   <div class="page">
@@ -10,22 +65,25 @@
               i % 5 === 0 ? '' : (i % 2 === 1 && 'l'),
               i % 5 === 0 ? '' : (i % 2 === 0 && 'r'),
          ]"
-         v-for="(item,i) in 100">
+         v-for="(item,i) in state.list">
       <video
           controls
-          src="@/assets/video/0.mp4"></video>
-      <img v-lazy="`https://cdn.seovx.com/ha/?mom=302&d=${i}`" alt="" class="poster">
+          :poster="_checkImgUrl(item.video.cover.url_list[0])"
+          :src="item.video.play_addr.url_list[0]"
+      ></video>
+      <img v-lazy="_checkImgUrl(item.video.cover.url_list[0])" alt="" class="poster">
+      <div class="duration">{{ _duration(item.duration / 1000) }}</div>
       <div class="title">
-        哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+        {{ item.desc }}
       </div>
       <div class="bottom">
         <div class="l">
-          <img v-lazy="`https://cdn.seovx.com/ha/?mom=302&d=${i}`" alt="" class="avatar">
-          <div class="name">哈哈哈哈</div>
+          <img v-lazy="item.author.avatar_168x168.url_list[0]" alt="" class="avatar">
+          <div class="name">{{ item.author.nickname }}</div>
         </div>
         <div class="r">
           <Icon icon="icon-park-outline:like"/>
-          <div class="num">9.2万</div>
+          <div class="num">{{ _formatNumber(item.statistics.digg_count) }}</div>
         </div>
       </div>
     </div>
@@ -49,6 +107,7 @@
     display: flex;
     flex-direction: column;
     gap: 8rem;
+    position: relative;
 
     .poster {
       border-radius: 12rem;
@@ -81,12 +140,21 @@
       gap: 5rem;
     }
 
+    .duration {
+      color: white;
+      position: absolute;
+      bottom: 80rem;
+      right: 10rem;
+      font-size: 13rem;
+    }
+
     .bottom {
       color: gray;
       .f;
       font-size: 13rem;
 
       .l {
+
         .f;
 
         .avatar {
@@ -112,6 +180,10 @@
       grid-column-start: 1;
       grid-column-end: 3;
       margin: 0;
+
+      .duration {
+        display: none;
+      }
 
       .poster {
         display: none;

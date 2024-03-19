@@ -3,8 +3,8 @@
        @scroll="scroll"
        ref="page">
     <div ref="float" class="float" :class="state.floatFixed?'fixed':''">
-      <div class="left" @click="$emit('back')">
-        <Icon class="icon" icon="eva:arrow-ios-back-fill"/>
+      <div class="left">
+        <Icon @click="$emit('back')" class="icon" icon="eva:arrow-ios-back-fill"/>
         <transition name="fade">
           <div class="float-user" v-if="state.floatFixed">
             <img v-lazy="Utils.$imgPreview(props.currentItem.author.avatar_168x168.url_list[0])" class="avatar"/>
@@ -21,7 +21,7 @@
             <span>求更新</span>
           </div>
         </transition>
-        <Icon class="icon" icon="ion:search"/>
+        <Icon class="icon" icon="ion:search" @click.stop="$no()"/>
         <Icon class="icon" icon="ri:more-line" @click.stop="$emit('showFollowSetting')"/>
       </div>
     </div>
@@ -35,21 +35,21 @@
         <img
             :style="{opacity:props.currentItem.author.cover_url[0].url_list.length?1:0}"
             ref="cover"
-            :src="$checkImgUrl(props.currentItem.author.cover_url[0].url_list[0])"
-            @click="state.previewImg = $checkImgUrl(props.currentItem.author.cover_url[0].url_list[0])"
+            :src="_checkImgUrl(props.currentItem.author.cover_url[0].url_list[0])"
+            @click="state.previewImg = _checkImgUrl(props.currentItem.author.cover_url[0].url_list[0])"
             alt=""
             class="cover">
         <div class="avatar-wrapper">
-          <img v-lazy="$checkImgUrl(props.currentItem.author.avatar_168x168.url_list[0])" class="avatar"
-               @click="state.previewImg = $checkImgUrl(props.currentItem.author.avatar_300x300.url_list[0])">
+          <img v-lazy="_checkImgUrl(props.currentItem.author.avatar_168x168.url_list[0])" class="avatar"
+               @click="state.previewImg = _checkImgUrl(props.currentItem.author.avatar_300x300.url_list[0])">
           <div class="description">
-            <div class="name f22 mb1r">{{ props.currentItem.author.nickname }}</div>
+            <div class="name f22">{{ props.currentItem.author.nickname }}</div>
             <div class="certification" v-if="props.currentItem.author.certification ">
               <img src="@/assets/img/icon/me/certification.webp">
               {{ props.currentItem.author.certification }}
             </div>
             <div class="number" v-else>
-              <span>抖音号：{{ props.currentItem.author.unique_id || props.currentItem.author.short_id }}</span>
+              <span>抖音号：{{ _getUserDouyinId(props.currentItem) }}</span>
               <img src="@/assets/img/icon/me/copy.png" alt=""
                    @click.stop="Utils.copy(props.currentItem.author.unique_id || props.currentItem.author.short_id)">
             </div>
@@ -120,7 +120,7 @@
               <div class="followed">
                 <div class="l-button" @click="$emit('showFollowSetting2')">
                   <span>已关注</span>
-                  <img src="@/assets/img/icon/arrow-up-white.png" alt="">
+                  <Icon icon="bxs:down-arrow" class="arrow"/>
                 </div>
                 <div class="l-button" @click="$nav('/message/chat')">
                   <span>私信</span>
@@ -133,7 +133,7 @@
                @click="state.isShowRecommend = !state.isShowRecommend">
             <img v-if="state.loadings.showRecommend" class="loading" src="@/assets/img/icon/loading-gray.png"
                  alt="">
-            <img v-else class="arrow" src="@/assets/img/icon/arrow-up-white.png" alt="">
+            <Icon icon="bxs:down-arrow" v-else class="arrow"/>
           </div>
         </div>
 
@@ -145,7 +145,7 @@
           <div class="friends"
                @touchmove="stop">
             <div class="friend" v-for="item in friends.all">
-              <img :style="item.select?'opacity: .5;':''" class="avatar" :src="$checkImgUrl(item.avatar)" alt="">
+              <img :style="item.select?'opacity: .5;':''" class="avatar" :src="_checkImgUrl(item.avatar)" alt="">
               <span class="name">{{ item.name }}</span>
               <span class="tips">可能感兴趣的人</span>
               <dy-button type="primary">关注</dy-button>
@@ -176,7 +176,7 @@
 
 <script setup>
 import {computed, onMounted, reactive, ref, watch} from "vue";
-import Utils, {$checkImgUrl} from "@/utils";
+import Utils, {_checkImgUrl, $no, _getUserDouyinId} from "@/utils";
 import {useNav} from "@/utils/hooks/useNav";
 import {useStore} from "vuex";
 import resource from "@/assets/data/resource";
@@ -232,7 +232,7 @@ const state = reactive({
   lastMoveYDistance: 0,
   canTransformY: 0,
   startTime: 0,
-  floatHeight: 46,
+  floatHeight: 52,
   videos: {
     my: {
       list: [],
@@ -274,7 +274,7 @@ const state = reactive({
   start: {x: 0, y: 0, time: 0},
   move: {x: 0, y: 0},
   isTop: false,
-  coverHeight: 240,
+  coverHeight: 220,
   //能移动的高度
   canMoveMaxHeight: document.body.clientHeight / 4,
   //是否自动放大Cover
@@ -320,7 +320,7 @@ function scroll(e) {
   // console.log('scroll', page.value.scrollTop)
   let scrollTop = page.value.scrollTop
   let totalY = total.value.getBoundingClientRect().y
-  state.floatFixed = totalY <= 46
+  state.floatFixed = totalY <= state.floatHeight
   let isTop = scrollTop === 0
   if (isTop && state.isAutoScaleCover) {
     cover.value.style.transition = 'all .1s'
@@ -576,7 +576,7 @@ function touchEnd(e) {
       color: white;
 
       .cover {
-        height: 240rem;
+        height: 220rem;
         object-fit: cover;
         width: 100vw;
         //transition: height .3s;
@@ -594,10 +594,11 @@ function touchEnd(e) {
 
         .avatar {
           background: white;
-          padding: 2px;
+          padding: 2.5px;
           border-radius: 50%;
-          width: 80rem;
-          height: 80rem;
+          @w: 100rem;
+          width: @w;
+          height: @w;
         }
 
         .description {
@@ -750,6 +751,8 @@ function touchEnd(e) {
       justify-content: flex-end;
       align-items: center;
       @width: 36rem;
+      @gap: 6rem;
+      gap: @gap;
 
       .follow-display {
         flex: 1;
@@ -774,7 +777,6 @@ function touchEnd(e) {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 5rem;
             box-sizing: border-box;
 
             span {
@@ -787,26 +789,19 @@ function touchEnd(e) {
             display: flex;
             justify-content: space-around;
             align-items: center;
+            gap: @gap;
 
             .l-button {
               color: white;
-              border-radius: 4rem;
+              border-radius: 5rem;
               background: @second-btn-color;
               height: @width;
               width: 50%;
-              margin-right: 5rem;
               box-sizing: border-box;
               display: flex;
               align-items: center;
               justify-content: center;
-
-              span {
-                margin-left: 2rem;
-              }
-
-              img {
-                transform: rotate(180deg);
-              }
+              gap: @gap;
             }
           }
         }
@@ -832,7 +827,7 @@ function touchEnd(e) {
 
         &.option-recommend {
           .arrow {
-            transform: rotate(0deg);
+            transform: rotate(180deg);
           }
         }
       }
@@ -855,10 +850,7 @@ function touchEnd(e) {
 
       .arrow {
         transition: transform .3s ease;
-        transform: rotate(180deg);
-        @width: 16rem;
-        width: @width;
-        height: @width;
+        font-size: 13rem;
       }
     }
 
@@ -900,6 +892,7 @@ function touchEnd(e) {
           display: flex;
           flex-direction: column;
           align-items: center;
+          border-radius: 10rem;
 
           .avatar {
             @width: 100rem;
@@ -956,7 +949,7 @@ function touchEnd(e) {
       padding: 15rem 20rem;
       padding-top: 0rem;
       position: sticky;
-      top: 46rem;
+      top: 52rem;
       z-index: 2;
 
       img {
@@ -980,7 +973,7 @@ function touchEnd(e) {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 46rem;
+    height: 52rem;
     padding: 0 15rem;
     background: transparent;
     transition: all .2s;
@@ -999,7 +992,7 @@ function touchEnd(e) {
       border-radius: 50%;
       background: rgba(82, 80, 80, 0.5);
       padding: 6rem;
-      font-size: 16rem;
+      font-size: 18rem;
     }
 
     .left {

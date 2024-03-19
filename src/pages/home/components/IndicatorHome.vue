@@ -23,7 +23,7 @@
             <span>关注</span>
             <img src="../../../assets/img/icon/live.webp" class="tab2-img">
           </div>
-          <div class="tab" :class="{active:index === 3}" @click.stop="change(3)"><span>商城</span>
+          <div class="tab" :class="{active:index === 3}" @click.stop="change(3)"><span>长视频</span>
           </div>
           <div class="tab" :class="{active:index === 4}" @click.stop="change(4)"><span>推荐</span>
           </div>

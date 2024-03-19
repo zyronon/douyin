@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import {$checkImgUrl, $no} from "@/utils";
+import {_checkImgUrl, $no} from "@/utils";
 
 export default {
   /*@click="$nav('/video-detail')"*/
@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     $no,
-    $checkImgUrl,
+    $checkImgUrl: _checkImgUrl,
     getDay(time) {
       let date = new Date(time * 1000)
       return date.getDate()

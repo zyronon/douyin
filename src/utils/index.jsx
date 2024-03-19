@@ -435,7 +435,7 @@ export function $notice(val) {
   Utils.$notice(val)
 }
 
-export function $checkImgUrl(url) {
+export function _checkImgUrl(url) {
   // console.log(url)
   if (!url) return
   //本地图片
@@ -448,4 +448,15 @@ export function $checkImgUrl(url) {
   } else {
     return '/imgs/' + url
   }
+}
+
+export function _duration(num){
+  return Utils.$duration(num)
+}
+export function _formatNumber(num) {
+  return Utils.formatNumber(num)
+}
+
+export function _getUserDouyinId(item) {
+  return item.author.unique_id || item.author.short_id
 }

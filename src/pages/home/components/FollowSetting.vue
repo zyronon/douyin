@@ -11,8 +11,8 @@
     <div class="follow-setting-dialog">
       <div class="dialog-header">
         <div class="title-wrapper">
-          <span class="title">{{ currentItem.user.nickname }}</span>
-          <span class="subtitle">抖音号：{{ currentItem.user.short_id }}</span>
+          <span class="title">{{ currentItem.author.nickname }}</span>
+          <span class="subtitle">抖音号：{{ _getUserDouyinId(currentItem) }}</span>
         </div>
         <dy-back mode="dark" img="close" direction="right" @click="cancel()"></dy-back>
       </div>
@@ -79,6 +79,7 @@
 import FromBottomDialog from "../../../components/dialog/FromBottomDialog";
 import Switches from "../../message/components/swtich/switches";
 import {DefaultUser} from "@/utils/const_var";
+import {_getUserDouyinId} from "@/utils";
 
 export default {
   name: "FollowSetting",
@@ -107,6 +108,7 @@ export default {
   created() {
   },
   methods: {
+    _getUserDouyinId,
     cancel(cb) {
       this.$emit('update:modelValue', false)
       cb && cb()

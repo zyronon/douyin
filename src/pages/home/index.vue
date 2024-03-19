@@ -174,6 +174,7 @@
         v-model="state.showFollowSetting"/>
 
     <FollowSetting2
+        v-model:currentItem="state.currentItem"
         @cancelFollow="$refs.uploader.cancelFollow()"
         v-model="state.showFollowSetting2"/>
 
@@ -212,12 +213,11 @@ import FollowSetting2 from "@/pages/home/components/FollowSetting2.vue";
 import ShareToFriend from "@/pages/home/components/ShareToFriend.vue";
 import UserPanel from "@/components/UserPanel.vue";
 import Community from "@/pages/home/slide/Community.vue";
-import Shop from "@/pages/shop/Shop.vue";
 import Slide0 from "@/pages/home/slide/Slide0.vue";
 import Slide2 from "@/pages/home/slide/Slide2.vue";
 import Slide4 from "@/pages/home/slide/Slide4.vue";
 import {DefaultUser} from "@/utils/const_var";
-import {$no} from "@/utils";
+import {$no, _getUserDouyinId} from "@/utils";
 import LongVideo from "@/pages/home/slide/LongVideo.vue";
 
 const nav = useNav()
@@ -231,20 +231,7 @@ const state = reactive({
   baseIndex: 1,
   navIndex: 4,
   test: '',
-  recommendList: [
-    // {
-    //   type: 'img',
-    //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
-    // },
-    // {
-    //   type: 'user-imgs',
-    //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
-    // },
-    // {
-    //   type: 'user',
-    //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`
-    // },
-  ],
+  recommendList: [],
   isSharing: false,
   canMove: true,
   shareType: -1,
@@ -269,14 +256,12 @@ const state = reactive({
 })
 
 function delayShowDialog(cb) {
-  setTimeout(() => {
-    cb()
-  }, 400)
+  setTimeout(cb, 400)
 }
 
 function setCurrentItem(item) {
   if (state.currentItem.author.uid !== item.author.uid) {
-    let id = item.author.unique_id || item.author.short_id
+    let id = _getUserDouyinId(item)
     console.log('item', id)
     state.currentItem = {
       ...item,
@@ -312,8 +297,9 @@ onMounted(() => {
   bus.on(EVENT_KEY.GO_USERINFO, () => {
     state.baseIndex = 2
   })
-  bus.once(EVENT_KEY.CURRENT_ITEM, setCurrentItem)
+  bus.on(EVENT_KEY.CURRENT_ITEM, setCurrentItem)
 })
+
 onUnmounted(() => {
   bus.offAll()
 })

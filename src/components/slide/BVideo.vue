@@ -4,7 +4,7 @@
     <!--    <video :src="item.video + '?v=123'"-->
     <video
         :src="item.video.play_addr.url_list[0]"
-        :poster="$checkImgUrl(item.video.cover.url_list[0])"
+        :poster="_checkImgUrl(item.video.cover.url_list[0])"
         ref="video"
         muted
         preload
@@ -58,16 +58,18 @@
           <span class="currentTime">{{ LUtils.$duration(currentTime) }}</span>
           <span class="duration"> / {{ LUtils.$duration(duration) }}</span>
         </div>
-        <div class="bg"></div>
-        <div class="progress-line" :style="durationStyle"></div>
-        <div class="point" v-if="duration > 15 || isMove"></div>
+        <template v-if="duration > 15 || isMove">
+          <div class="bg"></div>
+          <div class="progress-line" :style="durationStyle"></div>
+          <div class="point"></div>
+        </template>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Utils, {$checkImgUrl} from '../../utils'
+import Utils, {_checkImgUrl} from '../../utils'
 import Loading from "../Loading";
 import ItemToolbar from "./ItemToolbar";
 import ItemDesc from "./ItemDesc";
@@ -241,7 +243,7 @@ export default {
     bus.off(EVENT_KEY.CLOSE_SUB_TYPE, this.onCloseSubType)
   },
   methods: {
-    $checkImgUrl,
+    _checkImgUrl,
     onOpenSubType() {
       this.commentVisible = true
     },
@@ -629,7 +631,7 @@ export default {
 
       @radius: 10rem;
 
-      @h: 1rem;
+      @h: 2rem;
       @tr: height .3s;;
 
       .bg {
@@ -637,7 +639,7 @@ export default {
         position: absolute;
         width: 100%;
         height: @h;
-        background: rgba(#000, .3);
+        background: #4f4f4f;
         border-radius: @radius;
       }
 
@@ -645,10 +647,10 @@ export default {
 
       .progress-line {
         transition: @tr;
-        height: @h;
+        height: calc(@h + 0.5rem);
         width: @p;
         border-radius: @radius 0 0 @radius;
-        background: rgba(#000, .8);
+        background: #777777;
         z-index: 1;
       }
 
@@ -688,7 +690,6 @@ export default {
 
       .bg {
         height: @h;
-        background: rgba(#000, .8);
       }
 
       .progress-line {

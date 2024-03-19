@@ -54,29 +54,7 @@ const render = useSlideListItemRender({...props.cbs, ...p})
 const listRef = ref(null)
 const state = reactive({
   index: 0,
-  list: [
-    // {
-    //   type: 'img',
-    //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`,
-    //   author: {
-    //     unique_id: uniqueId('list_')
-    //   }
-    // },
-    // {
-    //   type: 'user-imgs',
-    //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`,
-    //   author: {
-    //     unique_id: uniqueId('list_')
-    //   }
-    // },
-    // {
-    //   type: 'user',
-    //   src: `http://douyin.ttentau.top/0.mp4?vframe/jpg/offset/0/w/${document.body.clientWidth}`,
-    //   author: {
-    //     unique_id: uniqueId('list_')
-    //   }
-    // },
-  ],
+  list: [],
   uniqueId: uniqueId('uniqueId_'),
   totalSize: 0,
   pageSize: 10,
