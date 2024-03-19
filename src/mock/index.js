@@ -79,14 +79,20 @@ let t = [
 //     }))
 // }
 
+// fetch('/data/posts.json').then(r => {
+//   r.json().then(v => {
+//     allRecommendVideos = allRecommendVideos.concat(v)
+//   })
+// })
+
 Mock.mock(/recommended/, options => {
-  // console.log('recommended', options)
+  // console.log('recommended', allRecommendVideos.length)
   let page = getPage(options)
   return Mock.mock({
     data: {
       total: allRecommendVideos.length,
-      // list: allRecommendVideos.slice(page.offset, page.limit),
-      list: allRecommendVideos.slice(0, 6),
+      list: allRecommendVideos.slice(page.offset, page.limit),
+      // list: allRecommendVideos.slice(0, 6),
     }, code: 200, msg: '',
   })
 })
