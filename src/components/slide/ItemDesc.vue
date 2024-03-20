@@ -43,7 +43,7 @@ const state = reactive({
           <span>{{ props.item.address }}</span>
         </div>
       </div>
-      <div class="name mb1r fb" @click.stop="$emit('goUserInfo')">@{{ props.item.author.nickname }}</div>
+      <div class="name mb1r f18 fb" @click.stop="$emit('goUserInfo')">@{{ props.item.author.nickname }}</div>
       <div class="description mb1r">
         {{ props.item.desc }}
       </div>

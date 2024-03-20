@@ -1,6 +1,5 @@
 import globalMethods from "./index";
 import BaseHeader from "../components/BaseHeader";
-import SlideList from "../components/slide/SlideList";
 import SlideRowList from "../components/slide/SlideRowList";
 import SlideItem from "../components/slide/SlideItem";
 import Indicator from "../components/slide/Indicator";
@@ -22,7 +21,6 @@ export default {
   components: {
     BaseHeader,
     SlideHorizontal,
-    SlideList,
     SlideRowList,
     SlideItem,
     Indicator,

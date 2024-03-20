@@ -58,7 +58,7 @@
           <span class="currentTime">{{ LUtils.$duration(currentTime) }}</span>
           <span class="duration"> / {{ LUtils.$duration(duration) }}</span>
         </div>
-        <template v-if="duration > 15 || isMove">
+        <template v-if="duration > 15 || isMove || !isPlaying">
           <div class="bg"></div>
           <div class="progress-line" :style="durationStyle"></div>
           <div class="point"></div>

@@ -246,8 +246,9 @@ export default {
 
         .tab {
           transition: color .3s;
-          color: rgb(156, 158, 165);
+          color: rgba(white, .7);
           position: relative;
+          font-size: 17rem;
 
           .tab1-img {
             position: absolute;
@@ -281,7 +282,7 @@ export default {
       .indicator {
         //transition: left .3s;
         position: absolute;
-        bottom: -8rem;
+        bottom: -6rem;
         height: 2rem;
         width: 20rem;
         //width: calc(100% / 5);
