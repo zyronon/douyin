@@ -112,7 +112,7 @@
             </SlideItem>
             <Slide2 :active="state.navIndex === 2 && state.baseIndex === 1"/>
             <SlideItem>
-              <LongVideo/>
+              <LongVideo :active="state.navIndex === 3 && state.baseIndex === 1"/>
             </SlideItem>
             <Slide4 :active="state.navIndex === 4 && state.baseIndex === 1"/>
           </SlideHorizontal>
@@ -126,7 +126,7 @@
         <UserPanel
             ref="uploader"
             v-model:currentItem="state.currentItem"
-            :active="state.baseIndex === 1"
+            :active="state.baseIndex === 2"
             @toggleCanMove="e => state.canMove = e"
             @back="state.baseIndex = 1"
             @showFollowSetting="state.showFollowSetting = true"
@@ -198,7 +198,7 @@ import SlideItem from '@/components/slide/SlideItem.vue'
 import Comment from "../../components/Comment.vue";
 import Share from "../../components/Share.vue";
 import IndicatorHome from "./components/IndicatorHome.vue";
-import {computed, onMounted, onUnmounted, reactive} from "vue";
+import {computed, onActivated, onDeactivated, onMounted, onUnmounted, reactive} from "vue";
 import bus, {EVENT_KEY} from "../../utils/bus";
 import {useNav} from "@/utils/hooks/useNav";
 import {useStore} from "vuex";
@@ -260,21 +260,13 @@ function delayShowDialog(cb) {
 }
 
 function setCurrentItem(item) {
+  if (state.baseIndex !== 1) return
   if (state.currentItem.author.uid !== item.author.uid) {
-    let id = _getUserDouyinId(item)
-    console.log('item', id)
     state.currentItem = {
       ...item,
-      isRequest: true,
+      isRequest: false,
       aweme_list: [],
     }
-    fetch(`/data/user-${id}.json`).then(r => {
-      r.json().then(l => {
-        // console.log('k', l)
-        state.currentItem.aweme_list = l
-      })
-    })
-
   }
   // console.log('item', item)
 }

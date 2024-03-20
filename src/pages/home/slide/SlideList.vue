@@ -22,7 +22,7 @@ import bus, {EVENT_KEY} from "@/utils/bus";
 import Utils from "@/utils";
 import {useSlideListItemRender} from "@/utils/hooks/useSlideListItemRender";
 import {useStore} from "vuex";
-import {uniqueId} from "lodash";
+import {uniqueId} from "lodash-es";
 
 const props = defineProps({
   cbs: {
@@ -39,6 +39,14 @@ const props = defineProps({
     type: Function,
     default: void 0
   },
+  index: {
+    type: Number,
+    default: 0
+  },
+  list: {
+    type: Array,
+    default: []
+  },
 })
 
 const store = useStore()
@@ -53,8 +61,8 @@ const p = {
 const render = useSlideListItemRender({...props.cbs, ...p})
 const listRef = ref(null)
 const state = reactive({
-  index: 0,
-  list: [],
+  index: props.index,
+  list: props.list,
   uniqueId: uniqueId('uniqueId_'),
   totalSize: 0,
   pageSize: 10,

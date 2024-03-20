@@ -72,7 +72,6 @@ const routes = [
   {path: '/test', component: Test},
   {path: '/test4', component: Test4},
 
-  {path: '/video-detail', component: VideoDetail},
   {path: '/attention', component: Attention},
   {path: '/publish', component: Publish},
 
@@ -149,6 +148,9 @@ const routes = [
   {path: '/home/report', component: Report},
   {path: '/home/submit-report', component: SubmitReport},
   {path: '/message/share-to-friend', component: Share2Friend},
+
+  {path: '/video-detail', name: 'video-detail', component: VideoDetail},
+
 ]
 
 export default routes

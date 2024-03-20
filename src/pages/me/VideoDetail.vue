@@ -1,88 +1,45 @@
 <template>
   <div id="video-detail">
-    <SlideList key1="父" style="width: 100vw;" v-model:can-move="canMove">
-      <SlideItem>
-        <div class="search-wrapper">
-          <dy-back class="back" @click="$back"/>
-          <Search></Search>
+    <div class="search-wrapper">
+      <dy-back class="back" @click="$back"/>
+      <Search></Search>
+    </div>
+    <div class="content">
+      <SlideVerticalInfinite
+          ref="listRef"
+          v-love="state.uniqueId"
+          :id="state.uniqueId"
+          :uniqueId="state.uniqueId"
+          name="main"
+          :active="true"
+          :loading="false"
+          v-model:index="state.index"
+          :render="render"
+          :list="state.list"
+      />
+    </div>
+    <div class="footer">
+      <div class="share-to-friend" v-if="!data.isMy">
+        <span>留下你的精彩评论吧</span>
+        <div class="share-btn" @click="data.dialog.shareToFriend = true">分享给朋友</div>
+      </div>
+      <div class="permission-setting" v-if="data.isMy">
+        <div class="right">
+          <img src="../../assets/img/icon/play-white.png" alt="">
+          <span>3030浏览</span>
         </div>
-        <SlideList key1="子" direction="column" v-model:active-index="videoActiveIndex">
-          <SlideItem :style="itemTop" v-for="(item,index)  of videos2">
-            <Video1
-                :disabled="videoActiveIndex !== addCount + index"
-                v-model:video="videos[index]"
-                @showComments="isCommenting = !isCommenting"
-                @showShare="isSharing = !isSharing"
-                @goUserInfo="baseActiveIndex = 1"
-            ></Video1>
-          </SlideItem>
-        </SlideList>
-        <div class="share-to-friend" v-if="!isMy">
-          <span>留下你的精彩评论吧</span>
-          <div class="share-btn" @click="dialog.shareToFriend = true">分享给朋友</div>
-        </div>
-        <div class="permission-setting" v-if="isMy">
-          <div class="right">
-            <img src="../../assets/img/icon/play-white.png" alt="">
-            <span>3030浏览</span>
-          </div>
-          <div class="share-btn" @click="dialog.permissionDialog = true">权限设置</div>
-        </div>
-      </SlideItem>
-      <SlideItem style="font-size: 40px;overflow:auto;">
-        <div>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-          <p>详情页</p>
-        </div>
-      </SlideItem>
-    </SlideList>
-
+        <div class="share-btn" @click="data.dialog.permissionDialog = true">权限设置</div>
+      </div>
+    </div>
     <from-bottom-dialog
-        v-model="dialog.shareToFriend"
+        page-id="video-detail"
+        v-model="data.dialog.shareToFriend"
         height="50vh"
         mode="light"
         mask-mode="light"
     >
       <div class="share-dialog">
-        <div class="collection" @click="dialog.shareToFriend = false">
+        <div class="collection" @click="data.dialog.shareToFriend = false">
           <img src="../../assets/img/icon/me/collection-black.png" alt="">
           收藏
         </div>
@@ -104,13 +61,14 @@
       </div>
     </from-bottom-dialog>
     <from-bottom-dialog
-        v-model="dialog.permissionDialog"
+        page-id="video-detail"
+        v-model="data.dialog.permissionDialog"
         height="40vh"
         mode="white"
         mask-mode="white"
     >
       <div class="permission-dialog">
-        <div class="setting" @click="dialog.permissionDialog = false">
+        <div class="setting" @click="data.dialog.permissionDialog = false">
           <img src="../../assets/img/icon/head-image.jpeg" alt="">
           <div class="right">
             <span>公开  所有人可见</span>
@@ -150,232 +108,52 @@
   </div>
 </template>
 
-<script>
-import Comment from '../../components/Comment.vue'
-import Share from '../../components/Share.vue'
-import Footer from "../../components/Footer.vue"
-import src1Bg from '../../assets/img/poster/src1-bg.png'
+<script setup>
 import Search from "../../components/Search";
 import FromBottomDialog from "../../components/dialog/FromBottomDialog";
+import SlideList from "@/pages/home/slide/SlideList.vue";
+import api from "@/api";
+import {nextTick, onMounted, reactive} from "vue";
+import {useBaseStore} from "@/store/pinia";
+import SlideVerticalInfinite from "@/components/slide/SlideVerticalInfinite.vue";
+import {uniqueId} from "lodash-es";
+import {useSlideListItemRender} from "@/utils/hooks/useSlideListItemRender";
 
-export default {
-  name: "VideoDetail",
-  components: {
-    Footer, Comment, Share, Search,
-    FromBottomDialog
+defineOptions({
+  name: 'VideoDetail'
+})
+const store = useBaseStore()
+const data = reactive({
+  dialog: {
+    shareToFriend: false,
+    permissionDialog: false,
+    test: false,
   },
-  data() {
-    return {
-      list: [1, 2, 3, 4, 5],
-      videos: [
-        {
-          videoUrl: 'http://qy9rc9xff.hn-bkt.clouddn.com/0.mp4',
-          // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-          videoPoster: src1Bg,
-          isLoved: true,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          videoUrl: 'http://qy9rc9xff.hn-bkt.clouddn.com/1.mp4',
-          // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          videoUrl: 'http://qy9rc9xff.hn-bkt.clouddn.com/2.mp4',
-          // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          videoUrl: 'http://qy9rc9xff.hn-bkt.clouddn.com/3.mp4',
-          // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          videoUrl: 'http://qy9rc9xff.hn-bkt.clouddn.com/4.mp4',
-          // videoUrl: 'http://babylife.qiniudn.com/FtRVyPQHHocjVYjeJSrcwDkApTLQ',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-      ],
-      videos1: [
-        {
-          // videoUrl: mp40,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/0.mp4',
-          videoPoster: src1Bg,
-          isLoved: true,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp41,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/1.mp4',
-          videoPoster: src1Bg,
-          isLoved: true,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp42,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/2.mp4',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp43,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/3.mp4',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp44,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/4.mp4',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp45,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/5.mp4',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp46,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/6.mp4',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp47,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/7.mp4',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp48,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/8.mp4',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp49,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/9.mp4',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-        {
-          // videoUrl: mp410,
-          videoUrl: 'http://qvutp218u.hn-bkt.clouddn.com/10.mp4',
-          videoPoster: src1Bg,
-          isLoved: false,
-          loves: 1234,
-          comments: 666,
-          shared: 999,
-          duration: 99
-        },
-      ],
-      videos2: [],
-      addCount: 0,
-      total: 10,
-      baseActiveIndex: 0,
-      videoActiveIndex: 0,
-      canMove: false,
-      dialog: {
-        shareToFriend: false,
-        permissionDialog: false,
-        test: false,
-      },
-      isMy: true
-    }
-  },
-  computed: {
-    itemTop() {
-      return {top: this.addCount * 812 + 'px'}
-    },
-  },
-  created() {
-    // this.height = document.body.clientHeight
-    // this.width = document.body.clientWidth
-    for (let i = 0; i < 53; i++) {
-      this.videos2.push(
-          {
-            // videoUrl: mp40,
-            videoUrl: `http://douyin.ttentau.top/${i}.mp4`,
-            videoPoster: src1Bg,
-            isLoved: true,
-            loves: 1234,
-            comments: 666,
-            shared: 999,
-            duration: 99
-          })
-    }
-    // if (process.env.NODE_ENV !== 'development') {
-    //   this.videos = this.$clone(this.videos1)
-    // }
-  }
-}
+  isMy: true
+})
+const state = reactive({
+  index: 0,
+  list: [],
+  uniqueId: uniqueId('uniqueId_'),
+  totalSize: 0,
+  pageSize: 10,
+  pageNo: 0,
+})
+const render = useSlideListItemRender()
+
+onMounted(() => {
+  console.log('s', store.routeData)
+  state.index = store.routeData.index
+  state.list = store.routeData.list.map(v => {
+    v.type = 'recommend-video'
+    v.author = store.routeData.author
+    return v
+  })
+})
 </script>
 
 <style scoped lang="less">
 @import "../../assets/less/index";
-
 
 #video-detail {
   position: fixed;
@@ -387,6 +165,7 @@ export default {
   width: 100%;
 
   .search-wrapper {
+    height: @header-height;
     z-index: 9;
     position: fixed;
     top: 10rem;
@@ -404,6 +183,14 @@ export default {
     .search-ctn {
       width: 100%;
     }
+  }
+
+  .content {
+    height: calc(100vh - @footer-height);
+  }
+
+  .footer {
+    height: @footer-height;
   }
 
   .share-to-friend {

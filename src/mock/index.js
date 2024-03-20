@@ -4,7 +4,7 @@ import resource from "../assets/data/resource.js";
 import posts6 from "@/assets/data/posts6.json";
 import users from '@/assets/data/users.json'
 import post from '@/assets/data/post.json'
-import {sample, shuffle, uniqueId} from "lodash";
+import {sample, shuffle, uniqueId} from "lodash-es";
 
 function getParams(options) {
   let params = globalMethods.$parseURL(options.url).params

@@ -14,7 +14,7 @@ import BaseButton from "../components/BaseButton";
 import CONST_VAR from "./const_var";
 import Dom from "./dom";
 import bus, {EVENT_KEY} from "./bus";
-import {random} from "lodash";
+import {random} from "lodash-es";
 import {Icon} from '@iconify/vue'
 import SlideHorizontal from "@/components/slide/SlideHorizontal.vue";
 

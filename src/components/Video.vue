@@ -70,11 +70,6 @@
           </div>
           <div class="music" @click.stop="$nav('/music')">
             <img src="../assets/img/icon/music.svg" alt="" class="music-image">
-            <BaseMarquee :key="name"
-                         :name="name"
-                         :isPlay="isPlay"
-                         :text="lVideo.music.title"
-                         @click.stop="$emit('goMusic')"/>
           </div>
         </div>
         <div v-else class="comment-status">
@@ -117,16 +112,13 @@
 
 <script>
 import globalMethods from '../utils'
-import BaseMarquee from "./BaseMarquee";
 import Dom from "../utils/dom";
 import BaseMusic from "./BaseMusic";
-import {mapState} from "vuex";
 import Loading from "./Loading";
 
 export default {
   name: "Video",
   components: {
-    BaseMarquee,
     BaseMusic,
     Loading
   },

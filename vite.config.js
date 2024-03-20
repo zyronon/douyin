@@ -3,6 +3,7 @@ import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import VueMacros from 'unplugin-vue-macros/vite'
 import {resolve} from 'path'
+import DefineOptions from 'unplugin-vue-define-options/vite' // 引入插件
 
 function pathResolve(dir) {
   return resolve(__dirname, ".", dir)
@@ -28,6 +29,8 @@ export default defineConfig({
     //   //   exclude: [/node_modules/, /jQuery\.js/]
     //   // }
     // }),
+    DefineOptions(),
+
     Vue(),
     VueJsx(),
   ],

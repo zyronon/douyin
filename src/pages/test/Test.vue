@@ -1,46 +1,14 @@
 <template>
-  <!--  <TestSlide></TestSlide>-->
-  <!--  <SlideUser></SlideUser>-->
-  <!--  <SlideImgs></SlideImgs>-->
-  <!--  <TestSwiperJs></TestSwiperJs>-->
-  <slideHooks/>
-<!--  <Shop/>-->
-<!--  <Community/>-->
-<!--  <UserPanel/>-->
-
-  <!--  <div class="body">-->
-  <!--    <div class="wrapper">-->
-  <!--      <img :src="src" id="img">-->
-  <!--    </div>-->
-  <!--  </div>-->
+  <div>
+    test
+  </div>
 </template>
 <script>
 
 
-import TestSlide from "./TestSlide";
-import SlideUser from "../../components/slide/SlideUser";
-import SlideImgs from "../../components/slide/SlideAlbum";
-import TestImg from "./TestImg";
-import slideHooks from '../home/index.vue'
-import TestSwiperJs from "./TestSwiperJs";
-import {mat4} from "gl-matrix";
-import UserPanel from "@/components/UserPanel.vue";
-import Shop from "@/pages/shop/Shop.vue";
-import Community from "@/pages/home/slide/Community.vue";
-
 export default {
   name: "Test",
-  components: {
-    Community,
-    Shop,
-    UserPanel,
-    slideHooks,
-    TestSlide,
-    SlideUser,
-    SlideImgs,
-    TestImg,
-    TestSwiperJs,
-  },
+  components: {},
   data() {
     return {
       src: '',

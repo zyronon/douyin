@@ -198,7 +198,7 @@
 </template>
 <script>
 import Search from "../../components/Search";
-import _ from 'lodash'
+import _ from 'lodash-es'
 import Dom from "../../utils/dom";
 import {nextTick} from "vue";
 

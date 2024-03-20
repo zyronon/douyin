@@ -7,7 +7,7 @@ import Config from '../config'
 import NoticeDialog from "../components/dialog/NoticeDialog";
 import dayjs from 'dayjs'
 import bus, {EVENT_KEY} from "./bus";
-import {cloneDeep} from "lodash";
+import {cloneDeep} from "lodash-es";
 
 const Utils = {
   require2(url) {
@@ -453,6 +453,7 @@ export function _checkImgUrl(url) {
 export function _duration(num){
   return Utils.$duration(num)
 }
+
 export function _formatNumber(num) {
   return Utils.formatNumber(num)
 }

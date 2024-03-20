@@ -1,7 +1,6 @@
 <script setup>
 
 import {reactive} from "vue";
-import BaseMarquee from "../BaseMarquee";
 import bus from "../../utils/bus";
 
 const props = defineProps({
@@ -50,7 +49,7 @@ const state = reactive({
       </div>
       <div class="music" @click.stop="bus.emit('nav','/home/music')">
         <img src="../../assets/img/icon/music.svg" alt="" class="music-image">
-        <BaseMarquee :text="props.item.music.title"/>
+        <span>{{ props.item.music.title }}</span>
       </div>
     </div>
     <div v-else class="comment-status">
@@ -86,8 +85,7 @@ const state = reactive({
   .content {
     color: #fff;
     width: 75vw;
-    //display: flex;
-    //flex-direction: column;
+    text-align: left;
 
     .location-wrapper {
       display: flex;
@@ -116,17 +114,14 @@ const state = reactive({
       }
     }
 
-
     .music {
       position: relative;
-      width: 60%;
       display: flex;
       align-items: center;
 
       .music-image {
         width: 20px;
         height: 20px;
-        margin-top: 3px;
       }
     }
   }

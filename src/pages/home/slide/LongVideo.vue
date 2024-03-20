@@ -1,13 +1,17 @@
 <script setup>
 
-import {computed, onMounted, onUnmounted, reactive, ref} from "vue";
-import {uniqueId} from "lodash";
+import {computed, onMounted, onUnmounted, reactive, ref, watch} from "vue";
+import {uniqueId} from "lodash-es";
 import api from "@/api";
 import {useStore} from "vuex";
 import {_checkImgUrl, _duration, _formatNumber} from "@/utils";
 
 const store = useStore()
 const loading = computed(() => store.state.loading)
+
+const props = defineProps({
+  active: Boolean
+})
 
 const p = {
   onShowComments() {
@@ -36,7 +40,7 @@ async function getData(refresh = false) {
   if (loading.value) return
   store.commit('setLoading', true)
   let res = await api.videos.recommended({pageNo: refresh ? 0 : state.pageNo, pageSize: state.pageSize})
-  // console.log('getSlide4Data-', 'refresh', refresh, res)
+  console.log('getSlide4Data-', 'refresh', refresh, res)
   store.commit('setLoading', false)
   if (res.code === 200) {
     state.totalSize = res.data.total
@@ -49,8 +53,14 @@ async function getData(refresh = false) {
   }
 }
 
+watch(() => props.active, n => {
+  if (!state.list.length && n) {
+    store.commit('setLoading', false)
+    getData()
+  }
+})
+
 onMounted(() => {
-  getData()
 })
 onUnmounted(() => {
 })

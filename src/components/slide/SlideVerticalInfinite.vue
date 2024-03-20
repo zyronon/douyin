@@ -69,9 +69,9 @@ const judgeValue = computed(() => store.state.judgeValue)
 watch(
     () => props.list,
     (newVal, oldVal) => {
-      // console.log('watch', newVal.length, oldVal.length, props.list)
-      //新数据比老数据小或等于，是刷新
-      if (newVal.length <= oldVal.length) {
+      console.log('watch-list', newVal.length, oldVal.length,)
+      //新数据比老数据小，是刷新
+      if (newVal.length < oldVal.length) {
         insertContent()
       } else {
         if (oldVal.length === 0) {
@@ -99,8 +99,9 @@ watch(
 watch(
     () => props.index,
     (newVal, oldVal) => {
+      state.localIndex = newVal
+      console.log('watch-index', newVal, oldVal)
       if (!props.list.length) return
-      // console.log('watch-index', newVal, oldVal)
       bus.emit(EVENT_KEY.CURRENT_ITEM, props.list[newVal])
       bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
         uniqueId: props.uniqueId,
@@ -155,6 +156,7 @@ function insertContent(list = props.list) {
     start = end - props.virtualTotal
   }
   if (start < 0) start = 0
+  console.log('start', start, end)
   list.slice(start, end).map(
       (item, index) => {
         //自动播放，当前条（可能是0，可能是其他），试了下用jq来找元素，然后trigger play事件，要慢点样
@@ -175,7 +177,6 @@ function insertContent(list = props.list) {
   }
   state.wrapper.childrenLength = wrapperEl.value.children.length
   bus.emit(EVENT_KEY.CURRENT_ITEM, list[state.localIndex])
-
 }
 
 function dislike(item) {

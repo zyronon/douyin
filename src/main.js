@@ -8,8 +8,9 @@ import router from "./router";
 import store from "./store";
 import mixin from "./utils/mixin";
 import VueLazyload from '@jambonn/vue-lazyload'
-import VConsole from 'vconsole';
 import {VueMasonryPlugin} from "vue-masonry";
+import {createPinia} from "pinia";
+const pinia = createPinia()
 
 // const vConsole = new VConsole();
 const emitter = mitt()
@@ -29,4 +30,5 @@ app.use(VueLazyload, {
 app.use(VueMasonryPlugin)
 app.use(router)
 app.use(store)
+app.use(pinia)
 app.mount('#app')

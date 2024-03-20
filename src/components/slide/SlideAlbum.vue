@@ -96,7 +96,7 @@ import {SlideAlbumOperationStatus, SlideItemPlayStatus, SlideType} from "../../u
 import ItemToolbar from "./ItemToolbar";
 import ItemDesc from "./ItemDesc";
 import GM from "../../utils";
-import {cloneDeep} from "lodash";
+import {cloneDeep} from "lodash-es";
 import bus, {EVENT_KEY} from "../../utils/bus";
 
 let out = new Float32Array([

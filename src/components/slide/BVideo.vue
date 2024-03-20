@@ -366,9 +366,9 @@ export default {
   font-size: 14rem;
   width: 100%;
   height: 100%;
+  text-align: center;
 
   video {
-    width: 100%;
     height: 100%;
     transition: height, margin-top .3s;
     //background: black;

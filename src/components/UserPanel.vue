@@ -96,94 +96,96 @@
           </div>
         </div>
       </div>
-      <template v-if="props.currentItem.isRequest">
-        <div class="other">
-          <div class="scroll-x" @touchmove="stop">
-            <div class="item" v-for="item in props.currentItem.author.card_entries">
-              <img :src="item.icon_dark.url_list[0]" alt="">
-              <div class="right">
-                <div class="top">{{ item.title }}</div>
-                <div class="bottom">{{ item.sub_title }}</div>
-              </div>
+      <div class="other">
+        <div class="scroll-x" @touchmove="stop">
+          <div class="item" v-for="item in props.currentItem.author.card_entries">
+            <img :src="item.icon_dark.url_list[0]" alt="">
+            <div class="right">
+              <div class="top">{{ item.title }}</div>
+              <div class="bottom">{{ item.sub_title }}</div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="my-buttons">
-          <div class="follow-display">
-            <div class="follow-wrapper"
-                 :class="props.currentItem.author.follow_status ? 'follow-wrapper-followed' : ''">
-              <div class="no-follow" @click="props.currentItem.author.follow_status = 1">
-                <img src="@/assets/img/icon/add-white.png" alt="">
-                <span>关注</span>
+      <div class="my-buttons">
+        <div class="follow-display">
+          <div class="follow-wrapper"
+               :class="props.currentItem.author.follow_status ? 'follow-wrapper-followed' : ''">
+            <div class="no-follow" @click="props.currentItem.author.follow_status = 1">
+              <img src="@/assets/img/icon/add-white.png" alt="">
+              <span>关注</span>
+            </div>
+            <div class="followed">
+              <div class="l-button" @click="$emit('showFollowSetting2')">
+                <span>已关注</span>
+                <Icon icon="bxs:down-arrow" class="arrow"/>
               </div>
-              <div class="followed">
-                <div class="l-button" @click="$emit('showFollowSetting2')">
-                  <span>已关注</span>
-                  <Icon icon="bxs:down-arrow" class="arrow"/>
-                </div>
-                <div class="l-button" @click="$nav('/message/chat')">
-                  <span>私信</span>
-                </div>
+              <div class="l-button" @click="$nav('/message/chat')">
+                <span>私信</span>
               </div>
             </div>
           </div>
-          <div class="option"
-               :class="state.isShowRecommend?'option-recommend':''"
-               @click="state.isShowRecommend = !state.isShowRecommend">
-            <img v-if="state.loadings.showRecommend" class="loading" src="@/assets/img/icon/loading-gray.png"
-                 alt="">
-            <Icon icon="bxs:down-arrow" v-else class="arrow"/>
-          </div>
         </div>
+        <div class="option"
+             :class="state.isShowRecommend?'option-recommend':''"
+             @click="state.isShowRecommend = !state.isShowRecommend">
+          <img v-if="state.loadings.showRecommend" class="loading" src="@/assets/img/icon/loading-gray.png"
+               alt="">
+          <Icon icon="bxs:down-arrow" v-else class="arrow"/>
+        </div>
+      </div>
 
-        <div class="recommend" :class="{hidden:!state.isShowRecommend}">
-          <div class="title">
-            <span>你可能感兴趣</span>
-            <img src="@/assets/img/icon/about-gray.png">
-          </div>
-          <div class="friends"
-               @touchmove="stop">
-            <div class="friend" v-for="item in friends.all">
-              <img :style="item.select?'opacity: .5;':''" class="avatar" :src="_checkImgUrl(item.avatar)" alt="">
-              <span class="name">{{ item.name }}</span>
-              <span class="tips">可能感兴趣的人</span>
-              <dy-button type="primary">关注</dy-button>
-              <div class="close">
-                <dy-back img="close" scale=".6"></dy-back>
-              </div>
+      <div class="recommend" :class="{hidden:!state.isShowRecommend}">
+        <div class="title">
+          <span>你可能感兴趣</span>
+          <img src="@/assets/img/icon/about-gray.png">
+        </div>
+        <div class="friends"
+             @touchmove="stop">
+          <div class="friend" v-for="item in friends.all">
+            <img :style="item.select?'opacity: .5;':''" class="avatar" :src="_checkImgUrl(item.avatar)" alt="">
+            <span class="name">{{ item.name }}</span>
+            <span class="tips">可能感兴趣的人</span>
+            <dy-button type="primary">关注</dy-button>
+            <div class="close">
+              <dy-back img="close" scale=".6"></dy-back>
             </div>
-            <div class="more" @click="$nav('/people/find-acquaintance')">
-              <div class="notice">
-                <div>点击查看</div>
-                <div>更多好友</div>
-              </div>
+          </div>
+          <div class="more" @click="$nav('/people/find-acquaintance')">
+            <div class="notice">
+              <div>点击查看</div>
+              <div>更多好友</div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="total" ref="total">
-          作品 {{ props.currentItem.author.aweme_count }}
-          <img class="arrow" src="@/assets/img/icon/arrow-up-white.png" alt="">
-        </div>
-        <div class="videos">
-          <Posters v-if="props.currentItem.aweme_list.length" :list="props.currentItem.aweme_list"></Posters>
-        </div>
-      </template>
+      <div class="total" ref="total">
+        作品 {{ props.currentItem.author.aweme_count }}
+        <img class="arrow" src="@/assets/img/icon/arrow-up-white.png" alt="">
+      </div>
+      <div class="videos">
+        <Posters v-if="props.currentItem.aweme_list.length"
+                 :list="props.currentItem.aweme_list"
+                 :author="props.currentItem.author"
+        ></Posters>
+        <Loading :isFullScreen="false" v-else/>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import {computed, onMounted, reactive, ref, watch} from "vue";
-import Utils, {_checkImgUrl, $no, _getUserDouyinId} from "@/utils";
+import Utils, {$no, _checkImgUrl, _getUserDouyinId} from "@/utils";
 import {useNav} from "@/utils/hooks/useNav";
 import {useStore} from "vuex";
 import resource from "@/assets/data/resource";
 import Posters from '@/components/Posters'
-import api from "@/api";
-import {merge} from 'lodash'
+import {merge} from 'lodash-es'
 import {DefaultUser} from "@/utils/const_var";
+import Loading from "@/components/Loading.vue";
 
 const $nav = useNav()
 const store = useStore()
@@ -193,7 +195,6 @@ const props = defineProps({
     type: Object,
     default: {
       author: DefaultUser,
-      isRequest: false,
       aweme_list: [],
     }
   },
@@ -278,26 +279,30 @@ const state = reactive({
   //能移动的高度
   canMoveMaxHeight: document.body.clientHeight / 4,
   //是否自动放大Cover
-  isAutoScaleCover: false
+  isAutoScaleCover: false,
+  uid: null
 })
 
 watch(() => props.active,
     async (newVal) => {
-      if (newVal && !props.currentItem.isRequest) {
-        let res = await api.user.profile()
-        console.log('res', res)
-        if (res.code === 200) {
-          res.data.aweme_list = res.data.aweme_list.map(v => {
-            return {
-              cover: v.video.cover.url_list[0],
-              digg_count: v.statistics.digg_count,
-              create_time: v.create_time
-            }
+      if (newVal && !props.currentItem.aweme_list.length) {
+        // console.log('props.currentItem',props.currentItem)
+        let id = _getUserDouyinId(props.currentItem)
+        fetch(`/data/user-${id}.json`).then(r => {
+          r.json().then(l => {
+            setTimeout(() => {
+              emit('update:currentItem', merge(props.currentItem, {aweme_list: l}))
+            }, 800)
           })
-          //去年保存的老数据有id。现在去网页版复制数据没id了。。。
-          res.data.user.unique_id = props.currentItem.author.unique_id
-          emit('update:currentItem', merge(props.currentItem, {...res.data, isRequest: true}))
-        }
+        })
+      }
+    })
+
+watch(() => props.currentItem.author.uid,
+    async (newVal) => {
+      if (props.currentItem.author.uid !== state.uid) {
+        state.uid = props.currentItem.author.uid
+        emit('update:currentItem', merge(props.currentItem, {aweme_list: []}))
       }
     })
 
@@ -341,7 +346,7 @@ function touchStart(e) {
   if (state.isTop) {
     cover.value.style.transition = 'none'
   }
-  console.log('touchStart', page.value.scrollTop)
+  // console.log('touchStart', page.value.scrollTop)
 }
 
 function touchMove(e) {
@@ -366,7 +371,7 @@ function touchEnd(e) {
   }
   let endTime = Date.now()
   state.isAutoScaleCover = (endTime - state.start.time) < 100
-  console.log('touchEnd')
+  // console.log('touchEnd')
 }
 
 </script>

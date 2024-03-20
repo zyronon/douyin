@@ -1,11 +1,11 @@
 <template>
   <div class="posters">
-    <div class="poster-item" v-for="(i,index) in list" @click="$no">
-      <!--       @click="$nav('/video-detail')"-->
-      <img class="poster" v-lazy="$checkImgUrl(i.video.cover.url_list[0])" alt="">
+    <div class="poster-item" v-for="(i,index) in list"
+         @click="goDetail(index)">
+      <img class="poster" v-lazy="_checkImgUrl(i.video.cover.url_list[0])" alt="">
       <div class="num" v-if="mode === 'normal'">
-        <Icon icon="icon-park-outline:like" />
-        <span>{{ formatNumber(i.statistics.digg_count) }}</span>
+        <Icon icon="icon-park-outline:like"/>
+        <span>{{ _formatNumber(i.statistics.digg_count) }}</span>
       </div>
       <div class="date" v-if="mode === 'date'">
         <div class="day">{{ getDay(i.create_time) }}</div>
@@ -20,61 +20,75 @@
   </div>
 </template>
 
-<script>
-import {_checkImgUrl, $no} from "@/utils";
+<script setup>
+import {_checkImgUrl, _formatNumber} from "@/utils";
+import {useBaseStore} from "@/store/pinia";
+import {useRouter} from "vue-router";
+import {cloneDeep} from "lodash-es";
 
-export default {
-  /*@click="$nav('/video-detail')"*/
-  name: "Posters",
-  props: {
-    list: {
-      type: [Array, Number],
-      default: () => {
-        return []
-      }
-    },
-    mode: {
-      type: String,
-      default: 'normal'//date,music
+const store = useBaseStore()
+const nav = useRouter()
+const props = defineProps({
+  list: {
+    type: [Array, Number],
+    default: () => {
+      return []
     }
   },
-  methods: {
-    $no,
-    $checkImgUrl: _checkImgUrl,
-    getDay(time) {
-      let date = new Date(time * 1000)
-      return date.getDate()
-    },
-    getMonth(time) {
-      let date = new Date(time * 1000)
-      let month = date.getMonth() + 1
-      switch (month) {
-        case 1:
-          return '一月'
-        case 2:
-          return '二月'
-        case 3:
-          return '三月'
-        case 4:
-          return '四月'
-        case 5:
-          return '五月'
-        case 6:
-          return '六月'
-        case 7:
-          return '七月'
-        case 8:
-          return '八月'
-        case 9:
-          return '九月'
-        case 10:
-          return '十月'
-        case 11:
-          return '十一月'
-        case 12:
-          return '十二月'
-      }
+  author: {
+    type: Object,
+    default: () => {
+      return {}
     }
+  },
+  mode: {
+    type: String,
+    default: 'normal'//date,music
+  }
+})
+
+defineOptions({
+  name: 'Posters'
+})
+
+function goDetail(index) {
+  store.routeData = cloneDeep({list: props.list, author: props.author, index})
+  nav.push({path: '/video-detail'})
+}
+
+function getDay(time) {
+  let date = new Date(time * 1000)
+  return date.getDate()
+}
+
+function getMonth(time) {
+  let date = new Date(time * 1000)
+  let month = date.getMonth() + 1
+  switch (month) {
+    case 1:
+      return '一月'
+    case 2:
+      return '二月'
+    case 3:
+      return '三月'
+    case 4:
+      return '四月'
+    case 5:
+      return '五月'
+    case 6:
+      return '六月'
+    case 7:
+      return '七月'
+    case 8:
+      return '八月'
+    case 9:
+      return '九月'
+    case 10:
+      return '十月'
+    case 11:
+      return '十一月'
+    case 12:
+      return '十二月'
   }
 }
 </script>
