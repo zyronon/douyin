@@ -289,7 +289,7 @@ onMounted(() => {
   .Scroll {
     position: relative;
     z-index: 2;
-    height: calc(100vh - @footer-height * 2) !important;
+    height: calc(var(--vh, 1vh) * 100 - @footer-height * 2) !important;
   }
 
   .fixed {

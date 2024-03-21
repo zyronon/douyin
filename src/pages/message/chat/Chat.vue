@@ -540,7 +540,7 @@ export default {
   overflow: auto;
   color: white;
   font-size: 14rem;
-  background: @msg-bg;
+  background: var(--color-message);
 
   .chat-content {
     > .header {
@@ -582,11 +582,11 @@ export default {
     }
 
     .message-wrapper {
-      height: calc(100vh - 125rem);
+      height: calc(var(--vh, 1vh) * 100 - 125rem);
       overflow: auto;
 
       &.expand {
-        height: calc(100vh - (125rem + 30vh));
+        height: calc(var(--vh, 1vh) * 100 - (125rem + var(--vh, 1vh) * 30));
       }
     }
 
@@ -654,7 +654,7 @@ export default {
         font-size: 14rem;
         width: 100vw;
         padding: 15rem;
-        height: 30vh;
+        height: calc(var(--vh, 1vh) * 30);
         box-sizing: border-box;
 
         .option-wrapper {
@@ -690,7 +690,7 @@ export default {
     top: 0;
     background: black;
     width: 100vw;
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
 
     .header {
       position: fixed;
@@ -758,7 +758,7 @@ export default {
     top: 0;
     position: fixed;
     width: 100vw;
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     display: flex;
     align-items: center;
     justify-content: center;

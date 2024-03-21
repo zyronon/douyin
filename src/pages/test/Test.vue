@@ -32,7 +32,7 @@ export default {
   justify-content: center;
   padding: 0;
   margin: 0;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   width: 100vw;
   overflow: hidden;
   transform-origin: 0 0;

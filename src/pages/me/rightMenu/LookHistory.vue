@@ -148,7 +148,7 @@ export default {
     padding-top: 60rem;
 
     .SlideRowList, .Scroll {
-      height: calc(100vh - @indicator-height - @header-height) !important;
+      height: calc(var(--vh, 1vh) * 100 - @indicator-height - @header-height) !important;
     }
 
     .empty {

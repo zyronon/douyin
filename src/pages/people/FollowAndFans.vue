@@ -19,7 +19,7 @@
             v-model:active-index="slideIndex">
         </Indicator>
       </div>
-      <SlideHorizontal v-model:index="slideIndex" style="height: calc(100vh - 111rem)">
+      <SlideHorizontal v-model:index="slideIndex" style="height: calc(var(--vh, 1vh) * 100 - 111rem)">
         <SlideItem class="tab1">
           <Search v-model="searchKey" placeholder="搜索用户备注或名字" :is-show-right-text="false"/>
           <div class="is-search" v-if="searchKey">

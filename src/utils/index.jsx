@@ -3,7 +3,7 @@ import SelectDialog from "../components/dialog/SelectDialog";
 import SimpleConfirmDialog from "../components/dialog/SimpleConfirmDialog";
 import ConfirmDialog from "../components/dialog/ConfirmDialog";
 import Loading from "../components/Loading.vue";
-import Config from '../config'
+import Config, {IMG_URL} from '../config'
 import NoticeDialog from "../components/dialog/NoticeDialog";
 import dayjs from 'dayjs'
 import bus, {EVENT_KEY} from "./bus";
@@ -446,7 +446,7 @@ export function _checkImgUrl(url) {
   if (url.includes('http')) {
     return url
   } else {
-    return '/imgs/' + url
+    return IMG_URL + url
   }
 }
 

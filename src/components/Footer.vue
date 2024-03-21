@@ -92,7 +92,7 @@ export default {
   z-index: 2;
   //不用bottom：0是因为，在进行页面切换的时候，vue的transition
   // 会使footer的bottom：0失效，不能准确定位
-  top: calc(100vh - @footer-height);
+  top: calc(var(--vh, 1vh) * 100 - @footer-height);
   //bottom: 0;
   background: @footer-color;
   color: white;

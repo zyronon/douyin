@@ -186,6 +186,7 @@ import Posters from '@/components/Posters'
 import {merge} from 'lodash-es'
 import {DefaultUser} from "@/utils/const_var";
 import Loading from "@/components/Loading.vue";
+import {FILE_URL} from "@/config";
 
 const $nav = useNav()
 const store = useStore()
@@ -288,7 +289,7 @@ watch(() => props.active,
       if (newVal && !props.currentItem.aweme_list.length) {
         // console.log('props.currentItem',props.currentItem)
         let id = _getUserDouyinId(props.currentItem)
-        fetch(`/data/user-${id}.json`).then(r => {
+        fetch(`${FILE_URL}user-${id}.json`).then(r => {
           r.json().then(l => {
             setTimeout(() => {
               emit('update:currentItem', merge(props.currentItem, {aweme_list: l}))
@@ -397,7 +398,7 @@ function touchEnd(e) {
 
 #UserPanel {
   position: fixed;
-  background: @main-bg;
+  background: var(--color-user);
   height: 100%;
   width: 100%;
   overflow: auto;
@@ -434,7 +435,7 @@ function touchEnd(e) {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     z-index: 3;
   }
 

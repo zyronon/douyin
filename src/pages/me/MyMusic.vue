@@ -431,7 +431,7 @@ export default {
     position: fixed;
     z-index: 11;
     width: 100vw;
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     top: 0;
     background: rgb(136, 132, 133);
 
@@ -463,7 +463,7 @@ export default {
   .my-collect-dialog-enter-from,
   .my-collect-dialog-leave-to {
     transition-duration: 300ms;
-    transform: translateY(100vh);
+    transform: translateY(calc(var(--vh, 1vh) * 100));
   }
 
   .float-play-enter-active,

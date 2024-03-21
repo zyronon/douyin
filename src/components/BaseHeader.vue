@@ -78,7 +78,6 @@ export default {
     .left {
       position: absolute;
       left: 10rem;
-      top: 20rem;
     }
 
     & > :nth-last-child(1) {

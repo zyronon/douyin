@@ -249,7 +249,7 @@ export default {
   .type-dialog {
     z-index: 9;
     position: fixed;
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     width: 100vw;
     margin-top: @header-height;
 
@@ -264,7 +264,7 @@ export default {
     .mask {
       z-index: 8;
       position: fixed;
-      height: 100vh;
+      height: calc(var(--vh, 1vh) * 100);
       width: 100vw;
       background: @mask-dark;
     }
@@ -275,7 +275,7 @@ export default {
     padding-top: @header-height;
 
     .scroll {
-      height: calc(100vh - @header-height);
+      height: calc(var(--vh, 1vh) * 100 - @header-height);
     }
 
     .messages {

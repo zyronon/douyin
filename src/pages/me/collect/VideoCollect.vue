@@ -77,7 +77,7 @@ export default {
     padding-top: @header-height;
 
     .Scroll {
-      height: calc(100vh - @header-height)!important;
+      height: calc(var(--vh, 1vh) * 100 - @header-height)!important;
     }
   }
 }

@@ -502,11 +502,11 @@ export default {
   left: 0;
   right: 0;
   font-size: 14rem;
-  background: @msg-bg;
+  background: var(--color-message);
   color: white;
 
   .no-search {
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
 
     > header {
       padding: 0 20rem;
@@ -515,10 +515,8 @@ export default {
       align-items: center;
       height: @header-height;
       box-sizing: border-box;
-      border-bottom: 1px solid #cccccc11;
       position: relative;
       font-size: 24rem;
-
     }
 
     .create-chat-wrapper {
@@ -949,7 +947,7 @@ export default {
       top: 0;
       left: 0;
       width: 100vw;
-      height: 100vh;
+      height: calc(var(--vh, 1vh) * 100);
       display: flex;
       align-items: center;
       justify-content: center;

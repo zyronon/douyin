@@ -109,7 +109,7 @@ export default {
     padding-top: @header-height;
 
     .scroll {
-      height: calc(100vh - @header-height);
+      height: calc(var(--vh, 1vh) * 100 - @header-height);
     }
 
     .people-wrapper {

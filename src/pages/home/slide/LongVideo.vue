@@ -107,7 +107,7 @@ onUnmounted(() => {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   row-gap: 15rem;
-  height: calc(100vh - @header-height - @footer-height);
+  height: calc(var(--vh, 1vh) * 100 - @header-height - @footer-height);
   margin-top: @header-height;
   overflow: auto;
   box-sizing: border-box;

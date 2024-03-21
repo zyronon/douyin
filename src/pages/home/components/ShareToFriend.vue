@@ -10,7 +10,7 @@
       <div class="create-chat" v-show="!showJoinedChat">
         <Search
             :isShowRightText="isShowRightText"
-            @click="isShowRightText = true;height = '100vh';"
+            @click="isShowRightText = true;height = 'calc(var(--vh, 1vh) * 100)';"
             @notice="isShowRightText = false;searchKey = '';height = '70vh';"
             rightText="取消"
             rightTextColor="gray"

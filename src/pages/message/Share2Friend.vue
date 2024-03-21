@@ -392,7 +392,7 @@ export default {
 
   .indicator-ctn {
     width: 25rem;
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     top: 0;
     position: fixed;
     z-index: 3;

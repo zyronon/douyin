@@ -49,7 +49,7 @@ export default {
     },
     height: {
       type: String,
-      default: '70vh'
+      default: 'calc(var(--vh, 1vh) * 70)'
     },
     showHengGang: {
       type: Boolean,

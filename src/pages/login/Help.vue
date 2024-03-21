@@ -42,7 +42,7 @@ export default {
 
   .content {
     margin-top: 60rem;
-    height: calc(100vh - 60rem);
+    height: calc(var(--vh, 1vh) * 100 - 60rem);
 
     iframe {
       padding: 0;

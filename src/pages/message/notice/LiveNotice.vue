@@ -92,11 +92,11 @@ export default {
   font-size: 14rem;
 
   .scroll {
-    height: calc(100vh - @header-height);
+    height: calc(var(--vh, 1vh) * 100 - @header-height);
   }
 
   .content {
-    height: calc(100vh - @header-height);
+    height: calc(var(--vh, 1vh) * 100 - @header-height);
 
     .list {
       padding: @padding-page;

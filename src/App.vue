@@ -30,15 +30,14 @@ export default {
   computed: {
     ...mapState(['excludeRoutes']),
   },
-  methods: {},
   // watch $route 决定使用哪种过渡
   watch: {
     '$route'(to, from) {
       this.$store.commit('setMaskDialog', {state: false, mode: this.maskDialogMode})
 
       //footer下面的5个按钮，对跳不要用动画
-      let noAnimation = ['/', '/home','/slide', '/me', '/attention', '/message', '/publish', '/home/live',
-      'slide'
+      let noAnimation = ['/', '/home', '/slide', '/me', '/attention', '/message', '/publish', '/home/live',
+        'slide'
       ]
       if (noAnimation.indexOf(from.path) !== -1 && noAnimation.indexOf(to.path) !== -1) {
         return this.transitionName = ''
@@ -49,9 +48,21 @@ export default {
       this.transitionName = toDepth > fromDepth ? 'go' : 'back'
     },
   },
+  methods: {
+    setVh() {
+      let vh = window.innerHeight * 0.01
+      document.documentElement.style.setProperty('--vh', `${vh}px`)
+    }
+  },
   mounted() {
+    this.setVh()
+    // 监听resize事件 视图大小发生变化就重新计算1vh的值
+    window.addEventListener('resize', () => {
+      // location.reload()
+      this.setVh()
+    })
     // window.onresize = () => {
-    //   location.reload()
+    //
     // }
     // this.$store.dispatch('getFriends')
     try {
@@ -64,6 +75,7 @@ export default {
     }
     document.onselectstart = new Function("return false")//禁止选中文字
   },
+
 }
 </script>
 

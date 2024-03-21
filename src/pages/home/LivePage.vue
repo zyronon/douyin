@@ -408,19 +408,19 @@ export default {
 
 .LivePage {
   width: 100vw;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   color: white;
   font-size: 14rem;
   position: relative;
 
   .live-wrapper {
     width: 100vw;
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     background: black;
 
     img {
       width: 100vw;
-      height: 100vh;
+      height: calc(var(--vh, 1vh) * 100);
       color: rgb(229, 229, 229);
     }
   }
@@ -429,7 +429,7 @@ export default {
     position: absolute;
     top: 0;
     width: 100vw;
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
 
     @tag-bg: rgba(58, 58, 70, 0.3);
 

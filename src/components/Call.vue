@@ -167,7 +167,7 @@ export default {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   background: linear-gradient(to bottom, #262626, black);
   transition: all .3s;
   font-size: 12rem;

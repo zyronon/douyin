@@ -101,22 +101,21 @@
             @showSlidebar="state.baseIndex = 0"
             v-model:index="state.navIndex"
         />
-        <div class="slide-content">
-          <SlideHorizontal class="first-horizontal-item"
-                           name="main"
-                           :change-active-index-use-anim="false"
-                           v-model:index="state.navIndex">
-            <Slide0 :active="state.navIndex === 0 && state.baseIndex === 1"/>
-            <SlideItem>
-              <Community/>
-            </SlideItem>
-            <Slide2 :active="state.navIndex === 2 && state.baseIndex === 1"/>
-            <SlideItem>
-              <LongVideo :active="state.navIndex === 3 && state.baseIndex === 1"/>
-            </SlideItem>
-            <Slide4 :active="state.navIndex === 4 && state.baseIndex === 1"/>
-          </SlideHorizontal>
-        </div>
+        <SlideHorizontal class="first-horizontal-item"
+                         name="main"
+                         :change-active-index-use-anim="false"
+                         v-model:index="state.navIndex">
+          <Slide0 :active="state.navIndex === 0 && state.baseIndex === 1"/>
+          <SlideItem>
+            <Community/>
+          </SlideItem>
+          <Slide2 :active="state.navIndex === 2 && state.baseIndex === 1"/>
+          <SlideItem>
+            <LongVideo :active="state.navIndex === 3 && state.baseIndex === 1"/>
+          </SlideItem>
+          <Slide4 :active="state.navIndex === 4 && state.baseIndex === 1"/>
+        </SlideHorizontal>
+
         <Footer v-bind:init-tab="1"/>
         <Mask v-if="state.baseIndex === 0"
               @click="state.baseIndex = 1"
@@ -134,7 +133,6 @@
         />
       </SlideItem>
     </SlideHorizontal>
-
 
     <Comment page-id="home-index" v-model="state.commentVisible"
              @close="closeComments"
@@ -315,11 +313,12 @@ function dislike() {
   font-size: 14rem;
   width: 100%;
   height: 100%;
+  background: black;
   overflow: hidden;
 
   .sidebar {
     width: 80vw;
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     overflow: auto;
     background: rgb(22, 22, 22);
     padding: 10rem;
@@ -422,9 +421,9 @@ function dislike() {
   //width: 90vw;
   //height: 80vh;
   width: 100vw;
-  height: calc(100vh - @footer-height) !important;
+  height: calc(var(--vh, 1vh) * 100 - @footer-height) !important;
   overflow: hidden;
-
+  border-radius: 10rem;
 }
 
 </style>

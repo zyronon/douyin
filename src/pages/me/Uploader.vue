@@ -324,7 +324,7 @@ export default {
       return this.$store.state.bodyWidth
     },
     videoSlideRowListStyle() {
-      return {height: this.refs.videoSlideHeight !== 0 ? this.refs.videoSlideHeight + 'px' : 'calc(100vh - 96rem)'}
+      return {height: this.refs.videoSlideHeight !== 0 ? this.refs.videoSlideHeight + 'px' : 'calc(var(--vh, 1vh) * 100 - 96rem)'}
     },
     SlideItemStyle() {
       if (this.tempScroll || this.isScroll) return {overflow: 'auto'}

@@ -163,11 +163,11 @@ export default {
   font-size: 14rem;
 
   .scroll {
-    height: calc(100vh - @header-height - @header-height);
+    height: calc(var(--vh, 1vh) * 100 - @header-height - @header-height);
   }
 
   .content {
-    height: calc(100vh - @header-height);
+    height: calc(var(--vh, 1vh) * 100 - @header-height);
     padding: @padding-page;
     padding-top: 0;
     box-sizing: border-box;

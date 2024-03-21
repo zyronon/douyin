@@ -8,8 +8,15 @@
         ref="video"
         muted
         preload
+        loop
+        x5-video-player-type="h5-page"
+        :x5-video-player-fullscreen='false'
+        :webkit-playsinline="true"
+        :x5-playsinline="true"
         :playsinline="true"
-        :autoplay="isPlay" loop>
+        :fullscreen="false"
+        :autoplay="isPlay"
+    >
       <p> 您的浏览器不支持 video 标签。</p>
     </video>
     <Icon icon="fluent:play-28-filled" class="pause-icon" v-if="!isPlaying"/>
@@ -253,7 +260,7 @@ export default {
     onDialogMove({tag, e}) {
       if (this.commentVisible && tag === 'comment') {
         Utils.$setCss(this.$refs.video, 'transition-duration', `0ms`)
-        Utils.$setCss(this.$refs.video, 'height', `calc(30vh + ${e}px)`)
+        Utils.$setCss(this.$refs.video, 'height', `calc(var(--vh, 1vh) * 30 + ${e}px)`)
       }
     },
     onDialogEnd({tag, isClose}) {
@@ -264,14 +271,14 @@ export default {
           this.commentVisible = false
           Utils.$setCss(this.$refs.video, 'height', '100%')
         } else {
-          Utils.$setCss(this.$refs.video, 'height', '30vh')
+          Utils.$setCss(this.$refs.video, 'height', 'calc(var(--vh, 1vh) * 30)')
         }
       }
     },
     onOpenComments(id) {
       if (id === this.item.id) {
         Utils.$setCss(this.$refs.video, 'transition-duration', `300ms`)
-        Utils.$setCss(this.$refs.video, 'height', '30vh')
+        Utils.$setCss(this.$refs.video, 'height', 'calc(var(--vh, 1vh) * 30)')
         this.commentVisible = true
       }
     },
@@ -369,6 +376,7 @@ export default {
   text-align: center;
 
   video {
+    max-width: 100vw;
     height: 100%;
     transition: height, margin-top .3s;
     //background: black;

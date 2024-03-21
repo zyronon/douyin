@@ -186,7 +186,7 @@ onMounted(() => {
   }
 
   .content {
-    height: calc(100vh - @footer-height);
+    height: calc(var(--vh, 1vh) * 100 - @footer-height);
   }
 
   .footer {

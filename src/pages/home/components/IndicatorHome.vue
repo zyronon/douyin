@@ -202,7 +202,7 @@ export default {
   z-index: 2;
   width: 100%;
   color: white;
-  height: @header-height;
+  height: var(--home-header-height);
   transition: all .3s;
   font-weight: bold;
 
@@ -352,7 +352,7 @@ export default {
     top: 0;
     position: absolute;
     width: 100vw;
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     background: #00000066;
   }
 }
