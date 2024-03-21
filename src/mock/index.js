@@ -3,8 +3,7 @@ import globalMethods from '../utils'
 import resource from "../assets/data/resource.js";
 import posts6 from "@/assets/data/posts6.json";
 import users from '@/assets/data/users.json'
-import post from '@/assets/data/post.json'
-import {sample, shuffle, uniqueId} from "lodash-es";
+import {uniqueId} from "lodash-es";
 
 function getParams(options) {
   let params = globalMethods.$parseURL(options.url).params
@@ -97,50 +96,6 @@ Mock.mock(/recommended/, options => {
   })
 })
 
-// Mock.Random.extend({
-//   user-imgs: function (date) {
-//     return this.pick([
-//       require('../assets/img/poster/1.jpg'),
-//       require('../assets/img/poster/2.jpg'),
-//       require('../assets/img/poster/3.jpg'),
-//       require('../assets/img/poster/4.jpg'),
-//       require('../assets/img/poster/5.jpg'),
-//       require('../assets/img/poster/6.jpg'),
-//       require('../assets/img/poster/7.jpg'),
-//       require('../assets/img/poster/8.jpg'),
-//       require('../assets/img/poster/9.jpg'),
-//       require('../assets/img/poster/10.jpg'),
-//       require('../assets/img/poster/11.jpg'),
-//     ])
-//   }
-// })
-// !(function me() {
-//   let my = {total: Mock.Random.natural(1, 20)}
-//   my[`list|${my.total > 10 ? 10 : my.total}`] = [{'like|10000-990000': 1000000, src: '@user-imgs'}]
-//
-//   let private1 = {total: Mock.Random.natural(1, 20)}
-//   private1[`list|${private1.total > 10 ? 10 : private1.total}`] = [{'like|10000-990000': 1000000, src: '@user-imgs'}]
-//
-//   let like = {total: Mock.Random.natural(1, 20)}
-//   like[`list|${like.total > 10 ? 10 : like.total}`] = [{'like|10000-990000': 1000000, src: '@user-imgs'}]
-//
-//   let collect = {total: Mock.Random.natural(1, 20)}
-//   collect[`list|${collect.total > 10 ? 10 : collect.total}`] = [{'like|10000-990000': 1000000, src: '@user-imgs'}]
-//
-//   const data = Mock.mock({
-//     'data': {
-//       my,
-//       private: private1,
-//       like,
-//       collect
-//     },
-//     code: 200,
-//     msg: '',
-//   })
-//   Mock.mock('me', data)
-// }())
-
-
 Mock.mock(/my/, options => {
   let page = getPage(options)
   console.log('mock', page)
@@ -205,7 +160,7 @@ Mock.mock(/user\/profile\/other/, options => {
     // data: sample(users), code: 200, msg: '',
     data: {
       user: users[0].user,
-      post: post
+      post: []
     }, code: 200, msg: '',
   })
 })
@@ -213,6 +168,6 @@ Mock.mock(/user\/profile\/other/, options => {
 Mock.mock(/aweme\/post/, options => {
   return Mock.mock({
     // data: sample(users), code: 200, msg: '',
-    data: post, code: 200, msg: '',
+    data: [], code: 200, msg: '',
   })
 })

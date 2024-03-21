@@ -198,7 +198,7 @@
 </template>
 <script>
 import Search from "../../components/Search";
-import _ from 'lodash-es'
+import {sampleSize} from 'lodash-es'
 import Dom from "../../utils/dom";
 import {nextTick} from "vue";
 
@@ -645,7 +645,7 @@ export default {
       clearInterval(this.timer)
     },
     refresh() {
-      this.randomGuess = _.sampleSize(this.guess, 6)
+      this.randomGuess = sampleSize(this.guess, 6)
     },
     toggle() {
       if (this.isExpand) {

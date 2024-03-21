@@ -3,11 +3,14 @@ import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import VueMacros from 'unplugin-vue-macros/vite'
 import {resolve} from 'path'
+import {visualizer} from "rollup-plugin-visualizer";
 import DefineOptions from 'unplugin-vue-define-options/vite' // 引入插件
 
 function pathResolve(dir) {
   return resolve(__dirname, ".", dir)
 }
+
+const lifecycle = process.env.npm_lifecycle_event;
 
 export const ssrTransformCustomDir = () => {
   return {
@@ -33,6 +36,14 @@ export default defineConfig({
 
     Vue(),
     VueJsx(),
+    lifecycle === 'report' ?
+      visualizer({
+        gzipSize: true,
+        brotliSize: true,
+        emitFile: false,
+        filename: "report.html", //分析图生成的文件名
+        open: true //如果存在本地服务端口，将在打包后自动展示
+      }) : null,
   ],
   resolve: {
     alias: {
