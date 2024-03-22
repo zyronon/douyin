@@ -72,8 +72,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../assets/less/variables";
-
 .search-ctn {
   display: flex;
   align-items: center;

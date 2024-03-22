@@ -64,6 +64,7 @@ import VerificationCode from "../pages/login/VerificationCode";
 import RetrievePassword from "../pages/login/RetrievePassword";
 import Help from "../pages/login/Help";
 import GoodsDetail from "@/pages/shop/GoodsDetail.vue";
+import AlbumDetail from "../pages/home/AlbumDetail.vue";
 
 const routes = [
   // {path: '/', redirect: '/attention'},
@@ -148,6 +149,7 @@ const routes = [
   {path: '/message/share-to-friend', component: Share2Friend},
 
   {path: '/video-detail', name: 'video-detail', component: VideoDetail},
+  {path: '/album-detail', name: 'video-detail', component: AlbumDetail},
 
 ]
 

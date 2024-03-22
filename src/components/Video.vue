@@ -376,7 +376,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../assets/less/variables";
 
 .fade-enter-active,
 .fade-leave-active {

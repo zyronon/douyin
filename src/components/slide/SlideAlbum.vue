@@ -123,7 +123,7 @@ const props = defineProps({
       return {
         type: 'imgs',
         imgs: [
-          'https://cdn.seovx.com/ha/?mom=302',
+          'https://cdn.seovx.com/?mom=302',
           'https://cdn.seovx.com/?mom=302',
           'https://cdn.seovx.com/?mom=302',
           'https://cdn.seovx.com/?mom=302',

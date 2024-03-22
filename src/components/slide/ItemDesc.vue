@@ -76,7 +76,6 @@ const state = reactive({
 </template>
 
 <style scoped lang="less">
-@import "../../assets/less/variables";
 
 .item-desc {
   position: absolute;

@@ -147,7 +147,7 @@
         </div>
         <div class="comment" v-for="i in 2">
           <header>
-            <img src="https://cdn.seovx.com/ha/?mom=302" alt="" class="avatar">
+            <img src="https://cdn.seovx.com/?mom=302" alt="" class="avatar">
             <span class="gray">花***栽</span>
           </header>
           <div class="w">
@@ -159,14 +159,14 @@
                 china款/超值【买る双+送2双】共5双
               </div>
             </div>
-            <img src="https://cdn.seovx.com/ha/?mom=302" alt="" class="avatar">
+            <img src="https://cdn.seovx.com/?mom=302" alt="" class="avatar">
           </div>
         </div>
       </div>
 
       <div class="card shop">
         <header>
-          <img src="https://cdn.seovx.com/ha/?mom=302" alt="" class="avatar">
+          <img src="https://cdn.seovx.com/?mom=302" alt="" class="avatar">
           <div class="right">
             <div class="l">
               <div class="name">店铺名</div>
@@ -208,7 +208,7 @@
           </header>
           <div class="wrap">
             <div class="item" v-for="i in 4">
-              <img src="https://cdn.seovx.com/ha/?mom=302" alt="" class="avatar">
+              <img src="https://cdn.seovx.com/?mom=302" alt="" class="avatar">
               <div class="name">【热销中】袜子男潮流百搭中筒袜子袜子男潮流百搭中筒袜子</div>
               <div class="price">
                 <span class="symbol">￥</span>
@@ -229,7 +229,7 @@
       </header>
 
       <div class="imgs">
-        <img v-lazy="`https://cdn.seovx.com/ha/?mom=302&d=${i}`" alt="" class="avatar" v-for="i in 5">
+        <img v-lazy="`https://cdn.seovx.com/?mom=302&d=${i}`" alt="" class="avatar" v-for="i in 5">
       </div>
     </div>
 
