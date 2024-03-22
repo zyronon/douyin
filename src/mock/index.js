@@ -2,7 +2,6 @@ import Mock from 'mockjs'
 import globalMethods from '../utils'
 import resource from "../assets/data/resource.js";
 import posts6 from "@/assets/data/posts6.json";
-import users from '@/assets/data/users.json'
 import {uniqueId} from "lodash-es";
 
 function getParams(options) {
@@ -29,7 +28,7 @@ let allRecommendVideos = posts6.map(v => {
   return v
 })
 
-console.log('allRecommendVideos', allRecommendVideos)
+// console.log('allRecommendVideos', allRecommendVideos)
 let t = [
   {
     type: 'imgs',
@@ -69,20 +68,27 @@ let t = [
 //   }
 // },
 
-// for (let i = 0; i < 50; i++) {
-//   allRecommendVideos = allRecommendVideos.concat(shuffle(resource.videos)
-//     .slice(0, 10)
-//     .map(v => {
-//       v.type = 'recommend-video'
-//       return v
-//     }))
-// }
+function initData() {
+  fetch('/data/posts.json').then(r => {
+    r.json().then(v => {
+      allRecommendVideos = allRecommendVideos.concat(v)
+      allRecommendVideos = allRecommendVideos.map(w => {
+        w.type = 'recommend-video'
+        return w
+      })
+      resource.like = allRecommendVideos.slice(0, 15)
+      resource.videos = allRecommendVideos.slice(0, 15)
+    })
+  })
 
-// fetch('/data/posts.json').then(r => {
-//   r.json().then(v => {
-//     allRecommendVideos = allRecommendVideos.concat(v)
-//   })
-// })
+  fetch('/data/user-71158770.json').then(r => {
+    r.json().then(v => {
+      resource.my = v
+    })
+  })
+}
+
+setTimeout(initData, 3000)
 
 Mock.mock(/recommended/, options => {
   // console.log('recommended', allRecommendVideos.length)
@@ -98,13 +104,14 @@ Mock.mock(/recommended/, options => {
 
 Mock.mock(/my/, options => {
   let page = getPage(options)
-  console.log('mock', page)
+  // console.log('mock', page)
   return Mock.mock({
     data: {
       pageNo: page.pageNo, total: resource.my.length, list: resource.my.slice(page.offset, page.limit),
     }, code: 200, msg: '',
   })
 })
+
 Mock.mock(/like/, options => {
   let page = getPage(options)
   return Mock.mock({
@@ -113,6 +120,7 @@ Mock.mock(/like/, options => {
     }, code: 200, msg: '',
   })
 })
+
 Mock.mock(/private1/, options => {
   let page = getPage(options)
   return Mock.mock({
@@ -121,17 +129,22 @@ Mock.mock(/private1/, options => {
     }, code: 200, msg: '',
   })
 })
+
 Mock.mock(/collect/, options => {
   return Mock.mock({
     data: {
       video: {
-        total: resource.videos.length, list: resource.videos,
-      }, music: {
-        total: resource.music.length, list: resource.music,
+        total: resource.videos.length,
+        list: resource.videos,
+      },
+      music: {
+        total: resource.music.length,
+        list: resource.music,
       }
     }, code: 200, msg: '',
   })
 })
+
 Mock.mock(/historyVideo/, options => {
   let page = getPage(options)
   return Mock.mock({
@@ -141,6 +154,7 @@ Mock.mock(/historyVideo/, options => {
     }, code: 200, msg: '',
   })
 })
+
 Mock.mock(/historyOther/, options => {
   let page = getPage(options)
   return Mock.mock({
@@ -149,25 +163,9 @@ Mock.mock(/historyOther/, options => {
     }, code: 200, msg: '',
   })
 })
+
 Mock.mock(/user\/friends/, options => {
   return Mock.mock({
     data: resource.users, code: 200, msg: '',
-  })
-})
-
-Mock.mock(/user\/profile\/other/, options => {
-  return Mock.mock({
-    // data: sample(users), code: 200, msg: '',
-    data: {
-      user: users[0].user,
-      post: []
-    }, code: 200, msg: '',
-  })
-})
-
-Mock.mock(/aweme\/post/, options => {
-  return Mock.mock({
-    // data: sample(users), code: 200, msg: '',
-    data: [], code: 200, msg: '',
   })
 })

@@ -3,16 +3,12 @@ import posts6 from "@/assets/data/posts6.json";
 
 export default {
   videos: [
-    ...posts6
   ],
   my: [
-    ...posts6
   ],
   like: [
-    ...posts6
   ],
   private1: [
-    ...posts6
   ],
   users:{
     "all": [

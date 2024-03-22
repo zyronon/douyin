@@ -38,9 +38,6 @@ dependencies:
   pinyin:
     specifier: 2.11.1
     version: 2.11.1
-  swiper:
-    specifier: 8.4.6
-    version: 8.4.6
   vue:
     specifier: 3.4.21
     version: 3.4.21
@@ -1507,12 +1504,6 @@ packages:
     dev: false
     optional: true
 
-  /dom7@4.0.6:
-    resolution: {integrity: sha512-emjdpPLhpNubapLFdjNL9tP06Sr+GZkrIHEXLWvOGsytACUrkbeIdjO5g77m00BrHTznnlcNqgmn7pCN192TBA==}
-    dependencies:
-      ssr-window: 4.0.2
-    dev: false
-
   /electron-to-chromium@1.4.563:
     resolution: {integrity: sha512-dg5gj5qOgfZNkPNeyKBZQAQitIQ/xwfIDmEQJHCbXaD9ebTZxwJXUsDYcBlAvZGZLi+/354l35J1wkmP6CqYaw==}
     dev: true
@@ -2373,10 +2364,6 @@ packages:
     engines: {node: '>= 8'}
     dev: true
 
-  /ssr-window@4.0.2:
-    resolution: {integrity: sha512-ISv/Ch+ig7SOtw7G2+qkwfVASzazUnvlDTwypdLoPoySv+6MqlOV10VwPSE6EWkGjhW50lUmghPmpYZXMu/+AQ==}
-    dev: false
-
   /string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
     engines: {node: '>=8'}
@@ -2411,15 +2398,6 @@ packages:
   /svg-tags@1.0.0:
     resolution: {integrity: sha512-ovssysQTa+luh7A5Weu3Rta6FJlFBBbInjOh722LIt6klpU2/HtdUbszju/G4devcvk8PGt7FCLv5wftu3THUA==}
     dev: true
-
-  /swiper@8.4.6:
-    resolution: {integrity: sha512-HACW035vBz2T6Kfut23EAzXhcDpgR8doX+wjq0ZUvJgS5SQApGrV885DAPLBFnmPUISsAhNSVxPKDxqroFvXvQ==}
-    engines: {node: '>= 4.7.0'}
-    requiresBuild: true
-    dependencies:
-      dom7: 4.0.6
-      ssr-window: 4.0.2
-    dev: false
 
   /tar@6.2.0:
     resolution: {integrity: sha512-/Wo7DcT0u5HUV486xg675HtjNd3BXZ6xDbzsCUZPt5iw8bTQ63bP0Raut3mvro9u+CUyq7YQd8Cx55fsZXxqLQ==}

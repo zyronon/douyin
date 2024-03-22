@@ -26,7 +26,4 @@ export default {
   historyOther(params, data) {
     return request({url: '/video/historyOther', method: 'get', params, data})
   },
-  post(params, data) {
-    return request({url: '/aweme/post', method: 'get', params, data})
-  },
 }

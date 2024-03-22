@@ -63,7 +63,6 @@ import PasswordLogin from "../pages/login/PasswordLogin";
 import VerificationCode from "../pages/login/VerificationCode";
 import RetrievePassword from "../pages/login/RetrievePassword";
 import Help from "../pages/login/Help";
-import Uploader from "../pages/me/Uploader";
 import GoodsDetail from "@/pages/shop/GoodsDetail.vue";
 
 const routes = [
@@ -144,7 +143,6 @@ const routes = [
   //前面的要跳到这些页面，所以放后面
   {path: '/me/request-update', component: RequestUpdate},
   {path: '/me/my-request-update', component: MyRequestUpdate},
-  {path: '/me/uploader', component: Uploader},
   {path: '/home/report', component: Report},
   {path: '/home/submit-report', component: SubmitReport},
   {path: '/message/share-to-friend', component: Share2Friend},

@@ -1,5 +1,5 @@
 <template>
-  <div class="People" @click="$nav('/me/uploader')">
+  <div class="People" >
     <img :src="$imgPreview(people.avatar)" alt="" class="head-image pull-left">
     <div class="content">
       <template v-if="mode === 'normal'">
