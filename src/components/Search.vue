@@ -72,7 +72,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../assets/less/color";
+@import "../assets/less/variables";
 
 .search-ctn {
   display: flex;
@@ -80,7 +80,7 @@ export default {
 
   &.dark {
     .search {
-      background: @second-btn-color-tran;
+      background: var(--second-btn-color-tran);
     }
   }
 
@@ -126,7 +126,7 @@ export default {
       background: transparent;
 
       &::-webkit-input-placeholder {
-        color: @second-text-color;
+        color: var(--second-text-color);
       }
     }
 

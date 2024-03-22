@@ -377,7 +377,7 @@ function toggle(i) {
     z-index: 9;
 
     .top {
-      height: @header-height;
+      height: var(--common-header-height);
       display: flex;
       align-items: center;
       padding: 0 10rem;
@@ -780,7 +780,7 @@ function toggle(i) {
             border-radius: 4rem;
             padding: 5rem 14rem;
             font-weight: 900;
-            background: @primary-btn-color;
+            background: var(--primary-btn-color);
             color: white;
           }
         }

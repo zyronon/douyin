@@ -91,7 +91,7 @@ export default {
     .title {
       font-size: 12rem;
       padding: 10rem 15rem;
-      color: @second-text-color;
+      color: var(--second-text-color);
       border-bottom: 1px solid #cccccc11;
 
       img {
@@ -106,7 +106,7 @@ export default {
 
       .textarea-ctn {
         width: 100%;
-        background: @active-main-bg;
+        background: var(--active-main-bg);
         padding: 15rem;
         box-sizing: border-box;
         margin-top: 10rem;
@@ -122,7 +122,7 @@ export default {
           color: white;
 
           &::placeholder {
-            color: @second-text-color;
+            color: var(--second-text-color);
           }
         }
       }
@@ -130,7 +130,7 @@ export default {
       .text-num {
         margin-top: 5rem;
         font-size: 10rem;
-        color: @second-text-color;
+        color: var(--second-text-color);
         text-align: right;
       }
     }
@@ -159,7 +159,7 @@ export default {
           position: absolute;
           right: 0;
           top: 0;
-          background: @second-btn-color;
+          background: var(--second-btn-color);
           padding: 3rem;
           width: 10rem;
           height: 10rem;
@@ -172,10 +172,10 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        color: @second-text-color;
+        color: var(--second-text-color);
         font-size: 12rem;
         align-items: center;
-        background: @second-btn-color-tran;
+        background: var(--second-btn-color-tran);
 
         img {
           width: 35rem;

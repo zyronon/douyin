@@ -182,7 +182,7 @@ export default {
   padding: 0 15rem;
 
   .index {
-    color: @second-text-color;
+    color: var(--second-text-color);
     height: 60rem;
     line-height: 60rem;
     font-size: 13rem;
@@ -224,14 +224,14 @@ export default {
 
   .create-chat {
     padding-bottom: 40rem;
-    background: @main-bg;
+    background: var(--main-bg);
 
     .search-ctn {
       padding: 0 15rem;
     }
 
     .joined-chat-group-nav {
-      border-bottom: 1px solid @line-color;
+      border-bottom: 1px solid var(--line-color);
       height: 50rem;
       padding: 0 15rem;
       display: flex;
@@ -257,7 +257,7 @@ export default {
       bottom: 0;
       left: 0;
       right: 0;
-      background: @main-bg;
+      background: var(--main-bg);
       //background: red;
       display: flex;
       align-items: center;
@@ -275,7 +275,7 @@ export default {
         border-radius: 2rem;
 
         &.primary {
-          background: @primary-btn-color;
+          background: var(--primary-btn-color);
         }
       }
     }
@@ -294,14 +294,14 @@ export default {
       .notice-h2 {
         margin-top: 10rem;
         font-size: 14rem;
-        color: @second-text-color;
+        color: var(--second-text-color);
       }
 
     }
   }
 
   .joined-chat-group {
-    background: @main-bg;
+    background: var(--main-bg);
 
     .nav {
       font-size: 16rem;
@@ -357,7 +357,7 @@ export default {
 
             .num {
               margin-left: 5rem;
-              color: @second-text-color;
+              color: var(--second-text-color);
             }
           }
 

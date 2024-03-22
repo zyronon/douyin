@@ -125,7 +125,7 @@ export default {
 
     .request {
       .list {
-        margin-top: @padding-page;
+        margin-top: var(--page-padding);
 
         .item {
           padding: 10rem 0;
@@ -149,7 +149,7 @@ export default {
 
           .time {
             font-size: 12rem;
-            color: @second-text-color;
+            color: var(--second-text-color);
           }
         }
       }
@@ -163,7 +163,7 @@ export default {
     .subtitle {
       margin-top: 10rem;
       font-size: 14rem;
-      color: @second-text-color;
+      color: var(--second-text-color);
     }
   }
 
@@ -190,7 +190,7 @@ export default {
     right: 0;
     display: flex;
     align-items: center;
-    background: @main-bg;
+    background: var(--main-bg);
 
     .button {
       flex: 1;

@@ -119,12 +119,12 @@ export default {
 .indicator-ctn {
   font-size: 14rem;
   width: 100%;
-  height: @indicator-height;
+  height: var(--indicator-height);
   top: 0;
   left: 0;
   right: 0;
   z-index: 1;
-  background: @main-bg;
+  background: var(--main-bg);
 
   .tabs {
     display: flex;

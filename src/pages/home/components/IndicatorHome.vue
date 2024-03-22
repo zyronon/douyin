@@ -192,7 +192,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 .indicator-home {
   position: absolute;
@@ -306,7 +306,7 @@ export default {
     padding-right: 10rem;
     padding-bottom: 10rem;
     width: 100%;
-    background: @main-bg;
+    background: var(--main-bg);
     display: flex;
     justify-content: space-between;
     align-items: flex-end;

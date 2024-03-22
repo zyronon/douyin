@@ -124,7 +124,7 @@ export default {
   .footer {
     font-size: 15rem;
     font-weight: bold;
-    color: @second-text-color;
+    color: var(--second-text-color);
 
     .base-slide-item {
       display: flex;

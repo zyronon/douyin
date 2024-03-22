@@ -376,7 +376,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../assets/less/color";
+@import "../assets/less/variables";
 
 .fade-enter-active,
 .fade-leave-active {
@@ -548,7 +548,7 @@ export default {
             font-size: 12rem;
             padding: 4rem;
             border-radius: 3rem;
-            background: @second-btn-color-tran;
+            background: var(--second-btn-color-tran);
 
             .gang {
               height: 8rem;
@@ -600,7 +600,7 @@ export default {
 
             .right {
               margin: 0 10px;
-              color: @second-text-color;
+              color: var(--second-text-color);
 
               .name {
                 margin-right: 10px;

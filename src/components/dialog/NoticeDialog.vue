@@ -91,7 +91,7 @@ export default {
         font-size: 13rem;
 
         &.gray{
-          color: @second-text-color;
+          color: var(--second-text-color);
         }
       }
     }

@@ -103,13 +103,13 @@ export default {
       height: 50rem;
       font-size: 14rem;
       transition: all .1s;
-      background: @main-bg;
+      background: var(--main-bg);
 
       .right {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        color: @second-text-color;
+        color: var(--second-text-color);
 
         img {
           margin-left: 10rem;
@@ -118,8 +118,8 @@ export default {
       }
 
       &:active {
-        background: @active-main-bg;
-        color: @second-text-color;
+        background: var(--active-main-bg);
+        color: var(--second-text-color);
       }
     }
   }

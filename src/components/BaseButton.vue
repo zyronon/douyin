@@ -123,12 +123,12 @@ export default {
   }
 
   &.primary {
-    background: @primary-btn-color;
+    background: var(--primary-btn-color);
   }
 
   &.dark {
-    background: @second-btn-color;
-    color: @second-text-color;
+    background: var(--second-btn-color);
+    color: var(--second-text-color);
   }
 
   &.dark2 {
@@ -169,11 +169,11 @@ export default {
 
   &:active {
     &.primary {
-      background: @disable-primary-btn-color;
+      background: var(--disable-primary-btn-color);
     }
 
     &.dark {
-      background: @second-btn-color-tran;
+      background: var(--second-btn-color-tran);
     }
 
     &.green {
@@ -197,11 +197,11 @@ export default {
   &.no-active {
     &:active {
       &.primary {
-        background: @primary-btn-color;
+        background: var(--primary-btn-color);
       }
 
       &.dark {
-        background: @second-btn-color;
+        background: var(--second-btn-color);
       }
 
       &.white {

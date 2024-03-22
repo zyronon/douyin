@@ -684,7 +684,7 @@ export default {
     border-radius: 2rem;
 
     &.hot {
-      background: @primary-btn-color;
+      background: var(--primary-btn-color);
     }
 
     &.new {
@@ -694,14 +694,14 @@ export default {
 
   .header {
     z-index: 4;
-    background: @main-bg;
+    background: var(--main-bg);
     height: 60rem;
     font-size: 14rem;
-    padding: 0 @padding-page;
+    padding: 0 var(--page-padding);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid @line-color;
+    border-bottom: 1px solid var(--line-color);
     position: fixed;
     width: 100vw;
     box-sizing: border-box;
@@ -729,12 +729,12 @@ export default {
       .history-expand {
         text-align: center;
         padding: 10rem;
-        color: @second-text-color;
+        color: var(--second-text-color);
       }
     }
 
     .guess {
-      padding: 0 @padding-page;
+      padding: 0 var(--page-padding);
 
       .title {
         font-size: 14rem;
@@ -744,7 +744,7 @@ export default {
         justify-content: space-between;
 
         .right {
-          color: @second-text-color;
+          color: var(--second-text-color);
           display: flex;
           align-items: center;
 
@@ -788,7 +788,7 @@ export default {
         font-size: 14rem;
 
         .tab {
-          color: @second-text-color;
+          color: var(--second-text-color);
           margin-right: 20rem;
 
           &.active {
@@ -809,9 +809,9 @@ export default {
 
       .slide0 {
         box-sizing: border-box;
-        margin: 0 @padding-page 50rem @padding-page;
+        margin: 0 var(--page-padding) 50rem var(--page-padding);
         background: linear-gradient(to right, rgb(32, 29, 36), rgb(50, 29, 38));
-        padding: @padding-page;
+        padding: var(--page-padding);
         border-radius: 10rem;
 
         .l-row {
@@ -819,7 +819,7 @@ export default {
           display: flex;
           margin-bottom: 16rem;
           align-items: center;
-          color: @second-text-color;
+          color: var(--second-text-color);
 
           .rank-wrapper {
             display: flex;
@@ -868,10 +868,10 @@ export default {
 
       .slide1 {
         box-sizing: border-box;
-        margin: 0 @padding-page 50rem @padding-page;
+        margin: 0 var(--page-padding) 50rem var(--page-padding);
         background: rgb(20, 22, 34);
         border: 1px solid rgba(31, 34, 52, 0.5);
-        padding: @padding-page;
+        padding: var(--page-padding);
         border-radius: 10rem;
 
         .l-row {
@@ -879,7 +879,7 @@ export default {
           display: flex;
           margin-bottom: 10rem;
           align-items: center;
-          color: @second-text-color;
+          color: var(--second-text-color);
 
           &:active {
             opacity: .5;
@@ -927,7 +927,7 @@ export default {
                 width: @width;
                 height: @width;
                 border-radius: 50%;
-                background: @primary-btn-color;
+                background: var(--primary-btn-color);
 
                 .avatar {
                   width: @width - 0.3;
@@ -952,10 +952,10 @@ export default {
                 align-items: center;
                 justify-content: center;
                 font-size: 10rem;
-                color: @second-text-color;
+                color: var(--second-text-color);
                 margin-left: 5rem;
                 border-radius: 2rem;
-                background: @second-btn-color-tran;
+                background: var(--second-btn-color-tran);
 
                 .type2 {
                   margin-right: 2rem;
@@ -981,10 +981,10 @@ export default {
 
       .slide2 {
         box-sizing: border-box;
-        margin: 0 @padding-page 50rem @padding-page;
+        margin: 0 var(--page-padding) 50rem var(--page-padding);
         background: rgb(20, 22, 34);
         border: 1px solid rgba(31, 34, 52, 0.5);
-        padding: @padding-page;
+        padding: var(--page-padding);
         border-radius: 10rem;
 
         .l-row {
@@ -992,7 +992,7 @@ export default {
           display: flex;
           margin-bottom: 10rem;
           align-items: center;
-          color: @second-text-color;
+          color: var(--second-text-color);
 
           &:active {
             opacity: .5;
@@ -1068,14 +1068,14 @@ export default {
 
       .slide3 {
         box-sizing: border-box;
-        margin: 0 @padding-page 50rem @padding-page;
+        margin: 0 var(--page-padding) 50rem var(--page-padding);
         border-radius: 10rem;
 
         .slide4-wrapper {
-          padding: 5rem @padding-page;
+          padding: 5rem var(--page-padding);
 
           .brands {
-            color: @second-text-color;
+            color: var(--second-text-color);
             font-size: 12rem;
             margin-bottom: 15rem;
             display: flex;
@@ -1084,11 +1084,11 @@ export default {
               border-radius: 2rem;
               margin-right: 10rem;
               padding: 5rem 10rem;
-              background: @second-btn-color-tran;
+              background: var(--second-btn-color-tran);
 
               &.active {
                 color: white;
-                background: @second-btn-color;
+                background: var(--second-btn-color);
               }
             }
           }
@@ -1098,7 +1098,7 @@ export default {
             display: flex;
             margin-bottom: 10rem;
             align-items: center;
-            color: @second-text-color;
+            color: var(--second-text-color);
 
             &:active {
               opacity: .5;
@@ -1149,7 +1149,7 @@ export default {
                     width: @width;
                     height: @width;
                     border-radius: 50%;
-                    background: @primary-btn-color;
+                    background: var(--primary-btn-color);
 
                     .avatar-out-line {
                       width: @width;
@@ -1157,7 +1157,7 @@ export default {
                       position: absolute;
                       background: transparent;
                       border-radius: 50%;
-                      border: 2rem solid @primary-btn-color;
+                      border: 2rem solid var(--primary-btn-color);
                       animation: avatar-out-line 1s infinite;
 
                       @keyframes avatar-out-line {
@@ -1223,7 +1223,7 @@ export default {
         }
 
         .ad {
-          background: @second-btn-color-tran;
+          background: var(--second-btn-color-tran);
           display: flex;
           align-items: center;
           justify-content: center;

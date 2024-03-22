@@ -202,7 +202,7 @@ export default {
   transition: all .3s;
 
   &.dark {
-    background: @main-bg;
+    background: var(--main-bg);
   }
 
   &.light {
@@ -229,10 +229,10 @@ export default {
     align-items: center;
 
     &.dark {
-      background: @main-bg;
+      background: var(--main-bg);
 
       .content {
-        background: @second-btn-color;
+        background: var(--second-btn-color);
       }
     }
 

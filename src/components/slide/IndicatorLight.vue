@@ -120,7 +120,7 @@ export default {
 .indicator-ctn {
   font-size: 14rem;
   width: 100%;
-  height: @indicator-height;
+  height: var(--indicator-height);
   top: 0;
   left: 0;
   right: 0;
@@ -137,7 +137,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      color: @second-text-color;
+      color: var(--second-text-color);
       transition: color .3s;
 
       &.active {

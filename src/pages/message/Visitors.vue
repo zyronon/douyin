@@ -119,7 +119,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 .remove-enter-active,
 .remove-leave-active {
@@ -142,8 +142,8 @@ export default {
   font-size: 14rem;
 
   .content {
-    padding: @padding-page;
-    padding-top: @header-height;
+    padding: var(--page-padding);
+    padding-top: var(--common-header-height);
   }
 
   .open-display-desc {
@@ -195,13 +195,13 @@ export default {
     }
 
     .list {
-      color: @second-text-color;
+      color: var(--second-text-color);
       text-align: left;
     }
 
     .buttons {
       position: fixed;
-      padding: @padding-page;
+      padding: var(--page-padding);
       bottom: 0;
       left: 0;
       width: 100vw;
@@ -224,7 +224,7 @@ export default {
     text-align: center;
 
     .header {
-      padding: @padding-page;
+      padding: var(--page-padding);
       padding-top: 30rem;
       padding-bottom: 20rem;
       display: flex;
@@ -250,8 +250,8 @@ export default {
       }
 
       .close {
-        top: @padding-page;
-        right: @padding-page;
+        top: var(--page-padding);
+        right: var(--page-padding);
         position: absolute;
         width: 20rem;
       }
@@ -262,15 +262,15 @@ export default {
     }
 
     .sub-title {
-      padding: @padding-page;
+      padding: var(--page-padding);
       font-size: 12rem;
-      color: @second-text-color;
+      color: var(--second-text-color);
     }
 
     .l-line {
       background: #f2f1f1;
-      margin-left: @padding-page;
-      width: calc(100vw - @padding-page * 2);
+      margin-left: var(--page-padding);
+      width: calc(100vw - var(--page-padding) * 2);
       height: 1px;
     }
 

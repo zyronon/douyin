@@ -547,12 +547,12 @@ export default {
       z-index: 2;
       width: 100%;
       box-sizing: border-box;
-      height: @header-height;
+      height: var(--common-header-height);
       padding: 0 10rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid @line-color;
+      border-bottom: 1px solid var(--line-color);
 
       img {
         height: 20rem;
@@ -572,7 +572,7 @@ export default {
           padding: 1px 6px;
           border-radius: 10px;
           color: white;
-          background: @second-btn-color;
+          background: var(--second-btn-color);
         }
       }
 
@@ -696,7 +696,7 @@ export default {
       position: fixed;
       width: 100vw;
       box-sizing: border-box;
-      padding: @padding-page;
+      padding: var(--page-padding);
       display: flex;
       justify-content: space-between;
 
@@ -742,13 +742,13 @@ export default {
       &.bottom {
         top: -14rem;
         border: 7rem solid transparent;
-        border-bottom: 7rem solid @second-btn-color;
+        border-bottom: 7rem solid var(--second-btn-color);
       }
 
       &.top {
         bottom: -14rem;
         border: 7rem solid transparent;
-        border-top: 7rem solid @second-btn-color;
+        border-top: 7rem solid var(--second-btn-color);
       }
     }
   }

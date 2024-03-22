@@ -178,7 +178,7 @@ export default {
   align-items: center;
 
   .sub {
-    color: @second-text-color;
+    color: var(--second-text-color);
   }
 }
 
@@ -204,7 +204,7 @@ export default {
     bottom: 20rem;
     right: 20rem;
     padding: 3rem;
-    background: @second-btn-color-tran;
+    background: var(--second-btn-color-tran);
     width: 20rem;
   }
 }

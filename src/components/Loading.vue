@@ -53,7 +53,7 @@ export default {
   }
 
   .red {
-    background: @primary-btn-color;
+    background: var(--primary-btn-color);
     animation: anim-red .4s ease-in-out 0s infinite alternate;
   }
 

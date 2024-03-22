@@ -143,7 +143,7 @@ export default {
 
     .subtitle {
       margin-top: 5rem;
-      color: @second-text-color;
+      color: var(--second-text-color);
       font-size: 13rem;
     }
 

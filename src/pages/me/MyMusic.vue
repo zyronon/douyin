@@ -222,7 +222,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 @padding-page;
+    padding: 0 var(--page-padding);
     box-sizing: border-box;
 
     .back {
@@ -241,7 +241,7 @@ export default {
     position: relative;
 
     .wrapper {
-      padding: @padding-page;
+      padding: var(--page-padding);
       padding-bottom: 80rem;
     }
 
@@ -313,7 +313,7 @@ export default {
 
             .author, .desc-bottom {
               font-size: 12rem;
-              color: @second-text-color;
+              color: var(--second-text-color);
             }
 
             .desc-bottom {
@@ -322,7 +322,7 @@ export default {
 
               .tag {
                 font-size: 10rem;
-                background: @second-btn-color-tran;
+                background: var(--second-btn-color-tran);
                 padding: 2rem 5rem;
                 margin-right: 5rem;
               }
@@ -369,7 +369,7 @@ export default {
 
         .auto-play {
           font-size: 13rem;
-          color: @second-text-color;
+          color: var(--second-text-color);
           margin-right: 10rem;
         }
 
@@ -377,7 +377,7 @@ export default {
     }
 
     .playing {
-      padding: 0 @padding-page;
+      padding: 0 var(--page-padding);
       box-sizing: border-box;
       position: fixed;
       bottom: 0;
@@ -441,7 +441,7 @@ export default {
       position: fixed;
       top: 0;
       width: 100vw;
-      padding: @padding-page;
+      padding: var(--page-padding);
       box-sizing: border-box;
       height: 50rem;
       display: flex;

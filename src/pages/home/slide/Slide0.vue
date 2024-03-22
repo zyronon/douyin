@@ -129,7 +129,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 .slide-item-class {
   position: relative;
@@ -156,7 +156,7 @@ onUnmounted(() => {
 
       .card {
         margin: 20rem;
-        margin-top: @header-height;
+        margin-top: var(--common-header-height);
         padding: 20rem;
         border-radius: 8rem;
         width: 100%;

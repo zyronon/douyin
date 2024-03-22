@@ -74,10 +74,10 @@ export default {
   font-size: 14rem;
 
   .content {
-    padding-top: @header-height;
+    padding-top: var(--common-header-height);
 
     .Scroll {
-      height: calc(var(--vh, 1vh) * 100 - @header-height)!important;
+      height: calc(var(--vh, 1vh) * 100 - var(--common-header-height))!important;
     }
   }
 }

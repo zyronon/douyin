@@ -235,7 +235,7 @@ export default {
     position: fixed;
     z-index: 9;
     top: 0;
-    background: @main-bg;
+    background: var(--main-bg);
     width: 100%;
     box-sizing: border-box;
     padding: 0 15rem;
@@ -334,7 +334,7 @@ export default {
           width: 70rem;
           align-items: center;
           color: #ffffff;
-          background: @second-btn-color;
+          background: var(--second-btn-color);
           border-radius: 2rem;
           font-size: 13rem;
 
@@ -379,7 +379,7 @@ export default {
     }
 
     .primary {
-      background: @primary-btn-color;
+      background: var(--primary-btn-color);
       color: white;
     }
   }

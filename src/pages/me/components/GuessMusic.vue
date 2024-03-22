@@ -139,7 +139,7 @@ export default {
 }
 </script>
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 #GuessMusic {
   //width: 100vw;
@@ -169,7 +169,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     height: 50rem;
-    padding: 0 @padding-page;
+    padding: 0 var(--page-padding);
     border-radius: 15rem 15rem 0 0;
     z-index: 9;
 
@@ -199,10 +199,10 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 @padding-page;
+    padding: 0 var(--page-padding);
 
     &.active {
-      color: @primary-btn-color;
+      color: var(--primary-btn-color);
     }
 
     .left {
@@ -211,7 +211,7 @@ export default {
 
       .author {
         font-size: 12rem;
-        color: @second-text-color;
+        color: var(--second-text-color);
         margin-left: 20rem;
         position: relative;
         display: flex;
@@ -221,7 +221,7 @@ export default {
           content: '';
           width: 6rem;
           height: .5px;
-          background: @second-text-color;
+          background: var(--second-text-color);
           position: absolute;
           left: -12rem;
         }

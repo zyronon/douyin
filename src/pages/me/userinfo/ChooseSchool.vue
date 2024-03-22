@@ -134,11 +134,11 @@ export default {
       justify-content: space-between;
       align-items: center;
       transition: all .1s;
-      background: @main-bg;
+      background: var(--main-bg);
 
       &:active {
-        background: @active-main-bg;
-        color: @second-text-color;
+        background: var(--active-main-bg);
+        color: var(--second-text-color);
       }
     }
 
@@ -151,7 +151,7 @@ export default {
       }
 
       .sub-title {
-        color: @second-text-color;
+        color: var(--second-text-color);
         margin-top: 20rem;
         font-size: 14rem;
       }
@@ -165,7 +165,7 @@ export default {
       .btn {
         margin-top: 150rem;
         display: inline-block;
-        background: @second-btn-color;
+        background: var(--second-btn-color);
         padding: 15rem 40rem;
         border-radius: 2px;
       }

@@ -340,7 +340,7 @@ export default {
     border-bottom: 1px solid #cccccc11;
     font-size: 14rem;
     padding: 0;
-    padding-left: @padding-page;
+    padding-left: var(--page-padding);
     height: 50rem;
     border-radius: 2px;
     display: flex;
@@ -378,7 +378,7 @@ export default {
       background: transparent;
 
       &::-webkit-input-placeholder {
-        color: @second-text-color;
+        color: var(--second-text-color);
       }
     }
 
@@ -409,7 +409,7 @@ export default {
       justify-content: space-between;
 
       div {
-        color: @second-text-color;
+        color: var(--second-text-color);
         //transition: all .3s;
         font-size: 10rem;
         padding: 1rem;
@@ -420,7 +420,7 @@ export default {
         width: 0;
         height: 0;
         border: 5rem solid transparent;
-        border-bottom: 10rem solid @second-text-color;
+        border-bottom: 10rem solid var(--second-text-color);
       }
     }
   }
@@ -439,7 +439,7 @@ export default {
       box-sizing: border-box;
       width: 100vw;
       height: 160rem;
-      background: @main-bg;
+      background: var(--main-bg);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -472,7 +472,7 @@ export default {
         margin: 10rem;
         display: flex;
         align-items: center;
-        color: @second-text-color;
+        color: var(--second-text-color);
 
         .check {
           margin-right: 10rem;
@@ -508,7 +508,7 @@ export default {
   }
 
   .is-search {
-    background: @main-bg;
+    background: var(--main-bg);
     position: fixed;
     z-index: 5;
     left: 0;
@@ -536,7 +536,7 @@ export default {
       .n2 {
         margin-top: 20rem;
         font-size: 12rem;
-        color: @second-text-color;
+        color: var(--second-text-color);
       }
     }
   }
@@ -546,7 +546,7 @@ export default {
 
     .title {
       font-size: 12rem;
-      color: @second-text-color;
+      color: var(--second-text-color);
       padding: 10rem 20rem;
     }
 
@@ -584,7 +584,7 @@ export default {
         .account {
           margin-top: 5rem;
           font-size: 12rem;
-          color: @second-text-color;
+          color: var(--second-text-color);
         }
       }
     }

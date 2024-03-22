@@ -120,26 +120,26 @@ export default {
   font-size: 14rem;
 
   .content {
-    padding-top: @header-height;
+    padding-top: var(--common-header-height);
 
     .indicator-wrapper {
-      padding: 0 @padding-page;
+      padding: 0 var(--page-padding);
     }
 
     .search-ctn {
       z-index: 9;
       left: 0;
-      background: @main-bg;
+      background: var(--main-bg);
       position: fixed;
       width: 100vw;
       box-sizing: border-box;
-      padding: 10rem @padding-page 0 @padding-page;
+      padding: 10rem var(--page-padding) 0 var(--page-padding);
     }
   }
 
   .tab1, .tab2 {
     overflow: auto;
-    padding: 0 @padding-page;
+    padding: 0 var(--page-padding);
     box-sizing: border-box;
   }
 
@@ -148,7 +148,7 @@ export default {
       display: flex;
       align-items: center;
       margin-bottom: 10rem;
-      color: @second-text-color;
+      color: var(--second-text-color);
       font-size: 12rem;
     }
 
@@ -177,7 +177,7 @@ export default {
         .n2 {
           margin-top: 20rem;
           font-size: 12rem;
-          color: @second-text-color;
+          color: var(--second-text-color);
         }
       }
     }

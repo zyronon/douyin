@@ -442,7 +442,7 @@ export default {
   }
 
   .fixed-header {
-    background: @main-bg;
+    background: var(--main-bg);
     width: 100%;
     position: fixed;
     z-index: 2;
@@ -545,7 +545,7 @@ export default {
 
                 .author, .desc-bottom {
                   font-size: 12rem;
-                  color: @second-text-color;
+                  color: var(--second-text-color);
                 }
 
                 .desc-bottom {
@@ -582,7 +582,7 @@ export default {
         }
 
         .bottom {
-          background: @second-btn-color-tran;
+          background: var(--second-btn-color-tran);
           padding: 10rem 15rem;
           margin-left: 33rem;
           margin-top: 15rem;
@@ -595,7 +595,7 @@ export default {
             width: 0;
             height: 0;
             border: 8rem solid transparent;
-            border-bottom: 8rem solid @second-btn-color-tran;
+            border-bottom: 8rem solid var(--second-btn-color-tran);
             position: absolute;
             left: 20rem;
             top: -15rem;

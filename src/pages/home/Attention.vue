@@ -160,7 +160,7 @@ onMounted(() => {
 </script>
 
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 @fColor: #f1f1f1;
 
@@ -289,7 +289,7 @@ onMounted(() => {
   .Scroll {
     position: relative;
     z-index: 2;
-    height: calc(var(--vh, 1vh) * 100 - @footer-height * 2) !important;
+    height: calc(var(--vh, 1vh) * 100 - var(--footer-height) * 2) !important;
   }
 
   .fixed {

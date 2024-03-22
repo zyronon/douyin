@@ -263,7 +263,7 @@ export default {
   }
 
   .left {
-    background: linear-gradient(to right, @primary-btn-color, rgba(252, 47, 86, .2));
+    background: linear-gradient(to right, var(--primary-btn-color), rgba(252, 47, 86, .2));
     padding: 5rem;
     border-radius: 50rem;
     display: flex;
@@ -439,11 +439,11 @@ export default {
       margin-top: 10rem;
 
       .left {
-        margin-left: @padding-page;
+        margin-left: var(--page-padding);
 
         .liver {
           box-sizing: border-box;
-          background: @second-btn-color-tran;
+          background: var(--second-btn-color-tran);
           display: flex;
           padding: 3rem 4rem 3rem 2rem;
           align-items: center;
@@ -482,7 +482,7 @@ export default {
             .follow-btn {
               height: 30rem;
               width: 45rem;
-              background: @primary-btn-color;
+              background: var(--primary-btn-color);
               border-radius: 30rem;
               display: flex;
               align-items: center;
@@ -493,7 +493,7 @@ export default {
         }
 
         .left-bottom {
-          margin-top: calc(@padding-page / 2);
+          margin-top: calc(var(--page-padding) / 2);
           display: flex;
           font-size: 12rem;
 
@@ -533,7 +533,7 @@ export default {
 
           .count {
             font-size: 12rem;
-            background: @second-btn-color-tran;
+            background: var(--second-btn-color-tran);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -570,7 +570,7 @@ export default {
       bottom: 0;
       width: 100vw;
       box-sizing: border-box;
-      padding: @padding-page;
+      padding: var(--page-padding);
       padding-bottom: 10rem;
       display: flex;
 
@@ -681,7 +681,7 @@ export default {
         @width: 35rem;
 
         .avatar-wrapper {
-          background: linear-gradient(to bottom, #000000, @primary-btn-color);
+          background: linear-gradient(to bottom, #000000, var(--primary-btn-color));
           border-radius: 20rem;
           width: calc(@width + 2rem);
           display: flex;

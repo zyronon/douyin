@@ -133,7 +133,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 #TaskNotice {
   position: fixed;
@@ -145,29 +145,29 @@ export default {
   font-size: 14rem;
 
   .scroll {
-    height: calc(var(--vh, 1vh) * 100 - @header-height - @header-height);
+    height: calc(var(--vh, 1vh) * 100 - var(--common-header-height) - var(--common-header-height));
   }
 
   .content {
-    height: calc(var(--vh, 1vh) * 100 - @header-height);
+    height: calc(var(--vh, 1vh) * 100 - var(--common-header-height));
 
     .list {
-      padding: @padding-page;
+      padding: var(--page-padding);
       padding-top: 0;
       box-sizing: border-box;
 
       .item {
-        padding: @padding-page;
-        background: @msg-subpage-card-bg;
+        padding: var(--page-padding);
+        background: var(--msg-subpage-card-bg);
         border-radius: 5rem;
         margin-bottom: 20rem;
 
         .header {
           display: flex;
           align-items: center;
-          padding-bottom: @padding-page;
-          margin-bottom: @padding-page;
-          border-bottom: 1px solid @line-color2;
+          padding-bottom: var(--page-padding);
+          margin-bottom: var(--page-padding);
+          border-bottom: 1px solid var(--line-color2);
 
           .left {
             display: flex;
@@ -200,7 +200,7 @@ export default {
 
         .time {
           font-size: 12rem;
-          color: @second-text-color;
+          color: var(--second-text-color);
           margin-bottom: 20rem;
         }
 
@@ -209,9 +209,9 @@ export default {
         }
 
         .look-detail {
-          border-top: 1px solid @line-color2;
-          padding-top: @padding-page;
-          color: @second-text-color;
+          border-top: 1px solid var(--line-color2);
+          padding-top: var(--page-padding);
+          color: var(--second-text-color);
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -222,8 +222,8 @@ export default {
     }
 
     .footer {
-      border-top: 1px solid @line-color;
-      height: @header-height;
+      border-top: 1px solid var(--line-color);
+      height: var(--common-header-height);
       display: flex;
       box-sizing: border-box;
       align-items: center;

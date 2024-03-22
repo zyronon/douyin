@@ -419,7 +419,7 @@ export default {
           margin: 5rem;
           display: flex;
           align-items: center;
-          color: @second-text-color;
+          color: var(--second-text-color);
 
           .gang {
             background: #d5d5d5;
@@ -445,7 +445,7 @@ export default {
 
 
           .name {
-            color: @second-text-color;
+            color: var(--second-text-color);
             margin-bottom: 5rem;
             display: flex;
             align-items: center;
@@ -479,12 +479,12 @@ export default {
               }
 
               .reply-text {
-                color: @second-text-color;
+                color: var(--second-text-color);
               }
             }
 
             .love {
-              color: @second-text-color;
+              color: var(--second-text-color);
               display: flex;
               align-items: center;
 

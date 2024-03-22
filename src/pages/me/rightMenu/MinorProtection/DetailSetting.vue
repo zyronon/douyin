@@ -99,7 +99,7 @@ export default {
   font-size: 14rem;
 
   .content {
-    padding-top: @header-height;
+    padding-top: var(--common-header-height);
   }
 
   .footer {
@@ -122,7 +122,7 @@ export default {
       align-items: center;
       flex-direction: column;
       font-size: 16rem;
-      color: @second-text-color;
+      color: var(--second-text-color);
 
       img {
         width: 15rem;

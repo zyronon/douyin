@@ -48,7 +48,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 #MoreSearch {
   position: fixed;
@@ -61,7 +61,7 @@ export default {
   font-size: 14rem;
 
   .content {
-    padding: @padding-page;
+    padding: var(--page-padding);
   }
 }
 </style>

@@ -148,7 +148,7 @@ export default {
     padding-top: 60rem;
 
     .SlideRowList, .Scroll {
-      height: calc(var(--vh, 1vh) * 100 - @indicator-height - @header-height) !important;
+      height: calc(var(--vh, 1vh) * 100 - var(--indicator-height) - var(--common-header-height)) !important;
     }
 
     .empty {
@@ -165,7 +165,7 @@ export default {
       .title {
         font-size: 13rem;
         margin-top: 10rem;
-        color: @second-text-color;
+        color: var(--second-text-color);
       }
     }
   }

@@ -153,7 +153,7 @@ export default {
   color: black;
 
   .notice {
-    color: @second-text-color;
+    color: var(--second-text-color);
     font-size: 12rem;
     height: 40rem;
     display: flex;
@@ -173,7 +173,7 @@ export default {
     }
 
     &.red {
-      color: @primary-btn-color;
+      color: var(--primary-btn-color);
     }
   }
 

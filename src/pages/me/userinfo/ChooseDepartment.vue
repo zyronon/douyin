@@ -75,11 +75,11 @@ export default {
       justify-content: space-between;
       align-items: center;
       transition: all .1s;
-      background: @main-bg;
+      background: var(--main-bg);
 
       &:active {
-        background: @active-main-bg;
-        color: @second-text-color;
+        background: var(--active-main-bg);
+        color: var(--second-text-color);
       }
     }
   }

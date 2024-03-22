@@ -214,13 +214,13 @@ export default {
     padding-top: 60rem;
 
     .title {
-      color: @second-text-color;
+      color: var(--second-text-color);
       font-size: 13rem;
       margin: 20rem 0 0 20rem;
     }
 
     .version {
-      color: @second-text-color;
+      color: var(--second-text-color);
       font-size: 13rem;
       margin: 40rem;
       text-align: center;
@@ -229,7 +229,7 @@ export default {
     .line {
       width: calc(100% - 30rem);
       margin-left: 15rem;
-      background: @line-color;
+      background: var(--line-color);
     }
   }
 }

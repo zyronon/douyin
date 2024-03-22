@@ -147,7 +147,7 @@ export default {
       padding: 0 20rem;
 
       .People {
-        border-bottom: 1px solid @second-btn-color-tran;
+        border-bottom: 1px solid var(--second-btn-color-tran);
       }
 
       .add-people {
@@ -157,7 +157,7 @@ export default {
         display: flex;
         align-items: center;
         position: relative;
-        border-bottom: 1px solid @second-btn-color-tran;
+        border-bottom: 1px solid var(--second-btn-color-tran);
 
         .head-image {
           margin-right: 15rem;

@@ -378,7 +378,7 @@ function touchEnd(e) {
 </script>
 
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 .fade1-enter-active,
 .fade1-leave-active {
@@ -424,7 +424,7 @@ function touchEnd(e) {
       bottom: 20rem;
       right: 20rem;
       padding: 3rem;
-      background: @second-btn-color-tran;
+      background: var(--second-btn-color-tran);
       width: 20rem;
     }
   }
@@ -443,7 +443,7 @@ function touchEnd(e) {
     .notice {
       font-size: 12rem;
       height: 40rem;
-      color: @second-text-color;
+      color: var(--second-text-color);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -458,7 +458,7 @@ function touchEnd(e) {
       padding: 7rem;
 
       .video {
-        background: @active-main-bg;
+        background: var(--active-main-bg);
         border-radius: 5rem;
         padding: 10rem;
         margin-bottom: 7rem;
@@ -483,7 +483,7 @@ function touchEnd(e) {
           .right {
             display: flex;
             align-items: center;
-            color: @second-text-color;
+            color: var(--second-text-color);
           }
         }
 
@@ -524,7 +524,7 @@ function touchEnd(e) {
       }
 
       .audio {
-        background: @active-main-bg;
+        background: var(--active-main-bg);
         border-radius: 5rem;
         padding: 10rem;
 
@@ -548,7 +548,7 @@ function touchEnd(e) {
           .right {
             display: flex;
             align-items: center;
-            color: @second-text-color;
+            color: var(--second-text-color);
           }
         }
 
@@ -570,7 +570,7 @@ function touchEnd(e) {
 
             .title {
               margin-top: 5rem;
-              color: @second-text-color;
+              color: var(--second-text-color);
             }
           }
         }
@@ -623,7 +623,7 @@ function touchEnd(e) {
           }
 
           .number {
-            color: @second-text-color;
+            color: var(--second-text-color);
 
             img {
               margin-left: 5rem;
@@ -643,14 +643,14 @@ function touchEnd(e) {
     .info {
       position: relative;
       z-index: 1;
-      background: @main-bg;
+      background: var(--main-bg);
       padding: 0 20rem;
       border-radius: 10rem 10rem 0 0;
       margin-top: -20rem;
 
       .heat {
         padding: 15rem 0;
-        color: @second-text-color;
+        color: var(--second-text-color);
         display: flex;
         align-items: center;
 
@@ -688,13 +688,13 @@ function touchEnd(e) {
       .more {
         margin-top: 10rem;
         margin-bottom: 20rem;
-        color: @second-text-color;
+        color: var(--second-text-color);
         display: flex;
 
         .item {
           padding: 2rem 5rem;
           border-radius: 2rem;
-          background: @second-btn-color-tran;
+          background: var(--second-btn-color-tran);
           font-size: 10rem;
           display: flex;
           align-items: center;
@@ -743,7 +743,7 @@ function touchEnd(e) {
           }
 
           .bottom {
-            color: @second-text-color;
+            color: var(--second-text-color);
             font-size: 12rem;
           }
         }
@@ -778,7 +778,7 @@ function touchEnd(e) {
             width: calc(100% - 5rem);
             color: white;
             border-radius: 4rem;
-            background: @primary-btn-color;
+            background: var(--primary-btn-color);
             height: @width;
             display: flex;
             align-items: center;
@@ -800,7 +800,7 @@ function touchEnd(e) {
             .l-button {
               color: white;
               border-radius: 5rem;
-              background: @second-btn-color;
+              background: var(--second-btn-color);
               height: @width;
               width: 50%;
               box-sizing: border-box;
@@ -828,7 +828,7 @@ function touchEnd(e) {
         align-items: center;
         justify-content: center;
         border-radius: 4rem;
-        background: @second-btn-color;
+        background: var(--second-btn-color);
         color: white;
 
         &.option-recommend {
@@ -872,7 +872,7 @@ function touchEnd(e) {
       .title {
         padding-left: 20rem;
         font-size: 12rem;
-        color: @second-text-color;
+        color: var(--second-text-color);
         display: flex;
         align-items: center;
 
@@ -892,7 +892,7 @@ function touchEnd(e) {
 
         .friend {
           position: relative;
-          background: @second-btn-color-tran;
+          background: var(--second-btn-color-tran);
           margin-right: 10rem;
           padding: 10rem;
           display: flex;
@@ -916,7 +916,7 @@ function touchEnd(e) {
           .tips {
             margin-top: 5rem;
             font-size: 12rem;
-            color: @second-text-color;
+            color: var(--second-text-color);
           }
 
           .button {
@@ -941,14 +941,14 @@ function touchEnd(e) {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: @second-text-color;
+            color: var(--second-text-color);
           }
         }
       }
     }
 
     .total {
-      background: @main-bg;
+      background: var(--main-bg);
       color: white;
       display: flex;
       align-items: center;
@@ -986,10 +986,10 @@ function touchEnd(e) {
 
 
     &.fixed {
-      background: @main-bg;
+      background: var(--main-bg);
 
       img {
-        background: @main-bg !important;
+        background: var(--main-bg) !important;
       }
     }
 
@@ -1011,7 +1011,7 @@ function touchEnd(e) {
         color: white;
         font-size: 12rem;
         align-items: center;
-        background: @second-btn-color-tran;
+        background: var(--second-btn-color-tran);
         height: 22rem;
         border-radius: 40rem;
         padding: 1rem 10rem 1rem 1rem;

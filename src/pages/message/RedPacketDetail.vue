@@ -41,7 +41,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 #RedPacketDetail {
   position: fixed;

@@ -89,7 +89,7 @@ export default {
         border-top: none;
         border-right: none;
         border-left: none;
-        border-bottom: 1px solid @line-color;
+        border-bottom: 1px solid var(--line-color);
         color: white;
       }
     }
@@ -109,7 +109,7 @@ export default {
         padding: 12rem 0;
         display: flex;
         align-items: center;
-        color: @second-text-color;
+        color: var(--second-text-color);
 
         img {
           margin-left: 5px;
@@ -122,7 +122,7 @@ export default {
 
     .notice {
       margin-top: 20rem;
-      color: @second-text-color;
+      color: var(--second-text-color);
     }
 
     .btn {
@@ -132,7 +132,7 @@ export default {
       right: 20rem;
       color: white;
       font-size: 16rem;
-      background: @primary-btn-color;
+      background: var(--primary-btn-color);
       text-align: center;
       padding: 10rem 0;
       border-radius: 2px;

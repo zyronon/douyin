@@ -81,7 +81,7 @@ export default {
 
           .time{
             font-size: 12rem;
-            color: @second-text-color;
+            color: var(--second-text-color);
           }
         }
       }

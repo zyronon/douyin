@@ -253,7 +253,7 @@ export default {
       height: 14rem;
       padding: 6rem;
       border-radius: 50%;
-      background: @second-btn-color-tran;
+      background: var(--second-btn-color-tran);
       //background: rgb(56, 58, 57);
     }
   }
@@ -307,7 +307,7 @@ export default {
         padding: 13rem;
         border-radius: 50%;
         margin-bottom: 3rem;
-        background: @second-btn-color-tran;
+        background: var(--second-btn-color-tran);
         //background: rgb(56, 58, 57);
       }
     }
@@ -345,7 +345,7 @@ export default {
       }
 
       span {
-        color: @second-text-color;
+        color: var(--second-text-color);
         font-size: 10rem;
         display: block;
         text-align: center;
@@ -369,12 +369,12 @@ export default {
         height: @icon-width;
         padding: 10rem;
         border-radius: 50%;
-        //background: @second-btn-color;
+        //background: var(--second-btn-color);
         background: rgb(56, 58, 57);
       }
 
       span {
-        color: @second-text-color;
+        color: var(--second-text-color);
         font-size: 10rem;
         display: block;
         text-align: center;
@@ -418,7 +418,7 @@ export default {
       margin: 10rem 0;
       display: flex;
       align-items: center;
-      color: @second-text-color;
+      color: var(--second-text-color);
 
       .check {
         margin-right: 10rem;

@@ -2464,7 +2464,7 @@ export default {
       justify-content: space-between;
 
       div {
-        color: @second-text-color;
+        color: var(--second-text-color);
         //transition: all .3s;
         font-size: 10rem;
         padding: 1rem;
@@ -2475,7 +2475,7 @@ export default {
         width: 0;
         height: 0;
         border: 5rem solid transparent;
-        border-bottom: 10rem solid @second-text-color;
+        border-bottom: 10rem solid var(--second-text-color);
       }
     }
   }
@@ -2498,7 +2498,7 @@ export default {
 
     .top {
       padding-bottom: 10rem;
-      border-bottom: 1px solid @line-color;
+      border-bottom: 1px solid var(--line-color);
 
       .cities {
         .city {
@@ -2507,7 +2507,7 @@ export default {
           border-radius: 2rem;
           height: 40rem;
           line-height: 40rem;
-          background: @second-btn-color-tran;
+          background: var(--second-btn-color-tran);
           display: inline-block;
           width: 32%;
           text-align: center;
@@ -2519,7 +2519,7 @@ export default {
       //padding-right: 25rem;
 
       .row {
-        background: @main-bg;
+        background: var(--main-bg);
       }
     }
   }

@@ -349,7 +349,7 @@ export default {
       height: @width;
       margin: 0 3rem;
       border-radius: 50%;
-      background: @second-btn-color;
+      background: var(--second-btn-color);
 
       &.active {
         background: white;

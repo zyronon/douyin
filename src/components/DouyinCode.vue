@@ -96,7 +96,7 @@ export default {
 
         .title {
           font-size: 14rem;
-          color: @second-text-color;
+          color: var(--second-text-color);
         }
       }
       .code {
@@ -148,7 +148,7 @@ export default {
         }
 
         span {
-          color: @second-text-color;
+          color: var(--second-text-color);
           font-size: 10rem;
           display: block;
           text-align: center;

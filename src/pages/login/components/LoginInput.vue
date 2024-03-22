@@ -189,7 +189,7 @@ export default {
     }
 
     .disabled {
-      color: @second-text-color;
+      color: var(--second-text-color);
     }
   }
 

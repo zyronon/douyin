@@ -217,7 +217,7 @@ export default {
 
   .time {
     width: 100%;
-    color: @second-text-color;
+    color: var(--second-text-color);
     text-align: center;
     height: 40rem;
     line-height: 40rem;

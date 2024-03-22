@@ -513,7 +513,7 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: @header-height;
+      height: var(--common-header-height);
       box-sizing: border-box;
       position: relative;
       font-size: 24rem;
@@ -524,7 +524,7 @@ export default {
       padding-bottom: 60rem;
 
       .joined-chat {
-        border-bottom: 1px solid @line-color;
+        border-bottom: 1px solid var(--line-color);
         height: 50rem;
         padding: 0 20rem;
         display: flex;
@@ -595,7 +595,7 @@ export default {
         bottom: 0;
         left: 0;
         right: 0;
-        background: @main-bg;
+        background: var(--main-bg);
         //background: red;
         display: flex;
         align-items: center;
@@ -613,7 +613,7 @@ export default {
           border-radius: 2rem;
 
           &.primary {
-            background: @primary-btn-color;
+            background: var(--primary-btn-color);
           }
         }
       }
@@ -654,7 +654,7 @@ export default {
 
               .account {
                 font-size: 13rem;
-                color: @second-text-color;
+                color: var(--second-text-color);
               }
             }
 
@@ -679,7 +679,7 @@ export default {
         .notice-h2 {
           margin-top: 10rem;
           font-size: 14rem;
-          color: @second-text-color;
+          color: var(--second-text-color);
         }
 
       }
@@ -741,7 +741,7 @@ export default {
 
               .num {
                 margin-left: 5rem;
-                color: @second-text-color;
+                color: var(--second-text-color);
               }
             }
 
@@ -762,7 +762,7 @@ export default {
     }
 
     .scroll {
-      height: calc(100% - @header-height - @footer-height);
+      height: calc(100% - var(--common-header-height) - var(--footer-height));
       padding-top: 10rem;
     }
 
@@ -776,7 +776,7 @@ export default {
           img {
             margin: 0 10rem;
             padding: 17rem;
-            background: @second-btn-color-tran;
+            background: var(--second-btn-color-tran);
             width: 30rem;
             height: 30rem;
             border-radius: 50%;
@@ -881,15 +881,15 @@ export default {
               .tag {
                 margin-left: 5rem;
                 font-size: 10rem;
-                background: @second-btn-color-tran;
-                color: @second-text-color;
+                background: var(--second-btn-color-tran);
+                color: var(--second-text-color);
                 padding: 2rem 5rem;
                 border-radius: 2rem;
               }
             }
 
             .detail {
-              color: @second-text-color;
+              color: var(--second-text-color);
               font-size: 12rem;
               margin-top: 4rem;
               display: flex;
@@ -902,7 +902,7 @@ export default {
                 border-radius: 50%;
                 width: 1.5px;
                 height: 1.5px;
-                background: @second-text-color;
+                background: var(--second-text-color);
               }
 
               .sent {
@@ -935,7 +935,7 @@ export default {
       }
 
       .not-more {
-        color: @second-text-color;
+        color: var(--second-text-color);
         text-align: center;
         padding: 20rem;
       }
@@ -964,7 +964,7 @@ export default {
         .dialog-header {
           color: black;
           border-bottom: 1px solid whitesmoke;
-          padding: @padding-page;
+          padding: var(--page-padding);
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -986,7 +986,7 @@ export default {
         }
 
         .dialog-body {
-          padding: @padding-page;
+          padding: var(--page-padding);
           padding-top: 0;
           height: calc(80vh - 50rem);
           overflow: auto;
@@ -1012,11 +1012,11 @@ export default {
   }
 
   .searching {
-    padding: @padding-page;
+    padding: var(--page-padding);
 
     .sub-title {
-      margin-top: @padding-page;
-      color: @second-text-color;
+      margin-top: var(--page-padding);
+      color: var(--second-text-color);
       font-size: 12rem;
       display: flex;
       align-items: center;
@@ -1032,14 +1032,14 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: @padding-page;
-      margin-top: @padding-page;
-      border-top: 1px solid @line-color;
+      padding-top: var(--page-padding);
+      margin-top: var(--page-padding);
+      border-top: 1px solid var(--line-color);
 
       .icon {
         border-radius: 50%;
         padding: 13rem;
-        background: @second-btn-color-tran;
+        background: var(--second-btn-color-tran);
         width: 22rem;
         height: 22rem;
         margin-right: 10rem;

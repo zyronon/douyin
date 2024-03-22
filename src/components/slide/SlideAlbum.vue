@@ -582,7 +582,7 @@ function canNext(isNext, e) {
 </script>
 
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 #SlideAlbum {
   transition: height .3s;
@@ -656,7 +656,7 @@ function canNext(isNext, e) {
 }
 </style>
 <style lang="less">
-@import "@/assets/less/index";
+
 
 .preview {
   transition: opacity .3s;
@@ -687,9 +687,9 @@ function canNext(isNext, e) {
   }
 
   .indicator {
-    background: @footer-color;
+    background: var(--footer-color);
     width: 100%;
-    height: @footer-height;
+    height: var(--footer-height);
     color: gray;
     display: flex;
     align-items: center;
@@ -706,10 +706,10 @@ function canNext(isNext, e) {
   bottom: 0;
   color: white;
   font-size: 24rem;
-  background: @footer-color;
+  background: var(--footer-color);
   width: 100%;
   box-sizing: border-box;
-  height: @footer-height;
+  height: var(--footer-height);
   display: flex;
   align-items: center;
   justify-content: space-between;

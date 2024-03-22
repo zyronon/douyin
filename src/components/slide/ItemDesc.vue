@@ -76,7 +76,7 @@ const state = reactive({
 </template>
 
 <style scoped lang="less">
-@import "../../assets/less/color";
+@import "../../assets/less/variables";
 
 .item-desc {
   position: absolute;
@@ -98,7 +98,7 @@ const state = reactive({
         font-size: 12rem;
         padding: 4rem;
         border-radius: 3rem;
-        background: @second-btn-color-tran;
+        background: var(--second-btn-color-tran);
 
         .gang {
           height: 8rem;
@@ -147,7 +147,7 @@ const state = reactive({
 
         .right {
           margin: 0 10px;
-          color: @second-text-color;
+          color: var(--second-text-color);
 
           .name {
             margin-right: 10px;

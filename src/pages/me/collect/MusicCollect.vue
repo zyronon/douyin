@@ -133,7 +133,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 .MusicCollect {
   position: fixed;
@@ -195,7 +195,7 @@ export default {
 
             .author, .desc-bottom {
               font-size: 12rem;
-              color: @second-text-color;
+              color: var(--second-text-color);
             }
 
             .desc-bottom {
@@ -225,7 +225,7 @@ export default {
     position: fixed;
     bottom: 0;
     width: 100vw;
-    background: @main-bg;
+    background: var(--main-bg);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -286,7 +286,7 @@ export default {
 
           .author, .desc-bottom {
             font-size: 12rem;
-            color: @second-text-color;
+            color: var(--second-text-color);
           }
 
           .desc-bottom {

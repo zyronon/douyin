@@ -142,7 +142,7 @@ export default {
     .title {
       font-size: 12rem;
       padding: 10rem 15rem;
-      color: @second-text-color;
+      color: var(--second-text-color);
 
       img {
         width: 10rem;
@@ -155,7 +155,7 @@ export default {
   .line {
     width: calc(100% - 30rem);
     margin-left: 15rem;
-    background: @line-color;
+    background: var(--line-color);
   }
 }
 </style>

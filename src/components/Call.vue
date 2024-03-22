@@ -135,7 +135,7 @@ export default {
 </style>
 
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 .call-float {
   transition-property: all;
@@ -144,7 +144,7 @@ export default {
   height: 90rem;
   position: fixed;
   top: 20vh;
-  left: @padding-page;
+  left: var(--page-padding);
   background: white;
   display: flex;
   align-items: center;
@@ -191,7 +191,7 @@ export default {
     > .header {
       transition: all .3s;
       width: 100%;
-      padding: @padding-page;
+      padding: var(--page-padding);
       box-sizing: border-box;
       display: flex;
       align-items: flex-start;
@@ -279,7 +279,7 @@ export default {
     height: 90rem;
     position: fixed;
     top: 20vh;
-    left: @padding-page;
+    left: var(--page-padding);
     border-radius: 6rem;
 
     .float {

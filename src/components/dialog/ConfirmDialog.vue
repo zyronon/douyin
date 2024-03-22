@@ -116,7 +116,7 @@ export default {
         font-size: 13rem;
 
         &.gray {
-          color: @second-text-color;
+          color: var(--second-text-color);
         }
       }
     }
@@ -142,7 +142,7 @@ export default {
         border-right: 1px solid whitesmoke;
 
         &.gray {
-          color: @second-text-color;
+          color: var(--second-text-color);
         }
       }
     }

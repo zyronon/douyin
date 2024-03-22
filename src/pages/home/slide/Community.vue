@@ -1411,16 +1411,16 @@ onMounted(() => {
 </script>
 
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 #Community {
   font-size: 14rem;
   color: white;
-  padding-top: @header-height;
+  padding-top: var(--common-header-height);
   background: rgb(21, 23, 36);
 
   .Scroll {
-    height: calc(var(--vh, 1vh) * 100 - @header-height - @footer-height) !important;
+    height: calc(var(--vh, 1vh) * 100 - var(--common-header-height) - var(--footer-height)) !important;
   }
 
   @p: 1rem;
@@ -1438,7 +1438,7 @@ onMounted(() => {
     .card {
       border-radius: 4rem;
       overflow: hidden;
-      background: @main-bg;
+      background: var(--main-bg);
 
       img {
         width: 100%;

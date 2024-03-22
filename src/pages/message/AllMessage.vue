@@ -209,7 +209,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 
 .list-complete-enter-from,
@@ -251,10 +251,10 @@ export default {
     position: fixed;
     height: calc(var(--vh, 1vh) * 100);
     width: 100vw;
-    margin-top: @header-height;
+    margin-top: var(--common-header-height);
 
     .dialog-content {
-      background: @main-bg;
+      background: var(--main-bg);
 
       img {
         width: 16rem;
@@ -266,16 +266,16 @@ export default {
       position: fixed;
       height: calc(var(--vh, 1vh) * 100);
       width: 100vw;
-      background: @mask-dark;
+      background: var(--mask-dark);
     }
   }
 
   .content {
-    padding: @padding-page;
-    padding-top: @header-height;
+    padding: var(--page-padding);
+    padding-top: var(--common-header-height);
 
     .scroll {
-      height: calc(var(--vh, 1vh) * 100 - @header-height);
+      height: calc(var(--vh, 1vh) * 100 - var(--common-header-height));
     }
 
     .messages {
@@ -326,11 +326,11 @@ export default {
               align-items: center;
 
               .tag {
-                color: @second-text-color;
+                color: var(--second-text-color);
                 padding: 1rem 4rem;
                 margin-left: 10rem;
                 border-radius: 2rem;
-                background: @second-btn-color-tran;
+                background: var(--second-btn-color-tran);
                 font-size: 10rem;
               }
             }
@@ -340,7 +340,7 @@ export default {
               display: flex;
               align-items: center;
               font-size: 12rem;
-              color: @second-text-color;
+              color: var(--second-text-color);
 
               .type {
                 margin-right: 10rem;
@@ -360,7 +360,7 @@ export default {
 
       .look-all {
         font-size: 12rem;
-        color: @second-text-color;
+        color: var(--second-text-color);
         display: flex;
         justify-content: center;
         align-items: center;

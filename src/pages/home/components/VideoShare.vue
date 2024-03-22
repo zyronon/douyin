@@ -255,7 +255,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "@/assets/less/index";
+
 
 .video-share {
   height: 60vh;
@@ -267,7 +267,7 @@ export default {
   .friends {
     border-radius: 10rem;
     margin: 10rem;
-    padding: 0 @padding-page;
+    padding: 0 var(--page-padding);
     @avatar-width: 38rem;
     font-size: 14rem;
     background: white;

@@ -128,7 +128,7 @@ export default {
 
 
   .content {
-    padding-top: @header-height;
+    padding-top: var(--common-header-height);
     display: flex;
     flex-direction: column;
     align-items: center;

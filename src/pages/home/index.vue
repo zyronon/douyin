@@ -307,7 +307,7 @@ function dislike() {
 </script>
 
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 .test-slide-wrapper {
   font-size: 14rem;
@@ -421,7 +421,7 @@ function dislike() {
   //width: 90vw;
   //height: 80vh;
   width: 100vw;
-  height: calc(var(--vh, 1vh) * 100 - @footer-height) !important;
+  height: calc(var(--vh, 1vh) * 100 - var(--footer-height)) !important;
   overflow: hidden;
   border-radius: 10rem;
 }

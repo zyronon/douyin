@@ -217,7 +217,7 @@ export default {
   }
 
   .add {
-    background: @second-btn-color-tran;
+    background: var(--second-btn-color-tran);
     margin-right: 15rem;
     padding: 15rem;
     width: 18rem;
@@ -239,7 +239,7 @@ export default {
       }
 
       .detail {
-        color: @second-text-color;
+        color: var(--second-text-color);
         font-size: 12rem;
         margin-top: 4px;
       }
@@ -265,7 +265,7 @@ export default {
         }
 
         &.red {
-          background: @primary-btn-color;
+          background: var(--primary-btn-color);
         }
 
       }
@@ -283,7 +283,7 @@ export default {
     bottom: -100%;
     right: 10rem;
     border-radius: 8rem;
-    background: @second-btn-color;
+    background: var(--second-btn-color);
 
     .item {
       font-size: 14rem;
@@ -291,11 +291,11 @@ export default {
       display: flex;
       height: 40rem;
       align-items: center;
-      border-bottom: 1px solid @line-color;
+      border-bottom: 1px solid var(--line-color);
 
       &:nth-last-child(1) {
         border-bottom: none;
-        color: @primary-btn-color;
+        color: var(--primary-btn-color);
       }
 
       img {
@@ -308,7 +308,7 @@ export default {
       width: 0;
       height: 0;
       border: 7rem solid transparent;
-      border-bottom: 7rem solid @second-btn-color;
+      border-bottom: 7rem solid var(--second-btn-color);
       position: absolute;
       right: 10rem;
       top: -14rem;

@@ -150,7 +150,7 @@ export default {
 
   .notice {
     font-size: 12rem;
-    color: @second-text-color;
+    color: var(--second-text-color);
   }
 
   .l-row {
@@ -191,7 +191,7 @@ export default {
         color: black;
 
         &::placeholder {
-          color: @second-text-color;
+          color: var(--second-text-color);
         }
       }
     }
@@ -200,7 +200,7 @@ export default {
       margin-top: 8rem;
       margin-bottom: 8rem;
       font-size: 10rem;
-      color: @second-text-color;
+      color: var(--second-text-color);
       text-align: right;
     }
   }

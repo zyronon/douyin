@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 
 .list-complete-enter-from,
@@ -105,11 +105,11 @@ export default {
   font-size: 14rem;
 
   .content {
-    padding: @padding-page;
-    padding-top: @header-height;
+    padding: var(--page-padding);
+    padding-top: var(--common-header-height);
 
     .scroll {
-      height: calc(var(--vh, 1vh) * 100 - @header-height);
+      height: calc(var(--vh, 1vh) * 100 - var(--common-header-height));
     }
 
     .people-wrapper {

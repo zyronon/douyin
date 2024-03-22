@@ -101,14 +101,14 @@ onUnmounted(() => {
 </template>
 
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 .page {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   row-gap: 15rem;
-  height: calc(var(--vh, 1vh) * 100 - @header-height - @footer-height);
-  margin-top: @header-height;
+  height: calc(var(--vh, 1vh) * 100 - var(--common-header-height) - var(--footer-height));
+  margin-top: var(--common-header-height);
   overflow: auto;
   box-sizing: border-box;
 

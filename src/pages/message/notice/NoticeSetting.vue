@@ -113,7 +113,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 #SystemNotice {
   position: fixed;
@@ -129,13 +129,13 @@ export default {
     padding-top: 60rem;
 
     .title {
-      padding: @padding-page;
+      padding: var(--page-padding);
     }
 
     .sub-title {
-      padding: 0 @padding-page;
+      padding: 0 var(--page-padding);
       margin-bottom: 10rem;
-      color: @second-text-color;
+      color: var(--second-text-color);
       font-size: 12rem;
     }
 

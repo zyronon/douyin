@@ -1,6 +1,3 @@
-@import "color";
-@import "variables";
-
 .op0 {
   opacity: 0;
 }
@@ -20,7 +17,7 @@
 }
 
 .row {
-  padding: 0 @padding-page;
+  padding: 0 var(--page-padding);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -29,13 +26,13 @@
 
   &.no-active {
     &:active {
-      background: @main-bg;
+      background: var(--main-bg);
     }
   }
 
   &.active {
     &:active {
-      background: @active-main-bg;
+      background: var(--active-main-bg);
     }
   }
 
@@ -44,7 +41,7 @@
   }
 
   &.border {
-    border-bottom: 1px solid @line-color;
+    border-bottom: 1px solid var(--line-color);
   }
 
 
@@ -65,7 +62,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: @second-text-color;
+    color: var(--second-text-color);
 
     img {
       margin-left: 5rem;
@@ -79,7 +76,7 @@
   width: @width;
   height: @width;
   border-radius: 50%;
-  background: @primary-btn-color;
+  background: var(--primary-btn-color);
 }
 
 .badge {
@@ -88,7 +85,7 @@
   color: white;
   padding: 1rem 6rem;
   border-radius: 10rem;
-  background: @primary-btn-color;
+  background: var(--primary-btn-color);
 }
 
 .badge2 {
@@ -112,7 +109,7 @@ p {
 
 .line {
   height: 1rem;
-  background: @line-color2;
+  background: var(--line-color2);
   width: 100%;
 }
 
@@ -254,5 +251,9 @@ p {
 
 .space-between {
   justify-content: space-between;
+}
+
+.second-text-color {
+  color: var(--second-text-color);
 }
 

@@ -280,12 +280,12 @@ export default {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: @primary-btn-color;
+          background: var(--primary-btn-color);
           border-radius: 2px;
 
           &.shared {
             background: lightgray;
-            color: @second-text-color;
+            color: var(--second-text-color);
           }
         }
       }

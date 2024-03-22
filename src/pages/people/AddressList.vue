@@ -66,7 +66,7 @@ export default {
         align-items: center;
 
         .left {
-          color: @second-text-color;
+          color: var(--second-text-color);
 
           img {
             width: 10rem;
@@ -76,7 +76,7 @@ export default {
 
         .right {
           border-radius: 50%;
-          background: @second-text-color;
+          background: var(--second-text-color);
           padding: 5rem;
           width: 10rem;
           height: 10rem;
@@ -88,7 +88,7 @@ export default {
       text-align: center;
       line-height: 60rem;
       height: 60rem;
-      color: @second-text-color;
+      color: var(--second-text-color);
 
     }
 

@@ -165,7 +165,7 @@ onMounted(() => {
   width: 100%;
 
   .search-wrapper {
-    height: @header-height;
+    height: var(--common-header-height);
     z-index: 9;
     position: fixed;
     top: 10rem;
@@ -186,16 +186,16 @@ onMounted(() => {
   }
 
   .content {
-    height: calc(var(--vh, 1vh) * 100 - @footer-height);
+    height: calc(var(--vh, 1vh) * 100 - var(--footer-height));
   }
 
   .footer {
-    height: @footer-height;
+    height: var(--footer-height);
   }
 
   .share-to-friend {
-    color: @second-text-color;
-    height: @footer-height;
+    color: var(--second-text-color);
+    height: var(--footer-height);
     z-index: 9;
     position: fixed;
     bottom: 0;
@@ -216,8 +216,8 @@ onMounted(() => {
   }
 
   .permission-setting {
-    color: @second-text-color;
-    height: @footer-height;
+    color: var(--second-text-color);
+    height: var(--footer-height);
     z-index: 9;
     position: fixed;
     bottom: 0;
@@ -304,7 +304,7 @@ onMounted(() => {
             font-size: 14rem;
             color: white;
             padding: 5px 20px;
-            background: @primary-btn-color;
+            background: var(--primary-btn-color);
             border-radius: 2px;
           }
         }
@@ -347,7 +347,7 @@ onMounted(() => {
           font-size: 14rem;
           color: white;
           padding: 5rem 20rem;
-          background: @primary-btn-color;
+          background: var(--primary-btn-color);
           border-radius: 2rem;
         }
       }

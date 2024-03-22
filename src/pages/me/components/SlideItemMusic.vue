@@ -364,7 +364,7 @@ export default {
 
     .desc {
       width: 100vw;
-      padding: @padding-page;
+      padding: var(--page-padding);
       box-sizing: border-box;
       display: flex;
       justify-content: space-between;
@@ -399,7 +399,7 @@ export default {
     .progress {
       width: 100vw;
       font-size: 12rem;
-      padding: 0 @padding-page;
+      padding: 0 var(--page-padding);
       box-sizing: border-box;
       display: flex;
       align-items: center;
@@ -454,7 +454,7 @@ export default {
 
     .options {
       width: 100vw;
-      padding: @padding-page;
+      padding: var(--page-padding);
       box-sizing: border-box;
       display: flex;
       align-items: center;

@@ -103,7 +103,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "@/assets/less/index";
+
 
 #DouyinHelper {
   position: fixed;
@@ -116,19 +116,19 @@ export default {
   font-size: 14rem;
 
   .scroll {
-    height: calc(var(--vh, 1vh) * 100 - @header-height);
+    height: calc(var(--vh, 1vh) * 100 - var(--common-header-height));
   }
 
   .content {
-    padding: @padding-page;
+    padding: var(--page-padding);
     padding-top: 0;
     box-sizing: border-box;
 
     .list {
 
       .item {
-        padding: @padding-page;
-        background: @msg-subpage-card-bg;
+        padding: var(--page-padding);
+        background: var(--msg-subpage-card-bg);
         border-radius: 5rem;
         margin-bottom: 20rem;
 
@@ -141,7 +141,7 @@ export default {
 
         .time {
           font-size: 12rem;
-          color: @second-text-color;
+          color: var(--second-text-color);
           margin-bottom: 20rem;
         }
 
@@ -150,9 +150,9 @@ export default {
         }
 
         .look-detail {
-          border-top: 1px solid @line-color2;
-          padding-top: @padding-page;
-          color: @second-text-color;
+          border-top: 1px solid var(--line-color2);
+          padding-top: var(--page-padding);
+          color: var(--second-text-color);
           display: flex;
           justify-content: space-between;
           align-items: center;

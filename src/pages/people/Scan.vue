@@ -71,7 +71,7 @@ export default {
 
       img {
         border-radius: 50%;
-        background: @second-btn-color-tran;
+        background: var(--second-btn-color-tran);
         padding: 16rem;
         height: 24rem;
         margin-bottom: 10rem;

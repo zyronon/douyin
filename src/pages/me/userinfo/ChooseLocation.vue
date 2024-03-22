@@ -1226,7 +1226,7 @@ export default {
     .title {
       font-size: 12rem;
       padding: 10rem 15rem;
-      color: @second-text-color;
+      color: var(--second-text-color);
 
       img {
         width: 10rem;

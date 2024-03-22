@@ -105,11 +105,11 @@ export default {
 
 
   .save-yes {
-    color: @primary-btn-color;
+    color: var(--primary-btn-color);
   }
 
   .save-no {
-    color: @disable-primary-btn-color;
+    color: var(--disable-primary-btn-color);
   }
 
   .list {
@@ -139,7 +139,7 @@ export default {
       .desc {
         .num {
           margin-left: 5rem;
-          color: @second-text-color;
+          color: var(--second-text-color);
         }
       }
     }

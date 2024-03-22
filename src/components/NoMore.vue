@@ -19,6 +19,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: @second-text-color;
+  color: var(--second-text-color);
 }
 </style>

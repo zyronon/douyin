@@ -233,7 +233,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid @line-color;
+    border-bottom: 1px solid var(--line-color);
 
     img {
       height: 20rem;
@@ -245,9 +245,9 @@ export default {
     padding: 20rem;
 
     .title {
-      margin-top: @padding-page;
+      margin-top: var(--page-padding);
       margin-bottom: 10rem;
-      color: @second-text-color;
+      color: var(--second-text-color);
       font-size: 12rem;
     }
   }
@@ -258,7 +258,7 @@ export default {
       align-items: center;
       margin-top: 20rem;
       margin-bottom: 10rem;
-      color: @second-text-color;
+      color: var(--second-text-color);
       font-size: 12rem;
 
       img {
@@ -276,7 +276,7 @@ export default {
         align-items: center;
 
         .left {
-          background: @second-btn-color-tran;
+          background: var(--second-btn-color-tran);
           border-radius: 50%;
           padding: 12rem;
           width: 22rem;
@@ -301,7 +301,7 @@ export default {
 
             .text2 {
               font-size: 12rem;
-              color: @second-text-color;
+              color: var(--second-text-color);
             }
           }
         }
@@ -316,7 +316,7 @@ export default {
         margin-top: 20rem;
         display: flex;
         align-items: center;
-        color: @second-text-color;
+        color: var(--second-text-color);
 
         img {
           margin-right: 10rem;
@@ -445,7 +445,7 @@ export default {
       top: 10rem;
       right: 10rem;
       position: absolute;
-      background: @second-btn-color-tran;
+      background: var(--second-btn-color-tran);
       padding: 4rem;
       width: 10rem;
       border-radius: 50%;
@@ -461,7 +461,7 @@ export default {
       margin-top: 20rem;
       display: flex;
       align-items: center;
-      color: @second-text-color;
+      color: var(--second-text-color);
 
       img {
         margin-right: 10rem;
