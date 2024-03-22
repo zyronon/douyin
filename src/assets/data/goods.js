@@ -2,7 +2,7 @@ export default {
   list: [
     {
       "name": "小米电视6 65\" OLED 65英寸",
-      "cover": new URL('../img/goods/g6-0.jpg', import.meta.url).href,
+      "cover": new URL('@/assets/img/goods/g6-0.jpg', import.meta.url).href,
       imgs:[
         new URL('../img/goods/g6-0.jpg', import.meta.url).href,
         new URL('../img/goods/g6-1.jpg', import.meta.url).href,

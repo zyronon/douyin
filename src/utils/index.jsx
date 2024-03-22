@@ -257,11 +257,12 @@ const Utils = {
     // console.log(url)
     if (!url) return
     //本地图片
-    if (url.includes('img') || url.includes('data:image')) {
-      return url
-    }
-    //网络，全路径图片
-    if (url.includes('http')) {
+    if (url.includes('assets/img')
+      || url.includes('file://')
+      || url.includes('data:image')
+      || url.includes('http')
+      || url.includes('https')
+    ) {
       return url
     }
     return Config.filePreview + url
@@ -439,18 +440,18 @@ export function _checkImgUrl(url) {
   // console.log(url)
   if (!url) return
   //本地图片
-  if (url.includes('data:image')) {
+  if (url.includes('assets/img')
+    || url.includes('file://')
+    || url.includes('data:image')
+    || url.includes('http')
+    || url.includes('https')
+  ) {
     return url
   }
-  //网络，全路径图片
-  if (url.includes('http')) {
-    return url
-  } else {
-    return IMG_URL + url
-  }
+  return IMG_URL + url
 }
 
-export function _duration(num){
+export function _duration(num) {
   return Utils.$duration(num)
 }
 

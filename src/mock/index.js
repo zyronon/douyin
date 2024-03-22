@@ -3,6 +3,7 @@ import globalMethods from '../utils'
 import resource from "../assets/data/resource.js";
 import posts6 from "@/assets/data/posts6.json";
 import {uniqueId} from "lodash-es";
+import {BASE_URL} from "@/config";
 
 function getParams(options) {
   let params = globalMethods.$parseURL(options.url).params
@@ -69,7 +70,7 @@ let t = [
 // },
 
 function initData() {
-  fetch('/data/posts.json').then(r => {
+  fetch(BASE_URL + '/data/posts.json').then(r => {
     r.json().then(v => {
       allRecommendVideos = allRecommendVideos.concat(v)
       allRecommendVideos = allRecommendVideos.map(w => {
@@ -81,7 +82,7 @@ function initData() {
     })
   })
 
-  fetch('/data/user-71158770.json').then(r => {
+  fetch(BASE_URL + '/data/user-71158770.json').then(r => {
     r.json().then(v => {
       resource.my = v
     })
