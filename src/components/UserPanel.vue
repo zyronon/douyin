@@ -293,7 +293,7 @@ watch(() => props.active,
           r.json().then(l => {
             setTimeout(() => {
               emit('update:currentItem', merge(props.currentItem, {aweme_list: l}))
-            }, 800)
+            }, 300)
           })
         })
       }

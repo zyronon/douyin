@@ -6,7 +6,7 @@
            transition-duration="0s"
            item-selector=".goods">
         <div v-masonry-tile class="goods"
-             @click="$no"
+             @click="$nav('album-detail')"
              v-for="(item, index) in  data">
           <div class="card">
             <!--          <img class="poster" v-lazy="Utils.$imgPreview(item.src)"/>-->
@@ -18,7 +18,7 @@
               <div class="b2">
                 <div class="user">
                   <img class="avatar" :src="Utils.$imgPreview(item.note_card.user.avatar)"/>
-                  <div class="name">一二三</div>
+                  <div class="name">{{ item.note_card.user.nickname }}</div>
                 </div>
                 <div class="star">
                   <img src="@/assets/img/icon/components/like-gray-small.png" alt="" class="love-image">

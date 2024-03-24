@@ -9,7 +9,7 @@ export default {
   // filePreview:'http://localhost/static/uploads/'
 }
 
-export const BASE_URL = 'https://dy.ttentau.top'
-// export const BASE_URL = ''
-export const IMG_URL = BASE_URL + '/imgs/'
+// export const BASE_URL = 'https://dy.ttentau.top'
+export const BASE_URL = ''
+export const IMG_URL = BASE_URL + '/images/'
 export const FILE_URL = BASE_URL + '/data/'
