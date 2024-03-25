@@ -3,21 +3,11 @@
        ref="page"
   >
     <header ref="header">
-      <div class="top">
-        <Icon
-            @click="$back()"
-            icon="material-symbols-light:arrow-back-ios-new"/>
-        <div class="right">
-          <div class="search">
-            <Icon icon="jam:search"/>
-            <div class="placeholder">多功能电源插座</div>
-          </div>
-          <div class="option">
-            <Icon icon="jam:search"/>
-            <Icon icon="mynaui:star"/>
-            <Icon icon="ph:share-fat"/>
-          </div>
-        </div>
+      <Icon
+          @click="$back()"
+          icon="material-symbols-light:arrow-back-ios-new"/>
+      <div class="option" @click="nav('/home/search')">
+        <Icon icon="jam:search"/>
       </div>
     </header>
 
@@ -27,7 +17,14 @@
           <img :src="item" alt="">
         </SlideItem>
       </SlideHorizontal>
-      <div class="index">{{ state.index + 1 }}/{{ state.detail.imgs.length }}</div>
+      <div class="index">
+        {{ state.index + 1 }}/{{ state.detail.imgs.length }}
+      </div>
+      <div class="indicator-bar">
+        <div class="indicator"
+             :class="[i <= state.index+1 && 'active']"
+             v-for="i in state.detail.imgs.length"></div>
+      </div>
     </div>
 
     <div class="content">
@@ -36,7 +33,7 @@
           <img src="https://cdn.seovx.com/?mom=302" alt="" class="avatar">
           <div class="right">
             <div class="name">店铺名</div>
-            <div class="r">进店</div>
+            <div class="r">关注</div>
           </div>
         </header>
         <div class="desc">
@@ -68,20 +65,20 @@
       </div>
       <div class="options">
         <div class="option">
-          <Icon icon="iconoir:shop-window"/>
-          <div class="text">进店</div>
+          <Icon icon="solar:heart-linear"/>
+          <div class="text">678</div>
         </div>
         <div class="option">
-          <Icon icon="icon-park-outline:message-emoji"/>
-          <div class="text">客服</div>
+          <Icon icon="mage:message-dots-round" class="icon"/>
+          <div class="text">178</div>
         </div>
         <div class="option">
-          <Icon icon="icon-park-outline:shopping"/>
-          <div class="text">购物车</div>
+          <Icon icon="mage:star"/>
+          <div class="text">82</div>
         </div>
         <div class="option">
-          <Icon icon="icon-park-outline:shopping"/>
-          <div class="text">购物车</div>
+          <Icon icon="ph:share-fat-light"/>
+          <div class="text">23</div>
         </div>
       </div>
     </div>
@@ -95,6 +92,7 @@ import {reactive, ref} from "vue";
 import goods from "@/assets/data/goods";
 import {useNav} from "@/utils/hooks/useNav";
 import Utils from "@/utils";
+import {Icon} from "@iconify/vue";
 
 let activeIndexs = ref([])
 const nav = useNav()
@@ -121,7 +119,7 @@ function scroll() {
 
 const state = reactive({
   detail: goods.list[1],
-  index: 2,
+  index: 0,
   list: goods.list,
   listEl: null,
   fixed: false
@@ -154,52 +152,17 @@ function toggle(i) {
     top: 0;
     width: 100vw;
     z-index: 9;
+    display: flex;
+    justify-content: space-between;
+    padding: 15rem;
+    box-sizing: border-box;
 
-    .top {
-      height: var(--common-header-height);
-      display: flex;
-      align-items: center;
-      padding: 0 10rem;
-
-      svg {
-        font-size: 22rem;
-        background: rgba(176, 176, 176, 0.4);
-        padding: 5rem;
-        color: white;
-        border-radius: 50%;
-      }
-
-      .right {
-        margin-left: 10rem;
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        .search {
-          font-size: 12rem;
-          border-radius: 20rem;
-          padding: 5rem 10rem;
-          flex: 1;
-          background: rgb(243, 243, 243);
-          display: flex;
-          align-items: center;
-          color: gray;
-          visibility: hidden;
-
-          svg {
-            padding: 0;
-            background: unset;
-          }
-        }
-
-        .option {
-          margin-left: 15rem;
-          display: flex;
-          align-items: center;
-          gap: 8rem;
-        }
-      }
+    svg {
+      font-size: 20rem;
+      background: rgba(176, 176, 176, 0.4);
+      padding: 5rem;
+      color: white;
+      border-radius: 50%;
     }
   }
 
@@ -212,6 +175,26 @@ function toggle(i) {
       width: 100%;
       object-fit: cover;
       touch-action: none;
+    }
+
+    .indicator-bar {
+      position: absolute;
+      bottom: 5rem;
+      left: 3vw;
+      width: 94vw;
+      display: flex;
+      gap: 5rem;
+
+      .indicator {
+        background: rgba(162, 160, 160, 0.5);
+        height: 3rem;
+        flex: 1;
+        border-radius: 2rem;
+      }
+
+      .active {
+        background: rgba(250, 246, 246, 0.58);
+      }
     }
 
     .index {
@@ -281,7 +264,8 @@ function toggle(i) {
           width: 20rem;
           height: 20rem;
         }
-        &:last-child{
+
+        &:last-child {
           margin-bottom: 0;
         }
       }
@@ -340,14 +324,16 @@ function toggle(i) {
     background: var(--color-message);
     border-top: 1px solid rgba(white, .1);
     display: flex;
-    padding: 10rem;
+    align-items: center;
+    padding: 8rem 10rem;
+    padding-right: 0;
     box-sizing: border-box;
     gap: 6rem;
 
     .input-wrap {
       width: 110rem;
       padding-left: 15rem;
-      height: 40rem;
+      height: 34rem;
       border-radius: 30rem;
       background: var(--second-btn-color-tran);
       color: gray;
@@ -365,17 +351,11 @@ function toggle(i) {
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        font-size: 11rem;
-        color: #646464;
+        font-size: 13rem;
+        color: white;
 
         svg {
-          font-size: 18rem;
-        }
-
-        &:first-child {
-          svg {
-            color: red;
-          }
+          font-size: 24rem;
         }
       }
     }

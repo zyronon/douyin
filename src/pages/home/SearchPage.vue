@@ -4,10 +4,8 @@
       <dy-back mode="light" @click="$back" class="mr1r"></dy-back>
       <BSearch placeholder="搜索用户名字/抖音号"
                :isShowRightText="true"
-               rightTextColor="white"
                @notice="$no"
       >
-        <img class="scan" src="../../assets/img/icon/scan-gray.png" @click.stop="$nav('/scan')">
       </BSearch>
     </div>
     <div class="content">
@@ -742,9 +740,9 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        color: var(--second-text-color);
 
         .right {
-          color: var(--second-text-color);
           display: flex;
           align-items: center;
 
@@ -770,7 +768,6 @@ export default {
 
           .desc {
             max-width: 80%;
-            font-size: 14rem;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;

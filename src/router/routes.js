@@ -79,7 +79,6 @@ const routes = [
   {path: '/home/music', component: Music},
   {path: '/home/music-rank-list', component: MusicRankList},
   {path: '/home/live', component: LivePage},
-  {path: '/home/search', component: Search},
 
   {path: '/shop/detail', component: GoodsDetail},
 
@@ -150,6 +149,8 @@ const routes = [
 
   {path: '/video-detail', name: 'video-detail', component: VideoDetail},
   {path: '/album-detail', name: 'video-detail', component: AlbumDetail},
+
+  {path: '/home/search', component: Search},
 
 ]
 
