@@ -16,7 +16,7 @@
         </SlideItem>
       </SlideHorizontal>
 
-      <div class="indicator-bar">
+      <div class="indicator-bar" v-if="state.detail.note_card?.image_list?.length > 1">
         <div class="indicator"
              :class="[i <= state.index+1 && 'active']"
              v-for="i in state.detail.note_card?.image_list?.length"></div>
@@ -35,21 +35,21 @@
         <div class="desc">
           {{ state.detail.note_card?.display_title }}
         </div>
-        <div class="date">03:11</div>
+        <div class="date">{{ state.detail.note_card.createTime }}</div>
       </div>
 
       <div class="card comments">
         <header>
-          <span class="l">评论 {{ state.detail.note_card?.interact_info?.liked_count }}</span>
+          <span class="l">评论 {{ state.detail.note_card.comment_list.length }}</span>
           <div class="r">
             <span>查看全部</span>
             <Icon class="arrow" icon="mingcute:right-line"/>
           </div>
         </header>
-        <div class="comment" v-for="i in 2">
+        <div class="comment" v-for="i in state.detail.note_card.comment_list.slice(0,2)">
           <img src="https://cdn.seovx.com/?mom=302" alt="" class="avatar">
           <span>
-               花***栽：东西不错质量也很好 性价比很高 良心商家就冲这图必须给好评
+               {{ i.name }}：{{ i.text }}
             </span>
         </div>
       </div>
@@ -66,15 +66,15 @@
         </div>
         <div class="option">
           <Icon icon="mage:message-dots-round" class="icon"/>
-          <div class="text">178</div>
+          <div class="text">{{ state.detail.note_card.comment_list.length }}</div>
         </div>
         <div class="option">
           <Icon icon="mage:star"/>
-          <div class="text">82</div>
+          <div class="text">{{ state.detail.note_card?.interact_info?.collect_count }}</div>
         </div>
         <div class="option">
           <Icon icon="ph:share-fat-light"/>
-          <div class="text">23</div>
+          <div class="text">{{ state.detail.note_card?.interact_info?.share_count }}</div>
         </div>
       </div>
     </div>
@@ -84,12 +84,13 @@
 <script setup>
 import SlideHorizontal from "@/components/slide/SlideHorizontal.vue";
 import SlideItem from "@/components/slide/SlideItem.vue";
-import {onMounted, reactive, ref} from "vue";
-import goods from "@/assets/data/goods";
+import {onMounted, reactive} from "vue";
 import {useNav} from "@/utils/hooks/useNav";
 import {Icon} from "@iconify/vue";
 import {useBaseStore} from "@/store/pinia";
 import {_checkImgUrl} from "@/utils";
+import Mock from 'mockjs'
+import {cloneDeep} from "lodash-es";
 
 const nav = useNav()
 const store = useBaseStore()
@@ -106,15 +107,27 @@ const state = reactive({
       "cover": {},
       "image_list": [],
       "display_title": "",
-      "user": {}
+      "user": {},
+      comment_list: [],
+      createTime: ''
     }
   },
   index: 0,
 })
 
 onMounted(() => {
-  console.log('s', store.routeData)
-  state.detail = store.routeData
+  state.detail = cloneDeep(store.routeData)
+  let data = Mock.mock({
+    'comment_list|3-50': [{
+      name: '@cname',
+      text: '@cparagraph(3)'
+    }]
+  })
+  state.detail.note_card.comment_list = data.comment_list
+  state.detail.note_card.createTime = Mock.Random.date('MM-dd')
+  state.detail.note_card.interact_info.collect_count = Mock.Random.integer(60, 3000)
+  state.detail.note_card.interact_info.share_count = Mock.Random.integer(60, 3000)
+  console.log('sta', state.detail)
 })
 </script>
 

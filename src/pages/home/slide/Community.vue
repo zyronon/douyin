@@ -21,7 +21,7 @@
                   <div class="name">{{ item.note_card?.user?.nickname }}</div>
                 </div>
                 <div class="star">
-                  <img src="@/assets/img/icon/components/like-gray-small.png" alt="" class="love-image">
+                  <Icon icon="solar:heart-linear"/>
                   <div class="num">{{ item.note_card?.interact_info?.liked_count }}</div>
                 </div>
               </div>
@@ -39,6 +39,7 @@ import {_checkImgUrl, _notice} from "@/utils";
 import Scroll from "@/components/Scroll.vue";
 import {recommendedPost} from "@/api/user";
 import {useNav} from "@/utils/hooks/useNav";
+import {Icon} from "@iconify/vue";
 
 const nav = useNav()
 const props = defineProps({
@@ -63,7 +64,7 @@ watch(() => props.active, n => {
 })
 
 function loadData() {
-  console.log('loadData')
+  state.pageNo++
   getData()
 }
 
@@ -126,7 +127,7 @@ async function getData(loading = true, refresh = false) {
         padding: 10rem;
 
         .title {
-          font-size: 16rem;
+          font-size: 15rem;
           margin-bottom: 8rem;
         }
 
@@ -148,10 +149,11 @@ async function getData(loading = true, refresh = false) {
 
           .star {
             display: flex;
+            align-items: center;
+            gap: 3rem;
 
-            img {
-              width: 15rem;
-              margin-right: 5rem;
+            svg {
+              font-size: 16rem;
             }
 
             .num {

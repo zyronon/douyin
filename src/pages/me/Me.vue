@@ -48,7 +48,7 @@
                     @click="previewImg = _checkImgUrl(userinfo.cover_url[0].url_list[0])">
               <div class="info">
                 <img :src="_checkImgUrl(userinfo.avatar_168x168.url_list[0])" class="avatar"
-                     @click="previewImg = _checkImgUrl(userinfo.avatar_300x300.url_list[0])">
+                     @click.stop="previewImg = _checkImgUrl(userinfo.avatar_300x300.url_list[0])">
                 <div class="right">
                   <p class="name">{{ userinfo.nickname }}</p>
                   <div class="number mb1r">
