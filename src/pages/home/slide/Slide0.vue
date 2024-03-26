@@ -47,7 +47,7 @@
     <SlideList
         :active="props.active"
         :style="{background: 'black',marginTop:state.subTypeVisible?state.subTypeHeight:0}"
-        :api="api.videos.recommended"
+        :api="recommendedVideo"
         @touchstart="pageClick"
     />
   </SlideItem>
@@ -58,8 +58,8 @@ import SlideItem from '@/components/slide/SlideItem.vue'
 import {onMounted, onUnmounted, reactive, ref} from "vue";
 import bus, {EVENT_KEY} from "@/utils/bus";
 import Utils from "@/utils";
-import api from "@/api";
 import SlideList from './SlideList.vue';
+import {recommendedVideo} from "@/api/videos";
 
 const props = defineProps({
   cbs: {

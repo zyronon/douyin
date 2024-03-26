@@ -1,15 +1,15 @@
 import request from "../utils/request";
 
-export default {
-  recommended(params, data) {
-    return request({url: '/video/recommended', method: 'get', params, data})
-  },
-  historyVideo(params, data) {
-    return request({url: '/video/historyVideo', method: 'get', params, data})
-  },
-  historyOther(params, data) {
-    return request({url: '/video/historyOther', method: 'get', params, data})
-  },
+export function historyOther(params, data) {
+  return request({url: '/video/historyOther', method: 'get', params, data})
+}
+
+export function historyVideo(params, data) {
+  return request({url: '/video/history', method: 'get', params, data})
+}
+
+export function recommendedVideo(params, data) {
+  return request({url: '/video/recommended', method: 'get', params, data})
 }
 
 export function myVideo(params, data) {

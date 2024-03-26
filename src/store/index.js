@@ -1,8 +1,8 @@
 import * as Vuex from "vuex";
 import enums from '../utils/enums'
-import api from '../api/index'
 import CONST_VAR from "../utils/const_var";
 import resource from "../assets/data/resource";
+import {friends} from "@/api/user";
 
 const store = Vuex.createStore({
   state: {
@@ -79,7 +79,7 @@ const store = Vuex.createStore({
   },
   actions: {
     async getFriends(context) {
-      let res = await api.user.friends()
+      let res = await friends()
       if (res.code === CONST_VAR.SUCCESS) {
         context.commit('setFriends', res.data)
       }

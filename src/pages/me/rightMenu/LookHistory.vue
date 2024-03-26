@@ -45,6 +45,7 @@
 import Posters from "../../../components/Posters";
 import Scroll from "../../../components/Scroll";
 import NoMore from "../../../components/NoMore";
+import {historyOther, historyVideo} from "@/api/videos";
 
 export default {
   name: "lookHistory",
@@ -94,7 +95,7 @@ export default {
         this.historyVideo.pageNo++
       }
       this.loadingVideo = true
-      let res = await this.$api.videos.historyVideo({pageNo: this.historyVideo.pageNo, pageSize: this.pageSize,})
+      let res = await historyVideo({pageNo: this.historyVideo.pageNo, pageSize: this.pageSize,})
       console.log(res)
       this.loadingVideo = false
       if (res.code === this.SUCCESS) {
@@ -109,7 +110,7 @@ export default {
       if (!init) {
         this.historyOther.pageNo++
       }
-      let res = await this.$api.videos.historyOther({pageNo: this.historyOther.pageNo, pageSize: this.pageSize,})
+      let res = await historyOther({pageNo: this.historyOther.pageNo, pageSize: this.pageSize,})
       this.loadingOther = false
       if (res.code === this.SUCCESS) {
         this.historyOther.list = this.historyOther.list.concat(res.data.list)

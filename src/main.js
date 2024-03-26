@@ -3,7 +3,6 @@ import App from './App.vue'
 import mitt from 'mitt'
 import './assets/less/index.less'
 import {startMock} from './mock'
-import api from './api'
 import router from "./router";
 import store from "./store";
 import mixin from "./utils/mixin";
@@ -17,7 +16,6 @@ const pinia = createPinia()
 const emitter = mitt()
 
 const app = Vue.createApp(App)
-app.config.globalProperties.$api = {...api}
 app.config.globalProperties.emitter = emitter
 app.config.unwrapInjectedRef = true
 app.provide('mitt', emitter)

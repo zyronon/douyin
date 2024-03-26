@@ -3,15 +3,15 @@
     <SlideList
         style="background:#000;"
         :active="props.active"
-        :api="api.videos.recommended"
+        :api="recommendedVideo"
     />
   </SlideItem>
 </template>
 
 <script setup lang="jsx">
 import SlideItem from '@/components/slide/SlideItem.vue'
-import api from "@/api";
 import SlideList from './SlideList.vue';
+import {recommendedVideo} from "@/api/videos";
 
 const props = defineProps({
   active: {

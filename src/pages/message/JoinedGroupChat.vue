@@ -35,6 +35,7 @@ import {mapState} from "vuex";
 import axios from "axios";
 import Check from "../../components/Check";
 import {forIn} from "lodash-es";
+import {friends} from "@/api/user";
 
 export default {
   name: "Share2Friend",
@@ -72,7 +73,7 @@ export default {
       }
     },
     async getFriends() {
-      let res = await this.$api.user.friends()
+      let res = await friends()
       if (res.code === this.SUCCESS) {
         this.friends = res.data
         this.friends.all = this.friends.all.sort((a, b) => {

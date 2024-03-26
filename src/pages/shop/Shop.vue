@@ -120,8 +120,6 @@
 
 import {onMounted, reactive} from "vue";
 import {useNav} from "@/utils/hooks/useNav";
-import api from "@/api";
-import SlideList from "@/pages/home/slide/SlideList.vue";
 import Utils, {$no} from "@/utils";
 import Scroll from "@/components/Scroll.vue";
 import goods from "@/assets/data/goods";

@@ -171,7 +171,7 @@ export async function startMock() {
     return [200, {data: v, code: 200}]
   })
 
-  mock.onGet(/historyVideo/).reply(async (config) => {
+  mock.onGet(/video\/history/).reply(async (config) => {
     let page = getPage2(config.params)
     return [200, {
       data: {
