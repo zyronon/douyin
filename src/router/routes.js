@@ -125,7 +125,7 @@ const routes = [
   {path: '/people/find-acquaintance', component: FindAcquaintance},
   {path: '/people/follow-and-fans', component: FollowAndFans},
 
-  {path: '/service-protocol', component: ServiceProtocol},
+  // {path: '/service-protocol', component: ServiceProtocol},
   {path: '/address-list', component: AddressList},
   {path: '/scan', component: Scan},
   {path: '/face-to-face', component: FaceToFace},
