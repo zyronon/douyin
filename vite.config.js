@@ -81,7 +81,20 @@ export default defineConfig({
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
   },
   build: {
-    sourcemap: false
+    sourcemap: false,
+    rollupOptions: {
+      // https://rollupjs.org/guide/en/#outputmanualchunks
+      output: {
+        manualChunks: {
+          'other-page': [
+            './src/pages/me/Me',
+            './src/pages/login/Login',
+            './src/pages/message/Message',
+            './src/pages/login/countryChoose',
+          ],
+        },
+      },
+    },
   },
   server: {
     port: 3000,

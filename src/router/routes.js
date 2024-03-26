@@ -52,7 +52,6 @@ import ChatDetail from "../pages/message/chat/ChatDetail";
 import RedPacketDetail from "../pages/message/RedPacketDetail";
 import FindAcquaintance from "../pages/people/FindAcquaintance";
 import FollowAndFans from "../pages/people/FollowAndFans";
-import ServiceProtocol from "../pages/other/ServiceProtocol";
 import AddressList from "../pages/people/AddressList";
 import Scan from "../pages/people/Scan";
 import FaceToFace from "../pages/people/FaceToFace";
@@ -65,6 +64,11 @@ import RetrievePassword from "../pages/login/RetrievePassword";
 import Help from "../pages/login/Help";
 import GoodsDetail from "@/pages/shop/GoodsDetail.vue";
 import AlbumDetail from "../pages/home/AlbumDetail.vue";
+import {defineAsyncComponent} from "vue";
+
+const _import = (path) => {
+  return () => import(path)
+}
 
 const routes = [
   // {path: '/', redirect: '/attention'},
@@ -82,10 +86,12 @@ const routes = [
 
   {path: '/shop/detail', component: GoodsDetail},
 
-  {path: '/me', component: Me,},
+  // {path: '/me', component: Me,},
+  {path: '/me', component: () => import('@/pages/me/Me.vue')},
   {path: '/me/edit-userinfo', component: EditUserInfo},
   {path: '/me/edit-userinfo-item', component: EditUserInfoItem},
-  {path: '/me/country-choose', component: countryChoose},
+  // {path: '/me/country-choose', component: countryChoose},
+  {path: '/me/country-choose', component: () => import('@/pages/login/countryChoose.vue')},
   {path: '/me/my-card', component: MyCard},
   {path: '/me/my-collect', component: MyCollect},
   {path: '/me/add-school', component: AddSchool},
@@ -105,7 +111,8 @@ const routes = [
   {path: '/me/collect/video-collect', component: VideoCollect},
   {path: '/me/my-music', component: MyMusic},
 
-  {path: '/message', component: Message},
+  // {path: '/message', component: Message},
+  {path: '/message', component: () => import('@/pages/message/Message.vue'),},
   {path: '/message/all', component: AllMessage},
   {path: '/message/more-search', component: MoreSearch},
   {path: '/message/joined-group-chat', component: JoinedGroupChat},
@@ -131,8 +138,8 @@ const routes = [
   {path: '/face-to-face', component: FaceToFace},
   {path: '/set-remark', component: SetRemark},
 
-
-  {path: '/login', component: Login},
+  // {path: '/login', component: Login},
+  {path: '/login', component: () => import('@/pages/login/Login.vue'),},
   {path: '/login/other', component: OtherLogin},
   {path: '/login/password', component: PasswordLogin},
   {path: '/login/verification-code', component: VerificationCode},
