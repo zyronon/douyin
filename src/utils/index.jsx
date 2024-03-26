@@ -436,6 +436,10 @@ export function $notice(val) {
   Utils.$notice(val)
 }
 
+export function _notice(val) {
+  Utils.$notice(val)
+}
+
 export function _checkImgUrl(url) {
   // console.log(url)
   if (!url) return

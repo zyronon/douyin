@@ -3,11 +3,14 @@ import Utils from '@/utils'
 import {SlideType} from "@/utils/const_var";
 import GM from "@/utils";
 import {sum} from "lodash-es";
+import {nextTick} from "vue";
 
 export function slideInit(el, state, type) {
   state.wrapper.width = GM.$getCss(el, 'width')
   state.wrapper.height = GM.$getCss(el, 'height')
-  state.wrapper.childrenLength = el.children.length
+  nextTick(()=>{
+    state.wrapper.childrenLength = el.children.length
+  })
 
   let t = getSlideDistance(state, type, el)
   let dx1 = 0, dx2 = 0

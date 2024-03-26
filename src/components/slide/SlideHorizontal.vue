@@ -50,7 +50,7 @@ watch(
         if (props.changeActiveIndexUseAnim) {
           GM.$setCss(wrapperEl.value, 'transition-duration', `300ms`)
         }
-        GM.$setCss(wrapperEl.value, 'transform', `translate3d(${getSlideDistance(state, SlideType.HORIZONTAL,wrapperEl.value)}px, 0, 0)`)
+        GM.$setCss(wrapperEl.value, 'transform', `translate3d(${getSlideDistance(state, SlideType.HORIZONTAL, wrapperEl.value)}px, 0, 0)`)
       }
     }
 )
@@ -73,7 +73,6 @@ function touchEnd(e) {
   })
   slideReset(wrapperEl.value, state, SlideType.HORIZONTAL, emit)
 }
-
 
 function canNext(isNext) {
   return !((state.localIndex === 0 && !isNext) || (state.localIndex === state.wrapper.childrenLength - 1 && isNext));

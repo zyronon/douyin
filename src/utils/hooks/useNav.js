@@ -1,8 +1,15 @@
 import {useRouter} from "vue-router";
+import {cloneDeep} from "lodash-es";
+import {useBaseStore} from "@/store/pinia";
 
 export function useNav() {
   const router = useRouter()
-  return (path, query = {}) => {
+  const store = useBaseStore()
+
+  return (path, query = {}, data) => {
+    if (data) {
+      store.routeData = cloneDeep(data)
+    }
     router.push({path, query})
   }
 }

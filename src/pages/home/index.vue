@@ -107,7 +107,7 @@
                          v-model:index="state.navIndex">
           <Slide0 :active="state.navIndex === 0 && state.baseIndex === 1"/>
           <SlideItem>
-            <Community/>
+            <Community :active="state.navIndex === 1 && state.baseIndex === 1"/>
           </SlideItem>
           <Slide2 :active="state.navIndex === 2 && state.baseIndex === 1"/>
           <SlideItem>

@@ -29,9 +29,6 @@ dependencies:
   mobile-select:
     specifier: 1.1.2
     version: 1.1.2
-  mockjs:
-    specifier: 1.1.0
-    version: 1.1.0
   pinia:
     specifier: ^2.1.7
     version: 2.1.7(vue@3.4.21)
@@ -1431,11 +1428,6 @@ packages:
       keypress: 0.1.0
     dev: false
 
-  /commander@11.1.0:
-    resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
-    engines: {node: '>=16'}
-    dev: false
-
   /concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
     requiresBuild: true
@@ -2030,13 +2022,6 @@ packages:
 
   /mobile-select@1.1.2:
     resolution: {integrity: sha512-FrVAun32DsxLUZziTE1LPlXC72kD13f8N8tqgf7zVWRIOIIJakNxVs8mR2KMzm3QJAYq5+EJ4ji98pHdWJ7ekw==}
-    dev: false
-
-  /mockjs@1.1.0:
-    resolution: {integrity: sha512-eQsKcWzIaZzEZ07NuEyO4Nw65g0hdWAyurVol1IPl1gahRwY+svqzfgfey8U8dahLwG44d6/RwEzuK52rSa/JQ==}
-    hasBin: true
-    dependencies:
-      commander: 11.1.0
     dev: false
 
   /mrmime@2.0.0:

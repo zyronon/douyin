@@ -1,5 +1,3 @@
-import Mock from 'mockjs'
-import globalMethods from '../utils'
 import resource from "../assets/data/resource.js";
 import posts6 from "@/assets/data/posts6.json";
 import {cloneDeep, uniqueId} from "lodash-es";
@@ -7,22 +5,9 @@ import {BASE_URL} from "@/config";
 import {useBaseStore} from "@/store/pinia";
 import axiosInstance from "@/utils/request";
 import MockAdapter from "axios-mock-adapter";
+import {friends} from "@/api/user";
 
 const mock = new MockAdapter(axiosInstance);
-
-function getParams(options) {
-  let params = globalMethods.$parseURL(options.url).params
-  params.pageNo = ~~params.pageNo
-  params.pageSize = ~~params.pageSize
-  return params
-}
-
-function getPage(options) {
-  let params = getParams(options)
-  let offset = params.pageNo * params.pageSize
-  let limit = params.pageNo * params.pageSize + params.pageSize
-  return {limit, offset, pageNo: params.pageNo}
-}
 
 function getPage2(params) {
   let offset = params.pageNo * params.pageSize
@@ -30,6 +15,8 @@ function getPage2(params) {
   return {limit, offset, pageNo: params.pageNo}
 }
 
+let allRecommendPosts = []
+let userVideos = []
 let allRecommendVideos = posts6.map(v => {
   v.type = 'recommend-video'
   return v
@@ -68,24 +55,34 @@ let t = [{
 
 async function fetchData() {
   const baseStore = useBaseStore()
-  fetch(BASE_URL + '/data/posts.json').then(r => {
-    r.json().then(v => {
+  fetch(BASE_URL + '/data/videos.json').then(r => {
+    r.json().then(async v => {
       let userList = cloneDeep(baseStore.users)
+      if (!userList.length) {
+        await baseStore.init()
+        userList = cloneDeep(baseStore.users)
+      }
       v = v.map(w => {
         w.type = 'recommend-video'
-        if (userList.length) {
-          let item = userList.find(a => String(a.uid) === String(w.author_user_id))
-          if (item) w.author = item
-        }
+        let item = userList.find(a => String(a.uid) === String(w.author_user_id))
+        if (item) w.author = item
         return w
       })
+
       allRecommendVideos = allRecommendVideos.concat(v)
+    })
+  })
+
+  fetch(BASE_URL + '/data/posts.json').then(r => {
+    r.json().then(v => {
+      allRecommendPosts = v
     })
   })
 }
 
 export async function startMock() {
-  mock.onGet(/recommended/).reply(async (config) => {
+  mock.onGet(/video\/recommended/).reply(async (config) => {
+    // console.log('allRecommendVideos', cloneDeep(allRecommendVideos))
     let page = getPage2(config.params)
     return [200, {
       data: {
@@ -115,6 +112,44 @@ export async function startMock() {
     }]
   })
 
+  mock.onGet(/video\/my/).reply(async (config) => {
+    let page = getPage2(config.params)
+    if (!userVideos.length) {
+      // let r = await fetch(BASE_URL + '/data/user-71158770.json')
+      // let r = await fetch(BASE_URL + '/data/user-8357999.json')
+      let r = await fetch(BASE_URL + '/data/user-12345xiaolaohu.json')
+      let list = await r.json()
+      const baseStore = useBaseStore()
+      let userList = cloneDeep(baseStore.users)
+
+      userVideos = list.map(w => {
+        if (userList.length) {
+          let item = userList.find(a => String(a.uid) === String(w.author_user_id))
+          if (item) w.author = item
+        }
+        return w
+      })
+    }
+
+    return [200, {
+      data: {
+        pageNo: page.pageNo,
+        total: userVideos.length,
+        list: userVideos.slice(page.offset, page.limit),
+      }, code: 200, msg: '',
+    }]
+  });
+
+  mock.onGet(/video\/history/).reply(async (config) => {
+    let page = getPage2(config.params)
+    return [200, {
+      data: {
+        total: 150,
+        list: allRecommendVideos.slice(200, 350).slice(page.offset, page.limit)
+      }, code: 200, msg: '',
+    }]
+  })
+
   mock.onGet(/user\/collect/).reply(async (config) => {
     return [200, {
       data: {
@@ -126,32 +161,6 @@ export async function startMock() {
       }, code: 200, msg: '',
     }]
   })
-
-  mock.onGet(/video\/my/).reply(async (config) => {
-    let page = getPage2(config.params)
-    // let r = await fetch(BASE_URL + '/data/user-71158770.json')
-    // let r = await fetch(BASE_URL + '/data/user-8357999.json')
-    let r = await fetch(BASE_URL + '/data/user-12345xiaolaohu.json')
-    let list = await r.json()
-    const baseStore = useBaseStore()
-    let userList = cloneDeep(baseStore.users)
-
-    list = list.map(w => {
-      if (userList.length) {
-        let item = userList.find(a => String(a.uid) === String(w.author_user_id))
-        if (item) w.author = item
-      }
-      return w
-    })
-
-    return [200, {
-      data: {
-        pageNo: page.pageNo,
-        total: list.length,
-        list: list.slice(page.offset, page.limit),
-      }, code: 200, msg: '',
-    }]
-  });
 
   mock.onGet(/user\/userinfo/).reply(async (config) => {
     let r2 = await fetch(BASE_URL + '/data/users.json')
@@ -171,16 +180,6 @@ export async function startMock() {
     return [200, {data: v, code: 200}]
   })
 
-  mock.onGet(/video\/history/).reply(async (config) => {
-    let page = getPage2(config.params)
-    return [200, {
-      data: {
-        total: 150,
-        list: allRecommendVideos.slice(200, 350).slice(page.offset, page.limit)
-      }, code: 200, msg: '',
-    }]
-  })
-
   mock.onGet(/historyOther/).reply(async (config) => {
     let page = getPage2(config.params)
     return [200, {
@@ -192,5 +191,16 @@ export async function startMock() {
     }]
   })
 
-  setTimeout(fetchData, 0)
+  mock.onGet(/post\/recommended/).reply(async (config) => {
+    let page = getPage2(config.params)
+    return [200, {
+      data: {
+        pageNo: page.pageNo,
+        total: allRecommendPosts.length,
+        list: allRecommendPosts.slice(page.offset, page.limit),
+      }, code: 200, msg: '',
+    }]
+  })
+
+  setTimeout(fetchData, 1000)
 }

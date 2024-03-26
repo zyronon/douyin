@@ -54,11 +54,6 @@ export default defineConfig({
           path: 'https://lib.baomitu.com/vue-demi/0.14.7/index.iife.min.js',
         },
         {
-          name: 'mockjs',
-          var: 'Mock',
-          path: 'https://lib.baomitu.com/Mock.js/1.0.1-beta3/mock-min.js',
-        },
-        {
           name: 'axios',
           var: 'axios',
           path: 'https://lib.baomitu.com/axios/1.6.8/axios.min.js',

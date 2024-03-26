@@ -1,8 +1,6 @@
 <template>
-  <div class="goods-detail base-page"
-       ref="page"
-  >
-    <header ref="header">
+  <div class="goods-detail base-page">
+    <header>
       <Icon
           @click="$back()"
           icon="material-symbols-light:arrow-back-ios-new"/>
@@ -13,38 +11,36 @@
 
     <div class="slide-imgs">
       <SlideHorizontal v-model:index="state.index">
-        <SlideItem v-for="item in state.detail.imgs">
-          <img :src="item" alt="">
+        <SlideItem v-for="item in state.detail.note_card?.image_list">
+          <img :src="_checkImgUrl(item.info_list?.[0]?.url)" alt="">
         </SlideItem>
       </SlideHorizontal>
-      <div class="index">
-        {{ state.index + 1 }}/{{ state.detail.imgs.length }}
-      </div>
+
       <div class="indicator-bar">
         <div class="indicator"
              :class="[i <= state.index+1 && 'active']"
-             v-for="i in state.detail.imgs.length"></div>
+             v-for="i in state.detail.note_card?.image_list?.length"></div>
       </div>
     </div>
 
     <div class="content">
       <div class="shop">
         <header>
-          <img src="https://cdn.seovx.com/?mom=302" alt="" class="avatar">
+          <img class="avatar" :src="_checkImgUrl(state.detail.note_card?.user?.avatar)"/>
           <div class="right">
-            <div class="name">店铺名</div>
+            <div class="name">{{ state.detail.note_card.user.nick_name }}</div>
             <div class="r">关注</div>
           </div>
         </header>
         <div class="desc">
-          店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名店铺名
+          {{ state.detail.note_card?.display_title }}
         </div>
         <div class="date">03:11</div>
       </div>
 
       <div class="card comments">
         <header>
-          <span class="l">评论 507</span>
+          <span class="l">评论 {{ state.detail.note_card?.interact_info?.liked_count }}</span>
           <div class="r">
             <span>查看全部</span>
             <Icon class="arrow" icon="mingcute:right-line"/>
@@ -66,7 +62,7 @@
       <div class="options">
         <div class="option">
           <Icon icon="solar:heart-linear"/>
-          <div class="text">678</div>
+          <div class="text">{{ state.detail.note_card?.interact_info?.liked_count }}</div>
         </div>
         <div class="option">
           <Icon icon="mage:message-dots-round" class="icon"/>
@@ -88,51 +84,38 @@
 <script setup>
 import SlideHorizontal from "@/components/slide/SlideHorizontal.vue";
 import SlideItem from "@/components/slide/SlideItem.vue";
-import {reactive, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import goods from "@/assets/data/goods";
 import {useNav} from "@/utils/hooks/useNav";
-import Utils from "@/utils";
 import {Icon} from "@iconify/vue";
+import {useBaseStore} from "@/store/pinia";
+import {_checkImgUrl} from "@/utils";
 
-let activeIndexs = ref([])
 const nav = useNav()
-const props = defineProps({
-  id: {
-    type: String,
-    default: () => ''
-  }
-})
-let page = ref()
-let header = ref()
-let headerShadow = ref()
+const store = useBaseStore()
 
-function scroll() {
-  let d = page.value.scrollTop / 200
-  // console.log('s', d, header.value)
-  if (d > 0) {
-    header.value.style.opacity = 1 - d
-  } else {
-    header.value.style.opacity = 1 - d
-  }
-  headerShadow.value.style.opacity = d
-}
+defineOptions({
+  name: 'Album-Detail'
+})
 
 const state = reactive({
-  detail: goods.list[1],
+  detail: {
+    "id": "",
+    "note_card": {
+      "interact_info": {},
+      "cover": {},
+      "image_list": [],
+      "display_title": "",
+      "user": {}
+    }
+  },
   index: 0,
-  list: goods.list,
-  listEl: null,
-  fixed: false
 })
 
-function toggle(i) {
-  let rIndex = activeIndexs.value.findIndex(v => v === i)
-  if (rIndex > -1) {
-    activeIndexs.value.splice(rIndex, 1)
-  } else {
-    activeIndexs.value.push(i)
-  }
-}
+onMounted(() => {
+  console.log('s', store.routeData)
+  state.detail = store.routeData
+})
 </script>
 
 <style scoped lang="less">

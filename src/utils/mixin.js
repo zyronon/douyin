@@ -3,7 +3,6 @@ import BaseHeader from "../components/BaseHeader";
 import SlideRowList from "../components/slide/SlideRowList";
 import SlideItem from "../components/slide/SlideItem";
 import Indicator from "../components/slide/Indicator";
-import Video from "../components/Video";
 import Footer from "../components/Footer";
 import Mask from "../components/Mask";
 import NoMore from "../components/NoMore";
@@ -24,7 +23,6 @@ export default {
     SlideRowList,
     SlideItem,
     Indicator,
-    'Video1': Video,
     Footer,
     Mask,
     NoMore,

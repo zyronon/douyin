@@ -11,3 +11,7 @@ export function friends(params, data) {
 export function userCollect(params, data) {
   return request({url: '/user/collect', method: 'get', params, data})
 }
+
+export function recommendedPost(params, data) {
+  return request({url: '/post/recommended', method: 'get', params, data})
+}
