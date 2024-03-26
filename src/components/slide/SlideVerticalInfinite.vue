@@ -7,6 +7,7 @@ import SlideItem from '@/components/slide/SlideItem.vue'
 import bus, {EVENT_KEY} from "../../utils/bus";
 import {useStore} from 'vuex'
 import Loading from "@/components/Loading.vue";
+import {cloneDeep} from "lodash-es";
 
 const props = defineProps({
   index: {
@@ -189,7 +190,7 @@ function dislike(item) {
 defineExpose({dislike})
 
 function getInsEl(item, index, play = false) {
-  // console.log('index', index, play)
+  console.log('index', cloneDeep(item), index, play)
   let slideVNode = props.render(item, index, play, props.uniqueId)
   const parent = document.createElement('div')
   //TODO 打包到线上时用这个，这个在开发时任何修改都会刷新页面

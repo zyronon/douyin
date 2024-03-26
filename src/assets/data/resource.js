@@ -6,10 +6,6 @@ export default {
   ],
   my: [
   ],
-  like: [
-  ],
-  private1: [
-  ],
   users:{
     "all": [
       {

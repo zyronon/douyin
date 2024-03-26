@@ -19,6 +19,7 @@
 import resource from "../../../assets/data/resource";
 import Posters from "../../../components/Posters";
 import Scroll from "../../../components/Scroll";
+import {myVideo} from "@/api/videos";
 
 export default {
   name: "VideoCollect",
@@ -49,7 +50,7 @@ export default {
         this.pageNo++
       }
       this.loading = true
-      let res = await this.$api.videos.my({pageNo: this.pageNo, pageSize: this.pageSize,})
+      let res = await myVideo({pageNo: this.pageNo, pageSize: this.pageSize,})
       this.loading = false
       if (res.code === this.SUCCESS) {
         this.videos = this.videos.concat(res.data.list)

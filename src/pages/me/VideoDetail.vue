@@ -111,9 +111,7 @@
 <script setup>
 import Search from "../../components/Search";
 import FromBottomDialog from "../../components/dialog/FromBottomDialog";
-import SlideList from "@/pages/home/slide/SlideList.vue";
-import api from "@/api";
-import {nextTick, onMounted, reactive} from "vue";
+import {onMounted, reactive} from "vue";
 import {useBaseStore} from "@/store/pinia";
 import SlideVerticalInfinite from "@/components/slide/SlideVerticalInfinite.vue";
 import {uniqueId} from "lodash-es";
@@ -144,11 +142,9 @@ const render = useSlideListItemRender()
 onMounted(() => {
   console.log('s', store.routeData)
   state.index = store.routeData.index
-  state.list = store.routeData.list.map(v => {
-    v.type = 'recommend-video'
-    v.author = store.routeData.author
-    return v
-  })
+  state.list = store.routeData.list
+
+  console.log('sss', state.list[state.index])
 })
 </script>
 

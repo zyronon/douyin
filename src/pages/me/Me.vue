@@ -15,7 +15,7 @@
           </div>
           <transition name="fade">
             <div class="center" v-if="floatShowName">
-              <p class="name f15 mt1r mb1r">{{ userinfo.nickname }}</p>
+              <p class="name f14 mt1r mb1r">{{ userinfo.nickname }}</p>
             </div>
           </transition>
           <div class="right">
@@ -43,15 +43,17 @@
              @touchmove="touchMove($event)"
              @touchend="touchEnd($event)">
           <div ref="desc" class="desc">
-            <header ref="header" @click="previewImg = new URL('../../assets/img/header-bg.png')">
+            <header ref="header"
+                    :style="{backgroundImage:`url(${_checkImgUrl(userinfo.cover_url[0].url_list[0])})`}"
+                    @click="previewImg = _checkImgUrl(userinfo.cover_url[0].url_list[0])">
               <div class="info">
-                <img :src="$imgPreview(userinfo.avatar)" class="avatar"
-                     @click="previewImg = userinfo.avatar">
+                <img :src="_checkImgUrl(userinfo.avatar_168x168.url_list[0])" class="avatar"
+                     @click="previewImg = _checkImgUrl(userinfo.avatar_300x300.url_list[0])">
                 <div class="right">
                   <p class="name">{{ userinfo.nickname }}</p>
                   <div class="number mb1r">
                     <span class="mr1r" v-if="userinfo.is_private">私密账号</span>
-                    <span>抖音号：{{ userinfo.unique_id }}</span>
+                    <span>抖音号：{{ _getUserDouyinId({author: userinfo}) }}</span>
                     <img src="../../assets/img/icon/me/qrcode-gray.png" alt="" @click.stop="$nav('/me/my-card')">
                   </div>
                 </div>
@@ -61,30 +63,30 @@
               <div class="head">
                 <div class="heat">
                   <div class="text" @click="isShowStarCount = true">
-                    <span class="num">{{ formatNumber(userinfo.aweme_count) }}</span>
+                    <span class="num">{{ _formatNumber(userinfo.aweme_count) }}</span>
                     <span>获赞</span>
                   </div>
                   <div class="text" @click="$nav('/people/follow-and-fans',{type:0})">
-                    <span class="num">{{ formatNumber(userinfo.following_count) }}</span>
+                    <span class="num">{{ _formatNumber(userinfo.following_count) }}</span>
                     <span>朋友</span>
                   </div>
                   <div class="text" @click="$nav('/people/follow-and-fans',{type:0})">
-                    <span class="num">{{ formatNumber(userinfo.following_count) }}</span>
+                    <span class="num">{{ _formatNumber(userinfo.following_count) }}</span>
                     <span>关注</span>
                   </div>
                   <div class="text" @click="$nav('/people/follow-and-fans',{type:1})">
-                    <span class="num">{{ formatNumber(userinfo.follower_count) }}</span>
+                    <span class="num">{{ _formatNumber(userinfo.follower_count) }}</span>
                     <span>粉丝</span>
                   </div>
                 </div>
                 <div class="button" @click="$nav('/people/find-acquaintance')">添加朋友</div>
               </div>
               <div class="signature" @click="$nav('/me/edit-userinfo-item',{type:3})">
-                <template v-if="!userinfo.desc">
+                <template v-if="!userinfo.signature">
                   <span>点击添加介绍，让大家认识你...</span>
                   <img src="../../assets/img/icon/me/write-gray.png" alt="">
                 </template>
-                <div v-else class="text" v-html="userinfo.desc"></div>
+                <div v-else class="text" v-html="userinfo.signature"></div>
               </div>
               <div class="more" @click="$nav('/me/edit-userinfo')">
                 <div class="age item" v-if="userinfo.birthday">
@@ -99,7 +101,7 @@
                   </template>
                   {{ userinfo.city }}
                 </div>
-                <div class="item" v-if="userinfo.school.name">
+                <div class="item" v-if="userinfo.school?.name">
                   {{ userinfo.school.name }}
                 </div>
               </div>
@@ -182,16 +184,7 @@
                       <dy-back direction="right"></dy-back>
                     </div>
                   </div>
-                  <div class="list">
-                    <div class="item"
-                         v-for="i in videos.collect.video.list.slice(0,3)">
-                      <img class="poster" :src="$imgPreview(i.video+videoPoster)" alt="">
-                      <div class="num">
-                        <img class="love" src="../../assets/img/icon/love.svg" alt="">
-                        <span>{{ formatNumber(i.likeNum) }}</span>
-                      </div>
-                    </div>
-                  </div>
+                  <Posters v-if="videos.collect.video.total !== -1" :list="videos.collect.video.list"></Posters>
                 </div>
 
                 <div class="music" v-if=" videos.collect.music.total !== -1">
@@ -339,7 +332,7 @@
 
     <ConfirmDialog
         v-model:visible="isShowStarCount"
-        :subtitle='`"${userinfo.nickname}"共获得${this.formatNumber(userinfo.aweme_count)}个赞`'
+        :subtitle='`"${userinfo.nickname}"共获得${_formatNumber(userinfo.aweme_count)}个赞`'
         okText="确认"
         cancelText="取消"
         @ok="isShowStarCount = false"
@@ -356,11 +349,15 @@ import Posters from '../../components/Posters'
 import Footer from "../../components/Footer";
 import Indicator from '../../components/slide/Indicator'
 import {nextTick} from 'vue'
-import {mapState} from "vuex";
+import {mapState} from 'pinia'
+
 import bus from "../../utils/bus";
 import ConfirmDialog from "../../components/dialog/ConfirmDialog";
-import {$no} from "@/utils";
+import {$no, _checkImgUrl, _formatNumber, _getUserDouyinId} from "@/utils";
 import SlideHorizontal from "@/components/slide/SlideHorizontal.vue";
+import {likeVideo, myVideo, privateVideo} from "@/api/videos";
+import {useBaseStore} from "@/store/pinia";
+import {userCollect} from "@/api/user";
 
 export default {
   name: "Me",
@@ -398,11 +395,13 @@ export default {
         },
         private: {
           list: [],
-          total: -1
+          total: -1,
+          pageNo: 0
         },
         like: {
           list: [],
-          total: -1
+          total: -1,
+          pageNo: 0
         },
         collect: {
           video: {
@@ -444,9 +443,7 @@ export default {
       if (this.tempScroll || this.isScroll) return {overflow: 'auto'}
       return {overflow: 'hidden'}
     },
-    ...mapState({
-      userinfo: 'userinfo',
-    })
+    ...mapState(useBaseStore, ['userinfo'])
   },
   watch: {
     contentIndex(newVal, oldVal) {
@@ -468,6 +465,9 @@ export default {
     bus.on('baseSlide-end', () => this.canScroll = true)
   },
   methods: {
+    _getUserDouyinId,
+    _checkImgUrl,
+    _formatNumber,
     $no,
     setLoadingFalse() {
       this.loadings.loading0 = false
@@ -511,7 +511,8 @@ export default {
       if (newVal === 3) {
         if (videoOb.video.total === -1) {
           this.loadings['loading' + newVal] = true
-          let res = await this.$api.videos.collect()
+          let res = await userCollect()
+          console.log('res',res)
           if (res.code === this.SUCCESS) this.videos.collect = res.data
         }
       } else {
@@ -520,16 +521,15 @@ export default {
           let res
           switch (newVal) {
             case 0:
-              res = await this.$api.videos.my({pageNo: this.videos.my.pageNo, pageSize: this.pageSize,})
-              console.log(res)
+              res = await myVideo({pageNo: this.videos.my.pageNo, pageSize: this.pageSize,})
               if (res.code === this.SUCCESS) this.videos.my = res.data
               break
             case 1:
-              res = await this.$api.videos.private({pageNo: this.videos.private.pageNo, pageSize: this.pageSize,})
+              res = await privateVideo({pageNo: this.videos.private.pageNo, pageSize: this.pageSize,})
               if (res.code === this.SUCCESS) this.videos.private = res.data
               break
             case 2:
-              res = await this.$api.videos.like({pageNo: this.videos.like.pageNo, pageSize: this.pageSize,})
+              res = await likeVideo({pageNo: this.videos.like.pageNo, pageSize: this.pageSize,})
               if (res.code === this.SUCCESS) this.videos.like = res.data
               break
           }
@@ -569,16 +569,16 @@ export default {
         let res
         switch (this.contentIndex) {
           case 0:
-            res = await this.$api.videos.my({pageNo: videoOb.pageNo, pageSize: this.pageSize,})
+            res = await myVideo({pageNo: videoOb.pageNo, pageSize: this.pageSize,})
             break
           case 1:
-            res = await this.$api.videos.private({pageNo: videoOb.pageNo, pageSize: this.pageSize,})
+            res = await privateVideo({pageNo: videoOb.pageNo, pageSize: this.pageSize,})
             break
           case 2:
-            res = await this.$api.videos.like({pageNo: videoOb.pageNo, pageSize: this.pageSize,})
+            res = await likeVideo({pageNo: videoOb.pageNo, pageSize: this.pageSize,})
             break
           case 3:
-            res = await this.$api.videos.collect({pageNo: videoOb.pageNo, pageSize: this.pageSize,})
+            res = await userCollect({pageNo: videoOb.pageNo, pageSize: this.pageSize,})
             break
         }
         this.loadings['loading' + this.contentIndex] = false

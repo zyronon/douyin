@@ -55,6 +55,7 @@
 </template>
 <script>
 import {mapState} from "vuex";
+import {userCollect} from "@/api/user";
 
 export default {
   name: "MusicCollect",
@@ -88,7 +89,7 @@ export default {
   methods: {
     async getData() {
       this.loading = true
-      let res = await this.$api.videos.collect()
+      let res = await userCollect()
       this.loading = false
       if (res.code === this.SUCCESS) {
         this.list = res.data.music.list

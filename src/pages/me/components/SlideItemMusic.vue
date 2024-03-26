@@ -70,6 +70,7 @@
 import {nextTick} from "vue";
 import globalMethods from "../../../utils";
 import gaobaiqiqiu from "../../../assets/data/lyrics/gaobaiqiqiu.lrc?raw";
+import {userCollect} from "@/api/user";
 
 export default {
   name: "SlideItemMusic",
@@ -183,7 +184,7 @@ export default {
     },
     async getCollectMusic() {
       this.loading = true
-      let res = await this.$api.videos.collect()
+      let res = await userCollect()
       this.loading = false
       if (res.code === this.SUCCESS) {
         this.collectMusic = res.data.music.list.slice(0, 2)

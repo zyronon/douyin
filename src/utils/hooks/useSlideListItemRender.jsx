@@ -6,32 +6,33 @@ export function useSlideListItemRender(props) {
   return function render(item, index, play, uniqueId) {
     // console.log('item', item)
     let node
-    if (item.type === 'img') {
-      node = <img src={item.src} style="height:100%;"/>
-    }
-    if (item.type === 'imgs') {
-      node = <SlideAlbum
-        isPlay={play}
-        index={index}
-        position={{uniqueId, index}}
-        {...props}
-      />
-    }
-    if (item.type === 'user') {
-      node = <SlideUser  {...props}/>
-    }
-    if (item.type === 'send-video') {
-      node = <video src={item.src} style="height:100%;"/>
-    }
-    // onGoUserInfo={() => cb('onGoUserInfo')}
-    if (item.type === 'recommend-video') {
-      node = <BVideo
+    switch (item.type) {
+      case 'img':
+        node = <img src={item.src} style="height:100%;"/>
+        break
+      case 'imgs':
+        node = <SlideAlbum
+          isPlay={play}
+          index={index}
+          position={{uniqueId, index}}
+          {...props}
+        />
+        break
+      case 'user':
+        node = <SlideUser  {...props}/>
+        break
+      case 'send-video':
+        node = <video src={item.src} style="height:100%;"/>
+        break
+      default:
+        node = <BVideo
           isPlay={play}
           item={item}
           index={index}
           position={{uniqueId, index}}
           {...props}
-      />
+        />
+        break
     }
     return node
   }

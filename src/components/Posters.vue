@@ -35,12 +35,6 @@ const props = defineProps({
       return []
     }
   },
-  author: {
-    type: Object,
-    default: () => {
-      return {}
-    }
-  },
   mode: {
     type: String,
     default: 'normal'//date,music
@@ -52,7 +46,7 @@ defineOptions({
 })
 
 function goDetail(index) {
-  store.routeData = cloneDeep({list: props.list, author: props.author, index})
+  store.routeData = cloneDeep({list: props.list, index})
   nav.push({path: '/video-detail'})
 }
 

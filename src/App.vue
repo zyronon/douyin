@@ -16,6 +16,9 @@ try {navigator.control.longpressMenu(false);} catch (e) {} //关闭长按弹出�
 import {mapState} from "vuex";
 import routes from "./router/routes";
 import Call from "./components/Call";
+import {useBaseStore} from "@/store/pinia";
+import {mapActions} from 'pinia'
+
 
 export default {
   name: 'App',
@@ -49,12 +52,14 @@ export default {
     },
   },
   methods: {
+    ...mapActions(useBaseStore, ['init']),
     setVh() {
       let vh = window.innerHeight * 0.01
       document.documentElement.style.setProperty('--vh', `${vh}px`)
     }
   },
   mounted() {
+    this.init()
     this.setVh()
     // 监听resize事件 视图大小发生变化就重新计算1vh的值
     window.addEventListener('resize', () => {

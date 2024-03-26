@@ -51,7 +51,7 @@
             <div class="number" v-else>
               <span>抖音号：{{ _getUserDouyinId(props.currentItem) }}</span>
               <img src="@/assets/img/icon/me/copy.png" alt=""
-                   @click.stop="Utils.copy(props.currentItem.author.unique_id || props.currentItem.author.short_id)">
+                   @click.stop="Utils.copy(_getUserDouyinId(props.currentItem))">
             </div>
           </div>
         </div>
@@ -168,7 +168,6 @@
       <div class="videos">
         <Posters v-if="props.currentItem.aweme_list.length"
                  :list="props.currentItem.aweme_list"
-                 :author="props.currentItem.author"
         ></Posters>
         <Loading :isFullScreen="false" v-else/>
       </div>
@@ -213,66 +212,15 @@ const total = ref(null)
 const state = reactive({
   isShowRecommend: false,//是否显示推荐
   previewImg: '',
-  contentIndex: 0,
-  baseActiveIndex: 0,
-  tabContents: [],
   floatFixed: false,
-  floatShowName: false,
-  isScroll: false,
-  isMoreFunction: false,
   showFollowSetting: false,
-  refs: {
-    header: null,
-    headerHeight: 0,
-    descHeight: 0,
-    videoSlideHeight: 0,
-    maxSlideHeight: 0
-  },
-  videoItemHeight: 0,
-  startLocationY: 0,
-  fixedLocationY: 0,
-  lastMoveYDistance: 0,
-  canTransformY: 0,
-  startTime: 0,
+
   floatHeight: 52,
-  videos: {
-    my: {
-      list: [],
-      total: -1,
-      pageNo: 0
-    },
-    private: {
-      list: [],
-      total: -1
-    },
-    like: {
-      list: [],
-      total: -1
-    },
-    collect: {
-      video: {
-        list: [],
-        total: -1,
-      },
-      audio: {
-        list: [],
-        total: -1,
-      }
-    },
-  },
-  pageSize: 15,
-  initSlideHeight: 0,
+
   loadings: {
-    loading0: false,
-    loading1: false,
-    loading2: false,
-    loading3: false,
     showRecommend: false
   },
-  tempScroll: false,
   acceleration: 1.2,
-  sprint: 15,
-  canScroll: true,
   start: {x: 0, y: 0, time: 0},
   move: {x: 0, y: 0},
   isTop: false,
@@ -292,6 +240,10 @@ watch(() => props.active,
         fetch(`${FILE_URL}user-${id}.json`).then(r => {
           r.json().then(l => {
             setTimeout(() => {
+              l = l.map(a => {
+                a.author = props.currentItem.author
+                return a
+              })
               emit('update:currentItem', merge(props.currentItem, {aweme_list: l}))
             }, 300)
           })
@@ -307,10 +259,6 @@ watch(() => props.currentItem.author.uid,
       }
     })
 
-onMounted(() => {
-  state.videos.my.list = resource.my
-  state.videos.my.total = resource.my.length
-})
 
 function stop(e) {
   e.stopPropagation()
@@ -379,7 +327,6 @@ function touchEnd(e) {
 
 <style scoped lang="less">
 
-
 .fade1-enter-active,
 .fade1-leave-active {
   transition: all 0.3s ease;
@@ -394,7 +341,6 @@ function touchEnd(e) {
 .FromBottomDialog {
   left: inherit;
 }
-
 
 #UserPanel {
   position: fixed;
@@ -966,9 +912,6 @@ function touchEnd(e) {
       }
     }
 
-    .videos {
-
-    }
   }
 
   .float {

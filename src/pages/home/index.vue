@@ -196,7 +196,7 @@ import SlideItem from '@/components/slide/SlideItem.vue'
 import Comment from "../../components/Comment.vue";
 import Share from "../../components/Share.vue";
 import IndicatorHome from "./components/IndicatorHome.vue";
-import {computed, onActivated, onDeactivated, onMounted, onUnmounted, reactive} from "vue";
+import {computed, onMounted, onUnmounted, reactive} from "vue";
 import bus, {EVENT_KEY} from "../../utils/bus";
 import {useNav} from "@/utils/hooks/useNav";
 import {useStore} from "vuex";
@@ -215,7 +215,7 @@ import Slide0 from "@/pages/home/slide/Slide0.vue";
 import Slide2 from "@/pages/home/slide/Slide2.vue";
 import Slide4 from "@/pages/home/slide/Slide4.vue";
 import {DefaultUser} from "@/utils/const_var";
-import {$no, _getUserDouyinId} from "@/utils";
+import {$no} from "@/utils";
 import LongVideo from "@/pages/home/slide/LongVideo.vue";
 
 const nav = useNav()

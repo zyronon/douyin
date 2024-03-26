@@ -120,6 +120,7 @@ import FromBottomDialog from "../../components/dialog/FromBottomDialog";
 import GuessMusic from "./components/GuessMusic";
 import CollectMusic from "./components/CollectMusic";
 import Loading from "../../components/Loading";
+import {userCollect} from "@/api/user";
 
 //TODO 两个page页面的播放冲突未做
 export default {
@@ -189,7 +190,7 @@ export default {
     },
     async getCollectMusic() {
       this.loading = true
-      let res = await this.$api.videos.collect()
+      let res = await userCollect()
       this.loading = false
       if (res.code === this.SUCCESS) {
         this.collectMusic = res.data.music.list.slice(0, 2)

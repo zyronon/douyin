@@ -3,5 +3,5 @@ import user from './user'
 
 export default {
   videos,
-  user,
+  // user,
 }

@@ -122,7 +122,6 @@ const routes = [
   {path: '/message/chat/detail', component: ChatDetail},
   {path: '/message/chat/red-packet-detail', component: RedPacketDetail},
 
-
   {path: '/people/find-acquaintance', component: FindAcquaintance},
   {path: '/people/follow-and-fans', component: FollowAndFans},
 
@@ -148,7 +147,7 @@ const routes = [
   {path: '/message/share-to-friend', component: Share2Friend},
 
   {path: '/video-detail', name: 'video-detail', component: VideoDetail},
-  {path: '/album-detail', name: 'video-detail', component: AlbumDetail},
+  {path: '/album-detail', component: AlbumDetail},
 
   {path: '/home/search', component: Search},
 
