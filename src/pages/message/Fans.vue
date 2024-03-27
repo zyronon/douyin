@@ -6,83 +6,69 @@
       </template>
     </BaseHeader>
     <div class="content">
-      <Loading v-if="loading"/>
+      <Loading v-if="data.loading"/>
       <Scroll ref="mainScroll" @pulldown="loadData" v-else>
-        <Peoples v-model:list="fans"
-                 :loading="loadingMore"
+        <Peoples v-model:list="data.fans"
+                 :loading="data.loadingMore"
                  mode="fans"/>
         <div class="title">
           <span>朋友推荐</span>
           <img src="../../assets/img/icon/about-gray.png" alt="">
         </div>
-        <Peoples v-model:list="recommend"
-                 :loading="loadingMore"
+        <Peoples v-model:list="data.recommend"
+                 :loading="data.loadingMore"
                  mode="recommend"/>
-        <Loading :is-full-screen="false" v-if="loadingMore"/>
+        <Loading :is-full-screen="false" v-if="data.loadingMore"/>
       </Scroll>
     </div>
   </div>
 </template>
-<script>
-import {mapState} from "vuex";
-import People from "../people/components/People";
-import Scroll from "../../components/Scroll";
-import Loading from "../../components/Loading";
-import Peoples from "../people/components/Peoples";
-import BasePage from "../BasePage";
+<script setup>
+import Scroll from "@/components/Scroll.vue";
+import Peoples from "@/pages/people/components/Peoples.vue";
+import {onMounted, reactive} from "vue";
+import {useBaseStore} from "@/store/pinia";
+import {_sleep, cloneDeep} from "@/utils";
 
-export default {
-  extends: BasePage,
-  name: "Fans",
-  components: {
-    Scroll,
-    People,
-    Loading,
-    Peoples
-  },
-  data() {
-    return {
-      loading: false,
-      loadingMore: false,
-      recommend: [],
-      fans: [],
-    }
-  },
-  computed: {
-    ...mapState(['userinfo', 'friends'])
-  },
-  created() {
-    this.getData()
-  },
-  methods: {
-    async getData() {
-      this.loading = true
-      await this.$sleep(500)
-      this.loading = false
+defineOptions({
+  name: 'Fans'
+})
+const baseStore = useBaseStore()
+const data = reactive({
+  loading: false,
+  loadingMore: false,
+  recommend: [],
+  fans: [],
+})
 
-      this.recommend = this.$clone(this.friends.all)
-      this.fans = this.$clone(this.friends.all)
-      this.recommend.map(v => {
-        v.type = -1
-      })
-    },
-    async loadData() {
-      if (this.loadingMore) return
-      this.loadingMore = true
-      await this.$sleep(500)
-      this.loadingMore = false
-      let temp = this.$clone(this.friends.all)
-      temp.map(v => {
-        v.type = -1
-      })
-      this.recommend = this.recommend.concat(temp)
-    }
-  }
+async function getData() {
+  data.loading = true
+  await _sleep(500)
+  data.loading = false
+
+  data.recommend = cloneDeep(baseStore.friends.all)
+  data.fans = cloneDeep(baseStore.friends.all)
+  data.recommend.map(v => {
+    v.type = -1
+  })
 }
+
+async function loadData() {
+  if (data.loadingMore) return
+  data.loadingMore = true
+  await _sleep(500)
+  data.loadingMore = false
+  let temp = cloneDeep(baseStore.friends.all)
+  temp.map(v => {
+    v.type = -1
+  })
+  data.recommend = data.recommend.concat(temp)
+}
+
+onMounted(getData)
 </script>
 
 <style scoped lang="less">
-
 
 
 .list-complete-enter-from,
@@ -105,7 +91,7 @@ export default {
   font-size: 14rem;
 
   .content {
-    padding: var(--page-padding);
+    padding: 0 var(--page-padding);
     padding-top: var(--common-header-height);
 
     .scroll {

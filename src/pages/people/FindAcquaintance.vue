@@ -133,7 +133,8 @@ import People from './components/People'
 import Search from '../../components/Search'
 import Indicator from '../../components/slide/Indicator'
 import FromBottomDialog from "../../components/dialog/FromBottomDialog";
-import {mapState} from "vuex";
+import {mapState} from "pinia";
+import {useBaseStore} from "@/store/pinia";
 
 export default {
   name: "FindAcquaintance",
@@ -182,7 +183,7 @@ export default {
         this.findAddressListDialog = this.outWebImgAccountDialog = false
       }
     },
-    ...mapState(['friends'])
+    ...mapState(useBaseStore, ['friends']),
   },
   mounted() {
   },

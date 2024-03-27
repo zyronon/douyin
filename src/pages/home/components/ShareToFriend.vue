@@ -96,9 +96,10 @@
 </template>
 <script>
 import FromBottomDialog from "../../../components/dialog/FromBottomDialog";
-import {mapState} from "vuex";
+import {mapState} from "pinia";
 import Search from "../../../components/Search";
 import Check from "../../../components/Check";
+import {useBaseStore} from "@/store/pinia";
 /*
 分享给朋友
 * */
@@ -152,7 +153,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['friends']),
+    ...mapState(useBaseStore, ['friends']),
     selectFriends() {
       return this.localFriends.filter(v => v.shared)
     }

@@ -54,8 +54,9 @@
   </div>
 </template>
 <script>
-import {mapState} from "vuex";
+import {mapState} from "pinia";
 import {userCollect} from "@/api/user";
+import {useBaseStore} from "@/store/pinia";
 
 export default {
   name: "MusicCollect",
@@ -72,7 +73,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['bodyWidth'])
+    ...mapState(useBaseStore,['bodyWidth'])
   },
   created() {
     this.getData()

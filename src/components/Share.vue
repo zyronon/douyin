@@ -158,10 +158,11 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import {mapState} from "pinia";
 import Check from "./Check";
 import FromBottomDialog from "./dialog/FromBottomDialog";
 import DouyinCode from "./DouyinCode";
+import {useBaseStore} from "@/store/pinia";
 
 export default {
   name: "Share",
@@ -192,7 +193,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(['friends']),
+    ...mapState(useBaseStore, ['friends']),
     selectFriends() {
       return this.friends.all.filter(v => v.select)
     }

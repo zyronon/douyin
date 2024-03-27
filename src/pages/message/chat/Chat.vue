@@ -131,7 +131,7 @@
             <img src="../../../assets/img/icon/message/chat/bg-close.png" alt="" class="bg">
             <div class="wrapper">
               <div class="top">
-                <img :src="$imgPreview(userinfo.avatar)" alt="" class="avatar">
+                <img :src="_checkImgUrl(userinfo.cover_url[0].url_list[0])" alt="" class="avatar">
                 <div class="belong">{{ userinfo.nickname }}的红包</div>
                 <div class="password">大吉大利</div>
               </div>
@@ -158,8 +158,10 @@
 import ChatMessage from "../components/ChatMessage";
 import {inject, nextTick} from "vue";
 import Mask from "../../../components/Mask";
-import {mapState} from "vuex";
+import {mapState} from "pinia";
 import Loading from "../../../components/Loading";
+import {useBaseStore} from "@/store/pinia";
+import {_checkImgUrl} from "@/utils";
 
 let CALL_STATE = {
   REJECT: 0,
@@ -459,7 +461,7 @@ export default {
     isTyping() {
       return this.typing || this.isExpand
     },
-    ...mapState(['userinfo'])
+    ...mapState(useBaseStore, ['userinfo']),
   },
   created() {
   },
@@ -467,6 +469,7 @@ export default {
     this.scrollBottom()
   },
   methods: {
+    _checkImgUrl,
     scrollBottom() {
       nextTick(() => {
         let wrapper = this.$refs.msgWrapper

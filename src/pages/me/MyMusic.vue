@@ -112,7 +112,7 @@
   </div>
 </template>
 <script>
-import {mapState} from "vuex";
+import {mapState} from "pinia";
 import Switches from "../message/components/swtich/switches";
 import SlideItemMusic from "./components/SlideItemMusic";
 import IndicatorLight from "../../components/slide/IndicatorLight";
@@ -121,6 +121,7 @@ import GuessMusic from "./components/GuessMusic";
 import CollectMusic from "./components/CollectMusic";
 import Loading from "../../components/Loading";
 import {userCollect} from "@/api/user";
+import {useBaseStore} from "@/store/pinia";
 
 //TODO 两个page页面的播放冲突未做
 export default {
@@ -163,7 +164,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['bodyWidth']),
+    ...mapState(useBaseStore,['bodyWidth']),
     page2Music() {
       return this.collectMusic.concat(this.recommendMusic)
     }

@@ -1,10 +1,20 @@
 import {defineStore} from "pinia";
 import {friends, userinfo} from "@/api/user.js";
 import enums from "@/utils/enums";
+import resource from "@/assets/data/resource";
 
 export const useBaseStore = defineStore('base', {
   state: () => {
     return {
+      bodyHeight: document.body.clientHeight,
+      bodyWidth: document.body.clientWidth,
+      maskDialog: false,
+      maskDialogMode: 'dark',
+      version: '17.1.0',
+      excludeRoutes: [],
+      judgeValue: 20,
+      homeRefresh: 60,
+      loading: false,
       routeData: null,
       users: [],
       userinfo: {
@@ -27,7 +37,8 @@ export const useBaseStore = defineStore('base', {
         "white_cover_url": [{
           "url_list": [],
         }],
-      }
+      },
+      friends: resource.users,
     }
   },
   getters: {},
@@ -41,6 +52,28 @@ export const useBaseStore = defineStore('base', {
       if (r2.success) {
         this.users = r2.data
       }
-    }
+    },
+    setUserinfo(val) {
+      this.userinfo = val
+    },
+    setMaskDialog(val) {
+      this.maskDialog = val.state
+      if (val.mode) {
+        this.maskDialogMode = val.mode
+      }
+    },
+    updateExcludeRoutes(val) {
+      if (val.type === 'add') {
+        if (!this.excludeRoutes.find(v => v === val.value)) {
+          this.excludeRoutes.push(val.value)
+        }
+      } else {
+        let resIndex = this.excludeRoutes.findIndex(v => v === val.value)
+        if (resIndex !== -1) {
+          this.excludeRoutes.splice(resIndex, 1)
+        }
+      }
+      // console.log('store.excludeRoutes', store.excludeRoutes,val)
+    },
   },
 })

@@ -51,7 +51,8 @@ import People from './components/People'
 import Search from '../../components/Search'
 import Indicator from '../../components/slide/Indicator'
 import FromBottomDialog from "../../components/dialog/FromBottomDialog";
-import {mapState} from "vuex";
+import {mapState} from "pinia";
+import {useBaseStore} from "@/store/pinia";
 
 export default {
   name: "FindAcquaintance",
@@ -71,7 +72,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['userinfo', 'friends'])
+    ...mapState(useBaseStore, ['friends', 'userinfo']),
   },
   watch: {
     searchKey(newVal) {

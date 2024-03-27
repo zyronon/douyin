@@ -466,6 +466,12 @@ export function _getUserDouyinId(item) {
   return item.author.unique_id || item.author.short_id
 }
 
+export function _sleep(duration) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, duration)
+  })
+}
+
 export function cloneDeep(val) {
   return JSON.parse(JSON.stringify(val))
 }

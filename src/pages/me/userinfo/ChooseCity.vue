@@ -17,10 +17,15 @@
 
 <script>
 
-import {mapState} from "vuex";
+import {mapState} from "pinia";
+import {useBaseStore} from "@/store/pinia";
 
 export default {
   name: "ChooseProvince",
+  setup() {
+    const baseStore = useBaseStore()
+    return {baseStore}
+  },
   data() {
     return {
       list: [
@@ -49,15 +54,13 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      userinfo: 'userinfo',
-    })
+    ...mapState(useBaseStore, ['userinfo'])
   },
   methods: {
     async save(item) {
       this.$showLoading()
       let data = {...this.userinfo, ...{location: '中国-四川-成都'}}
-      this.$store.commit('setUserinfo', data)
+      this.baseStore.setUserinfo(data)
       await this.$sleep(500)
       this.$hideLoading()
       history.go(-3)

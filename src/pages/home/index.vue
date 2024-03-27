@@ -96,7 +96,7 @@
       <SlideItem>
         <IndicatorHome
             v-if="!state.fullScreen"
-            :loading="loading"
+            :loading="baseStore.loading"
             name="main"
             @showSlidebar="state.baseIndex = 0"
             v-model:index="state.navIndex"
@@ -196,10 +196,9 @@ import SlideItem from '@/components/slide/SlideItem.vue'
 import Comment from "../../components/Comment.vue";
 import Share from "../../components/Share.vue";
 import IndicatorHome from "./components/IndicatorHome.vue";
-import {computed, onMounted, onUnmounted, reactive} from "vue";
+import {onMounted, onUnmounted, reactive} from "vue";
 import bus, {EVENT_KEY} from "../../utils/bus";
 import {useNav} from "@/utils/hooks/useNav";
-import {useStore} from "vuex";
 import PlayFeedback from "@/pages/home/components/PlayFeedback.vue";
 import ShareTo from "@/pages/home/components/ShareTo.vue";
 import DouyinCode from "../../components/DouyinCode.vue";
@@ -217,13 +216,10 @@ import Slide4 from "@/pages/home/slide/Slide4.vue";
 import {DefaultUser} from "@/utils/const_var";
 import {$no} from "@/utils";
 import LongVideo from "@/pages/home/slide/LongVideo.vue";
+import {useBaseStore} from "@/store/pinia";
 
 const nav = useNav()
-const store = useStore()
-const loading = computed(() => store.state.loading)
-const friends = computed(() => store.state.friends)
-const bodyHeight = computed(() => store.state.bodyHeight)
-const bodyWidth = computed(() => store.state.bodyWidth)
+const baseStore = useBaseStore()
 
 const state = reactive({
   baseIndex: 1,

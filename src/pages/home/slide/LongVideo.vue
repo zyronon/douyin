@@ -1,12 +1,11 @@
 <script setup>
 
-import {computed, onMounted, onUnmounted, reactive, ref, watch} from "vue";
-import {useStore} from "vuex";
+import {onMounted, onUnmounted, reactive, watch} from "vue";
 import {_checkImgUrl, _duration, _formatNumber} from "@/utils";
 import {recommendedVideo} from "@/api/videos";
+import {useBaseStore} from "@/store/pinia";
 
-const store = useStore()
-const loading = computed(() => store.state.loading)
+const baseStore = useBaseStore()
 
 const props = defineProps({
   active: Boolean
@@ -18,7 +17,6 @@ const p = {
   }
 }
 
-const listRef = ref(null)
 const state = reactive({
   index: 0,
   list: [],
@@ -28,18 +26,18 @@ const state = reactive({
 })
 
 function loadMore() {
-  if (!loading.value) {
+  if (!baseStore.loading) {
     state.pageNo++
     getData()
   }
 }
 
 async function getData(refresh = false) {
-  if (loading.value) return
-  store.commit('setLoading', true)
+  if (baseStore.loading) return
+  baseStore.loading = true
   let res = await recommendedVideo({pageNo: refresh ? 0 : state.pageNo, pageSize: state.pageSize})
   console.log('getSlide4Data-', 'refresh', refresh, res)
-  store.commit('setLoading', false)
+  baseStore.loading = false
   if (res.code === 200) {
     state.totalSize = res.data.total
     if (refresh) {
@@ -53,7 +51,7 @@ async function getData(refresh = false) {
 
 watch(() => props.active, n => {
   if (!state.list.length && n) {
-    store.commit('setLoading', false)
+    baseStore.loading = false
     getData()
   }
 })
@@ -86,7 +84,7 @@ onUnmounted(() => {
       </div>
       <div class="bottom">
         <div class="l">
-          <img v-lazy="item.author.avatar_168x168.url_list[0]" alt="" class="avatar">
+          <img v-lazy="_checkImgUrl(item.author.avatar_168x168.url_list[0])" alt="" class="avatar">
           <div class="name">{{ item.author.nickname }}</div>
         </div>
         <div class="r">

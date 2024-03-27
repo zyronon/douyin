@@ -20,7 +20,7 @@
           <div class="header">
             <div class="wrapper">
               <img src="../../assets/img/icon/message/display2.webp" alt="" class="icon1">
-              <img :src="$imgPreview(userinfo.avatar)" alt="" class="icon2">
+              <img :src="_checkImgUrl(userinfo.cover_url[0].url_list[0])" alt="" class="icon2">
               <img src="../../assets/img/icon/message/display1.webp" alt="" class="icon3">
             </div>
           </div>
@@ -72,12 +72,14 @@
   </div>
 </template>
 <script>
-import {mapState} from "vuex";
+import {mapState} from "pinia";
 import Peoples from "../people/components/Peoples";
 import NoMore from "../../components/NoMore";
 import FromBottomDialog from "../../components/dialog/FromBottomDialog";
 import Switches from "./components/swtich/switches";
 import BaseButton from "../../components/BaseButton";
+import {useBaseStore} from "@/store/pinia";
+import {_checkImgUrl} from "@/utils";
 
 export default {
   name: "visitors",
@@ -104,12 +106,13 @@ export default {
     }
   },
   computed: {
-    ...mapState(['userinfo', 'friends']),
+    ...mapState(useBaseStore, ['friends', 'userinfo']),
   },
   created() {
     this.recommend = this.$clone(this.friends.all)
   },
   methods: {
+    _checkImgUrl,
     keepClose() {
       this.$notice('你将不会再收到相关通知')
       this.$back()

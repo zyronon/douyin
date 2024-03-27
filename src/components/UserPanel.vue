@@ -143,7 +143,7 @@
         </div>
         <div class="friends"
              @touchmove="stop">
-          <div class="friend" v-for="item in friends.all">
+          <div class="friend" v-for="item in baseStore.friends.all">
             <img :style="item.select?'opacity: .5;':''" class="avatar" :src="_checkImgUrl(item.avatar)" alt="">
             <span class="name">{{ item.name }}</span>
             <span class="tips">可能感兴趣的人</span>
@@ -176,17 +176,17 @@
 </template>
 
 <script setup>
-import {computed, reactive, ref, watch} from "vue";
+import {reactive, ref, watch} from "vue";
 import Utils, {$no, _checkImgUrl, _getUserDouyinId} from "@/utils";
 import {useNav} from "@/utils/hooks/useNav";
-import {useStore} from "vuex";
 import Posters from '@/components/Posters'
 import {DefaultUser} from "@/utils/const_var";
 import Loading from "@/components/Loading.vue";
 import {FILE_URL} from "@/config";
+import {useBaseStore} from "@/store/pinia";
 
 const $nav = useNav()
-const store = useStore()
+const baseStore = useBaseStore()
 const emit = defineEmits(['update:currentItem', 'back'])
 const props = defineProps({
   currentItem: {
@@ -201,7 +201,6 @@ const props = defineProps({
     default: false
   }
 })
-const friends = computed(() => store.state.friends)
 const main = ref(null)
 const page = ref(null)
 const cover = ref(null)

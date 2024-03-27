@@ -21,9 +21,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
 import Search from '../../../components/Search'
-import {inject} from "vue";
 
 export default {
   name: "ChooseSchool",

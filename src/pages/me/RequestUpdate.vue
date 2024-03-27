@@ -58,8 +58,9 @@
   </div>
 </template>
 <script>
-import {mapState} from "vuex";
+import {mapState} from "pinia";
 import FromBottomDialog from "../../components/dialog/FromBottomDialog";
+import {useBaseStore} from "@/store/pinia";
 
 export default {
   name: "RequestUpdate",
@@ -72,7 +73,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['friends'])
+    ...mapState(useBaseStore,['friends'])
   },
   created() {
     this.getData()

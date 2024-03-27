@@ -18,7 +18,7 @@
         <div class="notice">我的名字</div>
         <div class="input-ctn" style="margin-bottom: 1rem;">
           <input type="text" v-model="localUserinfo.nickname" placeholder="记得填写名字哦">
-            <img v-if="localUserinfo.nickname"
+          <img v-if="localUserinfo.nickname"
                style="transform: scale(2)"
                class="close" src="../../../assets/img/icon/newicon/close-and-bg.png" alt=""
                @click="localUserinfo.nickname = ''">
@@ -40,7 +40,7 @@
         <div class="notice">个人简介</div>
         <div class="textarea-ctn">
         <textarea name="" id="" cols="30" rows="10"
-                  v-model="localUserinfo.desc"
+                  v-model="localUserinfo.signature"
                   placeholder="你可以填写兴趣爱好、心情愿望，有趣的介绍能让被关注的概率变高噢！"></textarea>
         </div>
       </div>
@@ -52,15 +52,20 @@
 
 //TODO 1、数据变了后，保存按钮变亮；2、数据变了，点返回，弹窗是否确认
 
-import MobileSelect from "../../../components/mobile-select/mobile-select";
-import {mapState} from "vuex";
+import {mapState} from "pinia";
+import {useBaseStore} from "@/store/pinia";
+import {cloneDeep} from "@/utils";
 
 export default {
   name: "EditUserInfo",
+  setup() {
+    const baseStore = useBaseStore()
+    return {baseStore}
+  },
   data() {
     return {
       type: 1,
-      localUserinfo: this.$clone(this.$store.state.userinfo)
+      localUserinfo: {}
     }
   },
   computed: {
@@ -71,11 +76,10 @@ export default {
       if (this.userinfo.desc !== this.localUserinfo.desc) return true
       return this.userinfo.unique_id !== this.localUserinfo.unique_id;
     },
-    ...mapState({
-      userinfo: 'userinfo',
-    })
+    ...mapState(useBaseStore, ['userinfo']),
   },
   created() {
+    this.localUserinfo = cloneDeep(this.userinfo)
     this.type = Number(this.$route.query.type)
   },
   methods: {
@@ -92,7 +96,7 @@ export default {
         if (!this.localUserinfo.nickname) return this.$notice('名字不能为空')
       }
       this.$showLoading()
-      this.$store.commit('setUserinfo', this.localUserinfo)
+      this.baseStore.setUserinfo(this.localUserinfo)
       await this.$sleep(500)
       this.$hideLoading()
       this.$back()

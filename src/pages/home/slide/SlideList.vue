@@ -6,7 +6,7 @@
       :uniqueId="state.uniqueId"
       name="main"
       :active="props.active"
-      :loading="loading"
+      :loading="baseStore.loading"
       v-model:index="state.index"
       :render="render"
       :list="state.list"
@@ -17,11 +17,11 @@
 
 <script setup lang="jsx">
 import SlideVerticalInfinite from '@/components/slide/SlideVerticalInfinite.vue'
-import {computed, onMounted, onUnmounted, reactive, ref} from "vue";
+import {onMounted, onUnmounted, reactive, ref} from "vue";
 import bus, {EVENT_KEY} from "@/utils/bus";
-import Utils from "@/utils";
+import {$notice} from "@/utils";
 import {useSlideListItemRender} from "@/utils/hooks/useSlideListItemRender";
-import {useStore} from "vuex";
+import {useBaseStore} from "@/store/pinia";
 
 const props = defineProps({
   cbs: {
@@ -48,8 +48,7 @@ const props = defineProps({
   },
 })
 
-const store = useStore()
-const loading = computed(() => store.state.loading)
+const baseStore = useBaseStore()
 
 const p = {
   onShowComments() {
@@ -69,18 +68,18 @@ const state = reactive({
 })
 
 function loadMore() {
-  if (!loading.value) {
+  if (!baseStore.loading) {
     state.pageNo++
     getData()
   }
 }
 
 async function getData(refresh = false) {
-  if (loading.value) return
-  store.commit('setLoading', true)
+  if (baseStore.loading) return
+  baseStore.loading = true
   let res = await props.api({pageNo: refresh ? 0 : state.pageNo, pageSize: state.pageSize})
   // console.log('getSlide4Data-', 'refresh', refresh, res)
-  store.commit('setLoading', false)
+  baseStore.loading = false
   if (res.code === 200) {
     state.totalSize = res.data.total
     if (refresh) {
@@ -95,7 +94,7 @@ async function getData(refresh = false) {
 function dislike() {
   listRef.value.dislike(state.list[1])
   state.list[state.index] = state.list[1]
-  Utils.$notice('操作成功，将减少此类视频的推荐')
+  $notice('操作成功，将减少此类视频的推荐')
 }
 
 function end() {

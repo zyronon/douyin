@@ -8,7 +8,7 @@
     <div class="content">
       <div class="qrcode">
         <img class="qrcode-bg" src="../../assets/img/icon/me/code-bg.png" alt="">
-        <img class="avatar" :src="$imgPreview(userinfo.avatar)" alt="">
+        <img class="avatar" :src="_checkImgUrl(userinfo.cover_url[0].url_list[0])" alt="">
       </div>
 
       <span class="name">ZZZZZZZZZZ</span>
@@ -40,9 +40,9 @@
 </template>
 <script>
 import Share from "../../components/Share";
-import ConfirmDialog from "../../components/dialog/ConfirmDialog";
-import ShareToFriend from "../home/components/ShareToFriend";
-import {mapState} from "vuex";
+import {mapState} from "pinia";
+import {useBaseStore} from "@/store/pinia";
+import {_checkImgUrl} from "@/utils";
 
 export default {
   name: "MyCard",
@@ -82,9 +82,10 @@ export default {
 
   },
   computed: {
-    ...mapState(['userinfo'])
+    ...mapState(useBaseStore,['userinfo'])
   },
   methods: {
+    _checkImgUrl,
     delayShowDialog(cb) {
       setTimeout(() => {
         cb()

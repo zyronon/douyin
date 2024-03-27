@@ -40,10 +40,16 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import {mapState} from "pinia";
+import {useBaseStore} from "@/store/pinia";
+import {_sleep} from "@/utils";
 
 export default {
   name: "ChooseLocation",
+  setup() {
+    const baseStore = useBaseStore()
+    return {baseStore}
+  },
   data() {
     return {
       countryOk: {
@@ -1183,9 +1189,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      userinfo: 'userinfo',
-    })
+    ...mapState(useBaseStore, ['userinfo'])
   },
   mounted() {
     for (let type in this.countryOk) {
@@ -1196,8 +1200,8 @@ export default {
     async save(item) {
       this.$showLoading()
       let data = {...this.userinfo, ...{location: '暂不设置'}}
-      this.$store.commit('setUserinfo', data)
-      await this.$sleep(500)
+      this.baseStore.setUserinfo(data)
+      await _sleep(500)
       this.$hideLoading()
       this.$back()
     }

@@ -11,7 +11,7 @@
     <div class="userinfo">
       <div class="change-avatar">
         <div class="avatar-ctn" @click="showAvatarDialog">
-          <img class="avatar" :src="$imgPreview(userinfo.avatar)" alt="">
+          <img class="avatar" :src="_checkImgUrl(userinfo.cover_url[0].url_list[0])" alt="">
           <img class="change" src="../../../assets/img/icon/me/camera-light.png" alt="">
         </div>
         <span>点击更换头像</span>
@@ -26,28 +26,28 @@
       <div class="row" @click="$nav('/me/edit-userinfo-item',{type:2})">
         <div class="left">抖音号</div>
         <div class="right">
-          <span>{{ isEmpty(userinfo.unique_id) }}</span>
+          <span>{{ isEmpty(_getUserDouyinId({author: userinfo})) }}</span>
           <dy-back scale=".8" direction="right"></dy-back>
         </div>
       </div>
       <div class="row" @click="$nav('/me/edit-userinfo-item',{type:3})">
         <div class="left">简介</div>
         <div class="right">
-          <span>{{ isEmpty(userinfo.desc) }}</span>
+          <span>{{ isEmpty(userinfo.signature) }}</span>
           <dy-back scale=".8" direction="right"></dy-back>
         </div>
       </div>
       <div class="row" @click="showSexDialog">
         <div class="left">性别</div>
         <div class="right">
-          <span>{{ isEmpty(userinfo.sex) }}</span>
+          <span>{{ sex }}</span>
           <dy-back scale=".8" direction="right"></dy-back>
         </div>
       </div>
       <div class="row" @click="showBirthdayDialog">
         <div class="left">生日</div>
         <div class="right">
-          <span>{{ isEmpty(userinfo.birthday) }}</span>
+          <span>{{ isEmpty(userinfo.user_age) }}</span>
           <div v-show="false" id="trigger1"></div>
           <dy-back scale=".8" direction="right"></dy-back>
         </div>
@@ -55,14 +55,20 @@
       <div class="row" @click="$nav('/me/choose-location')">
         <div class="left">所在地</div>
         <div class="right">
-          <span>{{ isEmpty(userinfo.location) }}</span>
+          <span v-if="userinfo.province || userinfo.city">
+            {{ userinfo.province }}
+            <template v-if="userinfo.province &&  userinfo.city">
+              -
+            </template>
+            {{ userinfo.city }}
+          </span>
           <dy-back scale=".8" direction="right"></dy-back>
         </div>
       </div>
       <div class="row" @click="$nav('/me/add-school')">
         <div class="left">学校</div>
         <div class="right">
-          <span>{{ isEmpty(userinfo.school.name) }}</span>
+          <span>{{ isEmpty(userinfo.school?.name) }}</span>
           <dy-back scale=".8" direction="right"></dy-back>
         </div>
       </div>
@@ -78,10 +84,16 @@
 
 <script>
 import MobileSelect from "../../../components/mobile-select/mobile-select";
-import {mapState} from "vuex";
+import {mapState} from "pinia";
+import {useBaseStore} from "@/store/pinia";
+import {_checkImgUrl, _getUserDouyinId} from "../../../utils";
 
 export default {
   name: "EditUserInfo",
+  setup() {
+    const baseStore = useBaseStore()
+    return {baseStore}
+  },
   components: {},
   data() {
     return {
@@ -100,20 +112,30 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      userinfo: 'userinfo',
-    })
+    ...mapState(useBaseStore, ['userinfo']),
+    sex() {
+      switch (this.userinfo.gender) {
+        case 1:
+          return '男'
+        case 2:
+          return '女'
+        default:
+          return ''
+      }
+    }
   },
   methods: {
+    _checkImgUrl,
+    _getUserDouyinId,
     isEmpty(val) {
-      if (val) return val
+      if (val && val !== -1) return val
       return '点击设置'
     },
     showSexDialog() {
       this.$showSelectDialog(this.sexList, async e => {
         this.$showLoading()
         await this.$sleep(500)
-        this.$store.commit('setUserinfo', {...this.userinfo, sex: e.name})
+        this.baseStore.setUserinfo({...this.userinfo, gender: e.id})
         this.$hideLoading()
       })
     },
@@ -124,7 +146,7 @@ export default {
           case 2:
             return this.$no()
           case 3:
-            this.previewImg = this.userinfo.avatar
+            this.previewImg = _checkImgUrl(this.userinfo.cover_url[0].url_list[0])
             break
         }
       })
@@ -149,7 +171,7 @@ export default {
           console.log(data)
           this.$showLoading()
           await this.$sleep(500)
-          this.$store.commit('setUserinfo', {...this.userinfo, birthday: data.join('-')})
+          this.baseStore.setUserinfo({...this.userinfo, birthday: data.join('-')})
           this.$hideLoading()
           // this.localSchool.joinTime = ~~data[0]
         }

@@ -50,7 +50,7 @@
         <div class="messages">
           <div class="message" @click="$nav('/message/visitors')">
             <div class="left">
-              <img v-lazy="$imgPreview(userinfo.avatar)" alt="" class="avatar">
+              <img v-lazy="_checkImgUrl(userinfo.cover_url[0].url_list[0])" alt="" class="avatar">
             </div>
             <div class="right">
               <div class="desc">
@@ -64,7 +64,7 @@
                   <div class="time">01-11</div>
                 </div>
               </div>
-              <img v-lazy="$imgPreview(userinfo.avatar)" alt="" class="poster">
+              <img v-lazy="_checkImgUrl(userinfo.cover_url[0].url_list[0])" alt="" class="poster">
             </div>
           </div>
           <div class="message" v-for="item in showMessageList" @click="$no">
@@ -116,13 +116,15 @@
   </div>
 </template>
 <script>
-import {mapState} from "vuex";
+import {mapState} from "pinia";
 import People from "../people/components/People";
 import Scroll from "../../components/Scroll";
 import Loading from "../../components/Loading";
 import Peoples from "../people/components/Peoples";
 import resource from "../../assets/data/resource.js";
 import BasePage from "../BasePage";
+import {useBaseStore} from "@/store/pinia";
+import {_checkImgUrl} from "@/utils";
 
 
 export default {
@@ -146,7 +148,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['userinfo', 'friends']),
+    ...mapState(useBaseStore, ['friends', 'userinfo']),
     showTypeText() {
       switch (this.selectShowType) {
         case 1:
@@ -170,6 +172,7 @@ export default {
     this.getData()
   },
   methods: {
+    _checkImgUrl,
     async getData() {
       this.loading = true
       await this.$sleep(800)

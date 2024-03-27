@@ -9,9 +9,9 @@
     <div class="option-dialog">
       <div class="buttons">
         <dy-button v-if="downloading"
-                  class="mb1r"
-                  :border="false"
-                  :progress="progress">
+                   class="mb1r"
+                   :border="false"
+                   :progress="progress">
           <img src="../../../assets/img/icon/components/video/download-gray.png" alt="">
           <span class="second-text-color">下载中 9.2MB/{{ progress }}%</span>
         </dy-button>
@@ -116,7 +116,8 @@
 </template>
 <script>
 import FromBottomDialog from "../../../components/dialog/FromBottomDialog";
-import {mapState} from "vuex";
+import {mapState} from "pinia";
+import {useBaseStore} from "@/store/pinia";
 /*
 * 分享到各种工具
 * */
@@ -163,7 +164,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['friends']),
+    ...mapState(useBaseStore, ['friends']),
   },
   created() {
   },

@@ -50,7 +50,8 @@
 <script>
 import Loading from "../../../components/Loading.vue";
 import bus from "../../../utils/bus";
-import {mapState} from "vuex";
+import {mapState} from "pinia";
+import {useBaseStore} from "@/store/pinia";
 
 export default {
   name: "IndicatorHome",
@@ -84,7 +85,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['judgeValue', 'homeRefresh']),
+    ...mapState(useBaseStore,['judgeValue', 'homeRefresh']),
     tabOneClass() {
       return {active: this.index === 0, open: this.open}
     },

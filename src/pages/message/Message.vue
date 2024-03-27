@@ -3,8 +3,8 @@
     <div class="no-search" v-show="!searching">
       <header>
         <Icon @click="createChatDialog = true" icon="formkit:add"/>
-        <Icon icon="tabler:camera-selfie" />
-        <Icon  @click="searching = true" icon="tabler:search"/>
+        <Icon icon="tabler:camera-selfie"/>
+        <Icon @click="searching = true" icon="tabler:search"/>
       </header>
 
       <Scroll ref="mainScroll">
@@ -403,12 +403,13 @@ import Footer from '../../components/Footer.vue'
 import Search from "../../components/Search";
 import FromBottomDialog from '../../components/dialog/FromBottomDialog'
 import Check from "../../components/Check";
-import {mapState} from "vuex";
+import {mapState} from "pinia";
 import Peoples from "../people/components/Peoples";
 import Mask from "../../components/Mask";
 import Scroll from "../../components/Scroll";
 import People from "../people/components/People";
 import BasePage from "../BasePage";
+import {useBaseStore} from "@/store/pinia";
 
 export default {
   extends: BasePage,
@@ -436,12 +437,11 @@ export default {
       text: 'AAAAAAAAA、BBBBBBBBBBBBB、CCCCCCCC',
       searchFriends: [],
       recommend: [],
-
       moreChat: []
     }
   },
   computed: {
-    ...mapState(['friends', 'userinfo']),
+    ...mapState(useBaseStore, ['friends', 'userinfo']),
     selectFriends() {
       return this.friends.all.filter(v => v.select).length
     },

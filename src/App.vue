@@ -13,12 +13,10 @@
 * try {navigator.control.gesture(false);} catch (e) {} //UC浏览器关闭默认手势事件
 try {navigator.control.longpressMenu(false);} catch (e) {} //关闭长按弹出菜单
 * */
-import {mapState} from "vuex";
+import {mapActions, mapState} from "pinia";
 import routes from "./router/routes";
 import Call from "./components/Call";
 import {useBaseStore} from "@/store/pinia";
-import {mapActions} from 'pinia'
-
 
 export default {
   name: 'App',
@@ -31,12 +29,13 @@ export default {
     }
   },
   computed: {
-    ...mapState(['excludeRoutes']),
+    ...mapState(useBaseStore, ['excludeRoutes']),
   },
   // watch $route 决定使用哪种过渡
   watch: {
     '$route'(to, from) {
-      this.$store.commit('setMaskDialog', {state: false, mode: this.maskDialogMode})
+      // this.$store.commit('setMaskDialog', {state: false, mode: this.maskDialogMode})
+      this.setMaskDialog({state: false, mode: this.maskDialogMode})
 
       //footer下面的5个按钮，对跳不要用动画
       let noAnimation = ['/', '/home', '/slide', '/me', '/shop', '/message', '/publish', '/home/live',
@@ -52,7 +51,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(useBaseStore, ['init']),
+    ...mapActions(useBaseStore, ['init', 'setMaskDialog']),
     setVh() {
       let vh = window.innerHeight * 0.01
       document.documentElement.style.setProperty('--vh', `${vh}px`)

@@ -51,7 +51,8 @@
   </div>
 </template>
 <script>
-import {mapState} from "vuex";
+import {mapState} from "pinia";
+import {useBaseStore} from "@/store/pinia";
 
 
 //访问用户媒体设备的兼容方法
@@ -81,7 +82,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['bodyHeight', 'bodyWidth'])
+    ...mapState(useBaseStore,['bodyHeight', 'bodyWidth'])
   },
   mounted() {
     //获得video摄像头区域

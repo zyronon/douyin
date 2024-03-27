@@ -96,7 +96,8 @@
 </template>
 <script>
 
-import {mapState} from "vuex";
+import {mapState} from "pinia";
+import {useBaseStore} from "@/store/pinia";
 
 let CALL_STATE = {
   REJECT: 0,
@@ -150,9 +151,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      userinfo: 'userinfo',
-    }),
+    ...mapState(useBaseStore, ['userinfo']),
     isMe() {
       return this.userinfo.id === this.message.user.id
     }

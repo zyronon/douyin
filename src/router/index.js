@@ -1,6 +1,6 @@
 import * as VueRouter from "vue-router";
-import store from "../store";
 import routes from "./routes";
+import {useBaseStore} from "@/store/pinia";
 
 const router = VueRouter.createRouter({
   history: VueRouter.createWebHashHistory(),
@@ -15,8 +15,9 @@ const router = VueRouter.createRouter({
   },
 })
 router.beforeEach((to, from) => {
+  const baseStore = useBaseStore()
   //footer下面的5个按钮，对跳不要用动画
-  let noAnimation = ['/', '/home', '/me', '/attention', '/message', '/publish', '/home/live']
+  let noAnimation = ['/', '/home', '/me', '/shop', '/message', '/publish', '/home/live']
   if (noAnimation.indexOf(from.path) !== -1 && noAnimation.indexOf(to.path) !== -1) {
     return true
   }
@@ -28,7 +29,8 @@ router.beforeEach((to, from) => {
   if (toDepth > fromDepth) {
     if (to.matched && to.matched.length) {
       let toComponentName = to.matched[0].components.default.name
-      store.commit('updateExcludeRoutes', {type: 'remove', value: toComponentName})
+      // store.commit('updateExcludeRoutes', {type: 'remove', value: toComponentName})
+      baseStore.updateExcludeRoutes({type: 'remove', value: toComponentName})
       // console.log('to', toComponentName)
       // console.log('前进')
       // console.log('删除', toComponentName)
@@ -37,7 +39,9 @@ router.beforeEach((to, from) => {
   } else {
     if (from.matched && from.matched.length) {
       let fromComponentName = from.matched[0].components.default.name
-      store.commit('updateExcludeRoutes', {type: 'add', value: fromComponentName})
+      // store.commit('updateExcludeRoutes', {type: 'add', value: fromComponentName})
+      baseStore.updateExcludeRoutes({type: 'add', value: fromComponentName})
+
       // console.log('后退')
       // console.log('添加', fromComponentName)
     }

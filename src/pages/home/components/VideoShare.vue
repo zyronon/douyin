@@ -41,7 +41,7 @@
           <div class="right">
             <span>{{ item.name }}</span>
             <dy-button size="small" :type="item.shared?'dark':'primary'"
-                      @click="item.shared = true">
+                       @click="item.shared = true">
               {{ item.shared ? '已' : '' }}分享
             </dy-button>
           </div>
@@ -56,9 +56,10 @@
 </template>
 
 <script lang="jsx">
-import {mapState} from "vuex";
+import {mapState} from "pinia";
 import FromBottomDialog from "../../../components/dialog/FromBottomDialog";
 import LoadingCircle from "./LoadingCircle";
+import {useBaseStore} from "@/store/pinia";
 // import DouyinCode from "./DouyinCode";
 
 export default {
@@ -189,7 +190,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(['friends']),
+    ...mapState(useBaseStore, ['friends']),
   },
   watch: {
     modelValue(newVal) {

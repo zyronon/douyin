@@ -1,12 +1,12 @@
 <script setup lang="jsx">
-import {computed, createApp, onMounted, reactive, ref, render, watch} from "vue";
+import {createApp, onMounted, reactive, ref, render, watch} from "vue";
 import GM from '../../utils'
 import {getSlideDistance, slideInit, slideReset, slideTouchEnd, slideTouchMove, slideTouchStart} from "./common";
 import {SlideType} from "@/utils/const_var";
 import SlideItem from '@/components/slide/SlideItem.vue'
 import bus, {EVENT_KEY} from "../../utils/bus";
-import {useStore} from 'vuex'
 import Loading from "@/components/Loading.vue";
+import {useBaseStore} from "@/store/pinia";
 
 const props = defineProps({
   index: {
@@ -62,9 +62,7 @@ const state = reactive({
   move: {x: 0, y: 0},
   wrapper: {width: 0, height: 0, childrenLength: 0}
 })
-const store = useStore()
-const homeRefresh = computed(() => store.state.homeRefresh)
-const judgeValue = computed(() => store.state.judgeValue)
+const baseStore = useBaseStore()
 
 watch(
     () => props.list,
@@ -221,12 +219,12 @@ function touchStart(e) {
 
 //TODO 2022-3-28:在最顶部，反复滑动会抖动一下，初步猜测是因为方向变了，导致的加判断距离变成了减
 function touchMove(e) {
-  slideTouchMove(e, wrapperEl.value, state, judgeValue.value, canNext, null, SlideType.VERTICAL)
+  slideTouchMove(e, wrapperEl.value, state, baseStore.judgeValue, canNext, null, SlideType.VERTICAL)
 }
 
 function touchEnd(e) {
   let isNext = state.move.y < 0
-  if (state.localIndex === 0 && !isNext && state.move.y > (homeRefresh.value + judgeValue.value)) {
+  if (state.localIndex === 0 && !isNext && state.move.y > (baseStore.homeRefresh + baseStore.judgeValue)) {
     emit('refresh')
   }
   slideTouchEnd(e, state, canNext, (isNext) => {

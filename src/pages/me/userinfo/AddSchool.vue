@@ -52,16 +52,19 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState} from 'pinia'
 import enums from '../../../utils/enums'
 import {inject} from "vue";
 import MobileSelect from "../../../components/mobile-select/mobile-select";
-import ConfirmDialog from "../../../components/dialog/ConfirmDialog";
-import Loading from "../../../components/Loading";
+import {useBaseStore} from "@/store/pinia";
 
 //TODO 年份选择器没做
 export default {
   name: "AddSchool",
+  setup() {
+    const baseStore = useBaseStore()
+    return {baseStore}
+  },
   data() {
     return {
       mitt: inject('mitt'),
@@ -88,6 +91,7 @@ export default {
     // localStorage.clear()
   },
   computed: {
+    ...mapState(useBaseStore, ['userinfo']),
     isChanged() {
       if (this.school.name !== this.localSchool.name) return true
       if (this.school.department !== this.localSchool.department) return true
@@ -100,10 +104,9 @@ export default {
       if (this.localSchool.displayType === enums.DISPLAY_TYPE.SCHOOL) return '校友可见'
       if (this.localSchool.displayType === enums.DISPLAY_TYPE.ME) return '仅自己可见'
     },
-    ...mapState({
-      userinfo: 'userinfo',
-      school: state => state.userinfo.school,
-    })
+    school() {
+      return this.userinfo.school
+    },
   },
   methods: {
     showJoinTimeDialog() {
@@ -150,7 +153,7 @@ export default {
       if (!this.isChanged) return
       this.$showLoading()
       let data = {...this.userinfo, ...{school: this.localSchool}}
-      this.$store.commit('setUserinfo', data)
+      this.baseStore.setUserinfo(data)
       await this.$sleep(500)
       this.$hideLoading()
       localStorage.clear()

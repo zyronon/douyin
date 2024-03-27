@@ -7,7 +7,7 @@
     </BaseHeader>
     <div class="content">
       <div class="wrapper">
-        <img :src="$imgPreview(userinfo.avatar)" alt="" class="avatar">
+        <img :src="_checkImgUrl(userinfo.cover_url[0].url_list[0])" alt="" class="avatar">
         <span class="belong">{{ userinfo.nickname }}的红包</span>
         <div class="password">大吉大利</div>
         <span class="money">0.01元</span>
@@ -19,7 +19,9 @@
   </div>
 </template>
 <script>
-import {mapState} from "vuex";
+import {mapState} from "pinia";
+import {useBaseStore} from "@/store/pinia";
+import {_checkImgUrl} from "@/utils";
 
 export default {
   name: "RedPacketDetail",
@@ -31,12 +33,12 @@ export default {
     return {}
   },
   computed: {
-    ...mapState(['userinfo'])
+    ...mapState(useBaseStore, ['userinfo']),
   },
   watch: {},
   created() {
   },
-  methods: {}
+  methods: {_checkImgUrl}
 }
 </script>
 

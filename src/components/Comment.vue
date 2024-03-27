@@ -125,11 +125,12 @@
 <script>
 import AutoInput from "./AutoInput";
 import ConfirmDialog from "./dialog/ConfirmDialog";
-import {mapState} from "vuex";
+import {mapState} from "pinia";
 import FromBottomDialog from "./dialog/FromBottomDialog";
 import Loading from "./Loading";
 import Search from "./Search";
 import {$no} from "@/utils";
+import {useBaseStore} from "@/store/pinia";
 
 export default {
   name: "Comment",
@@ -156,7 +157,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(['friends'])
+    ...mapState(useBaseStore, ['friends']),
   },
   watch: {
     modelValue(newVale) {

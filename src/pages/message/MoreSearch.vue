@@ -17,8 +17,9 @@
 </template>
 <script>
 import Search from "../../components/Search";
-import {mapState} from "vuex";
+import {mapState} from "pinia";
 import People from "../people/components/People";
+import {useBaseStore} from "@/store/pinia";
 
 export default {
   name: "MoreSearch",
@@ -32,7 +33,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['friends', 'userinfo']),
+    ...mapState(useBaseStore, ['friends', 'userinfo']),
     searchFriendsAll() {
       return this.friends.all.filter(v => {
         return v.name.search(this.searchKey) !== -1 || v.account.search(this.searchKey) !== -1

@@ -1,6 +1,5 @@
 import axios from 'axios'
 import config from '@/config'
-import store from '../store'
 import globalMethods from './index'
 
 const axiosInstance = axios.create({

@@ -4,7 +4,6 @@ import mitt from 'mitt'
 import './assets/less/index.less'
 import {startMock} from './mock'
 import router from "./router";
-import store from "./store";
 import mixin from "./utils/mixin";
 import VueLazyload from '@jambonn/vue-lazyload'
 import {VueMasonryPlugin} from "vue-masonry";
@@ -28,7 +27,6 @@ app.use(VueLazyload, {
 })
 app.use(VueMasonryPlugin)
 app.use(router)
-app.use(store)
 app.use(pinia)
 app.mount('#app')
 

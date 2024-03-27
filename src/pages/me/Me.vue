@@ -89,10 +89,10 @@
                 <div v-else class="text" v-html="userinfo.signature"></div>
               </div>
               <div class="more" @click="$nav('/me/edit-userinfo')">
-                <div class="age item" v-if="userinfo.birthday">
-                  <img v-if="userinfo.sex == 0" src="../../assets/img/icon/me/woman.png" alt="">
-                  <img v-if="userinfo.sex == 1" src="../../assets/img/icon/me/man.png" alt="">
-                  <span>{{ filterAge(userinfo.birthday) }}岁</span>
+                <div class="age item" v-if="userinfo.user_age !==-1">
+                  <img v-if="userinfo.gender == 2" src="../../assets/img/icon/me/woman.png" alt="">
+                  <img v-if="userinfo.gender == 1" src="../../assets/img/icon/me/man.png" alt="">
+                  <span>{{ userinfo.user_age }}岁</span>
                 </div>
                 <div class="item" v-if="userinfo.province || userinfo.city">
                   {{ userinfo.province }}
@@ -512,7 +512,7 @@ export default {
         if (videoOb.video.total === -1) {
           this.loadings['loading' + newVal] = true
           let res = await userCollect()
-          console.log('res',res)
+          console.log('res', res)
           if (res.code === this.SUCCESS) this.videos.collect = res.data
         }
       } else {
