@@ -5,7 +5,7 @@
       <img v-if="isRefresh1 " src="../assets/img/icon/refresh1.png" alt="" class="refresh">
     </div>
     <div class="l-button" @click="refresh(2)">
-      <span v-if="!isRefresh2" :class="{active:currentTab === 2}">朋友</span>
+      <span v-if="!isRefresh2" :class="{active:currentTab === 2}">商城</span>
       <img v-if="isRefresh2" src="../assets/img/icon/refresh1.png" alt="" class="refresh">
     </div>
     <div class="l-button" @click="tab(3)">
@@ -53,7 +53,7 @@ export default {
           this.$nav('/')
           break
         case 2:
-          this.$nav('/attention')
+          this.$nav('/shop')
           break
         case 3:
           this.$nav('/publish')
