@@ -45,6 +45,7 @@
           v-else
           ref="mainScroll"
           :use-refresh="true"
+          :loading="loadingMore"
           @refresh="refresh"
           @pulldown="loadData">
         <div class="messages">
@@ -110,7 +111,6 @@
         <Peoples v-model:list="recommend"
                  :loading="loadingMore"
                  mode="recommend"/>
-        <Loading :is-full-screen="false" v-if="loadingMore"/>
       </Scroll>
     </div>
   </div>
@@ -213,17 +213,6 @@ export default {
 
 <style scoped lang="less">
 
-
-
-.list-complete-enter-from,
-.list-complete-leave-to {
-  opacity: 0;
-}
-
-.list-complete-leave-active {
-  position: absolute;
-}
-
 #AllMessage {
   position: fixed;
   left: 0;
@@ -274,7 +263,7 @@ export default {
   }
 
   .content {
-    padding: var(--page-padding);
+    padding:0 var(--page-padding);
     padding-top: var(--common-header-height);
 
     .scroll {
@@ -297,6 +286,7 @@ export default {
 
           .avatar {
             width: 48rem;
+            height: 48rem;
             border-radius: 50%;
           }
 

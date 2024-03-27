@@ -107,11 +107,11 @@
                          v-model:index="state.navIndex">
           <Slide0 :active="state.navIndex === 0 && state.baseIndex === 1"/>
           <SlideItem>
-            <Community :active="state.navIndex === 1 && state.baseIndex === 1"/>
+            <LongVideo :active="state.navIndex === 1 && state.baseIndex === 1"/>
           </SlideItem>
           <Slide2 :active="state.navIndex === 2 && state.baseIndex === 1"/>
           <SlideItem>
-            <LongVideo :active="state.navIndex === 3 && state.baseIndex === 1"/>
+            <Community :active="state.navIndex === 3 && state.baseIndex === 1"/>
           </SlideItem>
           <Slide4 :active="state.navIndex === 4 && state.baseIndex === 1"/>
         </SlideHorizontal>
@@ -223,7 +223,7 @@ const baseStore = useBaseStore()
 
 const state = reactive({
   baseIndex: 1,
-  navIndex: 4,
+  navIndex: 3,
   test: '',
   recommendList: [],
   isSharing: false,

@@ -94,6 +94,7 @@
     </template>
   </div>
 </template>
+
 <script>
 
 import {mapState} from "pinia";
@@ -153,7 +154,7 @@ export default {
   computed: {
     ...mapState(useBaseStore, ['userinfo']),
     isMe() {
-      return this.userinfo.id === this.message.user.id
+      return this.userinfo.uid === this.message.user.id
     }
   },
   created() {

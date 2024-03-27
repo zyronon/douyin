@@ -17,13 +17,13 @@
             <img v-show="index === 0" src="../../../assets/img/icon/arrow-up-white.png" class="tab1-img">
           </div>
           <div class="tab" :class="{active:index === 1}" @click.stop="change(1)">
-            <span>社区</span>
+            <span>长视频</span>
           </div>
           <div class="tab" :class="{active:index === 2}" @click.stop="change(2)">
             <span>关注</span>
             <img src="../../../assets/img/icon/live.webp" class="tab2-img">
           </div>
-          <div class="tab" :class="{active:index === 3}" @click.stop="change(3)"><span>长视频</span>
+          <div class="tab" :class="{active:index === 3}" @click.stop="change(3)"><span>经验</span>
           </div>
           <div class="tab" :class="{active:index === 4}" @click.stop="change(4)"><span>推荐</span>
           </div>

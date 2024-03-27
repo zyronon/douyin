@@ -135,8 +135,6 @@ export default {
 </style>
 
 <style scoped lang="less">
-
-
 .call-float {
   transition-property: all;
   z-index: 9;

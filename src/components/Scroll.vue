@@ -7,11 +7,13 @@
     <Loading :is-full-screen="false" :style="pullUpStyle"/>
     <div class="scroll-content" :style="pullUpStyle">
       <slot></slot>
+      <Loading v-if="loading" :is-full-screen="false"/>
     </div>
   </div>
   <div v-else class="scroll-wrapper scroll Scroll" ref="wrapper" @scroll="scroll">
     <div class="scroll-content">
       <slot></slot>
+      <Loading v-if="loading" :is-full-screen="fullLoading"/>
     </div>
   </div>
 </template>
@@ -30,6 +32,14 @@ export default {
       default: -1
     },
     useRefresh: {
+      type: Boolean,
+      default: false
+    },
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    fullLoading: {
       type: Boolean,
       default: false
     }
@@ -110,5 +120,9 @@ export default {
 
 .scroll-wrapper {
   overflow: auto;
+
+  .scroll-content {
+    padding-bottom: 30rem;
+  }
 }
 </style>

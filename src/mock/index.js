@@ -6,7 +6,7 @@ import {useBaseStore} from "@/store/pinia";
 import axiosInstance from "@/utils/request";
 import MockAdapter from "axios-mock-adapter";
 
-const mock = new MockAdapter(axiosInstance);
+const mock = new MockAdapter(axiosInstance, {delayResponse: 300});
 
 function getPage2(params) {
   let offset = params.pageNo * params.pageSize
@@ -69,12 +69,6 @@ async function fetchData() {
       })
 
       allRecommendVideos = allRecommendVideos.concat(v)
-    })
-  })
-
-  fetch(BASE_URL + '/data/posts.json').then(r => {
-    r.json().then(v => {
-      allRecommendPosts = v
     })
   })
 }
@@ -192,11 +186,16 @@ export async function startMock() {
 
   mock.onGet(/post\/recommended/).reply(async (config) => {
     let page = getPage2(config.params)
+
+    if (!allRecommendPosts.length) {
+      let r = await fetch(BASE_URL + '/data/posts.json')
+      allRecommendPosts = await r.json()
+    }
     return [200, {
       data: {
         pageNo: page.pageNo,
         total: allRecommendPosts.length,
-        list: allRecommendPosts.slice(page.offset, page.limit),
+        list: allRecommendPosts.slice(0, 1000).slice(page.offset, page.limit),
       }, code: 200, msg: '',
     }]
   })
