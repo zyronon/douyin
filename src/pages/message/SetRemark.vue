@@ -50,7 +50,6 @@ export default {
     async save() {
       if (!this.isChanged) return
       this.$showLoading()
-      // this.$store.commit('setUserinfo', this.remark)
       await this.$sleep(500)
       this.$hideLoading()
       this.$back()

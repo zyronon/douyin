@@ -34,7 +34,6 @@ export default {
   // watch $route 决定使用哪种过渡
   watch: {
     '$route'(to, from) {
-      // this.$store.commit('setMaskDialog', {state: false, mode: this.maskDialogMode})
       this.setMaskDialog({state: false, mode: this.maskDialogMode})
 
       //footer下面的5个按钮，对跳不要用动画
@@ -68,7 +67,6 @@ export default {
     // window.onresize = () => {
     //
     // }
-    // this.$store.dispatch('getFriends')
     try {
       navigator.control.gesture(false);
     } catch (e) {

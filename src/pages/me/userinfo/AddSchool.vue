@@ -68,7 +68,7 @@ export default {
   data() {
     return {
       mitt: inject('mitt'),
-      localSchool: this.$clone(this.$store.state.userinfo.school),
+      localSchool: this.$clone(this.baseStore.userinfo.school),
       educationList: [
         {id: 1, name: '专科'},
         {id: 2, name: '本科'},

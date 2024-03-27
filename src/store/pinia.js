@@ -19,7 +19,7 @@ export const useBaseStore = defineStore('base', {
       users: [],
       userinfo: {
         school: {
-          name: '中央戏剧学院',
+          name: '',
           department: null,
           joinTime: null,
           education: null,

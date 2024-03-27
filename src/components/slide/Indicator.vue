@@ -1,8 +1,13 @@
 <script lang="jsx">
 import bus from "../../utils/bus";
+import {useBaseStore} from "@/store/pinia";
 
 export default {
   name: "Indicator",
+  setup() {
+    const baseStore = useBaseStore()
+    return {baseStore}
+  },
   props: {
     activeIndex: {
       type: Number,
@@ -97,7 +102,7 @@ export default {
     move(e) {
       this.$setCss(this.indicatorRef, 'left',
           this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] -
-          e.x.distance / (this.$store.state.bodyWidth / this.indicatorSpace) + 'px')
+          e.x.distance / (this.baseStore.bodyWidth / this.indicatorSpace) + 'px')
     },
     end(index) {
       // console.log(index)

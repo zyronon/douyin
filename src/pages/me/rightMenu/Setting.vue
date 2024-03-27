@@ -183,11 +183,17 @@
   </div>
 </template>
 <script>
+import {useBaseStore} from "@/store/pinia";
+
 export default {
   name: "Setting",
+  setup() {
+    const baseStore = useBaseStore()
+    return {baseStore}
+  },
   data() {
     return {
-      version: this.$store.state.version
+      version: this.baseStore.version
     }
   },
   computed: {},

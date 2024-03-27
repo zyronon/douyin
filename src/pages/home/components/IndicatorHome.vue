@@ -74,6 +74,10 @@ export default {
       default: () => false
     }
   },
+  setup() {
+    const baseStore = useBaseStore()
+    return {baseStore}
+  },
   data() {
     return {
       indicatorRef: null,
@@ -85,7 +89,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useBaseStore,['judgeValue', 'homeRefresh']),
+    ...mapState(useBaseStore, ['judgeValue', 'homeRefresh']),
     tabOneClass() {
       return {active: this.index === 0, open: this.open}
     },
@@ -143,6 +147,7 @@ export default {
     bus.off(this.name + '-moveY',)
     bus.off(this.name + '-end', this.end)
   },
+
   methods: {
     toggleType(type) {
       if (type !== this.type) {
@@ -178,7 +183,7 @@ export default {
       this.$setCss(this.indicatorRef, 'transition-duration', `0ms`)
       this.$setCss(this.indicatorRef, 'left',
           this.lefts[this.index] -
-          e / (this.$store.state.bodyWidth / this.indicatorSpace) + 'px')
+          e / (this.baseStore.bodyWidth / this.indicatorSpace) + 'px')
     },
     end(index) {
       this.moveY = 0

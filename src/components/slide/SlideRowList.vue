@@ -17,6 +17,7 @@
 <script>
 import bus from "../../utils/bus";
 import Loading from "../Loading";
+import {useBaseStore} from "@/store/pinia";
 
 export default {
   name: "BaseSlideList",
@@ -52,6 +53,10 @@ export default {
       type: String,
       default: () => ''
     },
+  },
+  setup() {
+    const baseStore = useBaseStore()
+    return {baseStore}
   },
   computed: {
     isHome() {
@@ -225,7 +230,7 @@ export default {
 
         this.isHome && this.$setCss(this.indicatorRef, 'left',
             this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] -
-            this.moveXDistance / (this.$store.state.bodyWidth / this.indicatorSpace) + 'px')
+            this.moveXDistance / (this.baseStore.bodyWidth / this.indicatorSpace) + 'px')
       }
     },
     touchEnd(e) {

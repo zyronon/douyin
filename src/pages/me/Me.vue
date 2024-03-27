@@ -426,16 +426,9 @@ export default {
       acceleration: 1.2,
       sprint: 15,
       canScroll: true,
-      videoPoster: `?vframe/jpg/offset/0/w/${document.body.clientWidth}`
     }
   },
   computed: {
-    bodyHeight() {
-      return this.$store.state.bodyHeight
-    },
-    bodyWidth() {
-      return this.$store.state.bodyWidth
-    },
     videoSlideRowListStyle() {
       return {height: this.refs.videoSlideHeight !== 0 ? this.refs.videoSlideHeight + 'px' : 'calc(var(--vh, 1vh) * 100 - 146rem)'}
     },
@@ -443,7 +436,7 @@ export default {
       if (this.tempScroll || this.isScroll) return {overflow: 'auto'}
       return {overflow: 'hidden'}
     },
-    ...mapState(useBaseStore, ['userinfo'])
+    ...mapState(useBaseStore, ['userinfo', 'bodyHeight', 'bodyWidth'])
   },
   watch: {
     contentIndex(newVal, oldVal) {
