@@ -176,13 +176,11 @@
 </template>
 
 <script setup>
-import {computed, onMounted, reactive, ref, watch} from "vue";
+import {computed, reactive, ref, watch} from "vue";
 import Utils, {$no, _checkImgUrl, _getUserDouyinId} from "@/utils";
 import {useNav} from "@/utils/hooks/useNav";
 import {useStore} from "vuex";
-import resource from "@/assets/data/resource";
 import Posters from '@/components/Posters'
-import {merge} from 'lodash-es'
 import {DefaultUser} from "@/utils/const_var";
 import Loading from "@/components/Loading.vue";
 import {FILE_URL} from "@/config";
@@ -244,7 +242,7 @@ watch(() => props.active,
                 a.author = props.currentItem.author
                 return a
               })
-              emit('update:currentItem', merge(props.currentItem, {aweme_list: l}))
+              emit('update:currentItem', Object.assign(props.currentItem, {aweme_list: l}))
             }, 300)
           })
         })
@@ -255,7 +253,7 @@ watch(() => props.currentItem.author.uid,
     async (newVal) => {
       if (props.currentItem.author.uid !== state.uid) {
         state.uid = props.currentItem.author.uid
-        emit('update:currentItem', merge(props.currentItem, {aweme_list: []}))
+        emit('update:currentItem', Object.assign(props.currentItem, {aweme_list: []}))
       }
     })
 

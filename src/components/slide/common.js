@@ -1,14 +1,13 @@
 import bus from "@/utils/bus";
 import Utils from '@/utils'
+import GM from '@/utils'
 import {SlideType} from "@/utils/const_var";
-import GM from "@/utils";
-import {sum} from "lodash-es";
 import {nextTick} from "vue";
 
 export function slideInit(el, state, type) {
   state.wrapper.width = GM.$getCss(el, 'width')
   state.wrapper.height = GM.$getCss(el, 'height')
-  nextTick(()=>{
+  nextTick(() => {
     state.wrapper.childrenLength = el.children.length
   })
 
@@ -42,8 +41,8 @@ export function canSlide(state, judgeValue, type = SlideType.HORIZONTAL) {
 }
 
 /**
-* @param slideOtherDirectionCb 滑动其他方向时的回调，目前用于图集进于放大模式后，上下滑动推出放大模式
-* */
+ * @param slideOtherDirectionCb 滑动其他方向时的回调，目前用于图集进于放大模式后，上下滑动推出放大模式
+ * */
 export function slideTouchMove(e, el, state, judgeValue, canNextCb, nextCb, type = SlideType.HORIZONTAL, notNextCb, slideOtherDirectionCb = null) {
   state.move.x = e.touches[0].pageX - state.start.x
   state.move.y = e.touches[0].pageY - state.start.y
@@ -133,7 +132,11 @@ export function getSlideDistance(state, type = SlideType.HORIZONTAL, el) {
       Array.from(el.children).map(v => {
         widths.push(v.getBoundingClientRect().width)
       })
-      return -sum(widths.splice(0, state.localIndex))
+      widths = widths.slice(0, state.localIndex)
+      if (widths.length) {
+        return -widths.reduce((a, b) => a + b)
+      }
+      return 0
     }
     return -state.localIndex * state.wrapper.width
   } else {

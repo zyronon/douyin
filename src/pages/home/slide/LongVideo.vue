@@ -1,7 +1,6 @@
 <script setup>
 
 import {computed, onMounted, onUnmounted, reactive, ref, watch} from "vue";
-import {uniqueId} from "lodash-es";
 import {useStore} from "vuex";
 import {_checkImgUrl, _duration, _formatNumber} from "@/utils";
 import {recommendedVideo} from "@/api/videos";
@@ -23,7 +22,6 @@ const listRef = ref(null)
 const state = reactive({
   index: 0,
   list: [],
-  uniqueId: uniqueId('uniqueId_'),
   totalSize: 0,
   pageSize: 10,
   pageNo: 0,

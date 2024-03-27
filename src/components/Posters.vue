@@ -24,7 +24,7 @@
 import {_checkImgUrl, _formatNumber} from "@/utils";
 import {useBaseStore} from "@/store/pinia";
 import {useRouter} from "vue-router";
-import {cloneDeep} from "lodash-es";
+import {cloneDeep} from '@/utils'
 
 const store = useBaseStore()
 const nav = useRouter()

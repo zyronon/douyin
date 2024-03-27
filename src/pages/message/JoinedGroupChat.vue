@@ -31,10 +31,7 @@
 </template>
 <script>
 import Search from "../../components/Search";
-import {mapState} from "vuex";
-import axios from "axios";
 import Check from "../../components/Check";
-import {forIn} from "lodash-es";
 import {friends} from "@/api/user";
 
 export default {

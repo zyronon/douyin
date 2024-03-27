@@ -135,7 +135,7 @@ export default {
       music: {
         name: '发如雪',
         mp3: 'https://m3.8js.net:99/2014/211204142150965.mp3',
-        cover: new URL('../../assets/img/music-cover/7.png', import.meta.url).href,
+        cover: new URL('../../assets/img/music-cover/7.jpg', import.meta.url).href,
         author: '周杰伦',
         duration: 60,
         use_count: 37441000,

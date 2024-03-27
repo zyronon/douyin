@@ -7,7 +7,6 @@ import Config, {IMG_URL} from '../config'
 import NoticeDialog from "../components/dialog/NoticeDialog";
 import dayjs from 'dayjs'
 import bus, {EVENT_KEY} from "./bus";
-import {cloneDeep} from "lodash-es";
 
 const Utils = {
   require2(url) {
@@ -465,4 +464,27 @@ export function _formatNumber(num) {
 
 export function _getUserDouyinId(item) {
   return item.author.unique_id || item.author.short_id
+}
+
+export function cloneDeep(val) {
+  return JSON.parse(JSON.stringify(val))
+}
+
+export function random(min, max) {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // 包含最小值和最大值
+}
+
+export function sampleSize(arr, num) {
+  let list = []
+  let indexs = []
+  while (list.length !== num) {
+    let j = random(0, arr.length - 1)
+    if (!indexs.includes(j)) {
+      list.push(arr[j])
+      indexs.push(j)
+    }
+  }
+  return list
 }

@@ -1,5 +1,5 @@
 import {useRouter} from "vue-router";
-import {cloneDeep} from "lodash-es";
+import {cloneDeep} from '@/utils'
 import {useBaseStore} from "@/store/pinia";
 
 export function useNav() {

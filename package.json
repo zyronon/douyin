@@ -13,12 +13,12 @@
     "core-js": "3.21.1",
     "dayjs": "1.11.0",
     "gl-matrix": "3.4.3",
-    "lodash-es": "^4.17.21",
     "mitt": "3.0.0",
     "mobile-select": "1.1.2",
     "mockjs": "^1.1.0",
     "pinia": "^2.1.7",
     "pinyin": "2.11.1",
+    "vite-plugin-compression": "^0.5.1",
     "vue": "3.4.21",
     "vue-masonry": "0.16.0",
     "vue-router": "4.3.0",
@@ -36,6 +36,7 @@
     "unplugin-vue-define-options": "^1.4.1",
     "unplugin-vue-macros": "^2.7.10",
     "vite": "4.5.2",
-    "vite-plugin-cdn-import": "0.3.5"
+    "vite-plugin-cdn-import": "0.3.5",
+    "vite-plugin-imagemin": "^0.6.1"
   }
 }

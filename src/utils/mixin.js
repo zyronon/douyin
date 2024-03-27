@@ -12,7 +12,7 @@ import BaseButton from "../components/BaseButton";
 import CONST_VAR from "./const_var";
 import Dom from "./dom";
 import bus, {EVENT_KEY} from "./bus";
-import {random} from "lodash-es";
+import {random} from '@/utils'
 import {Icon} from '@iconify/vue'
 import SlideHorizontal from "@/components/slide/SlideHorizontal.vue";
 
@@ -122,7 +122,7 @@ export default {
           // console.log('dbClick')
           let id = 'a' + Date.now()
           let elWidth = 80
-          let rotate = random(1)
+          let rotate = random(0, 1)
           let template = `<img class="${rotate ? 'left love-dbclick' : 'right love-dbclick'}" id="${id}" src="${new URL('../assets/img/icon/loved.svg', import.meta.url).href}">`
           let el = new Dom().create(template)
           el.css({top: e.y - elWidth - 40, left: e.x - elWidth / 2,})

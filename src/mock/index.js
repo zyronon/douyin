@@ -1,11 +1,10 @@
 import resource from "../assets/data/resource.js";
 import posts6 from "@/assets/data/posts6.json";
-import {cloneDeep, uniqueId} from "lodash-es";
+import {cloneDeep} from '@/utils'
 import {BASE_URL} from "@/config";
 import {useBaseStore} from "@/store/pinia";
 import axiosInstance from "@/utils/request";
 import MockAdapter from "axios-mock-adapter";
-import {friends} from "@/api/user";
 
 const mock = new MockAdapter(axiosInstance);
 
@@ -25,15 +24,15 @@ let allRecommendVideos = posts6.map(v => {
 // console.log('allRecommendVideos', allRecommendVideos)
 let t = [{
   type: 'imgs', src: `https://imgapi.cn/bing.php`, author: {
-    unique_id: uniqueId('list_')
+    unique_id: 1
   }
 }, {
   type: 'user', src: `https://imgapi.cn/bing.php`, author: {
-    unique_id: uniqueId('list_')
+    unique_id: 2
   }
 }, {
   type: 'img', src: `https://imgapi.cn/bing.php`, author: {
-    unique_id: uniqueId('list_')
+    unique_id: 3
   }
 },]
 // allRecommendVideos.unshift(...t)

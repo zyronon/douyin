@@ -24,8 +24,8 @@
       <div class="guess">
         <div class="title">
           <div class="left">猜你想搜</div>
-          <div class="right">
-            <img class="scan" src="../../assets/img/icon/home/refresh-gray.png" @click.stop="refresh">
+          <div class="right" @click.stop="refresh">
+            <img class="scan" src="../../assets/img/icon/home/refresh-gray.png">
             <span>换一换</span>
           </div>
         </div>
@@ -196,9 +196,9 @@
 </template>
 <script>
 import Search from "../../components/Search";
-import {sampleSize} from 'lodash-es'
 import Dom from "../../utils/dom";
 import {nextTick} from "vue";
+import {sampleSize} from "@/utils";
 
 export default {
   name: "SearchPage",
@@ -305,7 +305,7 @@ export default {
         {
           name: '龙卷风',
           "mp3": "http://im5.tongbu.com/rings/singerring/zt_uunGo_1/5605.mp3",
-          cover: new URL('../../assets/img/music-cover/1.png', import.meta.url).href,
+          cover: new URL('../../assets/img/music-cover/1.jpg', import.meta.url).href,
           author: '周杰伦',
           duration: 99,
           use_count: 37441000,
@@ -315,7 +315,7 @@ export default {
         {
           name: '爱在西元前',
           mp3: 'https://m3.8js.net:99/1916/501204165042405.mp3',
-          cover: new URL('../../assets/img/music-cover/2.png', import.meta.url).href,
+          cover: new URL('../../assets/img/music-cover/2.jpg', import.meta.url).href,
           author: '周杰伦',
           duration: 60,
           use_count: 37441000,
@@ -325,7 +325,7 @@ export default {
         {
           name: '蜗牛',
           mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/3684.mp3',
-          cover: new URL('../../assets/img/music-cover/3.png', import.meta.url).href,
+          cover: new URL('../../assets/img/music-cover/3.jpg', import.meta.url).href,
           author: '周杰伦',
           duration: 60,
           use_count: 37441000,
@@ -335,7 +335,7 @@ export default {
         {
           name: '半岛铁盒',
           mp3: 'https://m3.8js.net:99/2016n/46/94745.mp3',
-          cover: new URL('../../assets/img/music-cover/4.png', import.meta.url).href,
+          cover: new URL('../../assets/img/music-cover/4.jpg', import.meta.url).href,
           author: '周杰伦',
           duration: 60,
           use_count: 37441000,
@@ -345,7 +345,7 @@ export default {
         {
           name: '轨迹',
           mp3: 'https://m3.8js.net:99/1832/411204324135934.mp3',
-          cover: new URL('../../assets/img/music-cover/5.png', import.meta.url).href,
+          cover: new URL('../../assets/img/music-cover/5.jpg', import.meta.url).href,
           author: '周杰伦',
           duration: 60,
           use_count: 37441000,
@@ -355,7 +355,7 @@ export default {
         {
           name: '七里香',
           mp3: 'https://m3.8js.net:99/2016n/14/53717.mp3',
-          cover: new URL('../../assets/img/music-cover/6.png', import.meta.url).href,
+          cover: new URL('../../assets/img/music-cover/6.jpg', import.meta.url).href,
           author: '周杰伦',
           duration: 60,
           use_count: 37441000,
@@ -365,7 +365,7 @@ export default {
         {
           name: '发如雪',
           mp3: 'https://m3.8js.net:99/2014/211204142150965.mp3',
-          cover: new URL('../../assets/img/music-cover/7.png', import.meta.url).href,
+          cover: new URL('../../assets/img/music-cover/7.jpg', import.meta.url).href,
           author: '周杰伦',
           duration: 60,
           use_count: 37441000,
@@ -375,7 +375,7 @@ export default {
         {
           name: '霍元甲',
           mp3: 'https://m3.8js.net:99/1921/261204212643140.mp3',
-          cover: new URL('../../assets/img/music-cover/8.png', import.meta.url).href,
+          cover: new URL('../../assets/img/music-cover/8.jpg', import.meta.url).href,
           author: '周杰伦',
           duration: 60,
           use_count: 37441000,
@@ -385,7 +385,7 @@ export default {
         {
           name: '千里之外(周杰伦/费玉清)',
           mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/121.mp3',
-          cover: new URL('../../assets/img/music-cover/9.png', import.meta.url).href,
+          cover: new URL('../../assets/img/music-cover/9.jpg', import.meta.url).href,
           author: '周杰伦',
           duration: 60,
           use_count: 37441000,
@@ -395,7 +395,7 @@ export default {
         {
           name: '菊花台',
           mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/2022.mp3',
-          cover: new URL('../../assets/img/music-cover/10.png', import.meta.url).href,
+          cover: new URL('../../assets/img/music-cover/10.jpg', import.meta.url).href,
           author: '周杰伦',
           duration: 60,
           use_count: 37441000,
@@ -405,7 +405,7 @@ export default {
         {
           name: '不能说的秘密',
           mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/165.mp3',
-          cover: new URL('../../assets/img/music-cover/11.png', import.meta.url).href,
+          cover: new URL('../../assets/img/music-cover/11.jpg', import.meta.url).href,
           author: '周杰伦',
           duration: 60,
           use_count: 37441000,
@@ -415,7 +415,7 @@ export default {
         {
           name: '牛仔很忙',
           mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/219.mp3',
-          cover: new URL('../../assets/img/music-cover/12.png', import.meta.url).href,
+          cover: new URL('../../assets/img/music-cover/12.jpg', import.meta.url).href,
           author: '周杰伦',
           duration: 60,
           use_count: 37441000,

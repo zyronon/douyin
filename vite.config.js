@@ -1,11 +1,12 @@
-import {defineConfig, searchForWorkspaceRoot} from 'vite'
+import {defineConfig} from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
-import VueMacros from 'unplugin-vue-macros/vite'
 import {resolve} from 'path'
 import {visualizer} from "rollup-plugin-visualizer";
 import DefineOptions from 'unplugin-vue-define-options/vite' // 引入插件
-import {autoComplete, Plugin as importToCDN} from 'vite-plugin-cdn-import';
+import {Plugin as importToCDN} from 'vite-plugin-cdn-import';
+import viteImagemin from 'vite-plugin-imagemin'
+import viteCompression from 'vite-plugin-compression'
 
 function pathResolve(dir) {
   return resolve(__dirname, ".", dir)
@@ -13,12 +14,6 @@ function pathResolve(dir) {
 
 const lifecycle = process.env.npm_lifecycle_event;
 
-export const ssrTransformCustomDir = () => {
-  return {
-    props: [],
-    needRuntime: true
-  }
-}
 // https://vitejs.dev/config/
 export default defineConfig({
   base: './',
@@ -33,6 +28,7 @@ export default defineConfig({
     //   //   exclude: [/node_modules/, /jQuery\.js/]
     //   // }
     // }),
+    lifecycle === 'report' ? visualizer({open: false}) : null,
     DefineOptions(),
     Vue(),
     VueJsx(),
@@ -65,14 +61,46 @@ export default defineConfig({
         }
       ],
     }),
-    lifecycle === 'report' ?
-      visualizer({
-        gzipSize: true,
-        brotliSize: true,
-        emitFile: false,
-        filename: "report.html", //分析图生成的文件名
-        open: true //如果存在本地服务端口，将在打包后自动展示
-      }) : null,
+    // viteCompression({
+    //   verbose: false,
+    //   disable: false,
+    //   threshold: 10240,
+    //   algorithm: 'brotliCompress',
+    // }),
+    // viteCompression({
+    //   verbose: false,
+    //   disable: false,
+    //   algorithm: 'gzip',
+    //   threshold: 10240,
+    // })
+    //图片压缩
+    // viteImagemin({
+    //   gifsicle: {
+    //     optimizationLevel: 7,
+    //     interlaced: false,
+    //   },
+    //   optipng: {
+    //     optimizationLevel: 7,
+    //   },
+    //   mozjpeg: {
+    //     quality: 20,
+    //   },
+    //   pngquant: {
+    //     quality: [0.8, 0.9],
+    //     speed: 4,
+    //   },
+    //   svgo: {
+    //     plugins: [
+    //       {
+    //         name: 'removeViewBox',
+    //       },
+    //       {
+    //         name: 'removeEmptyAttrs',
+    //         active: false,
+    //       },
+    //     ],
+    //   },
+    // }),
   ],
   resolve: {
     alias: {
@@ -85,16 +113,40 @@ export default defineConfig({
     rollupOptions: {
       // https://rollupjs.org/guide/en/#outputmanualchunks
       output: {
-        manualChunks: {
-          'other-page': [
-            './src/pages/me/Me',
-            './src/pages/login/Login',
-            './src/pages/message/Message',
-            './src/pages/login/countryChoose',
-          ],
+        manualChunks(id, {getModuleInfo}) {
+          const reg = /(.*)\/src\/components\/(.*)/
+          if (reg.test(id)) {
+            const importersLen = getModuleInfo(id).importers.length;
+            // 被多处引用
+            if (importersLen > 1) return 'common'
+          }
+          if (id.includes('node_modules')) return 'vendor'
+
+          if (id.includes('/src/pages/home/Publish.vue')) return 'other'
+
+          if (id.includes('/src/pages/home/Music.vue')) return 'other'
+          if (id.includes('/src/pages/home/MusicRankList.vue')) return 'other'
+          if (id.includes('/src/pages/home/LivePage.vue')) return 'other'
+          if (id.includes('/src/pages/home/SearchPage.vue')) return 'other'
+
+          if (id.includes('/src/pages/shop/Shop.vue')) return 'other'
+          if (id.includes('/src/pages/shop/GoodsDetail.vue')) return 'other'
+
+          if (id.includes('/src/pages/message/Message.vue')) return 'other'
+
+          if (id.includes('/src/pages/me/Me.vue')) return 'other'
+          if (id.includes('/src/pages/other/VideoDetail.vue')) return 'other'
+          if (id.includes('/src/pages/other/AlbumDetail.vue')) return 'other'
         },
+        chunkFileNames: 'js/[name]-[hash].js', // 引入文件名的名称
+        entryFileNames: 'js/[name]-[hash].js', // 包的入口文件名称
+        assetFileNames: 'assets/[name]-[hash].[ext]', // 资源文件像 字体，图片等
       },
     },
+    assetsInlineLimit: 2048
+  },
+  esbuild: {
+    drop: ['console', 'debugger']
   },
   server: {
     port: 3000,

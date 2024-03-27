@@ -113,6 +113,10 @@
         </div>
       </div>
     </Scroll>
+    <Footer v-bind:init-tab="2"
+            :is-white="true"
+            style="position: fixed;left: 0;"/>
+
   </div>
 </template>
 
@@ -124,6 +128,10 @@ import Utils, {$no} from "@/utils";
 import Scroll from "@/components/Scroll.vue";
 import goods from "@/assets/data/goods";
 
+defineOptions({
+  name: 'Shop'
+})
+
 const nav = useNav()
 const state = reactive({
   list: goods.list,
@@ -133,23 +141,9 @@ const state = reactive({
 
 function loadData() {
   console.log('loadData')
-  for (let i = 1; i < 12; i++) {
-    let temp = {
-      src: new URL(`../../../assets/img/poster/${i}.jpg`, import.meta.url).href,
-      author: new URL(`../../../assets/img/avatar.png`, import.meta.url).href,
-    }
-    // state.list.push(temp)
-  }
 }
 
 onMounted(() => {
-  for (let i = 1; i < 12; i++) {
-    let temp = {
-      src: new URL(`../../../assets/img/poster/${i}.jpg`, import.meta.url).href,
-      author: new URL(`../../../assets/img/avatar.png`, import.meta.url).href,
-    }
-    // state.list.push(temp)
-  }
 })
 </script>
 

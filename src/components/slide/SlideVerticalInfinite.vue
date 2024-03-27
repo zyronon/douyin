@@ -1,5 +1,5 @@
 <script setup lang="jsx">
-import {computed, createApp, h, onMounted, reactive, ref, render, watch} from "vue";
+import {computed, createApp, onMounted, reactive, ref, render, watch} from "vue";
 import GM from '../../utils'
 import {getSlideDistance, slideInit, slideReset, slideTouchEnd, slideTouchMove, slideTouchStart} from "./common";
 import {SlideType} from "@/utils/const_var";
@@ -7,7 +7,6 @@ import SlideItem from '@/components/slide/SlideItem.vue'
 import bus, {EVENT_KEY} from "../../utils/bus";
 import {useStore} from 'vuex'
 import Loading from "@/components/Loading.vue";
-import {cloneDeep} from "lodash-es";
 
 const props = defineProps({
   index: {
