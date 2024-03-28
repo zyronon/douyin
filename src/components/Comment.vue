@@ -14,7 +14,7 @@
         <dy-back mode="dark" img="close" direction="right" style="opacity: 0;"/>
         <div class="num">2.7w条评论</div>
         <div class="right">
-          <Icon icon="prime:arrow-up-right-and-arrow-down-left-from-center"/>
+          <Icon icon="prime:arrow-up-right-and-arrow-down-left-from-center" @click.stop="$no"/>
           <Icon icon="ic:round-close" @click.stop="cancel"/>
         </div>
       </div>
