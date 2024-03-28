@@ -133,10 +133,13 @@ import Loading from "./Loading";
 import Search from "./Search";
 import {$no} from "@/utils";
 import {useBaseStore} from "@/store/pinia";
+import {videoComments} from "@/api/videos";
+import Popover from "@/pages/login/components/Tooltip.vue";
 
 export default {
   name: "Comment",
   components: {
+    Popover,
     AutoInput,
     ConfirmDialog,
     FromBottomDialog,
@@ -207,6 +210,8 @@ export default {
       this.isCall = false
     },
     async getData() {
+      let res = await videoComments()
+      console.log('res', res)
       await this.$sleep(500)
       this.comments = [
         {
@@ -360,7 +365,8 @@ export default {
   .right {
     display: flex;
     gap: 12rem;
-
+    position: relative;
+    z-index: 9;
     svg {
       background: rgb(242, 242, 242);
       padding: 4rem;

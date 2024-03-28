@@ -5,6 +5,7 @@ import {BASE_URL} from "@/config";
 import {useBaseStore} from "@/store/pinia";
 import axiosInstance from "@/utils/request";
 import MockAdapter from "axios-mock-adapter";
+import Mock from "mockjs";
 
 const mock = new MockAdapter(axiosInstance, {delayResponse: 300});
 
@@ -198,6 +199,41 @@ export async function startMock() {
         list: allRecommendPosts.slice(0, 1000).slice(page.offset, page.limit),
       }, code: 200, msg: '',
     }]
+  })
+
+  mock.onGet(/video\/comments/).reply(async (config) => {
+    return new Promise(function (resolve, reject) {
+     setTimeout(()=>{
+       requestIdleCallback(() => {
+         let data = Mock.mock({
+           'list|5-50': [{
+             name: '@cname',
+             text: '@cparagraph(3)',
+             createTime: '@date("T")',
+             collect_count: '@int(3,1000)'
+           }]
+         })
+
+         data.list.map(v => [
+           v.children = Mock.mock({
+             'list|0-5': [{
+               name: '@cname',
+               text: '@cparagraph(3)',
+               createTime: '@date("T")',
+               collect_count: '@int(3,1000)'
+             }]
+           })
+         ])
+
+         resolve([200, {
+           data: {
+             total: data.list.length,
+             list: data.list,
+           }, code: 200, msg: '',
+         }])
+       })
+     })
+    });
   })
 
   setTimeout(fetchData, 1000)

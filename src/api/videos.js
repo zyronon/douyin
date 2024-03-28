@@ -23,3 +23,6 @@ export function privateVideo(params, data) {
 export function likeVideo(params, data) {
   return request({url: '/video/like', method: 'get', params, data})
 }
+export function videoComments(params, data) {
+  return request({url: '/video/comments', method: 'get', params, data})
+}
