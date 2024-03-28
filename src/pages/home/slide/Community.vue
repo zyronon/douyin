@@ -15,7 +15,7 @@
         <WaterfallList :list="list" class="list">
           <template v-slot="{item}">
             <div class="card"
-                 @click="test"
+                 @click="e=>test(e,item)"
             >
               <img class="poster" v-lazy="_checkImgUrl(item.note_card?.cover?.url_default)"/>
               <div class="bottom">
@@ -40,23 +40,30 @@
     </ScrollList>
 
     <div class="shadow">
-
+      <div class="wrap"></div>
+      <AlbumDetail v-if="state.d"
+                   :detail="state.current"
+                   @close="close"/>
     </div>
   </div>
 </template>
 
 <script setup>
-import {reactive, watch} from "vue";
-import {$no, _checkImgUrl} from "@/utils";
+import {reactive, ref, watch} from "vue";
+import {$no, _checkImgUrl, cloneDeep} from "@/utils";
 import {recommendedPost} from "@/api/user";
 import {useNav} from "@/utils/hooks/useNav";
 import {Icon} from "@iconify/vue";
 import WaterfallList from "@/components/WaterfallList.vue";
 import ScrollList from "@/components/ScrollList.vue";
+import {useBaseStore} from "@/store/pinia";
+import AlbumDetail from "@/pages/other/AlbumDetail.vue";
+import Mock from "mockjs";
 
 //@click="nav('album-detail',{},item)"
 
 const nav = useNav()
+const baseStore = useBaseStore()
 const props = defineProps({
   active: {
     type: Boolean,
@@ -65,8 +72,22 @@ const props = defineProps({
 })
 
 const state = reactive({
-  show: false
+  show: false,
+  current: {
+    "id": "",
+    "note_card": {
+      "interact_info": {},
+      "cover": {},
+      "image_list": [],
+      "display_title": "",
+      "user": {},
+      comment_list: [],
+      createTime: ''
+    }
+  },
+  d: false,
 })
+let rect = ref({})
 
 watch(() => props.active, n => {
   if (n && !state.show) {
@@ -74,28 +95,58 @@ watch(() => props.active, n => {
   }
 }, {immediate: true})
 
-function test(e) {
-  let rect = e.currentTarget.getBoundingClientRect()
-  console.log('e', rect)
-  let s = $('.shadow')
-  s.empty()
-  s.append($(e.currentTarget).clone())
+function close() {
+  let s = $('.shadow ')
+  let domRect = rect.value
+  s.css('transition', 'all .3s')
+  s.css('top', domRect.top)
+  s.css('left', domRect.left)
+  s.css('width', domRect.width)
+  s.css('height', domRect.height)
+  // state.d = false
+}
+
+function test(e, item) {
+  let data = Mock.mock({
+    'comment_list|3-50': [{
+      name: '@cname',
+      text: '@cparagraph(3)'
+    }]
+  })
+  item.note_card.comment_list = data.comment_list
+  item.note_card.createTime = Mock.Random.date('MM-dd')
+  item.note_card.interact_info.collect_count = Mock.Random.integer(60, 3000)
+  item.note_card.interact_info.share_count = Mock.Random.integer(60, 3000)
+  state.current = cloneDeep(item)
+  console.log(state.current)
+
+  state.d = true
+  let domRect = e.currentTarget.getBoundingClientRect()
+  console.log('e', domRect)
+  let s = $('.shadow ')
+  let w = $('.shadow .wrap')
+
+  // w.empty()
+  // w.append($(e.currentTarget).clone())
+
   s.css('transition', '0s')
-  s.css('top', rect.top)
-  s.css('left', rect.left)
-  s.css('width', rect.width)
+  s.css('top', domRect.top)
+  s.css('left', domRect.left)
+  s.css('width', domRect.width)
+  s.css('height', domRect.height)
+  rect.value = domRect
 
   setTimeout(() => {
     s.css('transition', 'all .3s')
     s.css('top', 0)
     s.css('left', 0)
     s.css('width', '100vw')
+    s.css('height', '100vh')
   })
 }
 </script>
 
 <style scoped lang="less">
-
 
 #Community {
   font-size: 14rem;
@@ -196,7 +247,12 @@ function test(e) {
     top: 0;
     width: 100vw;
     transition: all .3s;
-  }
+    overflow: hidden;
 
+    .wrap {
+      position: absolute;
+      z-index: 9999;
+    }
+  }
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="goods-detail base-page1">
     <header>
       <Icon
-          @click="$emit('close')"
+          @click="$back()"
           icon="material-symbols-light:arrow-back-ios-new"/>
       <div class="option" @click="nav('/home/search')">
         <Icon icon="jam:search"/>
@@ -11,45 +11,42 @@
 
     <div class="slide-imgs">
       <SlideHorizontal v-model:index="state.index">
-        <SlideItem v-for="item in props.detail.note_card?.image_list">
+        <SlideItem v-for="item in state.detail.note_card?.image_list">
           <img :src="_checkImgUrl(item.info_list?.[0]?.url)" alt="">
         </SlideItem>
       </SlideHorizontal>
 
-      <div class="indicator-bar" v-if="props.detail.note_card?.image_list?.length > 1">
+      <div class="indicator-bar" v-if="state.detail.note_card?.image_list?.length > 1">
         <div class="indicator"
              :class="[i <= state.index+1 && 'active']"
-             v-for="i in props.detail.note_card?.image_list?.length"></div>
+             v-for="i in state.detail.note_card?.image_list?.length"></div>
       </div>
     </div>
 
     <div class="content">
       <div class="shop">
         <header>
-          <img class="avatar" :src="_checkImgUrl(props.detail.note_card?.user?.avatar)"/>
+          <img class="avatar" :src="_checkImgUrl(state.detail.note_card?.user?.avatar)"/>
           <div class="right">
-            <div class="name">{{ props.detail.note_card.user.nick_name }}</div>
-            <div class="r" @click="$emit('close')">关注</div>
+            <div class="name">{{ state.detail.note_card.user.nick_name }}</div>
+            <div class="r">关注</div>
           </div>
         </header>
         <div class="desc">
-          {{ props.detail.note_card?.display_title }}
+          {{ state.detail.note_card?.display_title }}
         </div>
-        <div class="date">{{ props.detail.note_card.createTime }}</div>
+        <div class="date">{{ state.detail.note_card.createTime }}</div>
       </div>
 
       <div class="card comments">
         <header>
-          <span class="l">评论 {{ props.detail.note_card.comment_list.length }}</span>
+          <span class="l">评论 {{ state.detail.note_card.comment_list.length }}</span>
           <div class="r">
             <span>查看全部</span>
             <Icon class="arrow" icon="mingcute:right-line"/>
           </div>
         </header>
-        <div class="comment"
-             @click="$emit('close')"
-
-             v-for="i in props.detail.note_card.comment_list.slice(0,2)">
+        <div class="comment" v-for="i in state.detail.note_card.comment_list.slice(0,2)">
           <img src="https://cdn.seovx.com/?mom=302" alt="" class="avatar">
           <span>
                {{ i.name }}：{{ i.text }}
@@ -65,19 +62,19 @@
       <div class="options">
         <div class="option">
           <Icon icon="solar:heart-linear"/>
-          <div class="text">{{ props.detail.note_card?.interact_info?.liked_count }}</div>
+          <div class="text">{{ state.detail.note_card?.interact_info?.liked_count }}</div>
         </div>
         <div class="option">
           <Icon icon="mage:message-dots-round" class="icon"/>
-          <div class="text">{{ props.detail.note_card.comment_list.length }}</div>
+          <div class="text">{{ state.detail.note_card.comment_list.length }}</div>
         </div>
         <div class="option">
           <Icon icon="mage:star"/>
-          <div class="text">{{ props.detail.note_card?.interact_info?.collect_count }}</div>
+          <div class="text">{{ state.detail.note_card?.interact_info?.collect_count }}</div>
         </div>
         <div class="option">
           <Icon icon="ph:share-fat-light"/>
-          <div class="text">{{ props.detail.note_card?.interact_info?.share_count }}</div>
+          <div class="text">{{ state.detail.note_card?.interact_info?.share_count }}</div>
         </div>
       </div>
     </div>
@@ -87,11 +84,12 @@
 <script setup>
 import SlideHorizontal from "@/components/slide/SlideHorizontal.vue";
 import SlideItem from "@/components/slide/SlideItem.vue";
-import {reactive} from "vue";
+import {onMounted, reactive} from "vue";
 import {useNav} from "@/utils/hooks/useNav";
 import {Icon} from "@iconify/vue";
 import {useBaseStore} from "@/store/pinia";
-import {_checkImgUrl} from "@/utils";
+import {_checkImgUrl, cloneDeep} from "@/utils";
+import Mock from 'mockjs'
 
 const nav = useNav()
 const store = useBaseStore()
@@ -100,30 +98,36 @@ defineOptions({
   name: 'Album-Detail'
 })
 
-const props = defineProps({
-  detail: {
-    type: Object,
-    default() {
-      return {
-        "id": "",
-        "note_card": {
-          "interact_info": {},
-          "cover": {},
-          "image_list": [],
-          "display_title": "",
-          "user": {},
-          comment_list: [],
-          createTime: ''
-        }
-      }
-    }
-  }
-})
-
 const state = reactive({
+  detail: {
+    "id": "",
+    "note_card": {
+      "interact_info": {},
+      "cover": {},
+      "image_list": [],
+      "display_title": "",
+      "user": {},
+      comment_list: [],
+      createTime: ''
+    }
+  },
   index: 0,
 })
 
+onMounted(() => {
+  state.detail = cloneDeep(store.routeData)
+  let data = Mock.mock({
+    'comment_list|3-50': [{
+      name: '@cname',
+      text: '@cparagraph(3)'
+    }]
+  })
+  state.detail.note_card.comment_list = data.comment_list
+  state.detail.note_card.createTime = Mock.Random.date('MM-dd')
+  state.detail.note_card.interact_info.collect_count = Mock.Random.integer(60, 3000)
+  state.detail.note_card.interact_info.share_count = Mock.Random.integer(60, 3000)
+  console.log('sta', state.detail)
+})
 </script>
 
 <style scoped lang="less">
@@ -138,10 +142,10 @@ const state = reactive({
   @red: rgb(248, 38, 74);
 
   & > header {
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
-    width: 100%;
+    width: 100vw;
     z-index: 9;
     display: flex;
     justify-content: space-between;
@@ -159,7 +163,7 @@ const state = reactive({
 
   .slide-imgs {
     position: relative;
-    max-height: 55vh;
+    height: 55vh;
 
     img {
       height: 100%;
@@ -172,7 +176,7 @@ const state = reactive({
       position: absolute;
       bottom: 5rem;
       left: 3vw;
-      width: 94%;
+      width: 94vw;
       display: flex;
       gap: 5rem;
 
