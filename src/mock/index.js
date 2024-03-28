@@ -78,7 +78,7 @@ async function fetchData() {
 export async function startMock() {
   mock.onGet(/video\/recommended/).reply(async (config) => {
     let page = getPage2(config.params)
-    // console.log('allRecommendVideos', cloneDeep(allRecommendVideos),page)
+    console.log('allRecommendVideos', cloneDeep(allRecommendVideos.length),page)
     return [200, {
       data: {
         total: 844,

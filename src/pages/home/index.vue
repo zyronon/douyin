@@ -105,13 +105,13 @@
                          name="main"
                          :change-active-index-use-anim="false"
                          v-model:index="state.navIndex">
-          <SlideItem></SlideItem>
-<!--          <Slide0 :active="state.navIndex === 0 && state.baseIndex === 1"/>-->
+          <!--          <SlideItem></SlideItem>-->
+          <Slide0 :active="state.navIndex === 0 && state.baseIndex === 1"/>
           <SlideItem>
             <LongVideo :active="state.navIndex === 1 && state.baseIndex === 1"/>
           </SlideItem>
-          <SlideItem></SlideItem>
-<!--          <Slide2 :active="state.navIndex === 2 && state.baseIndex === 1"/>-->
+          <!--          <SlideItem></SlideItem>-->
+          <Slide2 :active="state.navIndex === 2 && state.baseIndex === 1"/>
           <SlideItem>
             <Community :active="state.navIndex === 3 && state.baseIndex === 1"/>
           </SlideItem>

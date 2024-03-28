@@ -1,10 +1,9 @@
 <script setup>
 
-import {reactive, watch} from "vue";
+import {onMounted, onUnmounted, reactive, watch} from "vue";
 import {_checkImgUrl, _duration, _formatNumber} from "@/utils";
 import {recommendedVideo} from "@/api/videos";
 import {useBaseStore} from "@/store/pinia";
-import ScrollList from "@/components/ScrollList.vue";
 
 const baseStore = useBaseStore()
 
@@ -19,77 +18,92 @@ const p = {
 }
 
 const state = reactive({
-  show:false
+  index: 0,
+  list: [],
+  totalSize: 0,
+  pageSize: 10,
+  pageNo: 0,
 })
 
-watch(() => props.active, n => {
-  if (n && !state.show) {
-    state.show = true
+function loadMore() {
+  if (!baseStore.loading) {
+    state.pageNo++
+    getData()
   }
-}, {immediate: true})
+}
 
+async function getData(refresh = false) {
+  if (baseStore.loading) return
+  baseStore.loading = true
+  let res = await recommendedVideo({pageNo: refresh ? 0 : state.pageNo, pageSize: state.pageSize})
+  console.log('getSlide4Data-', 'refresh', refresh, res)
+  baseStore.loading = false
+  if (res.code === 200) {
+    state.totalSize = res.data.total
+    if (refresh) {
+      state.list = []
+    }
+    state.list = state.list.concat(res.data.list)
+  } else {
+    state.pageNo--
+  }
+}
+
+watch(() => props.active, n => {
+  if (!state.list.length && n) {
+    baseStore.loading = false
+    getData()
+  }
+})
+
+onMounted(() => {
+})
+onUnmounted(() => {
+})
 </script>
 
 
 <template>
-  <div class="long-video">
-    <ScrollList class="Scroll"
-                v-if="state.show"
-                :api="recommendedVideo"
-    >
-      <template v-slot="{list}">
-        <div class="page">
-          <div class="item"
-               :class="[
+  <div class="page">
+    <div class="item"
+         :class="[
              i % 5 === 0 && 'big',
               i % 5 === 0 ? '' : (i % 2 === 1 && 'l'),
               i % 5 === 0 ? '' : (i % 2 === 0 && 'r'),
          ]"
-               v-for="(item,i) in list">
-            <video
-                controls
-                :poster="_checkImgUrl(item.video.cover.url_list[0])"
-                :src="item.video.play_addr.url_list[0]"
-            ></video>
-            <img v-lazy="_checkImgUrl(item.video.cover.url_list[0])" alt="" class="poster">
-            <div class="duration">{{ _duration(item.duration / 1000) }}</div>
-            <div class="title">
-              {{ item.desc }}
-            </div>
-            <div class="bottom">
-              <div class="l">
-                <img v-lazy="_checkImgUrl(item.author.avatar_168x168.url_list[0])" alt="" class="avatar">
-                <div class="name">{{ item.author.nickname }}</div>
-              </div>
-              <div class="r">
-                <Icon icon="icon-park-outline:like"/>
-                <div class="num">{{ _formatNumber(item.statistics.digg_count) }}</div>
-              </div>
-            </div>
-          </div>
+         v-for="(item,i) in state.list">
+      <video
+          controls
+          :poster="_checkImgUrl(item.video.cover.url_list[0])"
+          :src="item.video.play_addr.url_list[0]"
+      ></video>
+      <img v-lazy="_checkImgUrl(item.video.cover.url_list[0])" alt="" class="poster">
+      <div class="duration">{{ _duration(item.duration / 1000) }}</div>
+      <div class="title">
+        {{ item.desc }}
+      </div>
+      <div class="bottom">
+        <div class="l">
+          <img v-lazy="_checkImgUrl(item.author.avatar_168x168.url_list[0])" alt="" class="avatar">
+          <div class="name">{{ item.author.nickname }}</div>
         </div>
-      </template>
-    </ScrollList>
+        <div class="r">
+          <Icon icon="icon-park-outline:like"/>
+          <div class="num">{{ _formatNumber(item.statistics.digg_count) }}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped lang="less">
-
-.long-video {
-  font-size: 14rem;
-  color: white;
-  padding-top: var(--home-header-height);
-  background: rgb(21, 23, 36);
-
-  .Scroll {
-    height: calc(var(--vh, 1vh) * 100 - var(--home-header-height) - var(--footer-height)) !important;
-  }
-}
-
 .page {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   row-gap: 15rem;
+  height: calc(var(--vh, 1vh) * 100 - var(--common-header-height) - var(--footer-height));
+  margin-top: var(--common-header-height);
+  overflow: auto;
   box-sizing: border-box;
 
   .item {

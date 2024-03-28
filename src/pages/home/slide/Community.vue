@@ -195,11 +195,11 @@ function test(e, item) {
 #Community {
   font-size: 14rem;
   color: white;
-  padding-top: var(--common-header-height);
+  padding-top: var(--home-header-height);
   background: rgb(21, 23, 36);
 
   .Scroll {
-    height: calc(var(--vh, 1vh) * 100 - var(--common-header-height) - var(--footer-height)) !important;
+    height: calc(var(--vh, 1vh) * 100 - var(--home-header-height) - var(--footer-height)) !important;
   }
 
   @p: 1rem;
@@ -298,6 +298,7 @@ function test(e, item) {
   width: 100vw;
   transition: all .3s;
   overflow: hidden;
+  z-index: -100;
 
   .wrap {
     position: absolute;
