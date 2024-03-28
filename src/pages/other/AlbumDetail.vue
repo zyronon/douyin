@@ -1,64 +1,62 @@
 <template>
-  <div class="goods-detail base-page1">
+  <div class="goods-detail">
     <header>
       <Icon
-          @click="$emit('close')"
+          @click="close"
           icon="material-symbols-light:arrow-back-ios-new"/>
       <div class="option" @click="nav('/home/search')">
         <Icon icon="jam:search"/>
       </div>
     </header>
 
-    <div class="slide-imgs"
-         @click="$emit('close')"
-    >
-      <SlideHorizontal v-model:index="state.index">
-        <SlideItem v-for="item in props.detail.note_card?.image_list">
-          <img :src="_checkImgUrl(item.info_list?.[0]?.url)" alt="">
-        </SlideItem>
-      </SlideHorizontal>
+    <div class="scroll" ref="scrollEl">
+      <div class="slide-imgs">
+        <SlideHorizontal v-model:index="state.index">
+          <SlideItem v-for="item in props.detail.note_card?.image_list">
+            <img :src="_checkImgUrl(item.info_list?.[0]?.url)" alt="">
+          </SlideItem>
+        </SlideHorizontal>
 
-      <div class="indicator-bar" v-if="props.detail.note_card?.image_list?.length > 1">
-        <div class="indicator"
-             :class="[i <= state.index+1 && 'active']"
-             v-for="i in props.detail.note_card?.image_list?.length"></div>
-      </div>
-    </div>
-
-    <div class="content">
-      <div class="shop">
-        <header>
-          <img class="avatar" :src="_checkImgUrl(props.detail.note_card?.user?.avatar)"/>
-          <div class="right">
-            <div class="name">{{ props.detail.note_card.user.nick_name }}</div>
-            <div class="r" @click="$emit('close')">关注</div>
-          </div>
-        </header>
-        <div class="desc">
-          {{ props.detail.note_card?.display_title }}
+        <div class="indicator-bar" v-if="props.detail.note_card?.image_list?.length > 1">
+          <div class="indicator"
+               :class="[i <= state.index+1 && 'active']"
+               v-for="i in props.detail.note_card?.image_list?.length"></div>
         </div>
-        <div class="date">{{ props.detail.note_card.createTime }}</div>
       </div>
 
-      <div class="card comments">
-        <header>
-          <span class="l">评论 {{ props.detail.note_card.comment_list.length }}</span>
-          <div class="r">
-            <span>查看全部</span>
-            <Icon class="arrow" icon="mingcute:right-line"/>
+      <div class="content">
+        <div class="shop">
+          <header>
+            <img class="avatar" :src="_checkImgUrl(props.detail.note_card?.user?.avatar)"/>
+            <div class="right">
+              <div class="name">{{ props.detail.note_card.user.nick_name }}</div>
+              <div class="r">关注</div>
+            </div>
+          </header>
+          <div class="desc">
+            {{ props.detail.note_card?.display_title }}
           </div>
-        </header>
-        <div class="comment"
-             @click="$emit('close')"
-             v-for="i in props.detail.note_card.comment_list.slice(0,2)">
-          <img src="https://cdn.seovx.com/?mom=302" alt="" class="avatar">
-          <span>
+          <div class="date">{{ props.detail.note_card.createTime }}</div>
+        </div>
+
+        <div class="card comments">
+          <header>
+            <span class="l">评论 {{ props.detail.note_card.comment_list.length }}</span>
+            <div class="r">
+              <span>查看全部</span>
+              <Icon class="arrow" icon="mingcute:right-line"/>
+            </div>
+          </header>
+          <div class="comment"
+               v-for="i in props.detail.note_card.comment_list.slice(0,2)">
+            <img src="https://cdn.seovx.com/?mom=302" alt="" class="avatar">
+            <span>
                {{ i.name }}：{{ i.text }}
             </span>
+          </div>
         </div>
       </div>
     </div>
-
     <div class="toolbar">
       <div class="input-wrap">
         说点什么...
@@ -82,41 +80,18 @@
         </div>
       </div>
     </div>
-
-    <div class="cover-card"
-         @click="$emit('close')"
-    >
-      <img class="poster" v-lazy="_checkImgUrl(props.detail.note_card?.cover?.url_default)"/>
-      <div class="bottom">
-        <div class="title">
-          {{ props.detail.note_card?.display_title }}
-        </div>
-        <div class="b2">
-          <div class="user">
-            <img class="avatar" :src="_checkImgUrl(props.detail.note_card?.user?.avatar)"/>
-            <div class="name">{{ props.detail.note_card?.user?.nickname }}</div>
-          </div>
-          <div class="star">
-            <Icon icon="solar:heart-linear"/>
-            <div class="num">{{ props.detail.note_card?.interact_info?.liked_count }}</div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script setup>
 import SlideHorizontal from "@/components/slide/SlideHorizontal.vue";
 import SlideItem from "@/components/slide/SlideItem.vue";
-import {onMounted, reactive} from "vue";
+import {reactive, ref} from "vue";
 import {useNav} from "@/utils/hooks/useNav";
 import {Icon} from "@iconify/vue";
-import {useBaseStore} from "@/store/pinia";
 import {_checkImgUrl} from "@/utils";
 
 const nav = useNav()
-const store = useBaseStore()
 
 defineOptions({
   name: 'Album-Detail'
@@ -126,29 +101,27 @@ const props = defineProps({
   detail: {
     type: Object,
     default() {
-      return {
-        "id": "",
-        "note_card": {
-          "interact_info": {},
-          "cover": {},
-          "image_list": [],
-          "display_title": "",
-          "user": {},
-          comment_list: [],
-          createTime: ''
-        }
-      }
+      return {}
     }
   }
 })
 
+const emit = defineEmits({
+  close: []
+})
+
+const scrollEl = ref()
 const state = reactive({
   index: 0,
 })
 
-onMounted(() => {
-  $('.cover-card').fadeOut()
-})
+function close() {
+  emit('close')
+  setTimeout(() => {
+    state.index = 0
+    scrollEl.value.scrollTop = 0
+  }, 500)
+}
 </script>
 
 <style scoped lang="less">
@@ -162,9 +135,11 @@ onMounted(() => {
   @c: #a2a2a2;
   @c2: #c0c0c0;
   @red: rgb(248, 38, 74);
+  position: relative;
+  opacity: 0;
 
   & > header {
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     width: 100%;
@@ -181,6 +156,11 @@ onMounted(() => {
       color: white;
       border-radius: 50%;
     }
+  }
+
+  .scroll {
+    height: 100vh;
+    overflow: auto;
   }
 
   .slide-imgs {
@@ -373,62 +353,6 @@ onMounted(() => {
 
         svg {
           font-size: 24rem;
-        }
-      }
-    }
-  }
-
-  .cover-card {
-    transition: all .3s;
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 10;
-    border-radius: 4rem;
-    overflow: hidden;
-    background: var(--main-bg);
-
-    img {
-      width: 100%;
-    }
-
-    .bottom {
-      color: gainsboro;
-      padding: 10rem;
-
-      .title {
-        font-size: 14rem;
-        margin-bottom: 8rem;
-      }
-
-      .b2 {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        .user {
-          display: flex;
-          font-size: 12rem;
-
-          img {
-            width: 15rem;
-            border-radius: 50%;
-            margin-right: 5rem;
-          }
-        }
-
-        .star {
-          display: flex;
-          align-items: center;
-          gap: 3rem;
-
-          svg {
-            font-size: 15rem;
-          }
-
-          .num {
-            font-size: 12rem;
-          }
         }
       }
     }

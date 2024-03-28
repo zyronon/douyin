@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, reactive, ref, watch} from "vue";
+import {onMounted, onUnmounted, reactive, ref, watch} from "vue";
 import GM from '../../utils'
 import {
   getSlideDistance,
@@ -30,6 +30,7 @@ const props = defineProps({
 })
 const emit = defineEmits(['update:index'])
 
+let ob = null
 const judgeValue = 20
 const wrapperEl = ref(null)
 const state = reactive({
@@ -57,6 +58,15 @@ watch(
 
 onMounted(() => {
   slideInit(wrapperEl.value, state, SlideType.HORIZONTAL)
+
+  ob = new MutationObserver(() => {
+    state.wrapper.childrenLength = wrapperEl.value.children.length
+  });
+  ob.observe(wrapperEl.value, {'childList': true,});
+})
+
+onUnmounted(() => {
+  ob.disconnect()
 })
 
 function touchStart(e) {

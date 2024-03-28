@@ -39,11 +39,12 @@
       </template>
     </ScrollList>
 
-    <div class="shadow">
-      <AlbumDetail v-if="state.d"
-                   :detail="state.current"
-                   @close="close"/>
-    </div>
+    <teleport to="body">
+      <div class="shadow">
+        <div class="wrap"></div>
+        <AlbumDetail :detail="state.current" @close="close"/>
+      </div>
+    </teleport>
   </div>
 </template>
 
@@ -97,20 +98,30 @@ watch(() => props.active, n => {
 function close() {
   let s = $('.shadow ')
   let domRect = rect.value
-  // $('.cover-card').fadeIn()
-  s.css('transition', 'all .3s')
+  let t = '.3'
+  s.css('transition', `all ${t}s`)
   s.css('top', domRect.top)
   s.css('left', domRect.left)
   s.css('width', domRect.width)
   s.css('height', domRect.height)
-  $('.cover-card').css('transition', 'all .3s')
-  $('.cover-card').css('opacity', '1')
-  $('.cover-card').css('z-index', '1')
+
+  let a = $('.goods-detail')
+  a.css('transition', `all ${t}s`)
+  a.css('opacity', '0')
+  a.css('width', '100vw')
+  a.css('height', '100vh')
+  a.css('transform', `scale(${domRect.sw},${domRect.sh})`)
+  a.css('transform-origin', `0 0`)
+
+  let d = $('.shadow .wrap')
+  d.css('transition', `all ${t}s`)
+  d.css('opacity', '1')
+
   // state.d = false
   setTimeout(() => {
     s.css('z-index', '-100')
     s.css('transition', 'all 0s')
-    s.css('top', '-1000vh')
+    s.css('top', '-200vh')
   }, 300)
 }
 
@@ -126,43 +137,55 @@ function test(e, item) {
   item.note_card.interact_info.collect_count = Mock.Random.integer(60, 3000)
   item.note_card.interact_info.share_count = Mock.Random.integer(60, 3000)
   state.current = cloneDeep(item)
-  console.log(state.current)
+  // console.log(state.current)
 
   state.d = true
   let domRect = e.currentTarget.getBoundingClientRect()
-  console.log('e', domRect)
+  // console.log('e', domRect)
   let s = $('.shadow ')
+
   s.css('z-index', '1')
   s.css('transition', '0s')
   s.css('top', domRect.top)
   s.css('left', domRect.left)
+  s.css('width', domRect.width)
+  s.css('height', domRect.height)
+
+  let t = '.3'
+  let d = $('.shadow .wrap')
+  d.empty()
+  d.show()
+  d.append($(e.currentTarget).clone())
+  d.css('transition', `all ${t}s`)
+  d.css('opacity', '1')
+
   let sw = domRect.width / baseStore.bodyWidth
   let sh = domRect.height / baseStore.bodyHeight
-  console.log('sw', sw,sh)
-  // s.css('width', domRect.width)
-  // s.css('height', domRect.height)
+  domRect.sw = sw
+  domRect.sh = sh
 
-  s.css('width', '100vw')
-  s.css('height', '100vh')
-  s.css('transform', `scale(${sw},${sh})`)
-  s.css('transform-origin', `0 0`)
-  let $cover = $('.cover-card');
-  // $cover.show()
+  let a = $('.goods-detail')
+  a.css('opacity', '0')
+  a.css('width', '100vw')
+  a.css('height', '100vh')
+  a.css('transform', `scale(${domRect.sw},${domRect.sh})`)
+  a.css('transform-origin', `0 0`)
 
   rect.value = domRect
-
   setTimeout(() => {
-    // w.fadeOut()
-    s.css('transition', 'all 5s')
-    // $cover.css('transition', 'all 5s')
-    // $cover.css('opacity', '0')
-    // $cover.css('z-index', '-1')
+    s.css('transition', `all ${t}s`)
     s.css('top', 0)
     s.css('left', 0)
-    s.css('transform', `scale(1,1)`)
-    s.css('transform-origin', `0 0`)
     s.css('width', '100vw')
     s.css('height', '100vh')
+
+    d.css('opacity', '0')
+    d.css('z-index', '-1')
+
+    a.css('transition', `all ${t}s`)
+    a.css('opacity', '1')
+    a.css('transform', `scale(1,1)`)
+    a.css('transform-origin', `0 0`)
   })
 }
 </script>
@@ -211,71 +234,75 @@ function test(e, item) {
     width: 96vw;
   }
 
-  .card {
-    border-radius: 4rem;
-    overflow: hidden;
-    background: var(--main-bg);
+}
 
-    .poster {
-      width: 100%;
-      object-fit: cover;
-      //height: 33vh;
-    }
+.card {
+  border-radius: 4rem;
+  overflow: hidden;
+  background: var(--main-bg);
 
-    .bottom {
-      color: gainsboro;
-      padding: 10rem;
-
-      .title {
-        font-size: 14rem;
-        margin-bottom: 8rem;
-      }
-
-      .b2 {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        .user {
-          display: flex;
-          font-size: 12rem;
-
-          img {
-            width: 15rem;
-            border-radius: 50%;
-            margin-right: 5rem;
-          }
-        }
-
-        .star {
-          display: flex;
-          align-items: center;
-          gap: 3rem;
-
-          svg {
-            font-size: 15rem;
-          }
-
-          .num {
-            font-size: 12rem;
-          }
-        }
-      }
-    }
+  .poster {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    //height: 33vh;
   }
 
-  .shadow {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    transition: all .3s;
-    overflow: hidden;
+  .bottom {
+    color: gainsboro;
+    padding: 10rem;
 
-    .wrap {
-      position: absolute;
-      z-index: 9999;
+    .title {
+      font-size: 14rem;
+      margin-bottom: 8rem;
+    }
+
+    .b2 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .user {
+        display: flex;
+        font-size: 12rem;
+
+        img {
+          width: 15rem;
+          border-radius: 50%;
+          margin-right: 5rem;
+        }
+      }
+
+      .star {
+        display: flex;
+        align-items: center;
+        gap: 3rem;
+
+        svg {
+          font-size: 15rem;
+        }
+
+        .num {
+          font-size: 12rem;
+        }
+      }
     }
   }
 }
+
+.shadow {
+  background: var(--color-message);
+  position: absolute;
+  left: 0;
+  top: -200vh;
+  width: 100vw;
+  transition: all .3s;
+  overflow: hidden;
+
+  .wrap {
+    position: absolute;
+    z-index: 9999;
+  }
+}
+
 </style>

@@ -1,6 +1,6 @@
 import resource from "../assets/data/resource.js";
 import posts6 from "@/assets/data/posts6.json";
-import {cloneDeep} from '@/utils'
+import {_copy, cloneDeep} from '@/utils'
 import {BASE_URL} from "@/config";
 import {useBaseStore} from "@/store/pinia";
 import axiosInstance from "@/utils/request";

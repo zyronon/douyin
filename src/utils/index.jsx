@@ -472,6 +472,10 @@ export function _sleep(duration) {
   })
 }
 
+export function _copy(val) {
+  return Utils.copy(val)
+}
+
 export function cloneDeep(val) {
   return JSON.parse(JSON.stringify(val))
 }
