@@ -324,6 +324,9 @@ const Utils = {
     }
   },
   $time(time) {
+    if (String(time).length === 10) {
+      time = time * 1000
+    }
     let date = new dayjs(time)
     let now = new dayjs()
     let d = now.valueOf() - date.valueOf()

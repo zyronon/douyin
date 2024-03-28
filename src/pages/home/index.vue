@@ -105,11 +105,13 @@
                          name="main"
                          :change-active-index-use-anim="false"
                          v-model:index="state.navIndex">
-          <Slide0 :active="state.navIndex === 0 && state.baseIndex === 1"/>
+          <SlideItem></SlideItem>
+<!--          <Slide0 :active="state.navIndex === 0 && state.baseIndex === 1"/>-->
           <SlideItem>
             <LongVideo :active="state.navIndex === 1 && state.baseIndex === 1"/>
           </SlideItem>
-          <Slide2 :active="state.navIndex === 2 && state.baseIndex === 1"/>
+          <SlideItem></SlideItem>
+<!--          <Slide2 :active="state.navIndex === 2 && state.baseIndex === 1"/>-->
           <SlideItem>
             <Community :active="state.navIndex === 3 && state.baseIndex === 1"/>
           </SlideItem>
@@ -134,7 +136,9 @@
       </SlideItem>
     </SlideHorizontal>
 
-    <Comment page-id="home-index" v-model="state.commentVisible"
+    <Comment page-id="home-index"
+             :video-id="state.currentItem.aweme_id"
+             v-model="state.commentVisible"
              @close="closeComments"
     />
 
@@ -249,6 +253,7 @@ function delayShowDialog(cb) {
 }
 
 function setCurrentItem(item) {
+  // console.log('sss',item,state.baseIndex)
   if (state.baseIndex !== 1) return
   if (state.currentItem.author.uid !== item.author.uid) {
     state.currentItem = {

@@ -67,7 +67,7 @@ const baseStore = useBaseStore()
 watch(
     () => props.list,
     (newVal, oldVal) => {
-      console.log('watch-list', newVal.length, oldVal.length,)
+      // console.log('watch-list', newVal.length, oldVal.length, newVal)
       //新数据比老数据小，是刷新
       if (newVal.length < oldVal.length) {
         insertContent()
@@ -98,7 +98,7 @@ watch(
     () => props.index,
     (newVal, oldVal) => {
       state.localIndex = newVal
-      console.log('watch-index', newVal, oldVal)
+      // console.log('watch-index', newVal, oldVal)
       if (!props.list.length) return
       bus.emit(EVENT_KEY.CURRENT_ITEM, props.list[newVal])
       bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
@@ -113,7 +113,7 @@ watch(
           type: EVENT_KEY.ITEM_STOP
         })
       }, 200)
-    }
+    },
 )
 
 watch(
@@ -154,7 +154,7 @@ function insertContent(list = props.list) {
     start = end - props.virtualTotal
   }
   if (start < 0) start = 0
-  console.log('start', start, end)
+  // console.log('start', start, end)
   list.slice(start, end).map(
       (item, index) => {
         //自动播放，当前条（可能是0，可能是其他），试了下用jq来找元素，然后trigger play事件，要慢点样
@@ -174,6 +174,7 @@ function insertContent(list = props.list) {
     })
   }
   state.wrapper.childrenLength = wrapperEl.value.children.length
+  // console.log('list[state.localIndex]',list[state.localIndex])
   bus.emit(EVENT_KEY.CURRENT_ITEM, list[state.localIndex])
 }
 

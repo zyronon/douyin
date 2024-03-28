@@ -12,7 +12,7 @@
     <template v-slot:header>
       <div class="title">
         <dy-back mode="dark" img="close" direction="right" style="opacity: 0;"/>
-        <div class="num">2.7w条评论</div>
+        <div class="num">{{ formatNumber(comments.length) }}条评论</div>
         <div class="right">
           <Icon icon="prime:arrow-up-right-and-arrow-down-left-from-center" @click.stop="$no"/>
           <Icon icon="ic:round-close" @click.stop="cancel"/>
@@ -22,62 +22,75 @@
     <div class="comment">
       <div class="wrapper" v-if="comments.length">
         <div class="items">
-          <div class="item" v-for="item in comments">
-            <!--             v-longpress="e => showOptions(item)"-->
+          <div class="item" v-for="item in comments" v-longpress="e => showOptions(item)">
             <div class="main">
               <div class="content">
-                <img :src="item.avatar" alt="" class="head-image">
+                <img :src="_checkImgUrl(item.avatar)" alt="" class="head-image">
                 <div class="comment-container">
-                  <div class="name">{{ item.name }}</div>
-                  <div class="detail">{{ item.text }}</div>
+                  <div class="name">{{ item.nickname }}</div>
+                  <div class="detail" :class="item.user_buried && 'gray'">
+                    {{ item.user_buried ? '该评论已折叠' : item.content }}
+                  </div>
                   <div class="time-wrapper">
                     <div class="left">
-                      <div class="time">{{ $time(item.time) }} · 上海</div>
+                      <div class="time">{{ $time(item.create_time) }}{{
+                          item.ip_location && ` · ${item.ip_location}`
+                        }}
+                      </div>
                       <div class="reply-text">回复</div>
                     </div>
                     <div class="right d-flex" style="gap: 10rem">
-                      <div class="love" :class="item.isLoved && 'loved'" @click="loved(item)">
-                        <Icon icon="icon-park-solid:like" v-show="item.isLoved" class="love-image"/>
-                        <Icon icon="icon-park-outline:like" v-show="!item.isLoved" class="love-image"/>
-                        <span>{{ formatNumber(item.loveNum) }}</span>
+                      <div class="love" :class="item.user_digged && 'loved'" @click="loved(item)">
+                        <Icon icon="icon-park-solid:like" v-show="item.user_digged" class="love-image"/>
+                        <Icon icon="icon-park-outline:like" v-show="!item.user_digged" class="love-image"/>
+                        <span v-if="item.digg_count">{{ _formatNumber(item.digg_count) }}</span>
                       </div>
-                      <div class="love" @click="$no(item)">
-                        <Icon icon="icon-park-outline:dislike" class="love-image"/>
+                      <div class="love" @click="item.user_buried = !item.user_buried">
+                        <Icon v-if="item.user_buried" icon="icon-park-solid:dislike-two" class="love-image"/>
+                        <Icon v-else icon="icon-park-outline:dislike" class="love-image"/>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="replies">
-              <div class="reply" v-for="child in item.children">
-                <!--                 v-longpress="e => showOptions(child)"-->
-                <div class="content">
-                  <img :src="child.avatar" alt="" class="head-image">
-                  <div class="comment-container">
-                    <div class="name">
-                      {{ child.name }}
-                      <div class="reply-user" v-if="child.replay"></div>
-                      {{ child.replay }}
-                    </div>
-                    <div class="detail">{{ child.text }}</div>
-                    <div class="time-wrapper">
-                      <div class="left">
-                        <div class="time">{{ $time(item.time) }} · 上海</div>
-                        <div class="reply-text">回复</div>
+            <div class="replies" v-if="Number(item.sub_comment_count)">
+              <template v-if="item.showChildren">
+                <div class="reply" v-for="child in item.children">
+                  <!--                 v-longpress="e => showOptions(child)"-->
+                  <div class="content">
+                    <img :src="_checkImgUrl(child.avatar)" alt="" class="head-image">
+                    <div class="comment-container">
+                      <div class="name">
+                        {{ child.nickname }}
+                        <div class="reply-user" v-if="child.replay"></div>
+                        {{ child.replay }}
                       </div>
-                      <div class="love" :class="item.isLoved && 'loved'" @click="loved(item)">
-                        <Icon icon="icon-park-solid:like" v-show="item.isLoved" class="love-image"/>
-                        <Icon icon="icon-park-outline:like" v-show="!item.isLoved" class="love-image"/>
-                        <span>{{ formatNumber(item.loveNum) }}</span>
+                      <div class="detail">{{ child.content }}</div>
+                      <div class="time-wrapper">
+                        <div class="left">
+                          <div class="time">{{ $time(child.create_time) }}{{
+                              child.ip_location && ` · ${item.ip_location}`
+                            }}
+                          </div>
+                          <div class="reply-text">回复</div>
+                        </div>
+                        <div class="love" :class="child.user_digged && 'loved'" @click="loved(item)">
+                          <Icon icon="icon-park-solid:like" v-show="child.user_digged" class="love-image"/>
+                          <Icon icon="icon-park-outline:like" v-show="!child.user_digged" class="love-image"/>
+                          <span>{{ formatNumber(child.digg_count) }}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="more">
+              </template>
+              <Loading v-if="loadChildren && loadChildrenItemCId === item.comment_id"
+                       :type="'small'"
+                       :is-full-screen="false"/>
+              <div class="more" v-else @click="handShowChildren(item)">
                 <div class="gang"></div>
-                <span>展开更多回复</span>
+                <span>展开{{ item.showChildren ? '更多' : `${item.sub_comment_count}条` }}回复</span>
                 <Icon icon="ep:arrow-down-bold"/>
               </div>
             </div>
@@ -85,9 +98,7 @@
         </div>
         <no-more/>
       </div>
-
       <Loading v-else style="position:absolute;"/>
-
       <transition name="fade">
         <Mask v-if="isCall" mode="lightgray" @click="isCall = false"/>
       </transition>
@@ -131,7 +142,7 @@ import {mapState} from "pinia";
 import FromBottomDialog from "./dialog/FromBottomDialog";
 import Loading from "./Loading";
 import Search from "./Search";
-import {$no} from "@/utils";
+import {$no, _checkImgUrl, _formatNumber, sampleSize} from "@/utils";
 import {useBaseStore} from "@/store/pinia";
 import {videoComments} from "@/api/videos";
 import Popover from "@/pages/login/components/Tooltip.vue";
@@ -188,13 +199,28 @@ export default {
       showPrivateChat: false,
       isInput: false,
       isCall: false,
+      loadChildren: false,
+      loadChildrenItemCId: -1,
     }
   },
   mounted() {
-    this.getData()
   },
   methods: {
+    _formatNumber,
+    _checkImgUrl,
     $no,
+    async handShowChildren(item) {
+      this.loadChildrenItemCId = item.comment_id
+      this.loadChildren = true
+      await this.$sleep(500)
+      this.loadChildren = false
+      if (item.showChildren) {
+        item.children = item.children.concat(sampleSize(this.comments, 10))
+      } else {
+        item.children = sampleSize(this.comments, 3)
+        item.showChildren = true
+      }
+    },
     send() {
       this.comments.push({
         id: '2',
@@ -210,93 +236,14 @@ export default {
       this.isCall = false
     },
     async getData() {
-      let res = await videoComments()
-      console.log('res', res)
-      await this.$sleep(500)
-      this.comments = [
-        {
-          id: '1',
-          avatar: new URL('../assets/img/icon/avatar/1.png', import.meta.url).href,
-          name: '彭雨晏',
-          text: '这到底是怎么了？艺人一个接一个的出事',
-          loveNum: 57000,
-          isLoved: false,
-          time: '2021-08-24 20:10',
-          children: [
-            {
-              id: '10',
-              avatar: new URL('../assets/img/icon/avatar/2.png', import.meta.url).href,
-              name: 'sugar少吃一点',
-              replay: '',
-              text: '要么之前吴京说了一句话对一个小女孩说，以后别来娱乐圈',
-              loveNum: 9174,
-              isLoved: false,
-              time: '2022-08-24 20:25',
-            },
-            {
-              id: '11',
-              avatar: new URL('../assets/img/icon/avatar/3.png', import.meta.url).href,
-              name: '我不吃晚饭了',
-              replay: 'sugar少吃一点',
-              text: '@nana max',
-              loveNum: 695,
-              isLoved: false,
-              time: '2023-01-24 20:29',
-            },
-            {
-              id: '12',
-              avatar: new URL('../assets/img/icon/avatar/4.png', import.meta.url).href,
-              name: '我劝你善良',
-              replay: 'sugar少吃一点',
-              text: '对对 我也刷到过这个视频',
-              loveNum: 1253,
-              isLoved: false,
-              time: '2023-02-23 20:59',
-            },
-          ]
-        },
-        {
-          id: '2',
-          avatar: new URL('../assets/img/icon/avatar/4.png', import.meta.url).href,
-          name: '成都旅行',
-          text: '开车回来4个小时，爬山两小时，如果当天天气好，你一定会喜欢上这里，是真的美！一日游',
-          loveNum: 27,
-          isLoved: false,
-          time: '2021-08-24 20:33',
-          children: [
-            {
-              id: '20',
-              avatar: new URL('../assets/img/icon/avatar/4.png', import.meta.url).href,
-              name: '成都旅行',
-              replay: '',
-              text: '甘海子，汶川转经楼村',
-              loveNum: 32,
-              isLoved: false,
-              time: '2021-08-24 20:34',
-            },
-            {
-              id: '21',
-              avatar: new URL('../assets/img/icon/avatar/5.png', import.meta.url).href,
-              name: 'August',
-              replay: '成都旅行',
-              text: '@NickyOO @AW%',
-              loveNum: 0,
-              isLoved: false,
-              time: '2021-08-25 03:29',
-            },
-            {
-              id: '22',
-              avatar: new URL('../assets/img/icon/avatar/6.png', import.meta.url).href,
-              name: '用户121342411',
-              replay: '成都旅行',
-              text: '自己可以开私家车进去不',
-              loveNum: 1,
-              isLoved: false,
-              time: '2021-08-25 07:29',
-            },
-          ]
-        }
-      ]
+      let res = await videoComments({id: this.videoId})
+      if (res.success) {
+        res.data.map(v => {
+          v.showChildren = false
+          v.digg_count = Number(v.digg_count)
+        })
+        this.comments = res.data
+      }
     },
     cancel() {
       this.$emit("update:modelValue", false)
@@ -313,13 +260,14 @@ export default {
     },
     loved(row) {
       if (row.isLoved) {
-        row.loveNum--
+        row.digg_count--
       } else {
-        row.loveNum++
+        row.digg_count++
       }
-      row.isLoved = !row.isLoved
+      row.user_digged = !row.user_digged
     },
     showOptions(row) {
+      return
       this.$showSelectDialog(this.options, e => {
         if (e.id === 1) {
           this.selectRow = row
@@ -367,6 +315,7 @@ export default {
     gap: 12rem;
     position: relative;
     z-index: 9;
+
     svg {
       background: rgb(242, 242, 242);
       padding: 4rem;
@@ -374,6 +323,10 @@ export default {
       border-radius: 50%;
     }
   }
+}
+
+.gray {
+  color: var(--second-text-color);
 }
 
 .comment {
@@ -395,6 +348,7 @@ export default {
 
     .item {
       width: 100%;
+      margin-bottom: 15rem;
 
       .main {
         width: 100%;
@@ -408,8 +362,8 @@ export default {
         .head-image {
           margin-left: 15rem;
           margin-right: 10rem;
-          width: 35rem;
-          height: 35rem;
+          width: 37rem;
+          height: 37rem;
           border-radius: 50%;
         }
       }
@@ -438,7 +392,7 @@ export default {
           margin: 5rem;
           display: flex;
           align-items: center;
-          color: var(--second-text-color);
+          color: gray;
 
           .gang {
             background: #d5d5d5;
@@ -503,7 +457,7 @@ export default {
             }
 
             .love {
-              color: var(--second-text-color);
+              color: gray;
               display: flex;
               align-items: center;
 

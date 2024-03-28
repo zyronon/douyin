@@ -1,11 +1,12 @@
 import resource from "../assets/data/resource.js";
 import posts6 from "@/assets/data/posts6.json";
-import {_copy, cloneDeep} from '@/utils'
-import {BASE_URL} from "@/config";
+import {_copy, cloneDeep, random, sampleSize} from '@/utils'
+import {BASE_URL, FILE_URL} from "@/config";
 import {useBaseStore} from "@/store/pinia";
 import axiosInstance from "@/utils/request";
 import MockAdapter from "axios-mock-adapter";
 import Mock from "mockjs";
+import {panel} from "@/api/user";
 
 const mock = new MockAdapter(axiosInstance, {delayResponse: 300});
 
@@ -68,22 +69,53 @@ async function fetchData() {
         if (item) w.author = item
         return w
       })
-
       allRecommendVideos = allRecommendVideos.concat(v)
     })
   })
 }
 
+//TODO 有个bug，一开始只返回了6条数据，但第二次前端传过来的pageNo是2了，就是会从第10条数据开始返回，导致中间漏了4条
 export async function startMock() {
   mock.onGet(/video\/recommended/).reply(async (config) => {
-    // console.log('allRecommendVideos', cloneDeep(allRecommendVideos))
     let page = getPage2(config.params)
+    // console.log('allRecommendVideos', cloneDeep(allRecommendVideos),page)
     return [200, {
       data: {
-        total: allRecommendVideos.length,
+        total: 844,
         list: allRecommendVideos.slice(page.offset, page.limit), // list: allRecommendVideos.slice(0, 6),
       }, code: 200, msg: '',
     }]
+  })
+
+  mock.onGet(/video\/comments/).reply(async (config) => {
+    let videoIds = [
+      "7260749400622894336",
+      "7128686458763889956",
+      "7293100687989148943",
+      "6923214072347512068",
+      "7005490661592026405",
+      "7161000281575148800",
+      "7267478481213181238",
+      "6686589698707590411",
+      "7321200290739326262",
+      "7194815099381484860",
+      "6826943630775831812",
+      "7110263965858549003",
+      "7295697246132227343",
+      "7270431418822446370",
+      "6882368275695586568",
+      "7000587983069957383",
+    ]
+    let id = config.params.id
+    if (!videoIds.includes(String(id))) {
+      id = videoIds[random(0, videoIds.length - 1)]
+    }
+    let r2 = await fetch(`${FILE_URL}/comments/video_id_${id}.json`)
+    let v = await r2.json()
+    if (v) {
+      return [200, {data: v, code: 200}]
+    }
+    return [200, {code: 500}];
   })
 
   mock.onGet(/video\/private/).reply(async (config) => {
@@ -156,7 +188,17 @@ export async function startMock() {
     }]
   })
 
-  mock.onGet(/user\/userinfo/).reply(async (config) => {
+  mock.onGet(/user\/video_list/).reply(async (config) => {
+    let id = config.params.id
+    let r2 = await fetch(`${FILE_URL}/user_video_list/user-${id}.json`)
+    let v = await r2.json()
+    if (v) {
+      return [200, {data: v, code: 200}]
+    }
+    return [200, {code: 500}];
+  })
+
+  mock.onGet(/user\/panel/).reply(async (config) => {
     let r2 = await fetch(BASE_URL + '/data/users.json')
     let v = await r2.json()
     // let item = v.find(a => a.uid === '68310389333')
@@ -199,41 +241,6 @@ export async function startMock() {
         list: allRecommendPosts.slice(0, 1000).slice(page.offset, page.limit),
       }, code: 200, msg: '',
     }]
-  })
-
-  mock.onGet(/video\/comments/).reply(async (config) => {
-    return new Promise(function (resolve, reject) {
-     setTimeout(()=>{
-       requestIdleCallback(() => {
-         let data = Mock.mock({
-           'list|5-50': [{
-             name: '@cname',
-             text: '@cparagraph(3)',
-             createTime: '@date("T")',
-             collect_count: '@int(3,1000)'
-           }]
-         })
-
-         data.list.map(v => [
-           v.children = Mock.mock({
-             'list|0-5': [{
-               name: '@cname',
-               text: '@cparagraph(3)',
-               createTime: '@date("T")',
-               collect_count: '@int(3,1000)'
-             }]
-           })
-         ])
-
-         resolve([200, {
-           data: {
-             total: data.list.length,
-             list: data.list,
-           }, code: 200, msg: '',
-         }])
-       })
-     })
-    });
   })
 
   setTimeout(fetchData, 1000)

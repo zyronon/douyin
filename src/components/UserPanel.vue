@@ -184,6 +184,7 @@ import {DefaultUser} from "@/utils/const_var";
 import Loading from "@/components/Loading.vue";
 import {FILE_URL} from "@/config";
 import {useBaseStore} from "@/store/pinia";
+import {userinfo, userVideoList} from "@/api/user";
 
 const $nav = useNav()
 const baseStore = useBaseStore()
@@ -234,17 +235,16 @@ watch(() => props.active,
       if (newVal && !props.currentItem.aweme_list.length) {
         // console.log('props.currentItem',props.currentItem)
         let id = _getUserDouyinId(props.currentItem)
-        fetch(`${FILE_URL}user-${id}.json`).then(r => {
-          r.json().then(l => {
-            setTimeout(() => {
-              l = l.map(a => {
-                a.author = props.currentItem.author
-                return a
-              })
-              emit('update:currentItem', Object.assign(props.currentItem, {aweme_list: l}))
-            }, 300)
-          })
-        })
+        let r = await userVideoList({id})
+        if (r.success) {
+          setTimeout(() => {
+            r.data = r.data.map(a => {
+              a.author = props.currentItem.author
+              return a
+            })
+            emit('update:currentItem', Object.assign(props.currentItem, {aweme_list: r.data}))
+          }, 300)
+        }
       }
     })
 

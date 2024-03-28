@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {friends, userinfo} from "@/api/user.js";
+import {friends, panel} from "@/api/user.js";
 import enums from "@/utils/enums";
 import resource from "@/assets/data/resource";
 
@@ -44,7 +44,7 @@ export const useBaseStore = defineStore('base', {
   getters: {},
   actions: {
     async init() {
-      let r = await userinfo()
+      let r = await panel()
       if (r.success) {
         this.userinfo = r.data
       }

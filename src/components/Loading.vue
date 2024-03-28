@@ -1,5 +1,8 @@
 <template>
-  <div class="Loading" :class="isFullScreen?'full':'normal'">
+  <div class="Loading" :class="[
+      isFullScreen?'full':'inline',
+      type
+  ]">
     <div class="circle blue"></div>
     <div class="circle red"></div>
   </div>
@@ -11,6 +14,10 @@ export default {
     isFullScreen: {
       type: Boolean,
       default: true
+    },
+    type: {
+      type: String,
+      default: 'normal'
     }
   }
 }
@@ -21,7 +28,7 @@ export default {
 
 .Loading {
 
-  &.normal {
+  &.inline {
     width: 100%;
     height: 40rem;
     display: flex;
@@ -29,6 +36,13 @@ export default {
     align-items: center;
   }
 
+
+  &.small {
+    .circle {
+      width: 8rem;
+      height: 8rem;
+    }
+  }
 
   &.full {
     z-index: 999;
