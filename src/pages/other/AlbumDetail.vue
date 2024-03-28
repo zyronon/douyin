@@ -9,7 +9,9 @@
       </div>
     </header>
 
-    <div class="slide-imgs">
+    <div class="slide-imgs"
+         @click="$emit('close')"
+    >
       <SlideHorizontal v-model:index="state.index">
         <SlideItem v-for="item in props.detail.note_card?.image_list">
           <img :src="_checkImgUrl(item.info_list?.[0]?.url)" alt="">
@@ -48,7 +50,6 @@
         </header>
         <div class="comment"
              @click="$emit('close')"
-
              v-for="i in props.detail.note_card.comment_list.slice(0,2)">
           <img src="https://cdn.seovx.com/?mom=302" alt="" class="avatar">
           <span>
@@ -81,13 +82,34 @@
         </div>
       </div>
     </div>
+
+    <div class="cover-card"
+         @click="$emit('close')"
+    >
+      <img class="poster" v-lazy="_checkImgUrl(props.detail.note_card?.cover?.url_default)"/>
+      <div class="bottom">
+        <div class="title">
+          {{ props.detail.note_card?.display_title }}
+        </div>
+        <div class="b2">
+          <div class="user">
+            <img class="avatar" :src="_checkImgUrl(props.detail.note_card?.user?.avatar)"/>
+            <div class="name">{{ props.detail.note_card?.user?.nickname }}</div>
+          </div>
+          <div class="star">
+            <Icon icon="solar:heart-linear"/>
+            <div class="num">{{ props.detail.note_card?.interact_info?.liked_count }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import SlideHorizontal from "@/components/slide/SlideHorizontal.vue";
 import SlideItem from "@/components/slide/SlideItem.vue";
-import {reactive} from "vue";
+import {onMounted, reactive} from "vue";
 import {useNav} from "@/utils/hooks/useNav";
 import {Icon} from "@iconify/vue";
 import {useBaseStore} from "@/store/pinia";
@@ -124,6 +146,9 @@ const state = reactive({
   index: 0,
 })
 
+onMounted(() => {
+  $('.cover-card').fadeOut()
+})
 </script>
 
 <style scoped lang="less">
@@ -133,6 +158,7 @@ const state = reactive({
   background: var(--color-message);
   color: white;
   font-size: 14rem;
+  height: 100%;
   @c: #a2a2a2;
   @c2: #c0c0c0;
   @red: rgb(248, 38, 74);
@@ -159,7 +185,7 @@ const state = reactive({
 
   .slide-imgs {
     position: relative;
-    max-height: 55vh;
+    height: 70vh;
 
     img {
       height: 100%;
@@ -347,6 +373,62 @@ const state = reactive({
 
         svg {
           font-size: 24rem;
+        }
+      }
+    }
+  }
+
+  .cover-card {
+    transition: all .3s;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    border-radius: 4rem;
+    overflow: hidden;
+    background: var(--main-bg);
+
+    img {
+      width: 100%;
+    }
+
+    .bottom {
+      color: gainsboro;
+      padding: 10rem;
+
+      .title {
+        font-size: 14rem;
+        margin-bottom: 8rem;
+      }
+
+      .b2 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .user {
+          display: flex;
+          font-size: 12rem;
+
+          img {
+            width: 15rem;
+            border-radius: 50%;
+            margin-right: 5rem;
+          }
+        }
+
+        .star {
+          display: flex;
+          align-items: center;
+          gap: 3rem;
+
+          svg {
+            font-size: 15rem;
+          }
+
+          .num {
+            font-size: 12rem;
+          }
         }
       }
     }

@@ -40,7 +40,6 @@
     </ScrollList>
 
     <div class="shadow">
-      <div class="wrap"></div>
       <AlbumDetail v-if="state.d"
                    :detail="state.current"
                    @close="close"/>
@@ -98,12 +97,21 @@ watch(() => props.active, n => {
 function close() {
   let s = $('.shadow ')
   let domRect = rect.value
+  // $('.cover-card').fadeIn()
   s.css('transition', 'all .3s')
   s.css('top', domRect.top)
   s.css('left', domRect.left)
   s.css('width', domRect.width)
   s.css('height', domRect.height)
+  $('.cover-card').css('transition', 'all .3s')
+  $('.cover-card').css('opacity', '1')
+  $('.cover-card').css('z-index', '1')
   // state.d = false
+  setTimeout(() => {
+    s.css('z-index', '-100')
+    s.css('transition', 'all 0s')
+    s.css('top', '-1000vh')
+  }, 300)
 }
 
 function test(e, item) {
@@ -124,22 +132,35 @@ function test(e, item) {
   let domRect = e.currentTarget.getBoundingClientRect()
   console.log('e', domRect)
   let s = $('.shadow ')
-  let w = $('.shadow .wrap')
-
-  // w.empty()
-  // w.append($(e.currentTarget).clone())
-
+  s.css('z-index', '1')
   s.css('transition', '0s')
   s.css('top', domRect.top)
   s.css('left', domRect.left)
-  s.css('width', domRect.width)
-  s.css('height', domRect.height)
+  let sw = domRect.width / baseStore.bodyWidth
+  let sh = domRect.height / baseStore.bodyHeight
+  console.log('sw', sw,sh)
+  // s.css('width', domRect.width)
+  // s.css('height', domRect.height)
+
+  s.css('width', '100vw')
+  s.css('height', '100vh')
+  s.css('transform', `scale(${sw},${sh})`)
+  s.css('transform-origin', `0 0`)
+  let $cover = $('.cover-card');
+  // $cover.show()
+
   rect.value = domRect
 
   setTimeout(() => {
-    s.css('transition', 'all .3s')
+    // w.fadeOut()
+    s.css('transition', 'all 5s')
+    // $cover.css('transition', 'all 5s')
+    // $cover.css('opacity', '0')
+    // $cover.css('z-index', '-1')
     s.css('top', 0)
     s.css('left', 0)
+    s.css('transform', `scale(1,1)`)
+    s.css('transform-origin', `0 0`)
     s.css('width', '100vw')
     s.css('height', '100vh')
   })
@@ -195,8 +216,10 @@ function test(e, item) {
     overflow: hidden;
     background: var(--main-bg);
 
-    img {
+    .poster {
       width: 100%;
+      object-fit: cover;
+      //height: 33vh;
     }
 
     .bottom {
