@@ -14,122 +14,95 @@
         <span>分享给朋友</span>
         <dy-back mode="light" img="close" direction="right" @click.stop="closeShare"></dy-back>
       </div>
-      <div class="friends">
-        <div class="friend" v-for="item in friends.all" @click.stop="toggleCall(item)">
+      <div class="friends list">
+        <div class="option" v-for="item in friends.all" @click.stop="toggleCall(item)">
           <img :style="item.select?'opacity: .5;':''" class="avatar" :src="$imgPreview(item.avatar)" alt="">
           <span>{{ item.name }}</span>
           <img v-if="item.select" class="checked" src="../assets/img/icon/components/check/check-red-share.png">
         </div>
-        <div class="more" @click.stop="closeShare($nav('/message/share-to-friend'))">
-          <dy-back mode="light" direction="right"></dy-back>
-          <span>更多</span>
+        <div class="option" @click.stop="closeShare($nav('/message/share-to-friend'))">
+          <dy-back class="more" mode="light" direction="right"></dy-back>
+          <span>更多朋友</span>
         </div>
       </div>
-      <div class="line"></div>
-      <div class="shares">
+      <div class="shares list">
         <template v-if="mode === 'video'">
-          <div class="share-to" @click.stop="$no">
-            <img src="../assets/img/icon/components/video/torichang.png" alt="">
+          <div class="option" @click.stop="$no">
+            <img class="avatar" src="../assets/img/icon/components/video/torichang.png" alt="">
             <span>转发</span>
           </div>
-          <div class="share-to" @click.stop="closeShare($emit('ShareToFriend'))">
-            <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
-            <span>私信朋友</span>
+          <div class="option" @click.stop="closeShare($emit('ShareToFriend'))">
+            <Icon icon="icon-park-solid:good-two"/>
+            <span>推荐给朋友</span>
           </div>
-          <div class="share-to" @click.stop="copyLink">
-            <img src="../assets/img/icon/components/video/towechat.webp" alt="">
+          <div class="option" @click.stop="copyLink">
+            <Icon icon="humbleicons:link"/>
             <span>复制链接</span>
           </div>
-          <div class="share-to" v-if="canDownload" @click.stop="closeShare($emit('download'))">
-            <img src="../assets/img/icon/components/video/towechat.webp" alt="">
+          <div class="option" @click.stop="$no">
+            <img class="small" src="../assets/img/icon/components/video/comeonplay.png" alt="">
+            <span>合拍</span>
+          </div>
+          <div class="option" @click.stop="$no">
+            <img class="small" src="../assets/img/icon/components/video/dou.webp" alt="">
+            <span>帮上热门</span>
+          </div>
+          <div class="option" @click.stop="$nav('/home/report',{mode:this.mode})">
+            <img class="small" src="../assets/img/icon/components/video/warring.png" alt="">
+            <span>举报</span>
+          </div>
+          <div class="option" @click.stop="$nav('/home/report',{mode:this.mode})">
+            <Icon icon="ion:paper-plane"/>
+            <span>私信朋友</span>
+          </div>
+          <div class="option" v-if="canDownload" @click.stop="closeShare($emit('download'))">
+            <Icon icon="mingcute:download-fill"/>
             <span>保存本地</span>
           </div>
-          <div class="share-to" @click.stop="closeShare($emit('showDouyinCode'))">
-            <img src="../assets/img/icon/components/video/towechat.webp" alt="">
+          <div class="option" @click.stop="$no">
+            <!--TODO icon不对            -->
+            <img class="small" src="../assets/img/icon/components/video/feedback.webp" alt="">
+            <span>建群分享</span>
+          </div>
+          <div class="option" @click.stop="$no">
+            <img class="small" src="../assets/img/icon/components/video/comeonlook.webp" alt="">
+            <span>一起看视频</span>
+          </div>
+          <div class="option" @click.stop="closeShare($emit('dislike'))">
+            <img class="small" src="../assets/img/icon/components/video/dislike.png" alt="">
+            <span>不感兴趣</span>
+          </div>
+          <div class="option" @click.stop="closeShare($emit('showDouyinCode'))">
+            <img class="small" src="../assets/img/icon/components/video/dislike.png" alt="">
             <span>生成图片</span>
           </div>
-          <!--          <div class="share-to" @click.stop="closeShare($emit('showShare2WeChatZone'))">-->
-          <!--            <img src="../assets/img/icon/components/video/towechat.webp" alt="">-->
-          <!--            <span>朋友圈</span>-->
-          <!--          </div>-->
-          <!--          <div class="share-to" @click.stop="closeShare($emit('share2WeChat'))">-->
-          <!--            <img src="../assets/img/icon/components/video/towechatchat.webp" alt="">-->
-          <!--            <span>微信好友</span>-->
-          <!--          </div>-->
-          <!--          <div class="share-to" @click.stop="closeShare($emit('share2QQZone'))">-->
-          <!--            <img src="../assets/img/icon/components/video/tozone.webp" alt="">-->
-          <!--            <span>QQ空间</span>-->
-          <!--          </div>-->
-          <!--          <div class="share-to" @click.stop="closeShare($emit('share2QQ'))">-->
-          <!--            <img src="../assets/img/icon/components/video/toqq.webp" alt="">-->
-          <!--            <span>QQ好友</span>-->
-          <!--          </div>-->
-          <!--          <div class="share-to" @click.stop="$no">-->
-          <!--            <img src="../assets/img/icon/components/video/totoutiao.webp" alt="">-->
-          <!--            <span>今日头条</span>-->
-          <!--          </div>-->
-          <!--          <div class="share-to" @click.stop="closeShare($emit('share2Webo'))">-->
-          <!--            <img src="../assets/img/icon/components/video/toweibo.webp" alt="">-->
-          <!--            <span>微博</span>-->
-          <!--          </div>-->
+          <div class="option" @click.stop="$no">
+            <img class="small" src="../assets/img/icon/components/video/bizhi.webp" alt="">
+            <span>动态壁纸</span>
+          </div>
+          <div class="option" @click.stop="closeShare($emit('play-feedback'))">
+            <img class="small" src="../assets/img/icon/components/video/feedback.webp" alt="">
+            <span>播放反馈</span>
+          </div>
         </template>
         <template v-if="mode === 'music'">
-          <div class="share-to" @click.stop="closeShare($emit('ShareToFriend'))">
-            <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
+          <div class="option" @click.stop="closeShare($emit('ShareToFriend'))">
+            <img class="small" src="../assets/img/icon/components/video/tofriend.webp" alt="">
             <span>私信朋友</span>
           </div>
-        </template>
-        <template v-if="mode === 'my-music'">
-          <div class="share-to" @click.stop="$no">
-            <img src="../assets/img/icon/components/video/torichang.png" alt="">
-            <span>转发到日常</span>
-          </div>
-          <div class="share-to" @click.stop="closeShare($emit('ShareToFriend'))">
-            <img src="../assets/img/icon/components/video/tofriend.webp" alt="">
-            <span>私信朋友</span>
-          </div>
-        </template>
-      </div>
-      <div class="toolbar ">
-        <template v-if="mode === 'music'">
-          <div class="tool" @click.stop="$nav('/home/report',{mode:this.mode})">
-            <img src="../assets/img/icon/components/video/warring.png" alt="">
+          <div class="option" @click.stop="$nav('/home/report',{mode:this.mode})">
+            <img class="small" src="../assets/img/icon/components/video/warring.png" alt="">
             <span>举报音乐</span>
           </div>
         </template>
-        <template v-if="mode === 'video'">
-          <div class="tool" @click.stop="$no">
-            <!--TODO icon不对            -->
-            <img src="../assets/img/icon/components/video/feedback.webp" alt="">
-            <span>建群分享</span>
+        <template v-if="mode === 'my-music'">
+          <div class="option" @click.stop="$no">
+            <img class="small" src="../assets/img/icon/components/video/torichang.png" alt="">
+            <span>转发到日常</span>
           </div>
-          <div class="tool" @click.stop="$no">
-            <img src="../assets/img/icon/components/video/comeonlook.webp" alt="">
-            <span>一起视频</span>
-          </div>
-          <div class="tool" @click.stop="$nav('/home/report',{mode:this.mode})">
-            <img src="../assets/img/icon/components/video/warring.png" alt="">
-            <span>举报</span>
-          </div>
-          <div class="tool" @click.stop="$no">
-            <img src="../assets/img/icon/components/video/comeonplay.png" alt="">
-            <span>合拍</span>
-          </div>
-          <div class="tool" @click.stop="$no">
-            <img src="../assets/img/icon/components/video/bizhi.webp" alt="">
-            <span>动态壁纸</span>
-          </div>
-          <div class="tool" @click.stop="$no">
-            <img src="../assets/img/icon/components/video/dou.webp" alt="">
-            <span>帮上热门</span>
-          </div>
-          <div class="tool" @click.stop="closeShare($emit('dislike'))">
-            <img src="../assets/img/icon/components/video/dislike.png" alt="">
-            <span>不感兴趣</span>
-          </div>
-          <div class="tool" @click.stop="closeShare($emit('play-feedback'))">
-            <img src="../assets/img/icon/components/video/feedback.webp" alt="">
-            <span>播放反馈</span>
+          <div class="option" @click.stop="closeShare($emit('ShareToFriend'))">
+            <img class="small" src="../assets/img/icon/components/video/tofriend.webp" alt="">
+            <span>私信朋友</span>
           </div>
         </template>
       </div>
@@ -139,18 +112,15 @@
           <textarea placeholder="有什么想和好友说的..."></textarea>
           <img class="poster" src="../assets/img/poster/1.jpg" alt="">
         </div>
-        <div class="wrapper">
-          <div class="create-chat" v-if="selectFriends.length>1">
-            <Check mode="red" v-model="isCreateChat"/>
-            <span>创建群聊</span>
-          </div>
-          <div class="btns">
-            <dy-button type="dark2" radius="7" @click.stop="$no">一起看视频</dy-button>
-            <dy-button type="primary" radius="7" @click.stop="$no">{{
-                selectFriends.length > 1 ? '分别发送' : '私信发送'
-              }}
-            </dy-button>
-          </div>
+        <div class="btns">
+          <dy-button type="dark2" radius="7"
+                     v-if="selectFriends.length > 1"
+                     @click.stop="$no">建群并发送
+          </dy-button>
+          <dy-button type="primary" radius="7" @click.stop="$no">{{
+              selectFriends.length > 1 ? '分别发送' : '发送'
+            }}
+          </dy-button>
         </div>
       </div>
     </div>
@@ -163,6 +133,7 @@ import Check from "./Check";
 import FromBottomDialog from "./dialog/FromBottomDialog";
 import DouyinCode from "./DouyinCode";
 import {useBaseStore} from "@/store/pinia";
+import {$no} from "@/utils";
 
 export default {
   name: "Share",
@@ -200,10 +171,10 @@ export default {
   },
   data() {
     return {
-      isCreateChat: false,
     }
   },
   methods: {
+    $no,
     async copyLink() {
       this.closeShare()
       this.$showLoading()
@@ -237,13 +208,13 @@ export default {
   color: white;
   box-sizing: border-box;
 
-  @space-width: 18rem;
-  @avatar-width: 48rem;
-  @icon-width: 28rem;
+  @space-width: 26rem;
+  @avatar-width: 58rem;
+  @icon-width: 30rem;
 
   .title {
     font-size: 14rem;
-    padding: 20rem;
+    padding: 10rem 20rem 30rem 20rem;
     position: relative;
     display: flex;
     align-items: center;
@@ -259,127 +230,70 @@ export default {
     }
   }
 
-  .friends {
+  .list {
     overflow-x: scroll;
     display: flex;
-    padding-right: @space-width * 2;
+    padding: 0 20rem;
+    gap: 22rem;
+    padding-bottom: 50rem;
+  }
 
-    .friend {
+  @c: rgb(51, 51, 51);
+
+  .option {
+    width: @avatar-width;
+    position: relative;
+    font-size: 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .avatar {
       width: @avatar-width;
-      position: relative;
-      margin-left: @space-width;
-      margin-bottom: @space-width;
-      font-size: 10rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      .avatar {
-        width: @avatar-width;
-        height: @avatar-width;
-        border-radius: 50%;
-      }
-
-      span {
-        margin-top: 5rem;
-        text-align: center;
-        width: @avatar-width;
-        //white-space: nowrap;
-        //overflow: hidden;
-        //text-overflow: ellipsis;
-      }
-
-      .checked {
-        position: absolute;
-        top: @avatar-width - 1.5;
-        right: -2px;
-        width: 20rem;
-        height: 20rem;
-        border-radius: 50%;
-      }
+      height: @avatar-width;
+      border-radius: 50%;
     }
 
-    .more {
-      margin-left: @space-width;
-      margin-bottom: @space-width;
-
-      img {
-        width: 20rem;
-        padding: 13rem;
-        border-radius: 50%;
-        margin-bottom: 3rem;
-        background: var(--second-btn-color-tran);
-        //background: rgb(56, 58, 57);
-      }
+    .checked {
+      position: absolute;
+      top: @avatar-width - 1.5;
+      right: -2px;
+      width: 20rem;
+      height: 20rem;
+      border-radius: 50%;
     }
 
     span {
-      font-size: 12rem;
-      display: block;
+      margin-top: 8rem;
       text-align: center;
-      word-break: break-all;
+      width: @avatar-width;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-  }
 
-  .line {
-    height: 1px;
-    background: #1c1c1c;
-    margin-left: 20rem;
-    width: calc(100% - 40rem);
-    margin-bottom: 10rem;
-  }
-
-  .shares {
-    overflow-x: scroll;
-    display: flex;
-    padding-right: @space-width * 2;
-
-    .share-to {
-      margin-left: @space-width;
-      margin-bottom: @space-width;
-
-
-      img {
-        width: @avatar-width;
-        height: @avatar-width;
-        border-radius: 50%;
-      }
-
-      span {
-        color: var(--second-text-color);
-        font-size: 10rem;
-        display: block;
-        text-align: center;
-      }
+    .more {
+      width: 20rem;
+      padding: 19rem;
+      border-radius: 50%;
+      background: @c;
+      //background: rgb(56, 58, 57);
     }
-  }
 
-  .toolbar {
-    overflow-x: scroll;
-    display: flex;
-    padding-right: @space-width * 2;
+    svg {
+      .more;
+      width: unset;
+      padding: 16rem;
+      font-size: 26rem;
+      color: rgb(205, 205, 205);
+    }
 
-
-    .tool {
-      float: left;
-      margin-left: @space-width;
-      margin-bottom: @space-width;
-
-      img {
-        width: @icon-width;
-        height: @icon-width;
-        padding: 10rem;
-        border-radius: 50%;
-        //background: var(--second-btn-color);
-        background: rgb(56, 58, 57);
-      }
-
-      span {
-        color: var(--second-text-color);
-        font-size: 10rem;
-        display: block;
-        text-align: center;
-      }
+    .small {
+      width: @icon-width;
+      height: @icon-width;
+      padding: 14rem;
+      border-radius: 50%;
+      background: @c;
     }
   }
 
@@ -414,27 +328,16 @@ export default {
       }
     }
 
-    .create-chat {
-      font-size: 11rem;
-      margin: 10rem 0;
+    .btns {
       display: flex;
+      gap: 10rem;
       align-items: center;
-      color: var(--second-text-color);
+      justify-content: space-between;
 
-      .check {
-        margin-right: 10rem;
-        width: 16rem;
-        height: 16rem;
-        //transform: scale(1.2);
+      .button {
+        flex: 1;
       }
     }
-
-    .btns {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10rem;
-    }
-
   }
 }
 

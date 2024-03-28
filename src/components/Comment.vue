@@ -12,8 +12,11 @@
     <template v-slot:header>
       <div class="title">
         <dy-back mode="dark" img="close" direction="right" style="opacity: 0;"/>
-        <span>2.7w条评论</span>
-        <dy-back mode="dark" img="close" direction="right" @click.stop="cancel"/>
+        <div class="num">2.7w条评论</div>
+        <div class="right">
+          <Icon icon="prime:arrow-up-right-and-arrow-down-left-from-center"/>
+          <Icon icon="ic:round-close" @click.stop="cancel"/>
+        </div>
       </div>
     </template>
     <div class="comment">
@@ -40,7 +43,6 @@
                       </div>
                       <div class="love" @click="$no(item)">
                         <Icon icon="icon-park-outline:dislike" class="love-image"/>
-                        <span>{{ formatNumber(item.loveNum) }}</span>
                       </div>
                     </div>
                   </div>
@@ -347,14 +349,24 @@ export default {
   justify-content: space-between;
   border-radius: 10rem 10rem 0 0;
 
-  span {
+  .num {
+    width: 100%;
+    position: absolute;
     font-size: 12rem;
+    font-weight: bold;
     text-align: center;
   }
 
-  img {
-    width: 13rem;
-    height: 13rem;
+  .right {
+    display: flex;
+    gap: 12rem;
+
+    svg {
+      background: rgb(242, 242, 242);
+      padding: 4rem;
+      font-size: 16rem;
+      border-radius: 50%;
+    }
   }
 }
 

@@ -147,11 +147,6 @@
            @play-feedback="state.showPlayFeedback = true"
            @shareToFriend="delayShowDialog(e => state.shareToFriend = true)"
            @showDouyinCode="state.showDouyinCode = true"
-           @showShare2WeChatZone="state.shareType = 2"
-           @share2WeChat="state.shareType = 3"
-           @share2QQZone="state.shareType = 4"
-           @share2QQ="state.shareType = 5"
-           @share2Webo="state.shareType = 8"
            @download="state.shareType = 9"
     />
 
@@ -223,7 +218,7 @@ const baseStore = useBaseStore()
 
 const state = reactive({
   baseIndex: 1,
-  navIndex: 3,
+  navIndex: 4,
   test: '',
   recommendList: [],
   isSharing: false,
