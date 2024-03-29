@@ -1,83 +1,64 @@
-### English | [简体中文](README.md)
+<h1 align="center">
+  Douyin
+</h1>
 
-## Preview Demo
-[Online Demo](http://dy.ttentau.top/)
+<p align="center">
+<a href="README.md">简体中文</a> | 
+<a href="README-en-US.md">English</a> 
+</p>
 
-### Note: Please use mobile mode of Chrome browser to access the PC side. To switch Chrome to mobile mode, press F12 to bring up the console, then Ctrl+Shift+M
-### Note: For Android phones please use [Via mobile browser](https://viayoo.com/zh-cn/) or Chrome mobile version preview. When other browsers detect a video on the page, they force the video to be in full screen and display the control button. As a result, both css and js are invalid
-<div style="text-align:center">
-<img width="180px"    src='http://www.ttentau.top/dy/imgs/0.png' />
-<img width="180px"   src='http://www.ttentau.top/dy/imgs/1.png' />
-<img width="180px"   src='http://www.ttentau.top/dy/imgs/6.png' />
-<img width="180px"    src='http://www.ttentau.top/dy/imgs/3.png' />
-<img width="180px"    src='http://www.ttentau.top/dy/imgs/2.png' />
-<img width="180px"   src='http://www.ttentau.top/dy/imgs/8.png' />
-<img width="180px"    src='http://www.ttentau.top/dy/imgs/9.png' />
-<img width="180px"    src='http://www.ttentau.top/dy/imgs/11.png' />
+
+<p align="center">
+ <b>douyin</b>是一个模仿抖音的移动端短视频项目，它基于 <a href="https://v3.cn.vuejs.org">Vue</a>,
+<a href="https://cn.vitejs.dev/">Vite</a>实现。使用了最新的Vue全家桶技术栈，后台数据通过
+<a href="http://mockjs.com">mock-js</a>搭建
+</p>
+
+## 📸 在线访问
+
+Vercel: <http://dy.ttentau.top> (国内推荐访问这个)
+
+Netlify: <https://douyins.netlify.app> (需要翻墙)
+
+**注意**：PC浏览器请用手机模式访问。先按F12调出控制台，再按Ctrl+Shift+M切换到手机模式
+
+**注意**：手机请用[Via浏览器](https://viayoo.com/zh-cn/)或者Chrome浏览器预览。其他浏览器会强制将视频全屏，导致样式都失效
+
+## 🖼️ 效果截图
+
+<div>
+<img width="150px"    src='./public/docs/1.gif' />
+<img width="150px"    src='./public/docs/2.gif' />
+<img width="150px"    src='./public/docs/3.gif' />
+<img width="150px"    src='./public/docs/4.gif' />
+<img width="150px"    src='./public/docs/5.gif' />
+<img width="150px"    src='./public/docs/img-1.jpg' />
+<img width="150px"    src='./public/docs/img-2.jpg' />
+<img width="150px"    src='./public/docs/img-3.jpg' />
+<img width="150px"    src='./public/docs/img-4.jpg' />
+<img width="150px"    src='./public/docs/img-5.jpg' />
 </div>
 
-## Introduction
+## 运行项目
 
-**Douyin** is a mobile short video project imitating Tiktok，It is based on [vue 3](https://v3.cn.vuejs.org/),
-[vite 2](https://cn.vitejs.dev/)
-implementation。
-The latest Vue family bucket technology stack is used, and the background data is built through [mock-js](http://mockjs.com). 
+本项目是基于`Vue`开发的，需要 node 环境来运行。
 
-## Function point
+1. 安装 NodeJS，参考[官方文档](https://nodejs.org/en/download)
+2. 使用 `git clone https://github.com/zyronon/douyin.git` 下载项目到本地
+3. 进入项目目录` cd douyin `，在项目根目录下，运行`npm install`来下载依赖。
+4. 执行`npm run dev`来启动项目，项目默认地址为[`http://localhost:3000`](http://localhost:3000)
+5. 在浏览器中打开[`http://localhost:3000`](http://localhost:3000) 来访问项目。
+   Chrome切换成手机模式快捷键，先按F12调出控制台，再按Ctrl+Shift+M
 
- Page           | Progress      
---------------|---------
- Home           | 50%     
- -- Music        | &#9745; 
- -- 抖音音乐榜     | &#9745; 
- -- Search        | 50%     
- -- Live     | 50%     
- Friend           | 0%      
- Message           | &#9745; 
- -- Chat        | &#9745; 
- -- 各种通知      | &#9745; 
- Me            | 90%     
- -- 求更新       | &#9745; 
- -- 关注和粉丝     | &#9745; 
- -- 编辑资料      | &#9745; 
- -- Add friend      | &#9745; 
- -- My music      | &#9745; 
- -- Shop      | 0       
- -- 收藏视频\音乐   | &#9745; 
- -- 右侧菜单子页面   | 10%     
- -- Setting        | &#9745; 
- -- -- 具体设置页面 | 0%      
- Sign in\Sign up        | &#9745; 
+## 🎙 功能与建议
 
-## How to start
+目前项目处于开发初期，新功能正在持续添加中，如果你对软件有任何功能与建议，欢迎在 Issues 中提出
+如果你也喜欢本软件的设计思想，欢迎提交 pr，非常感谢你对我们的支持！
 
-```bash
-# Clone the project to local
-git clone https://github.com/zyronon/douyin.git
+## 联系我
 
-# Enter the project directory
-cd douyin
+您可以联系我的邮箱 <a href="mailto:zyronon@163.com">zyronon@163.com</a>
 
-# Install dependencies
-npm install
-
-# Start the service
-npm run dev
-
-# Visit
-Chrome browser access http://localhost:5173
-Chrome switches to mobile mode by pressing F12 to bring up the console, then Ctrl+Shift+M
-
-```
-
-## Contribution
-
-Feel free to contribute by opening issues with any questions, bug reports or feature requests.
-
-## Get in touch
-
-You can reach us at <a href="mailto:zyronon@163.com">zyronon@163.com</a>
-
-## License
+## MIT许可协议
 
 [MIT](LICENSE) 

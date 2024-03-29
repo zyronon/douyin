@@ -1,83 +1,60 @@
-### 简体中文 | [English](README-en-US.md)
+<h1 align="center">
+  Douyin
+</h1>
 
-## 预览
+<p align="center">
+<a href="README.md">简体中文</a> | 
+<a href="README-en-US.md">English</a> 
+</p>
 
-[在线预览DEMO](http://dy.ttentau.top/)
 
-#### 注意：电脑端请用Chrome浏览器的手机模式访问。Chrome切换成手机模式快捷键，先按F12调出控制台，再按Ctrl+Shift+M
+<p align="center">
+ <b>douyin</b>是一个模仿抖音的移动端短视频项目，它基于 <a href="https://v3.cn.vuejs.org">Vue</a>,
+<a href="https://cn.vitejs.dev/">Vite</a>实现。使用了最新的Vue全家桶技术栈，后台数据通过
+<a href="http://mockjs.com">mock-js</a>搭建
+</p>
 
-#### 注意：安卓手机请用[Via手机浏览器](https://viayoo.com/zh-cn/)或者Chrome浏览器手机版本预览。其他浏览器检测到页面内有视频会强制将视频全屏，并显示控制按钮，导致css和js都失效
+## 📸 在线访问
 
-<div style="text-align:center">
-<img width="180px"    src='http://www.ttentau.top/dy/imgs/0.png' />
-<img width="180px"   src='http://www.ttentau.top/dy/imgs/1.png' />
-<img width="180px"   src='http://www.ttentau.top/dy/imgs/6.png' />
-<img width="180px"    src='http://www.ttentau.top/dy/imgs/3.png' />
-<img width="180px"    src='http://www.ttentau.top/dy/imgs/2.png' />
-<img width="180px"   src='http://www.ttentau.top/dy/imgs/8.png' />
-<img width="180px"    src='http://www.ttentau.top/dy/imgs/9.png' />
-<img width="180px"    src='http://www.ttentau.top/dy/imgs/11.png' />
+Vercel: <http://dy.ttentau.top> (国内推荐访问这个)
+
+Netlify: <https://douyins.netlify.app> (需要翻墙)
+
+**注意**：PC浏览器请用手机模式访问。先按F12调出控制台，再按Ctrl+Shift+M切换到手机模式
+
+**注意**：手机请用[Via浏览器](https://viayoo.com/zh-cn/)或者Chrome浏览器预览。其他浏览器会强制将视频全屏，导致样式都失效
+
+## 🖼️ 效果截图
+
+<div>
+<img width="150px"    src='./public/docs/1.gif' />
+<img width="150px"    src='./public/docs/2.gif' />
+<img width="150px"    src='./public/docs/3.gif' />
+<img width="150px"    src='./public/docs/4.gif' />
+<img width="150px"    src='./public/docs/5.gif' />
+<img width="150px"    src='./public/docs/img-1.jpg' />
+<img width="150px"    src='./public/docs/img-2.jpg' />
+<img width="150px"    src='./public/docs/img-3.jpg' />
+<img width="150px"    src='./public/docs/img-4.jpg' />
+<img width="150px"    src='./public/docs/img-5.jpg' />
 </div>
 
-## 简介
+## 运行项目
 
-**douyin** 是一个模仿抖音的移动端短视频项目，它基于 [Vue 3](https://v3.cn.vuejs.org/),
-[Vite](https://cn.vitejs.dev/)
-实现。使用了最新的Vue全家桶技术栈，后台数据通过[mock-js](http://mockjs.com)搭建
+本项目是基于`Vue`开发的，需要 node 环境来运行。
 
-## 效果截图
+1. 安装 NodeJS，参考[官方文档](https://nodejs.org/en/download)
+2. 使用 `git clone https://github.com/zyronon/douyin.git` 下载项目到本地
+3. 进入项目目录` cd douyin `，在项目根目录下，运行`npm install`来下载依赖。
+4. 执行`npm run dev`来启动项目，项目默认地址为[`http://localhost:3000`](http://localhost:3000)
+5. 在浏览器中打开[`http://localhost:3000`](http://localhost:3000) 来访问项目。
+   Chrome切换成手机模式快捷键，先按F12调出控制台，再按Ctrl+Shift+M
 
-## 功能点
+## 🎙 功能与建议
 
- 页面           | 进度      
---------------|---------
- 首页           | 50%     
- -- 音乐        | &#9745; 
- -- 抖音音乐榜     | &#9745; 
- -- 搜索        | 50%     
- -- 直播        | 50%     
- 朋友           | 0%      
- 消息           | &#9745; 
- -- 聊天        | &#9745; 
- -- 各种通知      | &#9745; 
- 我            | 90%     
- -- 求更新       | &#9745; 
- -- 关注和粉丝     | &#9745; 
- -- 编辑资料      | &#9745; 
- -- 添加朋友      | &#9745; 
- -- 我的音乐      | &#9745; 
- -- 抖音商城      | 0       
- -- 收藏视频\音乐   | &#9745; 
- -- 右侧菜单子页面   | 10%     
- -- 设置        | &#9745; 
- -- -- 具体设置页面 | 0%      
- 登录\注册        | &#9745; 
-
-## 运行
-
-```bash
-# 克隆项目到本地
-git clone https://github.com/zyronon/douyin.git
-
-# 进入项目目录
-cd douyin
-
-# 安装依赖
-npm install
-
-# 启动服务
-npm run dev
-
-# 访问
-Chrome浏览器访问 http://localhost:5173
-Chrome切换成手机模式快捷键，先按F12调出控制台，再按Ctrl+Shift+M
-
-```
-
-## 问题反馈
-
-如果有任何问题、错误报告或功能请求，请随时提出Issues。
-
+目前项目处于开发初期，新功能正在持续添加中，如果你对软件有任何功能与建议，欢迎在 Issues 中提出
+如果你也喜欢本软件的设计思想，欢迎提交 pr，非常感谢你对我们的支持！
+ 
 ## 联系我
 
 您可以联系我的邮箱 <a href="mailto:zyronon@163.com">zyronon@163.com</a>
