@@ -9,9 +9,6 @@ import dayjs from 'dayjs'
 import bus, {EVENT_KEY} from "./bus";
 
 const Utils = {
-  require2(url) {
-    return new URL(url, import.meta.url).href
-  },
   $showLoading() {
     const app = Vue.createApp({
       render() {
@@ -218,9 +215,6 @@ const Utils = {
   $clone(v) {
     return JSON.parse(JSON.stringify(v))
   },
-  $console(v) {
-    return console.log(JSON.stringify(v, null, 4))
-  },
   $sleep(duration) {
     return new Promise((resolve, reject) => {
       setTimeout(resolve, duration)
@@ -266,16 +260,6 @@ const Utils = {
     }
     return Config.filePreview + url
   },
-  $getTransform(el) {
-    let transform = el.style.transform
-    if (!transform) return 0
-    // console.log('transform',transform)
-    let transformY = transform.substring(transform.indexOf('0px') + 5, transform.lastIndexOf('0px') - 4)
-    // console.log('transformY',transformY)
-    //当前的transformY
-    transformY = parseInt(transformY)
-    return transformY
-  },
   $storageSet(key, value) {
     localStorage.setItem(key, JSON.stringify(value))
   },
@@ -293,7 +277,6 @@ const Utils = {
       localStorage.removeItem(key)
     }
   },
-
   $dateFormat(val, type) {
     if (!val) return
     if (typeof val === 'number') {
@@ -381,21 +364,6 @@ const Utils = {
       return (num / 10000).toFixed(1) + '万'
     } else {
       return num
-    }
-  },
-  filterAge(age) {
-    if (!age) return
-    let date = new Date(age)
-    return new Date().getFullYear() - date.getFullYear()
-  },
-  randomNum(minNum, maxNum) {
-    switch (arguments.length) {
-      case 1:
-        return parseInt(Math.random() * minNum + 1, 10);
-      case 2:
-        return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
-      default:
-        return 0;
     }
   },
   getCenter(a, b) {
@@ -501,3 +469,5 @@ export function sampleSize(arr, num) {
   }
   return list
 }
+
+

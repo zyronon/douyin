@@ -1,10 +1,11 @@
 <script setup>
 
-import {reactive, watch} from "vue";
+import {onMounted, reactive, ref, watch} from "vue";
 import {_checkImgUrl, _duration, _formatNumber} from "@/utils";
 import {recommendedVideo} from "@/api/videos";
 import {useBaseStore} from "@/store/pinia";
 import ScrollList from "@/components/ScrollList.vue";
+import {useNav} from "@/utils/hooks/useNav";
 
 const baseStore = useBaseStore()
 
@@ -18,18 +19,66 @@ const p = {
   }
 }
 
+const playingEl = ref()
 const state = reactive({
-  show:false
+  show: false,
+  muted: true,
+  danmu: false
 })
 
 watch(() => props.active, n => {
-  if (n && !state.show) {
-    state.show = true
+  if (n) {
+    if (state.show) {
+      let el = playingEl.value
+      if (el) {
+        el.parentNode.parentNode.classList.remove('pause')
+        el.play()
+      }
+    } else {
+      state.show = true
+    }
+  } else {
+    let el = playingEl.value
+    if (el) {
+      el.parentNode.parentNode.classList.add('pause')
+      el.pause()
+    }
   }
 }, {immediate: true})
 
-</script>
+const obList = []
 
+const vIsCanPlay = {
+  mounted(el, binding, vnode, prevVnode) {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        let videoEls = document.querySelectorAll('.long-video video')
+        videoEls.forEach((item) => {
+          item.pause()
+          if (item.parentNode?.parentNode) {
+            item.parentNode.parentNode.classList.add('pause')
+          }
+        })
+        el.parentNode.parentNode.classList.remove('pause')
+        el.play()
+        playingEl.value = el
+      } else {
+        el.parentNode.parentNode.classList.add('pause')
+        el.pause()
+      }
+    }, {threshold: .5});
+    observer.observe(el)
+    obList.push(observer)
+  },
+  unmounted(el, binding, vnode, prevVnode) {
+    obList.map(v => {
+      v.disconnect()
+    })
+  }
+}
+
+const nav = useNav()
+</script>
 
 <template>
   <div class="long-video">
@@ -38,20 +87,50 @@ watch(() => props.active, n => {
                 :api="recommendedVideo"
     >
       <template v-slot="{list}">
-        <div class="page">
+        <div class="list">
           <div class="item"
+               @click="nav( '/video-detail',{},{list, index:i})"
                :class="[
-             i % 5 === 0 && 'big',
-              i % 5 === 0 ? '' : (i % 2 === 1 && 'l'),
-              i % 5 === 0 ? '' : (i % 2 === 0 && 'r'),
+             i % 9 === 0 && 'big',
+              i % 9 === 0 ? '' : (i % 2 === 1 && 'l'),
+              i % 9 === 0 ? '' : (i % 2 === 0 && 'r'),
          ]"
+
                v-for="(item,i) in list">
-            <video
-                controls
-                :poster="_checkImgUrl(item.video.cover.url_list[0])"
-                :src="item.video.play_addr.url_list[0]"
-            ></video>
-            <img v-lazy="_checkImgUrl(item.video.cover.url_list[0])" alt="" class="poster">
+            <div class="video-wrapper" v-if="i % 9 === 0">
+              <video
+                  muted
+                  preload
+                  loop
+                  x5-video-player-type="h5-page"
+                  :x5-video-player-fullscreen='false'
+                  :webkit-playsinline="true"
+                  :x5-playsinline="true"
+                  :playsinline="true"
+                  :fullscreen="false"
+                  v-is-can-play
+                  :poster="_checkImgUrl(item.video.cover.url_list[0])"
+                  :src="item.video.play_addr.url_list[0]"
+              ></video>
+              <div class="options">
+                <div class="left">
+                </div>
+                <div class="right">
+                  <div class="option" @click.stop="state.danmu = !state.danmu">
+                    <img v-if="state.danmu" src="@/assets/img/icon/danmu-open.svg"/>
+                    <img v-else src="@/assets/img/icon/danmu-close.svg"/>
+                  </div>
+                  <div class="option" @click.stop="state.muted = !state.muted">
+                    <Icon v-if="state.muted" icon="charm:sound-mute"/>
+                    <Icon v-else icon="akar-icons:sound-on"/>
+                  </div>
+                  <div class="option">
+                    <img src="@/assets/img/icon/rotate.svg"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <img v-else v-lazy="_checkImgUrl(item.video.cover.url_list[0])" alt="" class="poster">
             <div class="duration">{{ _duration(item.duration / 1000) }}</div>
             <div class="title">
               {{ item.desc }}
@@ -74,7 +153,6 @@ watch(() => props.active, n => {
 </template>
 
 <style scoped lang="less">
-
 .long-video {
   font-size: 14rem;
   color: white;
@@ -86,7 +164,7 @@ watch(() => props.active, n => {
   }
 }
 
-.page {
+.list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   row-gap: 15rem;
@@ -106,10 +184,41 @@ watch(() => props.active, n => {
       object-fit: cover;
     }
 
-    video {
-      display: none;
+    .video-wrapper {
       height: 220rem;
-      object-fit: cover;
+      position: relative;
+
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .options {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 12rem;
+        display: flex;
+        position: absolute;
+        bottom: 8rem;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+
+        .right {
+          display: flex;
+          align-items: center;
+          gap: 10rem;
+        }
+
+        img {
+          width: 20rem;
+        }
+
+        svg {
+          font-size: 20rem;
+        }
+      }
     }
 
     .title {
@@ -180,16 +289,19 @@ watch(() => props.active, n => {
       grid-column-end: 3;
       margin: 0;
 
+      &.pause {
+        .duration {
+          display: block;
+        }
+
+        .options {
+          display: none;
+        }
+      }
+
       .duration {
         display: none;
-      }
-
-      .poster {
-        display: none;
-      }
-
-      video {
-        display: block;
+        bottom: 67rem;
       }
 
       .title {
