@@ -9,22 +9,24 @@
 
 
 <p align="center">
- <b>douyin</b>是一个模仿抖音的移动端短视频项目，它基于 <a href="https://v3.cn.vuejs.org">Vue</a>,
-<a href="https://cn.vitejs.dev/">Vite</a>实现。使用了最新的Vue全家桶技术栈，后台数据通过
-<a href="http://mockjs.com">mock-js</a>搭建
+ <b>douyin</b>It is a mobile short video project imitating Douyin.，
+It is based on <a href="https://v3.cn.vuejs.org">Vue</a>, <a href="https://cn.vitejs.dev/">Vite</a> implementation. 
+The latest Vue family bucket technology stack is used, and the background data is built by <a href="https://github.com/ctimmerm/axios-mock-adapter">axios-mock-adapter</a>.
 </p>
 
 ## 📸 在线访问
 
-Vercel: <http://dy.ttentau.top> (国内推荐访问这个)
+Netlify: <https://douyins.netlify.app> (If you are in China, you need Vpn)
 
-Netlify: <https://douyins.netlify.app> (需要翻墙)
+Vercel: <http://dy.ttentau.top> (This is recommended in China.)
 
-**注意**：PC浏览器请用手机模式访问。先按F12调出控制台，再按Ctrl+Shift+M切换到手机模式
+**Note**: PC browsers should be accessed in mobile mode.
+    Press F12 to bring up the console, and then press Ctrl+Shift+M to switch to mobile mode.
 
-**注意**：手机请用[Via浏览器](https://viayoo.com/zh-cn/)或者Chrome浏览器预览。其他浏览器会强制将视频全屏，导致样式都失效
+**Note**: for mobile phones, please use [Via browser] (https://viayoo.com/zh-cn/) or Chrome browser preview).
+    Other browsers will force the video to be full-screen, invalidating the style.
 
-## 🖼️ 效果截图
+## 🖼️ Effect screenshot
 
 <div>
 <img width="150px"    src='./public/docs/1.gif' />
@@ -39,26 +41,26 @@ Netlify: <https://douyins.netlify.app> (需要翻墙)
 <img width="150px"    src='./public/docs/img-5.jpg' />
 </div>
 
-## 运行项目
+## Run the project
 
-本项目是基于`Vue`开发的，需要 node 环境来运行。
+This project is based on `Vue` and needs node environment to run.
 
-1. 安装 NodeJS，参考[官方文档](https://nodejs.org/en/download)
-2. 使用 `git clone https://github.com/zyronon/douyin.git` 下载项目到本地
-3. 进入项目目录` cd douyin `，在项目根目录下，运行`npm install`来下载依赖。
-4. 执行`npm run dev`来启动项目，项目默认地址为[`http://localhost:3000`](http://localhost:3000)
-5. 在浏览器中打开[`http://localhost:3000`](http://localhost:3000) 来访问项目。
-   Chrome切换成手机模式快捷键，先按F12调出控制台，再按Ctrl+Shift+M
+1. To install NodeJS, refer to [official documentation] (https://nodejs.org/en/download))
+2. Use `git clone https://github.com/zyronon/douyin.git` to download the project locally.
+3. Enter the project directory `npm install` and run `project install` under the project root directory to download the dependency.
+4. Execute `project dev` to start the project. The default address of the project is [`http://localhost:3000`](http://localhost:3000)].
+5. Open [`http://localhost:3000`](http://localhost:3000)] in the browser to access the project.
+Chrome switch to mobile phone mode shortcut key, press F12 to bring up the console, and then press Ctrl+Shift+M
 
-## 🎙 功能与建议
+## 🎙 Functions and suggestions
 
-目前项目处于开发初期，新功能正在持续添加中，如果你对软件有任何功能与建议，欢迎在 Issues 中提出
-如果你也喜欢本软件的设计思想，欢迎提交 pr，非常感谢你对我们的支持！
+At present, the project is in the early stage of development, and new features are being added continuously. If you have any functions and suggestions for the software, you are welcome to put forward them in Issues.
+If you also like the design idea of this software, welcome to submit pr, thank you very much for your support!
 
-## 联系我
+## Contact me
 
-您可以联系我的邮箱 <a href="mailto:zyronon@163.com">zyronon@163.com</a>
+You can contact my email address < a href= "mailto:zyronon@163.com" > zyronon@163.com < / a >
 
-## MIT许可协议
+## MIT license Agreement
 
 [MIT](LICENSE) 
