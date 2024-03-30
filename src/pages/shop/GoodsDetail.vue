@@ -342,7 +342,7 @@ function scroll() {
 
 const state = reactive({
   detail: goods.list[1],
-  index: 2,
+  index: 0,
   list: goods.list,
   listEl: null,
   fixed: false

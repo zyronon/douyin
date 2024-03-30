@@ -1,7 +1,6 @@
 import Home from "../pages/home";
 import Test from "../pages/test/Test";
 import Test4 from "../pages/test/Test4";
-import GoodsDetail from "@/pages/shop/GoodsDetail.vue";
 
 const routes = [
   // {path: '/', redirect: '/attention'},
@@ -93,7 +92,7 @@ const routes = [
   {path: '/message/share-to-friend', component: () => import('@/pages/message/Share2Friend.vue')},
 
   {path: '/video-detail', name: 'video-detail', component: () => import('@/pages/other/VideoDetail.vue')},
-  {path: '/album-detail', component: () => import('@/pages/other/AlbumDetail.vue')},
+  // {path: '/album-detail', component: () => import('@/pages/other/AlbumDetail.vue')},
 
   {path: '/home/search', component: () => import('@/pages/home/SearchPage.vue')},
 

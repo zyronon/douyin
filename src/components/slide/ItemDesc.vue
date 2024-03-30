@@ -44,13 +44,13 @@ const state = reactive({
         </div>
       </div>
       <div class="name mb1r f18 fb" @click.stop="$emit('goUserInfo')">@{{ props.item.author.nickname }}</div>
-      <div class="description mb1r">
+      <div class="description">
         {{ props.item.desc }}
       </div>
-      <div class="music" @click.stop="bus.emit('nav','/home/music')">
-        <img src="../../assets/img/icon/music.svg" alt="" class="music-image">
-        <span>{{ props.item.music.title }}</span>
-      </div>
+<!--      <div class="music" @click.stop="bus.emit('nav','/home/music')">-->
+<!--        <img src="../../assets/img/icon/music.svg" alt="" class="music-image">-->
+<!--        <span>{{ props.item.music.title }}</span>-->
+<!--      </div>-->
     </div>
     <div v-else class="comment-status">
       <div class="comment">

@@ -7,7 +7,7 @@
         <Icon @click="$emit('back')" class="icon" icon="eva:arrow-ios-back-fill"/>
         <transition name="fade">
           <div class="float-user" v-if="state.floatFixed">
-            <img v-lazy="Utils.$imgPreview(props.currentItem.author.avatar_168x168.url_list[0])" class="avatar"/>
+            <img v-lazy="_checkImgUrl(props.currentItem.author.avatar_168x168.url_list[0])" class="avatar"/>
             <img v-if="!props.currentItem.author.follow_status" src="@/assets/img/icon/add-light.png" alt=""
                  class="add">
             <span @click="followButton">{{ props.currentItem.author.follow_status ? '私信' : '关注' }}</span>
@@ -99,7 +99,7 @@
       <div class="other">
         <div class="scroll-x" @touchmove="stop">
           <div class="item" v-for="item in props.currentItem.author.card_entries">
-            <img :src="item.icon_dark.url_list[0]" alt="">
+            <img :src="_checkImgUrl(item.icon_dark.url_list[0])" alt="">
             <div class="right">
               <div class="top">{{ item.title }}</div>
               <div class="bottom">{{ item.sub_title }}</div>

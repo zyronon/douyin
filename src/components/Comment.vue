@@ -404,6 +404,9 @@ export default {
           span {
             margin-right: 5rem;
           }
+          svg{
+            font-size: 10rem;
+          }
         }
       }
 

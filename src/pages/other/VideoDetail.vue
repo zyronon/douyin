@@ -1,11 +1,21 @@
 <template>
   <div id="video-detail">
     <div class="search-wrapper">
-      <dy-back class="back" @click="$back"/>
-      <Search></Search>
+      <Icon class="back" icon="icon-park-outline:left" @click="$back"/>
+      <div class="search" @click="nav('/home/search')">
+        <div class="left">
+          <Icon class="icon" icon="ion:search"/>
+          <span>搜你想看的</span>
+        </div>
+        <div class="right">
+          <span class="gang">|</span>
+          <span class="txt">搜索</span>
+        </div>
+      </div>
     </div>
     <div class="content">
       <SlideVerticalInfinite
+          v-if="false"
           ref="listRef"
           v-love="state.uniqueId"
           :id="state.uniqueId"
@@ -19,106 +29,33 @@
       />
     </div>
     <div class="footer">
-      <div class="share-to-friend" v-if="!data.isMy">
-        <span>留下你的精彩评论吧</span>
-        <div class="share-btn" @click="data.dialog.shareToFriend = true">分享给朋友</div>
-      </div>
-      <div class="permission-setting" v-if="data.isMy">
-        <div class="right">
-          <img src="../../assets/img/icon/play-white.png" alt="">
-          <span>3030浏览</span>
+      <div class="comment">
+        <div class="left">
+          <img :src="_checkImgUrl(store.userinfo.avatar_168x168.url_list[0])" class="avatar" alt=""/>
+          <span>善语结善缘，恶言伤人心</span>
         </div>
-        <div class="share-btn" @click="data.dialog.permissionDialog = true">权限设置</div>
+        <div class="right">
+          <Icon icon="tabler:photo"/>
+          <Icon icon="ion:at-sharp"/>
+          <Icon icon="fa-regular:laugh"/>
+        </div>
       </div>
     </div>
-    <from-bottom-dialog
-        page-id="video-detail"
-        v-model="data.dialog.shareToFriend"
-        height="50vh"
-        mode="light"
-        mask-mode="light"
-    >
-      <div class="share-dialog">
-        <div class="collection" @click="data.dialog.shareToFriend = false">
-          <img src="../../assets/img/icon/me/collection-black.png" alt="">
-          收藏
-        </div>
-        <div class="friends">
-          <div class="friend" v-for="i in 6">
-            <img src="../../assets/img/icon/head-image.jpeg" alt="">
-            <div class="right">
-              <span>三分钟情、</span>
-              <div class="share-btn">分享</div>
-            </div>
-          </div>
-          <div class="friend">
-            <img src="../../assets/img/icon/head-image.jpeg" alt="">
-            <div class="right">
-              <span>更多好友</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </from-bottom-dialog>
-    <from-bottom-dialog
-        page-id="video-detail"
-        v-model="data.dialog.permissionDialog"
-        height="40vh"
-        mode="white"
-        mask-mode="white"
-    >
-      <div class="permission-dialog">
-        <div class="setting" @click="data.dialog.permissionDialog = false">
-          <img src="../../assets/img/icon/head-image.jpeg" alt="">
-          <div class="right">
-            <span>公开  所有人可见</span>
-            <img src="../../assets/img/icon/head-image.jpeg" alt="">
-          </div>
-        </div>
-        <div class="setting">
-          <img src="../../assets/img/icon/head-image.jpeg" alt="">
-          <div class="right">
-            <span>朋友  互关朋友可见</span>
-            <img src="../../assets/img/icon/head-image.jpeg" alt="">
-          </div>
-        </div>
-        <div class="setting">
-          <img src="../../assets/img/icon/head-image.jpeg" alt="">
-          <div class="right">
-            <span>私密  仅自己见</span>
-            <img src="../../assets/img/icon/head-image.jpeg" alt="">
-          </div>
-        </div>
-        <div class="setting" style="border-bottom: none;">
-          <img src="../../assets/img/icon/head-image.jpeg" alt="">
-          <div class="right">
-            <span>不给谁看</span>
-            <img src="../../assets/img/icon/head-image.jpeg" alt="">
-          </div>
-        </div>
-        <div class="space"></div>
-        <div class="setting pb4r">
-          <img src="../../assets/img/icon/head-image.jpeg" alt="">
-          <div class="right">
-            <span>更多好友</span>
-          </div>
-        </div>
-      </div>
-    </from-bottom-dialog>
   </div>
 </template>
 
 <script setup>
-import Search from "../../components/Search.vue";
-import FromBottomDialog from "../../components/dialog/FromBottomDialog.vue";
 import {onMounted, reactive} from "vue";
 import {useBaseStore} from "@/store/pinia";
 import SlideVerticalInfinite from "@/components/slide/SlideVerticalInfinite.vue";
 import {useSlideListItemRender} from "@/utils/hooks/useSlideListItemRender";
+import {_checkImgUrl} from "@/utils";
+import {useNav} from "@/utils/hooks/useNav";
 
 defineOptions({
   name: 'VideoDetail'
 })
+const nav = useNav()
 const store = useBaseStore()
 const data = reactive({
   dialog: {
@@ -126,7 +63,7 @@ const data = reactive({
     permissionDialog: false,
     test: false,
   },
-  isMy: true
+  isMy: false
 })
 const state = reactive({
   index: 0,
@@ -139,11 +76,10 @@ const state = reactive({
 const render = useSlideListItemRender()
 
 onMounted(() => {
-  console.log('s', store.routeData)
+  // console.log('s', store.routeData)
   state.index = store.routeData.index
   state.list = store.routeData.list
-
-  console.log('sss', state.list[state.index])
+  // console.log('sss', state.list[state.index])
 })
 </script>
 
@@ -152,31 +88,68 @@ onMounted(() => {
 
 #video-detail {
   position: fixed;
+  font-size: 14rem;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   height: 100%;
   width: 100%;
+  background: black;
 
   .search-wrapper {
-    height: var(--common-header-height);
     z-index: 9;
     position: fixed;
-    top: 10rem;
-    left: 15rem;
-    right: 15rem;
+    top: 8rem;
+    left: 0;
+    width: 100vw;
+    padding: 0 15rem;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
+    gap: 15rem;
 
     .back {
-      width: 20rem;
-      height: 20rem;
-      margin-right: 10rem;
+      color: white;
+      font-size: 30rem;
     }
 
-    .search-ctn {
-      width: 100%;
+    .search {
+      color: var(--second-btn-color);
+      display: flex;
+      background: rgba(171, 169, 169, 0.4);
+      border-radius: 8rem;
+      flex: 1;
+      padding: 8rem;
+      justify-content: space-between;
+
+      .left {
+        font-size: 15rem;
+        display: flex;
+        align-items: center;
+        color: gainsboro;
+        gap: 5rem;
+        line-height: 1;
+
+        svg {
+          font-size: 14rem;
+        }
+      }
+
+      .right {
+        display: flex;
+        align-items: center;
+        gap: 10rem;
+        font-size: 16rem;
+
+        .gang {
+          color: dimgrey;
+        }
+
+        .txt {
+          color: white;
+        }
+      }
     }
   }
 
@@ -186,166 +159,43 @@ onMounted(() => {
 
   .footer {
     height: var(--footer-height);
-  }
-
-  .share-to-friend {
-    color: var(--second-text-color);
-    height: var(--footer-height);
-    z-index: 9;
     position: fixed;
     bottom: 0;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .comment {
+    color: var(--second-text-color);
+    z-index: 9;
+    width: 95%;
+    height: 75%;
     box-sizing: border-box;
-    padding: 0 20px;
+    padding: 0 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: rgb(37, 37, 37);
+    border-radius: 50rem;
 
-    .share-btn {
-      color: darkgray;
-      padding: 6px 14px;
-      background: rgb(44, 44, 44);
-      border-radius: 50px;
+    .avatar {
+      height: 70%;
+      border-radius: 50%;
     }
 
-  }
-
-  .permission-setting {
-    color: var(--second-text-color);
-    height: var(--footer-height);
-    z-index: 9;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    .left {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10rem;
+    }
 
     .right {
-      display: flex;
-      align-items: center;
-      font-size: 14rem;
-
-      img {
-        margin-right: 10px;
-        width: 15px;
-        height: 15px;
-      }
-    }
-
-    .share-btn {
-      color: darkgray;
-      padding: 6px 14px;
-      background: rgb(44, 44, 44);
-      border-radius: 50px;
-    }
-
-  }
-
-  .share-dialog {
-    .collection {
-      background: white;
-      margin: 0 10rem 10rem 10rem;
-      width: calc(100% - 20rem);
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      font-size: 16rem;
-      font-weight: bold;
-      padding: 10px;
-      box-sizing: border-box;
-
-      img {
-        background: white;
-        width: 35px;
-        height: 35px;
-        margin-right: 10px;
-      }
-
-    }
-
-    .friends {
-      margin: 10rem 10rem 0 10rem;
-      width: calc(100% - 20rem);
-      background: white;
-      border-radius: 6px 6px 0 0;
-
-      .friend {
-        box-sizing: border-box;
-        padding: 10px;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        //border-bottom: 1px solid ghostwhite;
-        border-bottom: 1px solid gainsboro;
-
-        img {
-          border-radius: 50%;
-          width: 40px;
-          height: 40px;
-        }
-
-        .right {
-          margin: 0 5px 0 15px;
-          font-size: 16rem;
-          width: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-
-          .share-btn {
-            font-size: 14rem;
-            color: white;
-            padding: 5px 20px;
-            background: var(--primary-btn-color);
-            border-radius: 2px;
-          }
-        }
-      }
-    }
-
-  }
-
-  .permission-dialog {
-    .space {
-      height: 10rem;
-      background: whitesmoke;
-    }
-
-    .setting {
-      background: white;
-      box-sizing: border-box;
-      padding: 10rem 20rem;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      //border-bottom: 1px solid ghostwhite;
-      border-bottom: 1px solid gainsboro;
-
-      img {
-        border-radius: 50%;
-        width: 30rem;
-        height: 30rem;
-      }
-
-      .right {
-        margin: 0 5rem 0 15rem;
-        font-size: 14rem;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        .share-btn {
-          font-size: 14rem;
-          color: white;
-          padding: 5rem 20rem;
-          background: var(--primary-btn-color);
-          border-radius: 2rem;
-        }
-      }
+      .left;
+      gap: 15rem;
+      font-size: 24rem;
     }
   }
 }
