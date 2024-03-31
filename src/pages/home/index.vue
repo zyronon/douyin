@@ -146,6 +146,7 @@
            ref="share"
            page-id="home-index"
            @dislike="dislike"
+           :item="state.currentItem"
            :videoId="state.recommendList[state.itemIndex]?.id"
            :canDownload="state.recommendList[state.itemIndex]?.canDownload"
            @play-feedback="state.showPlayFeedback = true"
@@ -156,7 +157,9 @@
 
     <PlayFeedback v-model="state.showPlayFeedback"/>
 
-    <DouyinCode v-model="state.showDouyinCode"/>
+    <DouyinCode
+        :item="state.currentItem"
+        v-model="state.showDouyinCode"/>
 
     <ShareTo v-model:type="state.shareType"
              :videoId="state.recommendList[state.itemIndex]?.id"
@@ -195,7 +198,7 @@ import SlideItem from '@/components/slide/SlideItem.vue'
 import Comment from "../../components/Comment.vue";
 import Share from "../../components/Share.vue";
 import IndicatorHome from "./components/IndicatorHome.vue";
-import {onMounted, onUnmounted, reactive} from "vue";
+import {onActivated, onDeactivated, onMounted, onUnmounted, reactive} from "vue";
 import bus, {EVENT_KEY} from "../../utils/bus";
 import {useNav} from "@/utils/hooks/useNav";
 import PlayFeedback from "@/pages/home/components/PlayFeedback.vue";
@@ -221,6 +224,7 @@ const nav = useNav()
 const baseStore = useBaseStore()
 
 const state = reactive({
+  active: true,
   baseIndex: 1,
   navIndex: 4,
   test: '',
@@ -253,6 +257,7 @@ function delayShowDialog(cb) {
 }
 
 function setCurrentItem(item) {
+  if (!state.active) return
   // console.log('sss',item,state.baseIndex)
   if (state.baseIndex !== 1) return
   if (state.currentItem.author.uid !== item.author.uid) {
@@ -266,21 +271,34 @@ function setCurrentItem(item) {
 }
 
 onMounted(() => {
-  bus.on(EVENT_KEY.ENTER_FULLSCREEN, (e) => state.fullScreen = true)
-  bus.on(EVENT_KEY.EXIT_FULLSCREEN, (e) => state.fullScreen = false)
+  bus.on(EVENT_KEY.ENTER_FULLSCREEN, (e) => {
+    if (!state.active) return
+    state.fullScreen = true
+  })
+  bus.on(EVENT_KEY.EXIT_FULLSCREEN, (e) => {
+    if (!state.active) return
+    state.fullScreen = false
+  })
   bus.on(EVENT_KEY.OPEN_COMMENTS, (e) => {
+    if (!state.active) return
     bus.emit(EVENT_KEY.ENTER_FULLSCREEN)
     state.commentVisible = true
   })
   bus.on(EVENT_KEY.CLOSE_COMMENTS, (e) => {
+    if (!state.active) return
     bus.emit(EVENT_KEY.EXIT_FULLSCREEN)
     state.commentVisible = false
   })
   bus.on(EVENT_KEY.SHOW_SHARE, (e) => {
+    if (!state.active) return
     state.isSharing = true
   })
-  bus.on(EVENT_KEY.NAV, ({path, query}) => nav(path, query))
+  bus.on(EVENT_KEY.NAV, ({path, query}) => {
+    if (!state.active) return
+    nav(path, query)
+  })
   bus.on(EVENT_KEY.GO_USERINFO, () => {
+    if (!state.active) return
     state.baseIndex = 2
   })
   bus.on(EVENT_KEY.CURRENT_ITEM, setCurrentItem)
@@ -289,6 +307,15 @@ onMounted(() => {
 onUnmounted(() => {
   bus.offAll()
 })
+
+onActivated(() => {
+  state.active = true
+})
+
+onDeactivated(() => {
+  state.active = false
+})
+
 
 function closeComments() {
   bus.emit(EVENT_KEY.CLOSE_COMMENTS)

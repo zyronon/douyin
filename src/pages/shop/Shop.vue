@@ -13,106 +13,105 @@
         </div>
       </div>
     </div>
-    <Scroll class="Scroll"
-            fixedHeight="100"
-            @fixed="e=>state.fixed = e"
-            @pulldown="loadData">
-      <div class="wrapper">
-        <div class="card">
-          <div class="options">
-            <div class="option" @click="$no">
-              <Icon icon="lets-icons:order-light"/>
-              <div>我的订单</div>
-            </div>
-            <div class="option" @click="$no">
-              <Icon icon="material-symbols-light:charging-station-outline"/>
-              <div>手机充值</div>
-            </div>
-            <div class="option" @click="$no">
-              <Icon icon="lucide:message-square-quote"/>
-              <div>购物消息</div>
-            </div>
-            <div class="option" @click="$no">
-              <Icon icon="fluent:location-16-regular"/>
-              <div>小时达</div>
-            </div>
-            <div class="option" @click="$no">
-              <Icon icon="ri:refund-2-fill"/>
-              <div>退款/售后</div>
-            </div>
-            <div class="option" @click="$no">
-              <Icon icon="icon-park-outline:clothes-turtleneck"/>
-              <div>潮流服饰</div>
+    <ScrollList
+        class="Scroll"
+        :api="recommendedShop"
+    >
+      <template v-slot="{list}">
+        <div class="top-card">
+          <div class="card">
+            <div class="options">
+              <div class="option" @click="$no">
+                <Icon icon="lets-icons:order-light"/>
+                <div>我的订单</div>
+              </div>
+              <div class="option" @click="$no">
+                <Icon icon="material-symbols-light:charging-station-outline"/>
+                <div>手机充值</div>
+              </div>
+              <div class="option" @click="$no">
+                <Icon icon="system-uicons:message" />
+                <div>购物消息</div>
+              </div>
+              <div class="option" @click="$no">
+                <Icon icon="fluent:location-16-regular"/>
+                <div>小时达</div>
+              </div>
+              <div class="option" @click="$no">
+                <Icon icon="dashicons:money-alt" />
+                <div>退款/售后</div>
+              </div>
+              <div class="option" @click="$no">
+                <Icon icon="icon-park-outline:clothes-turtleneck"/>
+                <div>潮流服饰</div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="card" style="margin-bottom: 5rem;">
-          <div class="baiyibutie">
-            <div class="item">
-              <img src="@/assets/img/icon/shop/baiyibutie.png" alt="">
-              <span>38节补贴</span>
-            </div>
-            <div class="item">
-              <img src="@/assets/img/icon/shop/1.webp" alt="">
-              <span class="price">
+          <div class="card" style="margin-bottom: 5rem;">
+            <div class="baiyibutie">
+              <div class="item">
+                <img src="@/assets/img/icon/shop/baiyibutie.png" alt="">
+                <span>38节补贴</span>
+              </div>
+              <div class="item">
+                <img src="@/assets/img/icon/shop/1.webp" alt="">
+                <span class="price">
               <span class="m">￥</span>
               <span>470</span>
             </span>
-            </div>
-            <div class="item">
-              <img src="@/assets/img/icon/shop/2.webp" alt="">
-              <span class="price">
+              </div>
+              <div class="item">
+                <img src="@/assets/img/icon/shop/2.webp" alt="">
+                <span class="price">
               <span class="m">￥</span>
               <span>699</span>
             </span>
-            </div>
-            <div class="item">
-              <img src="@/assets/img/icon/shop/3.png" alt="">
-              <span class="price">
+              </div>
+              <div class="item">
+                <img src="@/assets/img/icon/shop/3.png" alt="">
+                <span class="price">
               <span class="m">￥</span>
               <span>8.8</span>
             </span>
-            </div>
-            <div class="item">
-              <img src="@/assets/img/icon/shop/4.jpg" alt="">
-              <span class="price">
+              </div>
+              <div class="item">
+                <img src="@/assets/img/icon/shop/4.jpg" alt="">
+                <span class="price">
               <span class="m">￥</span>
               <span>2.99</span>
             </span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div v-masonry class="goods-list"
-           :class="{fixed:state.fixed}"
-           transition-duration="0s"
-           item-selector=".goods">
-        <div v-masonry-tile class="goods"
-             @click="nav('/shop/detail')"
-             v-for="(item, index) in  state.list">
-          <div class="item">
-            <img class="poster" :src="Utils.$imgPreview(item.cover)"/>
-            <div class="bottom">
-              <div class="desc">
-                {{ item.name }}
-              </div>
-              <div class="discounts" v-if="item.discount">{{ item.discount }}</div>
-              <div class="info">
-                <div class="price">
-                  ￥
-                  <div class="big">{{ item.price }}</div>
+        <WaterfallList :list="list">
+          <template v-slot="{item}">
+            <div class="goods"
+                 @click="nav('/shop/detail',{},item)">
+              <div class="item">
+                <img class="poster" v-lazy="_checkImgUrl('goods/'+item.cover)"/>
+                <div class="bottom">
+                  <div class="desc">
+                    {{ item.name }}
+                  </div>
+                  <div class="discounts" v-if="item.discount">{{ item.discount }}</div>
+                  <div class="info">
+                    <div class="price">
+                      ￥
+                      <div class="big">{{ item.price }}</div>
+                    </div>
+                    <div class="num">已售{{ item.sold }}件</div>
+                  </div>
+                  <div class="low" v-if="item.isLowPrice">
+                    近30天低价
+                  </div>
                 </div>
-                <div class="num">已售{{ item.sold }}件</div>
-              </div>
-              <div class="low" v-if="item.isLowPrice">
-                近30天低价
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </Scroll>
+          </template>
+        </WaterfallList>
+      </template>
+    </ScrollList>
     <Footer v-bind:init-tab="2"
             :is-white="true"
             style="position: fixed;left: 0;"/>
@@ -124,9 +123,10 @@
 
 import {onMounted, reactive} from "vue";
 import {useNav} from "@/utils/hooks/useNav";
-import Utils, {$no} from "@/utils";
-import Scroll from "@/components/Scroll.vue";
-import goods from "@/assets/data/goods";
+import {$no, _checkImgUrl} from "@/utils";
+import ScrollList from "@/components/ScrollList.vue";
+import {recommendedShop} from "@/api/user";
+import WaterfallList from "@/components/WaterfallList.vue";
 
 defineOptions({
   name: 'Shop'
@@ -134,14 +134,9 @@ defineOptions({
 
 const nav = useNav()
 const state = reactive({
-  list: goods.list,
   listEl: null,
   fixed: false
 })
-
-function loadData() {
-  console.log('loadData')
-}
 
 onMounted(() => {
 })
@@ -155,13 +150,11 @@ onMounted(() => {
 #Shop {
   font-size: 14rem;
   position: relative;
-  background: @fColor;
-  background: #f1f1f1;
-  padding: 10rem 5rem;
+  background: #f8f8f8;
+  padding: 10rem;
   color: black;
 
   .wrapper {
-    padding: 0 5rem;
   }
 
   .search {
@@ -174,12 +167,13 @@ onMounted(() => {
     margin-bottom: 10rem;
 
     svg {
-      font-size: 22rem;
+      color: gray;
+      font-size: 20rem;
     }
 
     .search-input {
-      border: 1rem solid rgb(140, 48, 74);
-      border-radius: 8rem;
+      border: 2rem solid red;
+      border-radius: 12rem;
       height: 100%;
       padding: 0 10rem;
       padding-right: 3rem;
@@ -200,7 +194,7 @@ onMounted(() => {
         background: rgb(242, 62, 92);
         padding: 0 10rem;
         height: 85%;
-        border-radius: 6rem;
+        border-radius: 10rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -284,16 +278,15 @@ onMounted(() => {
     background: @fColor;
   }
 
-  @p: 5rem;
-
-  .goods-list {
-    padding-bottom: 20rem;
+  .top-card {
+    margin-bottom: 10rem;
   }
 
+  @p: 5rem;
+
   .goods {
-    width: 50%;
     box-sizing: border-box;
-    padding: 5rem;
+    margin-bottom: 10rem;
 
     .item {
       border-radius: 8rem;

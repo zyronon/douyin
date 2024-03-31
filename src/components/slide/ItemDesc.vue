@@ -22,6 +22,12 @@ const props = defineProps({
       return false
     }
   },
+  isLive: {
+    type: Boolean,
+    default: () => {
+      return false
+    }
+  },
 })
 
 const state = reactive({
@@ -43,6 +49,7 @@ const state = reactive({
           <span>{{ props.item.address }}</span>
         </div>
       </div>
+      <div class="live" v-if="props.isLive">直播中</div>
       <div class="name mb1r f18 fb" @click.stop="$emit('goUserInfo')">@{{ props.item.author.nickname }}</div>
       <div class="description">
         {{ props.item.desc }}
@@ -111,6 +118,16 @@ const state = reactive({
           width: 18rem;
         }
       }
+    }
+
+    .live{
+      border-radius: 3rem;
+      margin-bottom: 10rem;
+      padding: 3rem 6rem;
+      font-size: 11rem;
+      display: inline-flex;
+      background: var(--primary-btn-color);
+      color: white;
     }
 
     .music {

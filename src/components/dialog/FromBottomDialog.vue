@@ -62,7 +62,7 @@ export default {
     },
     borderRadius: {
       type: String,
-      default: '5rem 5rem 0 0'
+      default: '15rem 15rem 0 0'
     },
     tag: {
       type: String,
@@ -218,11 +218,11 @@ export default {
   }
 
   .heng-gang {
-    border-radius: 5rem 5rem 0 0;
+    border-radius: 15rem 15rem 0 0;
     z-index: 3;
     width: 100%;
     position: fixed;
-    height: 20rem;
+    height: 30rem;
     display: flex;
     transform: translateY(-24rem);
     justify-content: center;

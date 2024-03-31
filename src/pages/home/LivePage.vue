@@ -1,16 +1,30 @@
 <template>
   <div class="LivePage" ref="page">
     <div class="live-wrapper">
-      <img src="../../assets/img/poster/1.jpg" alt="">
+      <video
+          src="https://www.douyin.com/aweme/v1/play/?video_id=v0d00fg10000cj1lq4jc77u0ng6s1gt0&amp;line=0&amp;file_id=bed51c00899b458cbc5d8280147c22a1&amp;sign=7749aec7bd62a3760065f60e40fc1867&amp;is_play_url=1&amp;source=PackSourceEnum_PUBLISH"
+          poster="/images/jwWCPZVTIA4IKM-8WipLF.png"
+          preload=""
+          loop=""
+          muted
+          x5-video-player-type="h5-page"
+          x5-video-player-fullscreen="false"
+          webkit-playsinline="true"
+          x5-playsinline="true"
+          playsinline="true"
+          fullscreen="false"
+          autoplay="">
+        <p> 您的浏览器不支持 video 标签。</p>
+      </video>
     </div>
     <div class="float">
       <div class="top">
         <div class="left">
           <div class="liver">
-            <img class="avatar" src="../../assets/img/icon/avatar/10.png" alt="">
+            <img class="avatar" :src="_checkImgUrl(userinfo.avatar_168x168.url_list[0])" alt="">
             <div class="desc">
               <div class="desc-wrapper">
-                <div class="name">大司马大司马大司马</div>
+                <div class="name">{{ userinfo.nickname }}</div>
                 <div class="count">2万本场点赞</div>
               </div>
               <div class="follow-btn">关注</div>
@@ -58,8 +72,8 @@
                     <span>30</span>
                   </div>
                 </div>
-                <span class="name">嘻嘻哈哈</span>
-                <span class="text">{{ i }}</span>
+                <span class="name">{{ i.name}}</span>
+                <span class="text">{{ i.text }}</span>
               </div>
             </div>
           </div>
@@ -85,8 +99,6 @@
         </div>
       </div>
     </div>
-
-
     <base-button @click="sendComment">点击</base-button>
   </div>
 </template>
@@ -94,6 +106,10 @@
 import BaseButton from "../../components/BaseButton";
 import Dom from "../../utils/dom";
 import {nextTick} from "vue";
+import {mapState} from "pinia";
+import {useBaseStore} from "@/store/pinia";
+import {_checkImgUrl, random} from "@/utils";
+import Mock from "mockjs";
 
 export default {
   name: "LivePage",
@@ -101,23 +117,25 @@ export default {
   props: {},
   data() {
     return {
+      timer1: -1,
+      timer2: -1,
+      timer3: -1,
       isFollowed: false,
-      list: [
-        'asdfasdf',
-        'asdfasdf',
-        'asdfasdf',
-      ],
+      list: [],
       barrage: [],
       barrageTemplate: () => {
+        let name = Mock.mock('@cname')
+        let a = Mock.mock('@csentence')
         return `
         <div class="barrage">
-          <div class="type">管理</div>
-          <div class="text">感谢老铁送的火箭</div>
+          <div class="type">${name}</div>
+          <div class="text">${a}</div>
         </div>
         `
       },
       userJoinedTemplate: () => {
-        let src = new URL('../../assets/img/icon/home/level.webp')
+        let src = '/images/icon/love.webp'
+        let name = Mock.mock('@cname')
         return `
         <div class="user-joined">
           <div class="level">
@@ -126,23 +144,36 @@ export default {
               <span>30</span>
             </div>
           </div>
-          <span class="name">嘻嘻哈哈</span>
+          <span class="name">${name}</span>
           <span class="text">加入了直播间</span>
         </div>
         `
       },
       sendGiftTemplate: () => {
-        let avatar = new URL('../../assets/img/icon/avatar/3.png')
-        let gift = new URL('../../assets/img/icon/home/love.webp')
+        let avatarList = [
+          '/images/EPsQ7u4sNnrHC-ix-a9yQ.png',
+          '/images/Xex2IhY-Zm338cNlcGuNW.png',
+          '/images/gddHyRZrdk0Em3RRgVa9g.png',
+          '/images/LJ-8p2jF3HydBD5j28PgQ.png',
+          '/images/KwJ9N7yFjYylfwYeThWjx.png',
+          '/images/EKkC06GI4yXC2mNHMrm46.png',
+          '/images/rlkpmpGPdhYZRJl3J4Xl7.png',
+          '/images/Ge4mMWQoICdpyTyixk3Sf.png',
+        ]
+        let avatar = avatarList[random(0, avatarList.length - 1)]
+        let gift = '/images/icon/love.webp'
+        let name = Mock.mock('@cname')
+        let name2 = Mock.mock('@cname')
+        let num = Mock.mock('@integer(60,400)')
         return `
         <div class="send-gift">
           <div class="left">
             <img src="${avatar}" alt="" class="avatar">
             <div class="desc">
-              <div class="name">哈哈哈哈哈哈哈哈哈</div>
+              <div class="name">${name}</div>
               <div class="sendto">
                 <span class="send">送</span>
-                <span class="to">嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻</span>
+                <span class="to">${name2}</span>
               </div>
             </div>
             <div class="gift-wrapper">
@@ -150,7 +181,7 @@ export default {
             </div>
           </div>
           <div class="right">
-            x339
+            x${num}
           </div>
         </div>
         `
@@ -158,25 +189,33 @@ export default {
       page: null,
     }
   },
-  computed: {},
+  computed: {
+    ...mapState(useBaseStore, ['friends', 'userinfo']),
+  },
   created() {
   },
   mounted() {
     this.page = this.$refs.page
-    // setInterval(async () => {
-    //   this.sendGift()
-    //   await this.$sleep(300)
-    //   this.sendGift()
-    //   this.joinUser()
-    // }, 3000)
-    // setInterval(async () => {
-    //   this.sendBarrage()
-    // }, 5100)
-    // setInterval(async () => {
-    //   this.sendComment()
-    // }, 500)
+    this.timer1 = setInterval(async () => {
+      this.sendGift()
+      await this.$sleep(300)
+      this.sendGift()
+      this.joinUser()
+    }, 1000)
+    this.timer2 = setInterval(async () => {
+      this.sendBarrage()
+    }, 1500)
+    this.timer3 = setInterval(async () => {
+      this.sendComment()
+    }, 700)
+  },
+  unmounted() {
+    clearInterval(this.timer1)
+    clearInterval(this.timer2)
+    clearInterval(this.timer3)
   },
   methods: {
+    _checkImgUrl,
     sendGift() {
       let page = new Dom(this.page)
       let sendGift = new Dom().create(this.sendGiftTemplate())
@@ -188,6 +227,10 @@ export default {
       if (oldSendGift.els.length !== 0) {
         top = sendGift.removePx(oldSendGift.css('top')) - 70
       }
+      if (top < 100) {
+        top = document.body.clientHeight * .6
+      }
+      console.log('top', top)
       sendGift.css('top', top)
       page.append(sendGift)
     },
@@ -210,11 +253,17 @@ export default {
       if (oldBarrages.els.length !== 0) {
         top = barrage.removePx(oldBarrages.css('top')) + 20
       }
+      if (top > document.body.clientHeight * .5) {
+        top = document.body.clientHeight * .35
+      }
       barrage.css('top', top)
       page.append(barrage)
     },
     sendComment() {
-      this.list.push('评论评论评论评论评论评论评论评论评论评论' + this.list.length)
+      this.list.push({
+        name: Mock.mock('@cname'),
+        text: Mock.mock('@csentence')
+      })
       nextTick(() => {
         let comments = this.$refs['comments']
         comments.scrollTo({top: comments.scrollHeight - comments.clientHeight, behavior: 'smooth'})
@@ -272,6 +321,8 @@ export default {
     .avatar {
       margin-right: 5rem;
       width: 40rem;
+      height: 40rem;
+      object-fit: cover;
       border-radius: 50%;
     }
 
@@ -417,6 +468,14 @@ export default {
     width: 100vw;
     height: calc(var(--vh, 1vh) * 100);
     background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    video {
+      width: 100%;
+      object-fit: cover;
+    }
 
     img {
       width: 100vw;

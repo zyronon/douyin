@@ -56,7 +56,7 @@
     <div class="slide-imgs">
       <SlideHorizontal v-model:index="state.index">
         <SlideItem v-for="item in state.detail.imgs">
-          <img :src="item" alt="">
+          <img v-lazy="_checkImgUrl('goods/'+item)" alt=""/>
         </SlideItem>
       </SlideHorizontal>
       <div class="index">{{ state.index + 1 }}/{{ state.detail.imgs.length }}</div>
@@ -66,20 +66,20 @@
         <div class="price-wrap">
           <div class="price">
             <span class="symbol">￥</span>
-            <span class="int">8</span>
-            <span class="decimal">.8</span>
+            <span class="int">{{ state.detail.price }}</span>
+            <!--            <span class="decimal">.8</span>-->
           </div>
           <div class="discount">
             <span class="text">热销款券后</span>
             <div class="price">
               <span class="symbol">￥</span>
-              <span class="int">5</span>
-              <span class="decimal">.9</span>
+              <span class="int">{{ state.detail.real_price }}</span>
+              <!--              <span class="decimal">.9</span>-->
             </div>
           </div>
         </div>
         <div class="name">{{ state.detail.name }}</div>
-        <div class="num">已售20/100</div>
+        <div class="num">已售{{ state.detail.sold }}</div>
       </div>
 
       <div class="card desc-wrapper">
@@ -145,9 +145,9 @@
           <div class="tag">推荐 <span class="gray">18</span></div>
           <div class="tag">商用服务好 <span class="gray">15</span></div>
         </div>
-        <div class="comment" v-for="i in 2">
+        <div class="comment">
           <header>
-            <img src="https://cdn.seovx.com/?mom=302" alt="" class="avatar">
+            <img :src="_checkImgUrl('2S9bbgb-Sf2kIdSTxoeTw.png')" alt="" class="avatar">
             <span class="gray">花***栽</span>
           </header>
           <div class="w">
@@ -159,14 +159,31 @@
                 china款/超值【买る双+送2双】共5双
               </div>
             </div>
-            <img src="https://cdn.seovx.com/?mom=302" alt="" class="avatar">
+            <img :src="_checkImgUrl('NYEfuYS-LVZ620UYgQNAM.png')" alt="" class="avatar">
+          </div>
+        </div>
+        <div class="comment">
+          <header>
+            <img :src="_checkImgUrl('9Tx6cZkUOoHqPkbETUZ5Y.png')" alt="" class="avatar">
+            <span class="gray">花***栽</span>
+          </header>
+          <div class="w">
+            <div class="left">
+              <div class="d">
+                东西不错质量也很好 性价比很高 良心商家就冲这图必须给好评
+              </div>
+              <div class="c2">
+                china款/超值【买る双+送2双】共5双
+              </div>
+            </div>
+            <img :src="_checkImgUrl('2b2rpive_RVzDrYgo-F9K.png')" alt="" class="avatar">
           </div>
         </div>
       </div>
 
       <div class="card shop">
         <header>
-          <img src="https://cdn.seovx.com/?mom=302" alt="" class="avatar">
+          <img :src="_checkImgUrl('LJ-8p2jF3HydBD5j28PgQ.png')" alt="" class="avatar">
           <div class="right">
             <div class="l">
               <div class="name">店铺名</div>
@@ -207,9 +224,36 @@
             </div>
           </header>
           <div class="wrap">
-            <div class="item" v-for="i in 4">
-              <img src="https://cdn.seovx.com/?mom=302" alt="" class="avatar">
-              <div class="name">【热销中】袜子男潮流百搭中筒袜子袜子男潮流百搭中筒袜子</div>
+            <div class="item">
+              <img :src="_checkImgUrl('/goods/g6-0.jpg')" alt="" class="avatar">
+              <div class="name">小米电视6 65" OLED 65英寸</div>
+              <div class="price">
+                <span class="symbol">￥</span>
+                <span class="int">8</span>
+                <span class="decimal">.8</span>
+              </div>
+            </div>
+            <div class="item">
+              <img :src="_checkImgUrl('/goods/g1-0.jpg')" alt="" class="avatar">
+              <div class="name">红白撞色条纹软糯针织上衣女2022年秋季新款甜美减龄短款毛衣开衫</div>
+              <div class="price">
+                <span class="symbol">￥</span>
+                <span class="int">8</span>
+                <span class="decimal">.8</span>
+              </div>
+            </div>
+            <div class="item">
+              <img :src="_checkImgUrl('/goods/g2-0.webp')" alt="" class="avatar">
+              <div class="name">森马t恤男2023男士纯棉上衣白色情侣装凉感短袖打底衫纯色体恤潮</div>
+              <div class="price">
+                <span class="symbol">￥</span>
+                <span class="int">8</span>
+                <span class="decimal">.8</span>
+              </div>
+            </div>
+            <div class="item">
+              <img :src="_checkImgUrl('/goods/g3-0.jpg')" alt="" class="avatar">
+              <div class="name">ins潮牌长袖t恤男宽松纯色内搭上衣潮牌百搭秋冬季潮流帅气打底衫</div>
               <div class="price">
                 <span class="symbol">￥</span>
                 <span class="int">8</span>
@@ -221,7 +265,7 @@
       </div>
     </div>
 
-    <div class="img-list" v-if="true">
+    <div class="img-list">
       <header>
         <div class="l"></div>
         <span class="gray">商品详情</span>
@@ -229,7 +273,7 @@
       </header>
 
       <div class="imgs">
-        <img v-lazy="`https://cdn.seovx.com/?mom=302&d=${i}`" alt="" class="avatar" v-for="i in 5">
+        <img v-lazy="_checkImgUrl('goods/'+i)" alt="" class="avatar" v-for="i in state.detail.imgs">
       </div>
     </div>
 
@@ -254,34 +298,39 @@
           你可以还会喜欢
         </header>
 
-        <div v-masonry class="goods-list"
-             :class="{fixed:state.fixed}"
-             transition-duration="0s"
-             item-selector=".goods">
-          <div v-masonry-tile class="goods"
-               @click="nav('/shop/detail')"
-               v-for="(item, index) in  state.list">
-            <div class="item">
-              <img class="poster" v-lazy="Utils.$imgPreview(item.cover)"/>
-              <div class="bottom">
-                <div class="desc">
-                  {{ item.name }}
-                </div>
-                <div class="discounts" v-if="item.discount">{{ item.discount }}</div>
-                <div class="info">
-                  <div class="price">
-                    ￥
-                    <div class="big">{{ item.price }}</div>
+        <ScrollList
+            class="Scroll"
+            :api="recommendedShop"
+        >
+          <template v-slot="{list}">
+            <WaterfallList :list="list">
+              <template v-slot="{item}">
+                <div class="goods"
+                     @click="nav('/shop/detail',{},item)">
+                  <div class="item">
+                    <img class="poster" v-lazy="_checkImgUrl('goods/'+item.cover)"/>
+                    <div class="bottom">
+                      <div class="desc">
+                        {{ item.name }}
+                      </div>
+                      <div class="discounts" v-if="item.discount">{{ item.discount }}</div>
+                      <div class="info">
+                        <div class="price">
+                          ￥
+                          <div class="big">{{ item.price }}</div>
+                        </div>
+                        <div class="num">已售{{ item.sold }}件</div>
+                      </div>
+                      <div class="low" v-if="item.isLowPrice">
+                        近30天低价
+                      </div>
+                    </div>
                   </div>
-                  <div class="num">已售{{ item.sold }}件</div>
                 </div>
-                <div class="low" v-if="item.isLowPrice">
-                  近30天低价
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+              </template>
+            </WaterfallList>
+          </template>
+        </ScrollList>
 
       </div>
     </div>
@@ -312,19 +361,21 @@
 <script setup>
 import SlideHorizontal from "@/components/slide/SlideHorizontal.vue";
 import SlideItem from "@/components/slide/SlideItem.vue";
-import {reactive, ref} from "vue";
-import goods from "@/assets/data/goods";
+import {onMounted, onUnmounted, reactive, ref} from "vue";
 import {useNav} from "@/utils/hooks/useNav";
-import Utils from "@/utils";
+import {_checkImgUrl} from "@/utils";
+import {useBaseStore} from "@/store/pinia";
+import {recommendedShop} from "@/api/user";
+import WaterfallList from "@/components/WaterfallList.vue";
+import ScrollList from "@/components/ScrollList.vue";
+
+defineOptions({
+  name: 'GoodsDetail'
+})
 
 let activeIndexs = ref([])
 const nav = useNav()
-const props = defineProps({
-  id: {
-    type: String,
-    default: () => ''
-  }
-})
+const store = useBaseStore()
 let page = ref()
 let header = ref()
 let headerShadow = ref()
@@ -341,9 +392,10 @@ function scroll() {
 }
 
 const state = reactive({
-  detail: goods.list[1],
+  detail: {
+    imgs: []
+  },
   index: 0,
-  list: goods.list,
   listEl: null,
   fixed: false
 })
@@ -356,6 +408,15 @@ function toggle(i) {
     activeIndexs.value.push(i)
   }
 }
+
+onMounted(() => {
+  console.log('r', store.routeData.imgs)
+  state.detail = store.routeData
+})
+
+onUnmounted(() => {
+  console.log('onUnmounted')
+})
 </script>
 
 <style scoped lang="less">
@@ -946,7 +1007,6 @@ function toggle(i) {
 
     & > header {
       padding: 15rem;
-      padding-bottom: 5rem;
       font-weight: 900;
       font-size: 15rem;
     }
@@ -959,14 +1019,13 @@ function toggle(i) {
 
     @p: 5rem;
 
-    .goods-list {
-      padding-bottom: 20rem;
+    .Scroll {
+      padding: 5rem;
     }
 
     .goods {
-      width: 50%;
       box-sizing: border-box;
-      padding: 5rem;
+      margin-bottom: 10rem;
 
       .item {
         border-radius: 8rem;

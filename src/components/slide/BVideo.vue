@@ -20,57 +20,67 @@
       <p> 您的浏览器不支持 video 标签。</p>
     </video>
     <Icon icon="fluent:play-28-filled" class="pause-icon" v-if="!isPlaying"/>
-    <div class="float" :style="{opacity: isUp?0:1}">
-      <div :style="{opacity:isMove ? 0:1}" class="normal">
-        <template v-if="!commentVisible">
-          <ItemToolbar v-model:item="localItem"
-                       :position="position"
-                       v-bind="$attrs"
-          />
-          <ItemDesc
-              v-model:item="localItem"
-              :position="position"
-          />
-        </template>
-        <div v-if="isMy" class="comment-status">
-          <div class="comment">
-            <div class="type-comment">
-              <img src="../../assets/img/icon/head-image.jpeg" alt="" class="avatar">
-              <div class="right">
-                <p>
-                  <span class="name">zzzzz</span>
-                  <span class="time">2020-01-20</span>
-                </p>
-                <p class="text">北京</p>
-              </div>
-            </div>
-            <transition-group name="comment-status" tag="div" class="loveds">
-              <div class="type-loved" :key="i" v-for="i in test">
+    <div class="float">
+      <template v-if="isLive">
+        <div class="living">点击进入直播间</div>
+        <ItemDesc
+            :is-live="true"
+            v-model:item="localItem"
+            :position="position"
+        />
+      </template>
+      <template v-else>
+        <div :style="{opacity:isMove ? 0:1}" class="normal">
+          <template v-if="!commentVisible">
+            <ItemToolbar v-model:item="localItem"
+                         :position="position"
+                         v-bind="$attrs"
+            />
+            <ItemDesc
+                v-model:item="localItem"
+                :position="position"
+            />
+          </template>
+          <div v-if="isMy" class="comment-status">
+            <div class="comment">
+              <div class="type-comment">
                 <img src="../../assets/img/icon/head-image.jpeg" alt="" class="avatar">
-                <img src="../../assets/img/icon/love.svg" alt="" class="loved">
+                <div class="right">
+                  <p>
+                    <span class="name">zzzzz</span>
+                    <span class="time">2020-01-20</span>
+                  </p>
+                  <p class="text">北京</p>
+                </div>
               </div>
-            </transition-group>
+              <transition-group name="comment-status" tag="div" class="loveds">
+                <div class="type-loved" :key="i" v-for="i in test">
+                  <img src="../../assets/img/icon/head-image.jpeg" alt="" class="avatar">
+                  <img src="../../assets/img/icon/love.svg" alt="" class="loved">
+                </div>
+              </transition-group>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="progress"
-           :class="progressClass"
-           ref="progress"
-           @click="null"
-           @touchstart="touchstart"
-           @touchmove="touchmove"
-           @touchend="touchend"
-      >
-        <div class="time" v-if="isMove">
-          <span class="currentTime">{{ LUtils.$duration(currentTime) }}</span>
-          <span class="duration"> / {{ LUtils.$duration(duration) }}</span>
+        <div class="progress"
+             :class="progressClass"
+             ref="progress"
+             @click="null"
+             @touchstart="touchstart"
+             @touchmove="touchmove"
+             @touchend="touchend"
+        >
+          <div class="time" v-if="isMove">
+            <span class="currentTime">{{ LUtils.$duration(currentTime) }}</span>
+            <span class="duration"> / {{ LUtils.$duration(duration) }}</span>
+          </div>
+          <template v-if="duration > 15 || isMove || !isPlaying">
+            <div class="bg"></div>
+            <div class="progress-line" :style="durationStyle"></div>
+            <div class="point"></div>
+          </template>
         </div>
-        <template v-if="duration > 15 || isMove || !isPlaying">
-          <div class="bg"></div>
-          <div class="progress-line" :style="durationStyle"></div>
-          <div class="point"></div>
-        </template>
-      </div>
+      </template>
     </div>
   </div>
 </template>
@@ -125,7 +135,7 @@ export default {
         return false
       }
     },
-    isUp: {
+    isLive: {
       type: Boolean,
       default: () => {
         return false
@@ -290,29 +300,34 @@ export default {
       }
     },
     click({uniqueId, index, type}) {
-      // console.log(this.position)
       if (
           this.position.uniqueId === uniqueId &&
           this.position.index === index
       ) {
-        if (type === EVENT_KEY.ITEM_TOGGLE) {
-          if (this.status === SlideItemPlayStatus.Play) {
-            this.pause()
-          } else {
-            this.play()
+        if (this.isLive) {
+          if (type === EVENT_KEY.ITEM_TOGGLE) {
+            bus.emit(EVENT_KEY.NAV, {path: '/home/live', query: {id: this.item.id}})
           }
-        }
-        if (type === EVENT_KEY.ITEM_STOP) {
-          this.$refs.video.currentTime = 0
-          this.ignoreWaiting = true
-          this.pause()
-          setTimeout(() => this.ignoreWaiting = false, 300)
-        }
-        if (type === EVENT_KEY.ITEM_PLAY) {
-          this.$refs.video.currentTime = 0
-          this.ignoreWaiting = true
-          this.play()
-          setTimeout(() => this.ignoreWaiting = false, 300)
+        } else {
+          if (type === EVENT_KEY.ITEM_TOGGLE) {
+            if (this.status === SlideItemPlayStatus.Play) {
+              this.pause()
+            } else {
+              this.play()
+            }
+          }
+          if (type === EVENT_KEY.ITEM_STOP) {
+            this.$refs.video.currentTime = 0
+            this.ignoreWaiting = true
+            this.pause()
+            setTimeout(() => this.ignoreWaiting = false, 300)
+          }
+          if (type === EVENT_KEY.ITEM_PLAY) {
+            this.$refs.video.currentTime = 0
+            this.ignoreWaiting = true
+            this.play()
+            setTimeout(() => this.ignoreWaiting = false, 300)
+          }
         }
       }
     },
@@ -711,6 +726,19 @@ export default {
       }
     }
   }
+}
+
+.living {
+  position: absolute;
+  left: 50%;
+  font-size: 18rem;
+  border-radius: 50rem;
+  border: 1px solid #e0e0e0;
+  padding: 15rem 20rem;
+  line-height: 1;
+  color: white;
+  top: 70%;
+  transform: translate(-50%, -50%);
 }
 
 </style>

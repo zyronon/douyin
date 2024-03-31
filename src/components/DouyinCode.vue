@@ -3,12 +3,12 @@
     <div class="DouyinCode" v-if="modelValue">
       <div class="content">
         <div class="video-poster">
-          <img src="../assets/img/poster/1.jpg" class="poster">
+          <img :src="_checkImgUrl(item.video.cover.url_list[0])" class="poster">
         </div>
         <div class="desc">
           <div class="left">
-            <div class="user">@名字</div>
-            <div class="title">#窃书不能算偷……窃书！……读书人的事，能算偷么？</div>
+            <div class="user">@{{item.author.nickname}}</div>
+            <div class="title">{{item.desc}}</div>
           </div>
           <img class="code" src="../assets/img/icon/components/video/douyin-code.jpg" alt="">
         </div>
@@ -43,9 +43,12 @@
   </transition>
 </template>
 <script>
+import {_checkImgUrl} from "@/utils";
+
 export default {
   name: "DouyinCode",
   props: {
+    item:{},
     modelValue: false
   },
   data() {
@@ -55,6 +58,7 @@ export default {
   created() {
   },
   methods: {
+    _checkImgUrl,
     cancel() {
       this.$emit('update:modelValue', false)
     }
@@ -87,16 +91,22 @@ export default {
     overflow: hidden;
 
     .desc {
-      margin-bottom: 20rem;
       display: flex;
+      gap: 20rem;
       padding: 10rem;
 
       .left {
         font-size: 18rem;
 
         .title {
+          margin-top: 10rem;
           font-size: 14rem;
           color: var(--second-text-color);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box; //作为弹性伸缩盒子模型显示。
+          -webkit-box-orient: vertical; //设置伸缩盒子的子元素排列方式--从上到下垂直排列
+          -webkit-line-clamp: 1; //显示的行
         }
       }
       .code {
@@ -134,11 +144,11 @@ export default {
 
     .shares {
       display: flex;
-      padding-right: @space-width * 2;
+      margin-bottom: @space-width;
+      gap: 20rem;
+      padding-left: 20rem;
 
       .share-to {
-        margin-left: 28rem;
-        margin-bottom: @space-width;
 
         img {
           width: @icon-width;
@@ -159,6 +169,7 @@ export default {
     .cancel {
       font-size: 16rem;
       background: rgb(38, 38, 38);
+      color: rgba(white,.8);
       padding: 15rem;
       text-align: center;
     }

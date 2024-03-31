@@ -62,6 +62,30 @@
               </div>
             </div>
           </div>
+          <!--      消息-->
+          <div class="message" @click="$nav('/message/chat')">
+            <div class="avatar on-line">
+              <img src="../../assets/img/icon/avatar/2.png" alt="" class="head-image">
+            </div>
+            <div class="content">
+              <div class="left">
+                <div class="name">
+                  <span>{{ userinfo.nickname }}</span>
+                </div>
+                <div class="detail">
+                  哈哈哈哈哈哈
+                  <div class="point"></div>
+                  10-10
+                </div>
+              </div>
+              <div class="right">
+                <!--                          <div class="not-read"></div>-->
+                <!--                          <img class="camera" src="../../assets/img/icon/close-white.png" alt="">-->
+                <!--            <img class="arrow" src="../../assets/img/icon/close-white.png" alt="">-->
+                <div class="badge">12</div>
+              </div>
+            </div>
+          </div>
           <!--      抖音小助手-->
           <div class="message" @click="$nav('/message/douyin-helper')">
             <div class="avatar">
@@ -195,30 +219,6 @@
             </div>
           </div>
 
-          <!--      消息-->
-          <div class="message" @click="$nav('/message/chat')">
-            <div class="avatar on-line">
-              <img src="../../assets/img/icon/avatar/2.png" alt="" class="head-image">
-            </div>
-            <div class="content">
-              <div class="left">
-                <div class="name">
-                  <span>{{ userinfo.nickname }}</span>
-                </div>
-                <div class="detail">
-                  哈哈哈哈哈哈
-                  <div class="point"></div>
-                  10-10
-                </div>
-              </div>
-              <div class="right">
-                <!--                          <div class="not-read"></div>-->
-                <!--                          <img class="camera" src="../../assets/img/icon/close-white.png" alt="">-->
-                <!--            <img class="arrow" src="../../assets/img/icon/close-white.png" alt="">-->
-                <div class="badge">12</div>
-              </div>
-            </div>
-          </div>
 
           <NoMore/>
 

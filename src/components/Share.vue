@@ -27,7 +27,7 @@
       </div>
       <div class="shares list">
         <template v-if="mode === 'video'">
-          <div class="option" @click.stop="$no">
+          <div class="option" @click.stop="closeShare($emit('ShareToFriend'))">
             <img class="avatar" src="../assets/img/icon/components/video/torichang.png" alt="">
             <span>转发</span>
           </div>
@@ -51,7 +51,7 @@
             <img class="small" src="../assets/img/icon/components/video/warring.png" alt="">
             <span>举报</span>
           </div>
-          <div class="option" @click.stop="$nav('/home/report',{mode:this.mode})">
+          <div class="option" @click.stop="closeShare($emit('ShareToFriend'))">
             <Icon icon="ion:paper-plane"/>
             <span>私信朋友</span>
           </div>
@@ -73,7 +73,7 @@
             <span>不感兴趣</span>
           </div>
           <div class="option" @click.stop="closeShare($emit('showDouyinCode'))">
-            <img class="small" src="../assets/img/icon/components/video/dislike.png" alt="">
+            <Icon icon="tabler:photo"/>
             <span>生成图片</span>
           </div>
           <div class="option" @click.stop="$no">
@@ -133,7 +133,7 @@ import Check from "./Check";
 import FromBottomDialog from "./dialog/FromBottomDialog";
 import DouyinCode from "./DouyinCode";
 import {useBaseStore} from "@/store/pinia";
-import {$no} from "@/utils";
+import {$no, _copy} from "@/utils";
 
 export default {
   name: "Share",
@@ -144,6 +144,7 @@ export default {
   },
   props: {
     modelValue: false,
+    item: {},
     videoId: {
       type: String,
       default: null
@@ -170,8 +171,7 @@ export default {
     }
   },
   data() {
-    return {
-    }
+    return {}
   },
   methods: {
     $no,
@@ -180,6 +180,7 @@ export default {
       this.$showLoading()
       await this.$sleep(500)
       this.$hideLoading()
+      _copy(this.item.share_info.share_link_desc + this.item.share_info.share_url)
       //TODO 抖音样式改了
       this.$notice('复制成功')
     },

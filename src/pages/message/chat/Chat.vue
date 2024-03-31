@@ -219,36 +219,7 @@ export default {
             avatar: '../../assets/img/icon/head-image.jpg'
           }
         },
-        {
-          type: MESSAGE_TYPE.RED_PACKET,
-          state: AUDIO_STATE.NORMAL,
-          mode: RED_PACKET_MODE.MULTIPLE,
-          data: {
-            money: 5.11,
-            title: '大吉大利',
-            state: '未领取'
-          },
-          time: '2021-01-02 21:21',
-          user: {
-            id: '2739632844317827',
-            avatar: '../../assets/img/icon/head-image.jpg'
-          }
-        },
-        {
-          type: MESSAGE_TYPE.RED_PACKET,
-          state: AUDIO_STATE.NORMAL,
-          mode: RED_PACKET_MODE.SINGLE,
-          data: {
-            money: 5.11,
-            title: '大吉大利',
-            state: '已过期'
-          },
-          time: '2021-01-02 21:21',
-          user: {
-            id: 1,
-            avatar: '../../assets/img/icon/head-image.jpg'
-          }
-        },
+
         {
           type: MESSAGE_TYPE.MEME,
           state: AUDIO_STATE.NORMAL,
@@ -441,6 +412,36 @@ export default {
             avatar: '../../../assets/img/icon/head-image.jpg'
           }
         },
+        {
+          type: MESSAGE_TYPE.RED_PACKET,
+          state: AUDIO_STATE.NORMAL,
+          mode: RED_PACKET_MODE.MULTIPLE,
+          data: {
+            money: 5.11,
+            title: '大吉大利',
+            state: '未领取'
+          },
+          time: '2021-01-02 21:21',
+          user: {
+            id: '2739632844317827',
+            avatar: '../../assets/img/icon/head-image.jpg'
+          }
+        },
+        {
+          type: MESSAGE_TYPE.RED_PACKET,
+          state: AUDIO_STATE.NORMAL,
+          mode: RED_PACKET_MODE.SINGLE,
+          data: {
+            money: 5.11,
+            title: '大吉大利',
+            state: '已过期'
+          },
+          time: '2021-01-02 21:21',
+          user: {
+            id: 1,
+            avatar: '../../assets/img/icon/head-image.jpg'
+          }
+        },
       ],
       typing: false,
       loading: false,
@@ -466,15 +467,19 @@ export default {
   created() {
   },
   mounted() {
+    $('img').on('load', this.scrollBottom)
     this.scrollBottom()
+  },
+  unmounted() {
+    $('img').off('load', this.scrollBottom)
   },
   methods: {
     _checkImgUrl,
     scrollBottom() {
       nextTick(() => {
         let wrapper = this.$refs.msgWrapper
-        console.log('wrapper.clientHeight', wrapper.clientHeight)
-        console.log('wrapper.scrollHeight', wrapper.scrollHeight)
+        // console.log('wrapper.clientHeight', wrapper.clientHeight)
+        // console.log('wrapper.scrollHeight', wrapper.scrollHeight)
         wrapper.scrollTo({top: wrapper.scrollHeight - wrapper.clientHeight})
       })
 
@@ -804,6 +809,7 @@ export default {
         .avatar {
           margin-top: 60rem;
           width: 55rem;
+          height: 55rem;
           border-radius: 50%;
           margin-bottom: 20rem;
         }

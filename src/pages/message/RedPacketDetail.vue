@@ -67,6 +67,7 @@ export default {
       .avatar {
         margin-top: 55rem;
         width: 55rem;
+        height: 55rem;
         border-radius: 50%;
         margin-bottom: 20rem;
       }

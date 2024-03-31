@@ -203,15 +203,16 @@ function getInsEl(item, index, play = false) {
       }
     })
     return parent
+  } else {
+    const app = createApp({
+      render() {
+        return <SlideItem data-index={index}>{slideVNode}</SlideItem>
+      }
+    })
+    const ins = app.mount(parent)
+    appInsMap.set(index, app)
+    return ins.$el
   }
-  const app = createApp({
-    render() {
-      return <SlideItem data-index={index}>{slideVNode}</SlideItem>
-    }
-  })
-  const ins = app.mount(parent)
-  appInsMap.set(index, app)
-  return ins.$el
 }
 
 function touchStart(e) {

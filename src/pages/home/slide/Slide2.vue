@@ -4,17 +4,18 @@
          :class="state.subTypeIsTop?'top':''"
          ref="subTypeRef">
       <div class="card" @touchmove.capture="stop">
-        <div class="nav-item" v-for="i in 2">
-          <img src="@/assets/img/icon/msg-icon9.webp" alt="">
-          <span>美食美食美食美食美食美食美食</span>
+        <div class="nav-item" v-for="i in store.users">
+          <img :src="_checkImgUrl(i.avatar_168x168.url_list[0])" alt="">
+          <span>{{ i.nickname }}</span>
         </div>
       </div>
     </div>
     <div class="sub-type-notice"
          v-if="state.subType===-1 && !state.subTypeVisible"
-         @click="showSubType">1个直播
+         @click.stop="showSubType">{{store.users.length}}个直播
     </div>
     <SlideList
+        :cbs="{isLive:true}"
         :active="props.active"
         :style="{background: 'black',marginTop:state.subTypeVisible?state.subTypeHeight:0}"
         :api="recommendedVideo"
@@ -27,10 +28,12 @@
 import SlideItem from '@/components/slide/SlideItem.vue'
 import {onMounted, onUnmounted, reactive, ref} from "vue";
 import bus, {EVENT_KEY} from "@/utils/bus";
-import Utils from "@/utils";
+import Utils, {_checkImgUrl} from "@/utils";
 import SlideList from './SlideList.vue';
 import {recommendedVideo} from "@/api/videos";
+import {useBaseStore} from "@/store/pinia";
 
+const store = useBaseStore()
 const props = defineProps({
   active: {
     type: Boolean,
@@ -104,6 +107,8 @@ onUnmounted(() => {
       box-sizing: border-box;
       display: flex;
       overflow: auto;
+      gap: 10rem;
+      padding-left: 20rem;
     }
 
     .nav-item {
@@ -126,7 +131,7 @@ onUnmounted(() => {
       img {
         width: @width;
         height: @width;
-        margin-bottom: 5rem;
+        border-radius: 50%;
       }
     }
   }
