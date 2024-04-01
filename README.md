@@ -50,6 +50,22 @@ Netlify: <https://douyins.netlify.app> (需要翻墙)
 5. 在浏览器中打开[`http://localhost:3000`](http://localhost:3000) 来访问项目。
    Chrome切换成手机模式快捷键，先按F12调出控制台，再按Ctrl+Shift+M
 
+## 项目所展示的网红
+
+- 我是香秀🐂🍺： https://v.douyin.com/iYRAPA2L/
+- 杨老虎🐯（磕穿下巴掉牙版）： https://v.douyin.com/iYRA56de/
+- 条子： https://v.douyin.com/iYRAaqjr/
+- 达莎Digi： https://v.douyin.com/iYRA6rwT/
+- 小橙子： https://v.douyin.com/iYRAnudw/
+- 南恬： https://v.douyin.com/iYRAbKm3/
+- 小霸宠牛排🥩：https://v.douyin.com/iYRSosVB/
+- 奶茶妹◕🌱： https://v.douyin.com/iYRACKhP/
+- 我才是岚岚： https://v.douyin.com/iYRAQM1C/
+- 周憬艺ziran： https://v.douyin.com/iYRAQs4h/
+- 刘思瑶nice： https://v.douyin.com/iYRAaERn/
+- 彭十六elf： https://v.douyin.com/iYRAHrVG/
+- 李子柒：https://v.douyin.com/iYRA5B88/
+
 ## 🎙 功能与建议
 
 目前项目处于开发初期，新功能正在持续添加中，如果你对软件有任何功能与建议，欢迎在 Issues 中提出
