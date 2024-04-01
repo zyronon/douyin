@@ -38,7 +38,8 @@ export default {
 
       //footer下面的5个按钮，对跳不要用动画
       let noAnimation = ['/', '/home', '/slide', '/me', '/shop', '/message', '/publish', '/home/live',
-        'slide'
+        'slide',
+        '/test',
       ]
       if (noAnimation.indexOf(from.path) !== -1 && noAnimation.indexOf(to.path) !== -1) {
         return this.transitionName = ''

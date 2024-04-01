@@ -1,29 +1,31 @@
 <template>
-  <div>
+  <div class="body">
     test
+    <canvas ref="canvasEl"></canvas>
+<!--    <video ref="videoEl" :src="v1" controls></video>-->
   </div>
 </template>
-<script>
+<script setup>
 
+import {onMounted, ref} from "vue";
 
-export default {
-  name: "Test",
-  components: {},
-  data() {
-    return {
-      src: '',
-      rect: {x: 0, y: 0}
-    }
-  },
-  methods: {
-    wheel() {
+defineOptions({
+  name: 'Test'
+})
+const canvasEl = ref()
+const videoEl = ref()
+onMounted(() => {
+  console.log(canvasEl.value, videoEl.value)
+  let ctx = canvasEl.value.getContext('2d')
+  videoEl.value.addEventListener('play', () => {
+    console.log(videoEl.value.videoWidth)
+    console.log(videoEl.value.videoHeight)
+    // ctx.drawImage(videoEl.value, 0, 0, videoEl.value.videoWidth / 20, videoEl.value.videoHeight / 20);
+    ctx.drawImage(videoEl.value, 0, 0, videoEl.value.naturalWidth, videoEl.value.naturalHeight);
+    // ctx.drawImage(videoEl.value, 0, 0, 500, 500);
+  })
+})
 
-    }
-  },
-  mounted() {
-
-  }
-}
 </script>
 <style scoped lang="less">
 .body {
@@ -36,6 +38,13 @@ export default {
   width: 100vw;
   overflow: hidden;
   transform-origin: 0 0;
+  color: white;
+  font-size: 14px;
+}
+
+video, canvas {
+  width: 500px;
+  height: 500px;
 }
 
 .wrapper {
