@@ -1,9 +1,9 @@
-import * as VueRouter from "vue-router";
+import {createRouter, createWebHistory} from "vue-router";
 import routes from "./routes";
 import {useBaseStore} from "@/store/pinia";
 
-const router = VueRouter.createRouter({
-  history: VueRouter.createWebHashHistory(),
+const router = createRouter({
+  history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
     // console.log('savedPosition', savedPosition)
