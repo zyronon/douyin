@@ -47,6 +47,7 @@
     </div>
     <SlideList
       :active="props.active"
+      uniqueId="uniqueId3"
       :style="{
         background: 'black',
         marginTop: state.subTypeVisible ? state.subTypeHeight : 0

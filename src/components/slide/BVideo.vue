@@ -299,33 +299,34 @@ export default {
     },
     click({ uniqueId, index, type }) {
       if (this.position.uniqueId === uniqueId && this.position.index === index) {
-        if (this.isLive) {
-          if (type === EVENT_KEY.ITEM_TOGGLE) {
-            bus.emit(EVENT_KEY.NAV, {
-              path: '/home/live',
-              query: { id: this.item.id }
-            })
-          }
-        } else {
-          if (type === EVENT_KEY.ITEM_TOGGLE) {
+        if (type === EVENT_KEY.ITEM_TOGGLE) {
+          if (this.isLive) {
+            if (type === EVENT_KEY.ITEM_TOGGLE) {
+              this.pause()
+              bus.emit(EVENT_KEY.NAV, {
+                path: '/home/live',
+                query: { id: this.item.id }
+              })
+            }
+          }else {
             if (this.status === SlideItemPlayStatus.Play) {
               this.pause()
             } else {
               this.play()
             }
           }
-          if (type === EVENT_KEY.ITEM_STOP) {
-            this.$refs.video.currentTime = 0
-            this.ignoreWaiting = true
-            this.pause()
-            setTimeout(() => (this.ignoreWaiting = false), 300)
-          }
-          if (type === EVENT_KEY.ITEM_PLAY) {
-            this.$refs.video.currentTime = 0
-            this.ignoreWaiting = true
-            this.play()
-            setTimeout(() => (this.ignoreWaiting = false), 300)
-          }
+        }
+        if (type === EVENT_KEY.ITEM_STOP) {
+          this.$refs.video.currentTime = 0
+          this.ignoreWaiting = true
+          this.pause()
+          setTimeout(() => (this.ignoreWaiting = false), 300)
+        }
+        if (type === EVENT_KEY.ITEM_PLAY) {
+          this.$refs.video.currentTime = 0
+          this.ignoreWaiting = true
+          this.play()
+          setTimeout(() => (this.ignoreWaiting = false), 300)
         }
       }
     },

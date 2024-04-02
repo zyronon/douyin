@@ -2,7 +2,7 @@
   <SlideItem class="slide-item-class">
     <div class="sub-type" :class="state.subTypeIsTop ? 'top' : ''" ref="subTypeRef">
       <div class="card" @touchmove.capture="stop">
-        <div class="nav-item" :key="j" v-for="(i, j) in store.users">
+        <div class="nav-item" @click="goLive(i)" :key="j" v-for="(i, j) in store.users">
           <img :src="_checkImgUrl(i.avatar_168x168.url_list[0])" alt="" />
           <span>{{ i.nickname }}</span>
         </div>
@@ -18,6 +18,7 @@
     <SlideList
       :cbs="{ isLive: true }"
       :active="props.active"
+      uniqueId="uniqueId2"
       :style="{
         background: 'black',
         marginTop: state.subTypeVisible ? state.subTypeHeight : 0
@@ -75,6 +76,13 @@ function pageClick(e) {
     bus.emit(EVENT_KEY.CLOSE_SUB_TYPE)
     Utils.$stopPropagation(e)
   }
+}
+
+function goLive(item) {
+  bus.emit(EVENT_KEY.NAV, {
+    path: '/home/live',
+    query: { id: item.id }
+  })
 }
 
 onMounted(() => {
