@@ -148,18 +148,8 @@
     color-stop(rgba(255, 255, 255, 0)),
     to(#ffffff)
   );
-  background: -webkit-linear-gradient(
-    top,
-    #ffffff,
-    rgba(255, 255, 255, 0),
-    #ffffff
-  );
-  background: linear-gradient(
-    to bottom,
-    #ffffff,
-    rgba(255, 255, 255, 0),
-    #ffffff
-  );
+  background: -webkit-linear-gradient(top, #ffffff, rgba(255, 255, 255, 0), #ffffff);
+  background: linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0), #ffffff);
   opacity: 0.9;
   pointer-events: none;
 }

@@ -29,16 +29,16 @@ export default {
     'dy-back': Back,
     Loading,
     'dy-button': BaseButton,
-    Icon,
+    Icon
   },
   data() {
     return {
       SUCCESS: 200,
-      RELATE_ENUM: CONST_VAR.RELATE_ENUM,
+      RELATE_ENUM: CONST_VAR.RELATE_ENUM
     }
   },
   methods: {
-    ...globalMethods,
+    ...globalMethods
   },
   directives: {
     longpress: {
@@ -91,7 +91,7 @@ export default {
         el.addEventListener('click', cancel)
         el.addEventListener('touchend', cancel)
         el.addEventListener('touchcancel', cancel)
-      },
+      }
     },
     hide: {
       beforeMount: function (el, binding, vNode) {
@@ -107,7 +107,7 @@ export default {
         } else {
           el.style.opacity = 1
         }
-      },
+      }
     },
     love: {
       beforeMount: function (el, binding, vNode) {
@@ -136,10 +136,7 @@ export default {
           if (isDbClick) {
             clearTimeout(dbClickTimer)
             dbClick(e)
-            dbClickTimer = setTimeout(
-              () => (isDbClick = false),
-              dbCheckCancelTime,
-            )
+            dbClickTimer = setTimeout(() => (isDbClick = false), dbCheckCancelTime)
             return
           }
           let nowTime = new Date().getTime()
@@ -147,10 +144,7 @@ export default {
             clearTimeout(clickTimer)
             dbClick(e)
             isDbClick = true
-            dbClickTimer = setTimeout(
-              () => (isDbClick = false),
-              dbCheckCancelTime,
-            )
+            dbClickTimer = setTimeout(() => (isDbClick = false), dbCheckCancelTime)
           } else {
             clickTimer = setTimeout(() => {
               console.log('单击', binding.value)
@@ -160,7 +154,7 @@ export default {
           lastClickTime = nowTime
         }
         el.addEventListener('click', check)
-      },
-    },
-  },
+      }
+    }
+  }
 }

@@ -3,21 +3,14 @@
     <div class="DouyinCode" v-if="modelValue">
       <div class="content">
         <div class="video-poster">
-          <img
-            :src="_checkImgUrl(item.video.cover.url_list[0])"
-            class="poster"
-          />
+          <img :src="_checkImgUrl(item.video.cover.url_list[0])" class="poster" />
         </div>
         <div class="desc">
           <div class="left">
             <div class="user">@{{ item.author.nickname }}</div>
             <div class="title">{{ item.desc }}</div>
           </div>
-          <img
-            class="code"
-            src="../assets/img/icon/components/video/douyin-code.jpg"
-            alt=""
-          />
+          <img class="code" src="../assets/img/icon/components/video/douyin-code.jpg" alt="" />
         </div>
       </div>
       <div class="toolbar">
@@ -32,24 +25,15 @@
             <span>QQ空间</span>
           </div>
           <div class="share-to" @click="$no">
-            <img
-              src="../assets/img/icon/components/video/towechatchat.webp"
-              alt=""
-            />
+            <img src="../assets/img/icon/components/video/towechatchat.webp" alt="" />
             <span>微信好友</span>
           </div>
           <div class="share-to" @click="$no">
-            <img
-              src="../assets/img/icon/components/video/towechat.webp"
-              alt=""
-            />
+            <img src="../assets/img/icon/components/video/towechat.webp" alt="" />
             <span>朋友圈</span>
           </div>
           <div class="share-to" @click="$no">
-            <img
-              src="../assets/img/icon/components/video/todownload.webp"
-              alt=""
-            />
+            <img src="../assets/img/icon/components/video/todownload.webp" alt="" />
             <span>保存到相册</span>
           </div>
         </div>
@@ -59,134 +43,134 @@
   </transition>
 </template>
 <script>
-  import { _checkImgUrl } from '@/utils'
+import { _checkImgUrl } from '@/utils'
 
-  export default {
-    name: 'DouyinCode',
-    props: {
-      item: {},
-      modelValue: false,
-    },
-    data() {
-      return {}
-    },
-    computed: {},
-    created() {},
-    methods: {
-      _checkImgUrl,
-      cancel() {
-        this.$emit('update:modelValue', false)
-      },
-    },
+export default {
+  name: 'DouyinCode',
+  props: {
+    item: {},
+    modelValue: false
+  },
+  data() {
+    return {}
+  },
+  computed: {},
+  created() {},
+  methods: {
+    _checkImgUrl,
+    cancel() {
+      this.$emit('update:modelValue', false)
+    }
   }
+}
 </script>
 
 <style scoped lang="less">
-  @import '../assets/less/index';
+@import '../assets/less/index';
 
-  .DouyinCode {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    background: transparent;
-    @w: 70vw;
+.DouyinCode {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  background: transparent;
+  @w: 70vw;
 
-    .content {
-      background: white;
-      width: @w;
-      margin-bottom: 40rem;
-      position: relative;
-      border-radius: 10rem;
-      overflow: hidden;
+  .content {
+    background: white;
+    width: @w;
+    margin-bottom: 40rem;
+    position: relative;
+    border-radius: 10rem;
+    overflow: hidden;
 
-      .desc {
-        display: flex;
-        gap: 20rem;
-        padding: 10rem;
+    .desc {
+      display: flex;
+      gap: 20rem;
+      padding: 10rem;
 
-        .left {
-          font-size: 18rem;
+      .left {
+        font-size: 18rem;
 
-          .title {
-            margin-top: 10rem;
-            font-size: 14rem;
-            color: var(--second-text-color);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box; //作为弹性伸缩盒子模型显示。
-            -webkit-box-orient: vertical; //设置伸缩盒子的子元素排列方式--从上到下垂直排列
-            -webkit-line-clamp: 1; //显示的行
-          }
-        }
-        .code {
-          width: 60rem;
+        .title {
+          margin-top: 10rem;
+          font-size: 14rem;
+          color: var(--second-text-color);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box; //作为弹性伸缩盒子模型显示。
+          -webkit-box-orient: vertical; //设置伸缩盒子的子元素排列方式--从上到下垂直排列
+          -webkit-line-clamp: 1; //显示的行
         }
       }
-
-      .video-poster {
-        width: @w;
-        height: @w;
-        overflow: hidden;
-
-        .poster {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
+      .code {
+        width: 60rem;
       }
     }
 
-    .toolbar {
-      width: 100vw;
-      background: black;
-      border-radius: 10rem 10rem 0 0;
-      color: white;
+    .video-poster {
+      width: @w;
+      height: @w;
+      overflow: hidden;
 
-      .title {
-        font-size: 12rem;
-        padding: 14rem;
-        text-align: center;
-      }
-
-      @space-width: 18rem;
-      @icon-width: 45rem;
-
-      .shares {
-        display: flex;
-        margin-bottom: @space-width;
-        gap: 20rem;
-        padding-left: 20rem;
-
-        .share-to {
-          img {
-            width: @icon-width;
-            height: @icon-width;
-            border-radius: 50%;
-            margin-bottom: 5rem;
-          }
-
-          span {
-            color: var(--second-text-color);
-            font-size: 10rem;
-            display: block;
-            text-align: center;
-          }
-        }
-      }
-
-      .cancel {
-        font-size: 16rem;
-        background: rgb(38, 38, 38);
-        color: rgba(white, 0.8);
-        padding: 15rem;
-        text-align: center;
+      .poster {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
     }
   }
+
+  .toolbar {
+    width: 100vw;
+    background: black;
+    border-radius: 10rem 10rem 0 0;
+    color: white;
+
+    .title {
+      font-size: 12rem;
+      padding: 14rem;
+      text-align: center;
+    }
+
+    @space-width: 18rem;
+    @icon-width: 45rem;
+
+    .shares {
+      display: flex;
+      margin-bottom: @space-width;
+      gap: 20rem;
+      padding-left: 20rem;
+
+      .share-to {
+        img {
+          width: @icon-width;
+          height: @icon-width;
+          border-radius: 50%;
+          margin-bottom: 5rem;
+        }
+
+        span {
+          color: var(--second-text-color);
+          font-size: 10rem;
+          display: block;
+          text-align: center;
+        }
+      }
+    }
+
+    .cancel {
+      font-size: 16rem;
+      background: rgb(38, 38, 38);
+      color: rgba(white, 0.8);
+      padding: 15rem;
+      text-align: center;
+    }
+  }
+}
 </style>

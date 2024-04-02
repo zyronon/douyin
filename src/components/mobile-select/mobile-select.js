@@ -39,23 +39,17 @@ MobileSelect.prototype = {
     var _this = this
     if (config.wheels[0].data.length == 0) {
       console.error(
-        'mobileSelect has been successfully installed, but the data is empty and cannot be initialized.',
+        'mobileSelect has been successfully installed, but the data is empty and cannot be initialized.'
       )
       return false
     }
-    _this.keyMap = config.keyMap
-      ? config.keyMap
-      : { id: 'id', value: 'value', childs: 'childs' }
+    _this.keyMap = config.keyMap ? config.keyMap : { id: 'id', value: 'value', childs: 'childs' }
     _this.checkDataType()
-    _this.renderWheels(
-      _this.wheelsData,
-      config.cancelBtnText,
-      config.ensureBtnText,
-    )
+    _this.renderWheels(_this.wheelsData, config.cancelBtnText, config.ensureBtnText)
     _this.trigger = document.querySelector(config.trigger)
     if (!_this.trigger) {
       console.error(
-        'mobileSelect has been successfully installed, but no trigger found on your page.',
+        'mobileSelect has been successfully installed, but no trigger found on your page.'
       )
       return false
     }
@@ -75,9 +69,7 @@ MobileSelect.prototype = {
     _this.initPosition = config.position || []
     _this.titleText = config.title || ''
     _this.connector = config.connector || ' '
-    _this.triggerDisplayData = !(
-      typeof config.triggerDisplayData == 'undefined'
-    )
+    _this.triggerDisplayData = !(typeof config.triggerDisplayData == 'undefined')
       ? config.triggerDisplayData
       : true
     _this.trigger.style.cursor = 'pointer'
@@ -178,8 +170,7 @@ MobileSelect.prototype = {
     }
     if (!isNaN(config.maskOpacity)) {
       _this.grayMask = _this.mobileSelect.querySelector('.grayLayer')
-      _this.grayMask.style.background =
-        'rgba(0, 0, 0, ' + config.maskOpacity + ')'
+      _this.grayMask.style.background = 'rgba(0, 0, 0, ' + config.maskOpacity + ')'
     }
   },
 
@@ -194,16 +185,7 @@ MobileSelect.prototype = {
     var bIsAndroid = sUserAgent.match(/android/i) == 'android'
     var bIsCE = sUserAgent.match(/windows ce/i) == 'windows ce'
     var bIsWM = sUserAgent.match(/windows mobile/i) == 'windows mobile'
-    if (
-      bIsIpad ||
-      bIsIphoneOs ||
-      bIsMidp ||
-      bIsUc7 ||
-      bIsUc ||
-      bIsAndroid ||
-      bIsCE ||
-      bIsWM
-    ) {
+    if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
       _this.isPC = false
     }
   },
@@ -297,21 +279,21 @@ MobileSelect.prototype = {
       function () {
         _this.touch(event, this.firstChild, index)
       },
-      false,
+      false
     )
     theWheel.addEventListener(
       'touchend',
       function () {
         _this.touch(event, this.firstChild, index)
       },
-      false,
+      false
     )
     theWheel.addEventListener(
       'touchmove',
       function () {
         _this.touch(event, this.firstChild, index)
       },
-      false,
+      false
     )
 
     if (_this.isPC) {
@@ -321,21 +303,21 @@ MobileSelect.prototype = {
         function () {
           _this.dragClick(event, this.firstChild, index)
         },
-        false,
+        false
       )
       theWheel.addEventListener(
         'mousemove',
         function () {
           _this.dragClick(event, this.firstChild, index)
         },
-        false,
+        false
       )
       theWheel.addEventListener(
         'mouseup',
         function () {
           _this.dragClick(event, this.firstChild, index)
         },
-        true,
+        true
       )
     }
   },
@@ -352,10 +334,7 @@ MobileSelect.prototype = {
     if (_this.jsonType) {
       var node = _this.wheelsData[0].data
       for (var i = 0; i < node.length; i++) {
-        if (
-          _this.keyMap.childs in node[i] &&
-          node[i][_this.keyMap.childs].length > 0
-        ) {
+        if (_this.keyMap.childs in node[i] && node[i][_this.keyMap.childs].length > 0) {
           _this.cascade = true
           _this.cascadeJsonData = _this.wheelsData[0].data
           break
@@ -394,16 +373,10 @@ MobileSelect.prototype = {
   initCheckArrDeep: function (parent) {
     var _this = this
     if (parent) {
-      if (
-        _this.keyMap.childs in parent &&
-        parent[_this.keyMap.childs].length > 0
-      ) {
-        _this.displayJson.push(
-          _this.generateArrData(parent[_this.keyMap.childs]),
-        )
+      if (_this.keyMap.childs in parent && parent[_this.keyMap.childs].length > 0) {
+        _this.displayJson.push(_this.generateArrData(parent[_this.keyMap.childs]))
         _this.initDeepCount++
-        var nextNode =
-          parent[_this.keyMap.childs][_this.initPosition[_this.initDeepCount]]
+        var nextNode = parent[_this.keyMap.childs][_this.initPosition[_this.initDeepCount]]
         if (nextNode) {
           _this.initCheckArrDeep(nextNode)
         } else {
@@ -417,13 +390,8 @@ MobileSelect.prototype = {
     //检测子节点深度  修改 displayJson
     var _this = this
     if (parent) {
-      if (
-        _this.keyMap.childs in parent &&
-        parent[_this.keyMap.childs].length > 0
-      ) {
-        _this.displayJson.push(
-          _this.generateArrData(parent[_this.keyMap.childs]),
-        ) //生成子节点数组
+      if (_this.keyMap.childs in parent && parent[_this.keyMap.childs].length > 0) {
+        _this.displayJson.push(_this.generateArrData(parent[_this.keyMap.childs])) //生成子节点数组
         _this.checkArrDeep(parent[_this.keyMap.childs][0]) //检测下一个子节点
       }
     }
@@ -539,18 +507,12 @@ MobileSelect.prototype = {
     var _this = this
     var tempHTML = ''
     if (_this.cascade) {
-      console.error(
-        '级联格式不支持updateWheel(),请使用updateWheels()更新整个数据源',
-      )
+      console.error('级联格式不支持updateWheel(),请使用updateWheels()更新整个数据源')
       return false
     } else if (_this.jsonType) {
       for (var j = 0; j < data.length; j++) {
         tempHTML +=
-          '<li data-id="' +
-          data[j][_this.keyMap.id] +
-          '">' +
-          data[j][_this.keyMap.value] +
-          '</li>'
+          '<li data-id="' + data[j][_this.keyMap.id] + '">' + data[j][_this.keyMap.value] + '</li>'
       }
       _this.wheelsData[sliderIndex] = { data: data }
     } else {
@@ -593,9 +555,7 @@ MobileSelect.prototype = {
       }
     } else if (_this.jsonType) {
       for (var i = 0; i < _this.curDistance.length; i++) {
-        temp.push(
-          _this.wheelsData[i].data[_this.getIndex(_this.curDistance[i])],
-        )
+        temp.push(_this.wheelsData[i].data[_this.getIndex(_this.curDistance[i])])
       }
     } else {
       for (var i = 0; i < _this.curDistance.length; i++) {
@@ -643,13 +603,9 @@ MobileSelect.prototype = {
 
   updateCurDistance: function (theSlider, index) {
     if (theSlider.style.transform) {
-      this.curDistance[index] = parseInt(
-        theSlider.style.transform.split(',')[1],
-      )
+      this.curDistance[index] = parseInt(theSlider.style.transform.split(',')[1])
     } else {
-      this.curDistance[index] = parseInt(
-        theSlider.style.webkitTransform.split(',')[1],
-      )
+      this.curDistance[index] = parseInt(theSlider.style.webkitTransform.split(',')[1])
     }
   },
 
@@ -680,22 +636,18 @@ MobileSelect.prototype = {
       case 'touchend':
         _this.moveEndY = parseInt(event.changedTouches[0].clientY)
         _this.offsetSum = _this.moveEndY - _this.startY
-        _this.oversizeBorder =
-          -(theSlider.getElementsByTagName('li').length - 3) * _this.liHeight
+        _this.oversizeBorder = -(theSlider.getElementsByTagName('li').length - 3) * _this.liHeight
 
         if (_this.offsetSum == 0) {
           //offsetSum为0,相当于点击事件
           // 0 1 [2] 3 4
           var clickOffetNum = parseInt(
-            (document.documentElement.clientHeight - _this.moveEndY) / 40,
+            (document.documentElement.clientHeight - _this.moveEndY) / 40
           )
           if (clickOffetNum != 2) {
             var offset = clickOffetNum - 2
             var newDistance = _this.curDistance[index] + offset * _this.liHeight
-            if (
-              newDistance <= 2 * _this.liHeight &&
-              newDistance >= _this.oversizeBorder
-            ) {
+            if (newDistance <= 2 * _this.liHeight && newDistance >= _this.oversizeBorder) {
               _this.curDistance[index] = newDistance
               _this.movePosition(theSlider, _this.curDistance[index])
               _this.transitionEnd(_this.getIndexArr(), _this.getCurValue())
@@ -713,10 +665,7 @@ MobileSelect.prototype = {
             setTimeout(function () {
               _this.movePosition(theSlider, _this.curDistance[index])
             }, 100)
-          } else if (
-            _this.curDistance[index] + _this.offsetSum <
-            _this.oversizeBorder
-          ) {
+          } else if (_this.curDistance[index] + _this.offsetSum < _this.oversizeBorder) {
             _this.curDistance[index] = _this.oversizeBorder
             setTimeout(function () {
               _this.movePosition(theSlider, _this.curDistance[index])
@@ -757,20 +706,16 @@ MobileSelect.prototype = {
       case 'mouseup':
         _this.moveEndY = event.clientY
         _this.offsetSum = _this.moveEndY - _this.startY
-        _this.oversizeBorder =
-          -(theSlider.getElementsByTagName('li').length - 3) * _this.liHeight
+        _this.oversizeBorder = -(theSlider.getElementsByTagName('li').length - 3) * _this.liHeight
 
         if (_this.offsetSum == 0) {
           var clickOffetNum = parseInt(
-            (document.documentElement.clientHeight - _this.moveEndY) / 40,
+            (document.documentElement.clientHeight - _this.moveEndY) / 40
           )
           if (clickOffetNum != 2) {
             var offset = clickOffetNum - 2
             var newDistance = _this.curDistance[index] + offset * _this.liHeight
-            if (
-              newDistance <= 2 * _this.liHeight &&
-              newDistance >= _this.oversizeBorder
-            ) {
+            if (newDistance <= 2 * _this.liHeight && newDistance >= _this.oversizeBorder) {
               _this.curDistance[index] = newDistance
               _this.movePosition(theSlider, _this.curDistance[index])
               _this.transitionEnd(_this.getIndexArr(), _this.getCurValue())
@@ -788,10 +733,7 @@ MobileSelect.prototype = {
             setTimeout(function () {
               _this.movePosition(theSlider, _this.curDistance[index])
             }, 100)
-          } else if (
-            _this.curDistance[index] + _this.offsetSum <
-            _this.oversizeBorder
-          ) {
+          } else if (_this.curDistance[index] + _this.offsetSum < _this.oversizeBorder) {
             _this.curDistance[index] = _this.oversizeBorder
             setTimeout(function () {
               _this.movePosition(theSlider, _this.curDistance[index])
@@ -818,7 +760,7 @@ MobileSelect.prototype = {
         }
         break
     }
-  },
+  }
 }
 
 export default MobileSelect

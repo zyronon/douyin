@@ -82,9 +82,7 @@ export default class Dom {
     if (args.length === 1) {
       //情况一：获取样式
       if (typeof args[0] === 'string') {
-        return window.getComputedStyle(this.els[this.els.length - 1], null)[
-          args[0]
-        ]
+        return window.getComputedStyle(this.els[this.els.length - 1], null)[args[0]]
         // return globalMethods.$getCss2
         // return this.els[0].style[args[0]]
       } else {

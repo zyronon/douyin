@@ -3,27 +3,17 @@
     <BaseHeader>
       <template v-slot:center>
         <span class="f16" v-if="type === '“抖音”隐私政策'">“抖音”隐私政策</span>
-        <span class="f16" v-if="type === '“抖音”用户服务协议'"
-          >“抖音”用户服务协议</span
-        >
-        <span class="f16" v-if="type === '抖音亲子平台服务协议'"
-          >抖音亲子平台服务协议</span
-        >
-        <span class="f16" v-if="type === '儿童/青少年使用须知'"
-          >儿童/青少年使用须知</span
-        >
+        <span class="f16" v-if="type === '“抖音”用户服务协议'">“抖音”用户服务协议</span>
+        <span class="f16" v-if="type === '抖音亲子平台服务协议'">抖音亲子平台服务协议</span>
+        <span class="f16" v-if="type === '儿童/青少年使用须知'">儿童/青少年使用须知</span>
         <span class="f16" v-if="type === '抖音权限申请与使用情况说明'"
           >抖音权限申请与使用情况说明</span
         >
-        <span class="f16" v-if="type === '抖音App接入第三方SDK目录'"
-          >抖音App接入第三方SDK目录</span
-        >
+        <span class="f16" v-if="type === '抖音App接入第三方SDK目录'">抖音App接入第三方SDK目录</span>
         <span class="f16" v-if="type === '《帐号及信息同步授权协议》'"
           >《帐号及信息同步授权协议》</span
         >
-        <span class="f16" v-if="type === '中国移动认证服务协议'"
-          >中国移动认证服务协议</span
-        >
+        <span class="f16" v-if="type === '中国移动认证服务协议'">中国移动认证服务协议</span>
         <span class="f16" v-if="type === '抖音注销须知'">抖音注销须知</span>
         <span class="f16" v-if="type === '多闪权限申请与使用情况说明'"
           >多闪权限申请与使用情况说明</span
@@ -33,11 +23,7 @@
     <div class="content" v-if="type === '“抖音”隐私政策'">
       <div class="text-warpper douyin">
         <p>
-          <strong
-            ><font style="font-family: SimSuncss"
-              >更新日期：2021年7月13日</font
-            ></strong
-          >
+          <strong><font style="font-family: SimSuncss">更新日期：2021年7月13日</font></strong>
         </p>
         <p><br /></p>
         <p>
@@ -46,11 +32,7 @@
           >
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss"
-              >本隐私政策将帮助你了解：</font
-            ></strong
-          >
+          <strong><font style="font-family: SimSuncss">本隐私政策将帮助你了解：</font></strong>
         </p>
         <p>
           <font style="font-family: SimSuncss"
@@ -111,17 +93,11 @@
           >
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss"
-              >1.我们如何收集和使用个人信息</font
-            ></strong
-          >
+          <strong><font style="font-family: SimSuncss">1.我们如何收集和使用个人信息</font></strong>
         </p>
         <p>
           <strong
-            ><font style="font-family: SimSuncss"
-              >2.我们如何使用Cookie等同类技术</font
-            ></strong
+            ><font style="font-family: SimSuncss">2.我们如何使用Cookie等同类技术</font></strong
           >
         </p>
         <p>
@@ -132,55 +108,29 @@
           >
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss"
-              >4.我们如何存储个人信息</font
-            ></strong
-          >
+          <strong><font style="font-family: SimSuncss">4.我们如何存储个人信息</font></strong>
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss"
-              >5.我们如何保护个人信息的安全</font
-            ></strong
-          >
+          <strong><font style="font-family: SimSuncss">5.我们如何保护个人信息的安全</font></strong>
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss">6.</font>个性化推荐</strong
-          >
+          <strong><font style="font-family: SimSuncss">6.</font>个性化推荐</strong>
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss"
-              >7.管理你的个人信息</font
-            ></strong
-          >
+          <strong><font style="font-family: SimSuncss">7.管理你的个人信息</font></strong>
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss">8.未成年人条款</font></strong
-          >
+          <strong><font style="font-family: SimSuncss">8.未成年人条款</font></strong>
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss"
-              >9.隐私政策的修订和通知</font
-            ></strong
-          >
+          <strong><font style="font-family: SimSuncss">9.隐私政策的修订和通知</font></strong>
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss">10.联系我们</font></strong
-          >
+          <strong><font style="font-family: SimSuncss">10.联系我们</font></strong>
         </p>
         <p><br /></p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss"
-              >1.我们如何收集和使用个人信息</font
-            ></strong
-          >
+          <strong><font style="font-family: SimSuncss">1.我们如何收集和使用个人信息</font></strong>
         </p>
         <p>
           <font style="font-family: SimSuncss"
@@ -188,25 +138,15 @@
           >
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss"
-              >1.1 注册、登录、认证</font
-            ></strong
-          >
+          <strong><font style="font-family: SimSuncss">1.1 注册、登录、认证</font></strong>
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss"
-              >1.1.1 注册、登录帐号</font
-            ></strong
-          >
+          <strong><font style="font-family: SimSuncss">1.1.1 注册、登录帐号</font></strong>
         </p>
         <p>
           <font style="font-family: SimSuncss"
             >a.当你注册、登录抖音及相关服务时，你可以通过手机号创建帐号，并且你可以完善相关的网络身份识别信息（头像、昵称、密码），收集这些信息是为了帮助你完成注册。你还可以根据自身需求选择填写性别、生日、地区及个人介绍来完善你的信息，</font
-          >并在填写后自主选择展示范围<font style="font-family: SimSuncss"
-            >。</font
-          >
+          >并在填写后自主选择展示范围<font style="font-family: SimSuncss">。</font>
         </p>
         <p>
           <font style="font-family: SimSuncss">b.</font
@@ -237,18 +177,13 @@
         <p>
           <font style="font-family: SimSuncss"
             >f.基于我们与通信运营商的合作，当你使用抖音“一键登录”功能时，经过你的明示同意，运营商会将你的手机号码发送给我们，便于我们为你提供快捷的登录服务。</font
-          ><strong
-            ><font style="font-family: SimSuncss"
-              >手机号码属于个人敏感信息</font
-            ></strong
+          ><strong><font style="font-family: SimSuncss">手机号码属于个人敏感信息</font></strong
           ><font style="font-family: SimSuncss"
             >，如果拒绝提供将无法使用“一键登录”方式注册登录抖音，但不影响你通过其他方式注册登录，也不影响其他功能的正常使用。</font
           >
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss">1.1.2 认证</font></strong
-          >
+          <strong><font style="font-family: SimSuncss">1.1.2 认证</font></strong>
         </p>
         <p>
           <font style="font-family: Microsoft YaHei"
@@ -258,9 +193,7 @@
         </p>
         <p><br /></p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss">1.2 播放浏览</font></strong
-          >
+          <strong><font style="font-family: SimSuncss">1.2 播放浏览</font></strong>
         </p>
         <p>
           <font style="font-family: SimSuncss"
@@ -281,14 +214,10 @@
         </p>
         <p><br /></p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss">1.3 发布与互动</font></strong
-          >
+          <strong><font style="font-family: SimSuncss">1.3 发布与互动</font></strong>
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss">1.3.1 信息发布</font></strong
-          >
+          <strong><font style="font-family: SimSuncss">1.3.1 信息发布</font></strong>
         </p>
         <p>
           a.你发布音视频、图片等内容或进行评论时，我们将收集你发布的信息，并展示你的昵称、头像、发布内容和信息。
@@ -314,9 +243,7 @@
           g.我们还可能为向你提供人脸贴纸功能而在客户端本地使用仅供该功能的部分面部特征值信息，以提供更好的视觉效果，在此过程中，除非另有明确说明并征得你的同意，<strong>我们不会回传、储存或共享你的任何面部特征值信息</strong>。
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss">1.3.2 互动交流</font></strong
-          >
+          <strong><font style="font-family: SimSuncss">1.3.2 互动交流</font></strong>
         </p>
         <p>
           a.当你关注或分享帐号，或进行浏览、评论、收藏、搜索、喜欢（点赞）或分享时，我们会收集你前述信息，并展示相应内容发布者的帐号发布的内容，或为你推荐相应内容发布者。
@@ -327,9 +254,7 @@
         <p>
           <strong>c.当你使用群功能时，我们会创建群聊列表及相关信息。</strong>
         </p>
-        <p>
-          d.抖音与多闪好友进行互动交流时，为实现功能所需，抖音会收集通讯信息。
-        </p>
+        <p>d.抖音与多闪好友进行互动交流时，为实现功能所需，抖音会收集通讯信息。</p>
         <p>
           e.当你选择使用扫码添加朋友时，<strong>抖音可能会向你请求摄像头权限</strong>，摄像头权限是敏感权限，拒绝提供仅会使你无法通过扫码途径添加朋友，不影响其他功能的使用。
         </p>
@@ -340,9 +265,7 @@
           g.当你使用抖音或包含抖音私信功能的多闪时，我们会向你的朋友在抖音分享栏、抖音开播页、抖音及多闪的消息页等位置展示你的活跃状态，同时你也可以看到你的其他朋友的活跃情况。如果你不希望向你的朋友展示你的活跃状态，可以在【我】-【设置】-【隐私设置】中进行关闭。
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss">1.3.3 朋友推荐</font></strong
-          >
+          <strong><font style="font-family: SimSuncss">1.3.3 朋友推荐</font></strong>
         </p>
         <p>
           a.抖音可能会根据你及其他用户授权的手机号码、通讯录、关注、粉丝等关系、你及其他用户在个人主页选择对外展示的资料、你及其他用户的互动行为为用户推荐朋友。
@@ -405,17 +328,11 @@
         <p>a.与国家安全、国防安全直接相关的；</p>
         <p>b.与公共安全、公共卫生、重大公共利益直接相关的；</p>
         <p>c.与犯罪侦查、起诉、审判和判决执行等直接相关的；</p>
-        <p>
-          d.出于维护个人信息主体或其他个人的生命、财产等重大合法权益但又很难得到本人同意的；
-        </p>
+        <p>d.出于维护个人信息主体或其他个人的生命、财产等重大合法权益但又很难得到本人同意的；</p>
         <p>e.所收集的你的个人信息是你自行向社会公众公开的；</p>
-        <p>
-          f.从合法公开披露的信息中收集的你的个人信息的，如合法的新闻报道、政府信息公开等渠道；
-        </p>
+        <p>f.从合法公开披露的信息中收集的你的个人信息的，如合法的新闻报道、政府信息公开等渠道；</p>
         <p>g.根据你的要求签订或履行合同所必需的；</p>
-        <p>
-          h.用于维护软件及相关服务的安全稳定运行所必需的，例如发现、处置软件及相关服务的故障；
-        </p>
+        <p>h.用于维护软件及相关服务的安全稳定运行所必需的，例如发现、处置软件及相关服务的故障；</p>
         <p>i.为合法的新闻报道所必需的；</p>
         <p>
           j.学术研究机构基于公共利益开展统计或学术研究所必要，且对外提供学术研究或描述的结果时，对结果中所包含的个人信息进行去标识化处理的；
@@ -471,47 +388,33 @@
           <strong><font style="font-family: SimSuncss">3.1共享</font></strong>
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss">3.1.1 共享原则</font></strong
-          >
+          <strong><font style="font-family: SimSuncss">3.1.1 共享原则</font></strong>
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss"
-              >a.授权同意原则：</font
-            ></strong
+          <strong><font style="font-family: SimSuncss">a.授权同意原则：</font></strong
           ><font style="font-family: SimSuncss">
             未经你的同意，我们不会共享你的个人信息，除非共享的个人信息是去标识化处理后的信息，且共享第三方无法重新识别此类信息的自然人主体。如果第三方使用信息的目的超越原授权同意范围，他们需要重新征得你的同意。</font
           >
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss"
-              >b.合法正当与最小必要原则：</font
-            ></strong
+          <strong><font style="font-family: SimSuncss">b.合法正当与最小必要原则：</font></strong
           ><font style="font-family: SimSuncss">
             共享的数据必须具有合法正当目的，且共享的数据以达成目的必要为限。</font
           >
         </p>
         <p>
-          <strong
-            ><font style="font-family: SimSuncss"
-              >c.安全审慎原则：</font
-            ></strong
+          <strong><font style="font-family: SimSuncss">c.安全审慎原则：</font></strong
           ><font style="font-family: SimSuncss">
             我们将审慎评估第三方使用共享信息的目的，对这些合作方的安全保障能力进行综合评估，并要求其遵循合作法律协议。我们会对合作方获取信息的软件工具开发包（SDK）、应用程序接口（API）进行严格的安全监测，以保护数据安全。</font
           >
         </p>
         <p>
-          <a href="https://www.douyin.com/agreements/?id=6765318474873964556"
-            >接入第三方SDK目录</a
+          <a href="https://www.douyin.com/agreements/?id=6765318474873964556">接入第三方SDK目录</a
           ><br />
         </p>
         <p>
           <strong
-            ><font style="font-family: SimSuncss"
-              >3.1.2 实现功能或服务的共享信息</font
-            ></strong
+            ><font style="font-family: SimSuncss">3.1.2 实现功能或服务的共享信息</font></strong
           >
         </p>
         <p>
@@ -580,9 +483,7 @@
         </p>
         <p><br /></p>
         <p><strong>3.2 转让</strong></p>
-        <p>
-          a.我们不会转让你的个人信息给任何其他第三方，除非征得你的明确同意。
-        </p>
+        <p>a.我们不会转让你的个人信息给任何其他第三方，除非征得你的明确同意。</p>
         <p>
           b.随着我们业务的持续发展，我们将有可能进行合并、收购、资产转让，你的个人信息有可能因此而被转移。在发生前述变更时，我们将按照法律法规及不低于本隐私政策所载明的安全标准要求继受方保护你的个人信息，否则我们将要求继受方重新征得你的授权同意。
         </p>
@@ -593,14 +494,9 @@
           我们不会公开披露你的信息，除非遵循国家法律法规规定或者获得你的同意。我们公开披露你的个人信息会采用符合行业内标准的安全保护措施。
         </p>
         <p>
-          <strong
-            >b.
-            对违规帐号、欺诈行为进行处罚公告时，我们会披露相关帐号的信息。</strong
-          >
+          <strong>b. 对违规帐号、欺诈行为进行处罚公告时，我们会披露相关帐号的信息。</strong>
         </p>
-        <p>
-          c.当你授权游戏或小程序后，你和朋友的头像、昵称将会在排名及相关功能中展示。
-        </p>
+        <p>c.当你授权游戏或小程序后，你和朋友的头像、昵称将会在排名及相关功能中展示。</p>
         <p>d.你公开发布的作品、动态、喜欢（点赞）将会在个人主页中展示。</p>
         <p>
           e.你可以在【设置】-【隐私设置】-【私密帐号】中选择是否开启“私密帐号”功能。开启后，未经你的同意，我们不会将你发布的内容和点击“喜欢”的状态在其他软件中展示。只有你批准的用户才能关注你，并能看到你的内容和喜欢（点赞），但现有的粉丝不会受到影响。
@@ -621,13 +517,9 @@
         <p>a.与国家安全、国防安全直接相关的；</p>
         <p>b.与公共安全、公共卫生、重大公共利益直接相关的；</p>
         <p>c.与犯罪侦查、起诉、审判和判决执行等直接相关的；</p>
-        <p>
-          d.出于维护你或其他个人的生命、财产等重大合法权益但又很难得到本人同意的；
-        </p>
+        <p>d.出于维护你或其他个人的生命、财产等重大合法权益但又很难得到本人同意的；</p>
         <p>e.你自行向社会公众公开的个人信息；</p>
-        <p>
-          f.从合法公开披露的信息中收集个人信息的，如合法的新闻报道、政府信息公开等渠道。
-        </p>
+        <p>f.从合法公开披露的信息中收集个人信息的，如合法的新闻报道、政府信息公开等渠道。</p>
         <p><br /></p>
         <p><strong>4.我们如何存储个人信息</strong></p>
         <p><strong>4.1 存储地点</strong></p>
@@ -693,9 +585,7 @@
           <strong>b.自主订阅所需内容：</strong
           >在关注频道中会根据你主动选择关注的帐号进行展示，你可以自主选择关注或取消关注。
         </p>
-        <p>
-          c.当没有你感兴趣的内容时，你也可以在搜索栏输入感兴趣的关键词，点击并阅读搜索结果。
-        </p>
+        <p>c.当没有你感兴趣的内容时，你也可以在搜索栏输入感兴趣的关键词，点击并阅读搜索结果。</p>
         <p><strong>6.2.2 管理你的程序化广告推送</strong></p>
         <p>
           <strong>a.自主决定接收程序化广告信息：</strong>
@@ -755,15 +645,11 @@
         <p>
           a.进入【我】-【设置】-【隐私设置】-【点赞】中控制他人是否在你的个人主页中的喜欢列表中看到你喜欢（点赞）的信息，或控制你的作品下的点赞列表及你的点赞信息在他人作品下的可见范围
         </p>
-        <p>
-          b.进入【我】-【设置】-【隐私设置】-【私密帐号】控制他人是否可以关注并查看你的帐号内容
-        </p>
+        <p>b.进入【我】-【设置】-【隐私设置】-【私密帐号】控制他人是否可以关注并查看你的帐号内容</p>
         <p>
           c.进入【我】-【设置】-【隐私设置】-【黑名单】控制他人是否可以与你通讯、是否可以查看你的帐号内容及点赞信息
         </p>
-        <p>
-          d.进入【我】-【设置】-【隐私设置】-【谁可以私信我】控制何种类型用户可以与你通讯
-        </p>
+        <p>d.进入【我】-【设置】-【隐私设置】-【谁可以私信我】控制何种类型用户可以与你通讯</p>
         <p>
           e.进入【我】-【设置】-【隐私设置】-【关注与粉丝列表】中控制他人是否可以看到你的关注、粉丝列表
         </p>
@@ -842,8 +728,7 @@
         </p>
         <p><strong>8.2.3 亲子平台</strong></p>
         <p>
-          【我】- 【未成年保护工具】中可以在接受<a
-            href="https://www.douyin.com/guardian/"
+          【我】- 【未成年保护工具】中可以在接受<a href="https://www.douyin.com/guardian/"
             >《抖音亲子平台服务协议》</a
           >后开启亲子平台功能。当你申请开启该功能，我们可能会要求你提供合法身份证明、监护人证明、抖音帐号、联系方式等个人信息，用于验证绑定帐号的用户身份，并对被绑定帐号用户的身份进行必要的核验。功能开启后，抖音会根据你的申请，对未成年人帐号采取使用时长、内容过滤等限制措施。
         </p>
@@ -861,9 +746,7 @@
           如果你对个人信息保护问题有投诉、建议、疑问，你可以将问题发送至（Dataprivacy@bytedance.com）或邮寄至下列地址：
         </p>
         <p>北京市海淀区中国卫星通信大厦 法务部 数据安全与隐私保护中心</p>
-        <p>
-          我们将尽快审核所涉问题，并在验证你的用户身份后的十五个工作日内回复。
-        </p>
+        <p>我们将尽快审核所涉问题，并在验证你的用户身份后的十五个工作日内回复。</p>
         <p><br /></p>
       </div>
     </div>
@@ -874,34 +757,34 @@
         <div class="text-warpper douyin">
           <p>
             <strong
-              ><font style="font-family: Microsoft Yahei">更新日期：</font
-              >2021<font style="font-family: Microsoft Yahei">年</font>5<font
+              ><font style="font-family: Microsoft Yahei">更新日期：</font>2021<font
                 style="font-family: Microsoft Yahei"
-                >月</font
-              >31<font style="font-family: Microsoft Yahei">日</font></strong
+                >年</font
+              >5<font style="font-family: Microsoft Yahei">月</font>31<font
+                style="font-family: Microsoft Yahei"
+                >日</font
+              ></strong
             >
           </p>
           <p>
             <strong
-              ><font style="font-family: Microsoft Yahei">生效日期：</font
-              >2021<font style="font-family: Microsoft Yahei">年</font>6<font
+              ><font style="font-family: Microsoft Yahei">生效日期：</font>2021<font
                 style="font-family: Microsoft Yahei"
-                >月</font
-              >7<font style="font-family: Microsoft Yahei">日</font></strong
+                >年</font
+              >6<font style="font-family: Microsoft Yahei">月</font>7<font
+                style="font-family: Microsoft Yahei"
+                >日</font
+              ></strong
             >
           </p>
           <p>
             <font style="font-family: Microsoft Yahei"><br /></font><br />
           </p>
           <p>
-            <strong
-              >1.<font style="font-family: Microsoft Yahei">导言</font></strong
-            >
+            <strong>1.<font style="font-family: Microsoft Yahei">导言</font></strong>
           </p>
           <p>
-            <font style="font-family: Microsoft Yahei"
-              >欢迎您使用“抖音”软件及相关服务！</font
-            >
+            <font style="font-family: Microsoft Yahei">欢迎您使用“抖音”软件及相关服务！</font>
           </p>
           <p>
             <font style="font-family: Microsoft Yahei"
@@ -935,21 +818,17 @@
             <font style="font-family: Microsoft Yahei"
               >如您不同意本协议，这将导致公司无法为您提供完整的产品和服务，您也可以选择停止使用。</font
             ><strong
-              ><font style="font-family: Microsoft Yahei"
-                >如您自主选择同意或使用</font
-              >“<font style="font-family: Microsoft Yahei">抖音</font>”<font
+              ><font style="font-family: Microsoft Yahei">如您自主选择同意或使用</font>“<font
                 style="font-family: Microsoft Yahei"
+                >抖音</font
+              >”<font style="font-family: Microsoft Yahei"
                 >软件及相关服务，则视为您已充分理解本协议，并同意作为本协议的一方当事人接受本协议以及其他与</font
               >“<font style="font-family: Microsoft Yahei">抖音</font>”<font
                 style="font-family: Microsoft Yahei"
                 >软件及相关服务相关的协议和规则（包括但不限于</font
               ></strong
             ><a href="https://www.douyin.com/privacy/">《“抖音”隐私政策》</a
-            ><strong
-              ><font style="font-family: Microsoft Yahei"
-                >）的约束。</font
-              ></strong
-            >
+            ><strong><font style="font-family: Microsoft Yahei">）的约束。</font></strong>
           </p>
           <p>
             <font style="font-family: Microsoft Yahei"
@@ -1133,8 +1012,7 @@
           </p>
           <p>
             <strong
-              >3.9<font style="font-family: Microsoft Yahei"
-                >您理解并同意，除您登录、使用</font
+              >3.9<font style="font-family: Microsoft Yahei">您理解并同意，除您登录、使用</font
               >“<font style="font-family: Microsoft Yahei">抖音</font>”<font
                 style="font-family: Microsoft Yahei"
                 >软件及相关服务外，您还可以用</font
@@ -1200,11 +1078,7 @@
             <font style="font-family: Microsoft Yahei"><br /></font><br />
           </p>
           <p>
-            <strong
-              >4.<font style="font-family: Microsoft Yahei"
-                >用户个人信息保护</font
-              ></strong
-            >
+            <strong>4.<font style="font-family: Microsoft Yahei">用户个人信息保护</font></strong>
           </p>
           <p>
             <font style="font-family: Microsoft Yahei"
@@ -1217,20 +1091,14 @@
             >
           </p>
           <p>
-            <font style="font-family: Microsoft Yahei"
-              >更多关于您个人信息保护的内容，请参看</font
-            ><a href="https://www.douyin.com/privacy/">《抖音隐私政策》。</a
-            ><br />
+            <font style="font-family: Microsoft Yahei">更多关于您个人信息保护的内容，请参看</font
+            ><a href="https://www.douyin.com/privacy/">《抖音隐私政策》。</a><br />
           </p>
           <p>
             <font style="font-family: Microsoft Yahei"><br /></font><br />
           </p>
           <p>
-            <strong
-              >5.<font style="font-family: Microsoft Yahei"
-                >用户行为规范</font
-              ></strong
-            >
+            <strong>5.<font style="font-family: Microsoft Yahei">用户行为规范</font></strong>
           </p>
           <p>
             <font style="font-family: Microsoft Yahei">5.1用户行为要求</font>
@@ -1286,9 +1154,7 @@
             >
           </p>
           <p>
-            <font style="font-family: Microsoft Yahei"
-              >（8）伪造TCP/IP数据包名称或部分名称；</font
-            >
+            <font style="font-family: Microsoft Yahei">（8）伪造TCP/IP数据包名称或部分名称；</font>
           </p>
           <p>
             <font style="font-family: Microsoft Yahei"
@@ -1311,9 +1177,7 @@
             >
           </p>
           <p>
-            <font style="font-family: Microsoft Yahei"
-              >5.2信息内容展示及规范</font
-            >
+            <font style="font-family: Microsoft Yahei">5.2信息内容展示及规范</font>
           </p>
           <p>
             <font style="font-family: Microsoft Yahei"
@@ -1331,14 +1195,10 @@
             >
           </p>
           <p>
-            <font style="font-family: Microsoft Yahei"
-              >（1）反对宪法确定的基本原则的；</font
-            >
+            <font style="font-family: Microsoft Yahei">（1）反对宪法确定的基本原则的；</font>
           </p>
           <p>
-            <font style="font-family: Microsoft Yahei"
-              >（2）危害国家安全，泄露国家秘密的；</font
-            >
+            <font style="font-family: Microsoft Yahei">（2）危害国家安全，泄露国家秘密的；</font>
           </p>
           <p>
             <font style="font-family: Microsoft Yahei"
@@ -1346,14 +1206,10 @@
             >
           </p>
           <p>
-            <font style="font-family: Microsoft Yahei"
-              >（4）损害国家荣誉和利益的；</font
-            >
+            <font style="font-family: Microsoft Yahei">（4）损害国家荣誉和利益的；</font>
           </p>
           <p>
-            <font style="font-family: Microsoft Yahei"
-              >（5）宣扬恐怖主义、极端主义的；</font
-            >
+            <font style="font-family: Microsoft Yahei">（5）宣扬恐怖主义、极端主义的；</font>
           </p>
           <p>
             <font style="font-family: Microsoft Yahei"
@@ -1361,9 +1217,7 @@
             >
           </p>
           <p>
-            <font style="font-family: Microsoft Yahei"
-              >（7）煽动地域歧视、地域仇恨的；</font
-            >
+            <font style="font-family: Microsoft Yahei">（7）煽动地域歧视、地域仇恨的；</font>
           </p>
           <p>
             <font style="font-family: Microsoft Yahei"
@@ -1396,9 +1250,7 @@
             >
           </p>
           <p>
-            <font style="font-family: Microsoft Yahei"
-              >（14）涉及他人隐私、个人信息或资料的；</font
-            >
+            <font style="font-family: Microsoft Yahei">（14）涉及他人隐私、个人信息或资料的；</font>
           </p>
           <p>
             <font style="font-family: Microsoft Yahei"
@@ -1421,9 +1273,7 @@
             >
           </p>
           <p>
-            <font style="font-family: Microsoft Yahei"
-              >（19）与所评论的信息毫无关系的；</font
-            >
+            <font style="font-family: Microsoft Yahei">（19）与所评论的信息毫无关系的；</font>
           </p>
           <p>
             <font style="font-family: Microsoft Yahei"
@@ -1446,9 +1296,7 @@
             >
           </p>
           <p>
-            <font style="font-family: Microsoft Yahei"
-              >i. 任何暴力和/或自残行为内容；</font
-            >
+            <font style="font-family: Microsoft Yahei">i. 任何暴力和/或自残行为内容；</font>
           </p>
           <p>
             <font style="font-family: Microsoft Yahei"
@@ -1471,9 +1319,7 @@
               >5.2.4
               您制作、发布、传播的内容需遵守《网络音视频信息服务管理规定》及相关法律法规规定，不得利用基于深度学习、虚拟现实等的新技术新应用制作、发布、传播虚假新闻信息。您在发布或传播利用基于深度学习、虚拟现实等的新技术新应用制作的非真实音视频信息时，</font
             ><strong
-              ><font style="font-family: Microsoft Yahei"
-                >应当以显著方式予以标识</font
-              ></strong
+              ><font style="font-family: Microsoft Yahei">应当以显著方式予以标识</font></strong
             ><font style="font-family: Microsoft Yahei">。</font>
           </p>
           <p>
@@ -1553,19 +1399,13 @@
             ><a
               href="https://aweme.snssdk.com/magic/page/ejs/5ca204b709a5900217b1f018?appType=douyin"
               >《抖音社区自律公约》</a
-            ><font style="font-family: Microsoft Yahei"
-              >及“抖音”其他功能的相关协议。</font
-            >
+            ><font style="font-family: Microsoft Yahei">及“抖音”其他功能的相关协议。</font>
           </p>
           <p>
             <font style="font-family: Microsoft Yahei"><br /></font><br />
           </p>
           <p>
-            <strong
-              >7.<font style="font-family: Microsoft Yahei"
-                >违约处理</font
-              ></strong
-            >
+            <strong>7.<font style="font-family: Microsoft Yahei">违约处理</font></strong>
           </p>
           <p>
             <strong
@@ -1596,9 +1436,7 @@
           </p>
           <p>
             <strong
-              >8.<font style="font-family: Microsoft Yahei"
-                >服务的变更、中断和终止</font
-              ></strong
+              >8.<font style="font-family: Microsoft Yahei">服务的变更、中断和终止</font></strong
             >
           </p>
           <p>
@@ -1615,9 +1453,7 @@
             <font style="font-family: Microsoft Yahei"><br /></font><br />
           </p>
           <p>
-            <strong
-              >9.<font style="font-family: Microsoft Yahei">广告</font></strong
-            >
+            <strong>9.<font style="font-family: Microsoft Yahei">广告</font></strong>
           </p>
           <p>
             <font style="font-family: Microsoft Yahei"
@@ -1643,11 +1479,7 @@
             <font style="font-family: Microsoft Yahei"><br /></font><br />
           </p>
           <p>
-            <strong
-              >10.<font style="font-family: Microsoft Yahei"
-                >知识产权</font
-              ></strong
-            >
+            <strong>10.<font style="font-family: Microsoft Yahei">知识产权</font></strong>
           </p>
           <p>
             <font style="font-family: Microsoft Yahei"
@@ -1656,10 +1488,10 @@
           </p>
           <p>
             <strong
-              >10.2<font style="font-family: Microsoft Yahei"
-                >您理解并承诺，您在使用</font
-              >“<font style="font-family: Microsoft Yahei">抖音</font>”<font
+              >10.2<font style="font-family: Microsoft Yahei">您理解并承诺，您在使用</font>“<font
                 style="font-family: Microsoft Yahei"
+                >抖音</font
+              >”<font style="font-family: Microsoft Yahei"
                 >软件及相关服务时发布上传的内容（包括但不限于文字、图片、视频、音频等各种形式的内容及其中包含的音乐、声音、台词、视觉设计等所有组成部分）均由您原创或已获合法授权（且含转授权）。您通过</font
               >“<font style="font-family: Microsoft Yahei">抖音</font>”<font
                 style="font-family: Microsoft Yahei"
@@ -1693,12 +1525,13 @@
           </p>
           <p>
             <strong
-              >10.5<font style="font-family: Microsoft Yahei">公司为</font
-              >“<font style="font-family: Microsoft Yahei">抖音</font>”<font
+              >10.5<font style="font-family: Microsoft Yahei">公司为</font>“<font
                 style="font-family: Microsoft Yahei"
-                >开发、运营提供技术支持，并对</font
-              >“<font style="font-family: Microsoft Yahei">抖音</font>”<font
+                >抖音</font
+              >”<font style="font-family: Microsoft Yahei">开发、运营提供技术支持，并对</font>“<font
                 style="font-family: Microsoft Yahei"
+                >抖音</font
+              >”<font style="font-family: Microsoft Yahei"
                 >软件及相关服务的开发和运营等过程中产生的所有数据和信息等享有法律法规允许范围内的全部权利。</font
               ></strong
             >
@@ -1725,43 +1558,41 @@
             <font style="font-family: Microsoft Yahei"><br /></font><br />
           </p>
           <p>
+            <strong>11.<font style="font-family: Microsoft Yahei">免责声明</font></strong>
+          </p>
+          <p>
             <strong
-              >11.<font style="font-family: Microsoft Yahei"
-                >免责声明</font
+              >11.1<font style="font-family: Microsoft Yahei">您理解并同意，</font>“<font
+                style="font-family: Microsoft Yahei"
+                >抖音</font
+              >”<font style="font-family: Microsoft Yahei"
+                >软件及相关服务可能会受多种因素的影响或干扰，公司不保证</font
+              >(<font style="font-family: Microsoft Yahei">包括但不限于</font>)<font
+                style="font-family: Microsoft Yahei"
+                >：</font
               ></strong
             >
           </p>
           <p>
             <strong
-              >11.1<font style="font-family: Microsoft Yahei"
-                >您理解并同意，</font
-              >“<font style="font-family: Microsoft Yahei">抖音</font>”<font
+              >11.1.1“<font style="font-family: Microsoft Yahei">抖音</font>”<font
                 style="font-family: Microsoft Yahei"
-                >软件及相关服务可能会受多种因素的影响或干扰，公司不保证</font
-              >(<font style="font-family: Microsoft Yahei">包括但不限于</font
-              >)<font style="font-family: Microsoft Yahei">：</font></strong
-            >
-          </p>
-          <p>
-            <strong
-              >11.1.1“<font style="font-family: Microsoft Yahei">抖音</font
-              >”<font style="font-family: Microsoft Yahei"
                 >软件及相关服务完全适合用户的使用要求；</font
               ></strong
             >
           </p>
           <p>
             <strong
-              >11.1.2“<font style="font-family: Microsoft Yahei">抖音</font
-              >”<font style="font-family: Microsoft Yahei"
+              >11.1.2“<font style="font-family: Microsoft Yahei">抖音</font>”<font
+                style="font-family: Microsoft Yahei"
                 >软件及相关服务不受干扰，及时、安全、可靠或不出现错误；用户经由公司取得的任何软件、服务或其他材料符合用户的期望；</font
               ></strong
             >
           </p>
           <p>
             <strong
-              >11.1.3“<font style="font-family: Microsoft Yahei">抖音</font
-              >”<font style="font-family: Microsoft Yahei"
+              >11.1.3“<font style="font-family: Microsoft Yahei">抖音</font>”<font
+                style="font-family: Microsoft Yahei"
                 >软件及相关服务中任何错误都将能得到更正。</font
               ></strong
             >
@@ -1775,10 +1606,10 @@
           </p>
           <p>
             <strong
-              >11.3<font style="font-family: Microsoft Yahei"
-                >您理解并同意，在使用</font
-              >“<font style="font-family: Microsoft Yahei">抖音</font>”<font
+              >11.3<font style="font-family: Microsoft Yahei">您理解并同意，在使用</font>“<font
                 style="font-family: Microsoft Yahei"
+                >抖音</font
+              >”<font style="font-family: Microsoft Yahei"
                 >软件及相关服务过程中，可能遇到不可抗力等因素（不可抗力是指不能预见、不能克服并不能避免的客观事件），包括但不限于政府行为、自然灾害（如洪水、地震、台风等）、网络原因、战争、罢工、骚乱等。出现不可抗力情况时，公司将努力在第一时间及时修复，但因不可抗力造成的暂停、中止、终止服务或造成的任何损失，公司在法律法规允许范围内免于承担责任。</font
               ></strong
             >
@@ -1792,10 +1623,10 @@
           </p>
           <p>
             <strong
-              >11.5<font style="font-family: Microsoft Yahei"
-                >您理解并同意：关于</font
-              >“<font style="font-family: Microsoft Yahei">抖音</font>”<font
+              >11.5<font style="font-family: Microsoft Yahei">您理解并同意：关于</font>“<font
                 style="font-family: Microsoft Yahei"
+                >抖音</font
+              >”<font style="font-family: Microsoft Yahei"
                 >软件及相关服务，公司不提供任何种类的明示或暗示担保或条件，包括但不限于商业适售性、特定用途适用性等。您对</font
               >“<font style="font-family: Microsoft Yahei">抖音</font>”<font
                 style="font-family: Microsoft Yahei"
@@ -1840,9 +1671,10 @@
           </p>
           <p>
             <strong
-              >12.2<font style="font-family: Microsoft Yahei">您可以在</font
-              >“<font style="font-family: Microsoft Yahei">抖音</font>”<font
+              >12.2<font style="font-family: Microsoft Yahei">您可以在</font>“<font
                 style="font-family: Microsoft Yahei"
+                >抖音</font
+              >”<font style="font-family: Microsoft Yahei"
                 >软件中开启和使用上述单项服务功能。某些单项服务可能需要您同时接受就该服务特别制订的协议或者其他约束您与该项服务提供者之间的规则。必要时公司将以醒目的方式提供这些协议、规则供您查阅。一旦您开始使用上述服务，则视为您理解并接受有关单项服务的相关协议、规则的约束。如未标明使用期限、或未标明使用期限为</font
               >“<font style="font-family: Microsoft Yahei">永久</font>”<font
                 style="font-family: Microsoft Yahei"
@@ -1876,16 +1708,12 @@
             <font style="font-family: Microsoft Yahei"><br /></font><br />
           </p>
           <p>
-            <strong
-              >13.<font style="font-family: Microsoft Yahei"
-                >未成年人使用条款</font
-              ></strong
-            >
+            <strong>13.<font style="font-family: Microsoft Yahei">未成年人使用条款</font></strong>
           </p>
           <p>
             <strong
-              >13.1<font style="font-family: Microsoft Yahei">若您是未满</font
-              >18<font style="font-family: Microsoft Yahei"
+              >13.1<font style="font-family: Microsoft Yahei">若您是未满</font>18<font
+                style="font-family: Microsoft Yahei"
                 >周岁的未成年人，您应在您的监护人监护、指导下并获得监护人同意的情况下，认真阅读并同意本协议后，方可使用</font
               >“<font style="font-family: Microsoft Yahei">抖音</font>”<font
                 style="font-family: Microsoft Yahei"
@@ -1918,17 +1746,15 @@
           </p>
           <p>
             <strong
-              >13.5<font style="font-family: Microsoft Yahei"
-                >未成年人用户特别提示</font
-              ></strong
+              >13.5<font style="font-family: Microsoft Yahei">未成年人用户特别提示</font></strong
             >
           </p>
           <p>
             <strong
-              >13.5.1<font style="font-family: Microsoft Yahei"
-                >未成年人使用</font
-              >“<font style="font-family: Microsoft Yahei">抖音</font>”<font
+              >13.5.1<font style="font-family: Microsoft Yahei">未成年人使用</font>“<font
                 style="font-family: Microsoft Yahei"
+                >抖音</font
+              >”<font style="font-family: Microsoft Yahei"
                 >软件及相关服务应该在其监护人的监督指导下，在合理范围内正确学习使用网络，避免沉迷虚拟的网络空间，养成良好上网习惯。</font
               ></strong
             >
@@ -1991,28 +1817,24 @@
             >
           </p>
           <p>
-            <strong
-              >13.6<font style="font-family: Microsoft Yahei"
-                >监护人特别提示</font
-              ></strong
-            >
+            <strong>13.6<font style="font-family: Microsoft Yahei">监护人特别提示</font></strong>
           </p>
           <p>
             <strong
-              >13.6.1<font style="font-family: Microsoft Yahei"
-                >如您的被监护人使用</font
-              >“<font style="font-family: Microsoft Yahei">抖音</font>”<font
+              >13.6.1<font style="font-family: Microsoft Yahei">如您的被监护人使用</font>“<font
                 style="font-family: Microsoft Yahei"
+                >抖音</font
+              >”<font style="font-family: Microsoft Yahei"
                 >软件及相关服务的，您作为监护人应指导并监督被监护人的注册和使用行为，如您的被监护人申请注册抖音帐号，公司将有权认为其已取得您的同意。</font
               ></strong
             >
           </p>
           <p>
             <strong
-              >13.6.2<font style="font-family: Microsoft Yahei"
-                >您的被监护人在使用</font
-              >“<font style="font-family: Microsoft Yahei">抖音</font>”<font
+              >13.6.2<font style="font-family: Microsoft Yahei">您的被监护人在使用</font>“<font
                 style="font-family: Microsoft Yahei"
+                >抖音</font
+              >”<font style="font-family: Microsoft Yahei"
                 >软件及相关服务时可能使用充值、打赏等功能。您作为监护人，请保管好您的支付设备、支付账户及支付密码等，以避免被监护人在未取得您同意的情况下通过您的抖音帐号使用充值、打赏等功能。</font
               ></strong
             >
@@ -2021,11 +1843,7 @@
             <font style="font-family: Microsoft Yahei"><br /></font><br />
           </p>
           <p>
-            <strong
-              >14<font style="font-family: Microsoft Yahei"
-                >．其他</font
-              ></strong
-            >
+            <strong>14<font style="font-family: Microsoft Yahei">．其他</font></strong>
           </p>
           <p>
             <strong
@@ -2097,10 +1915,7 @@
           </p>
           <br />
           <p>一、协议范围</p>
-          <p>
-            1.1
-            本协议是你与抖音之间关于你使用本服务，以及使用抖音相关服务所订立的协议。
-          </p>
+          <p>1.1 本协议是你与抖音之间关于你使用本服务，以及使用抖音相关服务所订立的协议。</p>
           <p>
             1.2
             本协议被视为《“抖音”用户服务协议》、《“抖音”隐私政策》的补充协议，是其不可分割的组成部分，与其构成统一整体。本协议与上述内容存在冲突的，以本协议为准。
@@ -2119,10 +1934,7 @@
             2.2
             抖音：指由公司合法拥有并运营的、标注名称为“抖音”的客户端应用程序以及域名为www.douyin.com的网站。公司有权对应用程序及网站名称单方变更（包括但不限于更名、新增等）。
           </p>
-          <p>
-            2.3
-            未成年人：又称"被申请人"，指使用抖音及其服务的、未满十八周岁的自然人。
-          </p>
+          <p>2.3 未成年人：又称"被申请人"，指使用抖音及其服务的、未满十八周岁的自然人。</p>
           <p>
             2.4
             您：又称"申请人"或"家长"，应具备民事行为能力，申请人的法定监护人，并有权申请家长监护平台服务的自然人。
@@ -2136,8 +1948,7 @@
             抖音帐号：为使用和享受抖音服务，由未成年人申请和/或使用的即为抖音账号。该帐号的申请、使用等行为应符合抖音不时修订并公布的《“抖音”用户服务协议》、《“抖音”隐私政策》的规范。家长通过本服务，申请限制该帐号的行为。
           </p>
           <p>
-            2.7
-            时间锁设置：应被申请人法定监护人的要求，抖音将限制该抖音帐号在抖音软件中的使用时长。
+            2.7 时间锁设置：应被申请人法定监护人的要求，抖音将限制该抖音帐号在抖音软件中的使用时长。
           </p>
           <p>
             2.8
@@ -2226,13 +2037,9 @@
             若你和抖音之间发生任何纠纷或争议，首先应友好协商解决；协商不成的，你同意将纠纷或争议提交本协议签订地有管辖权的人民法院管辖。
           </p>
           <p>
-            7.6
-            本协议所有条款的标题仅为阅读方便，本身并无实际涵义，不能作为本协议涵义解释的依据。
+            7.6 本协议所有条款的标题仅为阅读方便，本身并无实际涵义，不能作为本协议涵义解释的依据。
           </p>
-          <p>
-            7.7
-            本协议条款无论因何种原因部分无效或不可执行，其余条款仍有效，对双方具有约束力。
-          </p>
+          <p>7.7 本协议条款无论因何种原因部分无效或不可执行，其余条款仍有效，对双方具有约束力。</p>
           <p>
             7.8
             如果你对本服务有任何意见或建议，可通过服务端以站内信的方式提出反馈，我们会给予你必要的帮助。
@@ -2272,9 +2079,7 @@
         <li>
           进入该模式后，系统将自动开启时间锁，时间锁默认设置为40分钟。单日使用时长超过触发时间，需要输入密码才可以继续使用。密码由你设置并掌握，确保你能有效引导未成年人健康使用抖音。
         </li>
-        <li>
-          你也可以进入“亲子平台”，根据实际需要为你的被监护人设置浏览使用时长。
-        </li>
+        <li>你也可以进入“亲子平台”，根据实际需要为你的被监护人设置浏览使用时长。</li>
         <li>
           你进入“亲子平台”后，可以通过<strong>监护人帐号</strong>和<strong>被监护人帐号（在平台提供的部分功能和服务中，又称“家长帐号”和“儿童帐号”）</strong>的绑定，选择帮助自己的被监护人打开或关闭青少年模式，实现对被监护人使用抖音的远程管理。
         </li>
@@ -2309,9 +2114,7 @@
         <p>
           a.我们在境内运营过程中收集和产生的未成年人个人信息存储于中华人民共和国境内，不会传输或存储至境外。
         </p>
-        <p>
-          b.存储所收集儿童的浏览日志信息为6个月，但是法律法规另有规定的除外。
-        </p>
+        <p>b.存储所收集儿童的浏览日志信息为6个月，但是法律法规另有规定的除外。</p>
         <p>
           c.我们会使用高强度的加密技术、匿名化处理及相关合理可行的手段保护未成年人的信息，并使用安全保护机制防止恶意攻击。
         </p>
@@ -2354,9 +2157,7 @@
           <p>
             为保障抖音App相关功能的实现与应用安全稳定的运行，我们可能会接入由第三方及关联方提供的软件开发包（SDK）实现相关目的。
           </p>
-          <p>
-            我们会对合作方获取信息的软件工具开发包（SDK）进行严格的安全监测，以保护数据安全。
-          </p>
+          <p>我们会对合作方获取信息的软件工具开发包（SDK）进行严格的安全监测，以保护数据安全。</p>
           <p>我们对接入的相关第三方及关联方SDK在目录中列明。</p>
           <p>
             请注意，第三方SDK可能因为其版本升级、策略调整等原因导致数据处理类型存在一定变化，请以其公示的官方说明为准。
@@ -2367,8 +2168,7 @@
           <p><strong>数据类型：</strong>设备标识信息、地理位置信息</p>
           <p>
             <strong>官网链接：</strong
-            ><a href="https://lbs.amap.com/pages/privacy/"
-              >https://lbs.amap.com/pages/privacy/</a
+            ><a href="https://lbs.amap.com/pages/privacy/">https://lbs.amap.com/pages/privacy/</a
             ><br />
           </p>
           <p><br /></p>
@@ -2377,8 +2177,7 @@
           <p><strong>数据类型：</strong>设备标识信息、地理位置信息</p>
           <p>
             <strong>官网链接：</strong
-            ><a href="https://lbs.amap.com/pages/privacy/"
-              >https://lbs.amap.com/pages/privacy/</a
+            ><a href="https://lbs.amap.com/pages/privacy/">https://lbs.amap.com/pages/privacy/</a
             ><br />
           </p>
           <p><br /></p>
@@ -2387,8 +2186,7 @@
           <p><strong>数据类型：</strong>设备标识信息、地理位置信息</p>
           <p>
             <strong>官网链接：</strong
-            ><a href="https://lbs.amap.com/pages/privacy/"
-              >https://lbs.amap.com/pages/privacy/</a
+            ><a href="https://lbs.amap.com/pages/privacy/">https://lbs.amap.com/pages/privacy/</a
             ><br />
           </p>
           <p><br /></p>
@@ -2397,9 +2195,7 @@
           <p><strong>数据类型：</strong>设备标识信息</p>
           <p>
             <strong>官网链接：</strong
-            ><a href="https://docs.open.alipay.com/54"
-              >https://docs.open.alipay.com/54</a
-            ><br />
+            ><a href="https://docs.open.alipay.com/54">https://docs.open.alipay.com/54</a><br />
           </p>
           <p><br /></p>
           <p><strong>Umeng（友盟） SDK</strong></p>
@@ -2409,22 +2205,17 @@
             <strong>官网链接：</strong
             ><a href="https://developer.umeng.com/docs/119267/detail/118585"
               >https://developer.umeng.com/docs/119267/detail/118585</a
-            >；<a href="https://www.umeng.com/push"
-              >https://www.umeng.com/push</a
-            ><br />
+            >；<a href="https://www.umeng.com/push">https://www.umeng.com/push</a><br />
           </p>
           <p><br /></p>
           <p><strong>微信开放平台 SDK</strong></p>
           <p>
-            <strong>使用目的：</strong
-            >接入微信开放平台SDK，支持微信授权登录、微信分享和微信支付
+            <strong>使用目的：</strong>接入微信开放平台SDK，支持微信授权登录、微信分享和微信支付
           </p>
           <p><strong>数据类型：</strong>设备标识信息</p>
           <p>
             <strong>官网链接：</strong
-            ><a href="https://open.weixin.qq.com/"
-              >https://open.weixin.qq.com/</a
-            ><br />
+            ><a href="https://open.weixin.qq.com/">https://open.weixin.qq.com/</a><br />
           </p>
           <p><br /></p>
           <p><strong>微博分享 SDK</strong></p>
@@ -2432,8 +2223,7 @@
           <p><strong>数据类型：</strong>设备标识信息</p>
           <p>
             <strong>官网链接：</strong
-            ><a
-              href="https://open.weibo.com/wiki/Android_SDK%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3"
+            ><a href="https://open.weibo.com/wiki/Android_SDK%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3"
               >https://open.weibo.com/wiki/Android_SDK%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3</a
             ><br />
           </p>
@@ -2443,8 +2233,7 @@
           <p><strong>数据类型：</strong>设备标识信息</p>
           <p>
             <strong>官网链接：</strong
-            ><a href="https://open.tencent.com/">https://open.tencent.com/</a
-            ><br />
+            ><a href="https://open.tencent.com/">https://open.tencent.com/</a><br />
           </p>
           <p><br /></p>
           <p><strong>小米 PUSH</strong></p>
@@ -2492,8 +2281,7 @@
           <p><strong>数据类型：</strong>设备标识信息</p>
           <p>
             <strong>官网链接：</strong
-            ><a
-              href="https://developer.huawei.com/consumer/cn/hms/huawei-pushkit"
+            ><a href="https://developer.huawei.com/consumer/cn/hms/huawei-pushkit"
               >https://developer.huawei.com/consumer/cn/hms/huawei-pushkit</a
             ><br />
           </p>
@@ -2503,8 +2291,7 @@
           <p><strong>数据类型：</strong>设备标识信息</p>
           <p>
             <strong>官网链接：</strong
-            ><a
-              href="https://baichuan.taobao.com/?spm=a3c0d.7629140.1998907816.1.2c7cbe486KTkXs"
+            ><a href="https://baichuan.taobao.com/?spm=a3c0d.7629140.1998907816.1.2c7cbe486KTkXs"
               >https://baichuan.taobao.com/?spm=a3c0d.7629140.1998907816.1.2c7cbe486KTkXs</a
             ><br />
           </p>
@@ -2513,8 +2300,7 @@
           <p><strong>使用目的：</strong>一键登录</p>
           <p><strong>数据类型：</strong>设备标识信息、电话号码</p>
           <p>
-            <strong>官网链接：</strong
-            ><a href="http://dev.10086.cn/">http://dev.10086.cn/</a><br />
+            <strong>官网链接：</strong><a href="http://dev.10086.cn/">http://dev.10086.cn/</a><br />
           </p>
           <p><br /></p>
           <p><strong>联通一键登录</strong></p>
@@ -2538,9 +2324,7 @@
           </p>
           <p><br /></p>
           <p><strong>极光推送</strong></p>
-          <p>
-            <strong>使用目的：</strong>帮助提升推送消息触达和保障系统运行稳定
-          </p>
+          <p><strong>使用目的：</strong>帮助提升推送消息触达和保障系统运行稳定</p>
           <p><strong>数据类型：</strong>未共享数据</p>
           <p>
             <strong>官网链接：</strong
@@ -2578,13 +2362,8 @@
           </p>
           <p><br /></p>
           <p><strong>抖音支付SDK</strong></p>
-          <p>
-            <strong>使用目的：</strong>帮助用户在应用内使用交易、支付及提现功能
-          </p>
-          <p>
-            <strong>收集数据类型：</strong
-            >手机号码、用户身份信息、支付交易信息、设备识别信息
-          </p>
+          <p><strong>使用目的：</strong>帮助用户在应用内使用交易、支付及提现功能</p>
+          <p><strong>收集数据类型：</strong>手机号码、用户身份信息、支付交易信息、设备识别信息</p>
           <p><strong>提供主体：</strong>武汉合众易宝科技有限公司</p>
           <p>
             <strong>隐私政策：</strong
@@ -2611,9 +2390,7 @@
         <p><br /></p>
         <ul>
           <li>
-            <strong
-              >为此，我们请求您按照本协议约定，授权我们同步您在授权应用的帐号及信息。</strong
-            >
+            <strong>为此，我们请求您按照本协议约定，授权我们同步您在授权应用的帐号及信息。</strong>
           </li>
         </ul>
         <p><br /></p>
@@ -2641,20 +2418,17 @@
           ><br />
         </p>
         <p>
-          <a
-            href="https://www.douyin.com/falcon/douyin_falcon/privacy_agreement/?hide_nav_bar=1"
+          <a href="https://www.douyin.com/falcon/douyin_falcon/privacy_agreement/?hide_nav_bar=1"
             >抖音隐私协议</a
           ><br />
         </p>
         <p>
-          <a
-            href="https://s3b.bytecdn.cn/ies/page/huoshan/user_service_protocol.html"
+          <a href="https://s3b.bytecdn.cn/ies/page/huoshan/user_service_protocol.html"
             >抖音火山版用户服务协议</a
           ><br />
         </p>
         <p>
-          <a
-            href="https://s3b.bytecdn.cn/ies/page/huoshan/user_privacy_protocol.html"
+          <a href="https://s3b.bytecdn.cn/ies/page/huoshan/user_privacy_protocol.html"
             >抖音火山版隐私协议</a
           ><br />
         </p>
@@ -2714,8 +2488,7 @@
         <p><br /></p>
         <p><strong>4、好友推荐</strong></p>
         <p>
-          <strong
-            >在您单独明示同意后，被授权应用将获得您在授权应用内的好友关系(含关注等)</strong
+          <strong>在您单独明示同意后，被授权应用将获得您在授权应用内的好友关系(含关注等)</strong
           >，以帮助您在被授权应用内发现更多的好友，并使用与好友关系相关的功能和服务。<strong
             >您可以选择不授权好友关系，这可能影响您使用被授权应用内与好友关系相关的服务或功能，但不影响您使用其他服务或功能。</strong
           >
@@ -2758,9 +2531,7 @@
     <div class="content" v-if="type === '抖音注销须知'">
       <div class="container">
         <div class="text-warpper douyin">
-          <p>
-            [重要] 在您注销您的抖音帐号之前，请充分阅读、理解并同意下列事项：
-          </p>
+          <p>[重要] 在您注销您的抖音帐号之前，请充分阅读、理解并同意下列事项：</p>
           <p>
             <strong
               >【特别提示】注销抖音帐号为不可恢复的操作，除您已授权提供至第三方的信息以外，注销帐号后您将无法再使用本抖音帐号或找回您浏览、关注、添加、绑定的任何内容或信息（即使您使用相同的手机号码再次注册并使用抖音）。</strong
@@ -2785,9 +2556,7 @@
             1.2 帐号财产已结清，没有未完成或存在争议的服务：
             帐号中没有资产、欠款、未结清的资金和虚拟权益；本帐号及通过本帐号接入的第三方中没有未完成或存在争议的服务。
           </p>
-          <p>
-            1.3 帐号权限解除： 帐号已解除与第三方产品、网站授权登录或绑定关系。
-          </p>
+          <p>1.3 帐号权限解除： 帐号已解除与第三方产品、网站授权登录或绑定关系。</p>
           <p>1.4 帐号无任何未结争议纠纷，包括投诉举报或被投诉举报。</p>
           <p>
             <strong
@@ -2821,18 +2590,14 @@
           <p>
             4.在您的抖音帐号注销期间，如果您的帐号涉及争议纠纷，包括但不限于：投诉、举报、诉讼、仲裁、国家有权机关调查等，您理解并同意，抖音有权自行决定是否终止本帐号的注销而无需另行得到您的同意。
           </p>
-          <p>
-            5.注销本抖音帐号并不代表本抖音帐号注销前的账户行为和相关责任得到豁免或减轻。
-          </p>
+          <p>5.注销本抖音帐号并不代表本抖音帐号注销前的账户行为和相关责任得到豁免或减轻。</p>
         </div>
       </div>
     </div>
 
     <div class="content" v-if="type === '中国移动认证服务协议'">
       <p id="scroll">
-        <a
-          href="javascript:void(0);"
-          style="border-bottom: 1px solid #ace5f8; color: #ace5f8"
+        <a href="javascript:void(0);" style="border-bottom: 1px solid #ace5f8; color: #ace5f8"
           >《用户隐私政策》</a
         >
       </p>
@@ -2850,9 +2615,7 @@
         >
       </p>
       <!-- <div style="margin-top: 10px;" class="ml_20 gray">本用户协议更新于 2021年5月6日</div> -->
-      <div style="margin-top: 10px" class="ml_20 gray">
-        本用户协议更新于 2021年7月2日
-      </div>
+      <div style="margin-top: 10px" class="ml_20 gray">本用户协议更新于 2021年7月2日</div>
       <div class="serviceApplication fz_12">
         <p class="fz_14">
           <strong class="c_444">一、协议范围及修改声明</strong>
@@ -2860,9 +2623,7 @@
         <p class="fz_12">
           <i class="ml_10 c_666">1.1 协议适用主体范围</i>
         </p>
-        <div class="ml_20 gray">
-          本协议是您与中国移动关于使用本服务所订立的协议。
-        </div>
+        <div class="ml_20 gray">本协议是您与中国移动关于使用本服务所订立的协议。</div>
         <p class="fz_12">
           <i class="ml_10 c_666">1.2 协议关系</i>
         </p>
@@ -2944,9 +2705,7 @@
           </p>
           <ul>
             <li>
-              <strong class="c_888"
-                >● 个人基本资料：注册手机号码、邮箱、本机号码。</strong
-              >
+              <strong class="c_888">● 个人基本资料：注册手机号码、邮箱、本机号码。</strong>
             </li>
             <li>
               <strong class="c_888">● 网络身份标识信息：网络地址。</strong>
@@ -2971,9 +2730,7 @@
           <i class="ml_10 c_666">3.2 用户信息采集及使用</i>
         </p>
         <div class="ml_20 gray">
-          <strong class="c_888"
-            >您理解并同意本服务采集您的信息并应用于以下事项：</strong
-          >
+          <strong class="c_888">您理解并同意本服务采集您的信息并应用于以下事项：</strong>
         </div>
         <div class="ml_20 gray">
           <p>
@@ -3084,9 +2841,7 @@
             >中国移动承诺非经法定原因或用户同意，不向除合作单位以外任何第三方公开、透露用户个人隐私信息，并承诺在采集用户信息过程中采取数据加密、身份控制、恶意代码防范等技术措施和其他必要措施，确保用户个人信息安全，防止用户个人信息泄露、毁损或丢失。</strong
           >
         </div>
-        <div class="mt_10 ml_20 gray">
-          但下述法定情况下，您的个人信息将会部分或全部披露：
-        </div>
+        <div class="mt_10 ml_20 gray">但下述法定情况下，您的个人信息将会部分或全部披露：</div>
         <div class="ml_20 gray">
           <p>
             <em>（1）</em>
@@ -3103,19 +2858,12 @@
             <li>● 与公共安全、公共卫生、重大公共利益有关的；</li>
             <li>● 与犯罪侦查、起诉、审判和判决执行等有关的；</li>
             <li>
-              ●
-              出于维护信息主体或其他个人的生命、财产等重大合法权益但又很难得到用户本人同意的；
+              ● 出于维护信息主体或其他个人的生命、财产等重大合法权益但又很难得到用户本人同意的；
             </li>
             <li>● 所收集的信息是用户自行向社会公众公开的；</li>
-            <li>
-              ●
-              从合法公开披露的信息中收集信息的，如合法的新闻报道、政府信息公开等渠道；
-            </li>
+            <li>● 从合法公开披露的信息中收集信息的，如合法的新闻报道、政府信息公开等渠道；</li>
             <li>● 根据您的要求签订合同所必需的；</li>
-            <li>
-              ●
-              用于维护本服务的安全稳定运行所必需的，例如发现、处置产品或服务的故障；
-            </li>
+            <li>● 用于维护本服务的安全稳定运行所必需的，例如发现、处置产品或服务的故障；</li>
             <li>● 为合法的新闻报道所必需的；</li>
             <li>
               ●
@@ -3191,9 +2939,7 @@
           </p>
           <p>
             <em>（2）</em>
-            <span
-              >从中国境内向境外传输技术性资料时必须符合中国有关法律的规定；</span
-            >
+            <span>从中国境内向境外传输技术性资料时必须符合中国有关法律的规定；</span>
           </p>
           <p>
             <em>（3）</em>
@@ -3209,15 +2955,11 @@
           </p>
           <p>
             <em>（5）</em>
-            <span
-              >不干扰本站的正常运转，不得侵入本站及国家计算机信息系统；</span
-            >
+            <span>不干扰本站的正常运转，不得侵入本站及国家计算机信息系统；</span>
           </p>
           <p>
             <em>（6）</em>
-            <span
-              >不得传输或发表违背公序良俗和涉及国家安全的信息资料或言论；</span
-            >
+            <span>不得传输或发表违背公序良俗和涉及国家安全的信息资料或言论；</span>
           </p>
           <p>
             <em>（7）</em>
@@ -3310,9 +3052,7 @@
           <p>
             <strong class="c_666">
               <em>（1）</em>
-              <span
-                >第三方网站或应用出现侵害您的利益的行为违反相关法律法规或本条款的约定；</span
-              >
+              <span>第三方网站或应用出现侵害您的利益的行为违反相关法律法规或本条款的约定；</span>
             </strong>
           </p>
           <p>
@@ -3398,22 +3138,14 @@
           使用场景与目的：读取设备通话状态和识别码，识别设备ID，保证运营商网络免流服务，用于完成音视频、信息展示、账号登录、安全保障等主要功能<br />
         </p>
         <p>
-          <strong
-            >4.访问大致地理位置信息
-            android.permission.ACCESS_COARSE_LOCATION</strong
-          >
+          <strong>4.访问大致地理位置信息 android.permission.ACCESS_COARSE_LOCATION</strong>
         </p>
-        <p>
-          权限功能说明：通过网络位置信息（例如基站和WLAN）获取大致地理位置信息
-        </p>
+        <p>权限功能说明：通过网络位置信息（例如基站和WLAN）获取大致地理位置信息</p>
         <p>
           使用场景与目的：用于完成安全保障服务及基于地理位置的服务（LBS）如：同城信息、发布作品坐标定位以及小程序需使用相关位置服务等相关功能<br />
         </p>
         <p>
-          <strong
-            >5.访问精确地理位置信息
-            android.permission.ACCESS_FINE_LOCATION</strong
-          >
+          <strong>5.访问精确地理位置信息 android.permission.ACCESS_FINE_LOCATION</strong>
         </p>
         <p>
           权限功能说明：通过全球定位系统（GPS）或网络位置信息（例如基站和WLAN）获取精准地理位置信息
@@ -3441,9 +3173,7 @@
         <p>使用场景与目的：用于帮助您设置与完成直播等预约提醒功能<br /></p>
         <p><strong>10.写入日历 android.permission.WRITE_CALENDAR</strong></p>
         <p>权限功能说明：添加或修改系统中的日历活动</p>
-        <p>
-          使用场景与目的：用于帮助您设置、完成或修改直播或活动等预约提醒功能<br />
-        </p>
+        <p>使用场景与目的：用于帮助您设置、完成或修改直播或活动等预约提醒功能<br /></p>
         <p><strong>11.读取通讯录 android.permission.READ_CONTACTS</strong></p>
         <p>权限功能说明：获取系统中的通讯录信息</p>
         <p>使用场景与目的： 用于帮助你实现推荐好友等功能<br /></p>
@@ -3456,9 +3186,7 @@
         <p><strong>iOS操作系统应用权限列表</strong></p>
         <p><strong>1.NSPhotoLibraryAddUsageDescription</strong></p>
         <p>权限功能说明：向相册中添加内容</p>
-        <p>
-          使用场景和目的：允许App写入/下载/保存/修改/删除图片、文件、崩溃日志等信息<br />
-        </p>
+        <p>使用场景和目的：允许App写入/下载/保存/修改/删除图片、文件、崩溃日志等信息<br /></p>
         <p><strong>2.NSPhotoLibraryUsageDescription</strong></p>
         <p>权限功能说明：读取相册中内容</p>
         <p>
@@ -3487,9 +3215,7 @@
         </p>
         <p><strong>8.NSCalendarsUsageDescription</strong></p>
         <p>权限功能说明：访问系统中的日历活动</p>
-        <p>
-          使用场景和目的：用于帮助您设置、完成或修改直播或活动等预约提醒功能<br />
-        </p>
+        <p>使用场景和目的：用于帮助您设置、完成或修改直播或活动等预约提醒功能<br /></p>
         <p><strong>9.NSFaceIDUsageDescription</strong></p>
         <p>权限功能说明：使用面容ID</p>
         <p>使用场景和目的：用于您的支付功能<br /></p>
@@ -3501,17 +3227,14 @@
         <p>使用场景和目的：为了保障并优化视频播放<br /></p>
         <p><strong>12.NSMotionUsageDescription（仅抖音极速版）</strong></p>
         <p>权限功能说明：访问运动与健身数据</p>
-        <p>
-          使用场景和目的：用于访问你的行走数据，帮助你正常使用走路赚音符功能
-        </p>
+        <p>使用场景和目的：用于访问你的行走数据，帮助你正常使用走路赚音符功能</p>
       </div>
     </div>
 
     <div class="content" v-if="type === '多闪权限申请与使用情况说明'">
       <ul>
         <li class="text">
-          1.
-          为保障多闪App功能实现与安全稳定运行之目的，我们可能会申请或使用操作系统的相关权限；
+          1. 为保障多闪App功能实现与安全稳定运行之目的，我们可能会申请或使用操作系统的相关权限；
         </li>
         <li class="text">
           2.
@@ -3550,9 +3273,7 @@
           2.写入/删除SD卡中的内容（写入/删除/存储空间/照片权限）android.permission.WRITE_EXTERNAL_STORAGE
         </div>
         <div class="table-body">提供写入外部储存功能</div>
-        <div class="table-body">
-          允许App写入/下载/保存/缓存/修改/删除图片、文件、崩溃日志等信息
-        </div>
+        <div class="table-body">允许App写入/下载/保存/缓存/修改/删除图片、文件、崩溃日志等信息</div>
       </div>
       <div class="table-body-wrapper">
         <div class="table-body strong">
@@ -3569,12 +3290,8 @@
         <div class="table-body strong">
           4.访问大致地理位置信息 android.permission.ACCESS_COARSE_LOCATION
         </div>
-        <div class="table-body">
-          通过网络位置信息（例如基站和WLAN）获取大致地理位置信息
-        </div>
-        <div class="table-body">
-          用于完成安全保障服务及基于地理位置的服务（LBS）等相关功能
-        </div>
+        <div class="table-body">通过网络位置信息（例如基站和WLAN）获取大致地理位置信息</div>
+        <div class="table-body">用于完成安全保障服务及基于地理位置的服务（LBS）等相关功能</div>
       </div>
       <div class="table-body-wrapper">
         <div class="table-body strong">
@@ -3588,36 +3305,28 @@
         </div>
       </div>
       <div class="table-body-wrapper">
-        <div class="table-body strong">
-          6.获取已知账户 android.permission.GET_ACCOUNTS
-        </div>
+        <div class="table-body strong">6.获取已知账户 android.permission.GET_ACCOUNTS</div>
         <div class="table-body">
           获取设备上已安装的应用创建的账号，请您放心，该权限仅获取应用相关的信息，无法获取您的账号密码等个人敏感信息
         </div>
         <div class="table-body">用于帮助您登录App以及管理、验证账户</div>
       </div>
       <div class="table-body-wrapper">
-        <div class="table-body strong">
-          7.录音 android.permission.RECORD_AUDIO
-        </div>
+        <div class="table-body strong">7.录音 android.permission.RECORD_AUDIO</div>
         <div class="table-body">使用麦克风录制音频</div>
         <div class="table-body">
           用于帮助您完成音视频信息发布、音视频通话等需要使用该权限的相关功能
         </div>
       </div>
       <div class="table-body-wrapper">
-        <div class="table-body strong">
-          8.拍摄照片和视频 android.permission.CAMERA
-        </div>
+        <div class="table-body strong">8.拍摄照片和视频 android.permission.CAMERA</div>
         <div class="table-body">使用拍摄照片和视频、完成扫描二维码</div>
         <div class="table-body">
           用于帮助您完成音视频信息发布、视频通话、完成扫描二维码等需要使用该权限的相关功能
         </div>
       </div>
       <div class="table-body-wrapper">
-        <div class="table-body strong">
-          9.读取通讯录 android.permission.READ_CONTACTS
-        </div>
+        <div class="table-body strong">9.读取通讯录 android.permission.READ_CONTACTS</div>
         <div class="table-body">获取系统中的通讯录信息</div>
         <div class="table-body">用于好友推荐功能</div>
       </div>
@@ -3656,18 +3365,14 @@
         </div>
       </div>
       <div class="table-body-wrapper">
-        <div class="table-body strong">
-          5.NSLocationWhenInUseUsageDescription
-        </div>
+        <div class="table-body strong">5.NSLocationWhenInUseUsageDescription</div>
         <div class="table-body">仅App被使用时获取地理位置</div>
         <div class="table-body">
           使用场景和目的：用于完成安全保障、推荐信息以及基于地理位置的服务（LBS）等相关功能
         </div>
       </div>
       <div class="table-body-wrapper">
-        <div class="table-body strong">
-          6.NSLocationAlwaysAndWhenInUseUsageDescription
-        </div>
+        <div class="table-body strong">6.NSLocationAlwaysAndWhenInUseUsageDescription</div>
         <div class="table-body">持续和仅App被使用时获取地理位置</div>
         <div class="table-body">
           使用场景和目的：用于完成安全保障、推荐信息以及基于地理位置的服务（LBS）等相关功能
@@ -3689,32 +3394,32 @@
   </div>
 </template>
 <script>
-  export default {
-    name: 'ServiceProtocol',
-    methods: {
-      type: '',
-    },
-    created() {
-      this.type = this.$route.query.type
-    },
+export default {
+  name: 'ServiceProtocol',
+  methods: {
+    type: ''
+  },
+  created() {
+    this.type = this.$route.query.type
   }
+}
 </script>
 
 <style scoped lang="less">
-  @import '../../assets/less/index';
+@import '../../assets/less/index';
 
-  .ServiceProtocol {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    overflow: auto;
+.ServiceProtocol {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  overflow: auto;
 
-    .content {
-      padding: 60rem 10rem 100rem 20rem;
-      color: white;
-      font-size: 14rem;
-    }
+  .content {
+    padding: 60rem 10rem 100rem 20rem;
+    color: white;
+    font-size: 14rem;
   }
+}
 </style>

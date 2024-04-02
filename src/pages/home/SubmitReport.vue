@@ -53,155 +53,152 @@
   </div>
 </template>
 <script>
-  export default {
-    name: 'Report',
-    props: {},
-    data() {
-      return {
-        type: '色情低俗',
-        mode: 'video',
-        desc: '',
-        photos: [],
-      }
-    },
-    computed: {},
-    created() {
-      this.type = this.$route.query.type
-      this.mode = this.$route.query.mode
-    },
-    methods: {
-      async upload() {
-        this.$showLoading()
-        await this.$sleep(500)
-        this.$hideLoading()
-        this.photos.push(
-          new URL(
-            `../../assets/img/poster/${this.photos.length}.jpg`,
-            import.meta.url,
-          ).href,
-        )
-      },
-    },
+export default {
+  name: 'Report',
+  props: {},
+  data() {
+    return {
+      type: '色情低俗',
+      mode: 'video',
+      desc: '',
+      photos: []
+    }
+  },
+  computed: {},
+  created() {
+    this.type = this.$route.query.type
+    this.mode = this.$route.query.mode
+  },
+  methods: {
+    async upload() {
+      this.$showLoading()
+      await this.$sleep(500)
+      this.$hideLoading()
+      this.photos.push(
+        new URL(`../../assets/img/poster/${this.photos.length}.jpg`, import.meta.url).href
+      )
+    }
   }
+}
 </script>
 
 <style scoped lang="less">
-  @import '../../assets/less/index';
+@import '../../assets/less/index';
 
-  .Report {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    overflow: auto;
-    color: white;
-    font-size: 14rem;
+.Report {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  overflow: auto;
+  color: white;
+  font-size: 14rem;
 
-    .content {
-      padding-top: 60rem;
+  .content {
+    padding-top: 60rem;
 
-      .title {
-        font-size: 12rem;
-        padding: 10rem 15rem;
+    .title {
+      font-size: 12rem;
+      padding: 10rem 15rem;
+      color: var(--second-text-color);
+      border-bottom: 1px solid #cccccc11;
+
+      img {
+        width: 10rem;
+        height: 10rem;
+        margin-right: 2rem;
+      }
+    }
+
+    .l-row {
+      padding: 0 15rem;
+
+      .textarea-ctn {
+        width: 100%;
+        background: var(--active-main-bg);
+        padding: 15rem;
+        box-sizing: border-box;
+        margin-top: 10rem;
+        border-radius: 2px;
+
+        textarea {
+          font-family: 'Microsoft YaHei UI';
+          outline: none;
+          width: 100%;
+          border: none;
+          background: transparent;
+          color: white;
+
+          &::placeholder {
+            color: var(--second-text-color);
+          }
+        }
+      }
+
+      .text-num {
+        margin-top: 5rem;
+        font-size: 10rem;
         color: var(--second-text-color);
-        border-bottom: 1px solid #cccccc11;
+        text-align: right;
+      }
+    }
 
-        img {
+    .upload-photo {
+      margin-top: 5rem;
+      display: flex;
+      padding: 0 15rem;
+
+      @width: calc((100vw - 3vw - 30rem) / 4);
+
+      .photo-wrapper {
+        width: @width;
+        height: @width;
+        position: relative;
+        margin-right: 1vw;
+
+        .photo {
+          object-fit: cover;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+        }
+
+        .close {
+          position: absolute;
+          right: 0;
+          top: 0;
+          background: var(--second-btn-color);
+          padding: 3rem;
           width: 10rem;
           height: 10rem;
-          margin-right: 2rem;
         }
       }
 
-      .l-row {
-        padding: 0 15rem;
-
-        .textarea-ctn {
-          width: 100%;
-          background: var(--active-main-bg);
-          padding: 15rem;
-          box-sizing: border-box;
-          margin-top: 10rem;
-          border-radius: 2px;
-
-          textarea {
-            font-family: 'Microsoft YaHei UI';
-            outline: none;
-            width: 100%;
-            border: none;
-            background: transparent;
-            color: white;
-
-            &::placeholder {
-              color: var(--second-text-color);
-            }
-          }
-        }
-
-        .text-num {
-          margin-top: 5rem;
-          font-size: 10rem;
-          color: var(--second-text-color);
-          text-align: right;
-        }
-      }
-
-      .upload-photo {
-        margin-top: 5rem;
+      .upload {
+        width: @width;
+        height: @width;
         display: flex;
-        padding: 0 15rem;
+        flex-direction: column;
+        justify-content: center;
+        color: var(--second-text-color);
+        font-size: 12rem;
+        align-items: center;
+        background: var(--second-btn-color-tran);
 
-        @width: calc((100vw - 3vw - 30rem) / 4);
-
-        .photo-wrapper {
-          width: @width;
-          height: @width;
-          position: relative;
-          margin-right: 1vw;
-
-          .photo {
-            object-fit: cover;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-          }
-
-          .close {
-            position: absolute;
-            right: 0;
-            top: 0;
-            background: var(--second-btn-color);
-            padding: 3rem;
-            width: 10rem;
-            height: 10rem;
-          }
-        }
-
-        .upload {
-          width: @width;
-          height: @width;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          color: var(--second-text-color);
-          font-size: 12rem;
-          align-items: center;
-          background: var(--second-btn-color-tran);
-
-          img {
-            width: 35rem;
-            height: 35rem;
-          }
+        img {
+          width: 35rem;
+          height: 35rem;
         }
       }
-    }
-
-    .button {
-      position: absolute;
-      left: 15rem;
-      right: 15rem;
-      bottom: 15rem;
     }
   }
+
+  .button {
+    position: absolute;
+    left: 15rem;
+    right: 15rem;
+    bottom: 15rem;
+  }
+}
 </style>

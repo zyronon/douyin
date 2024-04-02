@@ -85,10 +85,7 @@
           <template v-slot="{ item }">
             <div class="goods" @click="nav('/shop/detail', {}, item)">
               <div class="item">
-                <img
-                  class="poster"
-                  v-lazy="_checkImgUrl('goods/' + item.cover)"
-                />
+                <img class="poster" v-lazy="_checkImgUrl('goods/' + item.cover)" />
                 <div class="bottom">
                   <div class="desc">
                     {{ item.name }}
@@ -111,241 +108,237 @@
         </WaterfallList>
       </template>
     </ScrollList>
-    <Footer
-      v-bind:init-tab="2"
-      :is-white="true"
-      style="position: fixed; left: 0"
-    />
+    <Footer v-bind:init-tab="2" :is-white="true" style="position: fixed; left: 0" />
   </div>
 </template>
 
 <script setup lang="jsx">
-  import { onMounted, reactive } from 'vue'
-  import { useNav } from '@/utils/hooks/useNav'
-  import { $no, _checkImgUrl } from '@/utils'
-  import ScrollList from '@/components/ScrollList.vue'
-  import { recommendedShop } from '@/api/user'
-  import WaterfallList from '@/components/WaterfallList.vue'
+import { onMounted, reactive } from 'vue'
+import { useNav } from '@/utils/hooks/useNav'
+import { $no, _checkImgUrl } from '@/utils'
+import ScrollList from '@/components/ScrollList.vue'
+import { recommendedShop } from '@/api/user'
+import WaterfallList from '@/components/WaterfallList.vue'
 
-  defineOptions({
-    name: 'Shop',
-  })
+defineOptions({
+  name: 'Shop'
+})
 
-  const nav = useNav()
-  const state = reactive({
-    listEl: null,
-    fixed: false,
-  })
+const nav = useNav()
+const state = reactive({
+  listEl: null,
+  fixed: false
+})
 
-  onMounted(() => {})
+onMounted(() => {})
 </script>
 
 <style scoped lang="less">
-  @fColor: #f1f1f1;
+@fColor: #f1f1f1;
 
-  #Shop {
-    font-size: 14rem;
+#Shop {
+  font-size: 14rem;
+  position: relative;
+  background: #f8f8f8;
+  padding: 10rem;
+  color: black;
+
+  .wrapper {
+  }
+
+  .search {
     position: relative;
-    background: #f8f8f8;
-    padding: 10rem;
-    color: black;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    height: 36rem;
+    box-sizing: border-box;
+    margin-bottom: 10rem;
 
-    .wrapper {
+    svg {
+      color: gray;
+      font-size: 20rem;
     }
 
-    .search {
-      position: relative;
-      z-index: 2;
+    .search-input {
+      border: 2rem solid red;
+      border-radius: 12rem;
+      height: 100%;
+      padding: 0 10rem;
+      padding-right: 3rem;
+      flex: 1;
+      gap: 10rem;
       display: flex;
       align-items: center;
-      height: 36rem;
-      box-sizing: border-box;
-      margin-bottom: 10rem;
+
+      .placeholder {
+        flex: 1;
+      }
+
+      img {
+        margin-right: 10rem;
+      }
+
+      .search-notice {
+        background: rgb(242, 62, 92);
+        padding: 0 10rem;
+        height: 85%;
+        border-radius: 10rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+      }
+    }
+
+    .more {
+      margin-left: 10rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12rem;
+    }
+  }
+
+  .card {
+    background: white;
+    padding: 10rem 15rem;
+    margin-bottom: 10rem;
+    border-radius: 8rem;
+  }
+
+  .options {
+    display: flex;
+    overflow-x: auto;
+    box-sizing: border-box;
+
+    .option {
+      width: 17vw;
+      flex-shrink: 0;
+      font-size: 13rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
       svg {
-        color: gray;
-        font-size: 20rem;
-      }
-
-      .search-input {
-        border: 2rem solid red;
-        border-radius: 12rem;
-        height: 100%;
-        padding: 0 10rem;
-        padding-right: 3rem;
-        flex: 1;
-        gap: 10rem;
-        display: flex;
-        align-items: center;
-
-        .placeholder {
-          flex: 1;
-        }
-
-        img {
-          margin-right: 10rem;
-        }
-
-        .search-notice {
-          background: rgb(242, 62, 92);
-          padding: 0 10rem;
-          height: 85%;
-          border-radius: 10rem;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          color: white;
-        }
-      }
-
-      .more {
-        margin-left: 10rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 12rem;
+        font-size: 30rem;
+        margin-bottom: 3rem;
       }
     }
+  }
 
-    .card {
-      background: white;
-      padding: 10rem 15rem;
-      margin-bottom: 10rem;
-      border-radius: 8rem;
-    }
+  .baiyibutie {
+    display: flex;
 
-    .options {
+    .item {
       display: flex;
-      overflow-x: auto;
-      box-sizing: border-box;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 25%;
+      font-size: 12rem;
+      color: gray;
 
-      .option {
-        width: 17vw;
-        flex-shrink: 0;
-        font-size: 13rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        svg {
-          font-size: 30rem;
-          margin-bottom: 3rem;
-        }
+      img {
+        width: 80%;
       }
-    }
 
-    .baiyibutie {
-      display: flex;
+      .price {
+        color: red;
+        font-size: 16rem;
+        font-weight: bold;
 
-      .item {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 25%;
-        font-size: 12rem;
-        color: gray;
-
-        img {
-          width: 80%;
-        }
-
-        .price {
-          color: red;
-          font-size: 16rem;
-          font-weight: bold;
-
-          .m {
-            font-size: 10rem;
-          }
-        }
-      }
-    }
-
-    .Scroll {
-      position: relative;
-      z-index: 2;
-      height: calc(var(--vh, 1vh) * 100 - var(--footer-height) * 2) !important;
-    }
-
-    .fixed {
-      background: @fColor;
-    }
-
-    .top-card {
-      margin-bottom: 10rem;
-    }
-
-    @p: 5rem;
-
-    .goods {
-      box-sizing: border-box;
-      margin-bottom: 10rem;
-
-      .item {
-        border-radius: 8rem;
-        overflow: hidden;
-        background: white;
-
-        img {
-          width: 100%;
-        }
-
-        .bottom {
-          padding: 10rem;
-
-          .desc {
-            color: black;
-            font-size: 16rem;
-            margin-bottom: 8rem;
-            @lh: 18rem;
-            line-height: @lh;
-            height: @lh * 2;
-            overflow: hidden;
-          }
-
-          .discounts {
-            display: inline-block;
-            @c: rgb(199, 89, 106);
-            border: 1rem solid @c;
-            padding: 0 4rem;
-            color: @c;
-            font-size: 12rem;
-            margin-bottom: 4rem;
-          }
-
-          .info {
-            display: flex;
-            align-items: flex-end;
-
-            .price {
-              color: rgb(248, 38, 74);
-              display: flex;
-              align-items: flex-end;
-              font-size: 14rem;
-              margin-right: 5rem;
-
-              .big {
-                font-size: 22rem;
-                font-weight: bold;
-                transform: translateY(2rem);
-              }
-            }
-
-            .num {
-              color: darkgray;
-              font-size: 12rem;
-            }
-          }
-
-          .low {
-            margin-top: 2rem;
-            color: rgb(230, 153, 92);
-          }
+        .m {
+          font-size: 10rem;
         }
       }
     }
   }
+
+  .Scroll {
+    position: relative;
+    z-index: 2;
+    height: calc(var(--vh, 1vh) * 100 - var(--footer-height) * 2) !important;
+  }
+
+  .fixed {
+    background: @fColor;
+  }
+
+  .top-card {
+    margin-bottom: 10rem;
+  }
+
+  @p: 5rem;
+
+  .goods {
+    box-sizing: border-box;
+    margin-bottom: 10rem;
+
+    .item {
+      border-radius: 8rem;
+      overflow: hidden;
+      background: white;
+
+      img {
+        width: 100%;
+      }
+
+      .bottom {
+        padding: 10rem;
+
+        .desc {
+          color: black;
+          font-size: 16rem;
+          margin-bottom: 8rem;
+          @lh: 18rem;
+          line-height: @lh;
+          height: @lh * 2;
+          overflow: hidden;
+        }
+
+        .discounts {
+          display: inline-block;
+          @c: rgb(199, 89, 106);
+          border: 1rem solid @c;
+          padding: 0 4rem;
+          color: @c;
+          font-size: 12rem;
+          margin-bottom: 4rem;
+        }
+
+        .info {
+          display: flex;
+          align-items: flex-end;
+
+          .price {
+            color: rgb(248, 38, 74);
+            display: flex;
+            align-items: flex-end;
+            font-size: 14rem;
+            margin-right: 5rem;
+
+            .big {
+              font-size: 22rem;
+              font-weight: bold;
+              transform: translateY(2rem);
+            }
+          }
+
+          .num {
+            color: darkgray;
+            font-size: 12rem;
+          }
+        }
+
+        .low {
+          margin-top: 2rem;
+          color: rgb(230, 153, 92);
+        }
+      }
+    }
+  }
+}
 </style>

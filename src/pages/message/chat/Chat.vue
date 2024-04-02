@@ -13,11 +13,7 @@
             src="../../../assets/img/icon/message/chat/call.png"
             alt=""
           />
-          <img
-            @click="$no"
-            src="../../../assets/img/icon/message/chat/video-white.png"
-            alt=""
-          />
+          <img @click="$no" src="../../../assets/img/icon/message/chat/video-white.png" alt="" />
           <img
             src="../../../assets/img/icon/menu-white.png"
             alt=""
@@ -25,11 +21,7 @@
           />
         </div>
       </div>
-      <div
-        class="message-wrapper"
-        ref="msgWrapper"
-        :class="isExpand ? 'expand' : ''"
-      >
+      <div class="message-wrapper" ref="msgWrapper" :class="isExpand ? 'expand' : ''">
         <ChatMessage
           @itemClick="clickItem"
           v-longpress="showTooltip"
@@ -40,22 +32,14 @@
       </div>
       <div class="footer">
         <div class="toolbar" v-if="!recording">
-          <img
-            src="../../../assets/img/icon/message/camera.png"
-            alt=""
-            class="camera"
-          />
+          <img src="../../../assets/img/icon/message/camera.png" alt="" class="camera" />
           <input
             @click="typing = true"
             @blur="typing = false"
             type="text"
             placeholder="发送信息..."
           />
-          <img
-            @click="handleClick"
-            src="../../../assets/img/icon/message/voice-white.png"
-            alt=""
-          />
+          <img @click="handleClick" src="../../../assets/img/icon/message/voice-white.png" alt="" />
           <img src="../../../assets/img/icon/message/emoji-white.png" alt="" />
           <img
             @click="showOption = !showOption"
@@ -98,10 +82,7 @@
               <span>一起看视频</span>
             </div>
             <div class="option">
-              <img
-                src="../../../assets/img/icon/message/come-chang.png"
-                alt=""
-              />
+              <img src="../../../assets/img/icon/message/come-chang.png" alt="" />
               <span>一起唱</span>
             </div>
           </div>
@@ -112,11 +93,7 @@
     <!--  长按工具栏  -->
     <transition name="tooltip">
       <!--      TODO 定位也有问题-->
-      <div
-        class="tooltip"
-        :style="{ top: tooltipTop + 'px' }"
-        v-if="tooltipTop !== -1"
-      >
+      <div class="tooltip" :style="{ top: tooltipTop + 'px' }" v-if="tooltipTop !== -1">
         <div class="options">
           <img src="../../../assets/img/icon/message/chat/like.png" alt="" />
           <span>点赞</span>
@@ -161,48 +138,30 @@
         <Mask @click="isShowOpenRedPacket = false" />
         <div class="content">
           <template v-if="isOpened">
-            <img
-              src="../../../assets/img/icon/message/chat/bg-open.png"
-              alt=""
-              class="bg"
-            />
+            <img src="../../../assets/img/icon/message/chat/bg-open.png" alt="" class="bg" />
             <div class="wrapper">
               <div class="top">
                 <div class="money">0.01元</div>
                 <div class="belong">{{ userinfo.nickname }}的红包</div>
                 <div class="password">大吉大利</div>
               </div>
-              <div
-                class="notice"
-                @click="$nav('/message/chat/red-packet-detail')"
-              >
+              <div class="notice" @click="$nav('/message/chat/red-packet-detail')">
                 查看红包详情>
               </div>
             </div>
           </template>
           <template v-else>
-            <img
-              src="../../../assets/img/icon/message/chat/bg-close.png"
-              alt=""
-              class="bg"
-            />
+            <img src="../../../assets/img/icon/message/chat/bg-close.png" alt="" class="bg" />
             <div class="wrapper">
               <div class="top">
-                <img
-                  :src="_checkImgUrl(userinfo.cover_url[0].url_list[0])"
-                  alt=""
-                  class="avatar"
-                />
+                <img :src="_checkImgUrl(userinfo.cover_url[0].url_list[0])" alt="" class="avatar" />
                 <div class="belong">{{ userinfo.nickname }}的红包</div>
                 <div class="password">大吉大利</div>
               </div>
 
               <div class="l-button" :class="{ opening }" @click="openRedPacket">
                 <template v-if="opening">
-                  <img
-                    src="../../../assets/img/icon/loading-white.png"
-                    alt=""
-                  />
+                  <img src="../../../assets/img/icon/loading-white.png" alt="" />
                   正在打开
                 </template>
                 <span v-else>开红包</span>
@@ -223,743 +182,728 @@
   </div>
 </template>
 <script>
-  import ChatMessage from '../components/ChatMessage'
-  import { inject, nextTick } from 'vue'
-  import Mask from '../../../components/Mask'
-  import { mapState } from 'pinia'
-  import Loading from '../../../components/Loading'
-  import { useBaseStore } from '@/store/pinia'
-  import { _checkImgUrl } from '@/utils'
+import ChatMessage from '../components/ChatMessage'
+import { inject, nextTick } from 'vue'
+import Mask from '../../../components/Mask'
+import { mapState } from 'pinia'
+import Loading from '../../../components/Loading'
+import { useBaseStore } from '@/store/pinia'
+import { _checkImgUrl } from '@/utils'
 
-  let CALL_STATE = {
-    REJECT: 0,
-    RESOLVE: 1,
-    NONE: 2,
-  }
-  let VIDEO_STATE = {
-    VALID: 0,
-    INVALID: 1,
-  }
-  let AUDIO_STATE = {
-    NORMAL: 0,
-    SENDING: 1,
-  }
-  let READ_STATE = {
-    SENDING: 0,
-    ARRIVED: 1,
-    READ: 1,
-  }
-  let MESSAGE_TYPE = {
-    TEXT: 0,
-    TIME: 1,
-    VIDEO: 2,
-    DOUYIN_VIDEO: 9,
-    AUDIO: 3,
-    IMAGE: 6,
-    VIDEO_CALL: 4,
-    AUDIO_CALL: 5,
-    MEME: 7, //表情包
-    RED_PACKET: 8, //红包
-  }
-  let RED_PACKET_MODE = {
-    SINGLE: 1,
-    MULTIPLE: 2,
-  }
-  export default {
-    name: 'Chat',
-    components: {
-      Loading,
-      Mask,
-      ChatMessage,
+let CALL_STATE = {
+  REJECT: 0,
+  RESOLVE: 1,
+  NONE: 2
+}
+let VIDEO_STATE = {
+  VALID: 0,
+  INVALID: 1
+}
+let AUDIO_STATE = {
+  NORMAL: 0,
+  SENDING: 1
+}
+let READ_STATE = {
+  SENDING: 0,
+  ARRIVED: 1,
+  READ: 1
+}
+let MESSAGE_TYPE = {
+  TEXT: 0,
+  TIME: 1,
+  VIDEO: 2,
+  DOUYIN_VIDEO: 9,
+  AUDIO: 3,
+  IMAGE: 6,
+  VIDEO_CALL: 4,
+  AUDIO_CALL: 5,
+  MEME: 7, //表情包
+  RED_PACKET: 8 //红包
+}
+let RED_PACKET_MODE = {
+  SINGLE: 1,
+  MULTIPLE: 2
+}
+export default {
+  name: 'Chat',
+  components: {
+    Loading,
+    Mask,
+    ChatMessage
+  },
+  data() {
+    return {
+      previewImg: new URL('../../../assets/img/poster/3.jpg', import.meta.url).href,
+      videoCall: [],
+      MESSAGE_TYPE,
+      messages: [
+        {
+          type: MESSAGE_TYPE.TIME,
+          data: '',
+          time: '2021-01-02 21:21',
+          user: {
+            id: '2739632844317827',
+            avatar: '../../assets/img/icon/head-image.jpg'
+          }
+        },
+
+        {
+          type: MESSAGE_TYPE.MEME,
+          state: AUDIO_STATE.NORMAL,
+          data: new URL('../../../assets/img/poster/1.jpg', import.meta.url).href,
+          time: '2021-01-02 21:21',
+          user: {
+            id: '2739632844317827',
+            avatar: '../../assets/img/icon/head-image.jpg'
+          },
+          loved: [
+            {
+              id: 2,
+              avatar: '../../assets/img/icon/head-image.jpg'
+            },
+            {
+              id: 2,
+              avatar: '../../assets/img/icon/head-image.jpg'
+            }
+          ]
+        },
+        {
+          type: MESSAGE_TYPE.IMAGE,
+          state: AUDIO_STATE.NORMAL,
+          data: new URL('../../../assets/img/poster/1.jpg', import.meta.url).href,
+          time: '2021-01-02 21:21',
+          user: {
+            id: 1,
+            avatar: '../../assets/img/icon/head-image.jpg'
+          }
+        },
+        {
+          type: MESSAGE_TYPE.IMAGE,
+          state: AUDIO_STATE.NORMAL,
+          data: new URL('../../../assets/img/poster/1.jpg', import.meta.url).href,
+          time: '2021-01-02 21:21',
+          user: {
+            id: '2739632844317827',
+            avatar: '../../assets/img/icon/head-image.jpg'
+          },
+          readState: READ_STATE.ARRIVED
+        },
+        {
+          type: MESSAGE_TYPE.VIDEO_CALL,
+          state: CALL_STATE.REJECT,
+          data: '2021-01-02 21:44',
+          time: '2021-01-02 21:21',
+          user: {
+            id: '2739632844317827',
+            avatar: '../../assets/img/icon/head-image.jpg'
+          }
+        },
+        {
+          type: MESSAGE_TYPE.VIDEO_CALL,
+          state: CALL_STATE.RESOLVE,
+          data: '2021-01-02 21:44',
+          time: '2021-01-02 21:21',
+          user: {
+            id: '2739632844317827',
+            avatar: '../../assets/img/icon/head-image.jpg'
+          }
+        },
+        {
+          type: MESSAGE_TYPE.VIDEO_CALL,
+          state: CALL_STATE.NONE,
+          data: '2021-01-02 21:44',
+          time: '2021-01-02 21:21',
+          user: {
+            id: '2739632844317827',
+            avatar: '../../assets/img/icon/head-image.jpg'
+          }
+        },
+        {
+          type: MESSAGE_TYPE.AUDIO_CALL,
+          state: CALL_STATE.REJECT,
+          data: '2021-01-02 21:44',
+          time: '2021-01-02 21:21',
+          user: {
+            id: '2739632844317827',
+            avatar: '../../assets/img/icon/head-image.jpg'
+          }
+        },
+        {
+          type: MESSAGE_TYPE.AUDIO_CALL,
+          state: CALL_STATE.RESOLVE,
+          data: '2021-01-02 21:44',
+          time: '2021-01-02 21:21',
+          user: {
+            id: '2739632844317827',
+            avatar: '../../assets/img/icon/head-image.jpg'
+          }
+        },
+        {
+          type: MESSAGE_TYPE.AUDIO_CALL,
+          state: CALL_STATE.NONE,
+          data: '2021-01-02 21:44',
+          time: '2021-01-02 21:21',
+          user: {
+            id: '2739632844317827',
+            avatar: '../../assets/img/icon/head-image.jpg'
+          }
+        },
+        {
+          type: MESSAGE_TYPE.AUDIO,
+          state: AUDIO_STATE.NORMAL,
+          data: {
+            duration: 5,
+            src: ''
+          },
+          time: '2021-01-02 21:21',
+          user: {
+            id: '1',
+            avatar: '../../assets/img/icon/head-image.jpg'
+          }
+        },
+        {
+          type: MESSAGE_TYPE.AUDIO,
+          state: AUDIO_STATE.NORMAL,
+          data: {
+            duration: 10,
+            src: ''
+          },
+          time: '2021-01-02 21:21',
+          user: {
+            id: '2739632844317827',
+            avatar: '../../assets/img/icon/head-image.jpg'
+          }
+        },
+        {
+          type: MESSAGE_TYPE.TEXT,
+          data: '又在刷抖音',
+          time: '2021-01-02 21:21',
+          user: {
+            id: '2739632844317827',
+            avatar: '../../assets/img/icon/head-image.jpg'
+          }
+        },
+        {
+          type: MESSAGE_TYPE.TEXT,
+          data: '我昨天@你那个视频发给我下',
+          time: '2021-01-02 21:21',
+          user: {
+            id: '2739632844317827',
+            avatar: '../../assets/img/icon/head-image.jpg'
+          }
+        },
+        {
+          type: MESSAGE_TYPE.TEXT,
+          data: '我找不到了',
+          time: '2021-01-02 21:21',
+          user: {
+            id: '1',
+            avatar: '../../assets/img/icon/head-image.jpg'
+          }
+        },
+        {
+          type: MESSAGE_TYPE.TEXT,
+          data: '我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了',
+          time: '2021-01-02 21:21',
+          user: {
+            id: '2739632844317827',
+            avatar: '../../assets/img/icon/head-image.jpg'
+          }
+        },
+        {
+          type: MESSAGE_TYPE.DOUYIN_VIDEO,
+          state: VIDEO_STATE.VALID,
+          data: {
+            poster: new URL('../../../assets/img/poster/3.jpg', import.meta.url).href,
+            author: {
+              name: 'safasdfassafasdfassafasdfassafasdfas',
+              avatar: new URL('../../../assets/img/icon/head-image.jpeg', import.meta.url).href
+            },
+            title: '服了asd'
+          },
+          time: '2021-01-02 21:21',
+          user: {
+            id: '1',
+            avatar: '../../../assets/img/icon/head-image.jpg'
+          }
+        },
+        {
+          type: MESSAGE_TYPE.VIDEO,
+          state: VIDEO_STATE.VALID,
+          data: {
+            poster: new URL('../../../assets/img/poster/3.jpg', import.meta.url).href
+          },
+          time: '2021-01-02 21:21',
+          user: {
+            id: '2739632844317827',
+            avatar: '../../../assets/img/icon/head-image.jpg'
+          }
+        },
+        {
+          type: MESSAGE_TYPE.RED_PACKET,
+          state: AUDIO_STATE.NORMAL,
+          mode: RED_PACKET_MODE.MULTIPLE,
+          data: {
+            money: 5.11,
+            title: '大吉大利',
+            state: '未领取'
+          },
+          time: '2021-01-02 21:21',
+          user: {
+            id: '2739632844317827',
+            avatar: '../../assets/img/icon/head-image.jpg'
+          }
+        },
+        {
+          type: MESSAGE_TYPE.RED_PACKET,
+          state: AUDIO_STATE.NORMAL,
+          mode: RED_PACKET_MODE.SINGLE,
+          data: {
+            money: 5.11,
+            title: '大吉大利',
+            state: '已过期'
+          },
+          time: '2021-01-02 21:21',
+          user: {
+            id: 1,
+            avatar: '../../assets/img/icon/head-image.jpg'
+          }
+        }
+      ],
+      typing: false,
+      loading: false,
+      opening: false,
+      isOpened: false,
+      recording: false,
+      showOption: false,
+      isShowOpenRedPacket: false,
+      tooltipTop: -1,
+      tooltipTopLocation: '',
+      mitt: inject('mitt')
+    }
+  },
+  computed: {
+    isExpand() {
+      return this.showOption
     },
-    data() {
-      return {
-        previewImg: new URL('../../../assets/img/poster/3.jpg', import.meta.url)
-          .href,
-        videoCall: [],
-        MESSAGE_TYPE,
-        messages: [
-          {
-            type: MESSAGE_TYPE.TIME,
-            data: '',
-            time: '2021-01-02 21:21',
-            user: {
-              id: '2739632844317827',
-              avatar: '../../assets/img/icon/head-image.jpg',
-            },
-          },
-
-          {
-            type: MESSAGE_TYPE.MEME,
-            state: AUDIO_STATE.NORMAL,
-            data: new URL('../../../assets/img/poster/1.jpg', import.meta.url)
-              .href,
-            time: '2021-01-02 21:21',
-            user: {
-              id: '2739632844317827',
-              avatar: '../../assets/img/icon/head-image.jpg',
-            },
-            loved: [
-              {
-                id: 2,
-                avatar: '../../assets/img/icon/head-image.jpg',
-              },
-              {
-                id: 2,
-                avatar: '../../assets/img/icon/head-image.jpg',
-              },
-            ],
-          },
-          {
-            type: MESSAGE_TYPE.IMAGE,
-            state: AUDIO_STATE.NORMAL,
-            data: new URL('../../../assets/img/poster/1.jpg', import.meta.url)
-              .href,
-            time: '2021-01-02 21:21',
-            user: {
-              id: 1,
-              avatar: '../../assets/img/icon/head-image.jpg',
-            },
-          },
-          {
-            type: MESSAGE_TYPE.IMAGE,
-            state: AUDIO_STATE.NORMAL,
-            data: new URL('../../../assets/img/poster/1.jpg', import.meta.url)
-              .href,
-            time: '2021-01-02 21:21',
-            user: {
-              id: '2739632844317827',
-              avatar: '../../assets/img/icon/head-image.jpg',
-            },
-            readState: READ_STATE.ARRIVED,
-          },
-          {
-            type: MESSAGE_TYPE.VIDEO_CALL,
-            state: CALL_STATE.REJECT,
-            data: '2021-01-02 21:44',
-            time: '2021-01-02 21:21',
-            user: {
-              id: '2739632844317827',
-              avatar: '../../assets/img/icon/head-image.jpg',
-            },
-          },
-          {
-            type: MESSAGE_TYPE.VIDEO_CALL,
-            state: CALL_STATE.RESOLVE,
-            data: '2021-01-02 21:44',
-            time: '2021-01-02 21:21',
-            user: {
-              id: '2739632844317827',
-              avatar: '../../assets/img/icon/head-image.jpg',
-            },
-          },
-          {
-            type: MESSAGE_TYPE.VIDEO_CALL,
-            state: CALL_STATE.NONE,
-            data: '2021-01-02 21:44',
-            time: '2021-01-02 21:21',
-            user: {
-              id: '2739632844317827',
-              avatar: '../../assets/img/icon/head-image.jpg',
-            },
-          },
-          {
-            type: MESSAGE_TYPE.AUDIO_CALL,
-            state: CALL_STATE.REJECT,
-            data: '2021-01-02 21:44',
-            time: '2021-01-02 21:21',
-            user: {
-              id: '2739632844317827',
-              avatar: '../../assets/img/icon/head-image.jpg',
-            },
-          },
-          {
-            type: MESSAGE_TYPE.AUDIO_CALL,
-            state: CALL_STATE.RESOLVE,
-            data: '2021-01-02 21:44',
-            time: '2021-01-02 21:21',
-            user: {
-              id: '2739632844317827',
-              avatar: '../../assets/img/icon/head-image.jpg',
-            },
-          },
-          {
-            type: MESSAGE_TYPE.AUDIO_CALL,
-            state: CALL_STATE.NONE,
-            data: '2021-01-02 21:44',
-            time: '2021-01-02 21:21',
-            user: {
-              id: '2739632844317827',
-              avatar: '../../assets/img/icon/head-image.jpg',
-            },
-          },
-          {
-            type: MESSAGE_TYPE.AUDIO,
-            state: AUDIO_STATE.NORMAL,
-            data: {
-              duration: 5,
-              src: '',
-            },
-            time: '2021-01-02 21:21',
-            user: {
-              id: '1',
-              avatar: '../../assets/img/icon/head-image.jpg',
-            },
-          },
-          {
-            type: MESSAGE_TYPE.AUDIO,
-            state: AUDIO_STATE.NORMAL,
-            data: {
-              duration: 10,
-              src: '',
-            },
-            time: '2021-01-02 21:21',
-            user: {
-              id: '2739632844317827',
-              avatar: '../../assets/img/icon/head-image.jpg',
-            },
-          },
-          {
-            type: MESSAGE_TYPE.TEXT,
-            data: '又在刷抖音',
-            time: '2021-01-02 21:21',
-            user: {
-              id: '2739632844317827',
-              avatar: '../../assets/img/icon/head-image.jpg',
-            },
-          },
-          {
-            type: MESSAGE_TYPE.TEXT,
-            data: '我昨天@你那个视频发给我下',
-            time: '2021-01-02 21:21',
-            user: {
-              id: '2739632844317827',
-              avatar: '../../assets/img/icon/head-image.jpg',
-            },
-          },
-          {
-            type: MESSAGE_TYPE.TEXT,
-            data: '我找不到了',
-            time: '2021-01-02 21:21',
-            user: {
-              id: '1',
-              avatar: '../../assets/img/icon/head-image.jpg',
-            },
-          },
-          {
-            type: MESSAGE_TYPE.TEXT,
-            data: '我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了',
-            time: '2021-01-02 21:21',
-            user: {
-              id: '2739632844317827',
-              avatar: '../../assets/img/icon/head-image.jpg',
-            },
-          },
-          {
-            type: MESSAGE_TYPE.DOUYIN_VIDEO,
-            state: VIDEO_STATE.VALID,
-            data: {
-              poster: new URL(
-                '../../../assets/img/poster/3.jpg',
-                import.meta.url,
-              ).href,
-              author: {
-                name: 'safasdfassafasdfassafasdfassafasdfas',
-                avatar: new URL(
-                  '../../../assets/img/icon/head-image.jpeg',
-                  import.meta.url,
-                ).href,
-              },
-              title: '服了asd',
-            },
-            time: '2021-01-02 21:21',
-            user: {
-              id: '1',
-              avatar: '../../../assets/img/icon/head-image.jpg',
-            },
-          },
-          {
-            type: MESSAGE_TYPE.VIDEO,
-            state: VIDEO_STATE.VALID,
-            data: {
-              poster: new URL(
-                '../../../assets/img/poster/3.jpg',
-                import.meta.url,
-              ).href,
-            },
-            time: '2021-01-02 21:21',
-            user: {
-              id: '2739632844317827',
-              avatar: '../../../assets/img/icon/head-image.jpg',
-            },
-          },
-          {
-            type: MESSAGE_TYPE.RED_PACKET,
-            state: AUDIO_STATE.NORMAL,
-            mode: RED_PACKET_MODE.MULTIPLE,
-            data: {
-              money: 5.11,
-              title: '大吉大利',
-              state: '未领取',
-            },
-            time: '2021-01-02 21:21',
-            user: {
-              id: '2739632844317827',
-              avatar: '../../assets/img/icon/head-image.jpg',
-            },
-          },
-          {
-            type: MESSAGE_TYPE.RED_PACKET,
-            state: AUDIO_STATE.NORMAL,
-            mode: RED_PACKET_MODE.SINGLE,
-            data: {
-              money: 5.11,
-              title: '大吉大利',
-              state: '已过期',
-            },
-            time: '2021-01-02 21:21',
-            user: {
-              id: 1,
-              avatar: '../../assets/img/icon/head-image.jpg',
-            },
-          },
-        ],
-        typing: false,
-        loading: false,
-        opening: false,
-        isOpened: false,
-        recording: false,
-        showOption: false,
-        isShowOpenRedPacket: false,
-        tooltipTop: -1,
-        tooltipTopLocation: '',
-        mitt: inject('mitt'),
+    isTyping() {
+      return this.typing || this.isExpand
+    },
+    ...mapState(useBaseStore, ['userinfo'])
+  },
+  created() {},
+  mounted() {
+    $('img').on('load', this.scrollBottom)
+    this.scrollBottom()
+  },
+  unmounted() {
+    $('img').off('load', this.scrollBottom)
+  },
+  methods: {
+    handleClick() {
+      this.recording = true
+      this.showOption = false
+    },
+    _checkImgUrl,
+    scrollBottom() {
+      nextTick(() => {
+        let wrapper = this.$refs.msgWrapper
+        // console.log('wrapper.clientHeight', wrapper.clientHeight)
+        // console.log('wrapper.scrollHeight', wrapper.scrollHeight)
+        wrapper.scrollTo({ top: wrapper.scrollHeight - wrapper.clientHeight })
+      })
+    },
+    openRedPacket() {
+      this.opening = true
+      setTimeout(() => {
+        this.opening = false
+        this.$nav('/message/chat/red-packet-detail')
+      }, 1000)
+    },
+    async clickItem(e) {
+      if (e.type === this.MESSAGE_TYPE.RED_PACKET) {
+        this.loading = true
+        await this.$sleep(500)
+        this.loading = false
+        this.isOpened = e.data.state === '已过期'
+        this.isShowOpenRedPacket = true
       }
     },
-    computed: {
-      isExpand() {
-        return this.showOption
-      },
-      isTyping() {
-        return this.typing || this.isExpand
-      },
-      ...mapState(useBaseStore, ['userinfo']),
-    },
-    created() {},
-    mounted() {
-      $('img').on('load', this.scrollBottom)
-      this.scrollBottom()
-    },
-    unmounted() {
-      $('img').off('load', this.scrollBottom)
-    },
-    methods: {
-      handleClick() {
-        this.recording = true
-        this.showOption = false
-      },
-      _checkImgUrl,
-      scrollBottom() {
-        nextTick(() => {
-          let wrapper = this.$refs.msgWrapper
-          // console.log('wrapper.clientHeight', wrapper.clientHeight)
-          // console.log('wrapper.scrollHeight', wrapper.scrollHeight)
-          wrapper.scrollTo({ top: wrapper.scrollHeight - wrapper.clientHeight })
-        })
-      },
-      openRedPacket() {
-        this.opening = true
-        setTimeout(() => {
-          this.opening = false
-          this.$nav('/message/chat/red-packet-detail')
-        }, 1000)
-      },
-      async clickItem(e) {
-        if (e.type === this.MESSAGE_TYPE.RED_PACKET) {
-          this.loading = true
-          await this.$sleep(500)
-          this.loading = false
-          this.isOpened = e.data.state === '已过期'
-          this.isShowOpenRedPacket = true
-        }
-      },
-      showTooltip(e) {
-        console.log(e)
-        let wrapper = null
-        e.path.map((v) => {
-          if (v && v.classList) {
-            if (v.classList.value === 'chat-wrapper') {
-              wrapper = v
-            }
-          }
-        })
-        if (wrapper) {
-          // console.log(wrapper.getBoundingClientRect())
-          if (wrapper.getBoundingClientRect().y - 61 > 70) {
-            this.tooltipTopLocation = 'top'
-            this.tooltipTop = wrapper.getBoundingClientRect().y - 70
-          } else {
-            this.tooltipTopLocation = 'bottom'
-            this.tooltipTop =
-              wrapper.getBoundingClientRect().y +
-              wrapper.getBoundingClientRect().height +
-              10
+    showTooltip(e) {
+      console.log(e)
+      let wrapper = null
+      e.path.map((v) => {
+        if (v && v.classList) {
+          if (v.classList.value === 'chat-wrapper') {
+            wrapper = v
           }
         }
-      },
-    },
+      })
+      if (wrapper) {
+        // console.log(wrapper.getBoundingClientRect())
+        if (wrapper.getBoundingClientRect().y - 61 > 70) {
+          this.tooltipTopLocation = 'top'
+          this.tooltipTop = wrapper.getBoundingClientRect().y - 70
+        } else {
+          this.tooltipTopLocation = 'bottom'
+          this.tooltipTop =
+            wrapper.getBoundingClientRect().y + wrapper.getBoundingClientRect().height + 10
+        }
+      }
+    }
   }
+}
 </script>
 
 <style>
-  .scale-enter-active,
-  .scale-leave-active {
-    transition: transform 0.2s ease;
-  }
+.scale-enter-active,
+.scale-leave-active {
+  transition: transform 0.2s ease;
+}
 
-  .scale-enter-from,
-  .scale-leave-to {
-    transform: scale(0);
-  }
+.scale-enter-from,
+.scale-leave-to {
+  transform: scale(0);
+}
 </style>
 <style scoped lang="less">
-  @import '../../../assets/less/index';
+@import '../../../assets/less/index';
 
-  .Chat {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    overflow: auto;
-    color: white;
-    font-size: 14rem;
-    background: var(--color-message);
+.Chat {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  overflow: auto;
+  color: white;
+  font-size: 14rem;
+  background: var(--color-message);
 
-    .chat-content {
-      > .header {
-        z-index: 2;
-        width: 100%;
-        box-sizing: border-box;
-        height: var(--common-header-height);
-        padding: 0 10rem;
+  .chat-content {
+    > .header {
+      z-index: 2;
+      width: 100%;
+      box-sizing: border-box;
+      height: var(--common-header-height);
+      padding: 0 10rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line-color);
+
+      img {
+        height: 20rem;
+        margin: 0 10rem;
+      }
+
+      .left {
+        max-width: 60%;
+        overflow: hidden;
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        border-bottom: 1px solid var(--line-color);
+
+        .badge {
+          margin-right: 10rem;
+          font-size: 12rem;
+          display: block;
+          padding: 1px 6px;
+          border-radius: 10px;
+          color: white;
+          background: var(--second-btn-color);
+        }
+      }
+
+      .right {
+        display: flex;
+      }
+    }
+
+    .message-wrapper {
+      height: calc(var(--vh, 1vh) * 100 - 125rem);
+      overflow: auto;
+
+      &.expand {
+        height: calc(var(--vh, 1vh) * 100 - (125rem + var(--vh, 1vh) * 30));
+      }
+    }
+
+    .footer {
+      @chat-bg-color: rgb(105, 143, 244);
+      @normal-bg-color: rgb(57, 57, 57);
+      padding: 10rem 0;
+
+      .toolbar {
+        box-sizing: border-box;
+        height: 44rem;
+        margin: 0 10rem;
+        padding: 5rem;
+        background: @normal-bg-color;
+        border-radius: 20rem;
+        display: flex;
+        align-items: center;
 
         img {
-          height: 20rem;
-          margin: 0 10rem;
+          width: 24rem;
+          border-radius: 50%;
+          margin-left: 15rem;
         }
 
-        .left {
-          max-width: 60%;
-          overflow: hidden;
-          display: flex;
-          align-items: center;
-
-          .badge {
-            margin-right: 10rem;
-            font-size: 12rem;
-            display: block;
-            padding: 1px 6px;
-            border-radius: 10px;
-            color: white;
-            background: var(--second-btn-color);
-          }
+        input {
+          flex: 1;
+          outline: none;
+          border: none;
+          background: @normal-bg-color;
         }
 
-        .right {
-          display: flex;
-        }
-      }
-
-      .message-wrapper {
-        height: calc(var(--vh, 1vh) * 100 - 125rem);
-        overflow: auto;
-
-        &.expand {
-          height: calc(var(--vh, 1vh) * 100 - (125rem + var(--vh, 1vh) * 30));
-        }
-      }
-
-      .footer {
-        @chat-bg-color: rgb(105, 143, 244);
-        @normal-bg-color: rgb(57, 57, 57);
-        padding: 10rem 0;
-
-        .toolbar {
-          box-sizing: border-box;
-          height: 44rem;
-          margin: 0 10rem;
+        .camera {
+          margin-left: 0;
+          margin-right: 5rem;
+          width: 14rem;
           padding: 5rem;
-          background: @normal-bg-color;
-          border-radius: 20rem;
-          display: flex;
-          align-items: center;
-
-          img {
-            width: 24rem;
-            border-radius: 50%;
-            margin-left: 15rem;
-          }
-
-          input {
-            flex: 1;
-            outline: none;
-            border: none;
-            background: @normal-bg-color;
-          }
-
-          .camera {
-            margin-left: 0;
-            margin-right: 5rem;
-            width: 14rem;
-            padding: 5rem;
-            border-radius: 50%;
-            background: @chat-bg-color;
-          }
+          border-radius: 50%;
+          background: @chat-bg-color;
         }
+      }
 
-        .record {
-          box-sizing: border-box;
-          height: 44rem;
-          margin: 0 10rem;
-          padding: 10rem 5rem;
-          background: @normal-bg-color;
-          border-radius: 20rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          position: relative;
+      .record {
+        box-sizing: border-box;
+        height: 44rem;
+        margin: 0 10rem;
+        padding: 10rem 5rem;
+        background: @normal-bg-color;
+        border-radius: 20rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
 
-          img {
-            right: 5rem;
-            position: absolute;
-            width: 24rem;
-            border-radius: 50%;
-            margin-left: 15rem;
-          }
+        img {
+          right: 5rem;
+          position: absolute;
+          width: 24rem;
+          border-radius: 50%;
+          margin-left: 15rem;
         }
+      }
 
-        .options {
-          font-size: 14rem;
-          width: 100vw;
-          padding: 15rem;
-          height: calc(var(--vh, 1vh) * 30);
+      .options {
+        font-size: 14rem;
+        width: 100vw;
+        padding: 15rem;
+        height: calc(var(--vh, 1vh) * 30);
+        box-sizing: border-box;
+
+        .option-wrapper {
           box-sizing: border-box;
+          @grid-width: calc((100vw - 30rem) / 4);
+          color: gray;
+          display: grid;
+          grid-template-columns: @grid-width @grid-width @grid-width @grid-width;
 
-          .option-wrapper {
-            box-sizing: border-box;
-            @grid-width: calc((100vw - 30rem) / 4);
-            color: gray;
-            display: grid;
-            grid-template-columns: @grid-width @grid-width @grid-width @grid-width;
+          .option {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-bottom: 10rem;
 
-            .option {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              flex-direction: column;
+            img {
+              border-radius: 4rem;
+              background: @normal-bg-color;
+              padding: 10rem;
+              width: 30rem;
               margin-bottom: 10rem;
-
-              img {
-                border-radius: 4rem;
-                background: @normal-bg-color;
-                padding: 10rem;
-                width: 30rem;
-                margin-bottom: 10rem;
-              }
             }
           }
         }
       }
     }
+  }
 
-    .preview-img {
+  .preview-img {
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    background: black;
+    width: 100vw;
+    height: calc(var(--vh, 1vh) * 100);
+
+    .header {
       position: fixed;
-      z-index: 9;
-      top: 0;
-      background: black;
       width: 100vw;
-      height: calc(var(--vh, 1vh) * 100);
-
-      .header {
-        position: fixed;
-        width: 100vw;
-        box-sizing: border-box;
-        padding: var(--page-padding);
-        display: flex;
-        justify-content: space-between;
-
-        img {
-          width: 22rem;
-        }
-      }
-    }
-
-    .tooltip {
-      z-index: 9;
-      left: 50%;
-      margin-left: -33%;
-      position: fixed;
-      font-size: 12rem;
-      border-radius: 6rem;
-      //padding: 1rem;
-      background: rgb(55, 58, 67);
+      box-sizing: border-box;
+      padding: var(--page-padding);
       display: flex;
+      justify-content: space-between;
 
-      .options {
-        width: 45rem;
-        height: 60rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-
-        img {
-          margin-bottom: 4rem;
-          width: 18rem;
-        }
+      img {
+        width: 22rem;
       }
+    }
+  }
 
-      .arrow {
-        width: 0;
-        height: 0;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
+  .tooltip {
+    z-index: 9;
+    left: 50%;
+    margin-left: -33%;
+    position: fixed;
+    font-size: 12rem;
+    border-radius: 6rem;
+    //padding: 1rem;
+    background: rgb(55, 58, 67);
+    display: flex;
 
-        &.bottom {
-          top: -14rem;
-          border: 7rem solid transparent;
-          border-bottom: 7rem solid var(--second-btn-color);
-        }
+    .options {
+      width: 45rem;
+      height: 60rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
 
-        &.top {
-          bottom: -14rem;
-          border: 7rem solid transparent;
-          border-top: 7rem solid var(--second-btn-color);
-        }
+      img {
+        margin-bottom: 4rem;
+        width: 18rem;
       }
     }
 
-    .red-packet {
-      z-index: 9;
-      top: 0;
+    .arrow {
+      width: 0;
+      height: 0;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+
+      &.bottom {
+        top: -14rem;
+        border: 7rem solid transparent;
+        border-bottom: 7rem solid var(--second-btn-color);
+      }
+
+      &.top {
+        bottom: -14rem;
+        border: 7rem solid transparent;
+        border-top: 7rem solid var(--second-btn-color);
+      }
+    }
+  }
+
+  .red-packet {
+    z-index: 9;
+    top: 0;
+    position: fixed;
+    width: 100vw;
+    height: calc(var(--vh, 1vh) * 100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .content {
+      width: 75vw;
+      height: 55vh;
+      z-index: 10;
       position: fixed;
-      width: 100vw;
-      height: calc(var(--vh, 1vh) * 100);
       display: flex;
       align-items: center;
-      justify-content: center;
+      flex-direction: column;
 
-      .content {
-        width: 75vw;
-        height: 55vh;
-        z-index: 10;
-        position: fixed;
+      .bg {
+        z-index: 9;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+      .wrapper {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 20rem;
         display: flex;
-        align-items: center;
         flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        color: #fdd9b3;
+        z-index: 10;
+        position: relative;
 
-        .bg {
-          z-index: 9;
-          position: absolute;
-          width: 100%;
-          height: 100%;
-        }
-
-        .wrapper {
-          width: 100%;
-          height: 100%;
-          box-sizing: border-box;
-          padding: 20rem;
+        .top {
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: space-between;
-          color: #fdd9b3;
-          z-index: 10;
-          position: relative;
+        }
 
-          .top {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-          }
+        .avatar {
+          margin-top: 60rem;
+          width: 55rem;
+          height: 55rem;
+          border-radius: 50%;
+          margin-bottom: 20rem;
+        }
 
-          .avatar {
-            margin-top: 60rem;
-            width: 55rem;
-            height: 55rem;
-            border-radius: 50%;
-            margin-bottom: 20rem;
-          }
+        .money {
+          color: rgb(193, 135, 79);
+          font-size: 40rem;
+          font-weight: bold;
+          margin-top: 15rem;
+          margin-bottom: 65rem;
+        }
 
-          .money {
-            color: rgb(193, 135, 79);
-            font-size: 40rem;
-            font-weight: bold;
-            margin-top: 15rem;
-            margin-bottom: 65rem;
-          }
+        .belong {
+          font-size: 12rem;
+          margin-bottom: 30rem;
+        }
 
-          .belong {
-            font-size: 12rem;
-            margin-bottom: 30rem;
-          }
+        .password {
+          font-size: 16rem;
+        }
 
-          .password {
-            font-size: 16rem;
-          }
+        .notice {
+          margin-top: 150rem;
+          font-size: 12rem;
+        }
 
-          .notice {
-            margin-top: 150rem;
-            font-size: 12rem;
-          }
+        .l-button {
+          font-size: 16rem;
+          border-radius: 0.5rem;
+          margin-bottom: 30rem;
+          padding: 12rem 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: rgb(120, 48, 45);
+          width: 65vw;
+          background: rgb(255, 217, 132);
+          box-shadow: 0 0 1px;
 
-          .l-button {
-            font-size: 16rem;
-            border-radius: 0.5rem;
-            margin-bottom: 30rem;
-            padding: 12rem 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgb(120, 48, 45);
-            width: 65vw;
-            background: rgb(255, 217, 132);
-            box-shadow: 0 0 1px;
+          &.opening {
+            background: rgb(228, 77, 58);
 
-            &.opening {
-              background: rgb(228, 77, 58);
+            img {
+              width: 18rem;
+              margin-right: 10rem;
+              animation: animal 0.8s infinite linear;
 
-              img {
-                width: 18rem;
-                margin-right: 10rem;
-                animation: animal 0.8s infinite linear;
-
-                @keyframes animal {
-                  0% {
-                    transform: rotate(-360deg);
-                  }
-                  100% {
-                    transform: rotate(0deg);
-                  }
+              @keyframes animal {
+                0% {
+                  transform: rotate(-360deg);
+                }
+                100% {
+                  transform: rotate(0deg);
                 }
               }
             }
           }
         }
+      }
 
-        .close {
-          bottom: -8vh;
-          position: absolute;
-          width: 30rem;
-        }
+      .close {
+        bottom: -8vh;
+        position: absolute;
+        width: 30rem;
       }
     }
   }
+}
 </style>

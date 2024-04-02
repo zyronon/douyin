@@ -29,23 +29,23 @@ let t = [
     type: 'imgs',
     src: `https://imgapi.cn/bing.php`,
     author: {
-      unique_id: 1,
-    },
+      unique_id: 1
+    }
   },
   {
     type: 'user',
     src: `https://imgapi.cn/bing.php`,
     author: {
-      unique_id: 2,
-    },
+      unique_id: 2
+    }
   },
   {
     type: 'img',
     src: `https://imgapi.cn/bing.php`,
     author: {
-      unique_id: 3,
-    },
-  },
+      unique_id: 3
+    }
+  }
 ]
 // allRecommendVideos.unshift(...t)
 // {
@@ -74,9 +74,7 @@ async function fetchData() {
       }
       v = v.map((w) => {
         w.type = 'recommend-video'
-        let item = userList.find(
-          (a) => String(a.uid) === String(w.author_user_id),
-        )
+        let item = userList.find((a) => String(a.uid) === String(w.author_user_id))
         if (item) w.author = item
         return w
       })
@@ -89,21 +87,17 @@ async function fetchData() {
 export async function startMock() {
   mock.onGet(/video\/recommended/).reply(async (config) => {
     let page = getPage2(config.params)
-    console.log(
-      'allRecommendVideos',
-      cloneDeep(allRecommendVideos.length),
-      page,
-    )
+    console.log('allRecommendVideos', cloneDeep(allRecommendVideos.length), page)
     return [
       200,
       {
         data: {
           total: 844,
-          list: allRecommendVideos.slice(page.offset, page.limit), // list: allRecommendVideos.slice(0, 6),
+          list: allRecommendVideos.slice(page.offset, page.limit) // list: allRecommendVideos.slice(0, 6),
         },
         code: 200,
-        msg: '',
-      },
+        msg: ''
+      }
     ]
   })
 
@@ -124,7 +118,7 @@ export async function startMock() {
       '7295697246132227343',
       '7270431418822446370',
       '6882368275695586568',
-      '7000587983069957383',
+      '7000587983069957383'
     ]
     let id = config.params.id
     if (!videoIds.includes(String(id))) {
@@ -145,13 +139,11 @@ export async function startMock() {
       {
         data: {
           total: 10,
-          list: allRecommendVideos
-            .slice(100, 110)
-            .slice(page.offset, page.limit),
+          list: allRecommendVideos.slice(100, 110).slice(page.offset, page.limit)
         },
         code: 200,
-        msg: '',
-      },
+        msg: ''
+      }
     ]
   })
 
@@ -162,13 +154,11 @@ export async function startMock() {
       {
         data: {
           total: 150,
-          list: allRecommendVideos
-            .slice(200, 350)
-            .slice(page.offset, page.limit),
+          list: allRecommendVideos.slice(200, 350).slice(page.offset, page.limit)
         },
         code: 200,
-        msg: '',
-      },
+        msg: ''
+      }
     ]
   })
 
@@ -177,18 +167,14 @@ export async function startMock() {
     if (!userVideos.length) {
       // let r = await fetch(BASE_URL + '/data/user-71158770.json')
       // let r = await fetch(BASE_URL + '/data/user-8357999.json')
-      let r = await fetch(
-        BASE_URL + '/data/user_video_list/user-12345xiaolaohu.json',
-      )
+      let r = await fetch(BASE_URL + '/data/user_video_list/user-12345xiaolaohu.json')
       let list = await r.json()
       const baseStore = useBaseStore()
       let userList = cloneDeep(baseStore.users)
 
       userVideos = list.map((w) => {
         if (userList.length) {
-          let item = userList.find(
-            (a) => String(a.uid) === String(w.author_user_id),
-          )
+          let item = userList.find((a) => String(a.uid) === String(w.author_user_id))
           if (item) w.author = item
         }
         return w
@@ -201,11 +187,11 @@ export async function startMock() {
         data: {
           pageNo: page.pageNo,
           total: userVideos.length,
-          list: userVideos.slice(page.offset, page.limit),
+          list: userVideos.slice(page.offset, page.limit)
         },
         code: 200,
-        msg: '',
-      },
+        msg: ''
+      }
     ]
   })
 
@@ -216,13 +202,11 @@ export async function startMock() {
       {
         data: {
           total: 150,
-          list: allRecommendVideos
-            .slice(200, 350)
-            .slice(page.offset, page.limit),
+          list: allRecommendVideos.slice(200, 350).slice(page.offset, page.limit)
         },
         code: 200,
-        msg: '',
-      },
+        msg: ''
+      }
     ]
   })
 
@@ -233,16 +217,16 @@ export async function startMock() {
         data: {
           video: {
             total: 50,
-            list: allRecommendVideos.slice(350, 400),
+            list: allRecommendVideos.slice(350, 400)
           },
           music: {
             total: resource.music.length,
-            list: resource.music,
-          },
+            list: resource.music
+          }
         },
         code: 200,
-        msg: '',
-      },
+        msg: ''
+      }
     ]
   })
 
@@ -282,11 +266,11 @@ export async function startMock() {
         data: {
           pageNo: page.pageNo,
           total: 0,
-          list: [],
+          list: []
         },
         code: 200,
-        msg: '',
-      },
+        msg: ''
+      }
     ]
   })
 
@@ -303,11 +287,11 @@ export async function startMock() {
         data: {
           pageNo: page.pageNo,
           total: allRecommendPosts.length,
-          list: allRecommendPosts.slice(0, 1000).slice(page.offset, page.limit),
+          list: allRecommendPosts.slice(0, 1000).slice(page.offset, page.limit)
         },
         code: 200,
-        msg: '',
-      },
+        msg: ''
+      }
     ]
   })
 
@@ -321,10 +305,10 @@ export async function startMock() {
       {
         data: {
           total: v.length,
-          list: v.slice(page.offset, page.limit),
+          list: v.slice(page.offset, page.limit)
         },
-        code: 200,
-      },
+        code: 200
+      }
     ]
   })
 

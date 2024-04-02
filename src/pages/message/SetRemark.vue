@@ -6,12 +6,7 @@
       </template>
       <template v-slot:right>
         <div>
-          <span
-            class="f16"
-            :class="isChanged ? 'save-yes' : 'save-no'"
-            @click="save"
-            >保存</span
-          >
+          <span class="f16" :class="isChanged ? 'save-yes' : 'save-no'" @click="save">保存</span>
         </div>
       </template>
     </BaseHeader>
@@ -34,94 +29,94 @@
 </template>
 
 <script>
-  export default {
-    name: 'SetRemark',
-    data() {
-      return {
-        remark: '',
-        oldRemark: '',
+export default {
+  name: 'SetRemark',
+  data() {
+    return {
+      remark: '',
+      oldRemark: ''
+    }
+  },
+  computed: {
+    isChanged() {
+      return this.remark !== this.oldRemark
+    }
+  },
+  created() {},
+  methods: {
+    back() {
+      if (this.isChanged) {
+        this.$showSimpleConfirmDialog('是否保存修改', this.save, this.$back)
+      } else {
+        this.$back()
       }
     },
-    computed: {
-      isChanged() {
-        return this.remark !== this.oldRemark
-      },
-    },
-    created() {},
-    methods: {
-      back() {
-        if (this.isChanged) {
-          this.$showSimpleConfirmDialog('是否保存修改', this.save, this.$back)
-        } else {
-          this.$back()
-        }
-      },
-      async save() {
-        if (!this.isChanged) return
-        this.$showLoading()
-        await this.$sleep(500)
-        this.$hideLoading()
-        this.$back()
-      },
-    },
+    async save() {
+      if (!this.isChanged) return
+      this.$showLoading()
+      await this.$sleep(500)
+      this.$hideLoading()
+      this.$back()
+    }
   }
+}
 </script>
 
 <style scoped lang="less">
-  @import '../../assets/less/index';
+@import '../../assets/less/index';
 
-  .edit-item {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
+.edit-item {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
 
-    .save-yes {
-      color: var(--primary-btn-color);
+  .save-yes {
+    color: var(--primary-btn-color);
+  }
+
+  .save-no {
+    color: var(--disable-primary-btn-color);
+  }
+
+  .content {
+    padding: 20rem;
+    padding-top: 70rem;
+
+    .notice,
+    .num {
+      font-size: 12rem;
+      color: var(--second-text-color);
     }
 
-    .save-no {
-      color: var(--disable-primary-btn-color);
-    }
+    .input-ctn {
+      position: relative;
+      border-bottom: 1px solid var(--line-color);
+      display: flex;
+      align-items: center;
 
-    .content {
-      padding: 20rem;
-      padding-top: 70rem;
+      input {
+        margin: 5rem 0;
+        color: white;
+        height: 30rem;
+        width: 100%;
+        outline: none;
+        border: none;
+        background: transparent;
 
-      .notice,
-      .num {
-        font-size: 12rem;
-        color: var(--second-text-color);
+        &::placeholder {
+          color: var(--second-text-color);
+        }
       }
 
-      .input-ctn {
-        position: relative;
-        border-bottom: 1px solid var(--line-color);
-        display: flex;
-        align-items: center;
-
-        input {
-          margin: 5rem 0;
-          color: white;
-          height: 30rem;
-          width: 100%;
-          outline: none;
-          border: none;
-          background: transparent;
-
-          &::placeholder {
-            color: var(--second-text-color);
-          }
-        }
-
-        .close {
-          position: absolute;
-          right: 0;
-          top: 15rem;
-          width: 10rem;
-        }
+      .close {
+        position: absolute;
+        right: 0;
+        top: 15rem;
+        width: 10rem;
       }
     }
   }
+}
 </style>

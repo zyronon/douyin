@@ -1,10 +1,6 @@
 <template>
   <div class="People">
-    <img
-      :src="$imgPreview(people.avatar)"
-      alt=""
-      class="head-image pull-left"
-    />
+    <img :src="$imgPreview(people.avatar)" alt="" class="head-image pull-left" />
     <div class="content">
       <template v-if="mode === 'normal'">
         <div class="left">
@@ -42,11 +38,7 @@
             <span v-if="people.name.indexOf(searchKey) > -1"
               >{{ people.name.substr(0, people.name.indexOf(searchKey))
               }}<span style="color: yellow">{{ searchKey }}</span
-              >{{
-                people.name.substr(
-                  people.name.indexOf(searchKey) + searchKey.length,
-                )
-              }}</span
+              >{{ people.name.substr(people.name.indexOf(searchKey) + searchKey.length) }}</span
             >
             <span v-else>{{ people.name }}</span>
           </div>
@@ -57,9 +49,7 @@
               >{{ people.account.substr(0, people.account.indexOf(searchKey))
               }}<span style="color: yellow">{{ searchKey }}</span
               >{{
-                people.account.substr(
-                  people.account.indexOf(searchKey) + searchKey.length,
-                )
+                people.account.substr(people.account.indexOf(searchKey) + searchKey.length)
               }}</span
             >
             <span v-else>{{ people.account }}</span>
@@ -171,162 +161,162 @@
   </div>
 </template>
 <script>
-  export default {
-    name: 'People',
-    props: {
-      people: {
-        type: Object,
-        default: {},
-      },
-      mode: {
-        type: String,
-        default: 'normal',
-      },
-      searchKey: {
-        type: String,
-        default: '',
-      },
+export default {
+  name: 'People',
+  props: {
+    people: {
+      type: Object,
+      default: {}
     },
-    data() {
-      return {
-        showPopover: false,
-      }
+    mode: {
+      type: String,
+      default: 'normal'
     },
-    computed: {},
-    created() {},
-    methods: {},
-  }
+    searchKey: {
+      type: String,
+      default: ''
+    }
+  },
+  data() {
+    return {
+      showPopover: false
+    }
+  },
+  computed: {},
+  created() {},
+  methods: {}
+}
 </script>
 
 <style scoped lang="less">
-  @import '../../../assets/less/index';
+@import '../../../assets/less/index';
 
-  .scale-enter-active,
-  .scale-leave-active {
-    transition: all 0.3s ease;
+.scale-enter-active,
+.scale-leave-active {
+  transition: all 0.3s ease;
+}
+
+.scale-enter-from,
+.scale-leave-to {
+  //transform: scale(0);
+  opacity: 0;
+}
+
+.People {
+  transition: all 0.3s ease;
+  width: 100%;
+  height: 70rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &.top {
+    background: #353a4f;
   }
 
-  .scale-enter-from,
-  .scale-leave-to {
-    //transform: scale(0);
-    opacity: 0;
+  .head-image {
+    margin-right: 15rem;
+    width: 45rem;
+    height: 45rem;
+    border-radius: 50%;
   }
 
-  .People {
-    transition: all 0.3s ease;
-    width: 100%;
-    height: 70rem;
+  .add {
+    background: var(--second-btn-color-tran);
+    margin-right: 15rem;
+    padding: 15rem;
+    width: 18rem;
+    height: 18rem;
+    border-radius: 50%;
+  }
+
+  .content {
+    flex: 1;
     display: flex;
-    align-items: center;
-    position: relative;
+    justify-content: space-between;
+    padding: 15px 0;
 
-    &.top {
-      background: #353a4f;
-    }
-
-    .head-image {
-      margin-right: 15rem;
-      width: 45rem;
-      height: 45rem;
-      border-radius: 50%;
-    }
-
-    .add {
-      background: var(--second-btn-color-tran);
-      margin-right: 15rem;
-      padding: 15rem;
-      width: 18rem;
-      height: 18rem;
-      border-radius: 50%;
-    }
-
-    .content {
-      flex: 1;
-      display: flex;
-      justify-content: space-between;
-      padding: 15px 0;
-
-      .left {
-        .name {
-          font-size: 14rem;
-          margin-bottom: 2rem;
-          color: white;
-        }
-
-        .detail {
-          color: var(--second-text-color);
-          font-size: 12rem;
-          margin-top: 4px;
-        }
-      }
-
-      .right {
-        display: flex;
-        align-items: center;
-
-        .l-button {
-          margin-left: 8rem;
-          border-radius: 2rem;
-          background: rgb(58, 58, 67);
-          font-size: 12rem;
-          padding: 5rem 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 58rem;
-
-          &:only-child {
-            width: 70rem;
-          }
-
-          &.red {
-            background: var(--primary-btn-color);
-          }
-        }
-
-        img {
-          height: 18rem;
-          margin-left: 20rem;
-        }
-      }
-    }
-
-    .popover {
-      z-index: 9;
-      position: absolute;
-      bottom: -100%;
-      right: 10rem;
-      border-radius: 8rem;
-      background: var(--second-btn-color);
-
-      .item {
+    .left {
+      .name {
         font-size: 14rem;
-        padding: 0 40rem 0 10rem;
-        display: flex;
-        height: 40rem;
-        align-items: center;
-        border-bottom: 1px solid var(--line-color);
+        margin-bottom: 2rem;
+        color: white;
+      }
 
-        &:nth-last-child(1) {
-          border-bottom: none;
-          color: var(--primary-btn-color);
+      .detail {
+        color: var(--second-text-color);
+        font-size: 12rem;
+        margin-top: 4px;
+      }
+    }
+
+    .right {
+      display: flex;
+      align-items: center;
+
+      .l-button {
+        margin-left: 8rem;
+        border-radius: 2rem;
+        background: rgb(58, 58, 67);
+        font-size: 12rem;
+        padding: 5rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 58rem;
+
+        &:only-child {
+          width: 70rem;
         }
 
-        img {
-          margin-right: 10rem;
-          height: 20rem;
+        &.red {
+          background: var(--primary-btn-color);
         }
       }
 
-      .arrow {
-        width: 0;
-        height: 0;
-        border: 7rem solid transparent;
-        border-bottom: 7rem solid var(--second-btn-color);
-        position: absolute;
-        right: 10rem;
-        top: -14rem;
+      img {
+        height: 18rem;
+        margin-left: 20rem;
       }
     }
   }
+
+  .popover {
+    z-index: 9;
+    position: absolute;
+    bottom: -100%;
+    right: 10rem;
+    border-radius: 8rem;
+    background: var(--second-btn-color);
+
+    .item {
+      font-size: 14rem;
+      padding: 0 40rem 0 10rem;
+      display: flex;
+      height: 40rem;
+      align-items: center;
+      border-bottom: 1px solid var(--line-color);
+
+      &:nth-last-child(1) {
+        border-bottom: none;
+        color: var(--primary-btn-color);
+      }
+
+      img {
+        margin-right: 10rem;
+        height: 20rem;
+      }
+    }
+
+    .arrow {
+      width: 0;
+      height: 0;
+      border: 7rem solid transparent;
+      border-bottom: 7rem solid var(--second-btn-color);
+      position: absolute;
+      right: 10rem;
+      top: -14rem;
+    }
+  }
+}
 </style>

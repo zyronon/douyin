@@ -11,12 +11,7 @@
         <div class="sub-title">未注册的手机号验证通过后将自动注册</div>
       </div>
 
-      <LoginInput
-        autofocus
-        type="phone"
-        v-model="phone"
-        placeholder="请输入手机号"
-      />
+      <LoginInput autofocus type="phone" v-model="phone" placeholder="请输入手机号" />
 
       <div class="notice" v-if="notice">
         {{ notice }}
@@ -29,15 +24,11 @@
         </div>
         <div class="right">
           已阅读并同意
-          <span
-            class="link"
-            @click="$nav('/service-protocol', { type: '“抖音”用户服务协议' })"
+          <span class="link" @click="$nav('/service-protocol', { type: '“抖音”用户服务协议' })"
             >用户协议</span
           >
           和
-          <span
-            class="link"
-            @click="$nav('/service-protocol', { type: '“抖音”隐私政策' })"
+          <span class="link" @click="$nav('/service-protocol', { type: '“抖音”隐私政策' })"
             >隐私政策</span
           >
           ，同时登录并使用抖音火山版（原“火山小视频”）和抖音
@@ -91,88 +82,88 @@
   </div>
 </template>
 <script>
-  import Check from '../../components/Check'
-  import Tooltip from './components/Tooltip'
-  import LoginInput from './components/LoginInput'
-  import Base from './Base.js'
-  import FromBottomDialog from '../../components/dialog/FromBottomDialog'
+import Check from '../../components/Check'
+import Tooltip from './components/Tooltip'
+import LoginInput from './components/LoginInput'
+import Base from './Base.js'
+import FromBottomDialog from '../../components/dialog/FromBottomDialog'
 
-  export default {
-    name: 'OtherLogin',
-    extends: Base,
-    components: {
-      Check,
-      Tooltip,
-      LoginInput,
-      FromBottomDialog,
-    },
-    data() {
-      return {
-        phone: '',
-        notice: '',
+export default {
+  name: 'OtherLogin',
+  extends: Base,
+  components: {
+    Check,
+    Tooltip,
+    LoginInput,
+    FromBottomDialog
+  },
+  data() {
+    return {
+      phone: '',
+      notice: ''
+    }
+  },
+  computed: {},
+  created() {},
+  methods: {
+    async getCode() {
+      let res = await this.check()
+      if (res) {
+        this.loading = true
+        setTimeout(() => {
+          this.$nav('/login/verification-code')
+        }, 2000)
       }
     },
-    computed: {},
-    created() {},
-    methods: {
-      async getCode() {
-        let res = await this.check()
-        if (res) {
-          this.loading = true
-          setTimeout(() => {
-            this.$nav('/login/verification-code')
-          }, 2000)
-        }
-      },
-      async otherLogin() {
-        let res = await this.check()
-        if (res) {
-          this.isOtherLogin = true
-        }
-      },
-    },
-  }
-</script>
-
-<style scoped lang="less">
-  @import '../../assets/less/index';
-  @import 'Base.less';
-
-  .other-login {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    overflow: auto;
-    color: black;
-    font-size: 14rem;
-    background: white;
-
-    .block-dialog {
-      color: black;
-
-      .item {
-        height: 50rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-top: 1px solid gainsboro;
-
-        img {
-          height: 25rem;
-          margin-right: 10rem;
-        }
-
-        &:nth-last-child(1) {
-          border-top: none;
-        }
-      }
-
-      .space {
-        height: 10rem;
-        background: whitesmoke;
+    async otherLogin() {
+      let res = await this.check()
+      if (res) {
+        this.isOtherLogin = true
       }
     }
   }
+}
+</script>
+
+<style scoped lang="less">
+@import '../../assets/less/index';
+@import 'Base.less';
+
+.other-login {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  overflow: auto;
+  color: black;
+  font-size: 14rem;
+  background: white;
+
+  .block-dialog {
+    color: black;
+
+    .item {
+      height: 50rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-top: 1px solid gainsboro;
+
+      img {
+        height: 25rem;
+        margin-right: 10rem;
+      }
+
+      &:nth-last-child(1) {
+        border-top: none;
+      }
+    }
+
+    .space {
+      height: 10rem;
+      background: whitesmoke;
+    }
+  }
+}
 </style>

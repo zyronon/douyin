@@ -13,7 +13,7 @@ const Utils = {
     const app = Vue.createApp({
       render() {
         return <Loading />
-      },
+      }
     })
     let parent = document.createElement('div')
     parent.classList.add(...['dialog-ctn'])
@@ -39,7 +39,7 @@ const Utils = {
     const app = Vue.createApp({
       render() {
         return <SelectDialog onCancel={remove} list={sexList} onOk={tempCb} />
-      },
+      }
     })
     let parent = document.createElement('div')
     parent.classList.add(...['dialog-ctn', 'fade-in'])
@@ -77,7 +77,7 @@ const Utils = {
             onOk={tempOkCb}
           />
         )
-      },
+      }
     })
     let parent = document.createElement('div')
     parent.classList.add(...['dialog-ctn', 'fade-in'])
@@ -92,7 +92,7 @@ const Utils = {
     cancelCb,
     okText,
     cancelText,
-    cancelTextColor,
+    cancelTextColor
   ) {
     let remove = () => {
       let parent = document.querySelector('.dialog-ctn')
@@ -124,7 +124,7 @@ const Utils = {
             onOk={tempOkCb}
           />
         )
-      },
+      }
     })
     let parent = document.createElement('div')
     parent.classList.add(...['dialog-ctn', 'fade-in'])
@@ -155,7 +155,7 @@ const Utils = {
             subtitle={subtitle}
           />
         )
-      },
+      }
     })
     let parent = document.createElement('div')
     parent.classList.add(...['dialog-ctn', 'fade-in'])
@@ -271,7 +271,7 @@ const Utils = {
         }
         return ret
       })(),
-      hash: a.hash.replace('#', ''),
+      hash: a.hash.replace('#', '')
     }
   },
   $imgPreview(url) {
@@ -421,7 +421,7 @@ const Utils = {
       this.$notice('已复制')
     }
     document.body.removeChild(textarea)
-  },
+  }
 }
 
 export default Utils

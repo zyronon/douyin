@@ -34,41 +34,41 @@
   </div>
 </template>
 <script>
-  import enums from '../../../../utils/enums'
+import enums from '../../../../utils/enums'
 
-  export default {
-    name: 'TriggerTime',
-    data() {
-      return {
-        enums,
-        triggerTime: enums.TRIGGER_TIME.TIME60,
-      }
-    },
-    created() {
-      this.triggerTime = ~~this.$route.query.triggerTime
-    },
-    methods: {
-      setTriggerTime(type) {
-        this.triggerTime = type
-        localStorage.setItem('changeTriggerTime', type)
-      },
-    },
+export default {
+  name: 'TriggerTime',
+  data() {
+    return {
+      enums,
+      triggerTime: enums.TRIGGER_TIME.TIME60
+    }
+  },
+  created() {
+    this.triggerTime = ~~this.$route.query.triggerTime
+  },
+  methods: {
+    setTriggerTime(type) {
+      this.triggerTime = type
+      localStorage.setItem('changeTriggerTime', type)
+    }
   }
+}
 </script>
 
 <style scoped lang="less">
-  @import '../../../../assets/less/index';
+@import '../../../../assets/less/index';
 
-  .TriggerTime {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    color: white;
+.TriggerTime {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  color: white;
 
-    .content {
-      padding-top: 60rem;
-    }
+  .content {
+    padding-top: 60rem;
   }
+}
 </style>

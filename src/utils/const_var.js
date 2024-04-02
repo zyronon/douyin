@@ -16,12 +16,12 @@ export default {
     FOLLOW_ME: 1, //只关注我
     FOLLOW_EACH_OTHER: 2, //互相关注
     FOLLOW_HE: 3, //我关注他
-    REQUEST_FOLLOW: 4, //关注请求
-  },
+    REQUEST_FOLLOW: 4 //关注请求
+  }
 }
 export const SlideType = {
   HORIZONTAL: 0,
-  VERTICAL: 1,
+  VERTICAL: 1
 }
 
 /*图集操作状态*/
@@ -29,19 +29,19 @@ export const SlideAlbumOperationStatus = {
   Normal: 'Normal',
   Zooming: 'Zooming',
   Look: 'Look',
-  Detail: 'Detail',
+  Detail: 'Detail'
 }
 /*图集播放状态*/
 export const SlideAlbumPlayStatus = {
   HORIZONTAL: 0,
-  VERTICAL: 1,
+  VERTICAL: 1
 }
 
 /*播放状态*/
 export const SlideItemPlayStatus = {
   Play: 'Play',
   Stop: 'Stop',
-  Pause: 'Pause',
+  Pause: 'Pause'
 }
 
 export const DefaultUser = {
@@ -61,25 +61,25 @@ export const DefaultUser = {
   card_entries: [
     {
       icon_dark: {
-        url_list: [],
+        url_list: []
       },
       icon_light: {
-        url_list: [],
+        url_list: []
       },
       sub_title: '',
       title: '',
-      type: -1,
-    },
+      type: -1
+    }
   ],
   cover_url: [
     {
-      url_list: [],
-    },
+      url_list: []
+    }
   ],
   avatar_168x168: {
-    url_list: [],
+    url_list: []
   },
   avatar_300x300: {
-    url_list: [],
-  },
+    url_list: []
+  }
 }

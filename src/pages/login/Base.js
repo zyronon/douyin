@@ -7,7 +7,7 @@ export default {
       isOtherLogin: false,
       showAnim: false,
       showTooltip: false,
-      loading: false,
+      loading: false
     }
   },
   computed: {},
@@ -30,6 +30,6 @@ export default {
           }
         }
       })
-    },
-  },
+    }
+  }
 }

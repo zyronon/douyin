@@ -22,11 +22,7 @@
       <div class="top">
         <div class="left">
           <div class="liver">
-            <img
-              class="avatar"
-              :src="_checkImgUrl(userinfo.avatar_168x168.url_list[0])"
-              alt=""
-            />
+            <img class="avatar" :src="_checkImgUrl(userinfo.avatar_168x168.url_list[0])" alt="" />
             <div class="desc">
               <div class="desc-wrapper">
                 <div class="name">{{ userinfo.nickname }}</div>
@@ -48,40 +44,17 @@
         </div>
         <div class="right">
           <div class="follower">
-            <img
-              src="../../assets/img/icon/avatar/1.png"
-              alt=""
-              class="round"
-            />
-            <img
-              src="../../assets/img/icon/avatar/2.png"
-              alt=""
-              class="round"
-            />
-            <img
-              src="../../assets/img/icon/avatar/3.png"
-              alt=""
-              class="round"
-            />
+            <img src="../../assets/img/icon/avatar/1.png" alt="" class="round" />
+            <img src="../../assets/img/icon/avatar/2.png" alt="" class="round" />
+            <img src="../../assets/img/icon/avatar/3.png" alt="" class="round" />
             <div class="round count">107</div>
-            <dy-back
-              class="round close"
-              img="close"
-              mode="light"
-              @click="$back"
-            />
+            <dy-back class="round close" img="close" mode="light" @click="$back" />
           </div>
           <div class="more">
             <div class="wrapper">
               <!--              缺个icon-->
               <span>更多同城</span>
-              <dy-back
-                scale=".5"
-                direction="right"
-                class="back"
-                img="back"
-                mode="light"
-              />
+              <dy-back scale=".5" direction="right" class="back" img="back" mode="light" />
             </div>
           </div>
         </div>
@@ -112,46 +85,17 @@
               <span>说点什么</span>
               <img src="../../assets/img/icon/home/voice.png" alt="" />
             </div>
-            <img
-              src="../../assets/img/icon/home/more.png"
-              alt=""
-              class="more"
-            />
-            <img
-              src="../../assets/img/icon/home/love.webp"
-              alt=""
-              class="more"
-            />
-            <img
-              src="../../assets/img/icon/home/gift.webp"
-              alt=""
-              class="gift"
-            />
+            <img src="../../assets/img/icon/home/more.png" alt="" class="more" />
+            <img src="../../assets/img/icon/home/love.webp" alt="" class="more" />
+            <img src="../../assets/img/icon/home/gift.webp" alt="" class="gift" />
           </div>
         </div>
         <div class="right">
           <div class="avatar-wrapper" :class="{ followed: isFollowed }">
-            <img
-              src="../../assets/img/icon/avatar/2.png"
-              alt=""
-              class="avatar"
-            />
-            <div
-              v-if="!isFollowed"
-              @click.stop="attention"
-              class="options"
-              ref="attention-option"
-            >
-              <img
-                class="no"
-                src="../../assets/img/icon/add-light.png"
-                alt=""
-              />
-              <img
-                class="yes"
-                src="../../assets/img/icon/ok-white.png"
-                alt=""
-              />
+            <img src="../../assets/img/icon/avatar/2.png" alt="" class="avatar" />
+            <div v-if="!isFollowed" @click.stop="attention" class="options" ref="attention-option">
+              <img class="no" src="../../assets/img/icon/add-light.png" alt="" />
+              <img class="yes" src="../../assets/img/icon/ok-white.png" alt="" />
             </div>
             <img
               v-if="isFollowed"
@@ -167,40 +111,40 @@
   </div>
 </template>
 <script>
-  import BaseButton from '../../components/BaseButton'
-  import Dom from '../../utils/dom'
-  import { nextTick } from 'vue'
-  import { mapState } from 'pinia'
-  import { useBaseStore } from '@/store/pinia'
-  import { _checkImgUrl, random } from '@/utils'
-  import Mock from 'mockjs'
+import BaseButton from '../../components/BaseButton'
+import Dom from '../../utils/dom'
+import { nextTick } from 'vue'
+import { mapState } from 'pinia'
+import { useBaseStore } from '@/store/pinia'
+import { _checkImgUrl, random } from '@/utils'
+import Mock from 'mockjs'
 
-  export default {
-    name: 'LivePage',
-    components: { BaseButton },
-    props: {},
-    data() {
-      return {
-        timer1: -1,
-        timer2: -1,
-        timer3: -1,
-        isFollowed: false,
-        list: [],
-        barrage: [],
-        barrageTemplate: () => {
-          let name = Mock.mock('@cname')
-          let a = Mock.mock('@csentence')
-          return `
+export default {
+  name: 'LivePage',
+  components: { BaseButton },
+  props: {},
+  data() {
+    return {
+      timer1: -1,
+      timer2: -1,
+      timer3: -1,
+      isFollowed: false,
+      list: [],
+      barrage: [],
+      barrageTemplate: () => {
+        let name = Mock.mock('@cname')
+        let a = Mock.mock('@csentence')
+        return `
         <div class="barrage">
           <div class="type">${name}</div>
           <div class="text">${a}</div>
         </div>
         `
-        },
-        userJoinedTemplate: () => {
-          let src = '/images/icon/love.webp'
-          let name = Mock.mock('@cname')
-          return `
+      },
+      userJoinedTemplate: () => {
+        let src = '/images/icon/love.webp'
+        let name = Mock.mock('@cname')
+        return `
         <div class="user-joined">
           <div class="level">
             <div class="wrapper">
@@ -212,24 +156,24 @@
           <span class="text">加入了直播间</span>
         </div>
         `
-        },
-        sendGiftTemplate: () => {
-          let avatarList = [
-            '/images/EPsQ7u4sNnrHC-ix-a9yQ.png',
-            '/images/Xex2IhY-Zm338cNlcGuNW.png',
-            '/images/gddHyRZrdk0Em3RRgVa9g.png',
-            '/images/LJ-8p2jF3HydBD5j28PgQ.png',
-            '/images/KwJ9N7yFjYylfwYeThWjx.png',
-            '/images/EKkC06GI4yXC2mNHMrm46.png',
-            '/images/rlkpmpGPdhYZRJl3J4Xl7.png',
-            '/images/Ge4mMWQoICdpyTyixk3Sf.png',
-          ]
-          let avatar = avatarList[random(0, avatarList.length - 1)]
-          let gift = '/images/icon/love.webp'
-          let name = Mock.mock('@cname')
-          let name2 = Mock.mock('@cname')
-          let num = Mock.mock('@integer(60,400)')
-          return `
+      },
+      sendGiftTemplate: () => {
+        let avatarList = [
+          '/images/EPsQ7u4sNnrHC-ix-a9yQ.png',
+          '/images/Xex2IhY-Zm338cNlcGuNW.png',
+          '/images/gddHyRZrdk0Em3RRgVa9g.png',
+          '/images/LJ-8p2jF3HydBD5j28PgQ.png',
+          '/images/KwJ9N7yFjYylfwYeThWjx.png',
+          '/images/EKkC06GI4yXC2mNHMrm46.png',
+          '/images/rlkpmpGPdhYZRJl3J4Xl7.png',
+          '/images/Ge4mMWQoICdpyTyixk3Sf.png'
+        ]
+        let avatar = avatarList[random(0, avatarList.length - 1)]
+        let gift = '/images/icon/love.webp'
+        let name = Mock.mock('@cname')
+        let name2 = Mock.mock('@cname')
+        let num = Mock.mock('@integer(60,400)')
+        return `
         <div class="send-gift">
           <div class="left">
             <img src="${avatar}" alt="" class="avatar">
@@ -249,625 +193,612 @@
           </div>
         </div>
         `
-        },
-        page: null,
+      },
+      page: null
+    }
+  },
+  computed: {
+    ...mapState(useBaseStore, ['friends', 'userinfo'])
+  },
+  created() {},
+  mounted() {
+    this.page = this.$refs.page
+    this.timer1 = setInterval(async () => {
+      this.sendGift()
+      await this.$sleep(300)
+      this.sendGift()
+      this.joinUser()
+    }, 1000)
+    this.timer2 = setInterval(async () => {
+      this.sendBarrage()
+    }, 1500)
+    this.timer3 = setInterval(async () => {
+      this.sendComment()
+    }, 700)
+  },
+  unmounted() {
+    clearInterval(this.timer1)
+    clearInterval(this.timer2)
+    clearInterval(this.timer3)
+  },
+  methods: {
+    _checkImgUrl,
+    sendGift() {
+      let page = new Dom(this.page)
+      let sendGift = new Dom().create(this.sendGiftTemplate())
+      sendGift.on('animationend', () => {
+        sendGift.remove()
+      })
+      let oldSendGift = new Dom('.send-gift')
+      let top = document.body.clientHeight * 0.6
+      if (oldSendGift.els.length !== 0) {
+        top = sendGift.removePx(oldSendGift.css('top')) - 70
       }
+      if (top < 100) {
+        top = document.body.clientHeight * 0.6
+      }
+      console.log('top', top)
+      sendGift.css('top', top)
+      page.append(sendGift)
     },
-    computed: {
-      ...mapState(useBaseStore, ['friends', 'userinfo']),
+    joinUser() {
+      let page = new Dom(this.page)
+      let user = new Dom().create(this.userJoinedTemplate())
+      user.on('animationend', () => {
+        user.remove()
+      })
+      page.append(user)
     },
-    created() {},
-    mounted() {
-      this.page = this.$refs.page
-      this.timer1 = setInterval(async () => {
-        this.sendGift()
-        await this.$sleep(300)
-        this.sendGift()
-        this.joinUser()
+    sendBarrage() {
+      let page = new Dom(this.page)
+      let barrage = new Dom().create(this.barrageTemplate())
+      barrage.on('animationend', () => {
+        barrage.remove()
+      })
+      let oldBarrages = new Dom('.barrage')
+      let top = document.body.clientHeight * 0.35
+      if (oldBarrages.els.length !== 0) {
+        top = barrage.removePx(oldBarrages.css('top')) + 20
+      }
+      if (top > document.body.clientHeight * 0.5) {
+        top = document.body.clientHeight * 0.35
+      }
+      barrage.css('top', top)
+      page.append(barrage)
+    },
+    sendComment() {
+      this.list.push({
+        name: Mock.mock('@cname'),
+        text: Mock.mock('@csentence')
+      })
+      nextTick(() => {
+        let comments = this.$refs['comments']
+        comments.scrollTo({
+          top: comments.scrollHeight - comments.clientHeight,
+          behavior: 'smooth'
+        })
+        // comments.scrollTop = comments.scrollHeight - comments.clientHeight
+      })
+    },
+    attention() {
+      let option = this.$refs['attention-option']
+      option.classList.toggle('attention')
+      setTimeout(() => {
+        this.isFollowed = true
       }, 1000)
-      this.timer2 = setInterval(async () => {
-        this.sendBarrage()
-      }, 1500)
-      this.timer3 = setInterval(async () => {
-        this.sendComment()
-      }, 700)
-    },
-    unmounted() {
-      clearInterval(this.timer1)
-      clearInterval(this.timer2)
-      clearInterval(this.timer3)
-    },
-    methods: {
-      _checkImgUrl,
-      sendGift() {
-        let page = new Dom(this.page)
-        let sendGift = new Dom().create(this.sendGiftTemplate())
-        sendGift.on('animationend', () => {
-          sendGift.remove()
-        })
-        let oldSendGift = new Dom('.send-gift')
-        let top = document.body.clientHeight * 0.6
-        if (oldSendGift.els.length !== 0) {
-          top = sendGift.removePx(oldSendGift.css('top')) - 70
-        }
-        if (top < 100) {
-          top = document.body.clientHeight * 0.6
-        }
-        console.log('top', top)
-        sendGift.css('top', top)
-        page.append(sendGift)
-      },
-      joinUser() {
-        let page = new Dom(this.page)
-        let user = new Dom().create(this.userJoinedTemplate())
-        user.on('animationend', () => {
-          user.remove()
-        })
-        page.append(user)
-      },
-      sendBarrage() {
-        let page = new Dom(this.page)
-        let barrage = new Dom().create(this.barrageTemplate())
-        barrage.on('animationend', () => {
-          barrage.remove()
-        })
-        let oldBarrages = new Dom('.barrage')
-        let top = document.body.clientHeight * 0.35
-        if (oldBarrages.els.length !== 0) {
-          top = barrage.removePx(oldBarrages.css('top')) + 20
-        }
-        if (top > document.body.clientHeight * 0.5) {
-          top = document.body.clientHeight * 0.35
-        }
-        barrage.css('top', top)
-        page.append(barrage)
-      },
-      sendComment() {
-        this.list.push({
-          name: Mock.mock('@cname'),
-          text: Mock.mock('@csentence'),
-        })
-        nextTick(() => {
-          let comments = this.$refs['comments']
-          comments.scrollTo({
-            top: comments.scrollHeight - comments.clientHeight,
-            behavior: 'smooth',
-          })
-          // comments.scrollTop = comments.scrollHeight - comments.clientHeight
-        })
-      },
-      attention() {
-        let option = this.$refs['attention-option']
-        option.classList.toggle('attention')
-        setTimeout(() => {
-          this.isFollowed = true
-        }, 1000)
-      },
-    },
+    }
   }
+}
 </script>
 
 <style lang="less">
-  @import '../../assets/less/index';
+@import '../../assets/less/index';
 
-  .send-gift {
-    position: fixed;
-    top: 63vh;
-    left: 15rem;
-    display: flex;
-    align-items: flex-end;
-    animation: send-gift-anim 2s linear;
+.send-gift {
+  position: fixed;
+  top: 63vh;
+  left: 15rem;
+  display: flex;
+  align-items: flex-end;
+  animation: send-gift-anim 2s linear;
 
-    @keyframes send-gift-anim {
-      from {
-        opacity: 0;
-        transform: translateX(-100%);
-      }
-      10% {
-        opacity: 1;
-        transform: translateX(0);
-      }
-      80% {
-        opacity: 1;
-        transform: translateX(0);
-      }
-      to {
-        opacity: 0;
-        transform: translateX(0);
-      }
+  @keyframes send-gift-anim {
+    from {
+      opacity: 0;
+      transform: translateX(-100%);
     }
-
-    .left {
-      background: linear-gradient(
-        to right,
-        var(--primary-btn-color),
-        rgba(252, 47, 86, 0.2)
-      );
-      padding: 5rem;
-      border-radius: 50rem;
-      display: flex;
-      align-items: center;
-
-      .avatar {
-        margin-right: 5rem;
-        width: 40rem;
-        height: 40rem;
-        object-fit: cover;
-        border-radius: 50%;
-      }
-
-      .desc {
-        width: 20vw;
-
-        .name,
-        .sendto {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        .name {
-          font-size: 14rem;
-        }
-
-        .sendto {
-          font-size: 12rem;
-          color: yellow;
-        }
-
-        .to {
-          color: yellow;
-        }
-      }
-
-      .gift-icon {
-        width: 40rem;
-      }
+    10% {
+      opacity: 1;
+      transform: translateX(0);
     }
-
-    .right {
-      font-size: 23rem;
-      font-weight: bold;
-      font-style: oblique;
+    80% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(0);
     }
   }
 
-  .barrage {
-    position: fixed;
-    top: 50%;
-    transform: translateX(100vw);
+  .left {
+    background: linear-gradient(to right, var(--primary-btn-color), rgba(252, 47, 86, 0.2));
+    padding: 5rem;
+    border-radius: 50rem;
     display: flex;
     align-items: center;
-    font-size: 12rem;
-    animation: anim 5s linear;
 
-    @keyframes anim {
-      from {
-        transform: translateX(100vw);
+    .avatar {
+      margin-right: 5rem;
+      width: 40rem;
+      height: 40rem;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .desc {
+      width: 20vw;
+
+      .name,
+      .sendto {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
-      to {
-        transform: translateX(-100%);
+
+      .name {
+        font-size: 14rem;
+      }
+
+      .sendto {
+        font-size: 12rem;
+        color: yellow;
+      }
+
+      .to {
+        color: yellow;
       }
     }
 
-    .type {
-      padding: 1rem 6rem;
-      border: 1px solid white;
-      border-radius: 20rem;
-      margin-right: 5rem;
+    .gift-icon {
+      width: 40rem;
     }
   }
 
-  .user-joined {
-    @tag-bg: rgba(58, 58, 70, 0.3);
-    font-size: 12rem;
-    position: absolute;
-    top: 70vh;
-    left: 15rem;
-    padding: 4rem 8rem;
+  .right {
+    font-size: 23rem;
+    font-weight: bold;
+    font-style: oblique;
+  }
+}
+
+.barrage {
+  position: fixed;
+  top: 50%;
+  transform: translateX(100vw);
+  display: flex;
+  align-items: center;
+  font-size: 12rem;
+  animation: anim 5s linear;
+
+  @keyframes anim {
+    from {
+      transform: translateX(100vw);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  .type {
+    padding: 1rem 6rem;
+    border: 1px solid white;
     border-radius: 20rem;
-    background: rgba(115, 114, 181, 0.7);
-    margin-bottom: 5rem;
-    animation: user-joined-anim 3s linear;
+    margin-right: 5rem;
+  }
+}
 
-    @keyframes user-joined-anim {
-      from {
-        opacity: 0;
-        transform: translateX(100%);
-      }
-      10% {
-        opacity: 1;
-        transform: translateX(30rem);
-      }
-      90% {
-        opacity: 1;
-        transform: translateX(0);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(-100%);
-      }
+.user-joined {
+  @tag-bg: rgba(58, 58, 70, 0.3);
+  font-size: 12rem;
+  position: absolute;
+  top: 70vh;
+  left: 15rem;
+  padding: 4rem 8rem;
+  border-radius: 20rem;
+  background: rgba(115, 114, 181, 0.7);
+  margin-bottom: 5rem;
+  animation: user-joined-anim 3s linear;
+
+  @keyframes user-joined-anim {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
     }
-
-    @text-color: rgb(164, 234, 253);
-
-    .level {
-      display: inline-block;
-
-      .wrapper {
-        display: flex;
-        @color: rgb(130, 133, 185);
-        align-items: center;
-        font-size: 10rem;
-        border-radius: 10rem;
-        margin-right: 5rem;
-        padding: 0 6rem;
-        background: @color;
-
-        img {
-          margin-right: 3rem;
-          width: 12rem;
-        }
-      }
+    10% {
+      opacity: 1;
+      transform: translateX(30rem);
     }
-
-    .name {
-      margin-right: 5rem;
-      font-size: 13rem;
-      color: @text-color;
+    90% {
+      opacity: 1;
+      transform: translateX(0);
     }
-
-    .text {
-      word-break: break-all;
+    to {
+      opacity: 1;
+      transform: translateX(-100%);
     }
   }
-</style>
-<style scoped lang="less">
-  @import '../../assets/less/index';
 
-  .LivePage {
-    width: 100vw;
-    height: calc(var(--vh, 1vh) * 100);
-    color: white;
-    font-size: 14rem;
-    position: relative;
+  @text-color: rgb(164, 234, 253);
 
-    .live-wrapper {
-      width: 100vw;
-      height: calc(var(--vh, 1vh) * 100);
-      background: black;
+  .level {
+    display: inline-block;
+
+    .wrapper {
       display: flex;
+      @color: rgb(130, 133, 185);
       align-items: center;
-      justify-content: center;
-
-      video {
-        width: 100%;
-        object-fit: cover;
-      }
+      font-size: 10rem;
+      border-radius: 10rem;
+      margin-right: 5rem;
+      padding: 0 6rem;
+      background: @color;
 
       img {
-        width: 100vw;
-        height: calc(var(--vh, 1vh) * 100);
-        color: rgb(229, 229, 229);
+        margin-right: 3rem;
+        width: 12rem;
       }
     }
+  }
 
-    .float {
-      position: absolute;
-      top: 0;
+  .name {
+    margin-right: 5rem;
+    font-size: 13rem;
+    color: @text-color;
+  }
+
+  .text {
+    word-break: break-all;
+  }
+}
+</style>
+<style scoped lang="less">
+@import '../../assets/less/index';
+
+.LivePage {
+  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100);
+  color: white;
+  font-size: 14rem;
+  position: relative;
+
+  .live-wrapper {
+    width: 100vw;
+    height: calc(var(--vh, 1vh) * 100);
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    video {
+      width: 100%;
+      object-fit: cover;
+    }
+
+    img {
       width: 100vw;
       height: calc(var(--vh, 1vh) * 100);
+      color: rgb(229, 229, 229);
+    }
+  }
 
-      @tag-bg: rgba(58, 58, 70, 0.3);
+  .float {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: calc(var(--vh, 1vh) * 100);
 
-      .top {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 10rem;
+    @tag-bg: rgba(58, 58, 70, 0.3);
 
-        .left {
-          margin-left: var(--page-padding);
+    .top {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10rem;
 
-          .liver {
-            box-sizing: border-box;
-            background: var(--second-btn-color-tran);
-            display: flex;
-            padding: 3rem 4rem 3rem 2rem;
-            align-items: center;
-            border-radius: 20rem;
+      .left {
+        margin-left: var(--page-padding);
 
-            .avatar {
-              border-radius: 50%;
-              width: 30rem;
-              height: 30rem;
-              margin-right: 4rem;
-            }
-
-            .desc {
-              flex: 1;
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-
-              .desc-wrapper {
-                width: 80rem;
-
-                .name {
-                  font-size: 12rem;
-                  white-space: nowrap;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                }
-
-                .count {
-                  color: gainsboro;
-                  font-size: 10rem;
-                }
-              }
-
-              .follow-btn {
-                height: 30rem;
-                width: 45rem;
-                background: var(--primary-btn-color);
-                border-radius: 30rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 12rem;
-              }
-            }
-          }
-
-          .left-bottom {
-            margin-top: calc(var(--page-padding) / 2);
-            display: flex;
-            font-size: 12rem;
-
-            .tag {
-              display: flex;
-              align-items: center;
-              padding: 4rem 10rem;
-              background: @tag-bg;
-              border-radius: 20rem;
-              margin-right: 10rem;
-
-              img {
-                margin-right: 5rem;
-                width: 10rem;
-                height: 10rem;
-              }
-            }
-          }
-        }
-
-        .right {
-          margin-top: 3rem;
+        .liver {
+          box-sizing: border-box;
+          background: var(--second-btn-color-tran);
           display: flex;
-          flex-direction: column;
+          padding: 3rem 4rem 3rem 2rem;
+          align-items: center;
+          border-radius: 20rem;
 
-          .follower {
-            @width: 30rem;
+          .avatar {
+            border-radius: 50%;
+            width: 30rem;
+            height: 30rem;
+            margin-right: 4rem;
+          }
+
+          .desc {
+            flex: 1;
             display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-            .round {
-              width: @width;
-              height: @width;
-              border-radius: 50%;
-              margin-right: 3rem;
+            .desc-wrapper {
+              width: 80rem;
+
+              .name {
+                font-size: 12rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+
+              .count {
+                color: gainsboro;
+                font-size: 10rem;
+              }
             }
 
-            .count {
-              font-size: 12rem;
-              background: var(--second-btn-color-tran);
+            .follow-btn {
+              height: 30rem;
+              width: 45rem;
+              background: var(--primary-btn-color);
+              border-radius: 30rem;
               display: flex;
               align-items: center;
               justify-content: center;
+              font-size: 12rem;
+            }
+          }
+        }
+
+        .left-bottom {
+          margin-top: calc(var(--page-padding) / 2);
+          display: flex;
+          font-size: 12rem;
+
+          .tag {
+            display: flex;
+            align-items: center;
+            padding: 4rem 10rem;
+            background: @tag-bg;
+            border-radius: 20rem;
+            margin-right: 10rem;
+
+            img {
+              margin-right: 5rem;
+              width: 10rem;
+              height: 10rem;
+            }
+          }
+        }
+      }
+
+      .right {
+        margin-top: 3rem;
+        display: flex;
+        flex-direction: column;
+
+        .follower {
+          @width: 30rem;
+          display: flex;
+
+          .round {
+            width: @width;
+            height: @width;
+            border-radius: 50%;
+            margin-right: 3rem;
+          }
+
+          .count {
+            font-size: 12rem;
+            background: var(--second-btn-color-tran);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .close {
+            margin-right: 10rem;
+            margin-left: 5rem;
+            padding: 6rem;
+            width: calc(@width - 12rem);
+            height: calc(@width - 12rem);
+          }
+        }
+
+        .more {
+          display: flex;
+          justify-content: flex-end;
+
+          .wrapper {
+            border-radius: 13rem 0 0 13rem;
+            padding: 2rem 0 2rem 10rem;
+            margin-top: 15rem;
+            background: @tag-bg;
+            display: flex;
+            align-items: center;
+            font-size: 10rem;
+          }
+        }
+      }
+    }
+
+    .bottom {
+      position: absolute;
+      bottom: 0;
+      width: 100vw;
+      box-sizing: border-box;
+      padding: var(--page-padding);
+      padding-bottom: 10rem;
+      display: flex;
+
+      .left {
+        width: 87%;
+
+        .comments {
+          margin-bottom: 10rem;
+          overflow: auto;
+          height: 20vh;
+
+          .comments-wrapper {
+            min-height: 20vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+          }
+
+          .comment {
+            padding: 4rem 5rem;
+            border-radius: 10rem;
+            background: @tag-bg;
+            margin-bottom: 5rem;
+
+            @text-color: rgb(164, 234, 253);
+
+            &.notice {
+              .text {
+                color: @text-color;
+              }
             }
 
-            .close {
-              margin-right: 10rem;
-              margin-left: 5rem;
-              padding: 6rem;
-              width: calc(@width - 12rem);
-              height: calc(@width - 12rem);
+            .level {
+              display: inline-block;
+
+              .wrapper {
+                display: flex;
+                @color: rgb(130, 133, 185);
+                align-items: center;
+                font-size: 10rem;
+                border-radius: 10rem;
+                margin-right: 5rem;
+                padding: 0 6rem;
+                background: @color;
+
+                img {
+                  margin-right: 3rem;
+                  width: 12rem;
+                }
+              }
+            }
+
+            .name {
+              margin-right: 5rem;
+              font-size: 13rem;
+              color: @text-color;
+            }
+
+            .text {
+              word-break: break-all;
+            }
+          }
+        }
+
+        .options {
+          display: flex;
+          align-items: center;
+
+          .input {
+            flex: 1;
+            color: #a2a2a2;
+            font-size: 12rem;
+            border-radius: 15rem;
+            padding: 4rem 10rem;
+            background: @tag-bg;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            img {
+              width: 20rem;
             }
           }
 
           .more {
-            display: flex;
-            justify-content: flex-end;
+            margin-left: 10rem;
+            width: 20rem;
+            height: 20rem;
+            padding: 5rem;
+            background: @tag-bg;
+            border-radius: 50%;
+          }
 
-            .wrapper {
-              border-radius: 13rem 0 0 13rem;
-              padding: 2rem 0 2rem 10rem;
-              margin-top: 15rem;
-              background: @tag-bg;
-              display: flex;
-              align-items: center;
-              font-size: 10rem;
-            }
+          .gift {
+            margin-left: 10rem;
+            width: 31rem;
           }
         }
       }
 
-      .bottom {
-        position: absolute;
-        bottom: 0;
-        width: 100vw;
-        box-sizing: border-box;
-        padding: var(--page-padding);
-        padding-bottom: 10rem;
+      .right {
+        flex: 1;
         display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
 
-        .left {
-          width: 87%;
+        @width: 35rem;
 
-          .comments {
-            margin-bottom: 10rem;
-            overflow: auto;
-            height: 20vh;
+        .avatar-wrapper {
+          background: linear-gradient(to bottom, #000000, var(--primary-btn-color));
+          border-radius: 20rem;
+          width: calc(@width + 2rem);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
 
-            .comments-wrapper {
-              min-height: 20vh;
-              display: flex;
-              flex-direction: column;
-              justify-content: flex-end;
-            }
+          &.followed {
+            background: linear-gradient(to bottom, rgba(240, 183, 31, 0.2), rgb(240, 183, 31));
+          }
 
-            .comment {
-              padding: 4rem 5rem;
-              border-radius: 10rem;
-              background: @tag-bg;
-              margin-bottom: 5rem;
+          .avatar {
+            width: @width;
+            border-radius: 50%;
+            background: white;
+            padding: 1.5rem;
+          }
 
-              @text-color: rgb(164, 234, 253);
-
-              &.notice {
-                .text {
-                  color: @text-color;
-                }
-              }
-
-              .level {
-                display: inline-block;
-
-                .wrapper {
-                  display: flex;
-                  @color: rgb(130, 133, 185);
-                  align-items: center;
-                  font-size: 10rem;
-                  border-radius: 10rem;
-                  margin-right: 5rem;
-                  padding: 0 6rem;
-                  background: @color;
-
-                  img {
-                    margin-right: 3rem;
-                    width: 12rem;
-                  }
-                }
-              }
-
-              .name {
-                margin-right: 5rem;
-                font-size: 13rem;
-                color: @text-color;
-              }
-
-              .text {
-                word-break: break-all;
-              }
-            }
+          .follow {
+            width: 32rem;
+            margin-top: 5rem;
+            margin-bottom: 5rem;
           }
 
           .options {
+            margin-top: 8rem;
+            margin-bottom: 5rem;
             display: flex;
-            align-items: center;
-
-            .input {
-              flex: 1;
-              color: #a2a2a2;
-              font-size: 12rem;
-              border-radius: 15rem;
-              padding: 4rem 10rem;
-              background: @tag-bg;
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-
-              img {
-                width: 20rem;
-              }
-            }
-
-            .more {
-              margin-left: 10rem;
-              width: 20rem;
-              height: 20rem;
-              padding: 5rem;
-              background: @tag-bg;
-              border-radius: 50%;
-            }
-
-            .gift {
-              margin-left: 10rem;
-              width: 31rem;
-            }
-          }
-        }
-
-        .right {
-          flex: 1;
-          display: flex;
-          justify-content: flex-end;
-          align-items: flex-end;
-
-          @width: 35rem;
-
-          .avatar-wrapper {
-            background: linear-gradient(
-              to bottom,
-              #000000,
-              var(--primary-btn-color)
-            );
-            border-radius: 20rem;
-            width: calc(@width + 2rem);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            width: 20rem;
+            height: 20rem;
             justify-content: center;
+            align-items: center;
 
-            &.followed {
-              background: linear-gradient(
-                to bottom,
-                rgba(240, 183, 31, 0.2),
-                rgb(240, 183, 31)
-              );
+            img {
+              position: absolute;
+              width: 18rem;
+              transition: all 0.8s;
             }
 
-            .avatar {
-              width: @width;
-              border-radius: 50%;
-              background: white;
-              padding: 1.5rem;
+            .yes {
+              opacity: 0;
+              transform: rotate(-180deg);
             }
 
-            .follow {
-              width: 32rem;
-              margin-top: 5rem;
-              margin-bottom: 5rem;
-            }
-
-            .options {
-              margin-top: 8rem;
-              margin-bottom: 5rem;
-              display: flex;
-              width: 20rem;
-              height: 20rem;
-              justify-content: center;
-              align-items: center;
-
-              img {
-                position: absolute;
-                width: 18rem;
-                transition: all 0.8s;
+            &.attention {
+              .no {
+                opacity: 0;
+                transform: rotate(180deg);
               }
 
               .yes {
-                opacity: 0;
-                transform: rotate(-180deg);
-              }
-
-              &.attention {
-                .no {
-                  opacity: 0;
-                  transform: rotate(180deg);
-                }
-
-                .yes {
-                  opacity: 1;
-                  transform: rotate(0deg);
-                }
+                opacity: 1;
+                transform: rotate(0deg);
               }
             }
           }
@@ -875,4 +806,5 @@
       }
     }
   }
+}
 </style>

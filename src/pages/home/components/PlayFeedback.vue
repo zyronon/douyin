@@ -154,171 +154,162 @@
           </div>
           <div class="text-num">{{ desc.length }}/300</div>
         </div>
-        <dy-button type="primary" :disabled="!disabled" @click="submit"
-          >提交</dy-button
-        >
+        <dy-button type="primary" :disabled="!disabled" @click="submit">提交</dy-button>
       </div>
     </div>
   </transition>
 </template>
 <script>
-  import Check from '../../../components/Check'
+import Check from '../../../components/Check'
 
-  export default {
-    name: 'Test',
-    props: {
-      modelValue: false,
+export default {
+  name: 'Test',
+  props: {
+    modelValue: false
+  },
+  components: {
+    Check
+  },
+  watch: {
+    modelValue(newVal) {
+      this.type1 = false
+      this.type2 = false
+      this.type3 = false
+      this.type4 = false
+      this.type5 = false
+      this.type6 = false
+      this.type7 = false
+      this.desc = ''
+    }
+  },
+  data() {
+    return {
+      type1: false,
+      type2: false,
+      type3: false,
+      type4: false,
+      type5: false,
+      type6: false,
+      type7: false,
+      desc: ''
+    }
+  },
+  computed: {
+    disabled() {
+      if (this.type7 && this.desc) return true
+      return this.type1 || this.type2 || this.type3 || this.type4 || this.type5 || this.type6
+    }
+  },
+  created() {},
+  methods: {
+    falseOther(cb) {
+      this.type1 = false
+      this.type2 = false
+      this.type3 = false
+      this.type4 = false
+      this.type5 = false
+      this.type6 = false
+      this.type7 = false
+      cb()
     },
-    components: {
-      Check,
+    cancel() {
+      this.$emit('update:modelValue', false)
     },
-    watch: {
-      modelValue(newVal) {
-        this.type1 = false
-        this.type2 = false
-        this.type3 = false
-        this.type4 = false
-        this.type5 = false
-        this.type6 = false
-        this.type7 = false
-        this.desc = ''
-      },
-    },
-    data() {
-      return {
-        type1: false,
-        type2: false,
-        type3: false,
-        type4: false,
-        type5: false,
-        type6: false,
-        type7: false,
-        desc: '',
-      }
-    },
-    computed: {
-      disabled() {
-        if (this.type7 && this.desc) return true
-        return (
-          this.type1 ||
-          this.type2 ||
-          this.type3 ||
-          this.type4 ||
-          this.type5 ||
-          this.type6
-        )
-      },
-    },
-    created() {},
-    methods: {
-      falseOther(cb) {
-        this.type1 = false
-        this.type2 = false
-        this.type3 = false
-        this.type4 = false
-        this.type5 = false
-        this.type6 = false
-        this.type7 = false
-        cb()
-      },
-      cancel() {
-        this.$emit('update:modelValue', false)
-      },
-      async submit() {
-        this.cancel()
-        this.$showLoading()
-        await this.$sleep(1000)
-        this.$hideLoading()
-        this.$notice('感谢你的反馈，我们会尽快答复！')
-      },
-    },
+    async submit() {
+      this.cancel()
+      this.$showLoading()
+      await this.$sleep(1000)
+      this.$hideLoading()
+      this.$notice('感谢你的反馈，我们会尽快答复！')
+    }
   }
+}
 </script>
 
 <style scoped lang="less">
-  @import '../../../assets/less/index';
+@import '../../../assets/less/index';
 
-  .play-feedback {
-    max-height: 490rem;
-    overflow: auto;
-    background: #fff;
-    color: black;
+.play-feedback {
+  max-height: 490rem;
+  overflow: auto;
+  background: #fff;
+  color: black;
+  position: fixed;
+  bottom: 50rem;
+  left: 0;
+  right: 0;
+
+  .feedback-header {
     position: fixed;
-    bottom: 50rem;
     left: 0;
     right: 0;
+    background: white;
+    height: 30rem;
+    padding: 15rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-weight: bold;
+    font-size: 18rem;
+  }
 
-    .feedback-header {
-      position: fixed;
-      left: 0;
-      right: 0;
-      background: white;
-      height: 30rem;
-      padding: 15rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      font-weight: bold;
-      font-size: 18rem;
-    }
+  .content {
+    padding: 60rem 15rem 15rem 15rem;
+  }
 
-    .content {
-      padding: 60rem 15rem 15rem 15rem;
-    }
+  .notice {
+    font-size: 12rem;
+    color: var(--second-text-color);
+  }
 
-    .notice {
-      font-size: 12rem;
-      color: var(--second-text-color);
-    }
+  .l-row {
+    display: flex;
+    align-items: center;
+    min-height: 50rem;
+    font-size: 14rem;
+    border-bottom: 1px solid #f1f1f1;
 
-    .l-row {
-      display: flex;
-      align-items: center;
-      min-height: 50rem;
-      font-size: 14rem;
-      border-bottom: 1px solid #f1f1f1;
-
-      .check {
-        width: 20rem;
-        height: 20rem;
-        margin-right: 10rem;
-      }
-    }
-
-    .no-border {
-      border-bottom: none;
-    }
-
-    .other {
-      .textarea-ctn {
-        width: 100%;
-        background: #eae8e8;
-        padding: 15rem;
-        box-sizing: border-box;
-        margin-top: 10rem;
-        border-radius: 2px;
-
-        textarea {
-          font-family: 'Microsoft YaHei UI';
-          outline: none;
-          width: 100%;
-          border: none;
-          background: transparent;
-          color: black;
-
-          &::placeholder {
-            color: var(--second-text-color);
-          }
-        }
-      }
-
-      .text-num {
-        margin-top: 8rem;
-        margin-bottom: 8rem;
-        font-size: 10rem;
-        color: var(--second-text-color);
-        text-align: right;
-      }
+    .check {
+      width: 20rem;
+      height: 20rem;
+      margin-right: 10rem;
     }
   }
+
+  .no-border {
+    border-bottom: none;
+  }
+
+  .other {
+    .textarea-ctn {
+      width: 100%;
+      background: #eae8e8;
+      padding: 15rem;
+      box-sizing: border-box;
+      margin-top: 10rem;
+      border-radius: 2px;
+
+      textarea {
+        font-family: 'Microsoft YaHei UI';
+        outline: none;
+        width: 100%;
+        border: none;
+        background: transparent;
+        color: black;
+
+        &::placeholder {
+          color: var(--second-text-color);
+        }
+      }
+    }
+
+    .text-num {
+      margin-top: 8rem;
+      margin-bottom: 8rem;
+      font-size: 10rem;
+      color: var(--second-text-color);
+      text-align: right;
+    }
+  }
+}
 </style>

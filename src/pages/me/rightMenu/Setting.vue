@@ -9,10 +9,7 @@
       <div class="title">帐号</div>
       <div class="row">
         <div class="left">
-          <img
-            src="../../../assets/img/icon/newicon/left_menu/user.png"
-            alt=""
-          />
+          <img src="../../../assets/img/icon/newicon/left_menu/user.png" alt="" />
           <span>帐号与安全</span>
         </div>
         <div class="right">
@@ -21,10 +18,7 @@
       </div>
       <div class="row">
         <div class="left">
-          <img
-            src="../../../assets/img/icon/newicon/left_menu/lock.png"
-            alt=""
-          />
+          <img src="../../../assets/img/icon/newicon/left_menu/lock.png" alt="" />
           <span>隐私设置</span>
         </div>
         <div class="right">
@@ -36,10 +30,7 @@
       <div class="title">通用</div>
       <div class="row">
         <div class="left">
-          <img
-            src="../../../assets/img/icon/newicon/left_menu/remind.png"
-            alt=""
-          />
+          <img src="../../../assets/img/icon/newicon/left_menu/remind.png" alt="" />
           <span>通知设置</span>
         </div>
         <div class="right">
@@ -48,10 +39,7 @@
       </div>
       <div class="row">
         <div class="left">
-          <img
-            src="../../../assets/img/icon/newicon/left_menu/dynamics.png"
-            alt=""
-          />
+          <img src="../../../assets/img/icon/newicon/left_menu/dynamics.png" alt="" />
           <span>动态壁纸</span>
         </div>
         <div class="right">
@@ -60,10 +48,7 @@
       </div>
       <div class="row">
         <div class="left">
-          <img
-            src="../../../assets/img/icon/newicon/left_menu/setting-two.png"
-            alt=""
-          />
+          <img src="../../../assets/img/icon/newicon/left_menu/setting-two.png" alt="" />
           <span>通用设置</span>
         </div>
         <div class="right">
@@ -75,10 +60,7 @@
       <div class="title">帐号互通</div>
       <div class="row">
         <div class="left">
-          <img
-            src="../../../assets/img/icon/newicon/left_menu/toutiao.png"
-            alt=""
-          />
+          <img src="../../../assets/img/icon/newicon/left_menu/toutiao.png" alt="" />
           <span>头条主页</span>
         </div>
         <div class="right">
@@ -90,10 +72,7 @@
       <div class="title">关于</div>
       <div class="row">
         <div class="left">
-          <img
-            src="../../../assets/img/icon/newicon/left_menu/adddddddd.png"
-            alt=""
-          />
+          <img src="../../../assets/img/icon/newicon/left_menu/adddddddd.png" alt="" />
           <span>广告反馈与设置</span>
         </div>
         <div class="right">
@@ -102,10 +81,7 @@
       </div>
       <div class="row">
         <div class="left">
-          <img
-            src="../../../assets/img/icon/newicon/left_menu/book.png"
-            alt=""
-          />
+          <img src="../../../assets/img/icon/newicon/left_menu/book.png" alt="" />
           <span>用户协议</span>
         </div>
         <div class="right">
@@ -114,10 +90,7 @@
       </div>
       <div class="row">
         <div class="left">
-          <img
-            src="../../../assets/img/icon/newicon/left_menu/bookmark.png"
-            alt=""
-          />
+          <img src="../../../assets/img/icon/newicon/left_menu/bookmark.png" alt="" />
           <span>社区自律公约</span>
         </div>
         <div class="right">
@@ -126,10 +99,7 @@
       </div>
       <div class="row">
         <div class="left">
-          <img
-            src="../../../assets/img/icon/newicon/left_menu/personal-privacy.png"
-            alt=""
-          />
+          <img src="../../../assets/img/icon/newicon/left_menu/personal-privacy.png" alt="" />
           <span>隐私政策</span>
         </div>
         <div class="right">
@@ -138,10 +108,7 @@
       </div>
       <div class="row">
         <div class="left">
-          <img
-            src="../../../assets/img/icon/newicon/left_menu/protect.png"
-            alt=""
-          />
+          <img src="../../../assets/img/icon/newicon/left_menu/protect.png" alt="" />
           <span>应用权限</span>
         </div>
         <div class="right">
@@ -150,10 +117,7 @@
       </div>
       <div class="row">
         <div class="left">
-          <img
-            src="../../../assets/img/icon/newicon/left_menu/ring.png"
-            alt=""
-          />
+          <img src="../../../assets/img/icon/newicon/left_menu/ring.png" alt="" />
           <span>第三方SDK列表</span>
         </div>
         <div class="right">
@@ -162,10 +126,7 @@
       </div>
       <div class="row">
         <div class="left">
-          <img
-            src="../../../assets/img/icon/newicon/left_menu/about.png"
-            alt=""
-          />
+          <img src="../../../assets/img/icon/newicon/left_menu/about.png" alt="" />
           <span>关于抖音</span>
         </div>
         <div class="right">
@@ -174,10 +135,7 @@
       </div>
       <div class="row">
         <div class="left">
-          <img
-            src="../../../assets/img/icon/newicon/left_menu/feedback.png"
-            alt=""
-          />
+          <img src="../../../assets/img/icon/newicon/left_menu/feedback.png" alt="" />
           <span>反馈与帮助</span>
         </div>
         <div class="right">
@@ -186,10 +144,7 @@
       </div>
       <div class="row">
         <div class="left">
-          <img
-            src="../../../assets/img/icon/newicon/left_menu/delete.png"
-            alt=""
-          />
+          <img src="../../../assets/img/icon/newicon/left_menu/delete.png" alt="" />
           <span>清理占用空间</span>
         </div>
         <div class="right">
@@ -200,10 +155,7 @@
 
       <div class="row">
         <div class="left">
-          <img
-            src="../../../assets/img/icon/newicon/left_menu/switch.png"
-            alt=""
-          />
+          <img src="../../../assets/img/icon/newicon/left_menu/switch.png" alt="" />
           <span>切换空间</span>
         </div>
         <div class="right">
@@ -212,10 +164,7 @@
       </div>
       <div class="row">
         <div class="left">
-          <img
-            src="../../../assets/img/icon/newicon/left_menu/logout.png"
-            alt=""
-          />
+          <img src="../../../assets/img/icon/newicon/left_menu/logout.png" alt="" />
           <span>退出登录</span>
         </div>
         <div class="right">
@@ -228,59 +177,59 @@
   </div>
 </template>
 <script>
-  import { useBaseStore } from '@/store/pinia'
+import { useBaseStore } from '@/store/pinia'
 
-  export default {
-    name: 'Setting',
-    setup() {
-      const baseStore = useBaseStore()
-      return { baseStore }
-    },
-    data() {
-      return {
-        version: this.baseStore.version,
-      }
-    },
-    computed: {},
-    created() {},
-    methods: {},
-  }
+export default {
+  name: 'Setting',
+  setup() {
+    const baseStore = useBaseStore()
+    return { baseStore }
+  },
+  data() {
+    return {
+      version: this.baseStore.version
+    }
+  },
+  computed: {},
+  created() {},
+  methods: {}
+}
 </script>
 
 <style scoped lang="less">
-  @import '../../../assets/less/index';
+@import '../../../assets/less/index';
 
-  .Setting {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    overflow: auto;
-    color: white;
-    font-size: 14rem;
+.Setting {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  overflow: auto;
+  color: white;
+  font-size: 14rem;
 
-    .content {
-      padding-top: 60rem;
+  .content {
+    padding-top: 60rem;
 
-      .title {
-        color: var(--second-text-color);
-        font-size: 13rem;
-        margin: 20rem 0 0 20rem;
-      }
+    .title {
+      color: var(--second-text-color);
+      font-size: 13rem;
+      margin: 20rem 0 0 20rem;
+    }
 
-      .version {
-        color: var(--second-text-color);
-        font-size: 13rem;
-        margin: 40rem;
-        text-align: center;
-      }
+    .version {
+      color: var(--second-text-color);
+      font-size: 13rem;
+      margin: 40rem;
+      text-align: center;
+    }
 
-      .line {
-        width: calc(100% - 30rem);
-        margin-left: 15rem;
-        background: var(--line-color);
-      }
+    .line {
+      width: calc(100% - 30rem);
+      margin-left: 15rem;
+      background: var(--line-color);
     }
   }
+}
 </style>

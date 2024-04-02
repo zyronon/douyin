@@ -1,7 +1,7 @@
 export default {
   data() {
     return {
-      mainScrollTop: 0,
+      mainScrollTop: 0
     }
   },
   activated() {
@@ -13,5 +13,5 @@ export default {
     if (this.$refs.mainScroll && this.$refs.mainScroll.wrapper) {
       this.mainScrollTop = this.$refs.mainScroll.wrapper.scrollTop
     }
-  },
+  }
 }

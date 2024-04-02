@@ -57,142 +57,142 @@
   </div>
 </template>
 <script>
-  import People from './components/People'
-  import Search from '../../components/Search'
-  import Indicator from '../../components/slide/Indicator'
-  import FromBottomDialog from '../../components/dialog/FromBottomDialog'
-  import { mapState } from 'pinia'
-  import { useBaseStore } from '@/store/pinia'
+import People from './components/People'
+import Search from '../../components/Search'
+import Indicator from '../../components/slide/Indicator'
+import FromBottomDialog from '../../components/dialog/FromBottomDialog'
+import { mapState } from 'pinia'
+import { useBaseStore } from '@/store/pinia'
 
-  export default {
-    name: 'FindAcquaintance',
-    components: {
-      People,
-      Search,
-      Indicator,
-      FromBottomDialog,
-    },
-    data() {
-      return {
-        isSearch: false,
-        searchKey: '',
+export default {
+  name: 'FindAcquaintance',
+  components: {
+    People,
+    Search,
+    Indicator,
+    FromBottomDialog
+  },
+  data() {
+    return {
+      isSearch: false,
+      searchKey: '',
 
-        slideIndex: 0,
-        searchFriends: [],
+      slideIndex: 0,
+      searchFriends: []
+    }
+  },
+  computed: {
+    ...mapState(useBaseStore, ['friends', 'userinfo'])
+  },
+  watch: {
+    searchKey(newVal) {
+      if (newVal) {
+        //TODO　搜索时仅仅判断是否包含了对应字符串，抖音做了拼音判断的
+        this.searchFriends = this.friends.all.filter((v) => {
+          if (v.name.includes(newVal)) return true
+          return v.account.includes(newVal)
+        })
+      } else {
+        this.searchFriends = []
       }
+    }
+  },
+  created() {
+    this.slideIndex = ~~this.$route.query.type
+  },
+  methods: {
+    async search() {
+      this.$showLoading()
+      await this.$sleep(500)
+      this.$hideLoading()
+      this.isSearch = true
     },
-    computed: {
-      ...mapState(useBaseStore, ['friends', 'userinfo']),
-    },
-    watch: {
-      searchKey(newVal) {
-        if (newVal) {
-          //TODO　搜索时仅仅判断是否包含了对应字符串，抖音做了拼音判断的
-          this.searchFriends = this.friends.all.filter((v) => {
-            if (v.name.includes(newVal)) return true
-            return v.account.includes(newVal)
-          })
-        } else {
-          this.searchFriends = []
-        }
-      },
-    },
-    created() {
-      this.slideIndex = ~~this.$route.query.type
-    },
-    methods: {
-      async search() {
-        this.$showLoading()
-        await this.$sleep(500)
-        this.$hideLoading()
-        this.isSearch = true
-      },
-      back() {
-        if (this.isShowRightText) {
-          this.isShowRightText = false
-        } else {
-          this.$back()
-        }
-      },
-    },
+    back() {
+      if (this.isShowRightText) {
+        this.isShowRightText = false
+      } else {
+        this.$back()
+      }
+    }
   }
+}
 </script>
 
 <style scoped lang="less">
-  @import '../../assets/less/index';
+@import '../../assets/less/index';
 
-  .FollowAndFans {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    color: white;
-    font-size: 14rem;
+.FollowAndFans {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  color: white;
+  font-size: 14rem;
 
-    .content {
-      padding-top: var(--common-header-height);
+  .content {
+    padding-top: var(--common-header-height);
 
-      .indicator-wrapper {
-        padding: 0 var(--page-padding);
-      }
-
-      .search-ctn {
-        z-index: 9;
-        left: 0;
-        background: var(--main-bg);
-        position: fixed;
-        width: 100vw;
-        box-sizing: border-box;
-        padding: 10rem var(--page-padding) 0 var(--page-padding);
-      }
-    }
-
-    .tab1,
-    .tab2 {
-      overflow: auto;
+    .indicator-wrapper {
       padding: 0 var(--page-padding);
-      box-sizing: border-box;
     }
 
-    .tab1 {
-      .title {
+    .search-ctn {
+      z-index: 9;
+      left: 0;
+      background: var(--main-bg);
+      position: fixed;
+      width: 100vw;
+      box-sizing: border-box;
+      padding: 10rem var(--page-padding) 0 var(--page-padding);
+    }
+  }
+
+  .tab1,
+  .tab2 {
+    overflow: auto;
+    padding: 0 var(--page-padding);
+    box-sizing: border-box;
+  }
+
+  .tab1 {
+    .title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10rem;
+      color: var(--second-text-color);
+      font-size: 12rem;
+    }
+
+    .no-search {
+      padding-top: 60rem;
+    }
+
+    .is-search {
+      padding-top: 50rem;
+
+      .no-result {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        margin-bottom: 10rem;
-        color: var(--second-text-color);
-        font-size: 12rem;
-      }
 
-      .no-search {
-        padding-top: 60rem;
-      }
+        img {
+          margin-top: 150rem;
+          height: 150rem;
+        }
 
-      .is-search {
-        padding-top: 50rem;
+        .n1 {
+          margin-top: 40rem;
+          font-size: 16rem;
+        }
 
-        .no-result {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-
-          img {
-            margin-top: 150rem;
-            height: 150rem;
-          }
-
-          .n1 {
-            margin-top: 40rem;
-            font-size: 16rem;
-          }
-
-          .n2 {
-            margin-top: 20rem;
-            font-size: 12rem;
-            color: var(--second-text-color);
-          }
+        .n2 {
+          margin-top: 20rem;
+          font-size: 12rem;
+          color: var(--second-text-color);
         }
       }
     }
   }
+}
 </style>

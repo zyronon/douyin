@@ -113,16 +113,12 @@
           <!--          <SlideItem></SlideItem>-->
           <Slide0 :active="state.navIndex === 0 && state.baseIndex === 1" />
           <SlideItem>
-            <LongVideo
-              :active="state.navIndex === 1 && state.baseIndex === 1"
-            />
+            <LongVideo :active="state.navIndex === 1 && state.baseIndex === 1" />
           </SlideItem>
           <!--          <SlideItem></SlideItem>-->
           <Slide2 :active="state.navIndex === 2 && state.baseIndex === 1" />
           <SlideItem>
-            <Community
-              :active="state.navIndex === 3 && state.baseIndex === 1"
-            />
+            <Community :active="state.navIndex === 3 && state.baseIndex === 1" />
           </SlideItem>
           <Slide4 :active="state.navIndex === 4 && state.baseIndex === 1" />
         </SlideHorizontal>
@@ -195,11 +191,7 @@
 
     <BlockDialog v-model="state.showBlockDialog" />
 
-    <ConfirmDialog
-      title="设置备注名"
-      ok-text="确认"
-      v-model:visible="state.showChangeNote"
-    >
+    <ConfirmDialog title="设置备注名" ok-text="确认" v-model:visible="state.showChangeNote">
       <Search mode="light" v-model="state.test" :isShowSearchIcon="false" />
     </ConfirmDialog>
 
@@ -208,261 +200,255 @@
 </template>
 
 <script setup lang="jsx">
-  import SlideHorizontal from '@/components/slide/SlideHorizontal.vue'
-  import SlideItem from '@/components/slide/SlideItem.vue'
-  import Comment from '../../components/Comment.vue'
-  import Share from '../../components/Share.vue'
-  import IndicatorHome from './components/IndicatorHome.vue'
-  import {
-    onActivated,
-    onDeactivated,
-    onMounted,
-    onUnmounted,
-    reactive,
-  } from 'vue'
-  import bus, { EVENT_KEY } from '../../utils/bus'
-  import { useNav } from '@/utils/hooks/useNav'
-  import PlayFeedback from '@/pages/home/components/PlayFeedback.vue'
-  import ShareTo from '@/pages/home/components/ShareTo.vue'
-  import DouyinCode from '../../components/DouyinCode.vue'
-  import FollowSetting from '@/pages/home/components/FollowSetting.vue'
-  import BlockDialog from '../message/components/BlockDialog.vue'
-  import Search from '../../components/Search.vue'
-  import ConfirmDialog from '../../components/dialog/ConfirmDialog.vue'
-  import FollowSetting2 from '@/pages/home/components/FollowSetting2.vue'
-  import ShareToFriend from '@/pages/home/components/ShareToFriend.vue'
-  import UserPanel from '@/components/UserPanel.vue'
-  import Community from '@/pages/home/slide/Community.vue'
-  import Slide0 from '@/pages/home/slide/Slide0.vue'
-  import Slide2 from '@/pages/home/slide/Slide2.vue'
-  import Slide4 from '@/pages/home/slide/Slide4.vue'
-  import { DefaultUser } from '@/utils/const_var'
-  import { $no } from '@/utils'
-  import LongVideo from '@/pages/home/slide/LongVideo.vue'
-  import { useBaseStore } from '@/store/pinia'
+import SlideHorizontal from '@/components/slide/SlideHorizontal.vue'
+import SlideItem from '@/components/slide/SlideItem.vue'
+import Comment from '../../components/Comment.vue'
+import Share from '../../components/Share.vue'
+import IndicatorHome from './components/IndicatorHome.vue'
+import { onActivated, onDeactivated, onMounted, onUnmounted, reactive } from 'vue'
+import bus, { EVENT_KEY } from '../../utils/bus'
+import { useNav } from '@/utils/hooks/useNav'
+import PlayFeedback from '@/pages/home/components/PlayFeedback.vue'
+import ShareTo from '@/pages/home/components/ShareTo.vue'
+import DouyinCode from '../../components/DouyinCode.vue'
+import FollowSetting from '@/pages/home/components/FollowSetting.vue'
+import BlockDialog from '../message/components/BlockDialog.vue'
+import Search from '../../components/Search.vue'
+import ConfirmDialog from '../../components/dialog/ConfirmDialog.vue'
+import FollowSetting2 from '@/pages/home/components/FollowSetting2.vue'
+import ShareToFriend from '@/pages/home/components/ShareToFriend.vue'
+import UserPanel from '@/components/UserPanel.vue'
+import Community from '@/pages/home/slide/Community.vue'
+import Slide0 from '@/pages/home/slide/Slide0.vue'
+import Slide2 from '@/pages/home/slide/Slide2.vue'
+import Slide4 from '@/pages/home/slide/Slide4.vue'
+import { DefaultUser } from '@/utils/const_var'
+import { $no } from '@/utils'
+import LongVideo from '@/pages/home/slide/LongVideo.vue'
+import { useBaseStore } from '@/store/pinia'
 
-  const nav = useNav()
-  const baseStore = useBaseStore()
+const nav = useNav()
+const baseStore = useBaseStore()
 
-  const state = reactive({
-    active: true,
-    baseIndex: 1,
-    navIndex: 4,
-    test: '',
-    recommendList: [],
-    isSharing: false,
-    canMove: true,
-    shareType: -1,
-    showPlayFeedback: false,
-    showShareDuoshan: false,
-    showShareDialog: false,
-    showShare2WeChatZone: false,
-    showDouyinCode: false,
-    showFollowSetting: false,
-    showFollowSetting2: false,
-    showBlockDialog: false,
-    showChangeNote: false,
-    shareToFriend: false,
+const state = reactive({
+  active: true,
+  baseIndex: 1,
+  navIndex: 4,
+  test: '',
+  recommendList: [],
+  isSharing: false,
+  canMove: true,
+  shareType: -1,
+  showPlayFeedback: false,
+  showShareDuoshan: false,
+  showShareDialog: false,
+  showShare2WeChatZone: false,
+  showDouyinCode: false,
+  showFollowSetting: false,
+  showFollowSetting2: false,
+  showBlockDialog: false,
+  showChangeNote: false,
+  shareToFriend: false,
 
-    commentVisible: false,
-    fullScreen: false,
-    currentItem: {
-      author: DefaultUser,
+  commentVisible: false,
+  fullScreen: false,
+  currentItem: {
+    author: DefaultUser,
+    isRequest: false,
+    aweme_list: []
+  }
+})
+
+function delayShowDialog(cb) {
+  setTimeout(cb, 400)
+}
+
+function setCurrentItem(item) {
+  if (!state.active) return
+  // console.log('sss',item,state.baseIndex)
+  if (state.baseIndex !== 1) return
+  if (state.currentItem.author.uid !== item.author.uid) {
+    state.currentItem = {
+      ...item,
       isRequest: false,
-      aweme_list: [],
-    },
-  })
-
-  function delayShowDialog(cb) {
-    setTimeout(cb, 400)
-  }
-
-  function setCurrentItem(item) {
-    if (!state.active) return
-    // console.log('sss',item,state.baseIndex)
-    if (state.baseIndex !== 1) return
-    if (state.currentItem.author.uid !== item.author.uid) {
-      state.currentItem = {
-        ...item,
-        isRequest: false,
-        aweme_list: [],
-      }
+      aweme_list: []
     }
-    // console.log('item', item)
   }
+  // console.log('item', item)
+}
 
-  onMounted(() => {
-    bus.on(EVENT_KEY.ENTER_FULLSCREEN, (e) => {
-      if (!state.active) return
-      state.fullScreen = true
-    })
-    bus.on(EVENT_KEY.EXIT_FULLSCREEN, (e) => {
-      if (!state.active) return
-      state.fullScreen = false
-    })
-    bus.on(EVENT_KEY.OPEN_COMMENTS, (e) => {
-      if (!state.active) return
-      bus.emit(EVENT_KEY.ENTER_FULLSCREEN)
-      state.commentVisible = true
-    })
-    bus.on(EVENT_KEY.CLOSE_COMMENTS, (e) => {
-      if (!state.active) return
-      bus.emit(EVENT_KEY.EXIT_FULLSCREEN)
-      state.commentVisible = false
-    })
-    bus.on(EVENT_KEY.SHOW_SHARE, (e) => {
-      if (!state.active) return
-      state.isSharing = true
-    })
-    bus.on(EVENT_KEY.NAV, ({ path, query }) => {
-      if (!state.active) return
-      nav(path, query)
-    })
-    bus.on(EVENT_KEY.GO_USERINFO, () => {
-      if (!state.active) return
-      state.baseIndex = 2
-    })
-    bus.on(EVENT_KEY.CURRENT_ITEM, setCurrentItem)
+onMounted(() => {
+  bus.on(EVENT_KEY.ENTER_FULLSCREEN, (e) => {
+    if (!state.active) return
+    state.fullScreen = true
   })
-
-  onUnmounted(() => {
-    bus.offAll()
+  bus.on(EVENT_KEY.EXIT_FULLSCREEN, (e) => {
+    if (!state.active) return
+    state.fullScreen = false
   })
-
-  onActivated(() => {
-    state.active = true
+  bus.on(EVENT_KEY.OPEN_COMMENTS, (e) => {
+    if (!state.active) return
+    bus.emit(EVENT_KEY.ENTER_FULLSCREEN)
+    state.commentVisible = true
   })
-
-  onDeactivated(() => {
-    state.active = false
+  bus.on(EVENT_KEY.CLOSE_COMMENTS, (e) => {
+    if (!state.active) return
+    bus.emit(EVENT_KEY.EXIT_FULLSCREEN)
+    state.commentVisible = false
   })
+  bus.on(EVENT_KEY.SHOW_SHARE, (e) => {
+    if (!state.active) return
+    state.isSharing = true
+  })
+  bus.on(EVENT_KEY.NAV, ({ path, query }) => {
+    if (!state.active) return
+    nav(path, query)
+  })
+  bus.on(EVENT_KEY.GO_USERINFO, () => {
+    if (!state.active) return
+    state.baseIndex = 2
+  })
+  bus.on(EVENT_KEY.CURRENT_ITEM, setCurrentItem)
+})
 
-  function closeComments() {
-    bus.emit(EVENT_KEY.CLOSE_COMMENTS)
-  }
+onUnmounted(() => {
+  bus.offAll()
+})
 
-  function dislike() {
-    // listRef.value.dislike(state.list[1])
-    // state.list[state.index] = state.list[1]
-    // Utils.$notice('操作成功，将减少此类视频的推荐')
-  }
+onActivated(() => {
+  state.active = true
+})
+
+onDeactivated(() => {
+  state.active = false
+})
+
+function closeComments() {
+  bus.emit(EVENT_KEY.CLOSE_COMMENTS)
+}
+
+function dislike() {
+  // listRef.value.dislike(state.list[1])
+  // state.list[state.index] = state.list[1]
+  // Utils.$notice('操作成功，将减少此类视频的推荐')
+}
 </script>
 
 <style scoped lang="less">
-  .test-slide-wrapper {
-    font-size: 14rem;
-    width: 100%;
-    height: 100%;
-    background: black;
-    overflow: hidden;
+.test-slide-wrapper {
+  font-size: 14rem;
+  width: 100%;
+  height: 100%;
+  background: black;
+  overflow: hidden;
 
-    .sidebar {
-      width: 80vw;
-      height: calc(var(--vh, 1vh) * 100);
-      overflow: auto;
-      background: rgb(22, 22, 22);
-      padding: 10rem;
-      padding-bottom: 20rem;
-      box-sizing: border-box;
+  .sidebar {
+    width: 80vw;
+    height: calc(var(--vh, 1vh) * 100);
+    overflow: auto;
+    background: rgb(22, 22, 22);
+    padding: 10rem;
+    padding-bottom: 20rem;
+    box-sizing: border-box;
 
-      & > .header {
-        font-size: 16rem;
+    & > .header {
+      font-size: 16rem;
+      display: flex;
+      color: white;
+      justify-content: space-between;
+      align-items: center;
+
+      .right {
+        border-radius: 20rem;
+        padding: 8rem 15rem;
+        background: rgb(36, 36, 36);
+        display: flex;
+        align-items: center;
+        font-size: 14rem;
+        gap: 10rem;
+
+        svg {
+          font-size: 18rem;
+        }
+      }
+    }
+
+    .card {
+      margin-top: 10rem;
+      border-radius: 12rem;
+      padding: 15rem;
+      background: rgb(29, 29, 29);
+
+      .header {
+        margin-bottom: 8rem;
+        font-size: 14rem;
         display: flex;
         color: white;
         justify-content: space-between;
         align-items: center;
 
         .right {
-          border-radius: 20rem;
-          padding: 8rem 15rem;
-          background: rgb(36, 36, 36);
           display: flex;
           align-items: center;
-          font-size: 14rem;
-          gap: 10rem;
+          font-size: 12rem;
+          gap: 4rem;
+          color: gray;
 
           svg {
-            font-size: 18rem;
+            font-size: 16rem;
           }
         }
       }
 
-      .card {
-        margin-top: 10rem;
-        border-radius: 12rem;
-        padding: 15rem;
-        background: rgb(29, 29, 29);
+      .content {
+        color: white;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
 
-        .header {
-          margin-bottom: 8rem;
-          font-size: 14rem;
+        .item {
+          min-height: 20vw;
           display: flex;
-          color: white;
-          justify-content: space-between;
+          flex-direction: column;
+          justify-content: center;
           align-items: center;
+          font-size: 14rem;
+          gap: 8rem;
 
-          .right {
-            display: flex;
-            align-items: center;
-            font-size: 12rem;
-            gap: 4rem;
-            color: gray;
+          svg {
+            font-size: 28rem;
+          }
 
-            svg {
-              font-size: 16rem;
-            }
+          .xcx {
+            border-radius: 12rem;
+            width: 50rem;
+            height: 50rem;
           }
         }
 
-        .content {
-          color: white;
-          display: grid;
-          grid-template-columns: 1fr 1fr 1fr;
+        .avatar {
+          height: 25vw;
 
-          .item {
-            min-height: 20vw;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-size: 14rem;
-            gap: 8rem;
-
-            svg {
-              font-size: 28rem;
-            }
-
-            .xcx {
-              border-radius: 12rem;
-              width: 50rem;
-              height: 50rem;
-            }
-          }
-
-          .avatar {
-            height: 25vw;
-
-            img {
-              border-radius: 50%;
-              width: 50rem;
-            }
+          img {
+            border-radius: 50%;
+            width: 50rem;
           }
         }
       }
     }
-
-    .slide-content {
-      width: 100%;
-      height: 100%;
-    }
   }
 
-  .first-horizontal-item {
-    //width: 90vw;
-    //height: 80vh;
-    width: 100vw;
-    height: calc(var(--vh, 1vh) * 100 - var(--footer-height)) !important;
-    overflow: hidden;
-    border-radius: 10rem;
+  .slide-content {
+    width: 100%;
+    height: 100%;
   }
+}
+
+.first-horizontal-item {
+  //width: 90vw;
+  //height: 80vh;
+  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100 - var(--footer-height)) !important;
+  overflow: hidden;
+  border-radius: 10rem;
+}
 </style>

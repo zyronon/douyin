@@ -38,7 +38,7 @@ export default {
     if (cbs) {
       cbs.map((cb) => cb(val))
     }
-  },
+  }
 }
 
 export const EVENT_KEY = {
@@ -61,5 +61,5 @@ export const EVENT_KEY = {
   GO_USERINFO: 'GO_USERINFO',
   SHOW_SHARE: 'SHOW_SHARE',
   UPDATE_ITEM: 'UPDATE_ITEM',
-  CURRENT_ITEM: 'CURRENT_ITEM',
+  CURRENT_ITEM: 'CURRENT_ITEM'
 }

@@ -24,9 +24,7 @@
       <div class="request">
         <!--        <div class="title">近7天收到1次求更新</div>-->
         <!--        <div class="subtitle f12">上次发布作品：2020-08-01 上次开播：昨天23:12</div>-->
-        <div class="subtitle f12">
-          历史求更新（粉丝送礼后7天未开播则退还礼物）
-        </div>
+        <div class="subtitle f12">历史求更新（粉丝送礼后7天未开播则退还礼物）</div>
         <div class="list">
           <div class="item" v-for="item in friends.all">
             <div class="left">
@@ -40,11 +38,7 @@
       </div>
     </div>
     <div class="buttons">
-      <dy-button
-        type="white"
-        :border="false"
-        :active="false"
-        @click="$nav('/publish')"
+      <dy-button type="white" :border="false" :active="false" @click="$nav('/publish')"
         >发布作品</dy-button
       >
       <dy-button type="primary" :active="false" @click="$no">去直播</dy-button>
@@ -60,161 +54,159 @@
       <div class="l-row" @click="toggleRequestUpdate">
         {{ openRequestUpdate ? '关闭' : '开启' }}求更新提醒
       </div>
-      <div class="l-row" @click="$nav('/me/my-request-update')">
-        我的求更新提醒
-      </div>
+      <div class="l-row" @click="$nav('/me/my-request-update')">我的求更新提醒</div>
       <div class="space"></div>
       <div class="l-row" @click="isShowOption = false">取消</div>
     </from-bottom-dialog>
   </div>
 </template>
 <script>
-  import { mapState } from 'pinia'
-  import FromBottomDialog from '../../components/dialog/FromBottomDialog'
-  import { useBaseStore } from '@/store/pinia'
+import { mapState } from 'pinia'
+import FromBottomDialog from '../../components/dialog/FromBottomDialog'
+import { useBaseStore } from '@/store/pinia'
 
-  export default {
-    name: 'RequestUpdate',
-    components: { FromBottomDialog },
-    data() {
-      return {
-        isShowOption: false,
-        loading: false,
-        openRequestUpdate: true,
+export default {
+  name: 'RequestUpdate',
+  components: { FromBottomDialog },
+  data() {
+    return {
+      isShowOption: false,
+      loading: false,
+      openRequestUpdate: true
+    }
+  },
+  computed: {
+    ...mapState(useBaseStore, ['friends'])
+  },
+  created() {
+    this.getData()
+  },
+  methods: {
+    async getData() {
+      this.loading = true
+      await this.$sleep(700)
+      this.loading = false
+    },
+    toggleRequestUpdate() {
+      this.openRequestUpdate = !this.openRequestUpdate
+      this.isShowOption = false
+      if (this.openRequestUpdate) {
+        this.$notice('提醒已开启，再次点击可关闭')
+      } else {
+        this.$notice('提醒已关闭，再次点击可开启')
       }
-    },
-    computed: {
-      ...mapState(useBaseStore, ['friends']),
-    },
-    created() {
-      this.getData()
-    },
-    methods: {
-      async getData() {
-        this.loading = true
-        await this.$sleep(700)
-        this.loading = false
-      },
-      toggleRequestUpdate() {
-        this.openRequestUpdate = !this.openRequestUpdate
-        this.isShowOption = false
-        if (this.openRequestUpdate) {
-          this.$notice('提醒已开启，再次点击可关闭')
-        } else {
-          this.$notice('提醒已关闭，再次点击可开启')
-        }
-      },
-    },
+    }
   }
+}
 </script>
 
 <style scoped lang="less">
-  @import '../../assets/less/index';
+@import '../../assets/less/index';
 
-  .RequestUpdate {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    overflow: auto;
-    color: white;
-    font-size: 14rem;
+.RequestUpdate {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  overflow: auto;
+  color: white;
+  font-size: 14rem;
 
-    .content {
-      padding: 60rem 15rem 60rem 15rem;
+  .content {
+    padding: 60rem 15rem 60rem 15rem;
 
-      .none {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    .none {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
-        img {
-          margin-top: 100rem;
-          height: 120rem;
-        }
+      img {
+        margin-top: 100rem;
+        height: 120rem;
       }
+    }
 
-      .request {
-        .list {
-          margin-top: var(--page-padding);
+    .request {
+      .list {
+        margin-top: var(--page-padding);
 
-          .item {
-            padding: 10rem 0;
+        .item {
+          padding: 10rem 0;
 
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .left {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            @width: 42rem;
 
-            .left {
-              display: flex;
-              align-items: center;
-              @width: 42rem;
-
-              img {
-                width: @width;
-                height: @width;
-                border-radius: 50%;
-                margin-right: 10rem;
-              }
+            img {
+              width: @width;
+              height: @width;
+              border-radius: 50%;
+              margin-right: 10rem;
             }
+          }
 
-            .time {
-              font-size: 12rem;
-              color: var(--second-text-color);
-            }
+          .time {
+            font-size: 12rem;
+            color: var(--second-text-color);
           }
         }
       }
-
-      .title {
-        margin-top: 10rem;
-        font-size: 16rem;
-      }
-
-      .subtitle {
-        margin-top: 10rem;
-        font-size: 14rem;
-        color: var(--second-text-color);
-      }
     }
 
-    .l-row {
-      padding: 15rem;
-      color: black;
-      text-align: center;
+    .title {
+      margin-top: 10rem;
+      font-size: 16rem;
+    }
+
+    .subtitle {
+      margin-top: 10rem;
+      font-size: 14rem;
+      color: var(--second-text-color);
+    }
+  }
+
+  .l-row {
+    padding: 15rem;
+    color: black;
+    text-align: center;
+
+    &:nth-child(2) {
+      border-bottom: 1px solid gainsboro;
+    }
+  }
+
+  .space {
+    height: 10rem;
+    background: whitesmoke;
+  }
+
+  .buttons {
+    position: fixed;
+    padding: 0 15rem 15rem 15rem;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    background: var(--main-bg);
+
+    .button {
+      flex: 1;
+
+      &:nth-child(1) {
+        margin-right: 5rem;
+      }
 
       &:nth-child(2) {
-        border-bottom: 1px solid gainsboro;
-      }
-    }
-
-    .space {
-      height: 10rem;
-      background: whitesmoke;
-    }
-
-    .buttons {
-      position: fixed;
-      padding: 0 15rem 15rem 15rem;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      align-items: center;
-      background: var(--main-bg);
-
-      .button {
-        flex: 1;
-
-        &:nth-child(1) {
-          margin-right: 5rem;
-        }
-
-        &:nth-child(2) {
-          margin-left: 5rem;
-        }
+        margin-left: 5rem;
       }
     }
   }
+}
 </style>

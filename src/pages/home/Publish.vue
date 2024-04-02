@@ -1,10 +1,6 @@
 <template>
   <div class="Publish">
-    <video
-      id="video"
-      autoplay="autoplay"
-      style="width: 100%; height: calc(100% - 60rem)"
-    ></video>
+    <video id="video" autoplay="autoplay" style="width: 100%; height: calc(100% - 60rem)"></video>
     <div class="footer">
       <SlideHorizontal style="height: 60rem" v-model:index="activeIndex">
         <SlideItem style="width: 20vw"></SlideItem>
@@ -53,141 +49,141 @@
   </div>
 </template>
 <script>
-  import { mapState } from 'pinia'
-  import { useBaseStore } from '@/store/pinia'
+import { mapState } from 'pinia'
+import { useBaseStore } from '@/store/pinia'
 
-  //访问用户媒体设备的兼容方法
-  function getUserMedia(constrains, success, error) {
-    if (navigator.mediaDevices.getUserMedia) {
-      //最新标准API
-      navigator.mediaDevices.getUserMedia(constrains).then(success).catch(error)
-    } else if (navigator.webkitGetUserMedia) {
-      //webkit内核浏览器
-      navigator.webkitGetUserMedia(constrains).then(success).catch(error)
-    } else if (navigator.mozGetUserMedia) {
-      //Firefox浏览器
-      navagator.mozGetUserMedia(constrains).then(success).catch(error)
-    } else if (navigator.getUserMedia) {
-      //旧版API
-      navigator.getUserMedia(constrains).then(success).catch(error)
+//访问用户媒体设备的兼容方法
+function getUserMedia(constrains, success, error) {
+  if (navigator.mediaDevices.getUserMedia) {
+    //最新标准API
+    navigator.mediaDevices.getUserMedia(constrains).then(success).catch(error)
+  } else if (navigator.webkitGetUserMedia) {
+    //webkit内核浏览器
+    navigator.webkitGetUserMedia(constrains).then(success).catch(error)
+  } else if (navigator.mozGetUserMedia) {
+    //Firefox浏览器
+    navagator.mozGetUserMedia(constrains).then(success).catch(error)
+  } else if (navigator.getUserMedia) {
+    //旧版API
+    navigator.getUserMedia(constrains).then(success).catch(error)
+  }
+}
+
+export default {
+  name: 'Publish',
+  data() {
+    return {
+      video: null,
+      activeIndex: 1
+    }
+  },
+  computed: {
+    ...mapState(useBaseStore, ['bodyHeight', 'bodyWidth'])
+  },
+  mounted() {
+    //获得video摄像头区域
+    this.video = document.getElementById('video')
+    this.getMedia()
+  },
+  methods: {
+    getMedia() {
+      // let constraints = {video: {width: this.bodyWidth, height: this.bodyHeight - 60}, audio: false};
+      // let constraints = {video:{width:480,height:320}, audio: false};
+      let constraints = { video: true, audio: false }
+      try {
+        getUserMedia(
+          constraints,
+          (MediaStream) => {
+            this.video.srcObject = MediaStream
+            this.video.play()
+          },
+          function (PermissionDeniedError) {
+            console.log(PermissionDeniedError)
+          }
+        )
+      } catch (e) {
+        console.log('e', e)
+      }
     }
   }
-
-  export default {
-    name: 'Publish',
-    data() {
-      return {
-        video: null,
-        activeIndex: 1,
-      }
-    },
-    computed: {
-      ...mapState(useBaseStore, ['bodyHeight', 'bodyWidth']),
-    },
-    mounted() {
-      //获得video摄像头区域
-      this.video = document.getElementById('video')
-      this.getMedia()
-    },
-    methods: {
-      getMedia() {
-        // let constraints = {video: {width: this.bodyWidth, height: this.bodyHeight - 60}, audio: false};
-        // let constraints = {video:{width:480,height:320}, audio: false};
-        let constraints = { video: true, audio: false }
-        try {
-          getUserMedia(
-            constraints,
-            (MediaStream) => {
-              this.video.srcObject = MediaStream
-              this.video.play()
-            },
-            function (PermissionDeniedError) {
-              console.log(PermissionDeniedError)
-            },
-          )
-        } catch (e) {
-          console.log('e', e)
-        }
-      },
-    },
-  }
+}
 </script>
 
 <style scoped lang="less">
-  @import '../../assets/less/index';
+@import '../../assets/less/index';
 
-  .Publish {
+.Publish {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  overflow: auto;
+  color: white;
+  background: black;
+
+  .footer {
+    font-size: 15rem;
+    font-weight: bold;
+    color: var(--second-text-color);
+
+    .base-slide-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .active {
+      color: white;
+    }
+  }
+
+  .float {
     position: fixed;
     left: 0;
     right: 0;
-    bottom: 0;
     top: 0;
-    overflow: auto;
-    color: white;
-    background: black;
+    height: calc(100% - 60px);
 
-    .footer {
-      font-size: 15rem;
-      font-weight: bold;
-      color: var(--second-text-color);
+    .close {
+      font-size: 28rem;
+      position: absolute;
+      left: 20rem;
+      top: 20rem;
+    }
 
-      .base-slide-item {
-        display: flex;
-        align-items: center;
-      }
+    .choose-music {
+      position: absolute;
+      left: 50%;
+      top: 20rem;
+      transform: translateX(-50%);
+      border-radius: 20rem;
+      background: #333333;
+      padding: 5rem 15rem;
+      display: flex;
+      align-items: center;
+      font-size: 14rem;
 
-      .active {
-        color: white;
+      svg {
+        font-size: 30rem;
+        margin-right: 5rem;
+        width: 12rem;
+        height: 12rem;
       }
     }
 
-    .float {
-      position: fixed;
-      left: 0;
-      right: 0;
-      top: 0;
-      height: calc(100% - 60px);
+    .toolbar {
+      position: absolute;
+      top: 20rem;
+      right: 10rem;
 
-      .close {
-        font-size: 28rem;
-        position: absolute;
-        left: 20rem;
-        top: 20rem;
-      }
-
-      .choose-music {
-        position: absolute;
-        left: 50%;
-        top: 20rem;
-        transform: translateX(-50%);
-        border-radius: 20rem;
-        background: #333333;
-        padding: 5rem 15rem;
+      .tool {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        font-size: 14rem;
-
-        svg {
-          font-size: 30rem;
-          margin-right: 5rem;
-          width: 12rem;
-          height: 12rem;
-        }
-      }
-
-      .toolbar {
-        position: absolute;
-        top: 20rem;
-        right: 10rem;
-
-        .tool {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin-bottom: 20rem;
-          font-size: 26rem;
-        }
+        margin-bottom: 20rem;
+        font-size: 26rem;
       }
     }
   }
+}
 </style>

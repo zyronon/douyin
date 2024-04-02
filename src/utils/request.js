@@ -4,7 +4,7 @@ import globalMethods from './index'
 
 const axiosInstance = axios.create({
   baseURL: config.baseUrl,
-  timeout: 60000,
+  timeout: 60000
 })
 
 // request拦截器
@@ -18,7 +18,7 @@ axiosInstance.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error)
-  },
+  }
 )
 
 /*
@@ -55,9 +55,7 @@ axiosInstance.interceptors.response.use(
           data.success = true
         }
         if (resCode !== 200) {
-          globalMethods.$notice(
-            response.data.message || '请求失败，请稍后重试！',
-          )
+          globalMethods.$notice(response.data.message || '请求失败，请稍后重试！')
         } else {
           data.success = true
         }
@@ -109,7 +107,7 @@ axiosInstance.interceptors.response.use(
         return data
       }
     }
-  },
+  }
 )
 
 export default axiosInstance

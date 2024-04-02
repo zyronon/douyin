@@ -29,10 +29,7 @@ export function slideTouchStart(e, el, state) {
 //检测能否滑动
 export function canSlide(state, judgeValue, type = SlideType.HORIZONTAL) {
   if (state.needCheck) {
-    if (
-      Math.abs(state.move.x) > judgeValue ||
-      Math.abs(state.move.y) > judgeValue
-    ) {
+    if (Math.abs(state.move.x) > judgeValue || Math.abs(state.move.y) > judgeValue) {
       let angle = (Math.abs(state.move.x) * 10) / (Math.abs(state.move.y) * 10)
       state.next = type === SlideType.HORIZONTAL ? angle > 1 : angle <= 1
       // console.log('angle', angle, state.next)
@@ -56,22 +53,16 @@ export function slideTouchMove(
   nextCb,
   type = SlideType.HORIZONTAL,
   notNextCb,
-  slideOtherDirectionCb = null,
+  slideOtherDirectionCb = null
 ) {
   state.move.x = e.touches[0].pageX - state.start.x
   state.move.y = e.touches[0].pageY - state.start.y
 
-  let isNext =
-    type === SlideType.HORIZONTAL ? state.move.x < 0 : state.move.y < 0
+  let isNext = type === SlideType.HORIZONTAL ? state.move.x < 0 : state.move.y < 0
 
   let canSlideRes = canSlide(state, judgeValue, type)
 
-  if (
-    canSlideRes &&
-    state.localIndex === 0 &&
-    !isNext &&
-    type === SlideType.VERTICAL
-  ) {
+  if (canSlideRes && state.localIndex === 0 && !isNext && type === SlideType.VERTICAL) {
     bus.emit(state.name + '-moveY', state.move.y)
   }
 
@@ -82,8 +73,7 @@ export function slideTouchMove(
         bus.emit(state.name + '-moveX', state.move.x)
       }
       Utils.$stopPropagation(e)
-      let t =
-        getSlideDistance(state, type, el) + (isNext ? judgeValue : -judgeValue)
+      let t = getSlideDistance(state, type, el) + (isNext ? judgeValue : -judgeValue)
       let dx1 = 0
       let dx2 = 0
       if (type === SlideType.HORIZONTAL) {
@@ -107,7 +97,7 @@ export function slideTouchEnd(
   canNextCb,
   nextCb,
   doNotNextCb,
-  type = SlideType.HORIZONTAL,
+  type = SlideType.HORIZONTAL
 ) {
   let isHorizontal = type === SlideType.HORIZONTAL
   let isNext = isHorizontal ? state.move.x < 0 : state.move.y < 0
@@ -146,12 +136,7 @@ export function slideReset(el, state, type, emit) {
     dx2 = t
   }
   Utils.$setCss(el, 'transform', `translate3d(${dx1}px, ${dx2}px, 0)`)
-  state.start.x =
-    state.start.y =
-    state.start.time =
-    state.move.x =
-    state.move.y =
-      0
+  state.start.x = state.start.y = state.start.time = state.move.x = state.move.y = 0
   state.next = false
   state.needCheck = true
   emit?.('update:index', state.localIndex)

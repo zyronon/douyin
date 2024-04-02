@@ -19,73 +19,73 @@
   </div>
 </template>
 <script>
-  import People from './components/People'
+import People from './components/People'
 
-  export default {
-    name: 'AddressList',
-    components: {
-      People,
-    },
-    data() {
-      return {
-        list: [
-          {
-            type: 5,
-          },
-        ],
-      }
-    },
-    methods: {},
-  }
+export default {
+  name: 'AddressList',
+  components: {
+    People
+  },
+  data() {
+    return {
+      list: [
+        {
+          type: 5
+        }
+      ]
+    }
+  },
+  methods: {}
+}
 </script>
 
 <style scoped lang="less">
-  @import '../../assets/less/index';
+@import '../../assets/less/index';
 
-  .AddressList {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    overflow: auto;
-    color: white;
+.AddressList {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  overflow: auto;
+  color: white;
 
-    .content {
-      padding-top: 60rem;
+  .content {
+    padding-top: 60rem;
 
-      .recommend {
-        .title {
-          padding: 20rem 20rem 10rem 20rem;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
+    .recommend {
+      .title {
+        padding: 20rem 20rem 10rem 20rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-          .left {
-            color: var(--second-text-color);
+        .left {
+          color: var(--second-text-color);
 
-            img {
-              width: 10rem;
-              height: 10rem;
-            }
-          }
-
-          .right {
-            border-radius: 50%;
-            background: var(--second-text-color);
-            padding: 5rem;
+          img {
             width: 10rem;
             height: 10rem;
           }
         }
-      }
 
-      .footer {
-        text-align: center;
-        line-height: 60rem;
-        height: 60rem;
-        color: var(--second-text-color);
+        .right {
+          border-radius: 50%;
+          background: var(--second-text-color);
+          padding: 5rem;
+          width: 10rem;
+          height: 10rem;
+        }
       }
     }
+
+    .footer {
+      text-align: center;
+      line-height: 60rem;
+      height: 60rem;
+      color: var(--second-text-color);
+    }
   }
+}
 </style>

@@ -8,23 +8,16 @@ export function useSlideListItemRender(props) {
     let node
     switch (item.type) {
       case 'img':
-        node = <img src={item.src} style='height:100%;' />
+        node = <img src={item.src} style="height:100%;" />
         break
       case 'imgs':
-        node = (
-          <SlideAlbum
-            isPlay={play}
-            index={index}
-            position={{ uniqueId, index }}
-            {...props}
-          />
-        )
+        node = <SlideAlbum isPlay={play} index={index} position={{ uniqueId, index }} {...props} />
         break
       case 'user':
         node = <SlideUser {...props} />
         break
       case 'send-video':
-        node = <video src={item.src} style='height:100%;' />
+        node = <video src={item.src} style="height:100%;" />
         break
       default:
         node = (

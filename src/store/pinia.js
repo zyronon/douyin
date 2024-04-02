@@ -23,26 +23,26 @@ export const useBaseStore = defineStore('base', {
           department: null,
           joinTime: null,
           education: null,
-          displayType: enums.DISPLAY_TYPE.ALL,
+          displayType: enums.DISPLAY_TYPE.ALL
         },
         avatar_168x168: {
-          url_list: [],
+          url_list: []
         },
         avatar_300x300: {
-          url_list: [],
+          url_list: []
         },
         cover_url: [
           {
-            url_list: [],
-          },
+            url_list: []
+          }
         ],
         white_cover_url: [
           {
-            url_list: [],
-          },
-        ],
+            url_list: []
+          }
+        ]
       },
-      friends: resource.users,
+      friends: resource.users
     }
   },
   getters: {},
@@ -78,6 +78,6 @@ export const useBaseStore = defineStore('base', {
         }
       }
       // console.log('store.excludeRoutes', store.excludeRoutes,val)
-    },
-  },
+    }
+  }
 })
