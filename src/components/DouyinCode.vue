@@ -49,7 +49,12 @@ export default {
   name: 'DouyinCode',
   props: {
     item: {},
-    modelValue: false
+    modelValue: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    }
   },
   data() {
     return {}
@@ -108,6 +113,7 @@ export default {
           -webkit-line-clamp: 1; //显示的行
         }
       }
+
       .code {
         width: 60rem;
       }

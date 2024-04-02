@@ -10,7 +10,7 @@ let inputData = JSON.parse(saveFileStr)
 const downloadImage = async (src, dest, callback) => {
   console.log('下载:', src, dest, Date.now())
   return new Promise((resolve) => {
-    request.head(src, (err, res, body) => {
+    request.head(src, (err) => {
       if (err) {
         console.log(err)
         return
@@ -41,16 +41,16 @@ async function test(list) {
         let name = nanoid() + '.png'
         imgList.push({
           name,
-          url: coverUrl,
+          url: coverUrl
         })
         await downloadImage(coverUrl, saveFilePath + name, () => {
           // console.log('close', name)
           list[j] = {
             info_list: [
               {
-                url: name,
-              },
-            ],
+                url: name
+              }
+            ]
           }
           fs.writeFileSync(savefileName, JSON.stringify(inputData, null, 2))
         })
@@ -59,9 +59,9 @@ async function test(list) {
       list[j] = {
         info_list: [
           {
-            url: imgList[rIndex].name,
-          },
-        ],
+            url: imgList[rIndex].name
+          }
+        ]
       }
       console.log('重复')
       fs.writeFileSync(savefileName, JSON.stringify(inputData, null, 2))
@@ -77,7 +77,7 @@ for (let i = 0; i < inputData.slice(0, 111111).length; i++) {
     let name = nanoid() + '.png'
     imgList.push({
       name,
-      url: url,
+      url: url
     })
     await downloadImage(url, saveFilePath + name, () => {
       // console.log('close', name)

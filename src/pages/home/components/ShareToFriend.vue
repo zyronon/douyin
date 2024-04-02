@@ -20,7 +20,12 @@
         />
         <template v-if="searchKey">
           <div class="friend-list" v-if="searchResult.length">
-            <div class="friend-item" v-for="item in searchResult" @click="handleClick2(item)">
+            <div
+              class="friend-item"
+              :key="i"
+              v-for="(item, i) in searchResult"
+              @click="handleClick2(item)"
+            >
               <img class="left" v-lazy="$imgPreview(item.avatar)" alt="" />
               <div class="right">
                 <div class="info">
@@ -54,7 +59,7 @@
           </div>
           <div class="friend-list">
             <div class="index">所有朋友</div>
-            <div class="friend-item" v-for="item in localFriends">
+            <div class="friend-item" :key="i" v-for="(item, i) in localFriends">
               <img class="left" v-lazy="$imgPreview(item.avatar)" alt="" />
               <div class="right">
                 <span>{{ item.name }}</span>
@@ -74,7 +79,7 @@
         </div>
 
         <div class="chat-list">
-          <div class="chat-item" v-for="item in localFriends">
+          <div class="chat-item" :key="i" v-for="(item, i) in localFriends">
             <img class="left" v-lazy="$imgPreview(item.avatar)" alt="" />
             <div class="right">
               <div class="title">
@@ -95,7 +100,6 @@
 import FromBottomDialog from '../../../components/dialog/FromBottomDialog'
 import { mapState } from 'pinia'
 import Search from '../../../components/Search'
-import Check from '../../../components/Check'
 import { useBaseStore } from '@/store/pinia'
 /*
 分享给朋友
@@ -104,11 +108,15 @@ export default {
   name: 'ShareTo',
   components: {
     FromBottomDialog,
-    Search,
-    Check
+    Search
   },
   props: {
-    modelValue: false,
+    modelValue: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    },
     pageId: {
       type: String,
       default: 'home-index'

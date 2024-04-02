@@ -27,7 +27,12 @@ export default {
   name: 'RedPacketDetail',
   components: {},
   props: {
-    modelValue: false
+    modelValue: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    }
   },
   data() {
     return {}

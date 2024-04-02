@@ -10,7 +10,7 @@ let saveFilePath = './imgs/'
 const downloadImage = async (src, dest) => {
   console.log('下载：', src)
   return new Promise((resolve) => {
-    request.head(src, (err, res, body) => {
+    request.head(src, (err) => {
       if (err) {
         console.log(err)
         return

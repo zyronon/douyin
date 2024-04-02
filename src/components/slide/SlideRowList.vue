@@ -4,7 +4,8 @@
       <div
         class="bullet"
         :class="{ active: currentSlideItemIndex === item - 1 }"
-        v-for="item in slideItems.length"
+        :key="i"
+        v-for="(item, i) in slideItems.length"
       ></div>
     </div>
 
@@ -23,14 +24,11 @@
 
 <script>
 import bus from '../../utils/bus'
-import Loading from '../Loading'
 import { useBaseStore } from '@/store/pinia'
 
 export default {
   name: 'BaseSlideList',
-  components: {
-    Loading
-  },
+  components: {},
   props: {
     canMove: {
       type: Boolean,
@@ -100,6 +98,7 @@ export default {
           transform: `translate3d(0, ${this.homeLoadingMoveYDistance > 60 ? 60 : this.homeLoadingMoveYDistance}px, 0)`
         }
       }
+      return {}
     }
   },
   data() {
@@ -199,7 +198,7 @@ export default {
         )
       }
     },
-    async checkChildren(init) {
+    async checkChildren() {
       this.slideList = this.$refs.slideList
       this.slideItems = this.slideList.children
       this.wrapperWidth = this.$getCss(this.slideList, 'width')

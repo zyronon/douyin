@@ -11,7 +11,7 @@
           <div class="left">已有20+位朋友加入抖音</div>
         </div>
         <div class="list">
-          <People v-for="item in list" :people="item"></People>
+          <People :key="i" v-for="(item, i) in list" :people="item"></People>
         </div>
       </div>
       <div class="footer">为尊重用户选择，仅展示已授权用户</div>

@@ -7,7 +7,12 @@
     </BaseHeader>
     <div class="content">
       <div class="list">
-        <div class="item" v-for="(item, index) in list" @click="togglePlay(item, list)">
+        <div
+          class="item"
+          v-for="(item, index) in list"
+          :key="index"
+          @click="togglePlay(item, list)"
+        >
           <div class="music">
             <div class="cover-wrapper">
               <img v-lazy="$imgPreview(item.cover)" alt="" class="cover" />
@@ -103,7 +108,7 @@ export default {
     this.getData()
   },
   mounted() {
-    this.audio.addEventListener('loadedmetadata', (e) => {
+    this.audio.addEventListener('loadedmetadata', () => {
       this.currentItem.duration = this.audio.duration
       this.step = this.bodyWidth / Math.floor(this.audio.duration)
     })

@@ -46,7 +46,7 @@
             </div>
           </div>
           <div class="content">
-            <div class="item avatar" @click="$no" v-for="i in 6">
+            <div class="item avatar" @click="$no" :key="i" v-for="i in 6">
               <img
                 src="https://img.tol.vip/avatar/WEIXIN/3aSuTGYTzjHvcHy0y0tH1eiShKRk9Sgd.jpg?_upt=de4a5c251709635127"
               />
@@ -123,8 +123,8 @@
           <Slide4 :active="state.navIndex === 4 && state.baseIndex === 1" />
         </SlideHorizontal>
 
-        <Footer v-bind:init-tab="1" />
-        <Mask
+        <BaseFooter v-bind:init-tab="1" />
+        <BaseMask
           v-if="state.baseIndex === 0"
           @click="state.baseIndex = 1"
           mode="white"
@@ -278,25 +278,25 @@ function setCurrentItem(item) {
 }
 
 onMounted(() => {
-  bus.on(EVENT_KEY.ENTER_FULLSCREEN, (e) => {
+  bus.on(EVENT_KEY.ENTER_FULLSCREEN, () => {
     if (!state.active) return
     state.fullScreen = true
   })
-  bus.on(EVENT_KEY.EXIT_FULLSCREEN, (e) => {
+  bus.on(EVENT_KEY.EXIT_FULLSCREEN, () => {
     if (!state.active) return
     state.fullScreen = false
   })
-  bus.on(EVENT_KEY.OPEN_COMMENTS, (e) => {
+  bus.on(EVENT_KEY.OPEN_COMMENTS, () => {
     if (!state.active) return
     bus.emit(EVENT_KEY.ENTER_FULLSCREEN)
     state.commentVisible = true
   })
-  bus.on(EVENT_KEY.CLOSE_COMMENTS, (e) => {
+  bus.on(EVENT_KEY.CLOSE_COMMENTS, () => {
     if (!state.active) return
     bus.emit(EVENT_KEY.EXIT_FULLSCREEN)
     state.commentVisible = false
   })
-  bus.on(EVENT_KEY.SHOW_SHARE, (e) => {
+  bus.on(EVENT_KEY.SHOW_SHARE, () => {
     if (!state.active) return
     state.isSharing = true
   })

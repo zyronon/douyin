@@ -77,7 +77,12 @@ export default {
   name: 'Call',
   components: {},
   props: {
-    modelValue: false
+    modelValue: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    }
   },
   data() {
     return {
@@ -118,7 +123,7 @@ export default {
       this.callFloatLeft = e.touches[0].pageX - 35
       this.callFloatTop = e.touches[0].pageY - 40
     },
-    touchend(e) {
+    touchend() {
       this.callFloatTransitionTime = 300
       if (this.callFloatLeft < this.width / 2) {
         this.callFloatLeft = 15

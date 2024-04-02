@@ -2,7 +2,7 @@
   <SlideItem class="slide-item-class">
     <div class="sub-type" :class="state.subTypeIsTop ? 'top' : ''" ref="subTypeRef">
       <div class="card" @touchmove.capture="stop">
-        <div class="nav-item" v-for="i in store.users">
+        <div class="nav-item" :key="j" v-for="(i, j) in store.users">
           <img :src="_checkImgUrl(i.avatar_168x168.url_list[0])" alt="" />
           <span>{{ i.nickname }}</span>
         </div>

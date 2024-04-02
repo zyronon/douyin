@@ -115,7 +115,7 @@
                 </div>
                 <div class="item" v-if="userinfo.province || userinfo.city">
                   {{ userinfo.province }}
-                  <template v-if="userinfo.province && userinfo.city"> - </template>
+                  <template v-if="userinfo.province && userinfo.city"> -</template>
                   {{ userinfo.city }}
                 </div>
                 <div class="item" v-if="userinfo.school?.name">
@@ -220,7 +220,8 @@
                     <div
                       class="item"
                       @click.stop="$nav('/home/music', i)"
-                      v-for="i in videos.collect.music.list.slice(0, 3)"
+                      :key="j"
+                      v-for="(i, j) in videos.collect.music.list.slice(0, 3)"
                     >
                       <img class="poster" :src="$imgPreview(i.cover)" alt="" />
                       <div class="title">{{ i.name }}</div>
@@ -233,7 +234,7 @@
             </SlideItem>
           </SlideRowList>
         </div>
-        <Footer v-bind:init-tab="5" />
+        <BaseFooter v-bind:init-tab="5" />
         <transition name="fade">
           <div class="mask" v-if="baseActiveIndex === 1" @click="baseActiveIndex = 0"></div>
         </transition>
@@ -371,7 +372,6 @@
 </template>
 <script>
 import Posters from '../../components/Posters'
-import Footer from '../../components/Footer'
 import Indicator from '../../components/slide/Indicator'
 import { nextTick } from 'vue'
 import { mapState } from 'pinia'
@@ -379,14 +379,13 @@ import { mapState } from 'pinia'
 import bus from '../../utils/bus'
 import ConfirmDialog from '../../components/dialog/ConfirmDialog'
 import { $no, _checkImgUrl, _formatNumber, _getUserDouyinId } from '@/utils'
-import SlideHorizontal from '@/components/slide/SlideHorizontal.vue'
 import { likeVideo, myVideo, privateVideo } from '@/api/videos'
 import { useBaseStore } from '@/store/pinia'
 import { userCollect } from '@/api/user'
 
 export default {
   name: 'Me',
-  components: { Posters, Footer, Indicator, ConfirmDialog, SlideHorizontal },
+  components: { Posters, Indicator, ConfirmDialog },
   data() {
     return {
       previewImg: '',
@@ -508,7 +507,7 @@ export default {
     async getScrollAreaHeight(index = this.contentIndex) {
       let scrollAreaHeight = 0
       if (index === 3) {
-        await nextTick(async () => {
+        nextTick(async () => {
           scrollAreaHeight = this.$refs.collect.clientHeight + 60 + 40
         })
       } else {
@@ -638,7 +637,7 @@ export default {
       this.fixedLocationY = this.startLocationY = e.touches[0].pageY
       this.startTime = Date.now()
     },
-    move(e) {
+    move() {
       // (!this.isScroll) && e.preventDefault();
     },
     async scroll() {

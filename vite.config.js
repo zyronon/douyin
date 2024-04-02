@@ -5,8 +5,8 @@ import { resolve } from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
 import DefineOptions from 'unplugin-vue-define-options/vite' // 引入插件
 import { Plugin as importToCDN } from 'vite-plugin-cdn-import'
-import viteImagemin from 'vite-plugin-imagemin'
-import viteCompression from 'vite-plugin-compression'
+// import viteImagemin from 'vite-plugin-imagemin'
+// import viteCompression from 'vite-plugin-compression'
 
 function pathResolve(dir) {
   return resolve(__dirname, '.', dir)
@@ -38,30 +38,30 @@ export default defineConfig({
         {
           name: 'vue',
           var: 'Vue',
-          path: `https://lib.baomitu.com/vue/3.4.21/vue.runtime.global.prod.min.js`,
+          path: `https://lib.baomitu.com/vue/3.4.21/vue.runtime.global.prod.min.js`
         },
         {
           name: 'vue-router',
           var: 'VueRouter',
-          path: 'https://lib.baomitu.com/vue-router/4.3.0/vue-router.global.prod.min.js',
+          path: 'https://lib.baomitu.com/vue-router/4.3.0/vue-router.global.prod.min.js'
         },
         {
           name: 'vue-demi',
           var: 'VueDemi',
-          path: 'https://lib.baomitu.com/vue-demi/0.14.7/index.iife.min.js',
+          path: 'https://lib.baomitu.com/vue-demi/0.14.7/index.iife.min.js'
         },
         {
           name: 'mockjs',
           var: 'Mock',
-          path: 'https://lib.baomitu.com/Mock.js/1.0.1-beta3/mock-min.js',
+          path: 'https://lib.baomitu.com/Mock.js/1.0.1-beta3/mock-min.js'
         },
         {
           name: 'axios',
           var: 'axios',
-          path: 'https://lib.baomitu.com/axios/1.6.8/axios.min.js',
-        },
-      ],
-    }),
+          path: 'https://lib.baomitu.com/axios/1.6.8/axios.min.js'
+        }
+      ]
+    })
     // viteCompression({
     //   verbose: false,
     //   disable: false,
@@ -104,9 +104,9 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': pathResolve('src'),
+      '@': pathResolve('src')
     },
-    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
   },
   build: {
     sourcemap: false,
@@ -135,49 +135,41 @@ export default defineConfig({
           if (id.includes('/src/pages/message/Message.vue')) return 'other'
           if (id.includes('/src/pages/message/Fans.vue')) return 'other'
           if (id.includes('/src/pages/message/AllMessage.vue')) return 'other'
-          if (id.includes('/src/pages/message/notice/DouyinHelper.vue'))
-            return 'other'
-          if (id.includes('/src/pages/message/notice/SystemNotice.vue'))
-            return 'other'
-          if (id.includes('/src/pages/message/notice/TaskNotice.vue'))
-            return 'other'
-          if (id.includes('/src/pages/message/notice/LiveNotice.vue'))
-            return 'other'
-          if (id.includes('/src/pages/message/notice/MoneyNotice.vue'))
-            return 'other'
+          if (id.includes('/src/pages/message/notice/DouyinHelper.vue')) return 'other'
+          if (id.includes('/src/pages/message/notice/SystemNotice.vue')) return 'other'
+          if (id.includes('/src/pages/message/notice/TaskNotice.vue')) return 'other'
+          if (id.includes('/src/pages/message/notice/LiveNotice.vue')) return 'other'
+          if (id.includes('/src/pages/message/notice/MoneyNotice.vue')) return 'other'
 
           if (id.includes('/src/pages/me/Me.vue')) return 'other'
           if (id.includes('/src/pages/me/Visitors.vue')) return 'other'
           if (id.includes('/src/pages/me/RequestUpdate.vue')) return 'other'
-          if (id.includes('/src/pages/me/userinfo/EditUserInfo.vue'))
-            return 'other'
-          if (id.includes('/src/pages/me/userinfo/EditUserInfoItem.vue'))
-            return 'other'
+          if (id.includes('/src/pages/me/userinfo/EditUserInfo.vue')) return 'other'
+          if (id.includes('/src/pages/me/userinfo/EditUserInfoItem.vue')) return 'other'
           if (id.includes('/src/pages/me/MyMusic.vue')) return 'other'
 
           if (id.includes('/src/pages/other/VideoDetail.vue')) return 'other'
           if (id.includes('/src/pages/other/AlbumDetail.vue')) return 'other'
 
-          if (id.includes('/src/pages/people/FindAcquaintance.vue'))
-            return 'other'
+          if (id.includes('/src/pages/people/FindAcquaintance.vue')) return 'other'
           if (id.includes('/src/pages/people/FollowAndFans.vue')) return 'other'
         },
         chunkFileNames: 'js/[name]-[hash].js', // 引入文件名的名称
         entryFileNames: 'js/[name]-[hash].js', // 包的入口文件名称
-        assetFileNames: 'assets/[name]-[hash].[ext]', // 资源文件像 字体，图片等
-      },
+        assetFileNames: 'assets/[name]-[hash].[ext]' // 资源文件像 字体，图片等
+      }
     },
-    assetsInlineLimit: 2048,
+    assetsInlineLimit: 2048
   },
   esbuild: {
-    drop: ['console', 'debugger'],
+    drop: ['console', 'debugger']
   },
   server: {
     port: 3000,
     open: true,
     host: '0.0.0.0',
     fs: {
-      strict: false,
-    },
-  },
+      strict: false
+    }
+  }
 })

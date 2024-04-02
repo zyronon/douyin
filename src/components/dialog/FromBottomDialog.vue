@@ -160,7 +160,7 @@ export default {
         this.$setCss(this.$refs.dialog, 'transform', `translate3d(0,${this.moveYDistance}px,0)`)
       }
     },
-    end(e) {
+    end() {
       //点击
       if (Date.now() - this.startTime < 150 && Math.abs(this.moveYDistance) < 30) {
         return

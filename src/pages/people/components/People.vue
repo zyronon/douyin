@@ -64,7 +64,7 @@
             <template v-if="people.type === RELATE_ENUM.REQUEST_FOLLOW">
               发来一个关注请求
             </template>
-            <template v-else> 关注了你 </template>
+            <template v-else> 关注了你</template>
           </div>
           <div class="detail">07-23</div>
         </div>
@@ -166,7 +166,9 @@ export default {
   props: {
     people: {
       type: Object,
-      default: {}
+      default() {
+        return {}
+      }
     },
     mode: {
       type: String,

@@ -1,7 +1,6 @@
 <script setup>
 import BaseMusic from '../BaseMusic'
 import Utils from '../../utils'
-import { reactive } from 'vue'
 import bus, { EVENT_KEY } from '@/utils/bus'
 import { Icon } from '@iconify/vue'
 
@@ -26,7 +25,6 @@ const props = defineProps({
   }
 })
 const emit = defineEmits(['update:item', 'goUserInfo', 'showComments', 'showShare', 'goMusic'])
-const state = reactive({})
 
 function loved() {
   Utils.updateItem(props, 'isLoved', !props.item.isLoved, emit)

@@ -1,12 +1,10 @@
 import resource from '../assets/data/resource.js'
 import posts6 from '@/assets/data/posts6.json'
-import { _copy, cloneDeep, random, sampleSize } from '@/utils'
+import { cloneDeep, random } from '@/utils'
 import { BASE_URL, FILE_URL } from '@/config'
 import { useBaseStore } from '@/store/pinia'
 import axiosInstance from '@/utils/request'
 import MockAdapter from 'axios-mock-adapter'
-import Mock from 'mockjs'
-import { panel } from '@/api/user'
 
 const mock = new MockAdapter(axiosInstance, { delayResponse: 300 })
 
@@ -24,6 +22,7 @@ let allRecommendVideos = posts6.map((v) => {
 })
 
 // console.log('allRecommendVideos', allRecommendVideos)
+// eslint-disable-next-line no-unused-vars
 let t = [
   {
     type: 'imgs',
@@ -47,6 +46,7 @@ let t = [
     }
   }
 ]
+
 // allRecommendVideos.unshift(...t)
 // {
 //   type: 'user-imgs',
@@ -210,7 +210,7 @@ export async function startMock() {
     ]
   })
 
-  mock.onGet(/user\/collect/).reply(async (config) => {
+  mock.onGet(/user\/collect/).reply(async () => {
     return [
       200,
       {
@@ -240,7 +240,7 @@ export async function startMock() {
     return [200, { code: 500 }]
   })
 
-  mock.onGet(/user\/panel/).reply(async (config) => {
+  mock.onGet(/user\/panel/).reply(async () => {
     let r2 = await fetch(BASE_URL + '/data/users.json')
     let v = await r2.json()
     // let item = v.find(a => a.uid === '68310389333')
@@ -252,7 +252,7 @@ export async function startMock() {
     return [200, { code: 500 }]
   })
 
-  mock.onGet(/user\/friends/).reply(async (config) => {
+  mock.onGet(/user\/friends/).reply(async () => {
     let r2 = await fetch(BASE_URL + '/data/users.json')
     let v = await r2.json()
     return [200, { data: v, code: 200 }]

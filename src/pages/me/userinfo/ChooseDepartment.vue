@@ -10,7 +10,7 @@
     </BaseHeader>
     <div class="content">
       <div class="nearby">
-        <div class="item" v-for="item in departments" @click="setDepartment(item)">
+        <div class="item" :key="i" v-for="(item, i) in departments" @click="setDepartment(item)">
           {{ item }}
         </div>
       </div>
@@ -19,13 +19,9 @@
 </template>
 
 <script>
-import Search from '../../../components/Search'
-
 export default {
   name: 'ChooseSchool',
-  components: {
-    Search
-  },
+  components: {},
   data() {
     return {
       departments: [],

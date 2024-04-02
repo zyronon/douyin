@@ -245,7 +245,7 @@ const Utils = {
     return JSON.parse(JSON.stringify(v))
   },
   $sleep(duration) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       setTimeout(resolve, duration)
     })
   },
@@ -309,6 +309,7 @@ const Utils = {
   $dateFormat(val, type) {
     if (!val) return
     if (typeof val === 'number') {
+      //
     } else {
       if (val.length === 10) {
         val += '000'
@@ -467,7 +468,7 @@ export function _getUserDouyinId(item) {
 }
 
 export function _sleep(duration) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(resolve, duration)
   })
 }

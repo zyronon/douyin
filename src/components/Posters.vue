@@ -1,6 +1,6 @@
 <template>
   <div class="posters">
-    <div class="poster-item" v-for="(i, index) in list" @click="goDetail(index)">
+    <div class="poster-item" :key="index" v-for="(i, index) in list" @click="goDetail(index)">
       <img class="poster" v-lazy="_checkImgUrl(i.video.cover.url_list[0])" alt="" />
       <div class="num" v-if="mode === 'normal'">
         <Icon icon="icon-park-outline:like" />

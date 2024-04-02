@@ -62,6 +62,7 @@ function getUserMedia(constrains, success, error) {
     navigator.webkitGetUserMedia(constrains).then(success).catch(error)
   } else if (navigator.mozGetUserMedia) {
     //Firefox浏览器
+    // eslint-disable-next-line no-undef
     navagator.mozGetUserMedia(constrains).then(success).catch(error)
   } else if (navigator.getUserMedia) {
     //旧版API

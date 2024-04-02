@@ -26,7 +26,7 @@
         <!--        <div class="subtitle f12">上次发布作品：2020-08-01 上次开播：昨天23:12</div>-->
         <div class="subtitle f12">历史求更新（粉丝送礼后7天未开播则退还礼物）</div>
         <div class="list">
-          <div class="item" v-for="item in friends.all">
+          <div class="item" :key="i" v-for="(item, i) in friends.all">
             <div class="left">
               <img :src="$imgPreview(item.avatar)" />
               <span class="name">{{ item.name }}</span>

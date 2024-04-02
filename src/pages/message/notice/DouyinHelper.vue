@@ -10,8 +10,8 @@
       <div class="content">
         <NoMore />
         <div class="list">
-          <!--TODO　超过3行显示全文-->
-          <div class="item" v-for="item in list" @click="goDetail(item)">
+          <!--TODO 超过3行显示全文-->
+          <div class="item" :key="i" v-for="(item, i) in list" @click="goDetail(item)">
             <div class="title">
               {{ item.title }}
               <div class="ml1r not-read" v-if="!item.read"></div>

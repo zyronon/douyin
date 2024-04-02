@@ -58,7 +58,12 @@
               style="width: 10rem; margin-left: 2rem"
             />
           </div>
-          <People v-for="item in friends.all" :people="item" mode="recommend"></People>
+          <People
+            :key="i"
+            v-for="(item, i) in friends.all"
+            :people="item"
+            mode="recommend"
+          ></People>
         </div>
         <div class="is-search" v-else>
           <div class="tooltip" v-if="searchKey && !isSearch">
@@ -66,24 +71,26 @@
             搜索用户名字/抖音号：<span class="searchKey">{{ searchKey }}</span>
           </div>
           <!--          TODO -->
-          <People
-            v-if="isSearch"
-            v-for="item in friends.all"
-            :people="item"
-            mode="recommend"
-          ></People>
+          <template v-if="isSearch">
+            <People
+              :key="i"
+              v-for="(item, i) in friends.all"
+              :people="item"
+              mode="recommend"
+            ></People>
+          </template>
         </div>
       </SlideItem>
       <SlideItem class="tab2" style="overflow: auto">
         <Search placeholder="搜索用户备注或名字" class="mr20p ml20p mt10p"></Search>
         <div class="title">{{ friends.all.length }} 位朋友</div>
-        <People v-for="item in friends.all" :people="item" mode="friend"></People>
+        <People :key="i" v-for="(item, i) in friends.all" :people="item" mode="friend"></People>
         <NoMore class="mb5r" />
       </SlideItem>
     </SlideHorizontal>
 
     <transition name="fade">
-      <Mask v-if="maskDialog" @click="maskDialog = false"></Mask>
+      <BaseMask v-if="maskDialog" @click="maskDialog = false"/>
     </transition>
 
     <transition name="fade">

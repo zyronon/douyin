@@ -185,7 +185,7 @@ export default {
       this.currentTime = Math.ceil(e.target.currentTime)
       this.playX = (this.currentTime - 1) * this.step
     }
-    video.addEventListener('loadedmetadata', (e) => {
+    video.addEventListener('loadedmetadata', () => {
       this.videoScreenHeight = video.videoHeight / (video.videoWidth / this.width)
       this.duration = video.duration
       this.progressBarRect = this.$refs.progress.getBoundingClientRect()
@@ -193,7 +193,7 @@ export default {
       video.addEventListener('timeupdate', fun)
     })
 
-    let eventTester = (e, t) => {
+    let eventTester = (e) => {
       video.addEventListener(
         e,
         () => {
@@ -287,7 +287,7 @@ export default {
         this.commentVisible = true
       }
     },
-    onCloseComments(id) {
+    onCloseComments() {
       if (this.commentVisible) {
         Utils.$setCss(this.$refs.video, 'transition-duration', `300ms`)
         Utils.$setCss(this.$refs.video, 'height', '100%')

@@ -28,7 +28,7 @@ export default {
     return {}
   },
   methods: {
-    changeText(e) {
+    changeText() {
       this.$emit('update:modelValue', this.$el.innerText)
     }
   }

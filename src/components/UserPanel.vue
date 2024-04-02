@@ -141,7 +141,7 @@
       </div>
       <div class="other">
         <div class="scroll-x" @touchmove="stop">
-          <div class="item" v-for="item in props.currentItem.author.card_entries">
+          <div class="item" :key="i" v-for="(item, i) in props.currentItem.author.card_entries">
             <img :src="_checkImgUrl(item.icon_dark.url_list[0])" alt="" />
             <div class="right">
               <div class="top">{{ item.title }}</div>
@@ -157,6 +157,7 @@
             class="follow-wrapper"
             :class="props.currentItem.author.follow_status ? 'follow-wrapper-followed' : ''"
           >
+            <!--            eslint-disable-next-line vue/no-mutating-props-->
             <div class="no-follow" @click="props.currentItem.author.follow_status = 1">
               <img src="@/assets/img/icon/add-white.png" alt="" />
               <span>关注</span>
@@ -193,7 +194,7 @@
           <img src="@/assets/img/icon/about-gray.png" />
         </div>
         <div class="friends" @touchmove="stop">
-          <div class="friend" v-for="item in baseStore.friends.all">
+          <div class="friend" :key="i" v-for="(item, i) in baseStore.friends.all">
             <img
               :style="item.select ? 'opacity: .5;' : ''"
               class="avatar"
@@ -238,9 +239,8 @@ import { useNav } from '@/utils/hooks/useNav'
 import Posters from '@/components/Posters'
 import { DefaultUser } from '@/utils/const_var'
 import Loading from '@/components/Loading.vue'
-import { FILE_URL } from '@/config'
 import { useBaseStore } from '@/store/pinia'
-import { userinfo, userVideoList } from '@/api/user'
+import { userVideoList } from '@/api/user'
 
 const $nav = useNav()
 const baseStore = useBaseStore()
@@ -248,14 +248,18 @@ const emit = defineEmits(['update:currentItem', 'back'])
 const props = defineProps({
   currentItem: {
     type: Object,
-    default: {
-      author: DefaultUser,
-      aweme_list: []
+    default() {
+      return {
+        author: DefaultUser,
+        aweme_list: []
+      }
     }
   },
   active: {
     type: Boolean,
-    default: false
+    default() {
+      return false
+    }
   }
 })
 const main = ref(null)
@@ -308,7 +312,7 @@ watch(
 
 watch(
   () => props.currentItem.author.uid,
-  async (newVal) => {
+  async () => {
     if (props.currentItem.author.uid !== state.uid) {
       state.uid = props.currentItem.author.uid
       emit('update:currentItem', Object.assign(props.currentItem, { aweme_list: [] }))
@@ -322,9 +326,7 @@ function stop(e) {
 
 function followButton() {}
 
-function back() {}
-
-function scroll(e) {
+function scroll() {
   // console.log('scroll', page.value.scrollTop)
   let scrollTop = page.value.scrollTop
   let totalY = total.value.getBoundingClientRect().y
@@ -366,7 +368,7 @@ function touchMove(e) {
   }
 }
 
-function touchEnd(e) {
+function touchEnd() {
   if (state.isTop) {
     state.isTop = false
     cover.value.style.transition = 'all .3s'

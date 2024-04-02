@@ -27,7 +27,12 @@
               <img class="menu" src="../../assets/img/icon/menu-white.png" alt="" />
             </div>
             <div class="collect-list">
-              <div class="item" v-for="(item, index) in collectMusic" @click="page2PlayMusic(item)">
+              <div
+                class="item"
+                :key="index"
+                v-for="(item, index) in collectMusic"
+                @click="page2PlayMusic(item)"
+              >
                 <div class="left">
                   <div class="cover-wrapper">
                     <img v-lazy="$imgPreview(item.cover)" alt="" class="cover" />
@@ -60,6 +65,7 @@
             <div class="recommend-list">
               <div
                 class="item"
+                :key="index"
                 v-for="(item, index) in recommendMusic"
                 @click="page2PlayMusic(item)"
               >
@@ -150,9 +156,7 @@
 <script>
 import { mapState } from 'pinia'
 import Switches from '../message/components/swtich/switches'
-import SlideItemMusic from './components/SlideItemMusic'
 import IndicatorLight from '../../components/slide/IndicatorLight'
-import FromBottomDialog from '../../components/dialog/FromBottomDialog'
 import GuessMusic from './components/GuessMusic'
 import CollectMusic from './components/CollectMusic'
 import Loading from '../../components/Loading'
@@ -163,9 +167,7 @@ import { useBaseStore } from '@/store/pinia'
 export default {
   name: 'MyMusic',
   components: {
-    FromBottomDialog,
     Switches,
-    SlideItemMusic,
     IndicatorLight,
     GuessMusic,
     CollectMusic,

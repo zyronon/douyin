@@ -15,7 +15,6 @@
   </div>
 </template>
 <script>
-import resource from '../../../assets/data/resource'
 import Posters from '../../../components/Posters'
 import Scroll from '../../../components/Scroll'
 import { myVideo } from '@/api/videos'

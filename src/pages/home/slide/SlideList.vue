@@ -19,7 +19,6 @@
 import SlideVerticalInfinite from '@/components/slide/SlideVerticalInfinite.vue'
 import { onMounted, onUnmounted, reactive, ref } from 'vue'
 import bus, { EVENT_KEY } from '@/utils/bus'
-import { $notice } from '@/utils'
 import { useSlideListItemRender } from '@/utils/hooks/useSlideListItemRender'
 import { useBaseStore } from '@/store/pinia'
 
@@ -44,7 +43,9 @@ const props = defineProps({
   },
   list: {
     type: Array,
-    default: []
+    default() {
+      return []
+    }
   }
 })
 
@@ -94,15 +95,15 @@ async function getData(refresh = false) {
   }
 }
 
-function dislike() {
-  listRef.value.dislike(state.list[1])
-  state.list[state.index] = state.list[1]
-  $notice('操作成功，将减少此类视频的推荐')
-}
+// function dislike() {
+//   listRef.value.dislike(state.list[1])
+//   state.list[state.index] = state.list[1]
+//   $notice('操作成功，将减少此类视频的推荐')
+// }
 
-function end() {
-  // this.$notice('暂时没有更多了')
-}
+// function end() {
+//   // this.$notice('暂时没有更多了')
+// }
 
 function click(uniqueId) {
   if (uniqueId !== state.uniqueId) return

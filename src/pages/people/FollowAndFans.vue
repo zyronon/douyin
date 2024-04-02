@@ -35,7 +35,7 @@
           />
           <div class="is-search" v-if="searchKey">
             <div class="search-result" v-if="searchFriends.length">
-              <People v-for="item in searchFriends" :people="item"></People>
+              <People :key="i" v-for="(item, i) in searchFriends" :people="item"></People>
             </div>
             <div class="no-result" v-else>
               <img src="../../assets/img/icon/no-result.png" alt="" />
@@ -45,11 +45,11 @@
           </div>
           <div class="no-search" v-else>
             <div class="title">我的关注</div>
-            <People v-for="item in friends.all" :people="item"></People>
+            <People :key="i" v-for="(item, i) in friends.all" :people="item"></People>
           </div>
         </SlideItem>
         <SlideItem class="tab2">
-          <People v-for="item in friends.all" :people="item"></People>
+          <People :key="i" v-for="(item, i) in friends.all" :people="item"></People>
           <NoMore />
         </SlideItem>
       </SlideHorizontal>
@@ -60,7 +60,6 @@
 import People from './components/People'
 import Search from '../../components/Search'
 import Indicator from '../../components/slide/Indicator'
-import FromBottomDialog from '../../components/dialog/FromBottomDialog'
 import { mapState } from 'pinia'
 import { useBaseStore } from '@/store/pinia'
 
@@ -69,8 +68,7 @@ export default {
   components: {
     People,
     Search,
-    Indicator,
-    FromBottomDialog
+    Indicator
   },
   data() {
     return {
@@ -87,7 +85,7 @@ export default {
   watch: {
     searchKey(newVal) {
       if (newVal) {
-        //TODO　搜索时仅仅判断是否包含了对应字符串，抖音做了拼音判断的
+        //TODO 搜索时仅仅判断是否包含了对应字符串，抖音做了拼音判断的
         this.searchFriends = this.friends.all.filter((v) => {
           if (v.name.includes(newVal)) return true
           return v.account.includes(newVal)

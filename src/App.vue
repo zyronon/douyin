@@ -76,10 +76,14 @@ export default {
 
     try {
       navigator.control.gesture(false)
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     try {
       navigator.control.longpressMenu(false)
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     document.onselectstart = new Function('return false') //禁止选中文字
   }
 }

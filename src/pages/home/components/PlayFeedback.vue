@@ -165,13 +165,18 @@ import Check from '../../../components/Check'
 export default {
   name: 'Test',
   props: {
-    modelValue: false
+    modelValue: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    }
   },
   components: {
     Check
   },
   watch: {
-    modelValue(newVal) {
+    modelValue() {
       this.type1 = false
       this.type2 = false
       this.type3 = false

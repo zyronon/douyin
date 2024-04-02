@@ -15,8 +15,8 @@
       <Scroll ref="mainScroll">
         <div class="list">
           <NoMore />
-          <!--TODO　超过3行显示全文-->
-          <div class="item" v-for="item in list" @click="goDetail(item)">
+          <!--TODO 超过3行显示全文-->
+          <div class="item" :key="i" v-for="(item, i) in list" @click="goDetail(item)">
             <div class="title">
               {{ item.title }}
               <div class="ml1r not-read" v-if="!item.read"></div>
@@ -31,7 +31,7 @@
         </div>
       </Scroll>
 
-      <!--      TODO 子页面未做-->
+      <!--TODO 子页面未做-->
       <div class="hover-dialog left" v-if="isShowLeftHover">
         <div class="arrow"></div>
         <div class="l-row no-border" @click="$no">登录设备管理</div>
@@ -45,7 +45,7 @@
         <div class="l-row" @click="$no">安全课堂</div>
       </div>
 
-      <Mask mode="white" v-if="isShowMask" @click="isShowMask = false" />
+      <BaseMask mode="white" v-if="isShowMask" @click="isShowMask = false" />
 
       <div class="options">
         <div class="option" @click="isShowLeftHover = !isShowLeftHover">
@@ -65,14 +65,13 @@
 </template>
 <script>
 import { nextTick } from 'vue'
-import Mask from '../../../components/Mask'
 import Scroll from '../../../components/Scroll'
 import BasePage from '../../BasePage'
 
 export default {
   extends: BasePage,
   name: 'SystemNotice',
-  components: { Mask, Scroll },
+  components: { Scroll },
   data() {
     return {
       loading: false,

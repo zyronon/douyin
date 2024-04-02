@@ -63,7 +63,7 @@ export default {
                   style={{
                     width: this.tabStyleWidth || 100 / this.tabTexts.length + '%'
                   }}
-                  onClick={(e) => this.changeIndex(index)}
+                  onClick={( ) => this.changeIndex(index)}
                 >
                   <span> {item}</span>
                 </div>

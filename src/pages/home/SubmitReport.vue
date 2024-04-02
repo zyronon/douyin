@@ -33,7 +33,7 @@
         <div class="text-num">{{ desc.length }}/200</div>
       </div>
       <div class="upload-photo">
-        <div class="photo-wrapper" v-for="(item, index) in photos">
+        <div class="photo-wrapper" :key="index" v-for="(item, index) in photos">
           <img class="photo" :src="item" alt="" />
           <img
             class="close"

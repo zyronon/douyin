@@ -26,7 +26,12 @@ export default {
     FromBottomDialog
   },
   props: {
-    modelValue: false
+    modelValue: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    }
   },
   data() {
     return {}

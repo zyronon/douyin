@@ -10,7 +10,7 @@
     <div class="scroll" ref="scrollEl">
       <div class="slide-imgs">
         <SlideHorizontal v-model:index="state.index">
-          <SlideItem v-for="item in props.detail.note_card?.image_list">
+          <SlideItem :key="i" v-for="(item, i) in props.detail.note_card?.image_list">
             <img :src="_checkImgUrl(item.info_list?.[0]?.url)" alt="" />
           </SlideItem>
         </SlideHorizontal>
@@ -19,7 +19,8 @@
           <div
             class="indicator"
             :class="[i <= state.index + 1 && 'active']"
-            v-for="i in props.detail.note_card?.image_list?.length"
+            :key="j"
+            v-for="(i, j) in props.detail.note_card?.image_list?.length"
           ></div>
         </div>
       </div>
@@ -49,7 +50,11 @@
               <Icon class="arrow" icon="mingcute:right-line" />
             </div>
           </header>
-          <div class="comment" v-for="i in props.detail.note_card.comment_list.slice(0, 2)">
+          <div
+            class="comment"
+            :key="j"
+            v-for="(i, j) in props.detail.note_card.comment_list.slice(0, 2)"
+          >
             <img src="https://cdn.seovx.com/?mom=302" alt="" class="avatar" />
             <span> {{ i.name }}：{{ i.text }} </span>
           </div>

@@ -27,7 +27,7 @@
 import bus, { EVENT_KEY } from '../utils/bus'
 
 export default {
-  name: 'Footer',
+  name: 'BaseFooter',
   props: ['initTab', 'isWhite'],
   data() {
     return {
@@ -39,8 +39,8 @@ export default {
   },
   created() {
     bus.on('setFooterVisible', (e) => (this.visible = e))
-    bus.on(EVENT_KEY.ENTER_FULLSCREEN, (e) => (this.visible = false))
-    bus.on(EVENT_KEY.EXIT_FULLSCREEN, (e) => (this.visible = true))
+    bus.on(EVENT_KEY.ENTER_FULLSCREEN, () => (this.visible = false))
+    bus.on(EVENT_KEY.EXIT_FULLSCREEN, () => (this.visible = true))
   },
   unmounted() {
     bus.off(EVENT_KEY.ENTER_FULLSCREEN)

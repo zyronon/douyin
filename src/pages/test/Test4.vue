@@ -6,17 +6,13 @@
   </div>
 </template>
 <script>
-import ShareToFriend from '../home/components/ShareToFriend'
 import BaseButton from '../../components/BaseButton'
-import Search from '../../components/Search'
 import VideoShare from '../home/components/VideoShare'
 
 export default {
   name: 'Test4',
   components: {
     BaseButton,
-    ShareToFriend,
-    Search,
     VideoShare
   },
   props: {

@@ -10,7 +10,8 @@
             <div class="wrapper">
               <img
                 :src="$imgPreview(item.avatar)"
-                v-for="item in selectFriends"
+                :key="i"
+                v-for="(item, i) in selectFriends"
                 @click="toggleSelect(item)"
               />
             </div>
@@ -37,7 +38,12 @@
       v-show="searchKey"
     >
       <div class="list" v-if="searchResult.length">
-        <div class="local-row" v-for="item of searchResult" @click="handleClick(item)">
+        <div
+          class="local-row"
+          :key="i"
+          v-for="(item, i) of searchResult"
+          @click="handleClick(item)"
+        >
           <Check mode="red" v-model="item.select" />
           <img :src="$imgPreview(item.avatar)" alt="" />
           <div class="desc">
@@ -79,23 +85,33 @@
           <dy-back :scale="0.7" direction="right"></dy-back>
         </div>
         <div class="title">最近聊天</div>
-        <div class="local-row" v-for="item of friends.recent" @click="toggleSelect(item)">
+        <div
+          class="local-row"
+          :key="i"
+          v-for="(item, i) of friends.recent"
+          @click="toggleSelect(item)"
+        >
           <Check mode="red" v-model="item.select" />
           <img :src="$imgPreview(item.avatar)" alt="" />
           <span>{{ item.name }}</span>
         </div>
         <div class="title">互关好友</div>
-        <div class="local-row" v-for="item of friends.eachOther" @click="toggleSelect(item)">
+        <div
+          class="local-row"
+          :key="i"
+          v-for="(item, i) of friends.eachOther"
+          @click="toggleSelect(item)"
+        >
           <Check mode="red" v-model="item.select" />
           <img :src="$imgPreview(item.avatar)" alt="" />
           <span>{{ item.name }}</span>
         </div>
         <div class="title">全部</div>
-        <div v-for="(value, name) of friendsSort">
+        <div :key="name" v-for="(value, name) of friendsSort">
           <div :class="name === '#' ? 'top' : name" class="title">
             <span>{{ name }}</span>
           </div>
-          <div class="local-row" v-for="item of value" @click="toggleSelect(item)">
+          <div class="local-row" :key="i" v-for="(item, i) of value" @click="toggleSelect(item)">
             <Check mode="red" v-model="item.select" />
             <img :src="$imgPreview(item.avatar)" alt="" />
             <span>{{ item.name }}</span>
@@ -161,13 +177,12 @@
   </div>
 </template>
 <script>
-import Search from '../../components/Search'
 import Check from '../../components/Check'
 import { friends } from '@/api/user'
 
 export default {
   name: 'Share2Friend',
-  components: { Search, Check },
+  components: { Check },
   props: {},
   computed: {
     // ...mapState(['friends']),
@@ -231,11 +246,11 @@ export default {
         render(currentIndex)
       }
     })
-    ul.addEventListener('touchend', (e) => {
+    ul.addEventListener('touchend', () => {
       return (this.currentFixedIndicator = '')
     })
     let render = (currentIndex) => {
-      items.forEach((el, index) => {
+      items.forEach((el) => {
         el.style.color = resetColor
       })
       items[currentIndex].style.color = '#fff'

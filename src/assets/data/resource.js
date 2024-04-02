@@ -1,5 +1,4 @@
 import CONST_VAR from '../../utils/const_var'
-import posts6 from '@/assets/data/posts6.json'
 
 export default {
   videos: [],

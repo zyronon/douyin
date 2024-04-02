@@ -1,5 +1,3 @@
-import globalMethods from './index'
-
 export default class Dom {
   els = []
 

@@ -12,8 +12,9 @@
         @previous="previous"
         @next="next"
         @slideCanMove="(e) => (this.slideCanMove = e)"
-        v-model="list[index]"
+        :model-value="list[index]"
         v-model:isLoop="isLoop"
+        :key="index"
         v-for="(item, index) in list"
       />
     </SlideVertical>
@@ -40,6 +41,7 @@
             @click="play(index)"
             :class="{ active: guessSlideIndex === index }"
             v-for="(item, index) in list"
+            :key="index"
           >
             <div class="left">
               <img
@@ -71,9 +73,7 @@
 </template>
 <script>
 import FromBottomDialog from '../../../components/dialog/FromBottomDialog'
-import Switches from '../../message/components/swtich/switches'
 import SlideItemMusic from './SlideItemMusic'
-import IndicatorLight from '../../../components/slide/IndicatorLight'
 import Share from '../../../components/Share'
 import ShareToFriend from '../../home/components/ShareToFriend'
 import SlideVertical from '@/components/slide/SlideVertical.vue'
@@ -83,16 +83,16 @@ export default {
   components: {
     SlideVertical,
     FromBottomDialog,
-    Switches,
     SlideItemMusic,
-    IndicatorLight,
     Share,
     ShareToFriend
   },
   props: {
     list: {
       type: Array,
-      default: []
+      default() {
+        return []
+      }
     }
   },
   data() {
@@ -108,7 +108,7 @@ export default {
     }
   },
   watch: {
-    guessSlideIndex(newVal, oldVal) {
+    guessSlideIndex(newVal) {
       this.itemRefs.map((ref) => {
         ref.togglePlay(false)
       })

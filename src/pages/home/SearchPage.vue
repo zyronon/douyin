@@ -2,11 +2,11 @@
   <div class="Search">
     <div class="header">
       <dy-back mode="light" @click="$back" class="mr1r"></dy-back>
-      <BSearch placeholder="搜索用户名字/抖音号" :isShowRightText="true" @notice="$no"> </BSearch>
+      <BSearch placeholder="搜索用户名字/抖音号" :isShowRightText="true" @notice="$no"></BSearch>
     </div>
     <div class="content">
       <div class="history">
-        <div class="row" v-for="(item, index) in lHistory">
+        <div class="row" :key="index" v-for="(item, index) in lHistory">
           <div class="left">
             <img src="../../assets/img/icon/home/time-white.png" alt="" />
             <span> {{ item }}</span>
@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="keys">
-          <div class="key" v-for="(item, index) in randomGuess">
+          <div class="key" :key="index" v-for="(item, index) in randomGuess">
             <span class="desc">{{ item.name }}</span>
             <img
               v-if="item.type === 1"
@@ -66,7 +66,7 @@
                   </div>
                 </div>
               </div>
-              <div class="l-row" v-for="(item, index) in hotRankList">
+              <div class="l-row" :key="index" v-for="(item, index) in hotRankList">
                 <div class="rank-wrapper">
                   <img
                     v-if="index === 0"
@@ -112,7 +112,7 @@
           </SlideItem>
           <SlideItem>
             <div class="slide1" ref="slide1">
-              <div class="l-row" v-for="(item, index) in liveRankList">
+              <div class="l-row" :key="index" v-for="(item, index) in liveRankList">
                 <div class="rank-wrapper">
                   <div class="rank" :class="{ top: index < 3 }">
                     {{ index + 1 }}
@@ -143,6 +143,7 @@
             <div class="slide2" ref="slide2">
               <div
                 class="l-row"
+                :key="index"
                 v-for="(item, index) in musicRankList"
                 @click="$nav('/home/music-rank-list')"
               >
@@ -174,13 +175,14 @@
                   <div
                     class="brand"
                     @click="toggleKey(key)"
+                    :key="i"
                     :class="{ active: key === selectBrandKey }"
-                    v-for="key in Object.keys(brandRankList)"
+                    v-for="(key, i) in Object.keys(brandRankList)"
                   >
                     {{ key }}
                   </div>
                 </div>
-                <div class="l-row" v-for="(item, index) in selectBrandList">
+                <div class="l-row" :key="index" v-for="(item, index) in selectBrandList">
                   <div class="rank-wrapper">
                     <div class="rank" :class="{ top: index < 3 }">
                       {{ index + 1 }}

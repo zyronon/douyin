@@ -13,8 +13,8 @@
       <Scroll ref="mainScroll">
         <div class="list">
           <NoMore />
-          <!--TODO　超过3行显示全文-->
-          <div class="item" v-for="item in list" @click="goDetail(item)">
+          <!--TODO 超过3行显示全文-->
+          <div class="item" :key="i" v-for="(item, i) in list" @click="goDetail(item)">
             <div class="header">
               <div class="left">
                 <img src="../../../assets/img/icon/message/task.webp" alt="" />
@@ -63,7 +63,6 @@
 </template>
 <script>
 import { nextTick } from 'vue'
-import Mask from '../../../components/Mask'
 import FromBottomDialog from '../../../components/dialog/FromBottomDialog'
 import Scroll from '../../../components/Scroll'
 import BasePage from '../../BasePage'

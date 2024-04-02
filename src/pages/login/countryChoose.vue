@@ -51,11 +51,11 @@
         <div v-if="currentFixedIndicator" class="row no-active no-padding border index fixed">
           <span>{{ currentFixedIndicator }}</span>
         </div>
-        <div v-for="(value, name) of countryOk">
+        <div  :key="name" v-for="(value, name) of countryOk">
           <div :class="name" class="row no-active no-padding border index">
             <span>{{ name }}</span>
           </div>
-          <div class="row no-active no-padding border" v-for="item of value">
+          <div class="row no-active no-padding border" :key="i" v-for="(item, i) of value">
             <span>{{ item.name }}</span>
           </div>
         </div>
@@ -2366,8 +2366,8 @@ export default {
         render(currentIndex)
       }
     })
-    ul.addEventListener('touchend', function ($e) {
-      items.forEach((el, index) => {
+    ul.addEventListener('touchend', function () {
+      items.forEach((el) => {
         el.style.transform = `translate3d(0,0,0) ${resetScale}`
         el.style.color = resetColor
       })

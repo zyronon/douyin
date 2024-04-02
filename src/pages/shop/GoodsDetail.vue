@@ -48,7 +48,7 @@
 
     <div class="slide-imgs">
       <SlideHorizontal v-model:index="state.index">
-        <SlideItem v-for="item in state.detail.imgs">
+        <SlideItem v-for="(item, i) in state.detail.imgs" :key="i">
           <img v-lazy="_checkImgUrl('goods/' + item)" alt="" />
         </SlideItem>
       </SlideHorizontal>
@@ -264,7 +264,8 @@
           v-lazy="_checkImgUrl('goods/' + i)"
           alt=""
           class="avatar"
-          v-for="i in state.detail.imgs"
+          :key="j"
+          v-for="(i, j) in state.detail.imgs"
         />
       </div>
     </div>
@@ -275,6 +276,7 @@
           class="item"
           :class="activeIndexs.includes(i) && 'active'"
           @click="toggle(i)"
+          :key="i"
           v-for="(item, i) in 3"
         >
           <header>

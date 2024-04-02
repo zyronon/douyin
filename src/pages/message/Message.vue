@@ -12,6 +12,7 @@
           <div
             class="friend pr1r pl1r"
             @click="$nav('/message/chat')"
+            :key="index"
             v-for="(item, index) in friends.all"
           >
             <div class="avatar" :class="index % 2 === 0 ? 'on-line' : ''">
@@ -260,7 +261,8 @@
             <div class="search-result" v-if="searchFriends.length">
               <div
                 class="search-result-item"
-                v-for="item in searchFriends"
+                :key="i"
+                v-for="(item, i) in searchFriends"
                 @click="handleClick(item)"
               >
                 <img class="left" src="../../assets/img/icon/head-image.jpeg" alt="" />
@@ -295,7 +297,8 @@
               <div class="index">Z</div>
               <div
                 class="friend-item"
-                v-for="item in friends.all"
+                :key="i"
+                v-for="(item, i) in friends.all"
                 @click="item.select = !item.select"
               >
                 <img class="left" :src="$imgPreview(item.avatar)" alt="" />
@@ -318,7 +321,7 @@
           </div>
 
           <div class="chat-list">
-            <div class="chat-item" v-for="item in 15">
+            <div class="chat-item" :key="i" v-for="(item, i) in 15">
               <img class="left" src="../../assets/img/icon/head-image.jpeg" alt="" />
               <div class="right">
                 <div class="title">
@@ -362,10 +365,10 @@
               </Scroll>
             </div>
           </div>
-          <Mask />
+          <BaseMask />
         </div>
       </transition>
-      <Footer v-bind:init-tab="4" />
+      <BaseFooter v-bind:init-tab="4" />
     </div>
 
     <div class="searching" v-show="searching">
@@ -390,7 +393,7 @@
             </div>
           </div>
           <People
-            v-for="(item, index) in searchFriendsAll.slice(0, 3)"
+            v-for="item in searchFriendsAll.slice(0, 3)"
             :key="item.id"
             mode="search"
             :searchKey="searchKey"
@@ -411,7 +414,7 @@
         </template>
         <template v-else>
           <div class="sub-title">更多聊天</div>
-          <People v-for="(item, index) in moreChat" :key="item.id" :people="item" />
+          <People v-for="item in moreChat" :key="item.id" :people="item" />
         </template>
       </div>
     </div>
@@ -419,13 +422,11 @@
 </template>
 
 <script>
-import Footer from '../../components/Footer.vue'
 import Search from '../../components/Search'
 import FromBottomDialog from '../../components/dialog/FromBottomDialog'
 import Check from '../../components/Check'
 import { mapState } from 'pinia'
 import Peoples from '../people/components/Peoples'
-import Mask from '../../components/Mask'
 import Scroll from '../../components/Scroll'
 import People from '../people/components/People'
 import BasePage from '../BasePage'
@@ -436,8 +437,6 @@ export default {
   name: 'Message',
   components: {
     Scroll,
-    Mask,
-    Footer,
     Search,
     FromBottomDialog,
     Check,
@@ -474,7 +473,7 @@ export default {
   watch: {
     createChatSearchKey(newVal) {
       if (newVal) {
-        //TODO　搜索时仅仅判断是否包含了对应字符串，抖音做了拼音判断的
+        //TODO 搜索时仅仅判断是否包含了对应字符串，抖音做了拼音判断的
         this.searchFriends = this.friends.all.filter((v) => {
           if (v.name.includes(newVal)) return true
           return v.account.includes(newVal)

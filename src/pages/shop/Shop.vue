@@ -108,12 +108,11 @@
         </WaterfallList>
       </template>
     </ScrollList>
-    <Footer v-bind:init-tab="2" :is-white="true" style="position: fixed; left: 0" />
+    <BaseFooter v-bind:init-tab="2" :is-white="true" style="position: fixed; left: 0" />
   </div>
 </template>
 
 <script setup lang="jsx">
-import { onMounted, reactive } from 'vue'
 import { useNav } from '@/utils/hooks/useNav'
 import { $no, _checkImgUrl } from '@/utils'
 import ScrollList from '@/components/ScrollList.vue'
@@ -125,12 +124,6 @@ defineOptions({
 })
 
 const nav = useNav()
-const state = reactive({
-  listEl: null,
-  fixed: false
-})
-
-onMounted(() => {})
 </script>
 
 <style scoped lang="less">

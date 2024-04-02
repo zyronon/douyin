@@ -2,7 +2,6 @@ import fs from 'fs'
 import { users } from './user/data.js'
 
 let read = './post/data/'
-let save = './format/'
 
 let max = 0
 let map = []

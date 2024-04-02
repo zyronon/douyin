@@ -129,14 +129,6 @@ const nav = useNav()
 const router = useRouter()
 
 const baseStore = useBaseStore()
-const data = reactive({
-  dialog: {
-    shareToFriend: false,
-    permissionDialog: false,
-    test: false
-  },
-  isMy: false
-})
 
 const state = reactive({
   baseIndex: 1,
@@ -199,17 +191,17 @@ function setCurrentItem(item) {
 }
 
 onMounted(() => {
-  bus.on(EVENT_KEY.ENTER_FULLSCREEN, (e) => (state.fullScreen = true))
-  bus.on(EVENT_KEY.EXIT_FULLSCREEN, (e) => (state.fullScreen = false))
-  bus.on(EVENT_KEY.OPEN_COMMENTS, (e) => {
+  bus.on(EVENT_KEY.ENTER_FULLSCREEN, () => (state.fullScreen = true))
+  bus.on(EVENT_KEY.EXIT_FULLSCREEN, () => (state.fullScreen = false))
+  bus.on(EVENT_KEY.OPEN_COMMENTS, () => {
     bus.emit(EVENT_KEY.ENTER_FULLSCREEN)
     state.commentVisible = true
   })
-  bus.on(EVENT_KEY.CLOSE_COMMENTS, (e) => {
+  bus.on(EVENT_KEY.CLOSE_COMMENTS, () => {
     bus.emit(EVENT_KEY.EXIT_FULLSCREEN)
     state.commentVisible = false
   })
-  bus.on(EVENT_KEY.SHOW_SHARE, (e) => {
+  bus.on(EVENT_KEY.SHOW_SHARE, () => {
     state.isSharing = true
   })
   bus.on(EVENT_KEY.NAV, ({ path, query }) => nav(path, query))

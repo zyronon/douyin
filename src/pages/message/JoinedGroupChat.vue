@@ -14,7 +14,12 @@
     </BaseHeader>
     <div class="content">
       <div class="list">
-        <div class="local-row" v-for="item of friends.all" @click="toggleSelect(item)">
+        <div
+          class="local-row"
+          :key="i"
+          v-for="(item, i) of friends.all"
+          @click="toggleSelect(item)"
+        >
           <Check mode="red" v-model="item.select" />
           <img :src="$imgPreview(item.avatar)" alt="" />
           <div class="desc">
@@ -30,13 +35,12 @@
   </div>
 </template>
 <script>
-import Search from '../../components/Search'
 import Check from '../../components/Check'
 import { friends } from '@/api/user'
 
 export default {
   name: 'Share2Friend',
-  components: { Search, Check },
+  components: { Check },
   props: {},
   computed: {
     // ...mapState(['friends']),

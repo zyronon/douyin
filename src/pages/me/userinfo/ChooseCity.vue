@@ -7,7 +7,7 @@
     </BaseHeader>
     <div class="content">
       <div class="schools">
-        <div class="row" @click="save(item)" v-for="item in list">
+        <div class="row" @click="save(item)" :key="i" v-for="(item, i) in list">
           <span>{{ item }}</span>
         </div>
       </div>
@@ -56,7 +56,7 @@ export default {
     ...mapState(useBaseStore, ['userinfo'])
   },
   methods: {
-    async save(item) {
+    async save() {
       this.$showLoading()
       let data = { ...this.userinfo, ...{ location: '中国-四川-成都' } }
       this.baseStore.setUserinfo(data)

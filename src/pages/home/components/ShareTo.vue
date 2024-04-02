@@ -46,8 +46,8 @@
             发送视频到微博
           </dy-button>
           <dy-button v-if="!showDownload" class="mt1r" type="white" @click="$no"
-            >复制口令发给好友</dy-button
-          >
+            >复制口令发给好友
+          </dy-button>
         </template>
 
         <template v-else>
@@ -96,7 +96,12 @@
         </template>
       </div>
       <div class="dialog-friends">
-        <div class="dialog-friend" v-for="item in localFriends.all" @click="share(item)">
+        <div
+          class="dialog-friend"
+          :key="i"
+          v-for="(item, i) in localFriends.all"
+          @click="share(item)"
+        >
           <img :src="$imgPreview(item.avatar)" alt="" />
           <div class="right">
             <span>{{ item.name }}</span>
@@ -141,7 +146,7 @@ export default {
     }
   },
   watch: {
-    type(newVal, oldVal) {
+    type(newVal) {
       this.change(newVal)
     },
     showShareDialog() {
@@ -203,7 +208,7 @@ export default {
       this.$emit('update:type', -1)
     },
     downloadVideo() {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         this.progress = 0
         this.downloading = true
         let time = setInterval(() => {

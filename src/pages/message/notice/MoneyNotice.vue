@@ -15,8 +15,8 @@
       <Scroll ref="mainScroll">
         <div class="list">
           <NoMore />
-          <!--TODO　超过3行显示全文-->
-          <div class="item" v-for="item in list" @click="$no">
+          <!--TODO 超过3行显示全文-->
+          <div class="item" :key="i" v-for="(item, i) in list" @click="$no">
             <div class="header">
               <div class="left">
                 <img src="../../../assets/img/icon/msg-icon9.webp" alt="" />

@@ -77,16 +77,9 @@ const props = defineProps({
     default: false
   }
 })
-const emit = defineEmits(['update:item', 'goUserInfo', 'showComments', 'showShare', 'goMusic'])
 
 function stop(e) {
   e.stopPropagation()
-}
-
-const p = {
-  onShowComments() {
-    console.log('onShowComments')
-  }
 }
 
 const subTypeRef = ref(null)

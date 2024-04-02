@@ -24,31 +24,30 @@
           <img src="../../../assets/img/icon/location.svg" alt="" />
           <span>离我最近</span>
         </div>
-        <div v-if="nearby.length" class="item" v-for="item in nearby" @click="setSchool(item)">
-          {{ item }}
-        </div>
+        <template v-if="nearby.length">
+          <div class="item" :key="i" v-for="(item, i) in nearby" @click="setSchool(item)">
+            {{ item }}
+          </div>
+        </template>
         <div v-else class="item">无法获取</div>
       </div>
       <div class="line" style="width: calc(100% - 40rem); margin-left: 20rem"></div>
       <div class="schools" v-if="!isSearch">
-        <div class="item" v-for="item in schools" @click="setSchool(item)">
+        <div class="item" :key="i" v-for="(item, i) in schools" @click="setSchool(item)">
           {{ item }}
         </div>
       </div>
       <div v-if="isSearch">
-        <div
-          v-if="searchSchools.length"
-          class="item"
-          v-for="item in searchSchools"
-          @click="setSchool(item)"
-        >
-          <span v-if="item.indexOf(schoolName) > -1">
-            {{ item.substr(0, item.indexOf(schoolName)) }}
-            <span style="color: #f50">{{ schoolName }}</span>
-            {{ item.substr(item.indexOf(schoolName) + schoolName.length) }}
-          </span>
-          <span v-else>{{ item }}</span>
-        </div>
+        <template v-if="searchSchools.length">
+          <div class="item" :key="i" v-for="(item, i) in searchSchools" @click="setSchool(item)">
+            <span v-if="item.indexOf(schoolName) > -1">
+              {{ item.substr(0, item.indexOf(schoolName)) }}
+              <span style="color: #f50">{{ schoolName }}</span>
+              {{ item.substr(item.indexOf(schoolName) + schoolName.length) }}
+            </span>
+            <span v-else>{{ item }}</span>
+          </div>
+        </template>
         <div v-else class="empty">
           <img src="../../../assets/img/icon/head-image.jpeg" alt="" />
           <div class="title">搜索结果为空</div>

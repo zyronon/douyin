@@ -55,13 +55,20 @@ export default {
   props: {
     currentItem: {
       type: Object,
-      default: {
-        user: DefaultUser,
-        isRequest: false,
-        post: []
+      default() {
+        return {
+          user: DefaultUser,
+          isRequest: false,
+          post: []
+        }
       }
     },
-    modelValue: false
+    modelValue: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    }
   },
   data() {
     return {

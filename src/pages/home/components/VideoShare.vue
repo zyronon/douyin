@@ -54,7 +54,7 @@
         <to-share item-type="code" @click="$no" />
       </div>
       <div class="friends">
-        <div class="item" v-for="item in friends.all">
+        <div class="item" :key="i" v-for="(item, i) in friends.all">
           <img class="left" v-lazy="$imgPreview(item.avatar)" alt="" />
           <div class="right">
             <span>{{ item.name }}</span>
@@ -87,7 +87,6 @@ export default {
   name: 'Share',
   components: {
     FromBottomDialog,
-    LoadingCircle,
     // DouyinCode,
     ToShare: {
       components: {
@@ -200,7 +199,12 @@ export default {
     }
   },
   props: {
-    modelValue: false,
+    modelValue: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    },
     videoId: {
       type: String,
       default: null

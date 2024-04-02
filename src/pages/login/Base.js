@@ -14,7 +14,7 @@ export default {
   created() {},
   methods: {
     async check() {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         if (this.isAgree) {
           resolve(true)
         } else {

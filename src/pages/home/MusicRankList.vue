@@ -20,7 +20,12 @@
       <SlideHorizontal name="musicRankList" v-model:index="contentIndex">
         <SlideItem>
           <div class="list">
-            <div class="item" v-for="(item, index) in hotList" @click="togglePlay(item, hotList)">
+            <div
+              class="item"
+              :key="index"
+              v-for="(item, index) in hotList"
+              @click="togglePlay(item, hotList)"
+            >
               <div class="top">
                 <div class="rank-wrapper">
                   <img
@@ -108,7 +113,12 @@
         </SlideItem>
         <SlideItem>
           <div class="list">
-            <div class="item" v-for="(item, index) in hotList" @click="togglePlay(item, hotList)">
+            <div
+              class="item"
+              :key="index"
+              v-for="(item, index) in hotList"
+              @click="togglePlay(item, hotList)"
+            >
               <div class="top">
                 <div class="rank-wrapper">
                   <img
@@ -196,7 +206,12 @@
         </SlideItem>
         <SlideItem>
           <div class="list">
-            <div class="item" v-for="(item, index) in hotList" @click="togglePlay(item, hotList)">
+            <div
+              class="item"
+              :key="index"
+              v-for="(item, index) in hotList"
+              @click="togglePlay(item, hotList)"
+            >
               <div class="top">
                 <div class="rank-wrapper">
                   <img

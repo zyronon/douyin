@@ -1,22 +1,13 @@
 <script setup>
-import { onMounted, reactive, ref, watch } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import { _checkImgUrl, _duration, _formatNumber } from '@/utils'
 import { recommendedVideo } from '@/api/videos'
-import { useBaseStore } from '@/store/pinia'
 import ScrollList from '@/components/ScrollList.vue'
 import { useNav } from '@/utils/hooks/useNav'
-
-const baseStore = useBaseStore()
 
 const props = defineProps({
   active: Boolean
 })
-
-const p = {
-  onShowComments() {
-    console.log('onShowComments')
-  }
-}
 
 const playingEl = ref()
 const state = reactive({
@@ -52,7 +43,7 @@ watch(
 const obList = []
 
 const vIsCanPlay = {
-  mounted(el, binding, vnode, prevVnode) {
+  mounted(el) {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
@@ -76,7 +67,7 @@ const vIsCanPlay = {
     observer.observe(el)
     obList.push(observer)
   },
-  unmounted(el, binding, vnode, prevVnode) {
+  unmounted() {
     obList.map((v) => {
       v.disconnect()
     })
@@ -99,6 +90,7 @@ const nav = useNav()
               i % 9 === 0 ? '' : i % 2 === 1 && 'l',
               i % 9 === 0 ? '' : i % 2 === 0 && 'r'
             ]"
+            :key="i"
             v-for="(item, i) in list"
           >
             <div class="video-wrapper" v-if="i % 9 === 0">

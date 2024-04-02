@@ -58,7 +58,7 @@ export default {
     }
   },
   watch: {
-    shareType(newVal, oldVal) {
+    shareType(newVal) {
       if (newVal === -1) return
       this.showSharePassword = true
       switch (newVal) {

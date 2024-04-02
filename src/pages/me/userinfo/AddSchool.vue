@@ -103,6 +103,7 @@ export default {
       if (this.localSchool.displayType === enums.DISPLAY_TYPE.ALL) return '公开可见'
       if (this.localSchool.displayType === enums.DISPLAY_TYPE.SCHOOL) return '校友可见'
       if (this.localSchool.displayType === enums.DISPLAY_TYPE.ME) return '仅自己可见'
+      return ''
     },
     school() {
       return this.userinfo.school

@@ -91,6 +91,7 @@
         <div class="loves" v-if="message.loved?.length">
           <img src="../../../assets/img/icon/loved.svg" alt="" />
           <img
+            :key="user"
             v-for="user in message.loved"
             src="../../../assets/img/icon/head-image.jpeg"
             alt=""
@@ -112,14 +113,17 @@ let CALL_STATE = {
   RESOLVE: 1,
   NONE: 2
 }
+// eslint-disable-next-line
 let VIDEO_STATE = {
   VALID: 0,
   INVALID: 1
 }
+// eslint-disable-next-line
 let AUDIO_STATE = {
   NORMAL: 0,
   SENDING: 1
 }
+// eslint-disable-next-line
 let READ_STATE = {
   SENDING: 0,
   ARRIVED: 1,

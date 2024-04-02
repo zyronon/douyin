@@ -1,5 +1,5 @@
 <script setup lang="jsx">
-import { createApp, onMounted, reactive, ref, render, watch } from 'vue'
+import { createApp, onMounted, reactive, ref, render as vueRender, watch } from 'vue'
 import GM from '../../utils'
 import {
   getSlideDistance,
@@ -125,7 +125,7 @@ watch(
 
 watch(
   () => props.active,
-  (newVal, oldVal) => {
+  (newVal) => {
     if (newVal && !props.list.length) {
       return emit('refresh')
     }
@@ -206,10 +206,10 @@ function getInsEl(item, index, play = false) {
   if (import.meta.env.PROD) {
     parent.classList.add('slide-item')
     parent.setAttribute('data-index', index)
-    render(slideVNode, parent)
+    vueRender(slideVNode, parent)
     appInsMap.set(index, {
       unmount: () => {
-        render(null, parent)
+        vueRender(null, parent)
         parent.remove()
       }
     })

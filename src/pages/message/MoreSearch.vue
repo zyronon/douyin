@@ -9,7 +9,7 @@
         :isShowRightText="true"
       />
       <People
-        v-for="(item, index) in searchFriendsAll"
+        v-for="item in searchFriendsAll"
         :key="item.id"
         mode="search"
         :searchKey="searchKey"

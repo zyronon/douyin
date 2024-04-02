@@ -7,7 +7,7 @@
     </BaseHeader>
     <div class="content">
       <div class="schools">
-        <div class="row" @click="$nav('/me/choose-city')" v-for="item in list">
+        <div class="row" @click="$nav('/me/choose-city')" :key="i" v-for="(item, i) in list">
           <span>{{ item }}</span>
           <div class="right">
             <dy-back scale=".8" direction="right"></dy-back>

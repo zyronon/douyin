@@ -6,7 +6,7 @@
       </div>
       <div class="lyrics-wrapper" ref="lyrics-wrapper" @click="isFullLyrics = true">
         <div class="container">
-          <div class="lyrics" v-for="item in lyricsFullTexts">{{ item.c }}</div>
+          <div class="lyrics" :key="i" v-for="(item, i) in lyricsFullTexts">{{ item.c }}</div>
         </div>
       </div>
       <!--            <div class="lyrics-mask" @click="isFullLyrics = true"></div>-->
@@ -18,7 +18,7 @@
         @touchmove="$emit('slideCanMove', false)"
         @touchend="$emit('slideCanMove', true)"
       >
-        <div class="item" v-for="item in lyricsFullTexts">{{ item.c }}</div>
+        <div class="item" :key="i" v-for="(item, i) in lyricsFullTexts">{{ item.c }}</div>
       </div>
     </div>
     <div class="bottom">
@@ -139,10 +139,11 @@ export default {
   created() {},
   mounted() {
     this.audio.src = this.modelValue.mp3
+    // eslint-disable-next-line no-undef
     if (process.env.NODE_ENV === 'development') {
       this.audio.volume = 0.2
     }
-    this.audio.addEventListener('loadedmetadata', (e) => {
+    this.audio.addEventListener('loadedmetadata', () => {
       this.duration = this.audio.duration
       this.slideBarWidth = this.$refs.slideBar.clientWidth
       this.step = this.slideBarWidth / Math.floor(this.duration)
@@ -180,8 +181,8 @@ export default {
         }
       }
     })
-    this.audio.addEventListener('play', (e) => (this.isPlay = true))
-    this.audio.addEventListener('ended', (e) => {
+    this.audio.addEventListener('play', () => (this.isPlay = true))
+    this.audio.addEventListener('ended', () => {
       if (this.isLoop) {
         this.lastPageX = 0
         this.audio.currentTime = 0

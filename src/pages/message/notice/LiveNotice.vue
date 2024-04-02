@@ -13,7 +13,7 @@
       <Scroll ref="mainScroll">
         <div class="list">
           <NoMore />
-          <div class="item" v-for="item in list" @click="goDetail(item)">
+          <div class="item" :key="i" v-for="(item, i) in list" @click="goDetail(item)">
             <div class="title">{{ item.title }}</div>
             <div class="time">{{ item.time }}</div>
             <div class="content-text">{{ item.content }}</div>
@@ -25,8 +25,6 @@
 </template>
 <script>
 import { nextTick } from 'vue'
-import Mask from '../../../components/Mask'
-import FromBottomDialog from '../../../components/dialog/FromBottomDialog'
 import Scroll from '../../../components/Scroll'
 import BasePage from '../../BasePage'
 
@@ -34,8 +32,7 @@ export default {
   extends: BasePage,
   name: 'LiveNotice',
   components: {
-    Scroll,
-    FromBottomDialog
+    Scroll
   },
   data() {
     return {

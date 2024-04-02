@@ -26,11 +26,11 @@
             <dy-back scale=".8" direction="right"></dy-back>
           </div>
         </div>
-        <div v-for="(value, name) of countryOk">
+        <div :key="name" v-for="(value, name) of countryOk">
           <div class="row">
             <span>{{ name }}</span>
           </div>
-          <div class="row" v-for="item of value">
+          <div class="row" :key="i" v-for="(item, i) of value">
             <span>{{ item.name }}</span>
           </div>
         </div>
@@ -1197,7 +1197,7 @@ export default {
     }
   },
   methods: {
-    async save(item) {
+    async save() {
       this.$showLoading()
       let data = { ...this.userinfo, ...{ location: '暂不设置' } }
       this.baseStore.setUserinfo(data)

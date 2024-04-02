@@ -8,7 +8,7 @@
     <div class="content">
       <div class="request">
         <div class="list">
-          <div class="item" v-for="item in friends.all">
+          <div class="item" :key="i" v-for="(item, i) in friends.all">
             <div class="left">
               <img :src="$imgPreview(item.avatar)" />
               <span class="name">{{ item.name }}</span>
@@ -22,12 +22,11 @@
 </template>
 <script>
 import { mapState } from 'pinia'
-import FromBottomDialog from '../../components/dialog/FromBottomDialog'
 import { useBaseStore } from '@/store/pinia'
 
 export default {
   name: 'MyRequestUpdate',
-  components: { FromBottomDialog },
+  components: {},
   data() {
     return {}
   },

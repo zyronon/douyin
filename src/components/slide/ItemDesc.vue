@@ -1,6 +1,5 @@
 <script setup>
 import { reactive } from 'vue'
-import bus from '../../utils/bus'
 
 const props = defineProps({
   item: {

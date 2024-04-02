@@ -63,7 +63,12 @@ export default {
     Loading
   },
   props: {
-    loading: false,
+    loading: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    },
     //用于和slidList绑定，因为一个页面可能有多个slidList，但只有一个indicator组件
     name: {
       type: String,
@@ -142,6 +147,7 @@ export default {
           transform: this.transform
         }
       }
+      return {}
     }
   },
   created() {},

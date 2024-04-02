@@ -28,7 +28,7 @@
 </template>
 
 <script>
-//TODO　院系点击那个弹窗没做
+//TODO 院系点击那个弹窗没做
 export default {
   name: 'DeclareSchool',
   data() {

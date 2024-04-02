@@ -23,7 +23,8 @@
     <div class="comment">
       <div class="wrapper" v-if="comments.length">
         <div class="items">
-          <div class="item" v-for="item in comments" v-longpress="(e) => showOptions(item)">
+          <div class="item" :key="i" v-for="(item, i) in comments">
+            <!--            v-longpress="(e) => showOptions(item)"-->
             <div class="main">
               <div class="content">
                 <img :src="_checkImgUrl(item.avatar)" alt="" class="head-image" />
@@ -69,7 +70,7 @@
             </div>
             <div class="replies" v-if="Number(item.sub_comment_count)">
               <template v-if="item.showChildren">
-                <div class="reply" v-for="child in item.children">
+                <div class="reply" :key="i" v-for="(child, i) in item.children">
                   <!--                 v-longpress="e => showOptions(child)"-->
                   <div class="content">
                     <img :src="_checkImgUrl(child.avatar)" alt="" class="head-image" />
@@ -129,12 +130,12 @@
       </div>
       <Loading v-else style="position: absolute" />
       <transition name="fade">
-        <Mask v-if="isCall" mode="lightgray" @click="isCall = false" />
+        <BaseMask v-if="isCall" mode="lightgray" @click="isCall = false" />
       </transition>
       <div class="input-toolbar">
         <transition name="fade">
           <div class="call-friend" v-if="isCall">
-            <div class="friend" v-for="item in friends.all" @click="toggleCall(item)">
+            <div class="friend" :key="i" v-for="(item, i) in friends.all" @click="toggleCall(item)">
               <img
                 :style="item.select ? 'opacity: .5;' : ''"
                 class="avatar"
@@ -179,12 +180,10 @@ import Search from './Search'
 import { $no, _checkImgUrl, _formatNumber, sampleSize } from '@/utils'
 import { useBaseStore } from '@/store/pinia'
 import { videoComments } from '@/api/videos'
-import Popover from '@/pages/login/components/Tooltip.vue'
 
 export default {
   name: 'Comment',
   components: {
-    Popover,
     AutoInput,
     ConfirmDialog,
     FromBottomDialog,
@@ -192,7 +191,12 @@ export default {
     Search
   },
   props: {
-    modelValue: false,
+    modelValue: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    },
     videoId: {
       type: String,
       default: null
@@ -300,7 +304,6 @@ export default {
       row.user_digged = !row.user_digged
     },
     showOptions(row) {
-      return
       this.$showSelectDialog(this.options, (e) => {
         if (e.id === 1) {
           this.selectRow = row
@@ -437,6 +440,7 @@ export default {
           span {
             margin-right: 5rem;
           }
+
           svg {
             font-size: 10rem;
           }

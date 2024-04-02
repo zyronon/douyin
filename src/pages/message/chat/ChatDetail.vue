@@ -11,6 +11,7 @@
           @follow="follow(index)"
           @unfollow="unfollow(index)"
           mode="normal-add-button"
+          :key="index"
           v-for="(item, index) in list"
           :people="item"
         />
@@ -58,7 +59,6 @@
 <script>
 import Switches from '../components/swtich/switches'
 import People from '../../people/components/People'
-import FromBottomDialog from '../../../components/dialog/FromBottomDialog'
 import BlockDialog from '../components/BlockDialog'
 import CONST_VAR from '../../../utils/const_var'
 
@@ -67,7 +67,6 @@ export default {
   components: {
     Switches,
     People,
-    FromBottomDialog,
     BlockDialog
   },
   data() {

@@ -26,8 +26,8 @@
           @itemClick="clickItem"
           v-longpress="showTooltip"
           :message="item"
+          :key="index"
           v-for="(item, index) in messages"
-          :key="item"
         ></ChatMessage>
       </div>
       <div class="footer">
@@ -135,7 +135,7 @@
     <!--  红包  -->
     <transition name="scale">
       <div class="red-packet" v-if="isShowOpenRedPacket">
-        <Mask @click="isShowOpenRedPacket = false" />
+        <BaseMask @click="isShowOpenRedPacket = false" />
         <div class="content">
           <template v-if="isOpened">
             <img src="../../../assets/img/icon/message/chat/bg-open.png" alt="" class="bg" />
@@ -184,11 +184,11 @@
 <script>
 import ChatMessage from '../components/ChatMessage'
 import { inject, nextTick } from 'vue'
-import Mask from '../../../components/Mask'
 import { mapState } from 'pinia'
 import Loading from '../../../components/Loading'
 import { useBaseStore } from '@/store/pinia'
 import { _checkImgUrl } from '@/utils'
+import $ from "jquery";
 
 let CALL_STATE = {
   REJECT: 0,
@@ -228,7 +228,6 @@ export default {
   name: 'Chat',
   components: {
     Loading,
-    Mask,
     ChatMessage
   },
   data() {

@@ -71,7 +71,7 @@
               <img v-lazy="_checkImgUrl(userinfo.cover_url[0].url_list[0])" alt="" class="poster" />
             </div>
           </div>
-          <div class="message" v-for="item in showMessageList" @click="$no">
+          <div class="message" :key="i" v-for="(item, i) in showMessageList" @click="$no">
             <div class="left">
               <img v-lazy="$imgPreview(item.author.avatar)" alt="" class="avatar" />
               <img
@@ -134,7 +134,6 @@
 </template>
 <script>
 import { mapState } from 'pinia'
-import People from '../people/components/People'
 import Scroll from '../../components/Scroll'
 import Loading from '../../components/Loading'
 import Peoples from '../people/components/Peoples'
@@ -148,7 +147,6 @@ export default {
   name: 'AllMessage',
   components: {
     Scroll,
-    People,
     Loading,
     Peoples
   },
@@ -175,6 +173,8 @@ export default {
           return '@我的'
         case 4:
           return '评论'
+        default:
+          return ''
       }
     },
     showMessageList() {

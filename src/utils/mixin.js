@@ -3,8 +3,8 @@ import BaseHeader from '../components/BaseHeader'
 import SlideRowList from '../components/slide/SlideRowList'
 import SlideItem from '../components/slide/SlideItem'
 import Indicator from '../components/slide/Indicator'
-import Footer from '../components/Footer'
-import Mask from '../components/Mask'
+import BaseFooter from '../components/BaseFooter'
+import BaseMask from '../components/BaseMask.vue'
 import NoMore from '../components/NoMore'
 import Back from '../components/Back'
 import Loading from '../components/Loading'
@@ -23,8 +23,8 @@ export default {
     SlideRowList,
     SlideItem,
     Indicator,
-    Footer,
-    Mask,
+    BaseFooter,
+    BaseMask,
     NoMore,
     'dy-back': Back,
     Loading,
@@ -70,7 +70,7 @@ export default {
           }
         }
         // 取消计时器
-        let cancel = (e) => {
+        let cancel = () => {
           // 检查计时器是否有值
           if (pressTimer !== null) {
             clearTimeout(pressTimer)
@@ -94,14 +94,14 @@ export default {
       }
     },
     hide: {
-      beforeMount: function (el, binding, vNode) {
+      beforeMount: function (el, binding) {
         if (binding.value) {
           el.style.opacity = 0
         } else {
           el.style.opacity = 1
         }
       },
-      updated: function (el, binding, vNode) {
+      updated: function (el, binding) {
         if (binding.value) {
           el.style.opacity = 0
         } else {
@@ -110,7 +110,7 @@ export default {
       }
     },
     love: {
-      beforeMount: function (el, binding, vNode) {
+      beforeMount: function (el, binding) {
         let isDbClick = false
         let clickTimer = null
         let dbClickTimer = null

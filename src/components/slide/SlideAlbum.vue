@@ -8,7 +8,7 @@
         @touchmove="touchMove"
         @touchend="touchEnd"
       >
-        <div class="img-slide-item" v-for="(img, index) in item.imgs">
+        <div class="img-slide-item" :key="index" v-for="(img, index) in item.imgs">
           <img :ref="(e) => setItemRef(e, 'itemRefs')" :src="img + '&d=' + index" />
         </div>
       </div>
@@ -40,7 +40,7 @@
       @touchmove="progressBarTouchMove"
       @touchend="progressBarTouchMEnd"
     >
-      <div class="bar" v-for="(img, index) in item.imgs">
+      <div class="bar" :key="index" v-for="(img, index) in item.imgs">
         <div class="progress" :style="getWidth(index)"></div>
       </div>
     </div>
@@ -50,6 +50,7 @@
           <img
             :src="img + '&d=' + index"
             :class="{ 'preview-img': index === state.localIndex }"
+            :key="index"
             v-for="(img, index) in props.item.imgs"
             :ref="(e) => setItemRef(e, 'previewImgs')"
           />
@@ -86,19 +87,19 @@
 
 <script setup lang="jsx">
 import enums from '../../utils/enums'
-import Utils, { $no, $notice } from '../../utils'
+import Utils from '../../utils'
+import GM, { $notice } from '../../utils'
 import { mat4 } from 'gl-matrix'
 import { Icon } from '@iconify/vue'
 import {
-  onMounted,
+  nextTick,
   onBeforeUpdate,
+  onMounted,
+  onUnmounted,
+  provide,
   reactive,
   ref,
-  watch,
-  computed,
-  provide,
-  nextTick,
-  onUnmounted
+  watch
 } from 'vue'
 import {
   getSlideDistance,
@@ -111,9 +112,9 @@ import {
 import { SlideAlbumOperationStatus, SlideItemPlayStatus, SlideType } from '../../utils/const_var'
 import ItemToolbar from './ItemToolbar'
 import ItemDesc from './ItemDesc'
-import GM from '../../utils'
 import { cloneDeep } from '@/utils'
 import bus, { EVENT_KEY } from '../../utils/bus'
+import $ from 'jquery'
 
 let out = new Float32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 let ov = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1])
@@ -348,7 +349,7 @@ onBeforeUpdate(() => {
 
 watch(
   () => state.localIndex,
-  (newVal) => {
+  () => {
     GM.$setCss(wrapperEl.value, 'transition-duration', `300ms`)
     GM.$setCss(
       wrapperEl.value,
@@ -594,7 +595,7 @@ function setItemRef(el, key) {
   el && state[key].push(el)
 }
 
-function canNext(isNext, e) {
+function canNext(isNext) {
   let res = !(
     (state.localIndex === 0 && !isNext) ||
     (state.localIndex === props.item.imgs.length - 1 && isNext)

@@ -8,7 +8,7 @@
         </div>
       </transition>
       <div class="right">
-        <!--        TODO　没有淡入淡出的特效-->
+        <!--        TODO 没有淡入淡出的特效-->
         <template v-if="isFixed">
           <img
             class="star"
@@ -110,7 +110,6 @@ import Share from '../../components/Share'
 import DouyinCode from '../../components/DouyinCode'
 import ConfirmDialog from '../../components/dialog/ConfirmDialog'
 import ShareToFriend from './components/ShareToFriend'
-import resource from '../../assets/data/resource'
 import { myVideo } from '@/api/videos'
 
 export default {
@@ -157,7 +156,7 @@ export default {
     }
   },
   watch: {
-    shareType(newVal, oldVal) {
+    shareType(newVal) {
       if (newVal === -1) return
       this.showSharePassword = true
       switch (newVal) {

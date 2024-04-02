@@ -1,7 +1,6 @@
 import fs from 'fs'
 
 let read = './data/detail_comments_2024-03-29.json'
-let save = './data/'
 
 let video_ids = [
   '7260749400622894336',

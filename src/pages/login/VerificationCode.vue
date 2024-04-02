@@ -36,13 +36,11 @@
   </div>
 </template>
 <script>
-import Check from '../../components/Check'
 import LoginInput from './components/LoginInput'
 
 export default {
   name: 'VerificationCode',
   components: {
-    Check,
     LoginInput
   },
   data() {

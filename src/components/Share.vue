@@ -16,7 +16,12 @@
         <dy-back mode="light" img="close" direction="right" @click.stop="closeShare"></dy-back>
       </div>
       <div class="friends list">
-        <div class="option" v-for="item in friends.all" @click.stop="toggleCall(item)">
+        <div
+          class="option"
+          :key="i"
+          v-for="(item, i) in friends.all"
+          @click.stop="toggleCall(item)"
+        >
           <img
             :style="item.select ? 'opacity: .5;' : ''"
             class="avatar"
@@ -137,39 +142,48 @@
 
 <script>
 import { mapState } from 'pinia'
-import Check from './Check'
 import FromBottomDialog from './dialog/FromBottomDialog'
-import DouyinCode from './DouyinCode'
 import { useBaseStore } from '@/store/pinia'
 import { $no, _copy } from '@/utils'
 
 export default {
   name: 'Share',
   components: {
-    FromBottomDialog,
-    Check,
-    DouyinCode
+    FromBottomDialog
   },
   props: {
-    modelValue: false,
+    modelValue: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    },
     item: {},
     videoId: {
       type: String,
-      default: null
+      default() {
+        return null
+      }
     },
     pageId: {
       type: String,
-      default: 'home-index'
+      default() {
+        return 'home-index'
+      }
     },
     canDownload: {
       type: Boolean,
-      default: true
+      default() {
+        return true
+      }
     },
     mode: {
       type: String,
-      default: 'video'
-      //music
-      //qrcode
+      default() {
+        return 'video'
+        //music
+        //qrcode
+      }
     }
   },
   computed: {

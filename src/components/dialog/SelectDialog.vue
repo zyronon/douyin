@@ -1,7 +1,7 @@
 <template>
   <div class="SelectDialog" @click="$emit('cancel')">
     <div class="content">
-      <div class="item" v-for="item in list" @click.stop="$emit('ok', item)">
+      <div class="item" :key="i" v-for="(item, i) in list" @click.stop="$emit('ok', item)">
         {{ item.name }}
       </div>
     </div>

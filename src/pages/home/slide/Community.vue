@@ -56,6 +56,7 @@ import ScrollList from '@/components/ScrollList.vue'
 import { useBaseStore } from '@/store/pinia'
 import AlbumDetail from '@/pages/other/AlbumDetail.vue'
 import Mock from 'mockjs'
+import $ from 'jquery'
 
 //@click="nav('album-detail',{},item)"
 

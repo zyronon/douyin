@@ -30,7 +30,7 @@
 </template>
 
 <script>
-//TODO　背景颜色不对
+//TODO 背景颜色不对
 export default {
   name: 'Search',
   props: {

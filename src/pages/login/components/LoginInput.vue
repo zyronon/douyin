@@ -68,8 +68,18 @@
 export default {
   name: 'LoginInput',
   props: {
-    modelValue: '',
-    placeholder: '',
+    modelValue: {
+      type: String,
+      default() {
+        return ''
+      }
+    },
+    placeholder: {
+      type: String,
+      default() {
+        return ''
+      }
+    },
     type: {
       type: String,
       default: 'phone'
@@ -102,7 +112,7 @@ export default {
   watch: {
     isSendVerificationCode: {
       immediate: true,
-      handler(newVal, oldVal) {
+      handler(newVal) {
         if (newVal) {
           this.verificationCodeBtnText = 60
           let ticker = setInterval(() => {

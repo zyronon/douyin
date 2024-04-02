@@ -18,6 +18,7 @@
       <div class="poster-wrapper">
         <div
           class="poster-item"
+          :key="index"
           v-for="(i, index) in modelValue.videos.slice(0, 3)"
           @click="globalMethods.$no"
         >
@@ -36,14 +37,12 @@
   </div>
 </template>
 <script>
-import Posters from '../Posters'
 import globalMethods from '../../utils'
 import BaseButton from '../BaseButton'
 
 export default {
   name: 'SlideUser',
   components: {
-    Posters,
     BaseButton
   },
   props: {

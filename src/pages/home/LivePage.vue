@@ -68,7 +68,7 @@
                   >欢迎来到直播间！抖音严禁未成年人直播或打赏，直接间内严禁出现违法违规、低俗色情、吸烟酗酒等内容。如主播在直播过程中以不当方式诱导打赏、私下交易，请谨慎判断，以防人身财产损失。请大家注意财产安全，谨防网络诈骗。</span
                 >
               </div>
-              <div class="comment" v-for="i in list">
+              <div class="comment" :key="j" v-for="(i, j) in list">
                 <div class="level">
                   <div class="wrapper">
                     <img src="../../assets/img/icon/home/level.webp" alt="" />

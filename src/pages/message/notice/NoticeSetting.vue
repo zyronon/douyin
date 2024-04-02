@@ -79,7 +79,12 @@ export default {
   name: 'NoticeSetting',
   components: { Switches },
   props: {
-    modelValue: false
+    modelValue: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    }
   },
   data() {
     return {
