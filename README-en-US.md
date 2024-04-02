@@ -41,16 +41,11 @@ Vercel: <http://dy.ttentau.top> (This is recommended in China.)
 <img width="150px"    src='./public/docs/img-5.jpg' />
 </div>
 
-## Run the project
 
-This project is based on `Vue` and needs node environment to run.
+## Related post
+- juejin：https://juejin.cn/spost/7352813352051687458
+- V2Nex：https://www.v2ex.com/t/1028678#reply116
 
-1. To install NodeJS, refer to [official documentation] (https://nodejs.org/en/download))
-2. Use `git clone https://github.com/zyronon/douyin.git` to download the project locally.
-3. Enter the project directory `npm install` and run `project install` under the project root directory to download the dependency.
-4. Execute `project dev` to start the project. The default address of the project is [`http://localhost:3000`](http://localhost:3000)].
-5. Open [`http://localhost:3000`](http://localhost:3000)] in the browser to access the project.
-Chrome switch to mobile phone mode shortcut key, press F12 to bring up the console, and then press Ctrl+Shift+M
 
 ## The online celebrities displayed by the project
 
@@ -67,6 +62,18 @@ Chrome switch to mobile phone mode shortcut key, press F12 to bring up the conso
 - 刘思瑶nice： https://v.douyin.com/iYRAaERn/
 - 彭十六elf： https://v.douyin.com/iYRAHrVG/
 - 李子柒：https://v.douyin.com/iYRA5B88/
+
+
+## Run the project
+
+This project is based on `Vue` and needs node environment to run.
+
+1. To install NodeJS, refer to [official documentation] (https://nodejs.org/en/download))
+2. Use `git clone https://github.com/zyronon/douyin.git` to download the project locally.
+3. Enter the project directory `npm install` and run `project install` under the project root directory to download the dependency.
+4. Execute `project dev` to start the project. The default address of the project is [`http://localhost:3000`](http://localhost:3000)].
+5. Open [`http://localhost:3000`](http://localhost:3000)] in the browser to access the project.
+Chrome switch to mobile phone mode shortcut key, press F12 to bring up the console, and then press Ctrl+Shift+M
 
 ## 🎙 Functions and suggestions
 

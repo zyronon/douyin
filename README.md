@@ -39,16 +39,10 @@ Netlify: <https://douyins.netlify.app> (需要翻墙)
 <img width="150px"    src='./public/docs/img-5.jpg' />
 </div>
 
-## 运行项目
+## 相关帖子
+- 掘金：https://juejin.cn/spost/7352813352051687458
+- V2Nex：https://www.v2ex.com/t/1028678#reply116
 
-本项目是基于`Vue`开发的，需要 node 环境来运行。
-
-1. 安装 NodeJS，参考[官方文档](https://nodejs.org/en/download)
-2. 使用 `git clone https://github.com/zyronon/douyin.git` 下载项目到本地
-3. 进入项目目录` cd douyin `，在项目根目录下，运行`npm install`来下载依赖。
-4. 执行`npm run dev`来启动项目，项目默认地址为[`http://localhost:3000`](http://localhost:3000)
-5. 在浏览器中打开[`http://localhost:3000`](http://localhost:3000) 来访问项目。
-   Chrome切换成手机模式快捷键，先按F12调出控制台，再按Ctrl+Shift+M
 
 ## 项目所展示的网红
 
@@ -65,6 +59,18 @@ Netlify: <https://douyins.netlify.app> (需要翻墙)
 - 刘思瑶nice： https://v.douyin.com/iYRAaERn/
 - 彭十六elf： https://v.douyin.com/iYRAHrVG/
 - 李子柒：https://v.douyin.com/iYRA5B88/
+
+
+## 运行项目
+
+本项目是基于`Vue`开发的，需要 node 环境来运行。
+
+1. 安装 NodeJS，参考[官方文档](https://nodejs.org/en/download)
+2. 使用 `git clone https://github.com/zyronon/douyin.git` 下载项目到本地
+3. 进入项目目录` cd douyin `，在项目根目录下，运行`npm install`来下载依赖。
+4. 执行`npm run dev`来启动项目，项目默认地址为[`http://localhost:3000`](http://localhost:3000)
+5. 在浏览器中打开[`http://localhost:3000`](http://localhost:3000) 来访问项目。
+   Chrome切换成手机模式快捷键，先按F12调出控制台，再按Ctrl+Shift+M
 
 ## 🎙 功能与建议
 
