@@ -40,7 +40,7 @@ Netlify: <https://douyins.netlify.app> (需要翻墙)
 </div>
 
 ## 相关帖子
-- 掘金：https://juejin.cn/spost/7352813352051687458
+- 掘金：https://juejin.cn/post/7352813352051687458
 - V2Nex：https://www.v2ex.com/t/1028678#reply116
 
 
