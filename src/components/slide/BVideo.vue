@@ -4,7 +4,7 @@
     <!--    <video :src="item.video + '?v=123'"-->
     <video
       :src="item.video.play_addr.url_list[0]"
-      :poster="_checkImgUrl(item.video.cover.url_list[0])"
+      :poster="poster"
       ref="video"
       muted
       preload
@@ -82,7 +82,7 @@ import Loading from '../Loading'
 import ItemToolbar from './ItemToolbar'
 import ItemDesc from './ItemDesc'
 import bus, { EVENT_KEY } from '../../utils/bus'
-import { SlideItemPlayStatus } from '../../utils/const_var'
+import { SlideItemPlayStatus } from '@/utils/const_var'
 import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
 
@@ -134,6 +134,9 @@ export default {
     }
   },
   computed: {
+    poster() {
+      return _checkImgUrl(this.item.video.poster ?? this.item.video.cover.url_list[0])
+    },
     durationStyle() {
       return { width: this.playX + 'px' }
     },
