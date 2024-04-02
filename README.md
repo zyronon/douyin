@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-  <a href="README.md">简体中文</a> | <a href="README-en-US.md">English</a> 
+  <a href="README.md">简体中文</a> | <a href="README-en-US.md">English</a>
 </p>
 
 `douyin` 是一个模仿抖音的移动端短视频项目，它基于 [`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/) 实现。使用了最新的 `Vue` 全家桶技术栈，接口数据通过 [`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter) 模拟
@@ -33,9 +33,9 @@ Netlify：[https://douyins.netlify.app](https://douyins.netlify.app) (需要翻�
 <img width="150px" src='./public/docs/img-5.jpg' />
 </div>
 
-## 相关帖子 
+## 相关帖子
 
-- 掘金：https://juejin.cn/spost/7352813352051687458
+- 掘金：https://juejin.cn/post/7352813352051687458
 - V2EX：https://www.v2ex.com/t/1028678#reply116
 
 ## 项目所展示的网红

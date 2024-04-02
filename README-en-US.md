@@ -3,14 +3,14 @@
 </h1>
 
 <p align="center">
-<a href="README.md">简体中文</a> | 
-<a href="README-en-US.md">English</a> 
+<a href="README.md">简体中文</a> |
+<a href="README-en-US.md">English</a>
 </p>
 
 
 <p align="center">
  <b>douyin</b>It is a mobile short video project imitating Douyin.，
-It is based on <a href="https://v3.cn.vuejs.org">Vue</a>, <a href="https://cn.vitejs.dev/">Vite</a> implementation. 
+It is based on <a href="https://v3.cn.vuejs.org">Vue</a>, <a href="https://cn.vitejs.dev/">Vite</a> implementation.
 The latest Vue family bucket technology stack is used, and the background data is built by <a href="https://github.com/ctimmerm/axios-mock-adapter">axios-mock-adapter</a>.
 </p>
 
@@ -86,4 +86,4 @@ You can contact my email address < a href= "mailto:zyronon@163.com" > zyronon@16
 
 ## MIT license Agreement
 
-[MIT](LICENSE) 
+[MIT](LICENSE)
