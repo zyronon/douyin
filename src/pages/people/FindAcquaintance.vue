@@ -90,7 +90,7 @@
     </SlideHorizontal>
 
     <transition name="fade">
-      <BaseMask v-if="maskDialog" @click="maskDialog = false"/>
+      <BaseMask v-if="maskDialog" @click="maskDialog = false" />
     </transition>
 
     <transition name="fade">

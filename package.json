@@ -47,17 +47,5 @@
     "vite-plugin-cdn-import": "0.3.5",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-imagemin": "^0.6.1"
-  },
-  "husky":{
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**": [
-      "prettier --write src/",
-      "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-      "git add"
-    ]
   }
 }

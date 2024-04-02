@@ -51,7 +51,7 @@
         <div v-if="currentFixedIndicator" class="row no-active no-padding border index fixed">
           <span>{{ currentFixedIndicator }}</span>
         </div>
-        <div  :key="name" v-for="(value, name) of countryOk">
+        <div :key="name" v-for="(value, name) of countryOk">
           <div :class="name" class="row no-active no-padding border index">
             <span>{{ name }}</span>
           </div>

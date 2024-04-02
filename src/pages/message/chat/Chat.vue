@@ -188,7 +188,7 @@ import { mapState } from 'pinia'
 import Loading from '../../../components/Loading'
 import { useBaseStore } from '@/store/pinia'
 import { _checkImgUrl } from '@/utils'
-import $ from "jquery";
+import $ from 'jquery'
 
 let CALL_STATE = {
   REJECT: 0,
