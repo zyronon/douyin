@@ -44,7 +44,6 @@
     border-bottom: 1px solid var(--line-color);
   }
 
-
   .left {
     display: flex;
     justify-content: space-between;
@@ -89,7 +88,7 @@
 }
 
 .badge2 {
-  transform: scale(.9);
+  transform: scale(0.9);
   font-size: 12rem;
   color: black;
   @width: 18rem;
@@ -120,14 +119,14 @@ p {
 .slide {
   height: 100%;
   width: 100%;
-  transition: height .3s;
+  transition: height 0.3s;
   position: relative;
   overflow: hidden;
 
   .slide-infinite {
     z-index: 1;
     margin-top: 0;
-    transition: all .3s;
+    transition: all 0.3s;
   }
 
   .slide-list {
@@ -181,22 +180,22 @@ p {
   @keyframes loveRight {
     0% {
       opacity: 0;
-      transform: @start-scale rotate(0+@rotate);
+      transform: @start-scale rotate(0 + @rotate);
     }
     10% {
       opacity: 1;
-      transform: scale(1) rotate(0+@rotate);
+      transform: scale(1) rotate(0 + @rotate);
     }
     15% {
       opacity: 1;
-      transform: @scale rotate(0+@rotate);
+      transform: @scale rotate(0 + @rotate);
     }
     40% {
       opacity: 1;
-      transform: @scale rotate(0+@rotate);
+      transform: @scale rotate(0 + @rotate);
     }
     100% {
-      transform: translateY(-12rem) scale(2) rotate(0+@rotate);
+      transform: translateY(-12rem) scale(2) rotate(0 + @rotate);
       opacity: 0;
     }
   }
@@ -256,4 +255,3 @@ p {
 .second-text-color {
   color: var(--second-text-color);
 }
-

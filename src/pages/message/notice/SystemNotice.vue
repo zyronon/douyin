@@ -5,24 +5,29 @@
         <span class="f16">系统通知</span>
       </template>
       <template v-slot:right>
-        <span class="f14" @click="$nav('/message/notice-setting',{ type : 'SYSTEM' })">通知设置</span>
+        <span
+          class="f14"
+          @click="$nav('/message/notice-setting', { type: 'SYSTEM' })"
+          >通知设置</span
+        >
       </template>
     </BaseHeader>
-    <Loading v-if="loading"/>
+    <Loading v-if="loading" />
     <div class="content" v-else>
       <Scroll ref="mainScroll">
         <div class="list">
-          <NoMore/>
+          <NoMore />
           <!--TODO　超过3行显示全文-->
           <div class="item" v-for="item in list" @click="goDetail(item)">
-            <div class="title">{{ item.title }}
+            <div class="title">
+              {{ item.title }}
               <div class="ml1r not-read" v-if="!item.read"></div>
             </div>
             <div class="time">{{ item.time }}</div>
             <div class="content-text">{{ item.content }}</div>
             <div class="look-detail" v-if="item.detail">
               <span>查看详情</span>
-              <dy-back direction="right" scale=".6"/>
+              <dy-back direction="right" scale=".6" />
             </div>
           </div>
         </div>
@@ -42,18 +47,18 @@
         <div class="l-row" @click="$no">安全课堂</div>
       </div>
 
-      <Mask mode="white" v-if="isShowMask" @click="isShowMask = false"/>
+      <Mask mode="white" v-if="isShowMask" @click="isShowMask = false" />
 
       <div class="options">
         <div class="option" @click="isShowLeftHover = !isShowLeftHover">
-          <img src="../../../assets/img/icon/message/menu-thin.png" alt="">
+          <img src="../../../assets/img/icon/message/menu-thin.png" alt="" />
           <span>自助工具</span>
         </div>
         <div class="option" @click="$no">
           <span>规则中心</span>
         </div>
         <div class="option" @click="isShowRightHover = !isShowRightHover">
-          <img src="../../../assets/img/icon/message/menu-thin.png" alt="">
+          <img src="../../../assets/img/icon/message/menu-thin.png" alt="" />
           <span>更多帮助</span>
         </div>
       </div>
@@ -61,220 +66,222 @@
   </div>
 </template>
 <script>
-import {nextTick} from "vue";
-import Mask from "../../../components/Mask";
-import Scroll from "../../../components/Scroll";
-import BasePage from "../../BasePage";
+  import { nextTick } from 'vue'
+  import Mask from '../../../components/Mask'
+  import Scroll from '../../../components/Scroll'
+  import BasePage from '../../BasePage'
 
-export default {
-  extends: BasePage,
-  name: "SystemNotice",
-  components: {Mask, Scroll},
-  data() {
-    return {
-      loading: false,
-      isShowMask: false,
-      isShowLeftHover: false,
-      isShowRightHover: false,
-      list: [
-        {
-          read: false,
-          title: '账号登录提醒',
-          detail: 'xxx',
-          time: '2021-10-12 12:12',
-          content: '您的抖音号4533452342于2021-02-09 07:45:23进行了登录操作。如非本人操作，账号可能被盗。建议立即修改密码，或在[设置-账号与安全-登录设备管理]中删除异常设备。参考设备：iPhone X参考地点：上海市'
-        },
-        {
-          read: false,
-          title: '账号登录提醒',
-          detail: 'xxx',
-          time: '2021-10-12 12:12',
-          content: '您的抖音号4533452342于2021-02-09 07:45:23进行了登录操作。如非本人操作，账号可能被盗。建议立即修改密码，或在[设置-账号与安全-登录设备管理]中删除异常设备。参考设备：iPhone X参考地点：上海市'
-        },
-        {
-          read: false,
-          title: '协议修订通知',
-          detail: '',
-          time: '2021-10-12 12:12',
-          content: '你好，根据业务开展的实际情况，抖音近期更新了《抖音用户服务协议》《抖音隐私政策》及《儿童/青少年使用须知》中的相关内容。你可以在“我”-“设置”页面中，查看更新后的协议全文。'
-        },
-        {
-          read: false,
-          title: '协议修订通知',
-          detail: '',
-          time: '2021-10-12 12:12',
-          content: '你好，根据业务开展的实际情况，抖音近期更新了《抖音用户服务协议》部分条款的表述。你可以在“我”-“设置”页面中，查看更新后的协议全文。'
-        },
-      ]
-    }
-  },
-  watch: {
-    isShowLeftHover(newVal) {
-      if (newVal) {
-        this.isShowMask = true
+  export default {
+    extends: BasePage,
+    name: 'SystemNotice',
+    components: { Mask, Scroll },
+    data() {
+      return {
+        loading: false,
+        isShowMask: false,
+        isShowLeftHover: false,
+        isShowRightHover: false,
+        list: [
+          {
+            read: false,
+            title: '账号登录提醒',
+            detail: 'xxx',
+            time: '2021-10-12 12:12',
+            content:
+              '您的抖音号4533452342于2021-02-09 07:45:23进行了登录操作。如非本人操作，账号可能被盗。建议立即修改密码，或在[设置-账号与安全-登录设备管理]中删除异常设备。参考设备：iPhone X参考地点：上海市',
+          },
+          {
+            read: false,
+            title: '账号登录提醒',
+            detail: 'xxx',
+            time: '2021-10-12 12:12',
+            content:
+              '您的抖音号4533452342于2021-02-09 07:45:23进行了登录操作。如非本人操作，账号可能被盗。建议立即修改密码，或在[设置-账号与安全-登录设备管理]中删除异常设备。参考设备：iPhone X参考地点：上海市',
+          },
+          {
+            read: false,
+            title: '协议修订通知',
+            detail: '',
+            time: '2021-10-12 12:12',
+            content:
+              '你好，根据业务开展的实际情况，抖音近期更新了《抖音用户服务协议》《抖音隐私政策》及《儿童/青少年使用须知》中的相关内容。你可以在“我”-“设置”页面中，查看更新后的协议全文。',
+          },
+          {
+            read: false,
+            title: '协议修订通知',
+            detail: '',
+            time: '2021-10-12 12:12',
+            content:
+              '你好，根据业务开展的实际情况，抖音近期更新了《抖音用户服务协议》部分条款的表述。你可以在“我”-“设置”页面中，查看更新后的协议全文。',
+          },
+        ],
       }
     },
-    isShowRightHover(newVal) {
-      if (newVal) {
-        this.isShowMask = true
-      }
+    watch: {
+      isShowLeftHover(newVal) {
+        if (newVal) {
+          this.isShowMask = true
+        }
+      },
+      isShowRightHover(newVal) {
+        if (newVal) {
+          this.isShowMask = true
+        }
+      },
+      isShowMask(newVal) {
+        if (!newVal) {
+          this.isShowLeftHover = false
+          this.isShowRightHover = false
+        }
+      },
     },
-    isShowMask(newVal) {
-      if (!newVal) {
-        this.isShowLeftHover = false
-        this.isShowRightHover = false
-      }
+    computed: {},
+    created() {
+      this.getData()
     },
-  },
-  computed: {},
-  created() {
-    this.getData()
-  },
-  mounted() {
-  },
-  methods: {
-    async getData() {
-      this.loading = true
-      await this.$sleep(700)
-      this.loading = false
-      await nextTick()
-      this.$refs.mainScroll.scrollBottom()
+    mounted() {},
+    methods: {
+      async getData() {
+        this.loading = true
+        await this.$sleep(700)
+        this.loading = false
+        await nextTick()
+        this.$refs.mainScroll.scrollBottom()
+      },
+      goDetail(item) {
+        item.read = true
+        if (item.detail) {
+          this.$no()
+        }
+      },
     },
-    goDetail(item) {
-      item.read = true
-      if (item.detail) {
-        this.$no()
-      }
-    }
   }
-}
 </script>
 
 <style scoped lang="less">
+  #SystemNotice {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    color: white;
+    font-size: 14rem;
 
+    .scroll {
+      height: calc(
+        var(--vh, 1vh) * 100 - var(--common-header-height) -
+          var(--common-header-height)
+      );
+    }
 
-#SystemNotice {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  color: white;
-  font-size: 14rem;
+    .content {
+      height: calc(var(--vh, 1vh) * 100 - var(--common-header-height));
+      padding: var(--page-padding);
+      padding-top: 0;
+      box-sizing: border-box;
 
-  .scroll {
-    height: calc(var(--vh, 1vh) * 100 - var(--common-header-height) - var(--common-header-height));
-  }
-
-  .content {
-    height: calc(var(--vh, 1vh) * 100 - var(--common-header-height));
-    padding: var(--page-padding);
-    padding-top: 0;
-    box-sizing: border-box;
-
-    .list {
-      .item {
-        padding: var(--page-padding);
-        background: var(--msg-subpage-card-bg);
-        border-radius: 5rem;
-        margin-bottom: 20rem;
-
-        .title {
-          display: flex;
-          align-items: center;
-          font-size: 16rem;
-          margin-bottom: 10rem;
-        }
-
-        .time {
-          font-size: 12rem;
-          color: var(--second-text-color);
+      .list {
+        .item {
+          padding: var(--page-padding);
+          background: var(--msg-subpage-card-bg);
+          border-radius: 5rem;
           margin-bottom: 20rem;
-        }
 
-        .content-text {
-          margin-bottom: 30rem;
-        }
+          .title {
+            display: flex;
+            align-items: center;
+            font-size: 16rem;
+            margin-bottom: 10rem;
+          }
 
-        .look-detail {
-          border-top: 1px solid var(--line-color2);
-          padding-top: var(--page-padding);
-          color: var(--second-text-color);
+          .time {
+            font-size: 12rem;
+            color: var(--second-text-color);
+            margin-bottom: 20rem;
+          }
+
+          .content-text {
+            margin-bottom: 30rem;
+          }
+
+          .look-detail {
+            border-top: 1px solid var(--line-color2);
+            padding-top: var(--page-padding);
+            color: var(--second-text-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+        }
+      }
+
+      .options {
+        border-top: 1px solid var(--line-color);
+        height: 60rem;
+        display: flex;
+        align-items: center;
+
+        .option {
+          width: 33%;
           display: flex;
-          justify-content: space-between;
           align-items: center;
+          justify-content: center;
+          border-right: 1px solid var(--line-color);
 
-        }
+          &:nth-last-child(1) {
+            border: none;
+          }
 
-      }
-    }
-
-    .options {
-      border-top: 1px solid var(--line-color);
-      height: 60rem;
-      display: flex;
-      align-items: center;
-
-      .option {
-        width: 33%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-right: 1px solid var(--line-color);
-
-        &:nth-last-child(1) {
-          border: none;
-        }
-
-        img {
-          width: 10rem;
-          height: 15rem;
-          margin-right: 4rem;
+          img {
+            width: 10rem;
+            height: 15rem;
+            margin-right: 4rem;
+          }
         }
       }
-    }
 
-    .hover-dialog {
-      z-index: 9;
-      position: fixed;
-      bottom: 80rem;
-      border-radius: 6rem;
-      background: rgba(0, 0, 0, 0.9);
-      font-size: 12rem;
+      .hover-dialog {
+        z-index: 9;
+        position: fixed;
+        bottom: 80rem;
+        border-radius: 6rem;
+        background: rgba(0, 0, 0, 0.9);
+        font-size: 12rem;
 
-      &.left {
-        left: 0;
-      }
+        &.left {
+          left: 0;
+        }
 
-      &.right {
-        right: 0;
-      }
+        &.right {
+          right: 0;
+        }
 
-      .arrow {
-        width: 0;
-        height: 0;
-        border: 7rem solid transparent;
-        border-top: 7rem solid rgba(0, 0, 0, 0.9);
-        position: absolute;
-        right: 50rem;
-        bottom: -14rem;
-      }
+        .arrow {
+          width: 0;
+          height: 0;
+          border: 7rem solid transparent;
+          border-top: 7rem solid rgba(0, 0, 0, 0.9);
+          position: absolute;
+          right: 50rem;
+          bottom: -14rem;
+        }
 
-      .l-row {
-        width: 120rem;
-        height: 40rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        //padding: 10rem 22rem;
-        border-top: 1px solid #2c2c2c;
-        text-align: center;
+        .l-row {
+          width: 120rem;
+          height: 40rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          //padding: 10rem 22rem;
+          border-top: 1px solid #2c2c2c;
+          text-align: center;
 
-        &.no-border {
-          border: none;
+          &.no-border {
+            border: none;
+          }
         }
       }
     }
   }
-}
 </style>

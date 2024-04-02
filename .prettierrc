@@ -1,11 +1,11 @@
 {
-	"singleQuote": true,
-	"semi": false,
-	"printWidth": 80,
-	"tabWidth": 2,
-	"useTabs": false,
-	"quoteProps": "as-needed",
-	"jsxSingleQuote": true,
-	"vueIndentScriptAndStyle": true,
-	"endOfLine": "lf"
+  "singleQuote": true,
+  "semi": false,
+  "printWidth": 80,
+  "tabWidth": 2,
+  "useTabs": false,
+  "quoteProps": "as-needed",
+  "jsxSingleQuote": true,
+  "vueIndentScriptAndStyle": true,
+  "endOfLine": "lf"
 }

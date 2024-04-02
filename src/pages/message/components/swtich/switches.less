@@ -1,4 +1,3 @@
-
 // Color variables (appears count calculates by raw css)
 @color0: #f5f5f5; // Appears 3 times
 @color1: #5e91e3; // Appears 2 times
@@ -18,377 +17,379 @@
 @color15: #d9534f; // Appears 2 times
 @color16: #3dde75; // Appears 2 times
 
-
-
 .vue-switcher {
-    display: inline-block;
+  display: inline-block;
+  position: relative;
+  input {
+    cursor: pointer;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+  }
+  div {
+    align-items: center;
+    border-radius: 30px;
+    cursor: pointer;
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+    height: 15px;
+    justify-content: flex-start;
     position: relative;
-    input {
-        cursor: pointer;
-        height: 100%;
-        opacity: 0;
-        position: absolute;
-        width: 100%;
-        z-index: 1;
+    transition:
+      linear 0.2s,
+      background-color linear 0.2s;
+    width: 36px;
+    &:after {
+      border-radius: 100px;
+      box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+      content: '';
+      cursor: pointer;
+      display: block;
+      height: 20px;
+      left: 100%;
+      margin-left: -18px;
+      position: absolute;
+      top: -3px;
+      transition:
+        linear 0.15s,
+        background-color linear 0.15s;
+      width: 20px;
     }
-    div {
-        align-items: center;
-        border-radius: 30px;
-        cursor: pointer;
-        display: -ms-flex;
-        display: -webkit-flex;
-        display: flex;
-        height: 15px;
-        justify-content: flex-start;
-        position: relative;
-        transition: linear 0.2s, background-color linear 0.2s;
-        width: 36px;
-        &:after {
-            border-radius: 100px;
-            box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
-            content: '';
-            cursor: pointer;
-            display: block;
-            height: 20px;
-            left: 100%;
-            margin-left: -18px;
-            position: absolute;
-            top: -3px;
-            transition: linear 0.15s, background-color linear 0.15s;
-            width: 20px;
-        }
-    }
+  }
 }
 .vue-switcher__label {
-    display: block;
-    font-size: 10px;
-    margin-bottom: 5px;
+  display: block;
+  font-size: 10px;
+  margin-bottom: 5px;
 }
 .vue-switcher--unchecked {
-    div {
-        justify-content: flex-end;
-        &:after {
-            left: 15px;
-        }
+  div {
+    justify-content: flex-end;
+    &:after {
+      left: 15px;
     }
+  }
 }
 .vue-switcher--disabled {
-    div {
-        opacity: 0.3;
-    }
-    input {
-        cursor: not-allowed;
-    }
+  div {
+    opacity: 0.3;
+  }
+  input {
+    cursor: not-allowed;
+  }
 }
 .vue-switcher--bold {
-    div {
-        height: 26px;
-        top: -8px;
-        width: 51px;
-        &:after {
-            margin-left: -24px;
-            top: 3px;
-        }
+  div {
+    height: 26px;
+    top: -8px;
+    width: 51px;
+    &:after {
+      margin-left: -24px;
+      top: 3px;
     }
-    .vue-switcher__label {
-        span {
-            display: inline-block;
-            padding-bottom: 7px;
-        }
+  }
+  .vue-switcher__label {
+    span {
+      display: inline-block;
+      padding-bottom: 7px;
     }
+  }
 }
 .vue-switcher--bold--unchecked {
-    div {
-        &:after {
-            left: 28px;
-        }
+  div {
+    &:after {
+      left: 28px;
     }
+  }
 }
 .vue-switcher-theme--default.vue-switcher-color--default {
-    div {
-        background-color: #b7b7b7;
-        &:after {
-            background-color: #9d9d9d;
-        }
+  div {
+    background-color: #b7b7b7;
+    &:after {
+      background-color: #9d9d9d;
     }
+  }
 }
 .vue-switcher-theme--default.vue-switcher-color--default.vue-switcher--unchecked {
-    div {
-        background-color: #aaaaaa;
-        &:after {
-            background-color: #c4c4c4;
-        }
+  div {
+    background-color: #aaaaaa;
+    &:after {
+      background-color: #c4c4c4;
     }
+  }
 }
 .vue-switcher-theme--default.vue-switcher-color--blue {
-    div {
-        background-color: @color14;
-        &:after {
-            background-color: #539bb9;
-        }
+  div {
+    background-color: @color14;
+    &:after {
+      background-color: #539bb9;
     }
+  }
 }
 .vue-switcher-theme--default.vue-switcher-color--blue.vue-switcher--unchecked {
-    div {
-        background-color: #c0dae5;
-        &:after {
-            background-color: @color14;
-        }
+  div {
+    background-color: #c0dae5;
+    &:after {
+      background-color: @color14;
     }
+  }
 }
 .vue-switcher-theme--default.vue-switcher-color--red {
-    div {
-        background-color: @color12;
-        &:after {
-            background-color: #b95353;
-        }
+  div {
+    background-color: @color12;
+    &:after {
+      background-color: #b95353;
     }
+  }
 }
 .vue-switcher-theme--default.vue-switcher-color--red.vue-switcher--unchecked {
-    div {
-        background-color: #e5c0c0;
-        &:after {
-            background-color: @color12;
-        }
+  div {
+    background-color: #e5c0c0;
+    &:after {
+      background-color: @color12;
     }
+  }
 }
 .vue-switcher-theme--default.vue-switcher-color--yellow {
-    div {
-        background-color: @color9;
-        &:after {
-            background-color: #bab353;
-        }
+  div {
+    background-color: @color9;
+    &:after {
+      background-color: #bab353;
     }
+  }
 }
 .vue-switcher-theme--default.vue-switcher-color--yellow.vue-switcher--unchecked {
-    div {
-        background-color: #e6e3c0;
-        &:after {
-            background-color: @color9;
-        }
+  div {
+    background-color: #e6e3c0;
+    &:after {
+      background-color: @color9;
     }
+  }
 }
 .vue-switcher-theme--default.vue-switcher-color--orange {
-    div {
-        background-color: @color7;
-        &:after {
-            background-color: #b97953;
-        }
+  div {
+    background-color: @color7;
+    &:after {
+      background-color: #b97953;
     }
+  }
 }
 .vue-switcher-theme--default.vue-switcher-color--orange.vue-switcher--unchecked {
-    div {
-        background-color: #e5cec0;
-        &:after {
-            background-color: @color7;
-        }
+  div {
+    background-color: #e5cec0;
+    &:after {
+      background-color: @color7;
     }
+  }
 }
 .vue-switcher-theme--default.vue-switcher-color--green {
-    div {
-        background-color: @color5;
-        &:after {
-            background-color: #53b96e;
-        }
+  div {
+    background-color: @color5;
+    &:after {
+      background-color: #53b96e;
     }
+  }
 }
 .vue-switcher-theme--default.vue-switcher-color--green.vue-switcher--unchecked {
-    div {
-        background-color: #c0e5ca;
-        &:after {
-            background-color: @color5;
-        }
+  div {
+    background-color: #c0e5ca;
+    &:after {
+      background-color: @color5;
     }
+  }
 }
 .vue-switcher-theme--bulma.vue-switcher-color--default {
-    div {
-        background-color: #dcdcdc;
-        &:after {
-            background-color: @color0;
-        }
+  div {
+    background-color: #dcdcdc;
+    &:after {
+      background-color: @color0;
     }
+  }
 }
 .vue-switcher-theme--bulma.vue-switcher-color--default.vue-switcher--unchecked {
-    div {
-        background-color: #e8e8e8;
-        &:after {
-            background-color: @color0;
-        }
+  div {
+    background-color: #e8e8e8;
+    &:after {
+      background-color: @color0;
     }
+  }
 }
 .vue-switcher-theme--bulma.vue-switcher-color--primary {
-    div {
-        background-color: @color2;
-        &:after {
-            background-color: #00d1b2;
-        }
+  div {
+    background-color: @color2;
+    &:after {
+      background-color: #00d1b2;
     }
+  }
 }
 .vue-switcher-theme--bulma.vue-switcher-color--primary.vue-switcher--unchecked {
-    div {
-        background-color: #6bffe9;
-        &:after {
-            background-color: @color2;
-        }
+  div {
+    background-color: #6bffe9;
+    &:after {
+      background-color: @color2;
     }
+  }
 }
 .vue-switcher-theme--bulma.vue-switcher-color--blue {
-    div {
-        background-color: @color1;
-        &:after {
-            background-color: #3273dc;
-        }
+  div {
+    background-color: @color1;
+    &:after {
+      background-color: #3273dc;
     }
+  }
 }
 .vue-switcher-theme--bulma.vue-switcher-color--blue.vue-switcher--unchecked {
-    div {
-        background-color: #b5ccf2;
-        &:after {
-            background-color: @color1;
-        }
+  div {
+    background-color: #b5ccf2;
+    &:after {
+      background-color: @color1;
     }
+  }
 }
 .vue-switcher-theme--bulma.vue-switcher-color--red {
-    div {
-        background-color: @color13;
-        &:after {
-            background-color: #ff3860;
-        }
+  div {
+    background-color: @color13;
+    &:after {
+      background-color: #ff3860;
     }
+  }
 }
 .vue-switcher-theme--bulma.vue-switcher-color--red.vue-switcher--unchecked {
-    div {
-        background-color: #ffd1da;
-        &:after {
-            background-color: @color13;
-        }
+  div {
+    background-color: #ffd1da;
+    &:after {
+      background-color: @color13;
     }
+  }
 }
 .vue-switcher-theme--bulma.vue-switcher-color--yellow {
-    div {
-        background-color: @color6;
-        &:after {
-            background-color: #ffdd57;
-        }
+  div {
+    background-color: @color6;
+    &:after {
+      background-color: #ffdd57;
     }
+  }
 }
 .vue-switcher-theme--bulma.vue-switcher-color--yellow.vue-switcher--unchecked {
-    div {
-        background-color: #fffcf0;
-        &:after {
-            background-color: @color6;
-        }
+  div {
+    background-color: #fffcf0;
+    &:after {
+      background-color: @color6;
     }
+  }
 }
 .vue-switcher-theme--bulma.vue-switcher-color--green {
-    div {
-        background-color: @color16;
-        &:after {
-            background-color: #22c65b;
-        }
+  div {
+    background-color: @color16;
+    &:after {
+      background-color: #22c65b;
     }
+  }
 }
 .vue-switcher-theme--bulma.vue-switcher-color--green.vue-switcher--unchecked {
-    div {
-        background-color: #94edb3;
-        &:after {
-            background-color: @color16;
-        }
+  div {
+    background-color: #94edb3;
+    &:after {
+      background-color: @color16;
     }
+  }
 }
 .vue-switcher-theme--bootstrap.vue-switcher-color--default {
-    div {
-        background-color: #e6e6e6;
-        &:after {
-            background-color: @color3;
-        }
+  div {
+    background-color: #e6e6e6;
+    &:after {
+      background-color: @color3;
     }
+  }
 }
 .vue-switcher-theme--bootstrap.vue-switcher-color--default.vue-switcher--unchecked {
-    div {
-        background-color: @color0;
-        &:after {
-            background-color: @color3;
-        }
+  div {
+    background-color: @color0;
+    &:after {
+      background-color: @color3;
     }
+  }
 }
 .vue-switcher-theme--bootstrap.vue-switcher-color--primary {
-    div {
-        background-color: @color10;
-        &:after {
-            background-color: #337ab7;
-        }
+  div {
+    background-color: @color10;
+    &:after {
+      background-color: #337ab7;
     }
+  }
 }
 .vue-switcher-theme--bootstrap.vue-switcher-color--primary.vue-switcher--unchecked {
-    div {
-        background-color: #9fc4e4;
-        &:after {
-            background-color: @color10;
-        }
+  div {
+    background-color: #9fc4e4;
+    &:after {
+      background-color: @color10;
     }
+  }
 }
 .vue-switcher-theme--bootstrap.vue-switcher-color--success {
-    div {
-        background-color: @color4;
-        &:after {
-            background-color: #5cb85c;
-        }
+  div {
+    background-color: @color4;
+    &:after {
+      background-color: #5cb85c;
     }
+  }
 }
 .vue-switcher-theme--bootstrap.vue-switcher-color--success.vue-switcher--unchecked {
-    div {
-        background-color: #c7e6c7;
-        &:after {
-            background-color: @color4;
-        }
+  div {
+    background-color: #c7e6c7;
+    &:after {
+      background-color: @color4;
     }
+  }
 }
 .vue-switcher-theme--bootstrap.vue-switcher-color--info {
-    div {
-        background-color: @color8;
-        &:after {
-            background-color: #5bc0de;
-        }
+  div {
+    background-color: @color8;
+    &:after {
+      background-color: #5bc0de;
     }
+  }
 }
 .vue-switcher-theme--bootstrap.vue-switcher-color--info.vue-switcher--unchecked {
-    div {
-        background-color: #daf1f8;
-        &:after {
-            background-color: @color8;
-        }
+  div {
+    background-color: #daf1f8;
+    &:after {
+      background-color: @color8;
     }
+  }
 }
 .vue-switcher-theme--bootstrap.vue-switcher-color--warning {
-    div {
-        background-color: @color11;
-        &:after {
-            background-color: #f0ad4e;
-        }
+  div {
+    background-color: @color11;
+    &:after {
+      background-color: #f0ad4e;
     }
+  }
 }
 .vue-switcher-theme--bootstrap.vue-switcher-color--warning.vue-switcher--unchecked {
-    div {
-        background-color: #fceedb;
-        &:after {
-            background-color: @color11;
-        }
+  div {
+    background-color: #fceedb;
+    &:after {
+      background-color: @color11;
     }
+  }
 }
 .vue-switcher-theme--bootstrap.vue-switcher-color--danger {
-    div {
-        background-color: @color15;
-        &:after {
-            background-color: #c9302c;
-        }
+  div {
+    background-color: @color15;
+    &:after {
+      background-color: #c9302c;
     }
+  }
 }
 .vue-switcher-theme--bootstrap.vue-switcher-color--danger.vue-switcher--unchecked {
-    div {
-        background-color: #eba5a3;
-        &:after {
-            background-color: @color15;
-        }
+  div {
+    background-color: #eba5a3;
+    &:after {
+      background-color: @color15;
     }
+  }
 }

@@ -1,5 +1,5 @@
 export default {
-  name: "Base",
+  name: 'Base',
   props: {},
   data() {
     return {
@@ -11,8 +11,7 @@ export default {
     }
   },
   computed: {},
-  created() {
-  },
+  created() {},
   methods: {
     async check() {
       return new Promise((resolve, reject) => {
@@ -31,6 +30,6 @@ export default {
           }
         }
       })
-    }
-  }
+    },
+  },
 }

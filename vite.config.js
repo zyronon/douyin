@@ -1,23 +1,23 @@
-import {defineConfig} from 'vite'
+import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
-import {resolve} from 'path'
-import {visualizer} from "rollup-plugin-visualizer";
+import { resolve } from 'path'
+import { visualizer } from 'rollup-plugin-visualizer'
 import DefineOptions from 'unplugin-vue-define-options/vite' // 引入插件
-import {Plugin as importToCDN} from 'vite-plugin-cdn-import';
+import { Plugin as importToCDN } from 'vite-plugin-cdn-import'
 import viteImagemin from 'vite-plugin-imagemin'
 import viteCompression from 'vite-plugin-compression'
 
 function pathResolve(dir) {
-  return resolve(__dirname, ".", dir)
+  return resolve(__dirname, '.', dir)
 }
 
-const lifecycle = process.env.npm_lifecycle_event;
+const lifecycle = process.env.npm_lifecycle_event
 
 // https://vitejs.dev/config/
 export default defineConfig({
   base: './',
-  envDir: "env",
+  envDir: 'env',
   plugins: [
     // VueMacros({
     //   plugins: {
@@ -29,7 +29,7 @@ export default defineConfig({
     //   //   exclude: [/node_modules/, /jQuery\.js/]
     //   // }
     // }),
-    lifecycle === 'report' ? visualizer({open: false}) : null,
+    lifecycle === 'report' ? visualizer({ open: false }) : null,
     DefineOptions(),
     Vue(),
     VueJsx(),
@@ -59,7 +59,7 @@ export default defineConfig({
           name: 'axios',
           var: 'axios',
           path: 'https://lib.baomitu.com/axios/1.6.8/axios.min.js',
-        }
+        },
       ],
     }),
     // viteCompression({
@@ -104,19 +104,19 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": pathResolve("src"),
+      '@': pathResolve('src'),
     },
-    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
   },
   build: {
     sourcemap: false,
     rollupOptions: {
       // https://rollupjs.org/guide/en/#outputmanualchunks
       output: {
-        manualChunks(id, {getModuleInfo}) {
+        manualChunks(id, { getModuleInfo }) {
           const reg = /(.*)\/src\/components\/(.*)/
           if (reg.test(id)) {
-            const importersLen = getModuleInfo(id).importers.length;
+            const importersLen = getModuleInfo(id).importers.length
             // 被多处引用
             if (importersLen > 1) return 'common'
           }
@@ -135,23 +135,31 @@ export default defineConfig({
           if (id.includes('/src/pages/message/Message.vue')) return 'other'
           if (id.includes('/src/pages/message/Fans.vue')) return 'other'
           if (id.includes('/src/pages/message/AllMessage.vue')) return 'other'
-          if (id.includes('/src/pages/message/notice/DouyinHelper.vue')) return 'other'
-          if (id.includes('/src/pages/message/notice/SystemNotice.vue')) return 'other'
-          if (id.includes('/src/pages/message/notice/TaskNotice.vue')) return 'other'
-          if (id.includes('/src/pages/message/notice/LiveNotice.vue')) return 'other'
-          if (id.includes('/src/pages/message/notice/MoneyNotice.vue')) return 'other'
+          if (id.includes('/src/pages/message/notice/DouyinHelper.vue'))
+            return 'other'
+          if (id.includes('/src/pages/message/notice/SystemNotice.vue'))
+            return 'other'
+          if (id.includes('/src/pages/message/notice/TaskNotice.vue'))
+            return 'other'
+          if (id.includes('/src/pages/message/notice/LiveNotice.vue'))
+            return 'other'
+          if (id.includes('/src/pages/message/notice/MoneyNotice.vue'))
+            return 'other'
 
           if (id.includes('/src/pages/me/Me.vue')) return 'other'
           if (id.includes('/src/pages/me/Visitors.vue')) return 'other'
           if (id.includes('/src/pages/me/RequestUpdate.vue')) return 'other'
-          if (id.includes('/src/pages/me/userinfo/EditUserInfo.vue')) return 'other'
-          if (id.includes('/src/pages/me/userinfo/EditUserInfoItem.vue')) return 'other'
+          if (id.includes('/src/pages/me/userinfo/EditUserInfo.vue'))
+            return 'other'
+          if (id.includes('/src/pages/me/userinfo/EditUserInfoItem.vue'))
+            return 'other'
           if (id.includes('/src/pages/me/MyMusic.vue')) return 'other'
 
           if (id.includes('/src/pages/other/VideoDetail.vue')) return 'other'
           if (id.includes('/src/pages/other/AlbumDetail.vue')) return 'other'
 
-          if (id.includes('/src/pages/people/FindAcquaintance.vue')) return 'other'
+          if (id.includes('/src/pages/people/FindAcquaintance.vue'))
+            return 'other'
           if (id.includes('/src/pages/people/FollowAndFans.vue')) return 'other'
         },
         chunkFileNames: 'js/[name]-[hash].js', // 引入文件名的名称
@@ -159,10 +167,10 @@ export default defineConfig({
         assetFileNames: 'assets/[name]-[hash].[ext]', // 资源文件像 字体，图片等
       },
     },
-    assetsInlineLimit: 2048
+    assetsInlineLimit: 2048,
   },
   esbuild: {
-    drop: ['console', 'debugger']
+    drop: ['console', 'debugger'],
   },
   server: {
     port: 3000,
@@ -170,6 +178,6 @@ export default defineConfig({
     host: '0.0.0.0',
     fs: {
       strict: false,
-    }
-  }
+    },
+  },
 })

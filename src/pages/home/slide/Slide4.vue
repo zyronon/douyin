@@ -1,22 +1,22 @@
 <template>
   <SlideItem>
     <SlideList
-        style="background:#000;"
-        :active="props.active"
-        :api="recommendedVideo"
+      style="background: #000"
+      :active="props.active"
+      :api="recommendedVideo"
     />
   </SlideItem>
 </template>
 
 <script setup lang="jsx">
-import SlideItem from '@/components/slide/SlideItem.vue'
-import SlideList from './SlideList.vue';
-import {recommendedVideo} from "@/api/videos";
+  import SlideItem from '@/components/slide/SlideItem.vue'
+  import SlideList from './SlideList.vue'
+  import { recommendedVideo } from '@/api/videos'
 
-const props = defineProps({
-  active: {
-    type: Boolean,
-    default: false
-  }
-})
+  const props = defineProps({
+    active: {
+      type: Boolean,
+      default: false,
+    },
+  })
 </script>

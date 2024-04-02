@@ -2,13 +2,7 @@
   {
     "name": "小米电视6 65\" OLED 65英寸",
     "cover": "g6-0.jpg",
-    "imgs": [
-      "g6-0.jpg",
-      "g6-1.jpg",
-      "g6-2.jpg",
-      "g6-3.jpg",
-      "g6-4.jpg"
-    ],
+    "imgs": ["g6-0.jpg", "g6-1.jpg", "g6-2.jpg", "g6-3.jpg", "g6-4.jpg"],
     "price": 6699,
     "real_price": 399,
     "isLowPrice": false,
@@ -18,12 +12,7 @@
   {
     "name": "红白撞色条纹软糯针织上衣女2022年秋季新款甜美减龄短款毛衣开衫",
     "cover": "g1-0.jpg",
-    "imgs": [
-      "g1-0.jpg",
-      "g1-1.jpg",
-      "g1-2.jpg",
-      "g1-3.jpg"
-    ],
+    "imgs": ["g1-0.jpg", "g1-1.jpg", "g1-2.jpg", "g1-3.jpg"],
     "isLowPrice": true,
     "discount": "满4减3",
     "sold": 134,
@@ -32,12 +21,7 @@
   },
   {
     "name": "森马t恤男2023男士纯棉上衣白色情侣装凉感短袖打底衫纯色体恤潮",
-    "imgs": [
-      "g2-0.webp",
-      "g2-1.webp",
-      "g2-2.webp",
-      "g2-3.webp"
-    ],
+    "imgs": ["g2-0.webp", "g2-1.webp", "g2-2.webp", "g2-3.webp"],
     "cover": "g2-0.webp",
     "real_price": 9.9,
     "price": 49.99,
@@ -48,15 +32,9 @@
   {
     "name": "ins潮牌长袖t恤男宽松纯色内搭上衣潮牌百搭秋冬季潮流帅气打底衫",
     "cover": "g3-0.jpg",
-    "imgs": [
-      "g3-0.jpg",
-      "g3-1.jpg",
-      "g3-2.jpg",
-      "g3-3.jpg",
-      "g3-4.jpg"
-    ],
+    "imgs": ["g3-0.jpg", "g3-1.jpg", "g3-2.jpg", "g3-3.jpg", "g3-4.jpg"],
     "real_price": 9.9,
-    "price": 22.90,
+    "price": 22.9,
     "isLowPrice": true,
     "discount": "满10减3",
     "sold": 129
@@ -64,12 +42,7 @@
   {
     "name": "Redmi K60狠快狠强，狠旗舰！2023，第一台梦幻手机",
     "cover": "g4-0.png",
-    "imgs": [
-      "g4-0.png",
-      "g4-1.png",
-      "g4-2.png",
-      "g4-3.png"
-    ],
+    "imgs": ["g4-0.png", "g4-1.png", "g4-2.png", "g4-3.png"],
     "real_price": 199.9,
     "price": 2999,
     "isLowPrice": true,
@@ -78,13 +51,7 @@
   },
   {
     "name": "小米笔记本Pro X 14",
-    "imgs": [
-      "g5-0.jpg",
-      "g5-1.jpg",
-      "g5-2.jpg",
-      "g5-3.jpg",
-      "g5-4.jpg"
-    ],
+    "imgs": ["g5-0.jpg", "g5-1.jpg", "g5-2.jpg", "g5-3.jpg", "g5-4.jpg"],
     "cover": "g5-0.jpg",
     "real_price": 1559.9,
     "price": 6999,
@@ -95,13 +62,7 @@
   {
     "name": "小米电视6 65\" OLED 65英寸",
     "cover": "g6-0.jpg",
-    "imgs": [
-      "g6-0.jpg",
-      "g6-1.jpg",
-      "g6-2.jpg",
-      "g6-3.jpg",
-      "g6-4.jpg"
-    ],
+    "imgs": ["g6-0.jpg", "g6-1.jpg", "g6-2.jpg", "g6-3.jpg", "g6-4.jpg"],
     "price": 6699,
     "real_price": 399,
     "isLowPrice": false,
@@ -111,12 +72,7 @@
   {
     "name": "红白撞色条纹软糯针织上衣女2022年秋季新款甜美减龄短款毛衣开衫",
     "cover": "g1-0.jpg",
-    "imgs": [
-      "g1-0.jpg",
-      "g1-1.jpg",
-      "g1-2.jpg",
-      "g1-3.jpg"
-    ],
+    "imgs": ["g1-0.jpg", "g1-1.jpg", "g1-2.jpg", "g1-3.jpg"],
     "isLowPrice": true,
     "discount": "满4减3",
     "sold": 134,
@@ -125,12 +81,7 @@
   },
   {
     "name": "森马t恤男2023男士纯棉上衣白色情侣装凉感短袖打底衫纯色体恤潮",
-    "imgs": [
-      "g2-0.webp",
-      "g2-1.webp",
-      "g2-2.webp",
-      "g2-3.webp"
-    ],
+    "imgs": ["g2-0.webp", "g2-1.webp", "g2-2.webp", "g2-3.webp"],
     "cover": "g2-0.webp",
     "real_price": 9.9,
     "price": 49.99,
@@ -141,15 +92,9 @@
   {
     "name": "ins潮牌长袖t恤男宽松纯色内搭上衣潮牌百搭秋冬季潮流帅气打底衫",
     "cover": "g3-0.jpg",
-    "imgs": [
-      "g3-0.jpg",
-      "g3-1.jpg",
-      "g3-2.jpg",
-      "g3-3.jpg",
-      "g3-4.jpg"
-    ],
+    "imgs": ["g3-0.jpg", "g3-1.jpg", "g3-2.jpg", "g3-3.jpg", "g3-4.jpg"],
     "real_price": 9.9,
-    "price": 22.90,
+    "price": 22.9,
     "isLowPrice": true,
     "discount": "满10减3",
     "sold": 129
@@ -157,12 +102,7 @@
   {
     "name": "Redmi K60狠快狠强，狠旗舰！2023，第一台梦幻手机",
     "cover": "g4-0.png",
-    "imgs": [
-      "g4-0.png",
-      "g4-1.png",
-      "g4-2.png",
-      "g4-3.png"
-    ],
+    "imgs": ["g4-0.png", "g4-1.png", "g4-2.png", "g4-3.png"],
     "real_price": 199.9,
     "price": 2999,
     "isLowPrice": true,
@@ -171,13 +111,7 @@
   },
   {
     "name": "小米笔记本Pro X 14",
-    "imgs": [
-      "g5-0.jpg",
-      "g5-1.jpg",
-      "g5-2.jpg",
-      "g5-3.jpg",
-      "g5-4.jpg"
-    ],
+    "imgs": ["g5-0.jpg", "g5-1.jpg", "g5-2.jpg", "g5-3.jpg", "g5-4.jpg"],
     "cover": "g5-0.jpg",
     "real_price": 1559.9,
     "price": 6999,
@@ -188,13 +122,7 @@
   {
     "name": "小米电视6 65\" OLED 65英寸",
     "cover": "g6-0.jpg",
-    "imgs": [
-      "g6-0.jpg",
-      "g6-1.jpg",
-      "g6-2.jpg",
-      "g6-3.jpg",
-      "g6-4.jpg"
-    ],
+    "imgs": ["g6-0.jpg", "g6-1.jpg", "g6-2.jpg", "g6-3.jpg", "g6-4.jpg"],
     "price": 6699,
     "real_price": 399,
     "isLowPrice": false,
@@ -204,12 +132,7 @@
   {
     "name": "红白撞色条纹软糯针织上衣女2022年秋季新款甜美减龄短款毛衣开衫",
     "cover": "g1-0.jpg",
-    "imgs": [
-      "g1-0.jpg",
-      "g1-1.jpg",
-      "g1-2.jpg",
-      "g1-3.jpg"
-    ],
+    "imgs": ["g1-0.jpg", "g1-1.jpg", "g1-2.jpg", "g1-3.jpg"],
     "isLowPrice": true,
     "discount": "满4减3",
     "sold": 134,
@@ -218,12 +141,7 @@
   },
   {
     "name": "森马t恤男2023男士纯棉上衣白色情侣装凉感短袖打底衫纯色体恤潮",
-    "imgs": [
-      "g2-0.webp",
-      "g2-1.webp",
-      "g2-2.webp",
-      "g2-3.webp"
-    ],
+    "imgs": ["g2-0.webp", "g2-1.webp", "g2-2.webp", "g2-3.webp"],
     "cover": "g2-0.webp",
     "real_price": 9.9,
     "price": 49.99,
@@ -234,15 +152,9 @@
   {
     "name": "ins潮牌长袖t恤男宽松纯色内搭上衣潮牌百搭秋冬季潮流帅气打底衫",
     "cover": "g3-0.jpg",
-    "imgs": [
-      "g3-0.jpg",
-      "g3-1.jpg",
-      "g3-2.jpg",
-      "g3-3.jpg",
-      "g3-4.jpg"
-    ],
+    "imgs": ["g3-0.jpg", "g3-1.jpg", "g3-2.jpg", "g3-3.jpg", "g3-4.jpg"],
     "real_price": 9.9,
-    "price": 22.90,
+    "price": 22.9,
     "isLowPrice": true,
     "discount": "满10减3",
     "sold": 129
@@ -250,12 +162,7 @@
   {
     "name": "Redmi K60狠快狠强，狠旗舰！2023，第一台梦幻手机",
     "cover": "g4-0.png",
-    "imgs": [
-      "g4-0.png",
-      "g4-1.png",
-      "g4-2.png",
-      "g4-3.png"
-    ],
+    "imgs": ["g4-0.png", "g4-1.png", "g4-2.png", "g4-3.png"],
     "real_price": 199.9,
     "price": 2999,
     "isLowPrice": true,
@@ -264,13 +171,7 @@
   },
   {
     "name": "小米笔记本Pro X 14",
-    "imgs": [
-      "g5-0.jpg",
-      "g5-1.jpg",
-      "g5-2.jpg",
-      "g5-3.jpg",
-      "g5-4.jpg"
-    ],
+    "imgs": ["g5-0.jpg", "g5-1.jpg", "g5-2.jpg", "g5-3.jpg", "g5-4.jpg"],
     "cover": "g5-0.jpg",
     "real_price": 1559.9,
     "price": 6999,
@@ -281,13 +182,7 @@
   {
     "name": "小米电视6 65\" OLED 65英寸",
     "cover": "g6-0.jpg",
-    "imgs": [
-      "g6-0.jpg",
-      "g6-1.jpg",
-      "g6-2.jpg",
-      "g6-3.jpg",
-      "g6-4.jpg"
-    ],
+    "imgs": ["g6-0.jpg", "g6-1.jpg", "g6-2.jpg", "g6-3.jpg", "g6-4.jpg"],
     "price": 6699,
     "real_price": 399,
     "isLowPrice": false,
@@ -297,12 +192,7 @@
   {
     "name": "红白撞色条纹软糯针织上衣女2022年秋季新款甜美减龄短款毛衣开衫",
     "cover": "g1-0.jpg",
-    "imgs": [
-      "g1-0.jpg",
-      "g1-1.jpg",
-      "g1-2.jpg",
-      "g1-3.jpg"
-    ],
+    "imgs": ["g1-0.jpg", "g1-1.jpg", "g1-2.jpg", "g1-3.jpg"],
     "isLowPrice": true,
     "discount": "满4减3",
     "sold": 134,
@@ -311,12 +201,7 @@
   },
   {
     "name": "森马t恤男2023男士纯棉上衣白色情侣装凉感短袖打底衫纯色体恤潮",
-    "imgs": [
-      "g2-0.webp",
-      "g2-1.webp",
-      "g2-2.webp",
-      "g2-3.webp"
-    ],
+    "imgs": ["g2-0.webp", "g2-1.webp", "g2-2.webp", "g2-3.webp"],
     "cover": "g2-0.webp",
     "real_price": 9.9,
     "price": 49.99,
@@ -327,15 +212,9 @@
   {
     "name": "ins潮牌长袖t恤男宽松纯色内搭上衣潮牌百搭秋冬季潮流帅气打底衫",
     "cover": "g3-0.jpg",
-    "imgs": [
-      "g3-0.jpg",
-      "g3-1.jpg",
-      "g3-2.jpg",
-      "g3-3.jpg",
-      "g3-4.jpg"
-    ],
+    "imgs": ["g3-0.jpg", "g3-1.jpg", "g3-2.jpg", "g3-3.jpg", "g3-4.jpg"],
     "real_price": 9.9,
-    "price": 22.90,
+    "price": 22.9,
     "isLowPrice": true,
     "discount": "满10减3",
     "sold": 129
@@ -343,12 +222,7 @@
   {
     "name": "Redmi K60狠快狠强，狠旗舰！2023，第一台梦幻手机",
     "cover": "g4-0.png",
-    "imgs": [
-      "g4-0.png",
-      "g4-1.png",
-      "g4-2.png",
-      "g4-3.png"
-    ],
+    "imgs": ["g4-0.png", "g4-1.png", "g4-2.png", "g4-3.png"],
     "real_price": 199.9,
     "price": 2999,
     "isLowPrice": true,
@@ -357,13 +231,7 @@
   },
   {
     "name": "小米笔记本Pro X 14",
-    "imgs": [
-      "g5-0.jpg",
-      "g5-1.jpg",
-      "g5-2.jpg",
-      "g5-3.jpg",
-      "g5-4.jpg"
-    ],
+    "imgs": ["g5-0.jpg", "g5-1.jpg", "g5-2.jpg", "g5-3.jpg", "g5-4.jpg"],
     "cover": "g5-0.jpg",
     "real_price": 1559.9,
     "price": 6999,
@@ -374,13 +242,7 @@
   {
     "name": "小米电视6 65\" OLED 65英寸",
     "cover": "g6-0.jpg",
-    "imgs": [
-      "g6-0.jpg",
-      "g6-1.jpg",
-      "g6-2.jpg",
-      "g6-3.jpg",
-      "g6-4.jpg"
-    ],
+    "imgs": ["g6-0.jpg", "g6-1.jpg", "g6-2.jpg", "g6-3.jpg", "g6-4.jpg"],
     "price": 6699,
     "real_price": 399,
     "isLowPrice": false,
@@ -390,12 +252,7 @@
   {
     "name": "红白撞色条纹软糯针织上衣女2022年秋季新款甜美减龄短款毛衣开衫",
     "cover": "g1-0.jpg",
-    "imgs": [
-      "g1-0.jpg",
-      "g1-1.jpg",
-      "g1-2.jpg",
-      "g1-3.jpg"
-    ],
+    "imgs": ["g1-0.jpg", "g1-1.jpg", "g1-2.jpg", "g1-3.jpg"],
     "isLowPrice": true,
     "discount": "满4减3",
     "sold": 134,
@@ -404,12 +261,7 @@
   },
   {
     "name": "森马t恤男2023男士纯棉上衣白色情侣装凉感短袖打底衫纯色体恤潮",
-    "imgs": [
-      "g2-0.webp",
-      "g2-1.webp",
-      "g2-2.webp",
-      "g2-3.webp"
-    ],
+    "imgs": ["g2-0.webp", "g2-1.webp", "g2-2.webp", "g2-3.webp"],
     "cover": "g2-0.webp",
     "real_price": 9.9,
     "price": 49.99,
@@ -420,15 +272,9 @@
   {
     "name": "ins潮牌长袖t恤男宽松纯色内搭上衣潮牌百搭秋冬季潮流帅气打底衫",
     "cover": "g3-0.jpg",
-    "imgs": [
-      "g3-0.jpg",
-      "g3-1.jpg",
-      "g3-2.jpg",
-      "g3-3.jpg",
-      "g3-4.jpg"
-    ],
+    "imgs": ["g3-0.jpg", "g3-1.jpg", "g3-2.jpg", "g3-3.jpg", "g3-4.jpg"],
     "real_price": 9.9,
-    "price": 22.90,
+    "price": 22.9,
     "isLowPrice": true,
     "discount": "满10减3",
     "sold": 129
@@ -436,12 +282,7 @@
   {
     "name": "Redmi K60狠快狠强，狠旗舰！2023，第一台梦幻手机",
     "cover": "g4-0.png",
-    "imgs": [
-      "g4-0.png",
-      "g4-1.png",
-      "g4-2.png",
-      "g4-3.png"
-    ],
+    "imgs": ["g4-0.png", "g4-1.png", "g4-2.png", "g4-3.png"],
     "real_price": 199.9,
     "price": 2999,
     "isLowPrice": true,
@@ -450,13 +291,7 @@
   },
   {
     "name": "小米笔记本Pro X 14",
-    "imgs": [
-      "g5-0.jpg",
-      "g5-1.jpg",
-      "g5-2.jpg",
-      "g5-3.jpg",
-      "g5-4.jpg"
-    ],
+    "imgs": ["g5-0.jpg", "g5-1.jpg", "g5-2.jpg", "g5-3.jpg", "g5-4.jpg"],
     "cover": "g5-0.jpg",
     "real_price": 1559.9,
     "price": 6999,
@@ -467,13 +302,7 @@
   {
     "name": "小米电视6 65\" OLED 65英寸",
     "cover": "g6-0.jpg",
-    "imgs": [
-      "g6-0.jpg",
-      "g6-1.jpg",
-      "g6-2.jpg",
-      "g6-3.jpg",
-      "g6-4.jpg"
-    ],
+    "imgs": ["g6-0.jpg", "g6-1.jpg", "g6-2.jpg", "g6-3.jpg", "g6-4.jpg"],
     "price": 6699,
     "real_price": 399,
     "isLowPrice": false,
@@ -483,12 +312,7 @@
   {
     "name": "红白撞色条纹软糯针织上衣女2022年秋季新款甜美减龄短款毛衣开衫",
     "cover": "g1-0.jpg",
-    "imgs": [
-      "g1-0.jpg",
-      "g1-1.jpg",
-      "g1-2.jpg",
-      "g1-3.jpg"
-    ],
+    "imgs": ["g1-0.jpg", "g1-1.jpg", "g1-2.jpg", "g1-3.jpg"],
     "isLowPrice": true,
     "discount": "满4减3",
     "sold": 134,
@@ -497,12 +321,7 @@
   },
   {
     "name": "森马t恤男2023男士纯棉上衣白色情侣装凉感短袖打底衫纯色体恤潮",
-    "imgs": [
-      "g2-0.webp",
-      "g2-1.webp",
-      "g2-2.webp",
-      "g2-3.webp"
-    ],
+    "imgs": ["g2-0.webp", "g2-1.webp", "g2-2.webp", "g2-3.webp"],
     "cover": "g2-0.webp",
     "real_price": 9.9,
     "price": 49.99,
@@ -513,15 +332,9 @@
   {
     "name": "ins潮牌长袖t恤男宽松纯色内搭上衣潮牌百搭秋冬季潮流帅气打底衫",
     "cover": "g3-0.jpg",
-    "imgs": [
-      "g3-0.jpg",
-      "g3-1.jpg",
-      "g3-2.jpg",
-      "g3-3.jpg",
-      "g3-4.jpg"
-    ],
+    "imgs": ["g3-0.jpg", "g3-1.jpg", "g3-2.jpg", "g3-3.jpg", "g3-4.jpg"],
     "real_price": 9.9,
-    "price": 22.90,
+    "price": 22.9,
     "isLowPrice": true,
     "discount": "满10减3",
     "sold": 129
@@ -529,12 +342,7 @@
   {
     "name": "Redmi K60狠快狠强，狠旗舰！2023，第一台梦幻手机",
     "cover": "g4-0.png",
-    "imgs": [
-      "g4-0.png",
-      "g4-1.png",
-      "g4-2.png",
-      "g4-3.png"
-    ],
+    "imgs": ["g4-0.png", "g4-1.png", "g4-2.png", "g4-3.png"],
     "real_price": 199.9,
     "price": 2999,
     "isLowPrice": true,
@@ -543,13 +351,7 @@
   },
   {
     "name": "小米笔记本Pro X 14",
-    "imgs": [
-      "g5-0.jpg",
-      "g5-1.jpg",
-      "g5-2.jpg",
-      "g5-3.jpg",
-      "g5-4.jpg"
-    ],
+    "imgs": ["g5-0.jpg", "g5-1.jpg", "g5-2.jpg", "g5-3.jpg", "g5-4.jpg"],
     "cover": "g5-0.jpg",
     "real_price": 1559.9,
     "price": 6999,
@@ -560,13 +362,7 @@
   {
     "name": "小米电视6 65\" OLED 65英寸",
     "cover": "g6-0.jpg",
-    "imgs": [
-      "g6-0.jpg",
-      "g6-1.jpg",
-      "g6-2.jpg",
-      "g6-3.jpg",
-      "g6-4.jpg"
-    ],
+    "imgs": ["g6-0.jpg", "g6-1.jpg", "g6-2.jpg", "g6-3.jpg", "g6-4.jpg"],
     "price": 6699,
     "real_price": 399,
     "isLowPrice": false,
@@ -576,12 +372,7 @@
   {
     "name": "红白撞色条纹软糯针织上衣女2022年秋季新款甜美减龄短款毛衣开衫",
     "cover": "g1-0.jpg",
-    "imgs": [
-      "g1-0.jpg",
-      "g1-1.jpg",
-      "g1-2.jpg",
-      "g1-3.jpg"
-    ],
+    "imgs": ["g1-0.jpg", "g1-1.jpg", "g1-2.jpg", "g1-3.jpg"],
     "isLowPrice": true,
     "discount": "满4减3",
     "sold": 134,
@@ -590,12 +381,7 @@
   },
   {
     "name": "森马t恤男2023男士纯棉上衣白色情侣装凉感短袖打底衫纯色体恤潮",
-    "imgs": [
-      "g2-0.webp",
-      "g2-1.webp",
-      "g2-2.webp",
-      "g2-3.webp"
-    ],
+    "imgs": ["g2-0.webp", "g2-1.webp", "g2-2.webp", "g2-3.webp"],
     "cover": "g2-0.webp",
     "real_price": 9.9,
     "price": 49.99,
@@ -606,15 +392,9 @@
   {
     "name": "ins潮牌长袖t恤男宽松纯色内搭上衣潮牌百搭秋冬季潮流帅气打底衫",
     "cover": "g3-0.jpg",
-    "imgs": [
-      "g3-0.jpg",
-      "g3-1.jpg",
-      "g3-2.jpg",
-      "g3-3.jpg",
-      "g3-4.jpg"
-    ],
+    "imgs": ["g3-0.jpg", "g3-1.jpg", "g3-2.jpg", "g3-3.jpg", "g3-4.jpg"],
     "real_price": 9.9,
-    "price": 22.90,
+    "price": 22.9,
     "isLowPrice": true,
     "discount": "满10减3",
     "sold": 129
@@ -622,12 +402,7 @@
   {
     "name": "Redmi K60狠快狠强，狠旗舰！2023，第一台梦幻手机",
     "cover": "g4-0.png",
-    "imgs": [
-      "g4-0.png",
-      "g4-1.png",
-      "g4-2.png",
-      "g4-3.png"
-    ],
+    "imgs": ["g4-0.png", "g4-1.png", "g4-2.png", "g4-3.png"],
     "real_price": 199.9,
     "price": 2999,
     "isLowPrice": true,
@@ -636,13 +411,7 @@
   },
   {
     "name": "小米笔记本Pro X 14",
-    "imgs": [
-      "g5-0.jpg",
-      "g5-1.jpg",
-      "g5-2.jpg",
-      "g5-3.jpg",
-      "g5-4.jpg"
-    ],
+    "imgs": ["g5-0.jpg", "g5-1.jpg", "g5-2.jpg", "g5-3.jpg", "g5-4.jpg"],
     "cover": "g5-0.jpg",
     "real_price": 1559.9,
     "price": 6999,

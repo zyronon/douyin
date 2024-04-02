@@ -1,18 +1,18 @@
-import * as Vue from "vue";
-import SelectDialog from "../components/dialog/SelectDialog";
-import SimpleConfirmDialog from "../components/dialog/SimpleConfirmDialog";
-import ConfirmDialog from "../components/dialog/ConfirmDialog";
-import Loading from "../components/Loading.vue";
-import Config, {IMG_URL} from '../config'
-import NoticeDialog from "../components/dialog/NoticeDialog";
+import * as Vue from 'vue'
+import SelectDialog from '../components/dialog/SelectDialog'
+import SimpleConfirmDialog from '../components/dialog/SimpleConfirmDialog'
+import ConfirmDialog from '../components/dialog/ConfirmDialog'
+import Loading from '../components/Loading.vue'
+import Config, { IMG_URL } from '../config'
+import NoticeDialog from '../components/dialog/NoticeDialog'
 import dayjs from 'dayjs'
-import bus, {EVENT_KEY} from "./bus";
+import bus, { EVENT_KEY } from './bus'
 
 const Utils = {
   $showLoading() {
     const app = Vue.createApp({
       render() {
-        return <Loading/>
+        return <Loading />
       },
     })
     let parent = document.createElement('div')
@@ -32,13 +32,13 @@ const Utils = {
         parent.remove()
       }, 300)
     }
-    let tempCb = e => {
+    let tempCb = (e) => {
       remove()
       cb(e)
     }
     const app = Vue.createApp({
       render() {
-        return <SelectDialog onCancel={remove} list={sexList} onOk={tempCb}/>
+        return <SelectDialog onCancel={remove} list={sexList} onOk={tempCb} />
       },
     })
     let parent = document.createElement('div')
@@ -46,10 +46,9 @@ const Utils = {
     document.body.append(parent)
     app.mount(parent)
   },
-  $showSimpleConfirmDialog(title, okCb, cancelCb, okText, cancelText,) {
+  $showSimpleConfirmDialog(title, okCb, cancelCb, okText, cancelText) {
     if (!cancelCb) {
-      cancelCb = () => {
-      }
+      cancelCb = () => {}
     }
     let remove = () => {
       let parent = document.querySelector('.dialog-ctn')
@@ -58,23 +57,26 @@ const Utils = {
         parent.remove()
       }, 300)
     }
-    let tempOkCb = e => {
+    let tempOkCb = (e) => {
       remove()
       okCb(e)
     }
-    let tempCancelCb = e => {
+    let tempCancelCb = (e) => {
       remove()
       cancelCb(e)
     }
     const app = Vue.createApp({
       render() {
-        return <SimpleConfirmDialog
-          onCancel={tempCancelCb}
-          onDismiss={remove}
-          title={title}
-          okText={okText}
-          cancelText={cancelText}
-          onOk={tempOkCb}/>
+        return (
+          <SimpleConfirmDialog
+            onCancel={tempCancelCb}
+            onDismiss={remove}
+            title={title}
+            okText={okText}
+            cancelText={cancelText}
+            onOk={tempOkCb}
+          />
+        )
       },
     })
     let parent = document.createElement('div')
@@ -82,7 +84,16 @@ const Utils = {
     document.body.append(parent)
     app.mount(parent)
   },
-  $showConfirmDialog(title, subtitle, subtitleColor, okCb, cancelCb, okText, cancelText, cancelTextColor) {
+  $showConfirmDialog(
+    title,
+    subtitle,
+    subtitleColor,
+    okCb,
+    cancelCb,
+    okText,
+    cancelText,
+    cancelTextColor,
+  ) {
     let remove = () => {
       let parent = document.querySelector('.dialog-ctn')
       parent.classList.replace('fade-in', 'fade-out')
@@ -90,25 +101,29 @@ const Utils = {
         parent.remove()
       }, 300)
     }
-    let tempOkCb = e => {
+    let tempOkCb = (e) => {
       remove()
       okCb && okCb(e)
     }
-    let tempCancelCb = e => {
+    let tempCancelCb = (e) => {
       remove()
       cancelCb && cancelCb(e)
     }
     const app = Vue.createApp({
       render() {
-        return <ConfirmDialog onCancel={tempCancelCb}
-                              onDismiss={remove}
-                              title={title}
-                              subtitle={subtitle}
-                              subtitleColor={subtitleColor}
-                              cancelTextColor={cancelTextColor}
-                              okText={okText}
-                              cancelText={cancelText}
-                              onOk={tempOkCb}/>
+        return (
+          <ConfirmDialog
+            onCancel={tempCancelCb}
+            onDismiss={remove}
+            title={title}
+            subtitle={subtitle}
+            subtitleColor={subtitleColor}
+            cancelTextColor={cancelTextColor}
+            okText={okText}
+            cancelText={cancelText}
+            onOk={tempOkCb}
+          />
+        )
       },
     })
     let parent = document.createElement('div')
@@ -124,18 +139,22 @@ const Utils = {
         parent.remove()
       }, 300)
     }
-    let tempCancelCb = e => {
+    let tempCancelCb = (e) => {
       remove()
       cancelCb(e)
     }
     const app = Vue.createApp({
       render() {
-        return <NoticeDialog onCancel={tempCancelCb}
-                             onDismiss={remove}
-                             title={title}
-                             subtitleColor={subtitleColor}
-                             cancelText={cancelText}
-                             subtitle={subtitle}/>
+        return (
+          <NoticeDialog
+            onCancel={tempCancelCb}
+            onDismiss={remove}
+            title={title}
+            subtitleColor={subtitleColor}
+            cancelText={cancelText}
+            subtitle={subtitle}
+          />
+        )
       },
     })
     let parent = document.createElement('div')
@@ -165,13 +184,15 @@ const Utils = {
     e.preventDefault()
   },
   $getCss(curEle, attr) {
-    let val = null, reg = null
-    if ("getComputedStyle" in window) {
+    let val = null,
+      reg = null
+    if ('getComputedStyle' in window) {
       val = window.getComputedStyle(curEle, null)[attr]
-    } else {   //ie6~8不支持上面属性
+    } else {
+      //ie6~8不支持上面属性
       //不兼容
-      if (attr === "opacity") {
-        val = curEle.currentStyle["filter"]   //'alpha(opacity=12,345)'
+      if (attr === 'opacity') {
+        val = curEle.currentStyle['filter'] //'alpha(opacity=12,345)'
         reg = /^alphaopacity=(\d+(?:\.\d+)?)opacity=(\d+(?:\.\d+)?)$/i
         val = reg.test(val) ? reg.exec(val)[1] / 100 : 1
       } else {
@@ -183,13 +204,15 @@ const Utils = {
     return parseFloat(val)
   },
   $getCss2(curEle, attr) {
-    let val = null, reg = null
-    if ("getComputedStyle" in window) {
+    let val = null,
+      reg = null
+    if ('getComputedStyle' in window) {
       val = window.getComputedStyle(curEle, null)[attr]
-    } else {   //ie6~8不支持上面属性
+    } else {
+      //ie6~8不支持上面属性
       //不兼容
-      if (attr === "opacity") {
-        val = curEle.currentStyle["filter"]   //'alpha(opacity=12,345)'
+      if (attr === 'opacity') {
+        val = curEle.currentStyle['filter'] //'alpha(opacity=12,345)'
         reg = /^alphaopacity=(\d+(?:\.\d+)?)opacity=(\d+(?:\.\d+)?)$/i
         val = reg.test(val) ? reg.exec(val)[1] / 100 : 1
       } else {
@@ -204,13 +227,19 @@ const Utils = {
     // console.log(value)
     if (key === 'transform') {
       //直接设置不生效
-      el.style.webkitTransform = el.style.MsTransform = el.style.msTransform = el.style.MozTransform = el.style.OTransform = el.style.transform = value;
+      el.style.webkitTransform =
+        el.style.MsTransform =
+        el.style.msTransform =
+        el.style.MozTransform =
+        el.style.OTransform =
+        el.style.transform =
+          value
     } else {
       el.style[key] = value
     }
   },
   $nav(path, query = {}) {
-    this.$router.push({path, query})
+    this.$router.push({ path, query })
   },
   $clone(v) {
     return JSON.parse(JSON.stringify(v))
@@ -229,8 +258,7 @@ const Utils = {
       query: a.search,
       params: (function () {
         const ret = {}
-        const seg = a.search.replace(/^\?/, '')
-          .split('&')
+        const seg = a.search.replace(/^\?/, '').split('&')
         const len = seg.length
         let i = 0
         let s
@@ -242,7 +270,7 @@ const Utils = {
           ret[s[0]] = s[1]
         }
         return ret
-      }()),
+      })(),
       hash: a.hash.replace('#', ''),
     }
   },
@@ -250,11 +278,12 @@ const Utils = {
     // console.log(url)
     if (!url) return
     //本地图片
-    if (url.includes('assets/img')
-      || url.includes('file://')
-      || url.includes('data:image')
-      || url.includes('http')
-      || url.includes('https')
+    if (
+      url.includes('assets/img') ||
+      url.includes('file://') ||
+      url.includes('data:image') ||
+      url.includes('http') ||
+      url.includes('https')
     ) {
       return url
     }
@@ -280,7 +309,6 @@ const Utils = {
   $dateFormat(val, type) {
     if (!val) return
     if (typeof val === 'number') {
-
     } else {
       if (val.length === 10) {
         val += '000'
@@ -367,33 +395,33 @@ const Utils = {
     }
   },
   getCenter(a, b) {
-    const x = (a.x + b.x) / 2;
-    const y = (a.y + b.y) / 2;
-    return {x, y}
+    const x = (a.x + b.x) / 2
+    const y = (a.y + b.y) / 2
+    return { x, y }
   },
   // 获取坐标之间的举例
   getDistance(start, stop) {
-    return Math.hypot(stop.x - start.x, stop.y - start.y);
+    return Math.hypot(stop.x - start.x, stop.y - start.y)
   },
   updateItem(props, key, val, emit) {
     let old = cloneDeep(props.item)
     old[key] = val
     emit('update:item', old)
-    bus.emit(EVENT_KEY.UPDATE_ITEM, {position: props.position, item: old})
+    bus.emit(EVENT_KEY.UPDATE_ITEM, { position: props.position, item: old })
   },
   copy(val) {
-    let textarea = document.createElement('textarea');
-    document.body.appendChild(textarea);
-    textarea.style.position = 'absolute';
-    textarea.style.clip = 'rect(0 0 0 0)';
-    textarea.value = val;
-    textarea.select();
+    let textarea = document.createElement('textarea')
+    document.body.appendChild(textarea)
+    textarea.style.position = 'absolute'
+    textarea.style.clip = 'rect(0 0 0 0)'
+    textarea.value = val
+    textarea.select()
     if (document.execCommand) {
-      document.execCommand('copy', true);
+      document.execCommand('copy', true)
       this.$notice('已复制')
     }
-    document.body.removeChild(textarea);
-  }
+    document.body.removeChild(textarea)
+  },
 }
 
 export default Utils
@@ -414,11 +442,12 @@ export function _checkImgUrl(url) {
   // console.log(url)
   if (!url) return
   //本地图片
-  if (url.includes('assets/img')
-    || url.includes('file://')
-    || url.includes('data:image')
-    || url.includes('http')
-    || url.includes('https')
+  if (
+    url.includes('assets/img') ||
+    url.includes('file://') ||
+    url.includes('data:image') ||
+    url.includes('http') ||
+    url.includes('https')
   ) {
     return url
   }
@@ -452,9 +481,9 @@ export function cloneDeep(val) {
 }
 
 export function random(min, max) {
-  const minCeiled = Math.ceil(min);
-  const maxFloored = Math.floor(max);
-  return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // 包含最小值和最大值
+  const minCeiled = Math.ceil(min)
+  const maxFloored = Math.floor(max)
+  return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled) // 包含最小值和最大值
 }
 
 export function sampleSize(arr, num) {
@@ -469,5 +498,3 @@ export function sampleSize(arr, num) {
   }
   return list
 }
-
-

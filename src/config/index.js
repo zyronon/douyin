@@ -6,7 +6,7 @@ export default {
 const BASE_URL_MAP = {
   DEV: '',
   PROD: '',
-  UNI: 'https://dy.ttentau.top'
+  UNI: 'https://dy.ttentau.top',
 }
 
 export const BASE_URL = BASE_URL_MAP[import.meta.env.VITE_ENV]

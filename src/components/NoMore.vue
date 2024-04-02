@@ -5,20 +5,20 @@
   </div>
 </template>
 <script>
-export default {
-  name: "NoMore",
-}
+  export default {
+    name: 'NoMore',
+  }
 </script>
 
 <style scoped lang="less">
-@import "../assets/less/index";
+  @import '../assets/less/index';
 
-.NoMore {
-  font-size: 12rem;
-  height: 60rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--second-text-color);
-}
+  .NoMore {
+    font-size: 12rem;
+    height: 60rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--second-text-color);
+  }
 </style>

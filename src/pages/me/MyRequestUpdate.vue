@@ -10,10 +10,10 @@
         <div class="list">
           <div class="item" v-for="item in friends.all">
             <div class="left">
-              <img :src='$imgPreview(item.avatar)'>
+              <img :src="$imgPreview(item.avatar)" />
               <span class="name">{{ item.name }}</span>
             </div>
-            <span class="time">{{ $dateFormat(item.lastLoginTime,'D') }}</span>
+            <span class="time">{{ $dateFormat(item.lastLoginTime, 'D') }}</span>
           </div>
         </div>
       </div>
@@ -21,73 +21,69 @@
   </div>
 </template>
 <script>
-import {mapState} from "pinia";
-import FromBottomDialog from "../../components/dialog/FromBottomDialog";
-import {useBaseStore} from "@/store/pinia";
+  import { mapState } from 'pinia'
+  import FromBottomDialog from '../../components/dialog/FromBottomDialog'
+  import { useBaseStore } from '@/store/pinia'
 
-export default {
-  name: "MyRequestUpdate",
-  components: {FromBottomDialog},
-  data() {
-    return {}
-  },
-  computed: {
-    ...mapState(useBaseStore, ['friends']),
-  },
-  created() {
-  },
-  methods: {}
-}
+  export default {
+    name: 'MyRequestUpdate',
+    components: { FromBottomDialog },
+    data() {
+      return {}
+    },
+    computed: {
+      ...mapState(useBaseStore, ['friends']),
+    },
+    created() {},
+    methods: {},
+  }
 </script>
 
 <style scoped lang="less">
-@import "../../assets/less/index";
+  @import '../../assets/less/index';
 
-.RequestUpdate {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  overflow: auto;
-  color: white;
-  font-size: 14rem;
+  .RequestUpdate {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    overflow: auto;
+    color: white;
+    font-size: 14rem;
 
-  .content {
-    padding: 60rem 15rem 60rem 15rem;
+    .content {
+      padding: 60rem 15rem 60rem 15rem;
 
+      .request {
+        .list {
+          .item {
+            padding: 10rem 0;
 
-    .request {
-      .list {
-
-        .item {
-          padding: 10rem 0;
-
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-
-          .left {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            @width: 42rem;
 
-            img {
-              width: @width;
-              height: @width;
-              border-radius: 50%;
-              margin-right: 10rem;
+            .left {
+              display: flex;
+              align-items: center;
+              @width: 42rem;
+
+              img {
+                width: @width;
+                height: @width;
+                border-radius: 50%;
+                margin-right: 10rem;
+              }
             }
-          }
 
-          .time{
-            font-size: 12rem;
-            color: var(--second-text-color);
+            .time {
+              font-size: 12rem;
+              color: var(--second-text-color);
+            }
           }
         }
       }
     }
-
   }
-}
 </style>

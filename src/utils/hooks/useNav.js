@@ -1,6 +1,6 @@
-import {useRouter} from "vue-router";
-import {cloneDeep} from '@/utils'
-import {useBaseStore} from "@/store/pinia";
+import { useRouter } from 'vue-router'
+import { cloneDeep } from '@/utils'
+import { useBaseStore } from '@/store/pinia'
 
 export function useNav() {
   const router = useRouter()
@@ -10,7 +10,6 @@ export function useNav() {
     if (data) {
       store.routeData = cloneDeep(data)
     }
-    router.push({path, query})
+    router.push({ path, query })
   }
 }
-

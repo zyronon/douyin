@@ -1,21 +1,21 @@
 <script setup>
-import {computed} from "vue";
+  import { computed } from 'vue'
 
-const props = defineProps({
-  list: {
-    type: Array,
-    default() {
-      return []
-    }
-  }
-})
+  const props = defineProps({
+    list: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
+  })
 
-const leftList = computed(() => {
-  return props.list.filter((v, index) => index % 2 === 0)
-})
-const rightList = computed(() => {
-  return props.list.filter((v, index) => index % 2 !== 0)
-})
+  const leftList = computed(() => {
+    return props.list.filter((v, index) => index % 2 === 0)
+  })
+  const rightList = computed(() => {
+    return props.list.filter((v, index) => index % 2 !== 0)
+  })
 </script>
 
 <template>
@@ -30,16 +30,14 @@ const rightList = computed(() => {
 </template>
 
 <style scoped lang="less">
-
-.waterfall {
-  display: flex;
-  gap: 10rem;
-
-  .waterfall-row {
-    width: 50%;
+  .waterfall {
     display: flex;
-    flex-direction: column;
-  }
-}
+    gap: 10rem;
 
+    .waterfall-row {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+    }
+  }
 </style>

@@ -9,6 +9,5 @@ export default {
     TIME60: 60,
     TIME90: 90,
     TIME120: 120,
-  }
+  },
 }
-

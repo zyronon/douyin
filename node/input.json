@@ -10822,12 +10822,8 @@
       "impression_data": {
         "group_id_list_a": [],
         "group_id_list_b": [],
-        "similar_id_list_a": [
-          7329048510471359753
-        ],
-        "similar_id_list_b": [
-          7329048510471359753
-        ],
+        "similar_id_list_a": [7329048510471359753],
+        "similar_id_list_b": [7329048510471359753],
         "group_id_list_c": []
       },
       "book_bar": {},
@@ -15859,12 +15855,8 @@
       "impression_data": {
         "group_id_list_a": [],
         "group_id_list_b": [],
-        "similar_id_list_a": [
-          7328036070275304731
-        ],
-        "similar_id_list_b": [
-          7328036070275304731
-        ],
+        "similar_id_list_a": [7328036070275304731],
+        "similar_id_list_b": [7328036070275304731],
         "group_id_list_c": []
       },
       "book_bar": {},
@@ -16876,9 +16868,7 @@
       "impression_data": {
         "group_id_list_a": [],
         "group_id_list_b": [],
-        "similar_id_list_a": [
-          7327942787163327754
-        ],
+        "similar_id_list_a": [7327942787163327754],
         "similar_id_list_b": null,
         "group_id_list_c": []
       },

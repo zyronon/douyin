@@ -7,7 +7,6 @@
 <a href="README-en-US.md">English</a>
 </p>
 
-
 <p align="center">
  <b>douyin</b>It is a mobile short video project imitating Douyin.，
 It is based on <a href="https://v3.cn.vuejs.org">Vue</a>, <a href="https://cn.vitejs.dev/">Vite</a> implementation.
@@ -21,10 +20,10 @@ Netlify: <https://douyins.netlify.app> (If you are in China, you need Vpn)
 Vercel: <http://dy.ttentau.top> (This is recommended in China.)
 
 **Note**: PC browsers should be accessed in mobile mode.
-    Press F12 to bring up the console, and then press Ctrl+Shift+M to switch to mobile mode.
+Press F12 to bring up the console, and then press Ctrl+Shift+M to switch to mobile mode.
 
 **Note**: for mobile phones, please use [Via browser] (https://viayoo.com/zh-cn/) or Chrome browser preview).
-    Other browsers will force the video to be full-screen, invalidating the style.
+Other browsers will force the video to be full-screen, invalidating the style.
 
 ## 🖼️ Effect screenshot
 
@@ -41,11 +40,10 @@ Vercel: <http://dy.ttentau.top> (This is recommended in China.)
 <img width="150px"    src='./public/docs/img-5.jpg' />
 </div>
 
-
 ## Related post
+
 - juejin：https://juejin.cn/spost/7352813352051687458
 - V2Nex：https://www.v2ex.com/t/1028678#reply116
-
 
 ## The online celebrities displayed by the project
 
@@ -63,7 +61,6 @@ Vercel: <http://dy.ttentau.top> (This is recommended in China.)
 - 彭十六elf： https://v.douyin.com/iYRAHrVG/
 - 李子柒：https://v.douyin.com/iYRA5B88/
 
-
 ## Run the project
 
 This project is based on `Vue` and needs node environment to run.
@@ -73,7 +70,7 @@ This project is based on `Vue` and needs node environment to run.
 3. Enter the project directory `npm install` and run `project install` under the project root directory to download the dependency.
 4. Execute `project dev` to start the project. The default address of the project is [`http://localhost:3000`](http://localhost:3000)].
 5. Open [`http://localhost:3000`](http://localhost:3000)] in the browser to access the project.
-Chrome switch to mobile phone mode shortcut key, press F12 to bring up the console, and then press Ctrl+Shift+M
+   Chrome switch to mobile phone mode shortcut key, press F12 to bring up the console, and then press Ctrl+Shift+M
 
 ## 🎙 Functions and suggestions
 

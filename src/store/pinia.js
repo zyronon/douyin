@@ -1,7 +1,7 @@
-import {defineStore} from "pinia";
-import {friends, panel} from "@/api/user.js";
-import enums from "@/utils/enums";
-import resource from "@/assets/data/resource";
+import { defineStore } from 'pinia'
+import { friends, panel } from '@/api/user.js'
+import enums from '@/utils/enums'
+import resource from '@/assets/data/resource'
 
 export const useBaseStore = defineStore('base', {
   state: () => {
@@ -25,18 +25,22 @@ export const useBaseStore = defineStore('base', {
           education: null,
           displayType: enums.DISPLAY_TYPE.ALL,
         },
-        "avatar_168x168": {
-          "url_list": [],
+        avatar_168x168: {
+          url_list: [],
         },
-        "avatar_300x300": {
-          "url_list": [],
+        avatar_300x300: {
+          url_list: [],
         },
-        "cover_url": [{
-          "url_list": [],
-        }],
-        "white_cover_url": [{
-          "url_list": [],
-        }],
+        cover_url: [
+          {
+            url_list: [],
+          },
+        ],
+        white_cover_url: [
+          {
+            url_list: [],
+          },
+        ],
       },
       friends: resource.users,
     }
@@ -64,11 +68,11 @@ export const useBaseStore = defineStore('base', {
     },
     updateExcludeRoutes(val) {
       if (val.type === 'add') {
-        if (!this.excludeRoutes.find(v => v === val.value)) {
+        if (!this.excludeRoutes.find((v) => v === val.value)) {
           this.excludeRoutes.push(val.value)
         }
       } else {
-        let resIndex = this.excludeRoutes.findIndex(v => v === val.value)
+        let resIndex = this.excludeRoutes.findIndex((v) => v === val.value)
         if (resIndex !== -1) {
           this.excludeRoutes.splice(resIndex, 1)
         }

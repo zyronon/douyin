@@ -1,65 +1,69 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <link rel="icon" href="/favicon.ico"/>
-  <meta name=referrer content=no-referrer>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="referrer" content="no-referrer" />
 
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no"
-        id="viewport"/>
-  <title>Douyin</title>
-  <script crossorigin="anonymous"
-          integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-          src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js"></script>
-  <!--    <script crossorigin="anonymous"-->
-  <!--            integrity="sha512-KkkY/3auRhaXDFzFMpwtZ+BrS8EBQ+GfiBxdJ9jGMi6Gg74/sYbq/IZpY593pkNjTmbeRfBwjpZo+7gcpH45Ww=="-->
-  <!--            src="https://lib.baomitu.com/eruda/3.0.1/eruda.min.js"></script>-->
-  <!--      <script>eruda.init();</script>-->
-  <script>
-    var _hmt = _hmt || [];
-    (function () {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?6f910830f5a7d8b5f7e75d8d67458a7a";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
-  <style>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no"
+      id="viewport"
+    />
+    <title>Douyin</title>
+    <script
+      crossorigin="anonymous"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js"
+    ></script>
+    <!--    <script crossorigin="anonymous"-->
+    <!--            integrity="sha512-KkkY/3auRhaXDFzFMpwtZ+BrS8EBQ+GfiBxdJ9jGMi6Gg74/sYbq/IZpY593pkNjTmbeRfBwjpZo+7gcpH45Ww=="-->
+    <!--            src="https://lib.baomitu.com/eruda/3.0.1/eruda.min.js"></script>-->
+    <!--      <script>eruda.init();</script>-->
+    <script>
+      var _hmt = _hmt || []
+      ;(function () {
+        var hm = document.createElement('script')
+        hm.src = 'https://hm.baidu.com/hm.js?6f910830f5a7d8b5f7e75d8d67458a7a'
+        var s = document.getElementsByTagName('script')[0]
+        s.parentNode.insertBefore(hm, s)
+      })()
+    </script>
+    <style>
       ::-webkit-scrollbar {
-          display: none; /* Chrome Safari */
+        display: none; /* Chrome Safari */
       }
 
       .fade-in {
-          animation: fade-in .3s;
+        animation: fade-in 0.3s;
       }
 
       .fade-out {
-          animation: fade-out .4s;
+        animation: fade-out 0.4s;
       }
 
       @keyframes fade-in {
-          from {
-              opacity: 0;
-          }
-          to {
-              opacity: 1;
-          }
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
       }
 
       @keyframes fade-out {
-          from {
-              opacity: 1;
-          }
-          to {
-              opacity: 0;
-              display: none;
-          }
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+          display: none;
+        }
       }
-  </style>
-</head>
-<body>
-<div id="app"></div>
-<script type="module" src="/src/main.js"></script>
-</body>
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>

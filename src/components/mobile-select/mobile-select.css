@@ -3,8 +3,12 @@
   z-index: 0;
   opacity: 0;
   visibility: hidden;
-  -webkit-transition: opacity 0.4s, z-index 0.4s;
-  transition: opacity 0.4s, z-index 0.4s;
+  -webkit-transition:
+    opacity 0.4s,
+    z-index 0.4s;
+  transition:
+    opacity 0.4s,
+    z-index 0.4s;
 }
 .mobileSelect * {
   margin: 0;
@@ -41,14 +45,14 @@
   position: relative;
 }
 .mobileSelect .content .fixWidth:after {
-  content: ".";
+  content: '.';
   display: block;
   height: 0;
   clear: both;
   visibility: hidden;
 }
 .mobileSelect .content .btnBar {
-  border-bottom: 1px solid #DCDCDC;
+  border-bottom: 1px solid #dcdcdc;
   font-size: 15px;
   height: 45px;
   position: relative;
@@ -79,7 +83,7 @@
   text-overflow: ellipsis;
 }
 .mobileSelect .content .panel:after {
-  content: ".";
+  content: '.';
   display: block;
   height: 0;
   clear: both;
@@ -106,7 +110,9 @@
   -webkit-transition: -webkit-transform 0.18s ease-out;
   transition: -webkit-transform 0.18s ease-out;
   transition: transform 0.18s ease-out;
-  transition: transform 0.18s ease-out, -webkit-transform 0.18s ease-out;
+  transition:
+    transform 0.18s ease-out,
+    -webkit-transform 0.18s ease-out;
 }
 .mobileSelect .content .panel .wheel .selectContainer li {
   font-size: 15px;
@@ -126,17 +132,34 @@
   pointer-events: none;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  border-top: 1px solid #DCDCDC;
-  border-bottom: 1px solid #DCDCDC;
+  border-top: 1px solid #dcdcdc;
+  border-bottom: 1px solid #dcdcdc;
 }
 .mobileSelect .content .panel .shadowMask {
   position: absolute;
   top: 0;
   width: 100%;
   height: 200px;
-  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), color-stop(rgba(255, 255, 255, 0)), to(#ffffff));
-  background: -webkit-linear-gradient(top, #ffffff, rgba(255, 255, 255, 0), #ffffff);
-  background: linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0), #ffffff);
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#ffffff),
+    color-stop(rgba(255, 255, 255, 0)),
+    to(#ffffff)
+  );
+  background: -webkit-linear-gradient(
+    top,
+    #ffffff,
+    rgba(255, 255, 255, 0),
+    #ffffff
+  );
+  background: linear-gradient(
+    to bottom,
+    #ffffff,
+    rgba(255, 255, 255, 0),
+    #ffffff
+  );
   opacity: 0.9;
   pointer-events: none;
 }

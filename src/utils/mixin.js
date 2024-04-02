@@ -1,20 +1,20 @@
-import globalMethods from "./index";
-import BaseHeader from "../components/BaseHeader";
-import SlideRowList from "../components/slide/SlideRowList";
-import SlideItem from "../components/slide/SlideItem";
-import Indicator from "../components/slide/Indicator";
-import Footer from "../components/Footer";
-import Mask from "../components/Mask";
-import NoMore from "../components/NoMore";
-import Back from "../components/Back";
-import Loading from "../components/Loading";
-import BaseButton from "../components/BaseButton";
-import CONST_VAR from "./const_var";
-import Dom from "./dom";
-import bus, {EVENT_KEY} from "./bus";
-import {random} from '@/utils'
-import {Icon} from '@iconify/vue'
-import SlideHorizontal from "@/components/slide/SlideHorizontal.vue";
+import globalMethods from './index'
+import BaseHeader from '../components/BaseHeader'
+import SlideRowList from '../components/slide/SlideRowList'
+import SlideItem from '../components/slide/SlideItem'
+import Indicator from '../components/slide/Indicator'
+import Footer from '../components/Footer'
+import Mask from '../components/Mask'
+import NoMore from '../components/NoMore'
+import Back from '../components/Back'
+import Loading from '../components/Loading'
+import BaseButton from '../components/BaseButton'
+import CONST_VAR from './const_var'
+import Dom from './dom'
+import bus, { EVENT_KEY } from './bus'
+import { random } from '@/utils'
+import { Icon } from '@iconify/vue'
+import SlideHorizontal from '@/components/slide/SlideHorizontal.vue'
 
 export default {
   components: {
@@ -29,16 +29,16 @@ export default {
     'dy-back': Back,
     Loading,
     'dy-button': BaseButton,
-    Icon
+    Icon,
   },
   data() {
     return {
       SUCCESS: 200,
-      RELATE_ENUM: CONST_VAR.RELATE_ENUM
+      RELATE_ENUM: CONST_VAR.RELATE_ENUM,
     }
   },
   methods: {
-    ...globalMethods
+    ...globalMethods,
   },
   directives: {
     longpress: {
@@ -46,26 +46,26 @@ export default {
         // 确保提供的表达式是函数
         if (typeof binding.value !== 'function') {
           // 获取组件名称
-          const compName = vNode.context.name;
+          const compName = vNode.context.name
           // 将警告传递给控制台
-          let warn = `[longpress:] provided expression '${binding.expression}' is not afunction, but has to be `;
+          let warn = `[longpress:] provided expression '${binding.expression}' is not afunction, but has to be `
           if (compName) {
             warn += `Found in component '${compName}' `
           }
-          console.warn(warn);
+          console.warn(warn)
         }
         // 定义变量
-        let pressTimer = null;
+        let pressTimer = null
         // 定义函数处理程序
         // 创建计时器（ 1秒后执行函数 ）
         let start = (e) => {
           if (e.type === 'click' && e.button !== 0) {
-            return;
+            return
           }
           if (pressTimer === null) {
             pressTimer = setTimeout(() => {
               // 执行函数
-              handler(e);
+              handler(e)
             }, 300)
           }
         }
@@ -73,8 +73,8 @@ export default {
         let cancel = (e) => {
           // 检查计时器是否有值
           if (pressTimer !== null) {
-            clearTimeout(pressTimer);
-            pressTimer = null;
+            clearTimeout(pressTimer)
+            pressTimer = null
           }
         }
         // 运行函数
@@ -84,14 +84,14 @@ export default {
           e.preventDefault()
           // 执行传递给指令的方法
           binding.value(e)
-        };
+        }
         // 添加事件监听器
-        el.addEventListener("touchstart", start);
+        el.addEventListener('touchstart', start)
         // 取消计时器
-        el.addEventListener("click", cancel);
-        el.addEventListener("touchend", cancel);
-        el.addEventListener("touchcancel", cancel);
-      }
+        el.addEventListener('click', cancel)
+        el.addEventListener('touchend', cancel)
+        el.addEventListener('touchcancel', cancel)
+      },
     },
     hide: {
       beforeMount: function (el, binding, vNode) {
@@ -107,7 +107,7 @@ export default {
         } else {
           el.style.opacity = 1
         }
-      }
+      },
     },
     love: {
       beforeMount: function (el, binding, vNode) {
@@ -125,7 +125,7 @@ export default {
           let rotate = random(0, 1)
           let template = `<img class="${rotate ? 'left love-dbclick' : 'right love-dbclick'}" id="${id}" src="${new URL('../assets/img/icon/loved.svg', import.meta.url).href}">`
           let el = new Dom().create(template)
-          el.css({top: e.y - elWidth - 40, left: e.x - elWidth / 2,})
+          el.css({ top: e.y - elWidth - 40, left: e.x - elWidth / 2 })
           new Dom(`#${binding.value}`).append(el)
           setTimeout(() => {
             new Dom(`#${id}`).remove()
@@ -134,24 +134,30 @@ export default {
 
         let check = (e) => {
           if (isDbClick) {
-            clearTimeout(dbClickTimer);
+            clearTimeout(dbClickTimer)
             dbClick(e)
-            dbClickTimer = setTimeout(() => isDbClick = false, dbCheckCancelTime);
+            dbClickTimer = setTimeout(
+              () => (isDbClick = false),
+              dbCheckCancelTime,
+            )
             return
           }
-          let nowTime = new Date().getTime();
+          let nowTime = new Date().getTime()
           if (nowTime - lastClickTime < checkTime) {
-            clearTimeout(clickTimer);
+            clearTimeout(clickTimer)
             dbClick(e)
             isDbClick = true
-            dbClickTimer = setTimeout(() => isDbClick = false, dbCheckCancelTime);
+            dbClickTimer = setTimeout(
+              () => (isDbClick = false),
+              dbCheckCancelTime,
+            )
           } else {
             clickTimer = setTimeout(() => {
               console.log('单击', binding.value)
               bus.emit(EVENT_KEY.SINGLE_CLICK, binding.value)
-            }, checkTime);
+            }, checkTime)
           }
-          lastClickTime = nowTime;
+          lastClickTime = nowTime
         }
         el.addEventListener('click', check)
       },
