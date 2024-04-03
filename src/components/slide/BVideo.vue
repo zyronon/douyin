@@ -4,7 +4,7 @@
     <!--    <video :src="item.video + '?v=123'"-->
     <video
       :src="item.video.play_addr.url_list[0]"
-      :poster="_checkImgUrl(item.video.cover.url_list[0])"
+      :poster="poster"
       ref="video"
       muted
       preload
@@ -82,7 +82,7 @@ import Loading from '../Loading'
 import ItemToolbar from './ItemToolbar'
 import ItemDesc from './ItemDesc'
 import bus, { EVENT_KEY } from '../../utils/bus'
-import { SlideItemPlayStatus } from '../../utils/const_var'
+import { SlideItemPlayStatus } from '@/utils/const_var'
 import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
 
@@ -134,6 +134,9 @@ export default {
     }
   },
   computed: {
+    poster() {
+      return _checkImgUrl(this.item.video.poster ?? this.item.video.cover.url_list[0])
+    },
     durationStyle() {
       return { width: this.playX + 'px' }
     },
@@ -296,33 +299,34 @@ export default {
     },
     click({ uniqueId, index, type }) {
       if (this.position.uniqueId === uniqueId && this.position.index === index) {
-        if (this.isLive) {
-          if (type === EVENT_KEY.ITEM_TOGGLE) {
-            bus.emit(EVENT_KEY.NAV, {
-              path: '/home/live',
-              query: { id: this.item.id }
-            })
-          }
-        } else {
-          if (type === EVENT_KEY.ITEM_TOGGLE) {
+        if (type === EVENT_KEY.ITEM_TOGGLE) {
+          if (this.isLive) {
+            if (type === EVENT_KEY.ITEM_TOGGLE) {
+              this.pause()
+              bus.emit(EVENT_KEY.NAV, {
+                path: '/home/live',
+                query: { id: this.item.id }
+              })
+            }
+          }else {
             if (this.status === SlideItemPlayStatus.Play) {
               this.pause()
             } else {
               this.play()
             }
           }
-          if (type === EVENT_KEY.ITEM_STOP) {
-            this.$refs.video.currentTime = 0
-            this.ignoreWaiting = true
-            this.pause()
-            setTimeout(() => (this.ignoreWaiting = false), 300)
-          }
-          if (type === EVENT_KEY.ITEM_PLAY) {
-            this.$refs.video.currentTime = 0
-            this.ignoreWaiting = true
-            this.play()
-            setTimeout(() => (this.ignoreWaiting = false), 300)
-          }
+        }
+        if (type === EVENT_KEY.ITEM_STOP) {
+          this.$refs.video.currentTime = 0
+          this.ignoreWaiting = true
+          this.pause()
+          setTimeout(() => (this.ignoreWaiting = false), 300)
+        }
+        if (type === EVENT_KEY.ITEM_PLAY) {
+          this.$refs.video.currentTime = 0
+          this.ignoreWaiting = true
+          this.play()
+          setTimeout(() => (this.ignoreWaiting = false), 300)
         }
       }
     },

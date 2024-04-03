@@ -1,9 +1,9 @@
 <template>
   <SlideVerticalInfinite
     ref="listRef"
-    v-love="state.uniqueId"
-    :id="state.uniqueId"
-    :uniqueId="state.uniqueId"
+    v-love="props.uniqueId"
+    :id="props.uniqueId"
+    :uniqueId="props.uniqueId"
     name="main"
     :active="props.active"
     :loading="baseStore.loading"
@@ -46,6 +46,12 @@ const props = defineProps({
     default() {
       return []
     }
+  },
+  uniqueId: {
+    type: String,
+    default() {
+      return 'uniqueId1'
+    }
   }
 })
 
@@ -62,7 +68,6 @@ const listRef = ref(null)
 const state = reactive({
   index: props.index,
   list: props.list,
-  uniqueId: 'uniqueId1',
   totalSize: 0,
   pageSize: 10,
   pageNo: 0
@@ -106,7 +111,7 @@ async function getData(refresh = false) {
 // }
 
 function click(uniqueId) {
-  if (uniqueId !== state.uniqueId) return
+  if (uniqueId !== props.uniqueId) return
   bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
     uniqueId,
     index: state.index,
@@ -115,7 +120,7 @@ function click(uniqueId) {
 }
 
 function updateItem({ position, item }) {
-  if (position.uniqueId === state.uniqueId) {
+  if (position.uniqueId === props.uniqueId) {
     state.list[position.index] = item
   }
 }
