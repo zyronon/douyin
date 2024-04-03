@@ -8,6 +8,10 @@
 
 `douyin` 是一个模仿抖音的移动端短视频项目，它基于 [`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/) 实现。使用了最新的 `Vue` 全家桶技术栈，接口数据通过 [`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter) 模拟
 
+## 免责声明
+
+本项目仅适用于技术研究和分享，不得用于商业使用
+
 ## 在线访问
 
 Vercel： [http://dy.ttentau.top](http://dy.ttentau.top) (国内推荐访问这个)
