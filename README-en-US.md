@@ -26,9 +26,9 @@ This project is only applicable for technical research and sharing, and cannot b
 
 ## Online access
 
-Netlify: <https://douyins.netlify.app> (If you are in China, you need Vpn)
+Netlify: <https://douyins.netlify.app/> (If you are in China, you need Vpn)
 
-Vercel: <http://dy.ttentau.top> (This is recommended in China.)
+Vercel: <http://dy.ttentau.top/> (This is recommended in China.)
 
 **Note**: PC browsers should be accessed in mobile mode.
 Press F12 to bring up the console, and then press Ctrl+Shift+M to switch to mobile mode.
