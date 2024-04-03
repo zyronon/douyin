@@ -4,8 +4,8 @@ export default {
   filePreview: 'http://192.168.0.103/static/uploads/'
 }
 const BASE_URL_MAP = {
-  DEV: '',
-  PROD: '',
+  DEV: './',
+  PROD: './',
   UNI: 'https://dy.ttentau.top'
 }
 
