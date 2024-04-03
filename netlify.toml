@@ -1,4 +1,9 @@
-[[headers]]
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200 
+
+[[headers]]  
   for = "/*.js"
   [headers.values]
     Cache-Control = "public, max-age=31536000, must-revalidate"
@@ -27,3 +32,4 @@
   for = "/*.svg"
   [headers.values]
     Cache-Control = "public, max-age=31536000, must-revalidate"
+
