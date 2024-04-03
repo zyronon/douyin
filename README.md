@@ -8,6 +8,12 @@
 
 `douyin` 是一个模仿抖音的移动端短视频项目，它基于 [`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/) 实现。使用了最新的 `Vue` 全家桶技术栈，接口数据通过 [`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter) 模拟
 
+> 分享我其他开源项目：
+> 
+>_[**Typing Word** - 可在网页上使用的背单词软件~](https://github.com/zyronon/typing-word) <img src="https://img.shields.io/github/stars/zyronon/typing-word.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_  
+>_[**Web Scripts** - 一些好用的油猴脚本~](https://github.com/zyronon/web-scripts) <img src="https://img.shields.io/github/stars/zyronon/web-scripts.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_
+
+
 ## 免责声明
 
 本项目仅适用于技术研究和分享，不得用于商业使用

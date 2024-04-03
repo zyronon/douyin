@@ -13,6 +13,13 @@ It is based on <a href="https://v3.cn.vuejs.org">Vue</a>, <a href="https://cn.vi
 The latest Vue family bucket technology stack is used, and the background data is built by <a href="https://github.com/ctimmerm/axios-mock-adapter">axios-mock-adapter</a>.
 </p>
 
+
+> Share my other open source projects：
+>
+>_[**Typing Word** - Word memorization software that can be used on a web page~](https://github.com/zyronon/typing-word) <img src="https://img.shields.io/github/stars/zyronon/typing-word.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_  
+> _[**Web Scripts** - Some useful oil monkey scripts~](https://github.com/zyronon/web-scripts) <img src="https://img.shields.io/github/stars/zyronon/web-scripts.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_
+
+
 ## Disclaimers
 
 This project is only applicable for technical research and sharing, and cannot be used for commercial purposes
