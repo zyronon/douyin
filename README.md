@@ -20,9 +20,9 @@
 
 ## 在线访问
 
-Vercel： [http://dy.ttentau.top](http://dy.ttentau.top/) (国内推荐访问这个)
+Vercel： [http://dy.ttentau.top/](http://dy.ttentau.top/) (国内推荐访问这个)
 
-Netlify：[https://douyins.netlify.app](https://douyins.netlify.app/) (需要翻墙)
+Netlify：[https://douyins.netlify.app/](https://douyins.netlify.app/) (需要翻墙)
 
 **注意**：`PC` 浏览器请用手机模式访问。先按 `F12` 调出控制台，再按 `Ctrl+Shift+M` 切换到手机模式
 
