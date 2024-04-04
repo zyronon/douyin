@@ -109,6 +109,7 @@ export default {
   },
   watch: {
     guessSlideIndex(newVal) {
+      console.log(2)
       this.itemRefs.map((ref) => {
         ref.togglePlay(false)
       })
