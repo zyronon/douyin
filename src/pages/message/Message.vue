@@ -545,6 +545,7 @@ export default {
     .create-chat-wrapper {
       min-height: 70vh;
       padding-bottom: 60rem;
+      margin-top: 6rem;
 
       .joined-chat {
         border-bottom: 1px solid var(--line-color);

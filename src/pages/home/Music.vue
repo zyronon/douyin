@@ -44,7 +44,7 @@
             <div class="name">{{ music.name }}</div>
             <div>
               <div class="user">{{ music.author }}</div>
-              <div class="peoples">>{{ formatNumber(music.use_count) }} 人使用</div>
+              <div class="peoples">{{ formatNumber(music.use_count) }} 人使用</div>
             </div>
             <div class="collection" @click.stop="toggleCollect()">
               <img v-if="isCollect" src="../../assets/img/icon/star-yellow.png" />
