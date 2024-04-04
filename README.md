@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-  <a href="README.md">简体中文</a> | <a href="README-en-US.md">English</a>
+  <a href="README.md">简体中文</a> | <a href="README-en-US.md">English</a> | <a href="README-ja-JP.md">日本語</a>
 </p>
 
 `douyin` 是一个模仿抖音的移动端短视频项目，它基于 [`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/) 实现。使用了最新的 `Vue` 全家桶技术栈，接口数据通过 [`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter) 模拟
