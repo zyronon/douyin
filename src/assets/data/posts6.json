@@ -58,7 +58,7 @@
         "width": 720,
         "height": 720
       },
-      "poster":"a1.jpg",
+      "poster": "a1.jpg",
       "height": 3840,
       "width": 2160,
       "ratio": "1080p",
@@ -343,7 +343,7 @@
         "width": 720,
         "height": 720
       },
-      "poster":"a2.jpg",
+      "poster": "a2.jpg",
       "height": 1920,
       "width": 1080,
       "ratio": "1080p",
@@ -916,7 +916,7 @@
         "width": 720,
         "height": 720
       },
-      "poster":"a3.jpg",
+      "poster": "a3.jpg",
       "height": 1920,
       "width": 1080,
       "ratio": "720p",
@@ -1166,7 +1166,7 @@
         "width": 720,
         "height": 720
       },
-      "poster":"a4.jpg",
+      "poster": "a4.jpg",
       "height": 1080,
       "width": 1920,
       "ratio": "1080p",
@@ -1428,7 +1428,7 @@
         "width": 720,
         "height": 720
       },
-      "poster":"a5.jpg",
+      "poster": "a5.jpg",
       "height": 1920,
       "width": 1080,
       "ratio": "1080p",

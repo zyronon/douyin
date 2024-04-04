@@ -308,7 +308,7 @@ export default {
                 query: { id: this.item.id }
               })
             }
-          }else {
+          } else {
             if (this.status === SlideItemPlayStatus.Play) {
               this.pause()
             } else {
