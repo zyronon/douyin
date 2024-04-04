@@ -478,6 +478,7 @@ export function _copy(val) {
 }
 
 export function cloneDeep(val) {
+  console.log(1)
   return JSON.parse(JSON.stringify(val))
 }
 
