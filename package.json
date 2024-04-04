@@ -8,7 +8,8 @@
     "report": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "prepare": "husky"
   },
   "dependencies": {
     "@jambonn/vue-lazyload": "1.0.9",
@@ -46,4 +47,5 @@
     "vite": "4.5.3",
     "vite-plugin-cdn-import": "0.3.5"
   }
+
 }
