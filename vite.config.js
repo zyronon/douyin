@@ -59,6 +59,11 @@ export default defineConfig({
           name: 'axios',
           var: 'axios',
           path: 'https://lib.baomitu.com/axios/1.6.8/axios.min.js'
+        },
+        {
+          name: 'jquery',
+          var: '$',
+          path: 'https://lib.baomitu.com/jquery/3.6.0/jquery.min.js'
         }
       ]
     })
