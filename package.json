@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --host",
+    "start": "vite --host",
+    "serve": "vite --host",
     "build": "vite build --mode prod",
     "build-uni-app": "vite build --mode uni",
     "report": "vite build",

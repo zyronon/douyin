@@ -14,6 +14,7 @@ import SlideItem from '@/components/slide/SlideItem.vue'
 import bus, { EVENT_KEY } from '../../utils/bus'
 import Loading from '@/components/Loading.vue'
 import { useBaseStore } from '@/store/pinia'
+import $ from 'jquery'
 
 const props = defineProps({
   index: {
