@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`est une parodie`抖音|TikTok`projet de courte vidéo mobile, basé sur[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)accomplir. Utilisé le dernier`Vue`Pile technologique FamilyMart. Les données API sont enregistrées localement dans le projet et la vidéo est collectée à partir de`抖音|TikTok`, l'atlas est collecté auprès de`小红书|Xiaohongshu`,passer[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La bibliothèque intercepte l'API et renvoie des données json locales pour simuler de véritables requêtes back-end.
+`douyin-vue`est une parodie`抖音|TikTok`projet de courte vidéo mobile, basé sur[Vue](https://cn.vuejs.org/)、[Vite](https://cn.vitejs.dev/)accomplir. Utilisé le dernier`Vue`Pile technologique FamilyMart. Les données API sont enregistrées localement dans le projet et la vidéo est collectée à partir de`抖音|TikTok`, l'atlas est collecté auprès de`小红书|Xiaohongshu`,passer[axios-mock-adaptateur](https://github.com/ctimmerm/axios-mock-adapter)La bibliothèque intercepte l'API et renvoie des données json locales pour simuler de véritables requêtes back-end.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -30,13 +30,13 @@
 
 ## Accès en ligne
 
-Vercel：<http://dy.ttentau.top/>(La Chine recommande de visiter ceci)
+Vercel :<http://dy.ttentau.top/>(La Chine recommande de visiter ceci)
 
-Netlify：<https://douyins.netlify.app/>(Recommandé de visiter ceci pour les zones en dehors de la Chine)
+Netlifier :<https://douyins.netlify.app/>(Je recommande de visiter ceci pour les régions en dehors de la Chine)
 
-**注意**：`PC`Vous devez passer le navigateur en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement
+**Avis**：`PC`Vous devez passer le navigateur en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement
 
-**Avis**: Veuillez utiliser votre téléphone portable[via un navigateur](https://viayoo.com/zh-cn/)ou aperçu du navigateur Chrome. D'autres navigateurs peuvent forcer la vidéo à passer en plein écran, ce qui l'empêchera de s'afficher correctement.
+**Avis**：Veuillez utiliser un téléphone portable[via un navigateur](https://viayoo.com/zh-cn/)ou aperçu du navigateur Chrome. D'autres navigateurs peuvent forcer la vidéo à passer en plein écran, ce qui l'empêchera de s'afficher correctement.
 
 ## Clause de non-responsabilité
 
@@ -57,14 +57,14 @@ npm install
 npm run dev
 ```
 
-Ouvrez votre navigateur et visitez<http://127.0.0.1:3000>
+Ouvrez votre navigateur et visitez :<http://127.0.0.1:3000>
 
 **Remarque : le navigateur du PC doit être basculé en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement**
 
 ## Lien
 
 -   Chine open source :<https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g>
--   V2EX :<https://www.v2ex.com/t/1028678>
+-   V2EX :<https://www.v2ex.com/t/1028678>
 -   Pépites :<https://juejin.cn/post/7352813352051687458>
 
 ## Les sources de données
@@ -77,8 +77,8 @@ La vidéo provient des célébrités Douyin suivantes
 -   Dasha Digi :<https://v.douyin.com/iYRA6rwT/>
 -   Petite orange :<https://v.douyin.com/iYRAnudw/>
 -   Nan Tian :<https://v.douyin.com/iYRAbKm3/>
--   Steak pour animaux de compagnie Xiaoba 🥩 :<https://v.douyin.com/iYRSosVB/>
--   Fille de thé au lait ◕🌱：<https://v.douyin.com/iYRACKhP/>
+-   Steak d'animal de compagnie Xiaoba 🥩 :<https://v.douyin.com/iYRSosVB/>
+-   Fille de thé au lait ◕🌱 :<https://v.douyin.com/iYRACKhP/>
 -   Je m'appelle Lan Lan :<https://v.douyin.com/iYRAQM1C/>
 -   Les mots suivants étaient :<https://v.douyin.com/iYRAQs4h/>
 -   Liu Siyao sympa :<https://v.douyin.com/iYRAaERn/>
