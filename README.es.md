@@ -61,7 +61,7 @@ npm run dev
 
 Abra su navegador y visite:<http://127.0.0.1:3000>
 
-**Nota: el navegador de la PC debe cambiarse al modo móvil, primero presione`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente**
+**Nota: La PC debe cambiar el navegador al modo móvil, primero presione`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente**
 
 ## Enlace
 

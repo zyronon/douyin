@@ -28,7 +28,7 @@
 <img width="150px" src='docs/imgs/img-5.jpg' />
 </div>
 
-## Accès en ligne
+## accès en ligne
 
 Vercel :<http://dy.ttentau.top/>(La Chine recommande de visiter ceci)
 
@@ -38,7 +38,7 @@ Android Apk :<https://github.com/zyronon/douyin/releases>
 
 **Avis**：`PC`Vous devez passer le navigateur en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement
 
-**Avis**：Veuillez utiliser un téléphone portable[via un navigateur](https://viayoo.com/zh-cn/)ou aperçu du navigateur Chrome. D'autres navigateurs peuvent forcer la vidéo à passer en plein écran, ce qui l'empêchera de s'afficher correctement.
+**Avis**: Veuillez utiliser votre téléphone portable[via un navigateur](https://viayoo.com/zh-cn/)ou aperçu du navigateur Chrome. D'autres navigateurs peuvent forcer la vidéo à passer en plein écran, ce qui l'empêchera de s'afficher correctement.
 
 ## Clause de non-responsabilité
 
@@ -61,7 +61,7 @@ npm run dev
 
 Ouvrez votre navigateur et visitez :<http://127.0.0.1:3000>
 
-**Remarque : le navigateur du PC doit être basculé en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement**
+**Remarque : le PC doit passer le navigateur en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement**
 
 ## Lien
 
@@ -79,7 +79,7 @@ La vidéo provient des célébrités Douyin suivantes
 -   Dasha Digi :<https://v.douyin.com/iYRA6rwT/>
 -   Petite orange :<https://v.douyin.com/iYRAnudw/>
 -   Nan Tian :<https://v.douyin.com/iYRAbKm3/>
--   Steak d'animal de compagnie Xiaoba 🥩 :<https://v.douyin.com/iYRSosVB/>
+-   Steak pour animaux de compagnie Xiaoba 🥩 :<https://v.douyin.com/iYRSosVB/>
 -   Fille de thé au lait ◕🌱 :<https://v.douyin.com/iYRACKhP/>
 -   Je m'appelle Lan Lan :<https://v.douyin.com/iYRAQM1C/>
 -   Les mots suivants étaient :<https://v.douyin.com/iYRAQs4h/>

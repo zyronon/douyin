@@ -28,7 +28,7 @@
 <img width="150px" src='docs/imgs/img-5.jpg' />
 </div>
 
-## Online access
+## online access
 
 Vercel:<http://dy.ttentau.top/>(China recommends visiting this)
 
@@ -38,7 +38,7 @@ Android Apk:<https://github.com/zyronon/douyin/releases>
 
 **Notice**：`PC`You must switch the browser to mobile mode, first press`F12`To bring up the console, press`Ctrl+Shift+M`to preview normally
 
-**Notice**：Please use mobile phone[via browser](https://viayoo.com/zh-cn/)or Chrome browser preview. Other browsers may force the video to full screen, causing it to not display properly.
+**Notice**: Please use your mobile phone[via browser](https://viayoo.com/zh-cn/)or Chrome browser preview. Other browsers may force the video to full screen, causing it to not display properly.
 
 ## Disclaimer
 
@@ -61,7 +61,7 @@ npm run dev
 
 Open your browser and visit:<http://127.0.0.1:3000>
 
-**Note: PC browser must be switched to mobile mode, first press`F12`To bring up the console, press`Ctrl+Shift+M`to preview normally**
+**Note: PC must switch the browser to mobile mode, first press`F12`To bring up the console, press`Ctrl+Shift+M`to preview normally**
 
 ## Link
 
@@ -96,7 +96,7 @@ The above content is all public information on the Internet
 The project is currently in the early stages of development and new features are being added continuously. If you have any features or suggestions for the software, please feel free to contact us.`Issues`raised in
 If you also like the design ideas of this software, please submit it`PR`, thank you very much for your support!
 
-## contact me
+## 联系我
 
 You can contact my email<a href="mailto:zyronon@163.com">zyronon@163.com</a>
 

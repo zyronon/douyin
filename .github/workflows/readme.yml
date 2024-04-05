@@ -3,7 +3,6 @@ name: Translate README
 on:
   push:
     branches:
-      - dev
       - master
 jobs:
   build:
