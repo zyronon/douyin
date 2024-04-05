@@ -35,9 +35,12 @@ Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/) (中国推荐访问这
 
 Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/) (中国以外地区推荐访问这个)
 
+Android Apk: https://github.com/zyronon/douyin/releases
+
 **注意**：`PC` 必须将浏览器切到手机模式，先按 `F12` 调出控制台，再按 `Ctrl+Shift+M`才能正常预览
 
 **注意**：手机请用  [Via 浏览器](https://viayoo.com/zh-cn/)  或 Chrome 浏览器预览。其它浏览器可能会强制将视频全屏，导致无法正常显示
+
 
 ## 免责声明
 

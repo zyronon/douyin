@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`ist eine Parodie`抖音|TikTok`mobiles Kurzvideoprojekt, das auf basiert[Sicht](https://cn.vuejs.org/)、[Schnell](https://cn.vitejs.dev/)erreichen. Habe das Neueste verwendet`Vue`FamilyMart-Technologie-Stack. API-Daten werden lokal im Projekt gespeichert und das Video wird daraus gesammelt`抖音|TikTok`, der Atlas stammt aus`小红书|Xiaohongshu`,passieren[Axios-Mock-Adapter](https://github.com/ctimmerm/axios-mock-adapter)Die Bibliothek fängt die API ab und gibt lokale JSON-Daten zurück, um echte Back-End-Anfragen zu simulieren.
+`douyin-vue`ist eine Parodie`抖音|TikTok`mobiles Kurzvideoprojekt, das auf basiert[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)Realisieren. Habe das Neueste verwendet`Vue`FamilyMart-Technologie-Stack. API-Daten werden lokal im Projekt gespeichert und das Video wird daraus gesammelt`抖音|TikTok`, der Atlas stammt aus`小红书|Xiaohongshu`,passieren[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)Die Bibliothek fängt die API ab und gibt lokale JSON-Daten zurück, um echte Back-End-Anfragen zu simulieren.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -32,11 +32,11 @@
 
 Vercel:<http://dy.ttentau.top/>(China empfiehlt den Besuch hier)
 
-Netlify:<https://douyins.netlify.app/>(Für Gebiete außerhalb Chinas empfehlen wir den Besuch hier)
+Netlify:<https://douyins.netlify.app/>(Empfehlenswert für Gebiete außerhalb Chinas, dies zu besuchen)
 
 **Beachten**：`PC`Sie müssen den Browser in den mobilen Modus schalten, zuerst drücken`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen
 
-**Beachten**: Bitte benutzen Sie Ihr Mobiltelefon[über Browser](https://viayoo.com/zh-cn/)oder Chrome-Browservorschau. Andere Browser erzwingen möglicherweise, dass das Video im Vollbildmodus angezeigt wird, was dazu führt, dass es nicht richtig angezeigt wird.
+**Beachten**: Bitte benutzen Sie Ihr Mobiltelefon[über Browser](https://viayoo.com/zh-cn/)oder Chrome-Browservorschau. Andere Browser erzwingen möglicherweise die Vollbilddarstellung des Videos, wodurch es nicht richtig angezeigt wird.
 
 ## Haftungsausschluss
 
@@ -57,9 +57,9 @@ npm install
 npm run dev
 ```
 
-Öffnen Sie Ihren Browser und besuchen Sie:<http://127.0.0.1:3000>
+Öffnen Sie Ihren Browser und besuchen Sie<http://127.0.0.1:3000>
 
-**Hinweis: Der PC muss den Browser in den Mobilmodus schalten, zuerst drücken`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen**
+**Hinweis: Der PC-Browser muss zuerst in den Mobilmodus geschaltet werden`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen**
 
 ## Verknüpfung
 
