@@ -32,9 +32,9 @@
 
 Vercel：<http://dy.ttentau.top/>(La Chine recommande de visiter ceci)
 
-Netlify：<https://douyins.netlify.app/>(il faut contourner le mur)
+Netlify：<https://douyins.netlify.app/>(Recommandé de visiter ceci pour les zones en dehors de la Chine)
 
-**Avis**：`PC`Vous devez passer le navigateur en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement
+**注意**：`PC`Vous devez passer le navigateur en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement
 
 **Avis**: Veuillez utiliser votre téléphone portable[via un navigateur](https://viayoo.com/zh-cn/)ou aperçu du navigateur Chrome. D'autres navigateurs peuvent forcer la vidéo à passer en plein écran, ce qui l'empêchera de s'afficher correctement.
 

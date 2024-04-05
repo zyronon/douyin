@@ -32,7 +32,7 @@
 
 Vercel:<http://dy.ttentau.top/>(China recomienda visitar esto)
 
-Netlificar:<https://douyins.netlify.app/>(necesita sortear la pared)
+Netlificar:<https://douyins.netlify.app/>(Se recomienda visitar esto para áreas fuera de China)
 
 **Aviso**：`PC`Debes cambiar el navegador al modo móvil, primero presiona`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente
 
@@ -64,7 +64,7 @@ Abra su navegador y visite<http://127.0.0.1:3000>
 ## Enlace
 
 -   China de código abierto:<https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g>
--   V2EX：<https://www.v2ex.com/t/1028678>
+-   V2EX:<https://www.v2ex.com/t/1028678>
 -   pepitas:<https://juejin.cn/post/7352813352051687458>
 
 ## Fuentes de datos
@@ -103,6 +103,6 @@ Puedes contactar a mi correo electrónico<a href="mailto:zyronon@163.com">zyrono
 > _[**Escribir palabra**- Software de memorización de vocabulario que se puede utilizar en la web ~](https://github.com/zyronon/typing-word)<img src="https://img.shields.io/github/stars/zyronon/typing-word.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_  
 > _[**Guiones web**- Algunos scripts útiles de Grease Monkey~](https://github.com/zyronon/web-scripts)<img src="https://img.shields.io/github/stars/zyronon/web-scripts.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_
 
-## acuerdo
+## 许可协议
 
 [GPL](LICENSE)

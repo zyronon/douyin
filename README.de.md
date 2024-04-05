@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`ist eine Parodie`抖音|TikTok`mobiles Kurzvideoprojekt, das auf basiert[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)erreichen. Habe das Neueste verwendet`Vue`FamilyMart-Technologie-Stack. API-Daten werden lokal im Projekt gespeichert und das Video wird daraus gesammelt`抖音|TikTok`, der Atlas stammt aus`小红书|Xiaohongshu`,passieren[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)Die Bibliothek fängt die API ab und gibt lokale JSON-Daten zurück, um echte Back-End-Anfragen zu simulieren.
+`douyin-vue`ist eine Parodie`抖音|TikTok`mobiles Kurzvideoprojekt, das auf basiert[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)Realisieren. Habe das Neueste verwendet`Vue`FamilyMart-Technologie-Stack. API-Daten werden lokal im Projekt gespeichert und das Video wird daraus gesammelt`抖音|TikTok`, der Atlas stammt aus`小红书|Xiaohongshu`,passieren[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)Die Bibliothek fängt die API ab und gibt lokale JSON-Daten zurück, um echte Back-End-Anfragen zu simulieren.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -28,11 +28,11 @@
 <img width="150px" src='docs/imgs/img-5.jpg' />
 </div>
 
-## 在线访问
+## Online-Zugang
 
 Vercel:<http://dy.ttentau.top/>(China empfiehlt den Besuch hier)
 
-Netlify:<https://douyins.netlify.app/>(Muss die Mauer umgehen)
+Netlify:<https://douyins.netlify.app/>(Empfehlenswert für Gebiete außerhalb Chinas, dies zu besuchen)
 
 **Beachten**：`PC`Sie müssen den Browser in den mobilen Modus schalten, zuerst drücken`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen
 
@@ -80,7 +80,7 @@ Das Video stammt von folgenden Douyin-Prominenten
 -   Xiaoba-Haustiersteak 🥩:<https://v.douyin.com/iYRSosVB/>
 -   Milchtee-Mädchen ◕🌱:<https://v.douyin.com/iYRACKhP/>
 -   Ich bin Lan Lan:<https://v.douyin.com/iYRAQM1C/>
--   周憬艺 ziran： <https://v.douyin.com/iYRAQs4h/>
+-   周民艺 waren:<https://v.douyin.com/iYRAQs4h/>
 -   Liu Siyao nett:<https://v.douyin.com/iYRAaERn/>
 -   Peng Shiliu-Elf:<https://v.douyin.com/iYRAHrVG/>
 -   Li Ziqi:<https://v.douyin.com/iYRA5B88/>
