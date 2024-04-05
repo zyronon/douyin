@@ -24,7 +24,6 @@ import People from '../people/components/Peoples.vue'
 import { useBaseStore } from '@/store/pinia'
 
 import { computed, onMounted, reactive } from 'vue'
-import { useNav } from '@/utils/hooks/useNav.js'
 import { useRoute, useRouter } from 'vue-router'
 
 defineOptions({

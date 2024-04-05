@@ -146,7 +146,7 @@ import Loading from '@/components/Loading.vue'
 import Peoples from '../people/components/Peoples.vue'
 import resource from '@/assets/data/resource.js'
 import { useBaseStore } from '@/store/pinia'
-import { _checkImgUrl, _no, _notice, _sleep, cloneDeep } from '@/utils'
+import { _checkImgUrl, _no, _sleep, cloneDeep } from '@/utils'
 
 import { computed, onMounted, reactive } from 'vue'
 import { useNav } from '@/utils/hooks/useNav.js'
