@@ -34,6 +34,8 @@ Vercel:<http://dy.ttentau.top/>(China recomienda visitar esto)
 
 Netlificar:<https://douyins.netlify.app/>(Recomiende visitar esto para áreas fuera de China)
 
+Android Apk:<https://github.com/zyronon/douyin/releases>
+
 **Aviso**：`PC`Debes cambiar el navegador al modo móvil, primero presiona`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente
 
 **Aviso**:Por favor utilice el teléfono móvil[a través del navegador](https://viayoo.com/zh-cn/)o vista previa del navegador Chrome. Otros navegadores pueden forzar el vídeo a pantalla completa, lo que hace que no se muestre correctamente.
@@ -92,7 +94,7 @@ El contenido anterior es toda información pública en Internet.
 ## Funciones y sugerencias
 
 El proyecto se encuentra actualmente en las primeras etapas de desarrollo y continuamente se agregan nuevas características. Si tiene alguna característica o sugerencia para el software, no dude en contactarnos.`Issues`criado en
-Si también le gustan las ideas de diseño de este software, envíelas.`PR`，非常感谢你对我们的支持！
+Si también le gustan las ideas de diseño de este software, envíelas.`PR`, ¡Muchas gracias por tu apoyo!
 
 ## contáctame
 
