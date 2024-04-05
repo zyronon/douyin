@@ -3,7 +3,8 @@
 </h1>
 
 <p align="center">
-  <a href="README.md">简体中文</a> | <a href="docs/README-en-US.md">English</a> | <a href="docs/README-ja-JP.md">日本語</a>
+ <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
+<a href="README.fr.md">French</a> | <a href="README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -12,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`Es un proyecto de vídeo corto móvil que imita a Douyin, que se basa en[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)lograr. Usado lo último`Vue`Pila de tecnología FamilyMart, pases de datos de interfaz[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)simulación
+`douyin-vue`es una parodia`抖音|TikTok`proyecto de vídeo corto móvil, que se basa en[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)lograr. Usado lo último`Vue`Pila de tecnología FamilyMart. Los datos de API se guardan localmente en el proyecto y el video se recopila de`抖音|TikTok`, el atlas se recoge de`小红书|Xiaohongshu`,aprobar[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La biblioteca intercepta la API y devuelve datos json locales para simular solicitudes de back-end reales.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -58,12 +59,12 @@ npm run dev
 
 Abra su navegador y visite<http://127.0.0.1:3000>
 
-**Nota: La PC debe cambiar el navegador al modo móvil, primero presione`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente**
+**Nota: el navegador de la PC debe cambiarse al modo móvil, primero presione`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente**
 
 ## Enlace
 
 -   China de código abierto:<https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g>
--   V2EX:<https://www.v2ex.com/t/1028678>
+-   V2EX：<https://www.v2ex.com/t/1028678>
 -   pepitas:<https://juejin.cn/post/7352813352051687458>
 
 ## Fuentes de datos
@@ -95,7 +96,7 @@ Si también le gustan las ideas de diseño de este software, envíelas.`PR`, ¡M
 
 ## contáctame
 
-Puedes contactar a mi correo<a href="mailto:zyronon@163.com">zyronon@163.com</a>
+Puedes contactar a mi correo electrónico<a href="mailto:zyronon@163.com">zyronon@163.com</a>
 
 > Comparta mis otros proyectos de código abierto:
 >
