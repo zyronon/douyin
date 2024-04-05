@@ -6,6 +6,7 @@
       </keep-alive>
     </transition>
   </router-view>
+  <BaseMask v-if="!isMobile" />
   <div v-if="!isMobile" class="guide">
     <Icon icon="mynaui:danger-triangle" />
     <div class="txt">
@@ -28,6 +29,7 @@ import { useBaseStore } from '@/store/pinia.js'
 import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
+import BaseMask from '@/components/BaseMask.vue'
 
 const store = useBaseStore()
 const route = useRoute()
@@ -91,6 +93,7 @@ onMounted(() => {
 }
 
 .guide {
+  z-index: 999;
   background: var(--active-main-bg);
   position: fixed;
   left: 50%;
