@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`est une parodie`抖音|TikTok`projet de courte vidéo mobile, basé sur[Vue](https://cn.vuejs.org/)、[Vite](https://cn.vitejs.dev/)accomplir. Utilisé le dernier`Vue`Pile technologique FamilyMart. Les données API sont enregistrées localement dans le projet et la vidéo est collectée à partir de`抖音|TikTok`, l'atlas est collecté auprès de`小红书|Xiaohongshu`,passer[axios-mock-adaptateur](https://github.com/ctimmerm/axios-mock-adapter)La bibliothèque intercepte l'API et renvoie des données json locales pour simuler de véritables requêtes back-end.
+`douyin-vue`est une parodie`抖音|TikTok`projet de courte vidéo mobile, basé sur[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)accomplir. Utilisé le dernier`Vue`Pile technologique FamilyMart. Les données API sont enregistrées localement dans le projet et la vidéo est collectée à partir de`抖音|TikTok`, l'atlas est collecté auprès de`小红书|Xiaohongshu`,passer[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La bibliothèque intercepte l'API et renvoie des données json locales pour simuler de véritables requêtes back-end.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -28,11 +28,11 @@
 <img width="150px" src='docs/imgs/img-5.jpg' />
 </div>
 
-## accès en ligne
+## Accès en ligne
 
 Vercel :<http://dy.ttentau.top/>(La Chine recommande de visiter ceci)
 
-Netlifier :<https://douyins.netlify.app/>(Je recommande de visiter ceci pour les régions en dehors de la Chine)
+Netlifier :<https://douyins.netlify.app/>(Recommandé de visiter ceci pour les zones en dehors de la Chine)
 
 Android Apk :<https://github.com/zyronon/douyin/releases>
 
@@ -61,31 +61,31 @@ npm run dev
 
 Ouvrez votre navigateur et visitez :<http://127.0.0.1:3000>
 
-**Remarque : le PC doit passer le navigateur en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement**
+**Remarque : le navigateur du PC doit être basculé en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement**
 
 ## Lien
 
--   Chine open source :<https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g>
--   V2EX :<https://www.v2ex.com/t/1028678>
--   Pépites :<https://juejin.cn/post/7352813352051687458>
+-   `开源中国`:<https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g>
+-   `V2EX`:<https://www.v2ex.com/t/1028678>
+-   `掘金`:<https://juejin.cn/post/7352813352051687458>
 
 ## Les sources de données
 
 La vidéo provient des célébrités Douyin suivantes
 
--   Je m'appelle Xiangxiu 🐂🍺 :<https://v.douyin.com/iYRAPA2L/>
--   Yang Laohu 🐯 (version menton assommé et dents perdues) :<https://v.douyin.com/iYRA56de/>
--   Note:<https://v.douyin.com/iYRAaqjr/>
--   Dasha Digi :<https://v.douyin.com/iYRA6rwT/>
--   Petite orange :<https://v.douyin.com/iYRAnudw/>
--   Nan Tian :<https://v.douyin.com/iYRAbKm3/>
--   Steak pour animaux de compagnie Xiaoba 🥩 :<https://v.douyin.com/iYRSosVB/>
--   Fille de thé au lait ◕🌱 :<https://v.douyin.com/iYRACKhP/>
--   Je m'appelle Lan Lan :<https://v.douyin.com/iYRAQM1C/>
--   Les mots suivants étaient :<https://v.douyin.com/iYRAQs4h/>
--   Liu Siyao sympa :<https://v.douyin.com/iYRAaERn/>
--   Elfe Peng Shiliu :<https://v.douyin.com/iYRAHrVG/>
--   Li Ziqi :<https://v.douyin.com/iYRA5B88/>
+-   `我是香秀 🐂🍺`:<https://v.douyin.com/iYRAPA2L/>
+-   `杨老虎 🐯（磕穿下巴掉牙版）`:<https://v.douyin.com/iYRA56de/>
+-   `条子`:<https://v.douyin.com/iYRAaqjr/>
+-   `达莎 Digi`：<https://v.douyin.com/iYRA6rwT/>
+-   `小橙子`:<https://v.douyin.com/iYRAnudw/>
+-   `南恬`:<https://v.douyin.com/iYRAbKm3/>
+-   `小霸宠牛排 🥩`：<https://v.douyin.com/iYRSosVB/>
+-   `奶茶妹 ◕🌱`:<https://v.douyin.com/iYRACKhP/>
+-   `我才是岚岚`:<https://v.douyin.com/iYRAQM1C/>
+-   `周憬艺 ziran`:<https://v.douyin.com/iYRAQs4h/>
+-   `刘思瑶 nice`:<https://v.douyin.com/iYRAaERn/>
+-   `彭十六 elf`:<https://v.douyin.com/iYRAHrVG/>
+-   `李子柒`:<https://v.douyin.com/iYRA5B88/>
 
 Photo tirée des notes publiques de Xiaohongshu
 
