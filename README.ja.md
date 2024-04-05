@@ -3,7 +3,8 @@
 </h1>
 
 <p align="center">
-  <a href="README.md">简体中文</a> | <a href="docs/README-en-US.md">English</a> | <a href="docs/README-ja-JP.md">日本語</a>
+ <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
+<a href="README.fr.md">French</a> | <a href="README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -12,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`Douyinを模倣したモバイルショートビデオプロジェクトです。[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)成し遂げる。最新のものを使用しました`Vue`ファミリーマートのテクノロジースタック、インターフェースデータパス[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)シミュレーション
+`douyin-vue`パロディです`抖音|TikTok`をベースにしたモバイルショートビデオプロジェクト[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)成し遂げる。最新のものを使用しました`Vue`ファミリーマートのテクノロジースタック。 API データはプロジェクト内でローカルに保存され、ビデオはから収集されます。`抖音|TikTok`、アトラスはから収集されています`小红书|Xiaohongshu`、合格[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)ライブラリは API をインターセプトし、ローカルの JSON データを返して、実際のバックエンド リクエストをシミュレートします。
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -58,7 +59,7 @@ npm run dev
 
 ブラウザを開いてアクセスしてください[ｈっｔｐ：／／１２７。０。０。１：３０００](http://127.0.0.1:3000)
 
-**注: PC はブラウザをモバイル モードに切り替える必要があり、最初に押します。`F12`コンソールを表示するには、 を押します。`Ctrl+Shift+M`通常にプレビューする**
+**注: PC ブラウザを最初に押してモバイル モードに切り替える必要があります。`F12`コンソールを表示するには、 を押します。`Ctrl+Shift+M`通常にプレビューする**
 
 ## リンク
 
@@ -71,7 +72,7 @@ npm run dev
 このビデオは以下のDouyinの有名人からのものです
 
 -   私はシャンシュウです 🐂🍺:[ｈっｔｐｓ：／／ｖ。どうｙいん。こｍ／いＹらぱ２Ｌ／](https://v.douyin.com/iYRAPA2L/)
--   楊老胡 🐯 (顎を折って歯を失ったバージョン):[ｈっｔｐｓ：／／ｖ。どうｙいん。こｍ／いＹら５６で／](https://v.douyin.com/iYRA56de/)
+-   ヤン・ラオフ 🐯 (顎を折って歯を失ったバージョン):[ｈっｔｐｓ：／／ｖ。どうｙいん。こｍ／いＹら５６で／](https://v.douyin.com/iYRA56de/)
 -   注記：[ｈっｔｐｓ：／／ｖ。どうｙいん。こｍ／いＹらあｑｊｒ／](https://v.douyin.com/iYRAaqjr/)
 -   ダシャ ディジ:[ｈっｔｐｓ：／／ｖ。どうｙいん。こｍ／いＹら６ｒｗＴ／](https://v.douyin.com/iYRA6rwT/)
 -   小さなオレンジ色:[ｈっｔｐｓ：／／ｖ。どうｙいん。こｍ／いＹらぬｄｗ／](https://v.douyin.com/iYRAnudw/)
