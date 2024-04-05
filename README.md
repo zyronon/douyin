@@ -33,7 +33,7 @@
 
 Vercel： [http://dy.ttentau.top/](http://dy.ttentau.top/) (中国推荐访问这个)
 
-Netlify：[https://douyins.netlify.app/](https://douyins.netlify.app/) (需要翻墙)
+Netlify：[https://douyins.netlify.app/](https://douyins.netlify.app/) (中国以外地区推荐访问这个)
 
 **注意**：`PC` 必须将浏览器切到手机模式，先按 `F12` 调出控制台，再按 `Ctrl+Shift+M`才能正常预览
 
