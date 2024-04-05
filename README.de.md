@@ -3,7 +3,8 @@
 </h1>
 
 <p align="center">
-  <a href="README.md">简体中文</a> | <a href="docs/README-en-US.md">English</a> | <a href="docs/README-ja-JP.md">日本語</a>
+ <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
+<a href="README.fr.md">French</a> | <a href="README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -12,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`Es handelt sich um ein mobiles Kurzvideoprojekt, das Douyin imitiert und auf dem basiert[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)erreichen. Habe das Neueste verwendet`Vue`FamilyMart-Technologie-Stack, Schnittstellendatenübergaben[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)Simulation
+`douyin-vue`ist eine Parodie`抖音|TikTok`mobiles Kurzvideoprojekt, das auf basiert[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)erreichen. Habe das Neueste verwendet`Vue`FamilyMart-Technologie-Stack. API-Daten werden lokal im Projekt gespeichert und das Video wird daraus gesammelt`抖音|TikTok`, der Atlas stammt aus`小红书|Xiaohongshu`,passieren[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)Die Bibliothek fängt die API ab und gibt lokale JSON-Daten zurück, um echte Back-End-Anfragen zu simulieren.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -27,7 +28,7 @@
 <img width="150px" src='docs/imgs/img-5.jpg' />
 </div>
 
-## Online-Zugang
+## 在线访问
 
 Vercel:<http://dy.ttentau.top/>(China empfiehlt den Besuch hier)
 
@@ -35,7 +36,7 @@ Netlify:<https://douyins.netlify.app/>(Muss die Mauer umgehen)
 
 **Beachten**：`PC`Sie müssen den Browser in den mobilen Modus schalten, zuerst drücken`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen
 
-**Beachten**: Bitte benutzen Sie Ihr Mobiltelefon[über Browser](https://viayoo.com/zh-cn/)oder Chrome-Browservorschau. Andere Browser erzwingen möglicherweise, dass das Video im Vollbildmodus angezeigt wird, was dazu führt, dass es nicht richtig angezeigt wird.
+**Beachten**: Bitte benutzen Sie Ihr Mobiltelefon[über Browser](https://viayoo.com/zh-cn/)oder Chrome-Browservorschau. Andere Browser erzwingen möglicherweise die Vollbilddarstellung des Videos, wodurch es nicht richtig angezeigt wird.
 
 ## Haftungsausschluss
 
@@ -58,7 +59,7 @@ npm run dev
 
 Öffnen Sie Ihren Browser und besuchen Sie<http://127.0.0.1:3000>
 
-**Hinweis: Der PC muss den Browser in den Mobilmodus schalten, zuerst drücken`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen**
+**Hinweis: Der PC-Browser muss zuerst in den Mobilmodus geschaltet werden`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen**
 
 ## Verknüpfung
 
@@ -79,7 +80,7 @@ Das Video stammt von folgenden Douyin-Prominenten
 -   Xiaoba-Haustiersteak 🥩:<https://v.douyin.com/iYRSosVB/>
 -   Milchtee-Mädchen ◕🌱:<https://v.douyin.com/iYRACKhP/>
 -   Ich bin Lan Lan:<https://v.douyin.com/iYRAQM1C/>
--   周民艺 waren:<https://v.douyin.com/iYRAQs4h/>
+-   周憬艺 ziran： <https://v.douyin.com/iYRAQs4h/>
 -   Liu Siyao nett:<https://v.douyin.com/iYRAaERn/>
 -   Peng Shiliu-Elf:<https://v.douyin.com/iYRAHrVG/>
 -   Li Ziqi:<https://v.douyin.com/iYRA5B88/>

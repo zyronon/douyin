@@ -3,7 +3,8 @@
 </h1>
 
 <p align="center">
-  <a href="README.md">简体中文</a> | <a href="docs/README-en-US.md">English</a> | <a href="docs/README-ja-JP.md">日本語</a>
+ <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
+<a href="README.fr.md">French</a> | <a href="README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -12,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`Il s'agit d'un projet de courte vidéo mobile imitant Douyin, basé sur[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)accomplir. Utilisé le dernier`Vue`Pile technologique FamilyMart, transmission des données d'interface[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)simulation
+`douyin-vue`est une parodie`抖音|TikTok`projet de courte vidéo mobile, basé sur[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)accomplir. Utilisé le dernier`Vue`Pile technologique FamilyMart. Les données API sont enregistrées localement dans le projet et la vidéo est collectée à partir de`抖音|TikTok`, l'atlas est collecté auprès de`小红书|Xiaohongshu`,passer[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La bibliothèque intercepte l'API et renvoie des données json locales pour simuler de véritables requêtes back-end.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -27,7 +28,7 @@
 <img width="150px" src='docs/imgs/img-5.jpg' />
 </div>
 
-## accès en ligne
+## Accès en ligne
 
 Vercel：<http://dy.ttentau.top/>(La Chine recommande de visiter ceci)
 
@@ -58,7 +59,7 @@ npm run dev
 
 Ouvrez votre navigateur et visitez<http://127.0.0.1:3000>
 
-**Remarque : le PC doit passer le navigateur en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement**
+**Remarque : le navigateur du PC doit être basculé en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement**
 
 ## Lien
 

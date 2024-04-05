@@ -3,7 +3,8 @@
 </h1>
 
 <p align="center">
-  <a href="README.md">简体中文</a> | <a href="docs/README-en-US.md">English</a> | <a href="docs/README-ja-JP.md">日本語</a>
+ <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
+<a href="README.fr.md">French</a> | <a href="README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -12,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`It is a mobile short video project imitating Douyin, which is based on[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)accomplish. Used the latest`Vue`FamilyMart technology stack, interface data passes[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)simulation
+`douyin-vue`is a parody`抖音|TikTok`mobile short video project, which is based on[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)accomplish. Used the latest`Vue`FamilyMart technology stack. Api data is saved locally in the project, and the video is collected from`抖音|TikTok`, the atlas is collected from`小红书|Xiaohongshu`,pass[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)The library intercepts the API and returns local json data to simulate real back-end requests.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -27,7 +28,7 @@
 <img width="150px" src='docs/imgs/img-5.jpg' />
 </div>
 
-## online access
+## Online access
 
 Vercel：<http://dy.ttentau.top/>(China recommends visiting this)
 
@@ -58,7 +59,7 @@ npm run dev
 
 Open your browser and visit<http://127.0.0.1:3000>
 
-**Note: PC must switch the browser to mobile mode, first press`F12`To bring up the console, press`Ctrl+Shift+M`to preview normally**
+**Note: PC browser must be switched to mobile mode, first press`F12`To bring up the console, press`Ctrl+Shift+M`to preview normally**
 
 ## Link
 
