@@ -6,6 +6,15 @@
       </keep-alive>
     </transition>
   </router-view>
+  <div v-if="!isMobile" class="guide">
+    <Icon icon="mynaui:danger-triangle" />
+    <div class="txt">
+      <h2>切换至手机模式才可正常使用</h2>
+      <h3>1. 按 F12 调出控制台</h3>
+      <h3>2. 按 Ctrl+Shift+M，或点击下面图标</h3>
+    </div>
+    <img src="@/assets/img/guide.png" alt="" />
+  </div>
   <Call />
 </template>
 <script>
@@ -17,9 +26,17 @@ import { mapActions, mapState } from 'pinia'
 import routes from './router/routes'
 import Call from './components/Call'
 import { useBaseStore } from '@/store/pinia'
+import { onMounted, ref } from 'vue'
 
 export default {
   name: 'App',
+  setup() {
+    const isMobile = ref(/Mobi|Android|iPhone/i.test(navigator.userAgent))
+    onMounted(() => {
+      console.log('asdf', isMobile.value)
+    })
+    return { isMobile }
+  },
   components: {
     Call
   },
@@ -96,6 +113,35 @@ export default {
   height: 100%;
   width: 100%;
   position: relative;
+  font-size: 14rem;
+  color: white;
+}
+
+.guide {
+  background: var(--active-main-bg);
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 16rem;
+  overflow: hidden;
+  text-align: center;
+
+  svg {
+    margin-top: 10rem;
+    font-size: 40rem;
+    color: red;
+  }
+
+  .txt {
+    text-align: left;
+    padding: 0 24rem;
+  }
+
+  img {
+    display: block;
+    width: 350rem;
+  }
 }
 
 .go-enter-from {
