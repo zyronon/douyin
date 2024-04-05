@@ -32,7 +32,7 @@
 
 Vercel：<http://dy.ttentau.top/>(China recommends visiting this)
 
-Netlify：<https://douyins.netlify.app/>(need to circumvent the wall)
+Netlify：<https://douyins.netlify.app/>(Recommended to visit this for areas outside China)
 
 **Notice**：`PC`You must switch the browser to mobile mode, first press`F12`To bring up the console, press`Ctrl+Shift+M`to preview normally
 
