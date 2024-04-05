@@ -30,9 +30,11 @@
 
 ## Online access
 
-Vercel:  <http://dy.ttentau.top/>(China recommends visiting this)
+Vercel:<http://dy.ttentau.top/>(China recommends visiting this)
 
 Netlify:<https://douyins.netlify.app/>(Recommend visiting this for areas outside China)
+
+Android Apk:<https://github.com/zyronon/douyin/releases>
 
 **Notice**：`PC`You must switch the browser to mobile mode, first press`F12`To bring up the console, press`Ctrl+Shift+M`to preview normally
 
@@ -63,7 +65,7 @@ Open your browser and visit:<http://127.0.0.1:3000>
 
 ## Link
 
--   Open Source China:<https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g>
+-   开源中国: <https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g>
 -   V2EX:<https://www.v2ex.com/t/1028678>
 -   Nuggets:<https://juejin.cn/post/7352813352051687458>
 
