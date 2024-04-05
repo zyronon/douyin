@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`is a parody`抖音|TikTok`mobile short video project, which is based on[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)accomplish. Used the latest`Vue`FamilyMart technology stack. Api data is saved locally in the project, and the video is collected from`抖音|TikTok`, the atlas is collected from`小红书|Xiaohongshu`,pass[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)The library intercepts the API and returns local json data to simulate real back-end requests.
+`douyin-vue`is a parody`抖音|TikTok`mobile short video project, which is based on[Vue](https://cn.vuejs.org/)、[Quickly](https://cn.vitejs.dev/)accomplish. Used the latest`Vue`FamilyMart technology stack. Api data is saved locally in the project, and the video is collected from`抖音|TikTok`, the atlas is collected from`小红书|Xiaohongshu`,pass[axios-mock-adapter](https://github.com/ctimmerm/axios-mock-adapter)The library intercepts the API and returns local json data to simulate real back-end requests.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -30,13 +30,13 @@
 
 ## Online access
 
-Vercel：<http://dy.ttentau.top/>(China recommends visiting this)
+Vercel:  <http://dy.ttentau.top/>(China recommends visiting this)
 
-Netlify：<https://douyins.netlify.app/>(Recommended to visit this for areas outside China)
+Netlify:<https://douyins.netlify.app/>(Recommend visiting this for areas outside China)
 
 **Notice**：`PC`You must switch the browser to mobile mode, first press`F12`To bring up the console, press`Ctrl+Shift+M`to preview normally
 
-**Notice**: Please use your mobile phone[via browser](https://viayoo.com/zh-cn/)or Chrome browser preview. Other browsers may force the video to full screen, causing it to not display properly.
+**Notice**：Please use mobile phone[via browser](https://viayoo.com/zh-cn/)or Chrome browser preview. Other browsers may force the video to full screen, causing it to not display properly.
 
 ## Disclaimer
 
@@ -57,14 +57,14 @@ npm install
 npm run dev
 ```
 
-Open your browser and visit<http://127.0.0.1:3000>
+Open your browser and visit:<http://127.0.0.1:3000>
 
 **Note: PC browser must be switched to mobile mode, first press`F12`To bring up the console, press`Ctrl+Shift+M`to preview normally**
 
 ## Link
 
 -   Open Source China:<https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g>
--   V2EX：<https://www.v2ex.com/t/1028678>
+-   V2EX:<https://www.v2ex.com/t/1028678>
 -   Nuggets:<https://juejin.cn/post/7352813352051687458>
 
 ## Data Sources
@@ -78,7 +78,7 @@ The video comes from the following Douyin celebrities
 -   Little orange:<https://v.douyin.com/iYRAnudw/>
 -   Nan Tian:<https://v.douyin.com/iYRAbKm3/>
 -   Xiaoba pet steak 🥩:<https://v.douyin.com/iYRSosVB/>
--   Milk Tea Girl ◕🌱：<https://v.douyin.com/iYRACKhP/>
+-   Milk Tea Girl ◕🌱:<https://v.douyin.com/iYRACKhP/>
 -   I am Lan Lan:<https://v.douyin.com/iYRAQM1C/>
 -   周民艺 were:<https://v.douyin.com/iYRAQs4h/>
 -   Liu Siyao nice:<https://v.douyin.com/iYRAaERn/>
