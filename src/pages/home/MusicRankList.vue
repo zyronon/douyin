@@ -543,7 +543,7 @@ function togglePlay(item, list) {
     data.audio.play()
     data.audio.addEventListener('ended', () => (item.is_play = false))
   } else {
-    data.stopPlay()
+    stopPlay()
   }
 }
 

@@ -121,7 +121,7 @@ const data = reactive({
 })
 
 const sex = computed(() => {
-  switch (store.userinfo.gender) {
+  switch (Number(store.userinfo.gender)) {
     case 1:
       return '男'
     case 2:

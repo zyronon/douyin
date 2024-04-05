@@ -9,7 +9,7 @@
     "build": "vite build --mode prod",
     "build-uni-app": "vite build --mode uni",
     "build-only": "vite build",
-    "buildp-check": "run-p type-check \"build-only {@}\" --",
+    "build-check": "run-p type-check \"build-only {@}\" --",
     "type-check": "vue-tsc --build --force",
     "report": "vite build",
     "preview": "vite preview",
