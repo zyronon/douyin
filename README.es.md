@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`es una parodia`抖音|TikTok`proyecto de vídeo corto móvil, que se basa en[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)lograr. Usado lo último`Vue`Pila de tecnología FamilyMart. Los datos de API se guardan localmente en el proyecto y el video se recopila de`抖音|TikTok`, el atlas se recoge de`小红书|Xiaohongshu`,aprobar[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La biblioteca intercepta la API y devuelve datos json locales para simular solicitudes de back-end reales.
+`douyin-vue`es una parodia`抖音|TikTok`proyecto de vídeo corto móvil, que se basa en[Vista](https://cn.vuejs.org/)、[Rápidamente](https://cn.vitejs.dev/)lograr. Usado lo último`Vue`Pila de tecnología FamilyMart. Los datos de API se guardan localmente en el proyecto y el video se recopila de`抖音|TikTok`, el atlas se recoge de`小红书|Xiaohongshu`,aprobar[adaptador-simulado-axios](https://github.com/ctimmerm/axios-mock-adapter)La biblioteca intercepta la API y devuelve datos json locales para simular solicitudes de back-end reales.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -32,11 +32,11 @@
 
 Vercel:<http://dy.ttentau.top/>(China recomienda visitar esto)
 
-Netlificar:<https://douyins.netlify.app/>(Se recomienda visitar esto para áreas fuera de China)
+Netlificar:<https://douyins.netlify.app/>(Recomiende visitar esto para áreas fuera de China)
 
 **Aviso**：`PC`Debes cambiar el navegador al modo móvil, primero presiona`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente
 
-**Aviso**: Por favor utilice su teléfono móvil[a través del navegador](https://viayoo.com/zh-cn/)o vista previa del navegador Chrome. Otros navegadores pueden forzar el vídeo a pantalla completa, lo que hace que no se muestre correctamente.
+**Aviso**:Por favor utilice el teléfono móvil[a través del navegador](https://viayoo.com/zh-cn/)o vista previa del navegador Chrome. Otros navegadores pueden forzar el vídeo a pantalla completa, lo que hace que no se muestre correctamente.
 
 ## Descargo de responsabilidad
 
@@ -57,7 +57,7 @@ npm install
 npm run dev
 ```
 
-Abra su navegador y visite<http://127.0.0.1:3000>
+Abra su navegador y visite:<http://127.0.0.1:3000>
 
 **Nota: el navegador de la PC debe cambiarse al modo móvil, primero presione`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente**
 
@@ -92,17 +92,17 @@ El contenido anterior es toda información pública en Internet.
 ## Funciones y sugerencias
 
 El proyecto se encuentra actualmente en las primeras etapas de desarrollo y continuamente se agregan nuevas características. Si tiene alguna característica o sugerencia para el software, no dude en contactarnos.`Issues`criado en
-Si también le gustan las ideas de diseño de este software, envíelas.`PR`, ¡Muchas gracias por tu apoyo!
+Si también le gustan las ideas de diseño de este software, envíelas.`PR`，非常感谢你对我们的支持！
 
 ## contáctame
 
-Puedes contactar a mi correo electrónico<a href="mailto:zyronon@163.com">zyronon@163.com</a>
+Puedes contactar a mi correo<a href="mailto:zyronon@163.com">zyronon@163.com</a>
 
 > Comparta mis otros proyectos de código abierto:
 >
 > _[**Escribir palabra**- Software de memorización de vocabulario que se puede utilizar en la web ~](https://github.com/zyronon/typing-word)<img src="https://img.shields.io/github/stars/zyronon/typing-word.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_  
 > _[**Guiones web**- Algunos scripts útiles de Grease Monkey~](https://github.com/zyronon/web-scripts)<img src="https://img.shields.io/github/stars/zyronon/web-scripts.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_
 
-## 许可协议
+## acuerdo
 
 [GPL](LICENSE)
