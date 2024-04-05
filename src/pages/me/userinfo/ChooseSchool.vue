@@ -5,45 +5,50 @@
         <span class="f16">添加学校</span>
       </template>
       <template v-slot:right>
-        <span class="f14" @click="$nav('/me/declare-school', { type: 1 })">没有找到?</span>
+        <span class="f14" @click="nav('/me/declare-school', { type: 1 })">没有找到?</span>
       </template>
       <template v-slot:bottom>
         <Search
           class="mt1r mb1r ml2r mr2r"
           placeholder="搜索大学名称"
-          v-model="schoolName"
-          @clear="isSearch = false"
+          v-model="data.schoolName"
+          @clear="data.isSearch = false"
           :is-show-right-text="true"
           @notice="search"
         ></Search>
       </template>
     </BaseHeader>
     <div class="content">
-      <div class="nearby" v-if="!isSearch">
+      <div class="nearby" v-if="!data.isSearch">
         <div class="title">
           <img src="../../../assets/img/icon/location.svg" alt="" />
           <span>离我最近</span>
         </div>
-        <template v-if="nearby.length">
-          <div class="item" :key="i" v-for="(item, i) in nearby" @click="setSchool(item)">
+        <template v-if="data.nearby.length">
+          <div class="item" :key="i" v-for="(item, i) in data.nearby" @click="setSchool(item)">
             {{ item }}
           </div>
         </template>
         <div v-else class="item">无法获取</div>
       </div>
       <div class="line" style="width: calc(100% - 40rem); margin-left: 20rem"></div>
-      <div class="schools" v-if="!isSearch">
-        <div class="item" :key="i" v-for="(item, i) in schools" @click="setSchool(item)">
+      <div class="schools" v-if="!data.isSearch">
+        <div class="item" :key="i" v-for="(item, i) in data.schools" @click="setSchool(item)">
           {{ item }}
         </div>
       </div>
-      <div v-if="isSearch">
-        <template v-if="searchSchools.length">
-          <div class="item" :key="i" v-for="(item, i) in searchSchools" @click="setSchool(item)">
-            <span v-if="item.indexOf(schoolName) > -1">
-              {{ item.substr(0, item.indexOf(schoolName)) }}
-              <span style="color: #f50">{{ schoolName }}</span>
-              {{ item.substr(item.indexOf(schoolName) + schoolName.length) }}
+      <div v-if="data.isSearch">
+        <template v-if="data.searchSchools.length">
+          <div
+            class="item"
+            :key="i"
+            v-for="(item, i) in data.searchSchools"
+            @click="setSchool(item)"
+          >
+            <span v-if="item.indexOf(data.schoolName) > -1">
+              {{ item.substr(0, item.indexOf(data.schoolName)) }}
+              <span style="color: #f50">{{ data.schoolName }}</span>
+              {{ item.substr(item.indexOf(data.schoolName) + data.schoolName.length) }}
             </span>
             <span v-else>{{ item }}</span>
           </div>
@@ -52,48 +57,50 @@
           <img src="../../../assets/img/icon/head-image.jpeg" alt="" />
           <div class="title">搜索结果为空</div>
           <div class="sub-title">没有搜索到相关的内容</div>
-          <div class="btn" @click="$nav('/me/declare-school')">没有学校信息？去申报</div>
+          <div class="btn" @click="nav('/me/declare-school')">没有学校信息？去申报</div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import Search from '../../../components/Search'
+<script setup lang="ts">
+import Search from '../../../components/Search.vue'
+import { onMounted, reactive } from 'vue'
+import { useNav } from '@/utils/hooks/useNav.js'
+import { useRouter } from 'vue-router'
 
-export default {
-  name: 'ChooseSchool',
-  components: {
-    Search
-  },
-  data() {
-    return {
-      isSearch: false,
-      nearby: [],
-      schools: [],
-      searchSchools: [],
-      schoolName: ''
-    }
-  },
-  created() {
-    for (let i = 0; i < 20; i++) {
-      this.nearby.push('附近大学' + i)
-      this.schools.push('所有大学' + i)
-    }
-  },
-  methods: {
-    setSchool(val) {
-      localStorage.setItem('changeSchool', val)
-      this.$back()
-    },
-    search() {
-      if (!this.schoolName.length) return (this.isSearch = false)
-      this.isSearch = true
-      let all = this.nearby.concat(this.schools)
-      this.searchSchools = all.filter((v) => v.includes(this.schoolName))
-    }
+defineOptions({
+  name: 'ChooseSchool'
+})
+
+const router = useRouter()
+const nav = useNav()
+const data = reactive({
+  isSearch: false,
+  nearby: [],
+  schools: [],
+  searchSchools: [],
+  schoolName: ''
+})
+
+onMounted(() => {
+  for (let i = 0; i < 20; i++) {
+    data.nearby.push('附近大学' + i)
+    data.schools.push('所有大学' + i)
   }
+})
+
+function setSchool(val) {
+  localStorage.setItem('changeSchool', val)
+  router.back()
+}
+
+function search() {
+  if (!data.schoolName.length) return (data.isSearch = false)
+  data.isSearch = true
+  let all = data.nearby.concat(data.schools)
+  data.searchSchools = all.filter((v) => v.includes(data.schoolName))
 }
 </script>
 

@@ -8,22 +8,22 @@ import MockAdapter from 'axios-mock-adapter'
 
 const mock = new MockAdapter(axiosInstance, { delayResponse: 300 })
 
-function getPage2(params) {
-  let offset = params.pageNo * params.pageSize
-  let limit = params.pageNo * params.pageSize + params.pageSize
+function getPage2(params: any): { limit: number; offset: number; pageNo: number } {
+  const offset = params.pageNo * params.pageSize
+  const limit = params.pageNo * params.pageSize + params.pageSize
   return { limit, offset, pageNo: params.pageNo }
 }
 
 let allRecommendPosts = []
 let userVideos = []
-let allRecommendVideos = posts6.map((v) => {
+let allRecommendVideos = posts6.map((v: any) => {
   v.type = 'recommend-video'
   return v
 })
 
 // console.log('allRecommendVideos', allRecommendVideos)
-// eslint-disable-next-line no-unused-vars
-let t = [
+// eslint-disable-next-line
+const t = [
   {
     type: 'imgs',
     src: `https://imgapi.cn/bing.php`,
@@ -74,7 +74,7 @@ async function fetchData() {
       }
       v = v.map((w) => {
         w.type = 'recommend-video'
-        let item = userList.find((a) => String(a.uid) === String(w.author_user_id))
+        const item: any = userList.find((a) => String(a.uid) === String(w.author_user_id))
         if (item) w.author = item
         return w
       })
@@ -86,7 +86,7 @@ async function fetchData() {
 //TODO 有个bug，一开始只返回了6条数据，但第二次前端传过来的pageNo是2了，就是会从第10条数据开始返回，导致中间漏了4条
 export async function startMock() {
   mock.onGet(/video\/recommended/).reply(async (config) => {
-    let page = getPage2(config.params)
+    const page = getPage2(config.params)
     console.log('allRecommendVideos', cloneDeep(allRecommendVideos.length), page)
     return [
       200,
@@ -102,7 +102,7 @@ export async function startMock() {
   })
 
   mock.onGet(/video\/comments/).reply(async (config) => {
-    let videoIds = [
+    const videoIds = [
       '7260749400622894336',
       '7128686458763889956',
       '7293100687989148943',
@@ -124,8 +124,8 @@ export async function startMock() {
     if (!videoIds.includes(String(id))) {
       id = videoIds[random(0, videoIds.length - 1)]
     }
-    let r2 = await fetch(`${FILE_URL}/comments/video_id_${id}.json`)
-    let v = await r2.json()
+    const r2 = await fetch(`${FILE_URL}/comments/video_id_${id}.json`)
+    const v = await r2.json()
     if (v) {
       return [200, { data: v, code: 200 }]
     }
@@ -133,7 +133,7 @@ export async function startMock() {
   })
 
   mock.onGet(/video\/private/).reply(async (config) => {
-    let page = getPage2(config.params)
+    const page = getPage2(config.params)
     return [
       200,
       {
@@ -148,7 +148,7 @@ export async function startMock() {
   })
 
   mock.onGet(/video\/like/).reply(async (config) => {
-    let page = getPage2(config.params)
+    const page = getPage2(config.params)
     return [
       200,
       {
@@ -163,18 +163,18 @@ export async function startMock() {
   })
 
   mock.onGet(/video\/my/).reply(async (config) => {
-    let page = getPage2(config.params)
+    const page = getPage2(config.params)
     if (!userVideos.length) {
       // let r = await fetch(BASE_URL + '/data/user-71158770.json')
       // let r = await fetch(BASE_URL + '/data/user-8357999.json')
-      let r = await fetch(BASE_URL + '/data/user_video_list/user-12345xiaolaohu.json')
-      let list = await r.json()
+      const r = await fetch(BASE_URL + '/data/user_video_list/user-12345xiaolaohu.json')
+      const list = await r.json()
       const baseStore = useBaseStore()
-      let userList = cloneDeep(baseStore.users)
+      const userList = cloneDeep(baseStore.users)
 
       userVideos = list.map((w) => {
         if (userList.length) {
-          let item = userList.find((a) => String(a.uid) === String(w.author_user_id))
+          const item = userList.find((a) => String(a.uid) === String(w.author_user_id))
           if (item) w.author = item
         }
         return w
@@ -196,7 +196,7 @@ export async function startMock() {
   })
 
   mock.onGet(/video\/history/).reply(async (config) => {
-    let page = getPage2(config.params)
+    const page = getPage2(config.params)
     return [
       200,
       {
@@ -231,9 +231,9 @@ export async function startMock() {
   })
 
   mock.onGet(/user\/video_list/).reply(async (config) => {
-    let id = config.params.id
-    let r2 = await fetch(`${FILE_URL}/user_video_list/user-${id}.json`)
-    let v = await r2.json()
+    const id = config.params.id
+    const r2 = await fetch(`${FILE_URL}/user_video_list/user-${id}.json`)
+    const v = await r2.json()
     if (v) {
       return [200, { data: v, code: 200 }]
     }
@@ -241,11 +241,11 @@ export async function startMock() {
   })
 
   mock.onGet(/user\/panel/).reply(async () => {
-    let r2 = await fetch(BASE_URL + '/data/users.json')
-    let v = await r2.json()
+    const r2 = await fetch(BASE_URL + '/data/users.json')
+    const v = await r2.json()
     // let item = v.find(a => a.uid === '68310389333')
     // let item = v.find(a => a.uid === '59054327754')
-    let item = v.find((a) => a.uid === '2739632844317827')
+    const item = v.find((a) => a.uid === '2739632844317827')
     if (item) {
       return [200, { data: item, code: 200 }]
     }
@@ -253,13 +253,13 @@ export async function startMock() {
   })
 
   mock.onGet(/user\/friends/).reply(async () => {
-    let r2 = await fetch(BASE_URL + '/data/users.json')
-    let v = await r2.json()
+    const r2 = await fetch(BASE_URL + '/data/users.json')
+    const v = await r2.json()
     return [200, { data: v, code: 200 }]
   })
 
   mock.onGet(/historyOther/).reply(async (config) => {
-    let page = getPage2(config.params)
+    const page = getPage2(config.params)
     return [
       200,
       {
@@ -275,10 +275,10 @@ export async function startMock() {
   })
 
   mock.onGet(/post\/recommended/).reply(async (config) => {
-    let page = getPage2(config.params)
+    const page = getPage2(config.params)
 
     if (!allRecommendPosts.length) {
-      let r = await fetch(BASE_URL + '/data/posts.json')
+      const r = await fetch(BASE_URL + '/data/posts.json')
       allRecommendPosts = await r.json()
     }
     return [
@@ -296,10 +296,10 @@ export async function startMock() {
   })
 
   mock.onGet(/shop\/recommended/).reply(async (config) => {
-    let page = getPage2(config.params)
+    const page = getPage2(config.params)
 
-    let r2 = await fetch(BASE_URL + '/data/goods.json')
-    let v = await r2.json()
+    const r2 = await fetch(BASE_URL + '/data/goods.json')
+    const v = await r2.json()
     return [
       200,
       {

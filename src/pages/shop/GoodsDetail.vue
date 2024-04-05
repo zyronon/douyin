@@ -2,7 +2,7 @@
   <div class="goods-detail base-page" ref="page" @scroll="scroll">
     <header ref="header">
       <div class="top">
-        <Icon @click="$back()" icon="material-symbols-light:arrow-back-ios-new" />
+        <Icon @click="router.back()" icon="material-symbols-light:arrow-back-ios-new" />
         <div class="right">
           <div class="search">
             <Icon icon="jam:search" />
@@ -18,7 +18,7 @@
     </header>
     <header class="shadow" ref="headerShadow">
       <div class="top">
-        <Icon @click="$back()" icon="material-symbols-light:arrow-back-ios-new" />
+        <Icon @click="router.back()" icon="material-symbols-light:arrow-back-ios-new" />
         <div class="right">
           <div class="search">
             <Icon icon="jam:search" />
@@ -347,7 +347,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import SlideHorizontal from '@/components/slide/SlideHorizontal.vue'
 import SlideItem from '@/components/slide/SlideItem.vue'
 import { onMounted, onUnmounted, reactive, ref } from 'vue'
@@ -357,11 +357,13 @@ import { useBaseStore } from '@/store/pinia'
 import { recommendedShop } from '@/api/user'
 import WaterfallList from '@/components/WaterfallList.vue'
 import ScrollList from '@/components/ScrollList.vue'
+import { useRouter } from 'vue-router'
 
 defineOptions({
   name: 'GoodsDetail'
 })
 
+const router = useRouter()
 let activeIndexs = ref([])
 const nav = useNav()
 const store = useBaseStore()
@@ -382,6 +384,10 @@ function scroll() {
 
 const state = reactive({
   detail: {
+    price: '',
+    name: '',
+    sold: '',
+    real_price: '',
     imgs: []
   },
   index: 0,

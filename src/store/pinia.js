@@ -18,6 +18,14 @@ export const useBaseStore = defineStore('base', {
       routeData: null,
       users: [],
       userinfo: {
+        nickname: '',
+        desc: '',
+        user_age: '',
+        signature: '',
+        unique_id: '',
+        province: '',
+        city: '',
+        gender: '',
         school: {
           name: '',
           department: null,

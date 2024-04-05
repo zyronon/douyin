@@ -5,12 +5,12 @@
         <span class="f16">主页访客</span>
       </template>
       <template v-slot:right>
-        <span class="f14" @click="isShowSetting = !isShowSetting">设置</span>
+        <span class="f14" @click="data.isShowSetting = !data.isShowSetting">设置</span>
       </template>
     </BaseHeader>
     <div class="content">
-      <template v-if="realDisplay">
-        <Peoples v-model:list="recommend" :loading="loading" mode="visitor" />
+      <template v-if="data.realDisplay">
+        <Peoples v-model:list="data.recommend" :loading="false" mode="visitor" />
         <NoMore />
       </template>
       <template v-else>
@@ -18,7 +18,11 @@
           <div class="header">
             <div class="wrapper">
               <img src="../../assets/img/icon/message/display2.webp" alt="" class="icon1" />
-              <img :src="_checkImgUrl(userinfo.cover_url[0].url_list[0])" alt="" class="icon2" />
+              <img
+                :src="_checkImgUrl(store.userinfo.cover_url[0].url_list[0])"
+                alt=""
+                class="icon2"
+              />
               <img src="../../assets/img/icon/message/display1.webp" alt="" class="icon3" />
             </div>
           </div>
@@ -31,7 +35,9 @@
 
           <div class="buttons">
             <base-button type="dark" @click="keepClose">保持关闭</base-button>
-            <base-button type="primary" @click="display = realDisplay = true">开启访客</base-button>
+            <base-button type="primary" @click="data.display = data.realDisplay = true"
+              >开启访客</base-button
+            >
           </div>
         </div>
       </template>
@@ -39,7 +45,7 @@
 
     <from-bottom-dialog
       page-id="Visitors"
-      v-model="isShowSetting"
+      v-model="data.isShowSetting"
       mode="white"
       mask-mode="dark"
       height="270rem"
@@ -51,7 +57,7 @@
             <img class="icon" src="../../assets/img/icon/message/peoples-black2.png" alt="" />
             <transition name="remove">
               <img
-                v-if="!display"
+                v-if="!data.display"
                 class="remove"
                 src="../../assets/img/icon/message/remove.png"
                 alt=""
@@ -60,7 +66,7 @@
           </div>
           <img
             class="close"
-            @click="isShowSetting = false"
+            @click="data.isShowSetting = false"
             src="../../assets/img/icon/components/gray-close-full2.png"
             alt=""
           />
@@ -73,60 +79,54 @@
         <div class="row">
           <div class="left">展示主页访客</div>
           <div class="right">
-            <switches v-model="display" theme="bootstrap" color="success"></switches>
+            <switches v-model="data.display" theme="bootstrap" color="success"></switches>
           </div>
         </div>
       </div>
     </from-bottom-dialog>
   </div>
 </template>
-<script>
-import { mapState } from 'pinia'
-import Peoples from '../people/components/Peoples'
-import NoMore from '../../components/NoMore'
-import FromBottomDialog from '../../components/dialog/FromBottomDialog'
-import Switches from './components/swtich/switches'
-import BaseButton from '../../components/BaseButton'
+<script setup lang="ts">
+import Peoples from '../people/components/Peoples.vue'
+import NoMore from '@/components/NoMore.vue'
+import FromBottomDialog from '@/components/dialog/FromBottomDialog.vue'
+import Switches from './components/swtich/switches.vue'
+import BaseButton from '@/components/BaseButton.vue'
 import { useBaseStore } from '@/store/pinia'
-import { _checkImgUrl } from '@/utils'
+import { _checkImgUrl, _notice, cloneDeep } from '@/utils'
 
-export default {
-  name: 'visitors',
-  components: {
-    BaseButton,
-    FromBottomDialog,
-    Peoples,
-    NoMore,
-    Switches
-  },
-  data() {
-    return {
-      recommend: [],
-      isShowSetting: false,
-      display: false,
-      realDisplay: false
-    }
-  },
-  watch: {
-    isShowSetting(newVal) {
-      if (!newVal) {
-        this.realDisplay = this.display
-      }
-    }
-  },
-  computed: {
-    ...mapState(useBaseStore, ['friends', 'userinfo'])
-  },
-  created() {
-    this.recommend = this.$clone(this.friends.all)
-  },
-  methods: {
-    _checkImgUrl,
-    keepClose() {
-      this.$notice('你将不会再收到相关通知')
-      this.$back()
+import { onMounted, reactive, watch } from 'vue'
+import { useRouter } from 'vue-router'
+
+defineOptions({
+  name: 'Visitors'
+})
+
+const store = useBaseStore()
+const router = useRouter()
+const data = reactive({
+  recommend: [],
+  isShowSetting: false,
+  display: false,
+  realDisplay: false
+})
+
+onMounted(() => {
+  data.recommend = cloneDeep(store.friends.all)
+})
+
+watch(
+  () => data.isShowSetting,
+  (newVal) => {
+    if (!newVal) {
+      data.realDisplay = data.display
     }
   }
+)
+
+function keepClose() {
+  _notice('你将不会再收到相关通知')
+  router.back()
 }
 </script>
 
@@ -184,6 +184,7 @@ export default {
         background: black;
         border-radius: 50%;
         width: 80rem;
+        height: 80rem;
       }
 
       .icon3 {

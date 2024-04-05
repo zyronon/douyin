@@ -8,51 +8,53 @@
     <div class="content">
       <div class="row" @click="setTriggerTime(enums.TRIGGER_TIME.TIME40)">
         <div class="left">40分钟</div>
-        <div class="right" v-if="triggerTime === enums.TRIGGER_TIME.TIME40">
+        <div class="right" v-if="data.triggerTime === enums.TRIGGER_TIME.TIME40">
           <img src="../../../../assets/img/icon/ok-red.png" alt="" />
         </div>
       </div>
       <div class="row" @click="setTriggerTime(enums.TRIGGER_TIME.TIME60)">
         <div class="left">60分钟</div>
-        <div class="right" v-if="triggerTime === enums.TRIGGER_TIME.TIME60">
+        <div class="right" v-if="data.triggerTime === enums.TRIGGER_TIME.TIME60">
           <img src="../../../../assets/img/icon/ok-red.png" alt="" />
         </div>
       </div>
       <div class="row" @click="setTriggerTime(enums.TRIGGER_TIME.TIME90)">
         <div class="left">90分钟</div>
-        <div class="right" v-if="triggerTime === enums.TRIGGER_TIME.TIME90">
+        <div class="right" v-if="data.triggerTime === enums.TRIGGER_TIME.TIME90">
           <img src="../../../../assets/img/icon/ok-red.png" alt="" />
         </div>
       </div>
       <div class="row" @click="setTriggerTime(enums.TRIGGER_TIME.TIME120)">
         <div class="left">120分钟</div>
-        <div class="right" v-if="triggerTime === enums.TRIGGER_TIME.TIME120">
+        <div class="right" v-if="data.triggerTime === enums.TRIGGER_TIME.TIME120">
           <img src="../../../../assets/img/icon/ok-red.png" alt="" />
         </div>
       </div>
     </div>
   </div>
 </template>
-<script>
+<script setup lang="ts">
 import enums from '../../../../utils/enums'
 
-export default {
-  name: 'TriggerTime',
-  data() {
-    return {
-      enums,
-      triggerTime: enums.TRIGGER_TIME.TIME60
-    }
-  },
-  created() {
-    this.triggerTime = ~~this.$route.query.triggerTime
-  },
-  methods: {
-    setTriggerTime(type) {
-      this.triggerTime = type
-      localStorage.setItem('changeTriggerTime', type)
-    }
-  }
+import { onMounted, reactive } from 'vue'
+import { useRoute } from 'vue-router'
+
+defineOptions({
+  name: 'ChooseSchool'
+})
+
+const route = useRoute()
+const data = reactive({
+  triggerTime: enums.TRIGGER_TIME.TIME60
+})
+
+onMounted(() => {
+  data.triggerTime = ~~route.query.triggerTime
+})
+
+function setTriggerTime(type) {
+  data.triggerTime = type
+  localStorage.setItem('changeTriggerTime', type)
 }
 </script>
 

@@ -6,8 +6,12 @@
       </template>
       <template v-slot:right>
         <div>
-          <span class="f16" :class="selectFriends.length ? 'save-yes' : 'save-no'" @click="save">
-            完成{{ selectFriends.length ? `(${selectFriends.length})` : '' }}
+          <span
+            class="f16"
+            :class="data.selectFriends.length ? 'save-yes' : 'save-no'"
+            @click="save"
+          >
+            完成{{ data.selectFriends.length ? `(${data.selectFriends.length})` : '' }}
           </span>
         </div>
       </template>
@@ -17,11 +21,11 @@
         <div
           class="local-row"
           :key="i"
-          v-for="(item, i) of friends.all"
+          v-for="(item, i) of data.friends.all"
           @click="toggleSelect(item)"
         >
           <Check mode="red" v-model="item.select" />
-          <img :src="$imgPreview(item.avatar)" alt="" />
+          <img :src="_checkImgUrl(item.avatar)" alt="" />
           <div class="desc">
             <span class="name">{{
               item.name.length > 20 ? item.name.substr(0, 20) + '...' : item.name
@@ -34,62 +38,63 @@
     </div>
   </div>
 </template>
-<script>
-import Check from '../../components/Check'
+<script setup lang="ts">
+import Check from '../../components/Check.vue'
 import { friends } from '@/api/user'
 
-export default {
-  name: 'Share2Friend',
-  components: { Check },
-  props: {},
-  computed: {
-    // ...mapState(['friends']),
+import { onMounted, reactive } from 'vue'
+import { useRouter } from 'vue-router'
+import { _checkImgUrl } from '@/utils'
+
+defineOptions({
+  name: 'JoinedGroupChat'
+})
+
+const router = useRouter()
+const data = reactive({
+  friends: {
+    all: {},
+    recent: [],
+    eachOther: []
   },
-  data() {
-    return {
-      friends: {
-        all: {},
-        recent: [],
-        eachOther: []
-      },
-      selectFriends: []
-    }
-  },
-  created() {
-    this.getFriends()
-  },
-  methods: {
-    save() {
-      if (!this.selectFriends.length) return
-      this.$back()
-    },
-    toggleSelect(item) {
-      let resIndex = this.selectFriends.findIndex((v) => v.name === item.name)
-      if (resIndex !== -1) {
-        item.select = false
-        this.selectFriends.splice(resIndex, 1)
-      } else {
-        item.select = true
-        this.selectFriends.push(item)
-      }
-    },
-    async getFriends() {
-      let res = await friends()
-      if (res.code === this.SUCCESS) {
-        this.friends = res.data
-        this.friends.all = this.friends.all.sort((a, b) => {
-          if (a.pinyin < b.pinyin) return -1
-          if (a.pinyin > b.pinyin) return 1
-          return 0
-        })
-      }
-    }
+  selectFriends: []
+})
+
+onMounted(() => {
+  getFriends()
+})
+
+function save() {
+  if (!data.selectFriends.length) return
+  router.back()
+}
+
+function toggleSelect(item) {
+  let resIndex = data.selectFriends.findIndex((v) => v.name === item.name)
+  if (resIndex !== -1) {
+    item.select = false
+    data.selectFriends.splice(resIndex, 1)
+  } else {
+    item.select = true
+    data.selectFriends.push(item)
+  }
+}
+
+async function getFriends() {
+  let res = await friends()
+  if (res.success) {
+    data.friends = res.data
+    data.friends.all = data.friends.all.sort((a, b) => {
+      if (a.pinyin < b.pinyin) return -1
+      if (a.pinyin > b.pinyin) return 1
+      return 0
+    })
   }
 }
 </script>
 
 <style scoped lang="less">
-@import '../../assets/less/index';
+@import '@/assets/less/index';
 
 .Share2Friend {
   position: fixed;

@@ -1,6 +1,6 @@
 <template>
   <div class="Publish">
-    <video id="video" autoplay="autoplay" style="width: 100%; height: calc(100% - 60rem)"></video>
+    <video id="video" autoplay style="width: 100%; height: calc(100% - 60rem)"></video>
     <div class="footer">
       <SlideHorizontal style="height: 60rem" v-model:index="activeIndex">
         <SlideItem style="width: 20vw"></SlideItem>
@@ -20,7 +20,7 @@
       </SlideHorizontal>
     </div>
     <div class="float">
-      <Icon class="close" icon="mingcute:close-line" @click="$back" />
+      <Icon class="close" icon="mingcute:close-line" @click="router.back()" />
       <div class="choose-music">
         <Icon icon="vaadin:music" />
         <span>选择音乐</span>
@@ -48,9 +48,16 @@
     </div>
   </div>
 </template>
-<script>
-import { mapState } from 'pinia'
-import { useBaseStore } from '@/store/pinia'
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+defineOptions({
+  name: 'Publish'
+})
+const router = useRouter()
+const videoEl = ref(null)
+const activeIndex = ref(1)
 
 //访问用户媒体设备的兼容方法
 function getUserMedia(constrains, success, error) {
@@ -63,51 +70,37 @@ function getUserMedia(constrains, success, error) {
   } else if (navigator.mozGetUserMedia) {
     //Firefox浏览器
     // eslint-disable-next-line no-undef
-    navagator.mozGetUserMedia(constrains).then(success).catch(error)
+    navigator.mozGetUserMedia(constrains).then(success).catch(error)
   } else if (navigator.getUserMedia) {
     //旧版API
     navigator.getUserMedia(constrains).then(success).catch(error)
   }
 }
 
-export default {
-  name: 'Publish',
-  data() {
-    return {
-      video: null,
-      activeIndex: 1
-    }
-  },
-  computed: {
-    ...mapState(useBaseStore, ['bodyHeight', 'bodyWidth'])
-  },
-  mounted() {
-    //获得video摄像头区域
-    this.video = document.getElementById('video')
-    this.getMedia()
-  },
-  methods: {
-    getMedia() {
-      // let constraints = {video: {width: this.bodyWidth, height: this.bodyHeight - 60}, audio: false};
-      // let constraints = {video:{width:480,height:320}, audio: false};
-      let constraints = { video: true, audio: false }
-      try {
-        getUserMedia(
-          constraints,
-          (MediaStream) => {
-            this.video.srcObject = MediaStream
-            this.video.play()
-          },
-          function (PermissionDeniedError) {
-            console.log(PermissionDeniedError)
-          }
-        )
-      } catch (e) {
-        console.log('e', e)
+function getMedia() {
+  // let constraints = {video: {width: this.bodyWidth, height: this.bodyHeight - 60}, audio: false};
+  // let constraints = {video:{width:480,height:320}, audio: false};
+  let constraints = { video: true, audio: false }
+  try {
+    getUserMedia(
+      constraints,
+      (MediaStream) => {
+        videoEl.value.srcObject = MediaStream
+        videoEl.value.play()
+      },
+      function (PermissionDeniedError) {
+        console.log(PermissionDeniedError)
       }
-    }
+    )
+  } catch (e) {
+    console.log('e', e)
   }
 }
+
+onMounted(() => {
+  videoEl.value = document.getElementById('video')
+  getMedia()
+})
 </script>
 
 <style scoped lang="less">

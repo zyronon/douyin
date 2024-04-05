@@ -1,8 +1,9 @@
-import Home from '../pages/home'
-import Test from '../pages/test/Test'
-import Test4 from '../pages/test/Test4'
+import Home from '../pages/home/index.vue'
+import Test from '../pages/test/Test.vue'
+import Test4 from '../pages/test/Test4.vue'
+import type { RouteRecordRaw } from 'vue-router'
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   // {path: '/', redirect: '/attention'},
   { path: '/', redirect: '/home' },
   { path: '/test', component: Test },

@@ -2,7 +2,7 @@
   <div id="UserPanel" @scroll="scroll" ref="page">
     <div ref="float" class="float" :class="state.floatFixed ? 'fixed' : ''">
       <div class="left">
-        <Icon @click="$emit('back')" class="icon" icon="eva:arrow-ios-back-fill" />
+        <Icon @click="emit('back')" class="icon" icon="eva:arrow-ios-back-fill" />
         <transition name="fade">
           <div class="float-user" v-if="state.floatFixed">
             <img
@@ -33,7 +33,7 @@
           </div>
         </transition>
         <Icon class="icon" icon="ion:search" @click.stop="$no()" />
-        <Icon class="icon" icon="ri:more-line" @click.stop="$emit('showFollowSetting')" />
+        <Icon class="icon" icon="ri:more-line" @click.stop="emit('showFollowSetting')" />
       </div>
     </div>
     <div
@@ -163,7 +163,7 @@
               <span>关注</span>
             </div>
             <div class="followed">
-              <div class="l-button" @click="$emit('showFollowSetting2')">
+              <div class="l-button" @click="emit('showFollowSetting2')">
                 <span>已关注</span>
                 <Icon icon="bxs:down-arrow" class="arrow" />
               </div>
@@ -232,11 +232,11 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { reactive, ref, watch } from 'vue'
 import Utils, { $no, _checkImgUrl, _getUserDouyinId } from '@/utils'
 import { useNav } from '@/utils/hooks/useNav'
-import Posters from '@/components/Posters'
+import Posters from '@/components/Posters.vue'
 import { DefaultUser } from '@/utils/const_var'
 import Loading from '@/components/Loading.vue'
 import { useBaseStore } from '@/store/pinia'
@@ -244,7 +244,13 @@ import { userVideoList } from '@/api/user'
 
 const $nav = useNav()
 const baseStore = useBaseStore()
-const emit = defineEmits(['update:currentItem', 'back'])
+const emit = defineEmits<{
+  'update:currentItem': [val: any]
+  back: []
+  showFollowSetting: []
+  showFollowSetting2: []
+}>()
+
 const props = defineProps({
   currentItem: {
     type: Object,
@@ -272,9 +278,7 @@ const state = reactive({
   previewImg: '',
   floatFixed: false,
   showFollowSetting: false,
-
   floatHeight: 52,
-
   loadings: {
     showRecommend: false
   },
@@ -296,7 +300,7 @@ watch(
     if (newVal && !props.currentItem.aweme_list.length) {
       // console.log('props.currentItem',props.currentItem)
       let id = _getUserDouyinId(props.currentItem)
-      let r = await userVideoList({ id })
+      let r: any = await userVideoList({ id })
       if (r.success) {
         setTimeout(() => {
           r.data = r.data.map((a) => {
@@ -325,6 +329,10 @@ function stop(e) {
 }
 
 function followButton() {}
+
+function cancelFollow() {}
+
+defineExpose({ cancelFollow })
 
 function scroll() {
   // console.log('scroll', page.value.scrollTop)

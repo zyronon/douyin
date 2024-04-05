@@ -160,7 +160,7 @@
       :videoId="state.recommendList[state.itemIndex]?.id"
       :canDownload="state.recommendList[state.itemIndex]?.canDownload"
       @play-feedback="state.showPlayFeedback = true"
-      @shareToFriend="delayShowDialog((e) => (state.shareToFriend = true))"
+      @shareToFriend="delayShowDialog(() => (state.shareToFriend = true))"
       @showDouyinCode="state.showDouyinCode = true"
       @download="state.shareType = 9"
     />
@@ -185,7 +185,7 @@
 
     <FollowSetting2
       v-model:currentItem="state.currentItem"
-      @cancelFollow="$refs.uploader.cancelFollow()"
+      @cancelFollow="uploader.cancelFollow()"
       v-model="state.showFollowSetting2"
     />
 
@@ -199,13 +199,13 @@
   </div>
 </template>
 
-<script setup lang="jsx">
+<script setup lang="tsx">
 import SlideHorizontal from '@/components/slide/SlideHorizontal.vue'
 import SlideItem from '@/components/slide/SlideItem.vue'
 import Comment from '../../components/Comment.vue'
 import Share from '../../components/Share.vue'
 import IndicatorHome from './components/IndicatorHome.vue'
-import { onActivated, onDeactivated, onMounted, onUnmounted, reactive } from 'vue'
+import { onActivated, onDeactivated, onMounted, onUnmounted, reactive, ref } from 'vue'
 import bus, { EVENT_KEY } from '../../utils/bus'
 import { useNav } from '@/utils/hooks/useNav'
 import PlayFeedback from '@/pages/home/components/PlayFeedback.vue'
@@ -229,11 +229,13 @@ import { useBaseStore } from '@/store/pinia'
 
 const nav = useNav()
 const baseStore = useBaseStore()
+const uploader = ref()
 
 const state = reactive({
   active: true,
   baseIndex: 1,
   navIndex: 4,
+  itemIndex: 0,
   test: '',
   recommendList: [],
   isSharing: false,
@@ -253,13 +255,14 @@ const state = reactive({
   commentVisible: false,
   fullScreen: false,
   currentItem: {
+    aweme_id: '',
     author: DefaultUser,
     isRequest: false,
     aweme_list: []
   }
 })
 
-function delayShowDialog(cb) {
+function delayShowDialog(cb: Function) {
   setTimeout(cb, 400)
 }
 

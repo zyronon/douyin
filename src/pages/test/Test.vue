@@ -5,7 +5,7 @@
     <!--    <video ref="videoEl" :src="v1" controls></video>-->
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue'
 
 defineOptions({

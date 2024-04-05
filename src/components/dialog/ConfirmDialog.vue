@@ -18,7 +18,7 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 /*TODO 单独使用时，没有mark*/
 export default {
   name: 'ConfirmDialog',

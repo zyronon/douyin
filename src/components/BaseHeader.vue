@@ -1,54 +1,59 @@
 <template>
-  <div id="BaseHeader" :class="[isFixed ? 'fixed' : '']">
+  <div id="BaseHeader" :class="[props.isFixed ? 'fixed' : '']">
     <div class="header">
-      <dy-back :mode="backMode" :img="backImg" @click="back()" class="left" direction="left" />
+      <dy-back
+        :mode="props.backMode"
+        :img="props.backImg"
+        @click="back"
+        class="left"
+        direction="left"
+      />
       <slot name="center"><span></span></slot>
       <slot name="right"><span></span></slot>
     </div>
     <slot name="bottom"></slot>
   </div>
 </template>
-<script>
-export default {
-  name: 'BaseHeader',
-  components: {},
-  props: {
-    backMode: {
-      type: String,
-      default: 'gray'
-    },
-    backImg: {
-      type: String,
-      default: 'back'
-    },
-    isClose: {
-      type: Boolean,
-      default: false
-    },
-    isFixed: {
-      type: Boolean,
-      default: true
-    }
+<script setup lang="ts">
+import { useAttrs } from 'vue'
+import { useRouter } from 'vue-router'
+
+defineOptions({
+  name: 'BaseHeader'
+})
+
+const props = defineProps({
+  backMode: {
+    type: String,
+    default: 'gray'
   },
-  data() {
-    return {}
+  backImg: {
+    type: String,
+    default: 'back'
   },
-  created() {},
-  computed: {},
-  methods: {
-    back() {
-      if (this.$attrs.onBack) {
-        this.$attrs.onBack()
-      } else {
-        this.$back()
-      }
-    }
+  isClose: {
+    type: Boolean,
+    default: false
+  },
+  isFixed: {
+    type: Boolean,
+    default: true
+  }
+})
+const router = useRouter()
+const attrs: any = useAttrs()
+
+function back() {
+  if (attrs.onBack) {
+    attrs.onBack()
+  } else {
+    router.back()
   }
 }
 </script>
 
 <style scoped lang="less">
-@import '../assets/less/index';
+@import '@/assets/less/index';
 
 #BaseHeader {
   width: 100%;
