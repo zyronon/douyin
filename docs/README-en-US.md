@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-<a href="README.md">简体中文</a> |
+<a href="../README.md">简体中文</a> |
 <a href="README-en-US.md">English</a> |
 <a href="README-ja-JP.md">日本語</a>
 </p>
@@ -40,16 +40,16 @@ Other browsers will force the video to be full-screen, invalidating the style.
 ## Effect screenshot
 
 <div>
-<img width="150px"    src='./public/docs/1.gif' />
-<img width="150px"    src='./public/docs/2.gif' />
-<img width="150px"    src='./public/docs/3.gif' />
-<img width="150px"    src='./public/docs/4.gif' />
-<img width="150px"    src='./public/docs/5.gif' />
-<img width="150px"    src='./public/docs/img-1.jpg' />
-<img width="150px"    src='./public/docs/img-2.jpg' />
-<img width="150px"    src='./public/docs/img-3.jpg' />
-<img width="150px"    src='./public/docs/img-4.jpg' />
-<img width="150px"    src='./public/docs/img-5.jpg' />
+<img width="150px"    src='imgs/1.gif' />
+<img width="150px"    src='imgs/2.gif' />
+<img width="150px"    src='imgs/3.gif' />
+<img width="150px"    src='imgs/4.gif' />
+<img width="150px"    src='imgs/5.gif' />
+<img width="150px"    src='imgs/img-1.jpg' />
+<img width="150px"    src='imgs/img-2.jpg' />
+<img width="150px"    src='imgs/img-3.jpg' />
+<img width="150px"    src='imgs/img-4.jpg' />
+<img width="150px"    src='imgs/img-5.jpg' />
 </div>
 
 ## Related post
@@ -98,4 +98,4 @@ You can contact my email address < a href= "mailto:zyronon@163.com" > zyronon@16
 
 ## MIT license Agreement
 
-[MIT](LICENSE)
+[MIT](../LICENSE)

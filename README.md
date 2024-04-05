@@ -1,54 +1,76 @@
 <h1 align="center">
-  Douyin
+  Douyin-Vue
 </h1>
 
 <p align="center">
-  <a href="README.md">简体中文</a> | <a href="README-en-US.md">English</a> | <a href="README-ja-JP.md">日本語</a>
+  <a href="README.md">简体中文</a> | <a href="docs/README-en-US.md">English</a> | <a href="docs/README-ja-JP.md">日本語</a>
 </p>
 
-`douyin` 是一个模仿抖音的移动端短视频项目，它基于 [`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/) 实现。使用了最新的 `Vue` 全家桶技术栈，接口数据通过 [`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter) 模拟
+<p align="center">
+  <a href="https://github.com/zyronon/douyin/blob/master/LICENSE"><img src="https://img.shields.io/github/license/zyronon/douyin" alt="License"></a>
+  <a><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"/></a>
+  <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
+</p>
 
-> 分享我其他开源项目：
-> 
->_[**Typing Word** - 可在网页上使用的背单词软件~](https://github.com/zyronon/typing-word) <img src="https://img.shields.io/github/stars/zyronon/typing-word.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_  
->_[**Web Scripts** - 一些好用的油猴脚本~](https://github.com/zyronon/web-scripts) <img src="https://img.shields.io/github/stars/zyronon/web-scripts.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_
+`douyin-vue` 是一个模仿抖音的移动端短视频项目，它基于 [`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)
+实现。使用了最新的 `Vue` 全家桶技术栈，接口数据通过 [`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)
+模拟
 
-
-## 免责声明
-
-本项目仅适用于技术研究和分享，不得用于商业使用
+<div>
+<img width="150px" src='docs/imgs/1.gif' />
+<img width="150px" src='docs/imgs/2.gif' />
+<img width="150px" src='docs/imgs/3.gif' />
+<img width="150px" src='docs/imgs/4.gif' />
+<img width="150px" src='docs/imgs/5.gif' />
+<img width="150px" src='docs/imgs/img-1.jpg' />
+<img width="150px" src='docs/imgs/img-2.jpg' />
+<img width="150px" src='docs/imgs/img-3.jpg' />
+<img width="150px" src='docs/imgs/img-4.jpg' />
+<img width="150px" src='docs/imgs/img-5.jpg' />
+</div>
 
 ## 在线访问
 
-Vercel： [http://dy.ttentau.top/](http://dy.ttentau.top/) (国内推荐访问这个)
+Vercel： [http://dy.ttentau.top/](http://dy.ttentau.top/) (中国推荐访问这个)
 
 Netlify：[https://douyins.netlify.app/](https://douyins.netlify.app/) (需要翻墙)
 
-**注意**：`PC` 浏览器请用手机模式访问。先按 `F12` 调出控制台，再按 `Ctrl+Shift+M` 切换到手机模式
+**注意**：`PC` 必须将浏览器切到手机模式，先按 `F12` 调出控制台，再按 `Ctrl+Shift+M`才能正常预览
 
-**注意**：手机请用 [Via 浏览器](https://viayoo.com/zh-cn/) 或者 Chrome 浏览器预览。其它浏览器会强制将视频全屏，导致样式失效
+**注意**：手机请用 [Via 浏览器](https://viayoo.com/zh-cn/) 或 Chrome 浏览器预览。其它浏览器可能会强制将视频全屏，导致无法正常显示
 
-## 效果截图
+## 免责声明
 
-<div>
-<img width="150px" src='./public/docs/1.gif' />
-<img width="150px" src='./public/docs/2.gif' />
-<img width="150px" src='./public/docs/3.gif' />
-<img width="150px" src='./public/docs/4.gif' />
-<img width="150px" src='./public/docs/5.gif' />
-<img width="150px" src='./public/docs/img-1.jpg' />
-<img width="150px" src='./public/docs/img-2.jpg' />
-<img width="150px" src='./public/docs/img-3.jpg' />
-<img width="150px" src='./public/docs/img-4.jpg' />
-<img width="150px" src='./public/docs/img-5.jpg' />
-</div>
+本项目仅适用于学习和研究，不得用于商业使用
 
-## 相关帖子
+## 运行
 
+### 快速部署至Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/zyronon/douyin)
+
+### 本地开发
+
+```bash
+git clone https://github.com/zyronon/douyin.git
+cd douyin
+npm install
+npm run dev
+```
+
+打开浏览器并访问 [http://127.0.0.1:3000](http://127.0.0.1:3000)
+
+**注意：PC 必须将浏览器切到手机模式，先按 `F12` 调出控制台，再按 `Ctrl+Shift+M`才能正常预览**
+
+## 链接
+
+- 开源中国：https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g
+- V2EX：https://www.v2ex.com/t/1028678
 - 掘金：https://juejin.cn/post/7352813352051687458
-- V2EX：https://www.v2ex.com/t/1028678#reply116
 
-## 项目所展示的网红
+## 数据来源
+
+视频来源于以下抖音网红
 
 - 我是香秀 🐂🍺： [https://v.douyin.com/iYRAPA2L/](https://v.douyin.com/iYRAPA2L/)
 - 杨老虎 🐯（磕穿下巴掉牙版）： [https://v.douyin.com/iYRA56de/](https://v.douyin.com/iYRA56de/)
@@ -64,16 +86,9 @@ Netlify：[https://douyins.netlify.app/](https://douyins.netlify.app/) (需要�
 - 彭十六 elf： [https://v.douyin.com/iYRAHrVG/](https://v.douyin.com/iYRAHrVG/)
 - 李子柒：[https://v.douyin.com/iYRA5B88/](https://v.douyin.com/iYRA5B88/)
 
-## 运行项目
+图片来自于小红书公开笔记
 
-本项目是基于 `Vue` 开发的，需要 `node` 环境来运行。
-
-1. 安装 `NodeJS`，参考[官方文档](https://nodejs.org/en/download)
-2. 安装 `pnpm` 包管理工具，运行 `npm install -g pnpm` 来安装
-3. 使用 `git clone https://github.com/zyronon/douyin.git` 下载项目到本地
-4. 进入项目目录`cd douyin`，在项目根目录下，运行`pnpm install`来下载依赖。
-5. 执行`pnpm dev`来启动项目，项目默认地址为[`http://localhost:3000`](http://localhost:3000)
-6. 在浏览器中打开[`http://localhost:3000`](http://localhost:3000) 来访问项目。 `Chrome` 切换成手机模式快捷键，先按 `F12` 调出控制台，再按 `Ctrl+Shift+M`（设备仿真模拟）
+以上内容均是互联网公开信息
 
 ## 功能与建议
 
@@ -83,7 +98,13 @@ Netlify：[https://douyins.netlify.app/](https://douyins.netlify.app/) (需要�
 ## 联系我
 
 您可以联系我的邮箱 <a href="mailto:zyronon@163.com">zyronon@163.com</a>
+> 分享我其他开源项目：
+>
+>_[**Typing Word
+** - 可在网页上使用的背单词软件~](https://github.com/zyronon/typing-word) <img src="https://img.shields.io/github/stars/zyronon/typing-word.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_  
+> _[**Web Scripts
+** - 一些好用的油猴脚本~](https://github.com/zyronon/web-scripts) <img src="https://img.shields.io/github/stars/zyronon/web-scripts.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_
 
 ## 许可协议
 
-[MIT](LICENSE)
+[GPL](LICENSE)
