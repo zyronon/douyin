@@ -56,11 +56,11 @@ export const useBaseStore = defineStore('base', {
   getters: {},
   actions: {
     async init() {
-      let r = await panel()
+      const r = await panel()
       if (r.success) {
         this.userinfo = r.data
       }
-      let r2 = await friends()
+      const r2 = await friends()
       if (r2.success) {
         this.users = r2.data
       }
@@ -80,7 +80,7 @@ export const useBaseStore = defineStore('base', {
           this.excludeRoutes.push(val.value)
         }
       } else {
-        let resIndex = this.excludeRoutes.findIndex((v) => v === val.value)
+        const resIndex = this.excludeRoutes.findIndex((v) => v === val.value)
         if (resIndex !== -1) {
           this.excludeRoutes.splice(resIndex, 1)
         }
