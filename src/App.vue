@@ -89,7 +89,6 @@ onMounted(() => {
   width: 100%;
   position: relative;
   font-size: 14rem;
-  color: white;
 }
 
 .guide {

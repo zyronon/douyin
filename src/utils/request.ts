@@ -31,7 +31,7 @@ axiosInstance.interceptors.response.use(
     /*
      * 响应成功的拦截器，主要是对data作处理，如果没有返回data，那么会添加一个data字段，并把response.data的内容合并到data里面，然后返回
      * */
-    let { data } = response
+    const { data } = response
     // console.log(response)
     if (data === undefined || data === null || data === '') {
       globalMethods.$notice('请求失败，请稍后重试！')
@@ -89,12 +89,12 @@ axiosInstance.interceptors.response.use(
     if (error.response.status === 401) {
       return { success: false, code: 401, msg: '用户名或密码不正确', data: [] }
     } else {
-      let { data } = error.response
+      const { data } = error.response
       if (data === null || data === undefined) {
         globalMethods.$notice('请求失败，请稍后重试！')
         return { success: true, code: 200, data: [] }
       } else {
-        let resCode = data.code
+        const resCode = data.code
         if (data.data === undefined || data.data === null) {
           data.data = { ...data }
         }

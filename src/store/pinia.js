@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { friends, panel } from '@/api/user.js'
+import { friends, panel } from '@/api/user.ts'
 import enums from '@/utils/enums'
 import resource from '@/assets/data/resource'
 

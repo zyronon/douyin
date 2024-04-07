@@ -355,6 +355,7 @@ export default {
     z-index: 9;
 
     svg {
+      color: #000;
       background: rgb(242, 242, 242);
       padding: 4rem;
       font-size: 16rem;
@@ -368,6 +369,7 @@ export default {
 }
 
 .comment {
+  color: #000;
   width: 100vw;
   height: v-bind(height);
   background: #fff;
