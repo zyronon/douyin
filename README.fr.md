@@ -32,7 +32,7 @@
 
 Vercel :<http://dy.ttentau.top/>(La Chine recommande de visiter ceci)
 
-Netlifier :<https://douyins.netlify.app/>(Recommandé de visiter ceci pour les zones en dehors de la Chine)
+Netlifier :<https://douyins.netlify.app/>(Je recommande de visiter ceci pour les régions en dehors de la Chine)
 
 Android Apk :<https://github.com/zyronon/douyin/releases>
 
@@ -61,7 +61,7 @@ npm run dev
 
 Ouvrez votre navigateur et visitez :<http://127.0.0.1:3000>
 
-**Remarque : le navigateur du PC doit être basculé en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement**
+**Remarque : le PC doit passer le navigateur en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement**
 
 ## Lien
 
@@ -77,7 +77,7 @@ La vidéo provient des célébrités Douyin suivantes
 -   `杨老虎 🐯（磕穿下巴掉牙版）`:<https://v.douyin.com/iYRA56de/>
 -   `条子`:<https://v.douyin.com/iYRAaqjr/>
 -   `达莎 Digi`：<https://v.douyin.com/iYRA6rwT/>
--   `小橙子`:<https://v.douyin.com/iYRAnudw/>
+-   `小橙子`: <https://v.douyin.com/iYRAnudw/>
 -   `南恬`:<https://v.douyin.com/iYRAbKm3/>
 -   `小霸宠牛排 🥩`：<https://v.douyin.com/iYRSosVB/>
 -   `奶茶妹 ◕🌱`:<https://v.douyin.com/iYRACKhP/>
