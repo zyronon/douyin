@@ -92,6 +92,7 @@ onMounted(() => {
 }
 
 .guide {
+  color: white;
   z-index: 999;
   background: var(--active-main-bg);
   position: fixed;
