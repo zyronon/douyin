@@ -17,7 +17,7 @@ const router = createRouter({
 router.beforeEach((to, from) => {
   const baseStore = useBaseStore()
   //footer下面的5个按钮，对跳不要用动画
-  let noAnimation = ['/', '/home', '/me', '/shop', '/message', '/publish', '/home/live', '/test']
+  const noAnimation = ['/', '/home', '/me', '/shop', '/message', '/publish', '/home/live', '/test']
   if (noAnimation.indexOf(from.path) !== -1 && noAnimation.indexOf(to.path) !== -1) {
     return true
   }
@@ -28,7 +28,7 @@ router.beforeEach((to, from) => {
 
   if (toDepth > fromDepth) {
     if (to.matched && to.matched.length) {
-      let toComponentName = to.matched[0].components.default.name
+      const toComponentName = to.matched[0].components?.default.name
       // store.commit('updateExcludeRoutes', {type: 'remove', value: toComponentName})
       baseStore.updateExcludeRoutes({ type: 'remove', value: toComponentName })
       // console.log('to', toComponentName)
@@ -37,7 +37,7 @@ router.beforeEach((to, from) => {
     }
   } else {
     if (from.matched && from.matched.length) {
-      let fromComponentName = from.matched[0].components.default.name
+      const fromComponentName = from.matched[0].components?.default.name
       // store.commit('updateExcludeRoutes', {type: 'add', value: fromComponentName})
       baseStore.updateExcludeRoutes({ type: 'add', value: fromComponentName })
 

@@ -9,13 +9,13 @@
       <div class="list">
         <div
           class="item"
-          v-for="(item, index) in list"
+          v-for="(item, index) in data.list"
           :key="index"
-          @click="togglePlay(item, list)"
+          @click="togglePlay(item, data.list)"
         >
           <div class="music">
             <div class="cover-wrapper">
-              <img v-lazy="$imgPreview(item.cover)" alt="" class="cover" />
+              <img v-lazy="_checkImgUrl(item.cover)" alt="" class="cover" />
               <img
                 v-if="!item.is_play"
                 src="@/assets/img/icon/play-white.png"
@@ -33,7 +33,7 @@
               <span class="name">{{ item.name }}</span>
               <div class="author">{{ item.author }}</div>
               <div class="desc-bottom">
-                <div class="duration">{{ $duration(item.duration) }}</div>
+                <div class="duration">{{ _duration(item.duration) }}</div>
               </div>
             </div>
           </div>
@@ -41,125 +41,123 @@
             <img
               src="@/assets/img/icon/menu2-white.png"
               alt=""
-              @click.stop="$nav('/home/music', item)"
+              @click.stop="nav('/home/music', item)"
             />
           </div>
         </div>
       </div>
-      <Loading v-if="loading" :is-full-screen="false" />
+      <Loading v-if="data.loading" :is-full-screen="false" />
       <no-more v-else class="mb7r" />
     </div>
-    <div class="float-play-music" v-if="currentItem">
-      <div class="process" :style="{ width: process + 'px' }"></div>
+    <div class="float-play-music" v-if="data.currentItem">
+      <div class="process" :style="{ width: data.process + 'px' }"></div>
       <div class="music-wrapper">
         <div class="music">
-          <div class="cover-wrapper" @click="togglePlay(currentItem, list)">
-            <img v-lazy="$imgPreview(currentItem.cover)" alt="" class="cover" />
+          <div class="cover-wrapper" @click="togglePlay(data.currentItem, data.list)">
+            <img v-lazy="_checkImgUrl(data.currentItem.cover)" alt="" class="cover" />
             <img
-              v-if="!currentItem.is_play"
+              v-if="!data.currentItem.is_play"
               src="@/assets/img/icon/play-white.png"
               alt=""
               class="play"
             />
             <img
-              v-if="currentItem.is_play"
+              v-if="data.currentItem.is_play"
               src="@/assets/img/icon/pause-white.png"
               alt=""
               class="play"
             />
           </div>
           <div class="desc">
-            <span class="name">{{ currentItem.name }}</span>
+            <span class="name">{{ data.currentItem.name }}</span>
             <div class="desc-bottom">
-              <div class="duration">{{ $duration(currentItem.duration) }}</div>
+              <div class="duration">{{ _duration(data.currentItem.duration) }}</div>
             </div>
           </div>
         </div>
         <div class="option">
-          <dy-button type="primary" size="small" @click="$no">使用</dy-button>
+          <dy-button type="primary" size="small" @click="_no">使用</dy-button>
         </div>
       </div>
     </div>
   </div>
 </template>
-<script>
-import { mapState } from 'pinia'
+<script setup lang="ts">
 import { userCollect } from '@/api/user'
-import { useBaseStore } from '@/store/pinia'
 
-export default {
-  name: 'MusicCollect',
-  components: {},
-  props: {},
-  data() {
-    return {
-      loading: false,
-      list: [],
-      audio: new Audio(),
-      currentItem: null,
-      step: null,
-      process: 0
-    }
-  },
-  computed: {
-    ...mapState(useBaseStore, ['bodyWidth'])
-  },
-  created() {
-    this.getData()
-  },
-  mounted() {
-    this.audio.addEventListener('loadedmetadata', () => {
-      this.currentItem.duration = this.audio.duration
-      this.step = this.bodyWidth / Math.floor(this.audio.duration)
-    })
-    this.audio.addEventListener('timeupdate', (e) => {
-      this.process = Math.ceil(e.target.currentTime) * this.step
-    })
-  },
-  methods: {
-    async getData() {
-      this.loading = true
-      let res = await userCollect()
-      this.loading = false
-      if (res.code === this.SUCCESS) {
-        this.list = res.data.music.list
-      }
-    },
-    togglePlay(item, list) {
-      list.map((v) => {
-        if (v.name !== item.name) {
-          v.is_play = false
-        }
-      })
-      item.is_play = !item.is_play
-      if (item.is_play) {
-        if (this.currentItem) {
-          if (this.currentItem.name !== item.name) {
-            this.audio.pause()
-            this.audio.src = item.mp3
-            this.audio.currentTime = 0
-          }
-        } else {
-          this.audio.pause()
-          this.audio.src = item.mp3
-          this.audio.currentTime = 0
-        }
-        this.audio.play()
-        this.audio.addEventListener('ended', () => (item.is_play = false))
-      } else {
-        this.stopPlay()
-      }
-      this.currentItem = item
-    },
-    stopPlay() {
-      this.audio.pause()
-      // this.audio.currentTime = 0
-      this.audio.removeEventListener('ended', null)
-    }
-  },
-  unmounted() {
-    this.stopPlay()
+import { onMounted, onUnmounted, reactive } from 'vue'
+import { useNav } from '@/utils/hooks/useNav.js'
+import { useBaseStore } from '@/store/pinia'
+import { _checkImgUrl, _duration, _no } from '@/utils'
+
+defineOptions({
+  name: 'MusicCollect'
+})
+
+const store = useBaseStore()
+const nav = useNav()
+const data = reactive({
+  loading: false,
+  list: [],
+  audio: new Audio(),
+  currentItem: null,
+  step: null,
+  process: 0
+})
+
+onMounted(() => {
+  getData()
+  data.audio.addEventListener('loadedmetadata', () => {
+    data.currentItem.duration = data.audio.duration
+    data.step = store.bodyWidth / Math.floor(data.audio.duration)
+  })
+  data.audio.addEventListener('timeupdate', (e: any) => {
+    data.process = Math.ceil(e.target.currentTime) * data.step
+  })
+})
+
+onUnmounted(stopPlay)
+
+async function getData() {
+  data.loading = true
+  let res: any = await userCollect()
+  data.loading = false
+  if (res.success) {
+    data.list = res.data.music.list
   }
+}
+
+function togglePlay(item, list) {
+  list.map((v) => {
+    if (v.name !== item.name) {
+      v.is_play = false
+    }
+  })
+  item.is_play = !item.is_play
+  if (item.is_play) {
+    if (data.currentItem) {
+      if (data.currentItem.name !== item.name) {
+        data.audio.pause()
+        data.audio.src = item.mp3
+        data.audio.currentTime = 0
+      }
+    } else {
+      data.audio.pause()
+      data.audio.src = item.mp3
+      data.audio.currentTime = 0
+    }
+    data.audio.play()
+    data.audio.addEventListener('ended', () => (item.is_play = false))
+  } else {
+    stopPlay()
+  }
+  data.currentItem = item
+}
+
+function stopPlay() {
+  data.audio.pause()
+  // data.audio.currentTime = 0
+  data.audio.removeEventListener('ended', null)
 }
 </script>
 

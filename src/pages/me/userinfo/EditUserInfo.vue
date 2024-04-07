@@ -11,29 +11,29 @@
     <div class="userinfo">
       <div class="change-avatar">
         <div class="avatar-ctn" @click="showAvatarDialog">
-          <img class="avatar" :src="_checkImgUrl(userinfo.cover_url[0].url_list[0])" alt="" />
+          <img class="avatar" :src="_checkImgUrl(store.userinfo.cover_url[0].url_list[0])" alt="" />
           <img class="change" src="../../../assets/img/icon/me/camera-light.png" alt="" />
         </div>
         <span>点击更换头像</span>
       </div>
-      <div class="row" @click="$nav('/me/edit-userinfo-item', { type: 1 })">
+      <div class="row" @click="nav('/me/edit-userinfo-item', { type: 1 })">
         <div class="left">名字</div>
         <div class="right">
-          <span>{{ isEmpty(userinfo.nickname) }}</span>
+          <span>{{ isEmpty(store.userinfo.nickname) }}</span>
           <dy-back scale=".8" direction="right"></dy-back>
         </div>
       </div>
-      <div class="row" @click="$nav('/me/edit-userinfo-item', { type: 2 })">
+      <div class="row" @click="nav('/me/edit-userinfo-item', { type: 2 })">
         <div class="left">抖音号</div>
         <div class="right">
-          <span>{{ isEmpty(_getUserDouyinId({ author: userinfo })) }}</span>
+          <span>{{ isEmpty(_getUserDouyinId({ author: store.userinfo })) }}</span>
           <dy-back scale=".8" direction="right"></dy-back>
         </div>
       </div>
-      <div class="row" @click="$nav('/me/edit-userinfo-item', { type: 3 })">
+      <div class="row" @click="nav('/me/edit-userinfo-item', { type: 3 })">
         <div class="left">简介</div>
         <div class="right">
-          <span>{{ isEmpty(userinfo.signature) }}</span>
+          <span>{{ isEmpty(store.userinfo.signature) }}</span>
           <dy-back scale=".8" direction="right"></dy-back>
         </div>
       </div>
@@ -47,143 +47,143 @@
       <div class="row" @click="showBirthdayDialog">
         <div class="left">生日</div>
         <div class="right">
-          <span>{{ isEmpty(userinfo.user_age) }}</span>
+          <span>{{ isEmpty(store.userinfo.user_age) }}</span>
           <div v-show="false" id="trigger1"></div>
           <dy-back scale=".8" direction="right"></dy-back>
         </div>
       </div>
-      <div class="row" @click="$nav('/me/choose-location')">
+      <div class="row" @click="nav('/me/choose-location')">
         <div class="left">所在地</div>
         <div class="right">
-          <span v-if="userinfo.province || userinfo.city">
-            {{ userinfo.province }}
-            <template v-if="userinfo.province && userinfo.city"> - </template>
-            {{ userinfo.city }}
+          <span v-if="store.userinfo.province || store.userinfo.city">
+            {{ store.userinfo.province }}
+            <template v-if="store.userinfo.province && store.userinfo.city"> - </template>
+            {{ store.userinfo.city }}
           </span>
           <dy-back scale=".8" direction="right"></dy-back>
         </div>
       </div>
-      <div class="row" @click="$nav('/me/add-school')">
+      <div class="row" @click="nav('/me/add-school')">
         <div class="left">学校</div>
         <div class="right">
-          <span>{{ isEmpty(userinfo.school?.name) }}</span>
+          <span>{{ isEmpty(store.userinfo.school?.name) }}</span>
           <dy-back scale=".8" direction="right"></dy-back>
         </div>
       </div>
     </div>
     <transition name="fade">
-      <div class="preview-img" v-if="previewImg" @click="previewImg = ''">
-        <img class="resource" :src="previewImg" alt="" />
+      <div class="preview-img" v-if="data.previewImg" @click="data.previewImg = ''">
+        <img class="resource" :src="data.previewImg" alt="" />
         <img
           class="download"
           src="../../../assets/img/icon/components/video/download.png"
           alt=""
-          @click.stop="$no"
+          @click.stop="_no"
         />
       </div>
     </transition>
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import MobileSelect from '../../../components/mobile-select/mobile-select'
-import { mapState } from 'pinia'
 import { useBaseStore } from '@/store/pinia'
-import { _checkImgUrl, _getUserDouyinId } from '../../../utils'
+import {
+  _checkImgUrl,
+  _getUserDouyinId,
+  _hideLoading,
+  _no,
+  _showLoading,
+  _showSelectDialog,
+  _sleep
+} from '@/utils'
+import { computed, reactive } from 'vue'
+import { useNav } from '@/utils/hooks/useNav'
 
-export default {
-  name: 'EditUserInfo',
-  setup() {
-    const baseStore = useBaseStore()
-    return { baseStore }
-  },
-  components: {},
-  data() {
-    return {
-      sexList: [
-        { id: 1, name: '男' },
-        { id: 2, name: '女' },
-        { id: 3, name: '不展示' }
-      ],
-      avatarList: [
-        { id: 1, name: '拍一张' },
-        { id: 2, name: '从相册选择' },
-        { id: 3, name: '查看大图' },
-        { id: 4, name: '取消' }
-      ],
-      previewImg: ''
-    }
-  },
-  computed: {
-    ...mapState(useBaseStore, ['userinfo']),
-    sex() {
-      switch (this.userinfo.gender) {
-        case 1:
-          return '男'
-        case 2:
-          return '女'
-        default:
-          return ''
-      }
-    }
-  },
-  methods: {
-    _checkImgUrl,
-    _getUserDouyinId,
-    isEmpty(val) {
-      if (val && val !== -1) return val
-      return '点击设置'
-    },
-    showSexDialog() {
-      this.$showSelectDialog(this.sexList, async (e) => {
-        this.$showLoading()
-        await this.$sleep(500)
-        this.baseStore.setUserinfo({ ...this.userinfo, gender: e.id })
-        this.$hideLoading()
-      })
-    },
-    showAvatarDialog() {
-      this.$showSelectDialog(this.avatarList, (e) => {
-        switch (e.id) {
-          case 1:
-          case 2:
-            return this.$no()
-          case 3:
-            this.previewImg = _checkImgUrl(this.userinfo.cover_url[0].url_list[0])
-            break
-        }
-      })
-    },
-    showBirthdayDialog() {
-      new MobileSelect({
-        trigger: '#trigger1',
-        title: '生日',
-        connector: '生日',
-        wheels: [
-          {
-            data: Array.apply(null, { length: 100 }).map((v, i) => new Date().getFullYear() - i)
-          },
-          {
-            data: Array.apply(null, { length: 12 }).map((v, i) => 12 - i)
-          },
-          {
-            data: Array.apply(null, { length: 31 }).map((v, i) => 31 - i)
-          }
-        ],
-        callback: async (indexArr, data) => {
-          console.log(data)
-          this.$showLoading()
-          await this.$sleep(500)
-          this.baseStore.setUserinfo({
-            ...this.userinfo,
-            birthday: data.join('-')
-          })
-          this.$hideLoading()
-          // this.localSchool.joinTime = ~~data[0]
-        }
-      }).show()
-    }
+defineOptions({
+  name: 'EditUserInfo'
+})
+const store = useBaseStore()
+const nav = useNav()
+const data = reactive({
+  sexList: [
+    { id: 1, name: '男' },
+    { id: 2, name: '女' },
+    { id: 3, name: '不展示' }
+  ],
+  avatarList: [
+    { id: 1, name: '拍一张' },
+    { id: 2, name: '从相册选择' },
+    { id: 3, name: '查看大图' },
+    { id: 4, name: '取消' }
+  ],
+  previewImg: ''
+})
+
+const sex = computed(() => {
+  switch (Number(store.userinfo.gender)) {
+    case 1:
+      return '男'
+    case 2:
+      return '女'
+    default:
+      return ''
   }
+})
+
+function isEmpty(val) {
+  if (val && val !== -1) return val
+  return '点击设置'
+}
+
+function showSexDialog() {
+  _showSelectDialog(data.sexList, async (e) => {
+    _showLoading()
+    await _sleep(500)
+    store.setUserinfo({ ...store.userinfo, gender: e.id })
+    _hideLoading()
+  })
+}
+
+function showAvatarDialog() {
+  _showSelectDialog(data.avatarList, (e) => {
+    switch (e.id) {
+      case 1:
+      case 2:
+        return _no()
+      case 3:
+        data.previewImg = _checkImgUrl(store.userinfo.cover_url[0].url_list[0])
+        break
+    }
+  })
+}
+
+function showBirthdayDialog() {
+  new MobileSelect({
+    trigger: '#trigger1',
+    title: '生日',
+    connector: '生日',
+    wheels: [
+      {
+        data: Array.apply(null, { length: 100 }).map((v, i) => new Date().getFullYear() - i)
+      },
+      {
+        data: Array.apply(null, { length: 12 }).map((v, i) => 12 - i)
+      },
+      {
+        data: Array.apply(null, { length: 31 }).map((v, i) => 31 - i)
+      }
+    ],
+    callback: async (indexArr, data) => {
+      _showLoading()
+      await _sleep(500)
+      store.setUserinfo({
+        ...store.userinfo,
+        birthday: data.join('-')
+      })
+      _hideLoading()
+    }
+  }).show()
 }
 </script>
 

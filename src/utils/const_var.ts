@@ -47,7 +47,12 @@ export const SlideItemPlayStatus = {
 export const DefaultUser = {
   nickname: '',
   unique_id: '',
+  certification: '',
   short_id: '',
+  province: '',
+  city: '',
+  school: {},
+  uid: '',
   signature: '', //签名
   mplatform_followers_count: '', //粉丝
   following_count: '', //关注

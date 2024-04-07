@@ -1,20 +1,23 @@
-import { defineConfig } from 'vite'
+import { defineConfig, PluginOption } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import { resolve } from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
 import DefineOptions from 'unplugin-vue-define-options/vite' // 引入插件
 import { Plugin as importToCDN } from 'vite-plugin-cdn-import'
+import commonjs from 'vite-plugin-commonjs'
+import { fileURLToPath, URL } from 'node:url'
+
 // import viteImagemin from 'vite-plugin-imagemin'
 // import viteCompression from 'vite-plugin-compression'
 
-function pathResolve(dir) {
-  return resolve(__dirname, '.', dir)
-}
-
 const lifecycle = process.env.npm_lifecycle_event
 
-// https://vitejs.dev/config/
+// {
+//   name: 'axios',
+//   var: 'axios',
+//   path: 'https://lib.baomitu.com/axios/1.6.8/axios.min.js'
+// },
 export default defineConfig({
   base: './',
   envDir: 'env',
@@ -29,7 +32,7 @@ export default defineConfig({
     //   //   exclude: [/node_modules/, /jQuery\.js/]
     //   // }
     // }),
-    lifecycle === 'report' ? visualizer({ open: false }) : null,
+    lifecycle === 'report' ? (visualizer({ open: false }) as any as PluginOption) : null,
     DefineOptions(),
     Vue(),
     VueJsx(),
@@ -55,11 +58,7 @@ export default defineConfig({
           var: 'Mock',
           path: 'https://lib.baomitu.com/Mock.js/1.0.1-beta3/mock-min.js'
         },
-        {
-          name: 'axios',
-          var: 'axios',
-          path: 'https://lib.baomitu.com/axios/1.6.8/axios.min.js'
-        },
+
         {
           name: 'jquery',
           var: '$',
@@ -109,7 +108,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': pathResolve('src')
+      '@': fileURLToPath(new URL('./src', import.meta.url))
     },
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
   },
@@ -121,7 +120,7 @@ export default defineConfig({
         manualChunks(id, { getModuleInfo }) {
           const reg = /(.*)\/src\/components\/(.*)/
           if (reg.test(id)) {
-            const importersLen = getModuleInfo(id).importers.length
+            const importersLen = getModuleInfo(id)?.importers.length ?? 0
             // 被多处引用
             if (importersLen > 1) return 'common'
           }

@@ -1,6 +1,6 @@
 <template>
   <div class="MusicRankList" @scroll="scroll">
-    <dy-back mode="light" img="back" @click="$back()" class="fixed-back" direction="left" />
+    <dy-back mode="light" img="back" @click="router.back()" class="fixed-back" direction="left" />
     <div class="fixed-header" :style="fixedStyle">
       <span class="f16">抖音音乐榜</span>
     </div>
@@ -8,23 +8,23 @@
     <div class="content">
       <div class="l-header">
         <img src="../../assets/img/icon/music-rank-list.webp" alt="" />
-        <div class="update-time">更新于：{{ $dateFormat(updateTime, 'D') }}</div>
+        <div class="update-time">更新于：{{ _dateFormat(data.updateTime, 'D') }}</div>
       </div>
       <Indicator
         name="musicRankList"
         tabStyleWidth="33%"
         :tabTexts="['热歌榜', '飙升樘', '原创榜']"
-        v-model:active-index="contentIndex"
+        v-model:active-index="data.contentIndex"
       >
       </Indicator>
-      <SlideHorizontal name="musicRankList" v-model:index="contentIndex">
+      <SlideHorizontal name="musicRankList" v-model:index="data.contentIndex">
         <SlideItem>
           <div class="list">
             <div
               class="item"
               :key="index"
-              v-for="(item, index) in hotList"
-              @click="togglePlay(item, hotList)"
+              v-for="(item, index) in data.hotList"
+              @click="togglePlay(item, data.hotList)"
             >
               <div class="top">
                 <div class="rank-wrapper">
@@ -51,7 +51,7 @@
                 <div class="right">
                   <div class="music">
                     <div class="cover-wrapper">
-                      <img v-lazy="$imgPreview(item.cover)" alt="" class="cover" />
+                      <img v-lazy="_checkImgUrl(item.cover)" alt="" class="cover" />
                       <img
                         v-if="!item.is_play"
                         src="../../assets/img/icon/play-white.png"
@@ -70,9 +70,9 @@
                       <div class="author">{{ item.author }}</div>
                       <div class="desc-bottom">
                         <div class="duration">
-                          {{ $duration(item.duration) }}
+                          {{ _duration(item.duration) }}
                         </div>
-                        <div class="use_count">{{ formatNumber(item.use_count) }}人使用</div>
+                        <div class="use_count">{{ _formatNumber(item.use_count) }}人使用</div>
                       </div>
                     </div>
                   </div>
@@ -92,7 +92,7 @@
                     <img
                       src="../../assets/img/icon/menu2-white.png"
                       alt=""
-                      @click.stop="$nav('/home/music')"
+                      @click.stop="nav('/home/music')"
                     />
                   </div>
                 </div>
@@ -116,8 +116,8 @@
             <div
               class="item"
               :key="index"
-              v-for="(item, index) in hotList"
-              @click="togglePlay(item, hotList)"
+              v-for="(item, index) in data.hotList"
+              @click="togglePlay(item, data.hotList)"
             >
               <div class="top">
                 <div class="rank-wrapper">
@@ -144,7 +144,7 @@
                 <div class="right">
                   <div class="music">
                     <div class="cover-wrapper">
-                      <img v-lazy="$imgPreview(item.cover)" alt="" class="cover" />
+                      <img v-lazy="_checkImgUrl(item.cover)" alt="" class="cover" />
                       <img
                         v-if="!item.is_play"
                         src="../../assets/img/icon/play-white.png"
@@ -163,9 +163,9 @@
                       <div class="author">{{ item.author }}</div>
                       <div class="desc-bottom">
                         <div class="duration">
-                          {{ $duration(item.duration) }}
+                          {{ _duration(item.duration) }}
                         </div>
-                        <div class="use_count">{{ formatNumber(item.use_count) }}人使用</div>
+                        <div class="use_count">{{ _formatNumber(item.use_count) }}人使用</div>
                       </div>
                     </div>
                   </div>
@@ -185,7 +185,7 @@
                     <img
                       src="../../assets/img/icon/menu2-white.png"
                       alt=""
-                      @click.stop="$nav('/home/music')"
+                      @click.stop="nav('/home/music')"
                     />
                   </div>
                 </div>
@@ -209,8 +209,8 @@
             <div
               class="item"
               :key="index"
-              v-for="(item, index) in hotList"
-              @click="togglePlay(item, hotList)"
+              v-for="(item, index) in data.hotList"
+              @click="togglePlay(item, data.hotList)"
             >
               <div class="top">
                 <div class="rank-wrapper">
@@ -237,7 +237,7 @@
                 <div class="right">
                   <div class="music">
                     <div class="cover-wrapper">
-                      <img v-lazy="$imgPreview(item.cover)" alt="" class="cover" />
+                      <img v-lazy="_checkImgUrl(item.cover)" alt="" class="cover" />
                       <img
                         v-if="!item.is_play"
                         src="../../assets/img/icon/play-white.png"
@@ -256,9 +256,9 @@
                       <div class="author">{{ item.author }}</div>
                       <div class="desc-bottom">
                         <div class="duration">
-                          {{ $duration(item.duration) }}
+                          {{ _duration(item.duration) }}
                         </div>
-                        <div class="use_count">{{ formatNumber(item.use_count) }}人使用</div>
+                        <div class="use_count">{{ _formatNumber(item.use_count) }}人使用</div>
                       </div>
                     </div>
                   </div>
@@ -278,7 +278,7 @@
                     <img
                       src="../../assets/img/icon/menu2-white.png"
                       alt=""
-                      @click.stop="$nav('/home/music')"
+                      @click.stop="nav('/home/music')"
                     />
                   </div>
                 </div>
@@ -301,255 +301,258 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'MusicRankList',
-  components: {},
-  data() {
-    return {
-      contentIndex: 0,
-      hotList: [
-        {
-          name: '龙卷风',
-          mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/5605.mp3',
-          cover: new URL('../../assets/img/music-cover/1.jpg', import.meta.url).href,
-          author: '周杰伦',
-          duration: 99,
-          use_count: 37441000,
-          is_collect: false,
-          is_play: false
-        },
-        {
-          name: '爱在西元前',
-          mp3: 'https://m3.8js.net:99/1916/501204165042405.mp3',
-          cover: new URL('../../assets/img/music-cover/2.jpg', import.meta.url).href,
-          author: '周杰伦',
-          duration: 60,
-          use_count: 37441000,
-          is_collect: false,
-          is_play: false
-        },
-        {
-          name: '蜗牛',
-          mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/3684.mp3',
-          cover: new URL('../../assets/img/music-cover/3.jpg', import.meta.url).href,
-          author: '周杰伦',
-          duration: 60,
-          use_count: 37441000,
-          is_collect: false,
-          is_play: false
-        },
-        {
-          name: '半岛铁盒',
-          mp3: 'https://m3.8js.net:99/2016n/46/94745.mp3',
-          cover: new URL('../../assets/img/music-cover/4.jpg', import.meta.url).href,
-          author: '周杰伦',
-          duration: 60,
-          use_count: 37441000,
-          is_collect: false,
-          is_play: false
-        },
-        {
-          name: '轨迹',
-          mp3: 'https://m3.8js.net:99/1832/411204324135934.mp3',
-          cover: new URL('../../assets/img/music-cover/5.jpg', import.meta.url).href,
-          author: '周杰伦',
-          duration: 60,
-          use_count: 37441000,
-          is_collect: false,
-          is_play: false
-        },
-        {
-          name: '七里香',
-          mp3: 'https://m3.8js.net:99/2016n/14/53717.mp3',
-          cover: new URL('../../assets/img/music-cover/6.jpg', import.meta.url).href,
-          author: '周杰伦',
-          duration: 60,
-          use_count: 37441000,
-          is_collect: false,
-          is_play: false
-        },
-        {
-          name: '发如雪',
-          mp3: 'https://m3.8js.net:99/2014/211204142150965.mp3',
-          cover: new URL('../../assets/img/music-cover/7.jpg', import.meta.url).href,
-          author: '周杰伦',
-          duration: 60,
-          use_count: 37441000,
-          is_collect: false,
-          is_play: false
-        },
-        {
-          name: '霍元甲',
-          mp3: 'https://m3.8js.net:99/1921/261204212643140.mp3',
-          cover: new URL('../../assets/img/music-cover/8.jpg', import.meta.url).href,
-          author: '周杰伦',
-          duration: 60,
-          use_count: 37441000,
-          is_collect: false,
-          is_play: false
-        },
-        {
-          name: '千里之外(周杰伦/费玉清)',
-          mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/121.mp3',
-          cover: new URL('../../assets/img/music-cover/9.jpg', import.meta.url).href,
-          author: '周杰伦',
-          duration: 60,
-          use_count: 37441000,
-          is_collect: false,
-          is_play: false
-        },
-        {
-          name: '菊花台',
-          mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/2022.mp3',
-          cover: new URL('../../assets/img/music-cover/10.jpg', import.meta.url).href,
-          author: '周杰伦',
-          duration: 60,
-          use_count: 37441000,
-          is_collect: false,
-          is_play: false
-        },
-        {
-          name: '不能说的秘密',
-          mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/165.mp3',
-          cover: new URL('../../assets/img/music-cover/11.jpg', import.meta.url).href,
-          author: '周杰伦',
-          duration: 60,
-          use_count: 37441000,
-          is_collect: false,
-          is_play: false
-        },
-        {
-          name: '牛仔很忙',
-          mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/219.mp3',
-          cover: new URL('../../assets/img/music-cover/12.jpg', import.meta.url).href,
-          author: '周杰伦',
-          duration: 60,
-          use_count: 37441000,
-          is_collect: false,
-          is_play: false
-        },
-        {
-          name: '给我一首歌的时间',
-          mp3: 'https://m3.8js.net:99/1938/041204380445445.mp3',
-          cover: new URL('../../assets/img/music-cover/13.jpg', import.meta.url).href,
-          author: '周杰伦',
-          duration: 60,
-          use_count: 37441000,
-          is_collect: false,
-          is_play: false
-        },
-        {
-          name: '烟花易冷',
-          mp3: 'https://m3.8js.net:99/1828/051204280535192.mp3',
-          cover: new URL('../../assets/img/music-cover/14.jpg', import.meta.url).href,
-          author: '周杰伦',
-          duration: 60,
-          use_count: 37441000,
-          is_collect: false,
-          is_play: false
-        },
-        {
-          name: '惊叹号',
-          mp3: 'https://m3.8js.net:99/20111103/150.mp3',
-          cover: new URL('../../assets/img/music-cover/15.jpg', import.meta.url).href,
-          author: '周杰伦',
-          duration: 60,
-          use_count: 37441000,
-          is_collect: false,
-          is_play: false
-        },
-        {
-          name: '明明就',
-          mp3: 'https://m3.8js.net:99/2016n/27/96537.mp3',
-          cover: new URL('../../assets/img/music-cover/16.jpg', import.meta.url).href,
-          author: '周杰伦',
-          duration: 60,
-          use_count: 37441000,
-          is_collect: false,
-          is_play: false
-        },
-        {
-          name: '算什么男人',
-          mp3: 'https://m3.8js.net:99/20150107/429.mp3',
-          cover: new URL('../../assets/img/music-cover/17.jpg', import.meta.url).href,
-          author: '周杰伦',
-          duration: 60,
-          use_count: 37441000,
-          is_collect: false,
-          is_play: false
-        },
-        {
-          name: '告白气球',
-          mp3: 'https://m3.8js.net:99/20161016/481.mp3',
-          cover: new URL('../../assets/img/music-cover/18.jpg', import.meta.url).href,
-          author: '周杰伦',
-          duration: 60,
-          use_count: 37441000,
-          is_collect: false,
-          is_play: false
-        }
-      ],
-      updateTime: Date.now(),
-      audio: new Audio(),
-      scrollTop: -1
-    }
-  },
-  computed: {
-    fixedStyle() {
-      return {
-        opacity: this.scrollTop / 120 > 1 ? 1 : this.scrollTop / 120
-      }
-    }
-  },
-  created() {
-    this.hotList = this.hotList.concat(this.hotList).concat(this.hotList).concat(this.hotList)
-    this.hotList = this.hotList.slice(0, 50)
-  },
-  methods: {
-    scroll(e) {
-      this.scrollTop = e.target.scrollTop
+
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+import { computed, onDeactivated, onMounted, onUnmounted, reactive } from 'vue'
+import { $notice, _checkImgUrl, _dateFormat, _duration, _formatNumber } from '@/utils/index.jsx'
+import { useNav } from '@/utils/hooks/useNav'
+
+defineOptions({
+  name: 'MusicRankList'
+})
+const router = useRouter()
+const nav = useNav()
+const data = reactive({
+  contentIndex: 0,
+  hotList: [
+    {
+      name: '龙卷风',
+      mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/5605.mp3',
+      cover: new URL('../../assets/img/music-cover/1.jpg', import.meta.url).href,
+      author: '周杰伦',
+      duration: 99,
+      use_count: 37441000,
+      is_collect: false,
+      is_play: false
     },
-    toggleCollect(item) {
-      item.is_collect = !item.is_collect
-      if (item.is_collect) {
-        this.$notice('收藏成功')
-      } else {
-        this.$notice('取消收藏')
-      }
+    {
+      name: '爱在西元前',
+      mp3: 'https://m3.8js.net:99/1916/501204165042405.mp3',
+      cover: new URL('../../assets/img/music-cover/2.jpg', import.meta.url).href,
+      author: '周杰伦',
+      duration: 60,
+      use_count: 37441000,
+      is_collect: false,
+      is_play: false
     },
-    togglePlay(item, list) {
-      list.map((v) => {
-        if (v.name !== item.name) {
-          v.is_play = false
-        }
-      })
-      item.is_play = !item.is_play
-      if (item.is_play) {
-        this.audio.pause()
-        this.audio.src = item.mp3
-        this.audio.currentTime = 0
-        this.audio.play()
-        this.audio.addEventListener('ended', () => (item.is_play = false))
-      } else {
-        this.stopPlay()
-      }
+    {
+      name: '蜗牛',
+      mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/3684.mp3',
+      cover: new URL('../../assets/img/music-cover/3.jpg', import.meta.url).href,
+      author: '周杰伦',
+      duration: 60,
+      use_count: 37441000,
+      is_collect: false,
+      is_play: false
     },
-    stopPlay() {
-      this.audio.pause()
-      this.audio.currentTime = 0
-      this.audio.removeEventListener('ended', null)
+    {
+      name: '半岛铁盒',
+      mp3: 'https://m3.8js.net:99/2016n/46/94745.mp3',
+      cover: new URL('../../assets/img/music-cover/4.jpg', import.meta.url).href,
+      author: '周杰伦',
+      duration: 60,
+      use_count: 37441000,
+      is_collect: false,
+      is_play: false
+    },
+    {
+      name: '轨迹',
+      mp3: 'https://m3.8js.net:99/1832/411204324135934.mp3',
+      cover: new URL('../../assets/img/music-cover/5.jpg', import.meta.url).href,
+      author: '周杰伦',
+      duration: 60,
+      use_count: 37441000,
+      is_collect: false,
+      is_play: false
+    },
+    {
+      name: '七里香',
+      mp3: 'https://m3.8js.net:99/2016n/14/53717.mp3',
+      cover: new URL('../../assets/img/music-cover/6.jpg', import.meta.url).href,
+      author: '周杰伦',
+      duration: 60,
+      use_count: 37441000,
+      is_collect: false,
+      is_play: false
+    },
+    {
+      name: '发如雪',
+      mp3: 'https://m3.8js.net:99/2014/211204142150965.mp3',
+      cover: new URL('../../assets/img/music-cover/7.jpg', import.meta.url).href,
+      author: '周杰伦',
+      duration: 60,
+      use_count: 37441000,
+      is_collect: false,
+      is_play: false
+    },
+    {
+      name: '霍元甲',
+      mp3: 'https://m3.8js.net:99/1921/261204212643140.mp3',
+      cover: new URL('../../assets/img/music-cover/8.jpg', import.meta.url).href,
+      author: '周杰伦',
+      duration: 60,
+      use_count: 37441000,
+      is_collect: false,
+      is_play: false
+    },
+    {
+      name: '千里之外(周杰伦/费玉清)',
+      mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/121.mp3',
+      cover: new URL('../../assets/img/music-cover/9.jpg', import.meta.url).href,
+      author: '周杰伦',
+      duration: 60,
+      use_count: 37441000,
+      is_collect: false,
+      is_play: false
+    },
+    {
+      name: '菊花台',
+      mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/2022.mp3',
+      cover: new URL('../../assets/img/music-cover/10.jpg', import.meta.url).href,
+      author: '周杰伦',
+      duration: 60,
+      use_count: 37441000,
+      is_collect: false,
+      is_play: false
+    },
+    {
+      name: '不能说的秘密',
+      mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/165.mp3',
+      cover: new URL('../../assets/img/music-cover/11.jpg', import.meta.url).href,
+      author: '周杰伦',
+      duration: 60,
+      use_count: 37441000,
+      is_collect: false,
+      is_play: false
+    },
+    {
+      name: '牛仔很忙',
+      mp3: 'http://im5.tongbu.com/rings/singerring/zt_uunGo_1/219.mp3',
+      cover: new URL('../../assets/img/music-cover/12.jpg', import.meta.url).href,
+      author: '周杰伦',
+      duration: 60,
+      use_count: 37441000,
+      is_collect: false,
+      is_play: false
+    },
+    {
+      name: '给我一首歌的时间',
+      mp3: 'https://m3.8js.net:99/1938/041204380445445.mp3',
+      cover: new URL('../../assets/img/music-cover/13.jpg', import.meta.url).href,
+      author: '周杰伦',
+      duration: 60,
+      use_count: 37441000,
+      is_collect: false,
+      is_play: false
+    },
+    {
+      name: '烟花易冷',
+      mp3: 'https://m3.8js.net:99/1828/051204280535192.mp3',
+      cover: new URL('../../assets/img/music-cover/14.jpg', import.meta.url).href,
+      author: '周杰伦',
+      duration: 60,
+      use_count: 37441000,
+      is_collect: false,
+      is_play: false
+    },
+    {
+      name: '惊叹号',
+      mp3: 'https://m3.8js.net:99/20111103/150.mp3',
+      cover: new URL('../../assets/img/music-cover/15.jpg', import.meta.url).href,
+      author: '周杰伦',
+      duration: 60,
+      use_count: 37441000,
+      is_collect: false,
+      is_play: false
+    },
+    {
+      name: '明明就',
+      mp3: 'https://m3.8js.net:99/2016n/27/96537.mp3',
+      cover: new URL('../../assets/img/music-cover/16.jpg', import.meta.url).href,
+      author: '周杰伦',
+      duration: 60,
+      use_count: 37441000,
+      is_collect: false,
+      is_play: false
+    },
+    {
+      name: '算什么男人',
+      mp3: 'https://m3.8js.net:99/20150107/429.mp3',
+      cover: new URL('../../assets/img/music-cover/17.jpg', import.meta.url).href,
+      author: '周杰伦',
+      duration: 60,
+      use_count: 37441000,
+      is_collect: false,
+      is_play: false
+    },
+    {
+      name: '告白气球',
+      mp3: 'https://m3.8js.net:99/20161016/481.mp3',
+      cover: new URL('../../assets/img/music-cover/18.jpg', import.meta.url).href,
+      author: '周杰伦',
+      duration: 60,
+      use_count: 37441000,
+      is_collect: false,
+      is_play: false
     }
-  },
-  unmounted() {
-    this.stopPlay()
-  },
-  deactivated() {
-    this.stopPlay()
+  ],
+  updateTime: Date.now(),
+  audio: new Audio(),
+  scrollTop: -1
+})
+
+const fixedStyle = computed(() => {
+  return {
+    opacity: data.scrollTop / 120 > 1 ? 1 : data.scrollTop / 120
+  }
+})
+
+onMounted(() => {
+  data.hotList = data.hotList.concat(data.hotList).concat(data.hotList).concat(data.hotList)
+  data.hotList = data.hotList.slice(0, 50)
+})
+
+onUnmounted(stopPlay)
+onDeactivated(stopPlay)
+
+function scroll(e) {
+  data.scrollTop = e.target.scrollTop
+}
+
+function toggleCollect(item) {
+  item.is_collect = !item.is_collect
+  if (item.is_collect) {
+    $notice('收藏成功')
+  } else {
+    $notice('取消收藏')
   }
 }
-</script>
 
+function togglePlay(item, list) {
+  list.map((v) => {
+    if (v.name !== item.name) {
+      v.is_play = false
+    }
+  })
+  item.is_play = !item.is_play
+  if (item.is_play) {
+    data.audio.pause()
+    data.audio.src = item.mp3
+    data.audio.currentTime = 0
+    data.audio.play()
+    data.audio.addEventListener('ended', () => (item.is_play = false))
+  } else {
+    stopPlay()
+  }
+}
+
+function stopPlay() {
+  data.audio.pause()
+  data.audio.currentTime = 0
+  data.audio.removeEventListener('ended', null)
+}
+</script>
 <style scoped lang="less">
 @import '../../assets/less/index';
 

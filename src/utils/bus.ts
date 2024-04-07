@@ -16,11 +16,11 @@ export default {
     this.eventMap.set(eventType, [cb])
   },
   off(eventType, fn) {
-    let cbs = this.eventMap.has(eventType)
+    const cbs = this.eventMap.has(eventType)
     if (cbs) {
       if (fn) {
-        let cbs = this.eventMap.get(eventType)
-        let rIndex = cbs.findIndex((v) => v === fn)
+        const cbs = this.eventMap.get(eventType)
+        const rIndex = cbs.findIndex((v) => v === fn)
         if (rIndex > -1) {
           cbs.splice(rIndex, 1)
         }
@@ -34,7 +34,7 @@ export default {
     this.eventMap = new Map()
   },
   emit(eventType, val) {
-    let cbs = this.eventMap.get(eventType)
+    const cbs = this.eventMap.get(eventType)
     if (cbs) {
       cbs.map((cb) => cb(val))
     }

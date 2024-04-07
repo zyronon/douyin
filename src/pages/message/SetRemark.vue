@@ -14,51 +14,54 @@
     <div class="content">
       <div class="notice">备注名</div>
       <div class="input-ctn" style="margin-bottom: 1rem">
-        <input type="text" v-model="remark" placeholder="请输入备注名" />
+        <input type="text" v-model="data.remark" placeholder="请输入备注名" />
         <img
-          v-if="remark.length"
+          v-if="data.remark.length"
           class="close"
           src="../../assets/img/icon/close.svg"
           alt=""
-          @click="remark = ''"
+          @click="data.remark = ''"
         />
       </div>
-      <div class="num">{{ remark.length }}/20</div>
+      <div class="num">{{ data.remark.length }}/20</div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'SetRemark',
-  data() {
-    return {
-      remark: '',
-      oldRemark: ''
-    }
-  },
-  computed: {
-    isChanged() {
-      return this.remark !== this.oldRemark
-    }
-  },
-  created() {},
-  methods: {
-    back() {
-      if (this.isChanged) {
-        this.$showSimpleConfirmDialog('是否保存修改', this.save, this.$back)
-      } else {
-        this.$back()
-      }
-    },
-    async save() {
-      if (!this.isChanged) return
-      this.$showLoading()
-      await this.$sleep(500)
-      this.$hideLoading()
-      this.$back()
-    }
+<script setup lang="ts">
+import { computed, onMounted, reactive } from 'vue'
+import { useRouter } from 'vue-router'
+import { _hideLoading, _showLoading, _showSimpleConfirmDialog, _sleep } from '@/utils'
+
+defineOptions({
+  name: 'SetRemark'
+})
+
+const router = useRouter()
+const data = reactive({
+  remark: '',
+  oldRemark: ''
+})
+
+const isChanged = computed(() => {
+  return data.remark !== data.oldRemark
+})
+onMounted(() => {})
+
+function back() {
+  if (isChanged.value) {
+    _showSimpleConfirmDialog('是否保存修改', save, router.back)
+  } else {
+    router.back()
   }
+}
+
+async function save() {
+  if (!isChanged.value) return
+  _showLoading()
+  await _sleep(500)
+  _hideLoading()
+  router.back()
 }
 </script>
 

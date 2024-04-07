@@ -1,9 +1,9 @@
 <template>
   <div class="Chat">
-    <div class="chat-content" @touchstart="tooltipTop = -1">
+    <div class="chat-content" @touchstart="data.tooltipTop = -1">
       <div class="header">
         <div class="left">
-          <dy-back @click="$back"></dy-back>
+          <dy-back @click="router.back"></dy-back>
           <div class="badge">12</div>
           <span>zzzz</span>
         </div>
@@ -13,11 +13,11 @@
             src="../../../assets/img/icon/message/chat/call.png"
             alt=""
           />
-          <img @click="$no" src="../../../assets/img/icon/message/chat/video-white.png" alt="" />
+          <img @click="_no" src="../../../assets/img/icon/message/chat/video-white.png" alt="" />
           <img
             src="../../../assets/img/icon/menu-white.png"
             alt=""
-            @click="$nav('/message/chat/detail')"
+            @click="nav('/message/chat/detail')"
           />
         </div>
       </div>
@@ -27,22 +27,22 @@
           v-longpress="showTooltip"
           :message="item"
           :key="index"
-          v-for="(item, index) in messages"
+          v-for="(item, index) in data.messages"
         ></ChatMessage>
       </div>
       <div class="footer">
-        <div class="toolbar" v-if="!recording">
+        <div class="toolbar" v-if="!data.recording">
           <img src="../../../assets/img/icon/message/camera.png" alt="" class="camera" />
           <input
-            @click="typing = true"
-            @blur="typing = false"
+            @click="data.typing = true"
+            @blur="data.typing = false"
             type="text"
             placeholder="发送信息..."
           />
           <img @click="handleClick" src="../../../assets/img/icon/message/voice-white.png" alt="" />
           <img src="../../../assets/img/icon/message/emoji-white.png" alt="" />
           <img
-            @click="showOption = !showOption"
+            @click="data.showOption = !data.showOption"
             src="../../../assets/img/icon/message/add-white.png"
             alt=""
           />
@@ -50,12 +50,12 @@
         <div class="record" v-else>
           <span>按住 说话</span>
           <img
-            @click="recording = false"
+            @click="data.recording = false"
             src="../../../assets/img/icon/message/keyboard.png"
             alt=""
           />
         </div>
-        <div class="options" v-if="showOption">
+        <div class="options" v-if="data.showOption">
           <div class="option-wrapper">
             <div class="option">
               <img src="../../../assets/img/icon/message/photo.png" alt="" />
@@ -93,7 +93,7 @@
     <!--  长按工具栏  -->
     <transition name="tooltip">
       <!--      TODO 定位也有问题-->
-      <div class="tooltip" :style="{ top: tooltipTop + 'px' }" v-if="tooltipTop !== -1">
+      <div class="tooltip" :style="{ top: data.tooltipTop + 'px' }" v-if="data.tooltipTop !== -1">
         <div class="options">
           <img src="../../../assets/img/icon/message/chat/like.png" alt="" />
           <span>点赞</span>
@@ -128,24 +128,24 @@
         <dy-back mode="light" />
         <img src="../../../assets/img/icon/search-light.png" alt="" />
       </div>
-      <img :src="previewImg" alt="" class="img-src" />
+      <img :src="data.previewImg" alt="" class="img-src" />
       <div class="footer"></div>
     </div>
 
     <!--  红包  -->
     <transition name="scale">
-      <div class="red-packet" v-if="isShowOpenRedPacket">
-        <BaseMask @click="isShowOpenRedPacket = false" />
+      <div class="red-packet" v-if="data.isShowOpenRedPacket">
+        <BaseMask @click="data.isShowOpenRedPacket = false" />
         <div class="content">
-          <template v-if="isOpened">
+          <template v-if="data.isOpened">
             <img src="../../../assets/img/icon/message/chat/bg-open.png" alt="" class="bg" />
             <div class="wrapper">
               <div class="top">
                 <div class="money">0.01元</div>
-                <div class="belong">{{ userinfo.nickname }}的红包</div>
+                <div class="belong">{{ store.userinfo.nickname }}的红包</div>
                 <div class="password">大吉大利</div>
               </div>
-              <div class="notice" @click="$nav('/message/chat/red-packet-detail')">
+              <div class="notice" @click="nav('/message/chat/red-packet-detail')">
                 查看红包详情>
               </div>
             </div>
@@ -154,13 +154,17 @@
             <img src="../../../assets/img/icon/message/chat/bg-close.png" alt="" class="bg" />
             <div class="wrapper">
               <div class="top">
-                <img :src="_checkImgUrl(userinfo.cover_url[0].url_list[0])" alt="" class="avatar" />
-                <div class="belong">{{ userinfo.nickname }}的红包</div>
+                <img
+                  :src="_checkImgUrl(store.userinfo.cover_url[0].url_list[0])"
+                  alt=""
+                  class="avatar"
+                />
+                <div class="belong">{{ store.userinfo.nickname }}的红包</div>
                 <div class="password">大吉大利</div>
               </div>
 
-              <div class="l-button" :class="{ opening }" @click="openRedPacket">
-                <template v-if="opening">
+              <div class="l-button" :class="{ opening: data.opening }" @click="openRedPacket">
+                <template v-if="data.opening">
                   <img src="../../../assets/img/icon/loading-white.png" alt="" />
                   正在打开
                 </template>
@@ -172,23 +176,24 @@
             src="../../../assets/img/icon/message/chat/close.png"
             alt=""
             class="close"
-            @click="isShowOpenRedPacket = false"
+            @click="data.isShowOpenRedPacket = false"
           />
         </div>
       </div>
     </transition>
 
-    <Loading v-if="loading" />
+    <Loading v-if="data.loading" />
   </div>
 </template>
-<script>
-import ChatMessage from '../components/ChatMessage'
-import { inject, nextTick } from 'vue'
-import { mapState } from 'pinia'
-import Loading from '../../../components/Loading'
+<script setup lang="ts">
+import ChatMessage from '../components/ChatMessage.vue'
+import { computed, inject, nextTick, onMounted, onUnmounted, reactive, ref } from 'vue'
+import Loading from '@/components/Loading.vue'
 import { useBaseStore } from '@/store/pinia'
-import { _checkImgUrl } from '@/utils'
+import { _checkImgUrl, _no, _sleep } from '@/utils'
 import $ from 'jquery'
+import { useRouter } from 'vue-router'
+import { useNav } from '@/utils/hooks/useNav'
 
 let CALL_STATE = {
   REJECT: 0,
@@ -224,331 +229,333 @@ let RED_PACKET_MODE = {
   SINGLE: 1,
   MULTIPLE: 2
 }
-export default {
-  name: 'Chat',
-  components: {
-    Loading,
-    ChatMessage
-  },
-  data() {
-    return {
-      previewImg: new URL('../../../assets/img/poster/3.jpg', import.meta.url).href,
-      videoCall: [],
-      MESSAGE_TYPE,
-      messages: [
-        {
-          type: MESSAGE_TYPE.TIME,
-          data: '',
-          time: '2021-01-02 21:21',
-          user: {
-            id: '2739632844317827',
-            avatar: '../../assets/img/icon/head-image.jpg'
-          }
-        },
 
+defineOptions({
+  name: 'Chat'
+})
+
+const mitt = inject('mitt')
+const router = useRouter()
+const nav = useNav()
+const store = useBaseStore()
+const data = reactive({
+  previewImg: new URL('../../../assets/img/poster/3.jpg', import.meta.url).href,
+  videoCall: [],
+  MESSAGE_TYPE,
+  messages: [
+    {
+      type: MESSAGE_TYPE.TIME,
+      data: '',
+      time: '2021-01-02 21:21',
+      user: {
+        id: '2739632844317827',
+        avatar: '../../assets/img/icon/head-image.jpg'
+      }
+    },
+
+    {
+      type: MESSAGE_TYPE.MEME,
+      state: AUDIO_STATE.NORMAL,
+      data: new URL('../../../assets/img/poster/1.jpg', import.meta.url).href,
+      time: '2021-01-02 21:21',
+      user: {
+        id: '2739632844317827',
+        avatar: '../../assets/img/icon/head-image.jpg'
+      },
+      loved: [
         {
-          type: MESSAGE_TYPE.MEME,
-          state: AUDIO_STATE.NORMAL,
-          data: new URL('../../../assets/img/poster/1.jpg', import.meta.url).href,
-          time: '2021-01-02 21:21',
-          user: {
-            id: '2739632844317827',
-            avatar: '../../assets/img/icon/head-image.jpg'
-          },
-          loved: [
-            {
-              id: 2,
-              avatar: '../../assets/img/icon/head-image.jpg'
-            },
-            {
-              id: 2,
-              avatar: '../../assets/img/icon/head-image.jpg'
-            }
-          ]
+          id: 2,
+          avatar: '../../assets/img/icon/head-image.jpg'
         },
         {
-          type: MESSAGE_TYPE.IMAGE,
-          state: AUDIO_STATE.NORMAL,
-          data: new URL('../../../assets/img/poster/1.jpg', import.meta.url).href,
-          time: '2021-01-02 21:21',
-          user: {
-            id: 1,
-            avatar: '../../assets/img/icon/head-image.jpg'
-          }
-        },
-        {
-          type: MESSAGE_TYPE.IMAGE,
-          state: AUDIO_STATE.NORMAL,
-          data: new URL('../../../assets/img/poster/1.jpg', import.meta.url).href,
-          time: '2021-01-02 21:21',
-          user: {
-            id: '2739632844317827',
-            avatar: '../../assets/img/icon/head-image.jpg'
-          },
-          readState: READ_STATE.ARRIVED
-        },
-        {
-          type: MESSAGE_TYPE.VIDEO_CALL,
-          state: CALL_STATE.REJECT,
-          data: '2021-01-02 21:44',
-          time: '2021-01-02 21:21',
-          user: {
-            id: '2739632844317827',
-            avatar: '../../assets/img/icon/head-image.jpg'
-          }
-        },
-        {
-          type: MESSAGE_TYPE.VIDEO_CALL,
-          state: CALL_STATE.RESOLVE,
-          data: '2021-01-02 21:44',
-          time: '2021-01-02 21:21',
-          user: {
-            id: '2739632844317827',
-            avatar: '../../assets/img/icon/head-image.jpg'
-          }
-        },
-        {
-          type: MESSAGE_TYPE.VIDEO_CALL,
-          state: CALL_STATE.NONE,
-          data: '2021-01-02 21:44',
-          time: '2021-01-02 21:21',
-          user: {
-            id: '2739632844317827',
-            avatar: '../../assets/img/icon/head-image.jpg'
-          }
-        },
-        {
-          type: MESSAGE_TYPE.AUDIO_CALL,
-          state: CALL_STATE.REJECT,
-          data: '2021-01-02 21:44',
-          time: '2021-01-02 21:21',
-          user: {
-            id: '2739632844317827',
-            avatar: '../../assets/img/icon/head-image.jpg'
-          }
-        },
-        {
-          type: MESSAGE_TYPE.AUDIO_CALL,
-          state: CALL_STATE.RESOLVE,
-          data: '2021-01-02 21:44',
-          time: '2021-01-02 21:21',
-          user: {
-            id: '2739632844317827',
-            avatar: '../../assets/img/icon/head-image.jpg'
-          }
-        },
-        {
-          type: MESSAGE_TYPE.AUDIO_CALL,
-          state: CALL_STATE.NONE,
-          data: '2021-01-02 21:44',
-          time: '2021-01-02 21:21',
-          user: {
-            id: '2739632844317827',
-            avatar: '../../assets/img/icon/head-image.jpg'
-          }
-        },
-        {
-          type: MESSAGE_TYPE.AUDIO,
-          state: AUDIO_STATE.NORMAL,
-          data: {
-            duration: 5,
-            src: ''
-          },
-          time: '2021-01-02 21:21',
-          user: {
-            id: '1',
-            avatar: '../../assets/img/icon/head-image.jpg'
-          }
-        },
-        {
-          type: MESSAGE_TYPE.AUDIO,
-          state: AUDIO_STATE.NORMAL,
-          data: {
-            duration: 10,
-            src: ''
-          },
-          time: '2021-01-02 21:21',
-          user: {
-            id: '2739632844317827',
-            avatar: '../../assets/img/icon/head-image.jpg'
-          }
-        },
-        {
-          type: MESSAGE_TYPE.TEXT,
-          data: '又在刷抖音',
-          time: '2021-01-02 21:21',
-          user: {
-            id: '2739632844317827',
-            avatar: '../../assets/img/icon/head-image.jpg'
-          }
-        },
-        {
-          type: MESSAGE_TYPE.TEXT,
-          data: '我昨天@你那个视频发给我下',
-          time: '2021-01-02 21:21',
-          user: {
-            id: '2739632844317827',
-            avatar: '../../assets/img/icon/head-image.jpg'
-          }
-        },
-        {
-          type: MESSAGE_TYPE.TEXT,
-          data: '我找不到了',
-          time: '2021-01-02 21:21',
-          user: {
-            id: '1',
-            avatar: '../../assets/img/icon/head-image.jpg'
-          }
-        },
-        {
-          type: MESSAGE_TYPE.TEXT,
-          data: '我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了',
-          time: '2021-01-02 21:21',
-          user: {
-            id: '2739632844317827',
-            avatar: '../../assets/img/icon/head-image.jpg'
-          }
-        },
-        {
-          type: MESSAGE_TYPE.DOUYIN_VIDEO,
-          state: VIDEO_STATE.VALID,
-          data: {
-            poster: new URL('../../../assets/img/poster/3.jpg', import.meta.url).href,
-            author: {
-              name: 'safasdfassafasdfassafasdfassafasdfas',
-              avatar: new URL('../../../assets/img/icon/head-image.jpeg', import.meta.url).href
-            },
-            title: '服了asd'
-          },
-          time: '2021-01-02 21:21',
-          user: {
-            id: '1',
-            avatar: '../../../assets/img/icon/head-image.jpg'
-          }
-        },
-        {
-          type: MESSAGE_TYPE.VIDEO,
-          state: VIDEO_STATE.VALID,
-          data: {
-            poster: new URL('../../../assets/img/poster/3.jpg', import.meta.url).href
-          },
-          time: '2021-01-02 21:21',
-          user: {
-            id: '2739632844317827',
-            avatar: '../../../assets/img/icon/head-image.jpg'
-          }
-        },
-        {
-          type: MESSAGE_TYPE.RED_PACKET,
-          state: AUDIO_STATE.NORMAL,
-          mode: RED_PACKET_MODE.MULTIPLE,
-          data: {
-            money: 5.11,
-            title: '大吉大利',
-            state: '未领取'
-          },
-          time: '2021-01-02 21:21',
-          user: {
-            id: '2739632844317827',
-            avatar: '../../assets/img/icon/head-image.jpg'
-          }
-        },
-        {
-          type: MESSAGE_TYPE.RED_PACKET,
-          state: AUDIO_STATE.NORMAL,
-          mode: RED_PACKET_MODE.SINGLE,
-          data: {
-            money: 5.11,
-            title: '大吉大利',
-            state: '已过期'
-          },
-          time: '2021-01-02 21:21',
-          user: {
-            id: 1,
-            avatar: '../../assets/img/icon/head-image.jpg'
-          }
+          id: 2,
+          avatar: '../../assets/img/icon/head-image.jpg'
         }
-      ],
-      typing: false,
-      loading: false,
-      opening: false,
-      isOpened: false,
-      recording: false,
-      showOption: false,
-      isShowOpenRedPacket: false,
-      tooltipTop: -1,
-      tooltipTopLocation: '',
-      mitt: inject('mitt')
+      ]
+    },
+    {
+      type: MESSAGE_TYPE.IMAGE,
+      state: AUDIO_STATE.NORMAL,
+      data: new URL('../../../assets/img/poster/1.jpg', import.meta.url).href,
+      time: '2021-01-02 21:21',
+      user: {
+        id: 1,
+        avatar: '../../assets/img/icon/head-image.jpg'
+      }
+    },
+    {
+      type: MESSAGE_TYPE.IMAGE,
+      state: AUDIO_STATE.NORMAL,
+      data: new URL('../../../assets/img/poster/1.jpg', import.meta.url).href,
+      time: '2021-01-02 21:21',
+      user: {
+        id: '2739632844317827',
+        avatar: '../../assets/img/icon/head-image.jpg'
+      },
+      readState: READ_STATE.ARRIVED
+    },
+    {
+      type: MESSAGE_TYPE.VIDEO_CALL,
+      state: CALL_STATE.REJECT,
+      data: '2021-01-02 21:44',
+      time: '2021-01-02 21:21',
+      user: {
+        id: '2739632844317827',
+        avatar: '../../assets/img/icon/head-image.jpg'
+      }
+    },
+    {
+      type: MESSAGE_TYPE.VIDEO_CALL,
+      state: CALL_STATE.RESOLVE,
+      data: '2021-01-02 21:44',
+      time: '2021-01-02 21:21',
+      user: {
+        id: '2739632844317827',
+        avatar: '../../assets/img/icon/head-image.jpg'
+      }
+    },
+    {
+      type: MESSAGE_TYPE.VIDEO_CALL,
+      state: CALL_STATE.NONE,
+      data: '2021-01-02 21:44',
+      time: '2021-01-02 21:21',
+      user: {
+        id: '2739632844317827',
+        avatar: '../../assets/img/icon/head-image.jpg'
+      }
+    },
+    {
+      type: MESSAGE_TYPE.AUDIO_CALL,
+      state: CALL_STATE.REJECT,
+      data: '2021-01-02 21:44',
+      time: '2021-01-02 21:21',
+      user: {
+        id: '2739632844317827',
+        avatar: '../../assets/img/icon/head-image.jpg'
+      }
+    },
+    {
+      type: MESSAGE_TYPE.AUDIO_CALL,
+      state: CALL_STATE.RESOLVE,
+      data: '2021-01-02 21:44',
+      time: '2021-01-02 21:21',
+      user: {
+        id: '2739632844317827',
+        avatar: '../../assets/img/icon/head-image.jpg'
+      }
+    },
+    {
+      type: MESSAGE_TYPE.AUDIO_CALL,
+      state: CALL_STATE.NONE,
+      data: '2021-01-02 21:44',
+      time: '2021-01-02 21:21',
+      user: {
+        id: '2739632844317827',
+        avatar: '../../assets/img/icon/head-image.jpg'
+      }
+    },
+    {
+      type: MESSAGE_TYPE.AUDIO,
+      state: AUDIO_STATE.NORMAL,
+      data: {
+        duration: 5,
+        src: ''
+      },
+      time: '2021-01-02 21:21',
+      user: {
+        id: '1',
+        avatar: '../../assets/img/icon/head-image.jpg'
+      }
+    },
+    {
+      type: MESSAGE_TYPE.AUDIO,
+      state: AUDIO_STATE.NORMAL,
+      data: {
+        duration: 10,
+        src: ''
+      },
+      time: '2021-01-02 21:21',
+      user: {
+        id: '2739632844317827',
+        avatar: '../../assets/img/icon/head-image.jpg'
+      }
+    },
+    {
+      type: MESSAGE_TYPE.TEXT,
+      data: '又在刷抖音',
+      time: '2021-01-02 21:21',
+      user: {
+        id: '2739632844317827',
+        avatar: '../../assets/img/icon/head-image.jpg'
+      }
+    },
+    {
+      type: MESSAGE_TYPE.TEXT,
+      data: '我昨天@你那个视频发给我下',
+      time: '2021-01-02 21:21',
+      user: {
+        id: '2739632844317827',
+        avatar: '../../assets/img/icon/head-image.jpg'
+      }
+    },
+    {
+      type: MESSAGE_TYPE.TEXT,
+      data: '我找不到了',
+      time: '2021-01-02 21:21',
+      user: {
+        id: '1',
+        avatar: '../../assets/img/icon/head-image.jpg'
+      }
+    },
+    {
+      type: MESSAGE_TYPE.TEXT,
+      data: '我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了',
+      time: '2021-01-02 21:21',
+      user: {
+        id: '2739632844317827',
+        avatar: '../../assets/img/icon/head-image.jpg'
+      }
+    },
+    {
+      type: MESSAGE_TYPE.DOUYIN_VIDEO,
+      state: VIDEO_STATE.VALID,
+      data: {
+        poster: new URL('../../../assets/img/poster/3.jpg', import.meta.url).href,
+        author: {
+          name: 'safasdfassafasdfassafasdfassafasdfas',
+          avatar: new URL('../../../assets/img/icon/head-image.jpeg', import.meta.url).href
+        },
+        title: '服了asd'
+      },
+      time: '2021-01-02 21:21',
+      user: {
+        id: '1',
+        avatar: '../../../assets/img/icon/head-image.jpg'
+      }
+    },
+    {
+      type: MESSAGE_TYPE.VIDEO,
+      state: VIDEO_STATE.VALID,
+      data: {
+        poster: new URL('../../../assets/img/poster/3.jpg', import.meta.url).href
+      },
+      time: '2021-01-02 21:21',
+      user: {
+        id: '2739632844317827',
+        avatar: '../../../assets/img/icon/head-image.jpg'
+      }
+    },
+    {
+      type: MESSAGE_TYPE.RED_PACKET,
+      state: AUDIO_STATE.NORMAL,
+      mode: RED_PACKET_MODE.MULTIPLE,
+      data: {
+        money: 5.11,
+        title: '大吉大利',
+        state: '未领取'
+      },
+      time: '2021-01-02 21:21',
+      user: {
+        id: '2739632844317827',
+        avatar: '../../assets/img/icon/head-image.jpg'
+      }
+    },
+    {
+      type: MESSAGE_TYPE.RED_PACKET,
+      state: AUDIO_STATE.NORMAL,
+      mode: RED_PACKET_MODE.SINGLE,
+      data: {
+        money: 5.11,
+        title: '大吉大利',
+        state: '已过期'
+      },
+      time: '2021-01-02 21:21',
+      user: {
+        id: 1,
+        avatar: '../../assets/img/icon/head-image.jpg'
+      }
     }
-  },
-  computed: {
-    isExpand() {
-      return this.showOption
-    },
-    isTyping() {
-      return this.typing || this.isExpand
-    },
-    ...mapState(useBaseStore, ['userinfo'])
-  },
-  created() {},
-  mounted() {
-    $('img').on('load', this.scrollBottom)
-    this.scrollBottom()
-  },
-  unmounted() {
-    $('img').off('load', this.scrollBottom)
-  },
-  methods: {
-    handleClick() {
-      this.recording = true
-      this.showOption = false
-    },
-    _checkImgUrl,
-    scrollBottom() {
-      nextTick(() => {
-        let wrapper = this.$refs.msgWrapper
-        // console.log('wrapper.clientHeight', wrapper.clientHeight)
-        // console.log('wrapper.scrollHeight', wrapper.scrollHeight)
-        wrapper.scrollTo({ top: wrapper.scrollHeight - wrapper.clientHeight })
-      })
-    },
-    openRedPacket() {
-      this.opening = true
-      setTimeout(() => {
-        this.opening = false
-        this.$nav('/message/chat/red-packet-detail')
-      }, 1000)
-    },
-    async clickItem(e) {
-      if (e.type === this.MESSAGE_TYPE.RED_PACKET) {
-        this.loading = true
-        await this.$sleep(500)
-        this.loading = false
-        this.isOpened = e.data.state === '已过期'
-        this.isShowOpenRedPacket = true
+  ],
+  typing: false,
+  loading: false,
+  opening: false,
+  isOpened: false,
+  recording: false,
+  showOption: false,
+  isShowOpenRedPacket: false,
+  tooltipTop: -1,
+  tooltipTopLocation: ''
+})
+
+onMounted(() => {
+  $('img').on('load', scrollBottom)
+  scrollBottom()
+})
+
+onUnmounted(() => {
+  $('img').off('load', scrollBottom)
+})
+
+const isExpand = computed(() => {
+  return data.showOption
+})
+const isTyping = computed(() => {
+  return data.typing || isExpand
+})
+
+function handleClick() {
+  data.recording = true
+  data.showOption = false
+}
+
+const msgWrapper = ref()
+
+function scrollBottom() {
+  nextTick(() => {
+    let wrapper = msgWrapper.value
+    // console.log('wrapper.clientHeight', wrapper.clientHeight)
+    // console.log('wrapper.scrollHeight', wrapper.scrollHeight)
+    wrapper.scrollTo({ top: wrapper.scrollHeight - wrapper.clientHeight })
+  })
+}
+
+function openRedPacket() {
+  data.opening = true
+  setTimeout(() => {
+    data.opening = false
+    nav('/message/chat/red-packet-detail')
+  }, 1000)
+}
+
+async function clickItem(e) {
+  if (e.type === data.MESSAGE_TYPE.RED_PACKET) {
+    data.loading = true
+    await _sleep(500)
+    data.loading = false
+    data.isOpened = e.data.state === '已过期'
+    data.isShowOpenRedPacket = true
+  }
+}
+
+function showTooltip(e) {
+  console.log(e)
+  let wrapper = null
+  e.path.map((v) => {
+    if (v && v.classList) {
+      if (v.classList.value === 'chat-wrapper') {
+        wrapper = v
       }
-    },
-    showTooltip(e) {
-      console.log(e)
-      let wrapper = null
-      e.path.map((v) => {
-        if (v && v.classList) {
-          if (v.classList.value === 'chat-wrapper') {
-            wrapper = v
-          }
-        }
-      })
-      if (wrapper) {
-        // console.log(wrapper.getBoundingClientRect())
-        if (wrapper.getBoundingClientRect().y - 61 > 70) {
-          this.tooltipTopLocation = 'top'
-          this.tooltipTop = wrapper.getBoundingClientRect().y - 70
-        } else {
-          this.tooltipTopLocation = 'bottom'
-          this.tooltipTop =
-            wrapper.getBoundingClientRect().y + wrapper.getBoundingClientRect().height + 10
-        }
-      }
+    }
+  })
+  if (wrapper) {
+    // console.log(wrapper.getBoundingClientRect())
+    if (wrapper.getBoundingClientRect().y - 61 > 70) {
+      data.tooltipTopLocation = 'top'
+      data.tooltipTop = wrapper.getBoundingClientRect().y - 70
+    } else {
+      data.tooltipTopLocation = 'bottom'
+      data.tooltipTop =
+        wrapper.getBoundingClientRect().y + wrapper.getBoundingClientRect().height + 10
     }
   }
 }

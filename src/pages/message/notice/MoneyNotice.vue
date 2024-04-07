@@ -5,21 +5,19 @@
         <span class="f16">钱包通知</span>
       </template>
       <template v-slot:right>
-        <span class="f14" @click="$nav('/message/notice-setting', { type: 'MONEY' })"
-          >通知设置</span
-        >
+        <span class="f14" @click="nav('/message/notice-setting', { type: 'MONEY' })">通知设置</span>
       </template>
     </BaseHeader>
-    <Loading v-if="loading" />
+    <Loading v-if="data.loading" />
     <div class="content" v-else>
       <Scroll ref="mainScroll">
         <div class="list">
           <NoMore />
           <!--TODO 超过3行显示全文-->
-          <div class="item" :key="i" v-for="(item, i) in list" @click="$no">
+          <div class="item" :key="i" v-for="(item, i) in data.list" @click="_no">
             <div class="header">
               <div class="left">
-                <img src="../../../assets/img/icon/msg-icon9.webp" alt="" />
+                <img src="@/assets/img/icon/msg-icon9.webp" alt="" />
               </div>
               <div class="right">
                 <template v-if="item.type === 1">
@@ -29,8 +27,8 @@
                   <span>钱包任务</span>
                 </template>
                 <img
-                  @click.stop="isShowSetting = true"
-                  src="../../../assets/img/icon/menu-gray.png"
+                  @click.stop="data.isShowSetting = true"
+                  src="@/assets/img/icon/menu-gray.png"
                   alt=""
                 />
               </div>
@@ -61,74 +59,73 @@
       mode="white"
       mask-mode="dark"
       :show-heng-gang="false"
-      v-model="isShowSetting"
+      v-model="data.isShowSetting"
       height="160rem"
     >
       <div class="setting-dialog">
         <div class="row disabled">钱包任务</div>
-        <div class="row" @click="handleClick">{{ openNotice ? '关闭' : '开启' }}消息免打扰</div>
+        <div class="row" @click="handleClick">
+          {{ data.openNotice ? '关闭' : '开启' }}消息免打扰
+        </div>
         <div class="space"></div>
-        <div class="row" @click="isShowSetting = false">取消</div>
+        <div class="row" @click="data.isShowSetting = false">取消</div>
       </div>
     </from-bottom-dialog>
   </div>
 </template>
-<script>
-import { nextTick } from 'vue'
-import FromBottomDialog from '../../../components/dialog/FromBottomDialog'
-import Scroll from '../../../components/Scroll'
-import BasePage from '../../BasePage'
+<script setup lang="ts">
+import { nextTick, onMounted, reactive } from 'vue'
+import FromBottomDialog from '@/components/dialog/FromBottomDialog.vue'
+import Scroll from '@/components/Scroll.vue'
+import { useNav } from '@/utils/hooks/useNav'
+import { _sleep } from '@/utils'
 
-export default {
-  extends: BasePage,
-  name: 'MoneyNotice',
-  components: {
-    FromBottomDialog,
-    Scroll
-  },
-  data() {
-    return {
-      loading: false,
-      isShowSetting: false,
-      openNotice: false,
-      list: [
-        {
-          type: 1,
-          toAccountType: '退回银行卡(工商银行3333)',
-          title: '红色退款发起通知',
-          time: '2021-10-12 12:12',
-          money: 0.01,
-          desc: '抖音红包超过24小时未被领取',
-          toAccountTime: '2021-10-15 12:12'
-        },
-        {
-          type: 2,
-          toAccountType: '退回银行卡(工商银行3333)',
-          title: '卡券发放提醒',
-          time: '2021-10-12 12:12',
-          money: 0.01,
-          desc: '尊敬的用户，您获得1张DUO+满赠优惠券 到期时间:2021-08-26 23:23:23',
-          toAccountTime: '2021-10-15 12:12'
-        }
-      ]
-    }
-  },
-  created() {
-    this.getData()
-  },
-  methods: {
-    handleClick() {
-      this.openNotice = !this.openNotice
-      this.isShowSetting = false
+defineOptions({
+  name: 'MoneyNotice'
+})
+
+const nav = useNav()
+const data = reactive({
+  loading: false,
+  isShowSetting: false,
+  openNotice: false,
+  list: [
+    {
+      type: 1,
+      toAccountType: '退回银行卡(工商银行3333)',
+      title: '红色退款发起通知',
+      time: '2021-10-12 12:12',
+      money: 0.01,
+      desc: '抖音红包超过24小时未被领取',
+      toAccountTime: '2021-10-15 12:12'
     },
-    async getData() {
-      this.loading = true
-      await this.$sleep(700)
-      this.loading = false
-      await nextTick()
-      this.$refs.mainScroll.scrollBottom()
+    {
+      type: 2,
+      toAccountType: '退回银行卡(工商银行3333)',
+      title: '卡券发放提醒',
+      time: '2021-10-12 12:12',
+      money: 0.01,
+      desc: '尊敬的用户，您获得1张DUO+满赠优惠券 到期时间:2021-08-26 23:23:23',
+      toAccountTime: '2021-10-15 12:12'
     }
-  }
+  ]
+})
+
+onMounted(() => {
+  getData()
+})
+
+function handleClick() {
+  data.openNotice = !data.openNotice
+  data.isShowSetting = false
+}
+
+async function getData() {
+  data.loading = true
+  await _sleep(700)
+  data.loading = false
+  await nextTick()
+  // data.$refs.mainScroll.scrollBottom()
 }
 </script>
 

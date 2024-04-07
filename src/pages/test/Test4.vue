@@ -5,30 +5,12 @@
     <VideoShare v-model="t" page-id="Test" />
   </div>
 </template>
-<script>
-import BaseButton from '../../components/BaseButton'
-import VideoShare from '../home/components/VideoShare'
+<script setup lang="ts">
+import BaseButton from '../../components/BaseButton.vue'
+import VideoShare from '../home/components/VideoShare.vue'
+import { ref } from 'vue'
 
-export default {
-  name: 'Test4',
-  components: {
-    BaseButton,
-    VideoShare
-  },
-  props: {
-    text: {
-      type: String,
-      default: '@喵嗷污说电影创作的原声'
-    }
-  },
-  data() {
-    return {
-      t: false
-    }
-  },
-  methods: {},
-  mounted() {}
-}
+const t = ref(false)
 </script>
 
 <style scoped lang="less">

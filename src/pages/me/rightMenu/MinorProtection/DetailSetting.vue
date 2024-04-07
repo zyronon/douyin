@@ -1,35 +1,35 @@
 <template>
   <div class="DetailSetting">
     <BaseHeader />
-    <div class="content type1" v-if="type === 0">
+    <div class="content type1" v-if="data.type === 0">
       <div class="notice">
-        <img src="../../../../assets/img/icon/newicon/left_menu/lock.png" alt="" />
+        <img src="@/assets/img/icon/newicon/left_menu/lock.png" alt="" />
         <span>时间锁已关闭</span>
       </div>
       <div class="row mt1r no-active">
         <div class="left">
-          <img src="../../../../assets/img/icon/newicon/left_menu/hourglass.png" alt="" />
+          <img src="@/assets/img/icon/newicon/left_menu/hourglass.png" alt="" />
           <span>可为时间锁设置一个触发时间</span>
         </div>
       </div>
       <div class="row mt1r no-active">
         <div class="left">
-          <img src="../../../../assets/img/icon/newicon/left_menu/clock.png" alt="" />
+          <img src="@/assets/img/icon/newicon/left_menu/clock.png" alt="" />
           <span>开启时间锁后，单日使用时长超过触发时间，需输入密码才能继续使用</span>
         </div>
       </div>
       <div class="row mt1r mb1r no-active">
         <div class="left">
-          <img src="../../../../assets/img/icon/newicon/left_menu/lock.png" alt="" />
+          <img src="@/assets/img/icon/newicon/left_menu/lock.png" alt="" />
           <span>开启时间锁，需先设置独立密码；忘记密码后可通过申诉重置密码</span>
         </div>
       </div>
-      <div class="row mt1r mb1r" @click="$nav('trigger-time', { triggerTime })">
+      <div class="row mt1r mb1r" @click="nav('trigger-time', { triggerTime: data.triggerTime })">
         <div class="left">
           <span>触发时间</span>
         </div>
         <div class="right">
-          <span>{{ triggerTime }}分钟</span>
+          <span>{{ data.triggerTime }}分钟</span>
           <dy-back direction="right"></dy-back>
         </div>
       </div>
@@ -37,62 +37,62 @@
         <div class="button primary">开启时间锁</div>
       </div>
     </div>
-    <div class="content type2" v-if="type === 1">
-      <img
-        class="desc"
-        src="../../../../assets/img/icon/newicon/left_menu/qingshaonian.png"
-        alt=""
-      />
+    <div class="content type2" v-if="data.type === 1">
+      <img class="desc" src="@/assets/img/icon/newicon/left_menu/qingshaonian.png" alt="" />
       <div class="footer">
         <div class="notice">
           <span>更多信息可阅读</span>
           <span
             style="color: yellow"
-            @click="$nav('/service-protocol', { type: '儿童/青少年使用须知' })"
+            @click="nav('/service-protocol', { type: '儿童/青少年使用须知' })"
             >《儿童/青少年使用须知》</span
           >
         </div>
         <div class="button primary">开启青少年模式</div>
       </div>
     </div>
-    <div class="content type2" v-if="type === 2">
-      <img class="desc" src="../../../../assets/img/icon/newicon/left_menu/img-type3.png" alt="" />
+    <div class="content type2" v-if="data.type === 2">
+      <img class="desc" src="@/assets/img/icon/newicon/left_menu/img-type3.png" alt="" />
       <div class="footer">
         <div class="notice">
           <!--          TODO  有个勾选没做-->
           <span>我已阅读并接受</span>
           <span
             style="color: yellow"
-            @click="$nav('/service-protocol', { type: '抖音亲子平台服务协议' })"
+            @click="nav('/service-protocol', { type: '抖音亲子平台服务协议' })"
           >
             《抖音亲子平台服务协议》
           </span>
         </div>
-        <div class="button primary">立即绑定</div>
+        <BaseButton type="primary">立即绑定</BaseButton>
       </div>
     </div>
   </div>
 </template>
-<script>
-import enums from '../../../../utils/enums'
+<script setup lang="ts">
+import enums from '@/utils/enums'
 
-export default {
-  name: 'DetailSetting',
-  data() {
-    return {
-      type: 0,
-      enums,
-      triggerTime: enums.TRIGGER_TIME.TIME60
-    }
-  },
-  computed: {},
-  created() {
-    this.type = ~~this.$route.query.type
-    let triggerTime = localStorage.getItem('changeTriggerTime')
-    if (triggerTime !== null) this.triggerTime = triggerTime
-  },
-  methods: {}
-}
+import { onMounted, reactive } from 'vue'
+import { useNav } from '@/utils/hooks/useNav.js'
+import { useRoute } from 'vue-router'
+import BaseButton from '@/components/BaseButton.vue'
+
+defineOptions({
+  name: 'DetailSetting'
+})
+
+const route = useRoute()
+const nav = useNav()
+const data = reactive({
+  type: 0,
+  triggerTime: enums.TRIGGER_TIME.TIME60
+})
+
+onMounted(() => {
+  data.type = ~~route.query.type
+  let triggerTime = localStorage.getItem('changeTriggerTime')
+  if (triggerTime !== null) data.triggerTime = Number(triggerTime)
+})
 </script>
 
 <style scoped lang="less">

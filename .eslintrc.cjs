@@ -15,5 +15,5 @@ module.exports = {
   rules: {
     'vue/multi-word-component-names': 0
   },
-  'ignorePatterns': ['vite.config.js', 'mobile-select.js']
+  'ignorePatterns': ['vite.config.ts', 'mobile-select.js']
 };

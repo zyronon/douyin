@@ -13,16 +13,16 @@
         style="width: calc(100vw - 2rem); margin-left: 1rem"
         tabStyleWidth="50%"
         :tabTexts="['视频', '影视综']"
-        v-model:active-index="currentSlideItemIndex"
+        v-model:active-index="data.currentSlideItemIndex"
       >
       </Indicator>
-      <SlideHorizontal v-model:index="currentSlideItemIndex" class="SlideRowList">
+      <SlideHorizontal v-model:index="data.currentSlideItemIndex" class="SlideRowList">
         <SlideItem class="tab1" style="overflow: auto">
           <Scroll class="Scroll" @pulldown="getHistoryVideo">
-            <Posters :list="historyVideo.list" v-if="historyVideo.total"></Posters>
-            <Loading :is-full-screen="false" v-if="loadingVideo" />
+            <Posters :list="data.historyVideo.list" v-if="data.historyVideo.total"></Posters>
+            <Loading :is-full-screen="false" v-if="data.loadingVideo" />
             <template v-else>
-              <NoMore v-if="historyVideo.list.length" />
+              <NoMore v-if="data.historyVideo.list.length" />
               <div class="empty" v-else>
                 <img src="../../../assets/img/icon/none-bg1.webp" alt="" />
                 <div class="title">暂无观看历史记录</div>
@@ -40,100 +40,97 @@
     </div>
   </div>
 </template>
-<script>
-import Posters from '../../../components/Posters'
-import Scroll from '../../../components/Scroll'
-import NoMore from '../../../components/NoMore'
+<script setup lang="ts">
+import Posters from '@/components/Posters.vue'
+import Scroll from '@/components/Scroll.vue'
+import NoMore from '@/components/NoMore.vue'
 import { historyOther, historyVideo } from '@/api/videos'
 
-export default {
-  name: 'lookHistory',
-  components: {
-    NoMore,
-    Posters,
-    Scroll
+import { computed, onMounted, reactive } from 'vue'
+import { _showConfirmDialog } from '@/utils'
+
+defineOptions({
+  name: 'LookHistory'
+})
+
+const data = reactive({
+  loadingVideo: false,
+  loadingOther: false,
+  isClearHistoryVideo: false,
+  isClearHistoryOther: false,
+  currentSlideItemIndex: 0,
+  pageSize: 15,
+  historyVideo: {
+    total: 0,
+    pageNo: 0,
+    list: []
   },
-  data() {
-    return {
-      loadingVideo: false,
-      loadingOther: false,
-      isClearHistoryVideo: false,
-      isClearHistoryOther: false,
-      currentSlideItemIndex: 0,
-      pageSize: 15,
-      historyVideo: {
-        total: 0,
-        pageNo: 0,
-        list: []
-      },
-      historyOther: {
-        total: 0,
-        pageNo: 0,
-        list: []
-      }
-    }
-  },
-  computed: {
-    isClear() {
-      if (this.currentSlideItemIndex === 0) {
-        return this.historyVideo.list.length
-      }
-      return this.historyOther.list.length
-    }
-  },
-  created() {
-    this.getHistoryVideo(true)
-    this.getHistoryOther(true)
-  },
-  methods: {
-    async getHistoryVideo(init = false) {
-      if (this.loadingVideo) return
-      if (this.isClearHistoryVideo) return
-      if (!init) {
-        if (this.historyVideo.total <= this.historyVideo.list.length) return
-        this.historyVideo.pageNo++
-      }
-      this.loadingVideo = true
-      let res = await historyVideo({
-        pageNo: this.historyVideo.pageNo,
-        pageSize: this.pageSize
-      })
-      console.log(res)
-      this.loadingVideo = false
-      if (res.code === this.SUCCESS) {
-        this.historyVideo.list = this.historyVideo.list.concat(res.data.list)
-        this.historyVideo.total = res.data.total
-      }
-    },
-    async getHistoryOther(init = false) {
-      if (this.loadingOther) return
-      if (this.isClearHistoryOther) return
-      this.loadingOther = true
-      if (!init) {
-        this.historyOther.pageNo++
-      }
-      let res = await historyOther({
-        pageNo: this.historyOther.pageNo,
-        pageSize: this.pageSize
-      })
-      this.loadingOther = false
-      if (res.code === this.SUCCESS) {
-        this.historyOther.list = this.historyOther.list.concat(res.data.list)
-        this.historyOther.total = res.data.total
-      }
-    },
-    clear() {
-      this.$showConfirmDialog('确定清空？', '清空后，以往观看记录不再展示', 'gray', () => {
-        if (this.currentSlideItemIndex === 0) {
-          this.historyVideo.list = []
-          this.isClearHistoryVideo = true
-          return
-        }
-        this.historyOther.list = []
-        this.isClearHistoryVideo = true
-      })
-    }
+  historyOther: {
+    total: 0,
+    pageNo: 0,
+    list: []
   }
+})
+
+const isClear = computed(() => {
+  if (data.currentSlideItemIndex === 0) {
+    return data.historyVideo.list.length
+  }
+  return data.historyOther.list.length
+})
+onMounted(() => {
+  getHistoryVideo(true)
+  getHistoryOther(true)
+})
+
+async function getHistoryVideo(init = false) {
+  if (data.loadingVideo) return
+  if (data.isClearHistoryVideo) return
+  if (!init) {
+    if (data.historyVideo.total <= data.historyVideo.list.length) return
+    data.historyVideo.pageNo++
+  }
+  data.loadingVideo = true
+  let res: any = await historyVideo({
+    pageNo: data.historyVideo.pageNo,
+    pageSize: data.pageSize
+  })
+  console.log(res)
+  data.loadingVideo = false
+  if (res.success) {
+    data.historyVideo.list = data.historyVideo.list.concat(res.data.list)
+    data.historyVideo.total = res.data.total
+  }
+}
+
+async function getHistoryOther(init = false) {
+  if (data.loadingOther) return
+  if (data.isClearHistoryOther) return
+  data.loadingOther = true
+  if (!init) {
+    data.historyOther.pageNo++
+  }
+  let res: any = await historyOther({
+    pageNo: data.historyOther.pageNo,
+    pageSize: data.pageSize
+  })
+  data.loadingOther = false
+  if (res.success) {
+    data.historyOther.list = data.historyOther.list.concat(res.data.list)
+    data.historyOther.total = res.data.total
+  }
+}
+
+function clear() {
+  _showConfirmDialog('确定清空？', '清空后，以往观看记录不再展示', 'gray', () => {
+    if (data.currentSlideItemIndex === 0) {
+      data.historyVideo.list = []
+      data.isClearHistoryVideo = true
+      return
+    }
+    data.historyOther.list = []
+    data.isClearHistoryVideo = true
+  })
 }
 </script>
 

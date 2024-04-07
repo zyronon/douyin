@@ -2,23 +2,20 @@
   <div class="FaceToFace">
     <BaseHeader style="background: black">
       <template v-slot:right>
-        <span class="f16" @click="$nav('/common-setting')">设置</span>
+        <span class="f16" @click="nav('/common-setting')">设置</span>
       </template>
     </BaseHeader>
     <div class="content"></div>
   </div>
 </template>
-<script>
+<script setup lang="ts">
 //TODO 动画效果麻烦
-export default {
-  name: 'FaceToFace',
-  data() {
-    return {}
-  },
-  computed: {},
-  created() {},
-  methods: {}
-}
+import { useNav } from '@/utils/hooks/useNav'
+
+defineOptions({
+  name: 'FaceToFace'
+})
+const nav = useNav()
 </script>
 
 <style scoped lang="less">

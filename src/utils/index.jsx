@@ -427,6 +427,10 @@ const Utils = {
 
 export default Utils
 
+export function _dateFormat(val, type) {
+  return Utils.$dateFormat(val, type)
+}
+
 export function $no() {
   Utils.$no(arguments)
 }
@@ -435,8 +439,8 @@ export function $notice(val) {
   Utils.$notice(val)
 }
 
-export function _notice(val) {
-  Utils.$notice(val)
+export function _time(val) {
+  return Utils.$time(val)
 }
 
 export function _checkImgUrl(url) {
@@ -467,6 +471,9 @@ export function _getUserDouyinId(item) {
   return item.author.unique_id || item.author.short_id
 }
 
+/**
+ * @param {number} duration
+ */
 export function _sleep(duration) {
   return new Promise((resolve) => {
     setTimeout(resolve, duration)
@@ -498,4 +505,177 @@ export function sampleSize(arr, num) {
     }
   }
   return list
+}
+
+export function _showLoading() {
+  const app = Vue.createApp({
+    render() {
+      return <Loading />
+    }
+  })
+  let parent = document.createElement('div')
+  parent.classList.add(...['dialog-ctn'])
+  document.body.append(parent)
+  app.mount(parent)
+}
+
+export function _hideLoading() {
+  let parent = document.querySelector('.dialog-ctn')
+  parent.remove()
+}
+
+export function _showSelectDialog(sexList, cb) {
+  let remove = () => {
+    let parent = document.querySelector('.dialog-ctn')
+    parent.classList.replace('fade-in', 'fade-out')
+    setTimeout(() => {
+      parent.remove()
+    }, 300)
+  }
+  let tempCb = (e) => {
+    remove()
+    cb(e)
+  }
+  const app = Vue.createApp({
+    render() {
+      return <SelectDialog onCancel={remove} list={sexList} onOk={tempCb} />
+    }
+  })
+  let parent = document.createElement('div')
+  parent.classList.add(...['dialog-ctn', 'fade-in'])
+  document.body.append(parent)
+  app.mount(parent)
+}
+
+export function _showSimpleConfirmDialog(title, okCb, cancelCb, okText, cancelText) {
+  if (!cancelCb) {
+    cancelCb = () => {}
+  }
+  let remove = () => {
+    let parent = document.querySelector('.dialog-ctn')
+    parent.classList.replace('fade-in', 'fade-out')
+    setTimeout(() => {
+      parent.remove()
+    }, 300)
+  }
+  let tempOkCb = (e) => {
+    remove()
+    okCb(e)
+  }
+  let tempCancelCb = (e) => {
+    remove()
+    cancelCb(e)
+  }
+  const app = Vue.createApp({
+    render() {
+      return (
+        <SimpleConfirmDialog
+          onCancel={tempCancelCb}
+          onDismiss={remove}
+          title={title}
+          okText={okText}
+          cancelText={cancelText}
+          onOk={tempOkCb}
+        />
+      )
+    }
+  })
+  let parent = document.createElement('div')
+  parent.classList.add(...['dialog-ctn', 'fade-in'])
+  document.body.append(parent)
+  app.mount(parent)
+}
+
+export function _showConfirmDialog(
+  title,
+  subtitle,
+  subtitleColor,
+  okCb,
+  cancelCb,
+  okText,
+  cancelText,
+  cancelTextColor
+) {
+  let remove = () => {
+    let parent = document.querySelector('.dialog-ctn')
+    parent.classList.replace('fade-in', 'fade-out')
+    setTimeout(() => {
+      parent.remove()
+    }, 300)
+  }
+  let tempOkCb = (e) => {
+    remove()
+    okCb && okCb(e)
+  }
+  let tempCancelCb = (e) => {
+    remove()
+    cancelCb && cancelCb(e)
+  }
+  const app = Vue.createApp({
+    render() {
+      return (
+        <ConfirmDialog
+          onCancel={tempCancelCb}
+          onDismiss={remove}
+          title={title}
+          subtitle={subtitle}
+          subtitleColor={subtitleColor}
+          cancelTextColor={cancelTextColor}
+          okText={okText}
+          cancelText={cancelText}
+          onOk={tempOkCb}
+        />
+      )
+    }
+  })
+  let parent = document.createElement('div')
+  parent.classList.add(...['dialog-ctn', 'fade-in'])
+  document.body.append(parent)
+  app.mount(parent)
+}
+
+export function _showNoticeDialog(title, subtitle, subtitleColor, cancelCb, cancelText) {
+  let remove = () => {
+    let parent = document.querySelector('.dialog-ctn')
+    parent.classList.replace('fade-in', 'fade-out')
+    setTimeout(() => {
+      parent.remove()
+    }, 300)
+  }
+  let tempCancelCb = (e) => {
+    remove()
+    cancelCb(e)
+  }
+  const app = Vue.createApp({
+    render() {
+      return (
+        <NoticeDialog
+          onCancel={tempCancelCb}
+          onDismiss={remove}
+          title={title}
+          subtitleColor={subtitleColor}
+          cancelText={cancelText}
+          subtitle={subtitle}
+        />
+      )
+    }
+  })
+  let parent = document.createElement('div')
+  parent.classList.add(...['dialog-ctn', 'fade-in'])
+  document.body.append(parent)
+  app.mount(parent)
+}
+
+export function _notice(val) {
+  let div = document.createElement('div')
+  div.classList.add('global-notice')
+  div.textContent = val
+  document.body.append(div)
+  setTimeout(() => {
+    document.body.removeChild(div)
+  }, 1000)
+}
+
+export function _no() {
+  _notice('未实现')
 }

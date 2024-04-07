@@ -1,14 +1,18 @@
 <template>
   <div id="MyCard">
     <div class="header">
-      <dy-back mode="light" @click="$back" />
+      <dy-back mode="light" @click="router.back" />
       <!--      todo 差一-->
-      <img class="share" src="../../assets/img/icon/share-white.png" @click="isSharing = true" />
+      <img
+        class="share"
+        src="../../assets/img/icon/share-white.png"
+        @click="data.isSharing = true"
+      />
     </div>
     <div class="content">
       <div class="qrcode">
         <img class="qrcode-bg" src="../../assets/img/icon/me/code-bg.png" alt="" />
-        <img class="avatar" :src="_checkImgUrl(userinfo.cover_url[0].url_list[0])" alt="" />
+        <img class="avatar" :src="_checkImgUrl(store.userinfo.cover_url[0].url_list[0])" alt="" />
       </div>
 
       <span class="name">ZZZZZZZZZZ</span>
@@ -30,65 +34,52 @@
       </div>
     </div>
 
-    <Share v-model="isSharing" mode="qrcode" ref="share" page-id="MyCard" />
+    <Share v-model:value="data.isSharing" mode="qrcode" ref="share" page-id="MyCard" />
   </div>
 </template>
-<script>
-import Share from '../../components/Share'
-import { mapState } from 'pinia'
+
+<script setup lang="ts">
+import Share from '../../components/Share.vue'
 import { useBaseStore } from '@/store/pinia'
-import { _checkImgUrl } from '@/utils'
+import { $no, _checkImgUrl } from '@/utils'
+import { reactive, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
-export default {
-  name: 'MyCard',
-  components: {
-    Share
-  },
+defineOptions({
+  name: 'MyCard'
+})
 
-  data() {
-    return {
-      isSharing: false,
-      okText: '',
+const router = useRouter()
+const store = useBaseStore()
+const data = reactive({
+  isSharing: false,
+  okText: '',
+  showSharePassword: false,
+  shareToFriend: false,
+  shareType: -1,
+  showDouyinCode: false
+})
 
-      showSharePassword: false,
-      shareToFriend: false,
-      shareType: -1,
-
-      showDouyinCode: false
-    }
-  },
-  watch: {
-    shareType(newVal) {
-      if (newVal === -1) return
-      this.showSharePassword = true
-      switch (newVal) {
-        case 2:
-        case 3:
-          return (this.okText = '去微信粘贴')
-        case 4:
-        case 5:
-          return (this.okText = '去QQ粘贴')
-        case 8:
-          return (this.okText = '去微博粘贴')
-      }
-    }
-  },
-  created() {},
-  computed: {
-    ...mapState(useBaseStore, ['userinfo'])
-  },
-  methods: {
-    _checkImgUrl,
-    delayShowDialog(cb) {
-      setTimeout(() => {
-        cb()
-      }, 100)
+watch(
+  () => data.shareType,
+  (newVal) => {
+    if (newVal === -1) return
+    data.showSharePassword = true
+    switch (newVal) {
+      case 2:
+      case 3:
+        return (data.okText = '去微信粘贴')
+      case 4:
+      case 5:
+        return (data.okText = '去QQ粘贴')
+      case 8:
+        return (data.okText = '去微博粘贴')
     }
   }
-}
+)
 </script>
 
-<style scoped lang="less">
+<style lang="less" scoped>
 @import '../../assets/less/index';
 
 #MyCard {

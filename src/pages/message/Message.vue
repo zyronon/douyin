@@ -1,22 +1,22 @@
 <template>
-  <div id="Message" ref="app" :class="createChatDialog ? 'disable-scroll' : ''">
-    <div class="no-search" v-show="!searching">
+  <div id="Message" ref="app" :class="data.createChatDialog ? 'disable-scroll' : ''">
+    <div class="no-search" v-show="!data.searching">
       <header>
-        <Icon @click="createChatDialog = true" icon="formkit:add" />
+        <Icon @click="data.createChatDialog = true" icon="formkit:add" />
         <Icon icon="tabler:camera-selfie" />
-        <Icon @click="searching = true" icon="tabler:search" />
+        <Icon @click="data.searching = true" icon="tabler:search" />
       </header>
 
       <Scroll ref="mainScroll">
         <div class="friends pl1r">
           <div
             class="friend pr1r pl1r"
-            @click="$nav('/message/chat')"
+            @click="nav('/message/chat')"
             :key="index"
-            v-for="(item, index) in friends.all"
+            v-for="(item, index) in store.friends.all"
           >
             <div class="avatar" :class="index % 2 === 0 ? 'on-line' : ''">
-              <img :src="$imgPreview(item.avatar)" alt="" />
+              <img :src="_checkImgUrl(item.avatar)" alt="" />
             </div>
             <span>{{ item.name }}</span>
           </div>
@@ -28,7 +28,7 @@
         <div class="line mt2r"></div>
         <div class="messages">
           <!--      粉丝-->
-          <div class="message" @click="$nav('/message/fans')">
+          <div class="message" @click="nav('/message/fans')">
             <div class="avatar">
               <img src="../../assets/img/icon/msg-icon1.png" alt="" class="head-image" />
             </div>
@@ -45,7 +45,7 @@
             </div>
           </div>
           <!--      互动消息-->
-          <div class="message" @click="$nav('/message/all')">
+          <div class="message" @click="nav('/message/all')">
             <div class="avatar">
               <img src="../../assets/img/icon/msg-icon2.png" alt="" class="head-image" />
             </div>
@@ -62,14 +62,14 @@
             </div>
           </div>
           <!--      消息-->
-          <div class="message" @click="$nav('/message/chat')">
+          <div class="message" @click="nav('/message/chat')">
             <div class="avatar on-line">
               <img src="../../assets/img/icon/avatar/2.png" alt="" class="head-image" />
             </div>
             <div class="content">
               <div class="left">
                 <div class="name">
-                  <span>{{ userinfo.nickname }}</span>
+                  <span>{{ store.userinfo.nickname }}</span>
                 </div>
                 <div class="detail">
                   哈哈哈哈哈哈
@@ -86,7 +86,7 @@
             </div>
           </div>
           <!--      抖音小助手-->
-          <div class="message" @click="$nav('/message/douyin-helper')">
+          <div class="message" @click="nav('/message/douyin-helper')">
             <div class="avatar">
               <img src="../../assets/img/icon/msg-icon5.webp" alt="" class="head-image" />
             </div>
@@ -108,7 +108,7 @@
             </div>
           </div>
           <!--      系统通知-->
-          <div class="message" @click="$nav('/message/system-notice')">
+          <div class="message" @click="nav('/message/system-notice')">
             <div class="avatar">
               <img src="../../assets/img/icon/msg-icon4.png" alt="" class="head-image" />
             </div>
@@ -130,7 +130,7 @@
             </div>
           </div>
           <!--      求更新-->
-          <div class="message" @click="$nav('/me/request-update')">
+          <div class="message" @click="nav('/me/request-update')">
             <div class="avatar">
               <img src="../../assets/img/icon/msg-icon7.webp" alt="" class="head-image" />
             </div>
@@ -152,7 +152,7 @@
             </div>
           </div>
           <!--      任务通知-->
-          <div class="message" @click="$nav('/message/task-notice')">
+          <div class="message" @click="nav('/message/task-notice')">
             <div class="avatar">
               <img src="../../assets/img/icon/msg-icon6.webp" alt="" class="head-image" />
             </div>
@@ -174,7 +174,7 @@
             </div>
           </div>
           <!--      直播通知-->
-          <div class="message" @click="$nav('/message/live-notice')">
+          <div class="message" @click="nav('/message/live-notice')">
             <div class="avatar">
               <img src="../../assets/img/icon/msg-icon8.webp" alt="" class="head-image" />
             </div>
@@ -196,7 +196,7 @@
             </div>
           </div>
           <!--      钱包通知-->
-          <div class="message" @click="$nav('/message/money-notice')">
+          <div class="message" @click="nav('/message/money-notice')">
             <div class="avatar">
               <img src="../../assets/img/icon/msg-icon9.webp" alt="" class="head-image" />
             </div>
@@ -246,23 +246,23 @@
           <!--      </div>-->
         </div>
       </Scroll>
-      <from-bottom-dialog page-id="Message" v-model="createChatDialog">
-        <div class="create-chat-wrapper" v-show="!showJoinedChat">
+      <from-bottom-dialog page-id="Message" v-model="data.createChatDialog">
+        <div class="create-chat-wrapper" v-show="!data.showJoinedChat">
           <Search
-            :isShowRightText="isShowRightText"
-            @click="isShowRightText = true"
-            @notice="isShowRightText = false"
-            @clear="isShowRightText = false"
+            :isShowRightText="data.isShowRightText"
+            @click="data.isShowRightText = true"
+            @notice="data.isShowRightText = false"
+            @clear="data.isShowRightText = false"
             class="ml2r mr2r"
             placeholder="搜索用户"
-            v-model="createChatSearchKey"
+            v-model="data.createChatSearchKey"
           ></Search>
-          <template v-if="createChatSearchKey">
-            <div class="search-result" v-if="searchFriends.length">
+          <template v-if="data.createChatSearchKey">
+            <div class="search-result" v-if="data.searchFriends.length">
               <div
                 class="search-result-item"
                 :key="i"
-                v-for="(item, i) in searchFriends"
+                v-for="(item, i) in data.searchFriends"
                 @click="handleClick(item)"
               >
                 <img class="left" src="../../assets/img/icon/head-image.jpeg" alt="" />
@@ -286,7 +286,7 @@
             </div>
           </template>
           <template v-else>
-            <div class="joined-chat" @click="showJoinedChat = true">
+            <div class="joined-chat" @click="data.showJoinedChat = true">
               <img class="left" src="../../assets/img/icon/people-gray.png" alt="" />
               <div class="right">
                 <span>已加入的群聊</span>
@@ -298,10 +298,10 @@
               <div
                 class="friend-item"
                 :key="i"
-                v-for="(item, i) in friends.all"
+                v-for="(item, i) in store.friends.all"
                 @click="item.select = !item.select"
               >
-                <img class="left" :src="$imgPreview(item.avatar)" alt="" />
+                <img class="left" :src="_checkImgUrl(item.avatar)" alt="" />
                 <div class="right">
                   <span>{{ item.name }}</span>
                   <Check mode="red" style="height: 20rem; width: 20rem" v-model="item.select" />
@@ -313,9 +313,9 @@
             <div class="btn" :class="selectFriends ? 'primary' : ''">发起聊天</div>
           </div>
         </div>
-        <div class="joined-chat-wrapper" v-show="showJoinedChat">
+        <div class="joined-chat-wrapper" v-show="data.showJoinedChat">
           <div class="nav">
-            <dy-back @click="showJoinedChat = false" mode="light" scale="1.2"></dy-back>
+            <dy-back @click="data.showJoinedChat = false" mode="light" scale="1.2"></dy-back>
             <span>已加入的群聊</span>
             <span>&nbsp;</span>
           </div>
@@ -326,7 +326,7 @@
               <div class="right">
                 <div class="title">
                   <div class="name">
-                    {{ text.length > 20 ? text.substr(0, 20) + '...' : text }}
+                    {{ data.text.length > 20 ? data.text.substr(0, 20) + '...' : data.text }}
                   </div>
                   <div class="num">(3)</div>
                 </div>
@@ -339,7 +339,7 @@
       </from-bottom-dialog>
 
       <transition name="fade">
-        <div class="recommend-dialog" v-if="isShowRecommend">
+        <div class="recommend-dialog" v-if="data.isShowRecommend">
           <div class="dialog-content">
             <div class="dialog-header">
               <img
@@ -352,15 +352,15 @@
                 <img src="../../assets/img/icon/about-gray.png" alt="" />
               </div>
               <img
-                @click="isShowRecommend = false"
+                @click="data.isShowRecommend = false"
                 src="../../assets/img/icon/components/gray-close-full2.png"
                 alt=""
               />
             </div>
             <div class="dialog-body">
               <Scroll ref="scroll" @pulldown="loadRecommendData">
-                <Peoples v-model:list="recommend" :loading="loading" mode="recommend" />
-                <Loading :is-full-screen="false" v-if="loading" />
+                <Peoples v-model:list="data.recommend" :loading="data.loading" mode="recommend" />
+                <Loading :is-full-screen="false" v-if="data.loading" />
                 <NoMore v-else />
               </Scroll>
             </div>
@@ -371,22 +371,22 @@
       <BaseFooter v-bind:init-tab="4" />
     </div>
 
-    <div class="searching" v-show="searching">
+    <div class="searching" v-show="data.searching">
       <Search
-        v-model="searchKey"
+        v-model="data.searchKey"
         right-text="取消"
         right-text-color="white"
-        @notice="searching = false"
+        @notice="data.searching = false"
         :isShowRightText="true"
       />
       <div class="more-chat">
-        <template v-if="searchKey">
+        <template v-if="data.searchKey">
           <div class="sub-title" v-if="searchFriendsAll.length">
             <span>联系人</span>
             <div
               class="right"
               v-if="searchFriendsAll.length > 3"
-              @click="$nav('/message/more-search', { key: searchKey })"
+              @click="nav('/message/more-search', { key: data.searchKey })"
             >
               <span>更多联系人</span>
               <dy-back mode="gray" img="back" scale=".6" direction="right" />
@@ -396,15 +396,15 @@
             v-for="item in searchFriendsAll.slice(0, 3)"
             :key="item.id"
             mode="search"
-            :searchKey="searchKey"
+            :searchKey="data.searchKey"
             :people="item"
           />
-          <div class="goto-search-page" @click="$nav('/home/search', { key: searchKey })">
+          <div class="goto-search-page" @click="nav('/home/search', { key: data.searchKey })">
             <img class="icon" src="../../assets/img/icon/search-light.png" alt="" />
             <div class="right">
               <div class="left">
                 <span
-                  >搜索 <span style="color: yellow">{{ searchKey }}</span></span
+                  >搜索 <span style="color: yellow">{{ data.searchKey }}</span></span
                 >
                 <span class="second-text-color f12">视频、用户、音乐、话题、地点等</span>
               </div>
@@ -414,105 +414,96 @@
         </template>
         <template v-else>
           <div class="sub-title">更多聊天</div>
-          <People v-for="item in moreChat" :key="item.id" :people="item" />
+          <People v-for="item in data.moreChat" :key="item.id" :people="item" />
         </template>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import Search from '../../components/Search'
-import FromBottomDialog from '../../components/dialog/FromBottomDialog'
-import Check from '../../components/Check'
-import { mapState } from 'pinia'
-import Peoples from '../people/components/Peoples'
-import Scroll from '../../components/Scroll'
-import People from '../people/components/People'
-import BasePage from '../BasePage'
+<script setup lang="ts">
+import Search from '../../components/Search.vue'
+import FromBottomDialog from '../../components/dialog/FromBottomDialog.vue'
+import Check from '../../components/Check.vue'
+import Peoples from '../people/components/Peoples.vue'
+import People from '../people/components/Peoples.vue'
+import Scroll from '../../components/Scroll.vue'
 import { useBaseStore } from '@/store/pinia'
 
-export default {
-  extends: BasePage,
-  name: 'Message',
-  components: {
-    Scroll,
-    Search,
-    FromBottomDialog,
-    Check,
-    Peoples,
-    People
-  },
-  data() {
-    return {
-      isShowRecommend: false,
-      searching: false,
-      searchKey: '',
-      createChatSearchKey: '',
-      showJoinedChat: false,
-      loading: false,
-      createChatDialog: false,
-      isShowRightText: false,
-      text: 'AAAAAAAAA、BBBBBBBBBBBBB、CCCCCCCC',
-      searchFriends: [],
-      recommend: [],
-      moreChat: []
-    }
-  },
-  computed: {
-    ...mapState(useBaseStore, ['friends', 'userinfo']),
-    selectFriends() {
-      return this.friends.all.filter((v) => v.select).length
-    },
-    searchFriendsAll() {
-      return this.friends.all.filter((v) => {
-        return v.name.search(this.searchKey) !== -1 || v.account.search(this.searchKey) !== -1
+import { computed, onMounted, reactive, watch } from 'vue'
+import { useNav } from '@/utils/hooks/useNav.js'
+import { _checkImgUrl, _sleep, cloneDeep } from '@/utils'
+
+defineOptions({
+  name: 'Message'
+})
+
+const store = useBaseStore()
+const nav = useNav()
+const data = reactive({
+  isShowRecommend: false,
+  searching: false,
+  searchKey: '',
+  createChatSearchKey: '',
+  showJoinedChat: false,
+  loading: false,
+  createChatDialog: false,
+  isShowRightText: false,
+  text: 'AAAAAAAAA、BBBBBBBBBBBBB、CCCCCCCC',
+  searchFriends: [],
+  recommend: [],
+  moreChat: []
+})
+
+onMounted(() => {
+  console.log('create')
+  data.recommend = cloneDeep(store.friends.all)
+  data.recommend.map((v) => {
+    v.type = -2
+  })
+  data.moreChat = cloneDeep(store.friends.all.slice(0, 3))
+})
+
+const selectFriends = computed(() => {
+  return store.friends.all.filter((v) => v.select).length
+})
+
+const searchFriendsAll = computed(() => {
+  return store.friends.all.filter((v) => {
+    return v.name.search(data.searchKey) !== -1 || v.account.search(data.searchKey) !== -1
+  })
+})
+
+watch(
+  () => data.createChatSearchKey,
+  (newVal) => {
+    if (newVal) {
+      //TODO 搜索时仅仅判断是否包含了对应字符串，抖音做了拼音判断的
+      data.searchFriends = store.friends.all.filter((v) => {
+        if (v.name.includes(newVal)) return true
+        return v.account.includes(newVal)
       })
-    }
-  },
-  watch: {
-    createChatSearchKey(newVal) {
-      if (newVal) {
-        //TODO 搜索时仅仅判断是否包含了对应字符串，抖音做了拼音判断的
-        this.searchFriends = this.friends.all.filter((v) => {
-          if (v.name.includes(newVal)) return true
-          return v.account.includes(newVal)
-        })
-      } else {
-        this.searchFriends = []
-      }
-    }
-  },
-  created() {
-    console.log('create')
-    this.recommend = this.$clone(this.friends.all)
-    this.recommend.map((v) => {
-      v.type = -2
-    })
-    this.moreChat = this.$clone(this.friends.all.slice(0, 3))
-  },
-  mounted() {
-    setTimeout(() => {
-      // this.isShowRecommend = true
-    }, 1000)
-  },
-  methods: {
-    handleClick(item) {
-      item.select = !item.select
-      this.createChatSearchKey = ''
-    },
-    async loadRecommendData() {
-      if (this.loading) return
-      this.loading = true
-      await this.$sleep(500)
-      this.loading = false
-      let temp = this.$clone(this.friends.all)
-      temp.map((v) => {
-        v.type = -2
-      })
-      this.recommend = this.recommend.concat(temp)
+    } else {
+      data.searchFriends = []
     }
   }
+)
+
+function handleClick(item) {
+  item.select = !item.select
+  data.createChatSearchKey = ''
+}
+
+async function loadRecommendData() {
+  if (data.loading) return
+  data.loading = true
+  await _sleep(500)
+  data.loading = false
+  let temp = cloneDeep(store.friends.all)
+  temp.map((v) => {
+    v.type = -2
+  })
+  data.recommend = data.recommend.concat(temp)
 }
 </script>
 <style scoped lang="less">

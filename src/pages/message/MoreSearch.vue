@@ -2,53 +2,49 @@
   <div id="MoreSearch">
     <div class="content">
       <Search
-        v-model="searchKey"
+        v-model="data.searchKey"
         right-text="取消"
         right-text-color="white"
-        @notice="$back"
+        @notice="router.back"
         :isShowRightText="true"
       />
       <People
         v-for="item in searchFriendsAll"
         :key="item.id"
         mode="search"
-        :searchKey="searchKey"
+        :searchKey="data.searchKey"
         :people="item"
       />
     </div>
   </div>
 </template>
-<script>
-import Search from '../../components/Search'
-import { mapState } from 'pinia'
-import People from '../people/components/People'
+<script setup lang="ts">
+import Search from '@/components/Search.vue'
+import People from '../people/components/Peoples.vue'
 import { useBaseStore } from '@/store/pinia'
 
-export default {
-  name: 'MoreSearch',
-  components: {
-    Search,
-    People
-  },
-  data() {
-    return {
-      searchKey: ''
-    }
-  },
-  computed: {
-    ...mapState(useBaseStore, ['friends', 'userinfo']),
-    searchFriendsAll() {
-      return this.friends.all.filter((v) => {
-        return v.name.search(this.searchKey) !== -1 || v.account.search(this.searchKey) !== -1
-      })
-    }
-  },
-  watch: {},
-  created() {
-    this.searchKey = this.$route.query.key
-  },
-  methods: {}
-}
+import { computed, onMounted, reactive } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
+defineOptions({
+  name: 'MoreSearch'
+})
+
+const store = useBaseStore()
+const router = useRouter()
+const route = useRoute()
+const data = reactive({
+  searchKey: ''
+})
+
+const searchFriendsAll = computed(() => {
+  return store.friends.all.filter((v) => {
+    return v.name.search(data.searchKey) !== -1 || v.account.search(data.searchKey) !== -1
+  })
+})
+onMounted(() => {
+  data.searchKey = String(route.query.key)
+})
 </script>
 
 <style scoped lang="less">

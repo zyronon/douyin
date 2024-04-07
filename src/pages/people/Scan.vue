@@ -21,17 +21,12 @@
     <div class="scan-anim"></div>
   </div>
 </template>
-<script>
+<script setup>
 //TODO 那个动画没做，用css画有点麻烦，后面ps p一张图片吧
-export default {
-  name: 'Scan',
-  data() {
-    return {}
-  },
-  computed: {},
-  created() {},
-  methods: {}
-}
+
+defineOptions({
+  name: 'Scan'
+})
 </script>
 
 <style scoped lang="less">

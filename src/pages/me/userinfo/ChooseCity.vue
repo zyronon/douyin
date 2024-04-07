@@ -7,7 +7,7 @@
     </BaseHeader>
     <div class="content">
       <div class="schools">
-        <div class="row" @click="save(item)" :key="i" v-for="(item, i) in list">
+        <div class="row" @click="save()" :key="i" v-for="(item, i) in list">
           <span>{{ item }}</span>
         </div>
       </div>
@@ -15,56 +15,59 @@
   </div>
 </template>
 
-<script>
-import { mapState } from 'pinia'
+<script setup lang="ts">
+import { ref } from 'vue'
+import { _hideLoading, _showLoading, _sleep } from '@/utils'
 import { useBaseStore } from '@/store/pinia'
 
-export default {
-  name: 'ChooseProvince',
-  setup() {
-    const baseStore = useBaseStore()
-    return { baseStore }
-  },
-  data() {
-    return {
-      list: [
-        '成都',
-        '自贡',
-        '攀枝花',
-        '泸州',
-        '德阳',
-        '绵阳',
-        '广元',
-        '遂宁',
-        '内江',
-        '乐山',
-        '南充',
-        '眉山',
-        '宜宾',
-        '广安',
-        '达州',
-        '雅安',
-        '巴中',
-        '资阳',
-        '阿坝',
-        '甘孜',
-        '凉山'
-      ]
-    }
-  },
-  computed: {
-    ...mapState(useBaseStore, ['userinfo'])
-  },
-  methods: {
-    async save() {
-      this.$showLoading()
-      let data = { ...this.userinfo, ...{ location: '中国-四川-成都' } }
-      this.baseStore.setUserinfo(data)
-      await this.$sleep(500)
-      this.$hideLoading()
-      history.go(-3)
-    }
-  }
+defineOptions({
+  name: 'ChooseCity'
+})
+
+const store = useBaseStore()
+const list = ref([
+  '河北',
+  '山西',
+  '辽宁',
+  '吉林',
+  '黑龙江',
+  '江苏',
+  '浙江',
+  '安徽',
+  '福建',
+  '江西',
+  '山东',
+  '河南',
+  '湖北',
+  '湖南',
+  '广东',
+  '海南',
+  '四川',
+  '贵州',
+  '云南',
+  '陕西',
+  '甘肃',
+  '青海',
+  '台湾',
+  '内蒙古',
+  '广西',
+  '西藏',
+  '宁夏',
+  '新疆',
+  '北京',
+  '天津',
+  '上海',
+  '重庆',
+  '香港',
+  '澳门'
+])
+
+async function save() {
+  _showLoading()
+  store.userinfo = { ...store.userinfo, ...{ location: '中国-四川-成都' } }
+  await _sleep(500)
+  _hideLoading()
+  history.go(-3)
 }
 </script>
 

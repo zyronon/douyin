@@ -112,7 +112,7 @@
   </div>
 </template>
 
-<script setup lang="jsx">
+<script setup lang="tsx">
 import { useNav } from '@/utils/hooks/useNav'
 import { $no, _checkImgUrl } from '@/utils'
 import ScrollList from '@/components/ScrollList.vue'

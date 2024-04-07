@@ -13,17 +13,10 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'Help',
-  props: {},
-  data() {
-    return {}
-  },
-  computed: {},
-  created() {},
-  methods: {}
-}
+<script setup lang="ts">
+defineOptions({
+  name: 'Help'
+})
 </script>
 
 <style scoped lang="less">

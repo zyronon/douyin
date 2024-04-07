@@ -2,61 +2,65 @@
   <div id="AllMessage">
     <BaseHeader>
       <template v-slot:center>
-        <div class="center" @click="isShowType = !isShowType">
+        <div class="center" @click="data.isShowType = !data.isShowType">
           <span class="f16">{{ showTypeText }}</span>
           <img
-            :class="{ show: isShowType }"
-            src="../../assets/img/icon/arrow-up-white.png"
+            :class="{ show: data.isShowType }"
+            src="@/assets/img/icon/arrow-up-white.png"
             alt=""
           />
         </div>
       </template>
     </BaseHeader>
     <transition name="fade">
-      <div class="type-dialog" v-if="isShowType">
+      <div class="type-dialog" v-if="data.isShowType">
         <div class="dialog-content">
           <div class="row" @click="toggleShowType(1)">
             <div class="left">
-              <img src="../../assets/img/icon/message/done-gray.png" alt="" />
+              <img src="@/assets/img/icon/message/done-gray.png" alt="" />
               <span>全部消息</span>
             </div>
           </div>
           <div class="row" @click="toggleShowType(2)">
             <div class="left">
-              <img src="../../assets/img/icon/message/like-gray.png" alt="" />
+              <img src="@/assets/img/icon/message/like-gray.png" alt="" />
               <span>赞</span>
             </div>
           </div>
           <div class="row" @click="toggleShowType(3)">
             <div class="left">
-              <img src="../../assets/img/icon/message/call-gray.png" alt="" />
+              <img src="@/assets/img/icon/message/call-gray.png" alt="" />
               <span>@我的</span>
             </div>
           </div>
           <div class="row" @click="toggleShowType(4)">
             <div class="left">
-              <img src="../../assets/img/icon/message/comment-gray.png" alt="" />
+              <img src="@/assets/img/icon/message/comment-gray.png" alt="" />
               <span>评论</span>
             </div>
           </div>
         </div>
-        <div class="mask" @click="isShowType = false"></div>
+        <div class="mask" @click="data.isShowType = false"></div>
       </div>
     </transition>
     <div class="content">
-      <Loading v-if="loading" />
+      <Loading v-if="data.loading" />
       <Scroll
         v-else
         ref="mainScroll"
         :use-refresh="true"
-        :loading="loadingMore"
+        :loading="data.loadingMore"
         @refresh="refresh"
         @pulldown="loadData"
       >
         <div class="messages">
-          <div class="message" @click="$nav('/message/visitors')">
+          <div class="message" @click="nav('/message/visitors')">
             <div class="left">
-              <img v-lazy="_checkImgUrl(userinfo.cover_url[0].url_list[0])" alt="" class="avatar" />
+              <img
+                v-lazy="_checkImgUrl(store.userinfo.cover_url[0].url_list[0])"
+                alt=""
+                class="avatar"
+              />
             </div>
             <div class="right">
               <div class="desc">
@@ -68,27 +72,31 @@
                   <div class="time">01-11</div>
                 </div>
               </div>
-              <img v-lazy="_checkImgUrl(userinfo.cover_url[0].url_list[0])" alt="" class="poster" />
+              <img
+                v-lazy="_checkImgUrl(store.userinfo.cover_url[0].url_list[0])"
+                alt=""
+                class="poster"
+              />
             </div>
           </div>
-          <div class="message" :key="i" v-for="(item, i) in showMessageList" @click="$no">
+          <div class="message" :key="i" v-for="(item, i) in showMessageList" @click="_no">
             <div class="left">
-              <img v-lazy="$imgPreview(item.author.avatar)" alt="" class="avatar" />
+              <img v-lazy="_checkImgUrl(item.author.avatar)" alt="" class="avatar" />
               <img
-                v-if="selectShowType === 2"
-                src="../../assets/img/icon/message/love-message.webp"
+                v-if="data.selectShowType === 2"
+                src="@/assets/img/icon/message/love-message.webp"
                 alt=""
                 class="type"
               />
               <img
-                v-if="selectShowType === 3"
-                src="../../assets/img/icon/message/call-message.webp"
+                v-if="data.selectShowType === 3"
+                src="@/assets/img/icon/message/call-message.webp"
                 alt=""
                 class="type"
               />
               <img
-                v-if="selectShowType === 4"
-                src="../../assets/img/icon/message/comment-message.webp"
+                v-if="data.selectShowType === 4"
+                src="@/assets/img/icon/message/comment-message.webp"
                 alt=""
                 class="type"
               />
@@ -100,130 +108,130 @@
                   <div class="tag">朋友</div>
                 </div>
                 <div class="desc-content">
-                  <span v-if="selectShowType === 1">好好看啊</span>
-                  <span v-if="selectShowType === 2">赞了你的作品</span>
-                  <span v-if="selectShowType === 3">@{{ userinfo.nickname }}</span>
-                  <span v-if="selectShowType === 4">好好看啊</span>
+                  <span v-if="data.selectShowType === 1">好好看啊</span>
+                  <span v-if="data.selectShowType === 2">赞了你的作品</span>
+                  <span v-if="data.selectShowType === 3">@{{ store.userinfo.nickname }}</span>
+                  <span v-if="data.selectShowType === 4">好好看啊</span>
                 </div>
                 <div class="bottom">
-                  <div class="type" v-if="selectShowType === 3">在评论中提到了你</div>
-                  <div class="type" v-if="selectShowType === 4">回复了你的评论</div>
+                  <div class="type" v-if="data.selectShowType === 3">在评论中提到了你</div>
+                  <div class="type" v-if="data.selectShowType === 4">回复了你的评论</div>
                   <div class="time">01-11</div>
                 </div>
               </div>
               <img
-                v-lazy="$imgPreview(item.video + '?vframe/jpg/offset/0/w/300')"
+                v-lazy="_checkImgUrl(item.video + '?vframe/jpg/offset/0/w/300')"
                 alt=""
                 class="poster"
               />
             </div>
           </div>
-          <div class="look-all" v-if="!showAll" @click="showAll = true">
+          <div class="look-all" v-if="!data.showAll" @click="data.showAll = true">
             <span>查看全部</span>
             <dy-back />
           </div>
         </div>
         <div class="title">
           <span>朋友推荐</span>
-          <img src="../../assets/img/icon/about-gray.png" alt="" />
+          <img src="@/assets/img/icon/about-gray.png" alt="" />
         </div>
-        <Peoples v-model:list="recommend" :loading="loadingMore" mode="recommend" />
+        <Peoples v-model:list="data.recommend" :loading="data.loadingMore" mode="recommend" />
       </Scroll>
     </div>
   </div>
 </template>
-<script>
-import { mapState } from 'pinia'
-import Scroll from '../../components/Scroll'
-import Loading from '../../components/Loading'
-import Peoples from '../people/components/Peoples'
-import resource from '../../assets/data/resource.js'
-import BasePage from '../BasePage'
+<script setup lang="ts">
+import Scroll from '@/components/Scroll.vue'
+import Loading from '@/components/Loading.vue'
+import Peoples from '../people/components/Peoples.vue'
+import resource from '@/assets/data/resource.js'
 import { useBaseStore } from '@/store/pinia'
-import { _checkImgUrl } from '@/utils'
+import { _checkImgUrl, _no, _sleep, cloneDeep } from '@/utils'
 
-export default {
-  extends: BasePage,
-  name: 'AllMessage',
-  components: {
-    Scroll,
-    Loading,
-    Peoples
-  },
-  data() {
-    return {
-      loading: false,
-      loadingMore: false,
-      isShowType: false,
-      showAll: false,
-      recommend: [],
-      messages: [],
-      selectShowType: 1
-    }
-  },
-  computed: {
-    ...mapState(useBaseStore, ['friends', 'userinfo']),
-    showTypeText() {
-      switch (this.selectShowType) {
-        case 1:
-          return '全部消息'
-        case 2:
-          return '赞'
-        case 3:
-          return '@我的'
-        case 4:
-          return '评论'
-        default:
-          return ''
-      }
-    },
-    showMessageList() {
-      if (this.showAll) {
-        return this.messages
-      }
-      return this.messages.slice(0, 2)
-    }
-  },
-  created() {
-    this.getData()
-  },
-  methods: {
-    _checkImgUrl,
-    async getData() {
-      this.loading = true
-      await this.$sleep(800)
-      this.loading = false
-      this.recommend = this.$clone(this.friends.all)
-      this.fans = this.$clone(this.friends.all)
-      this.recommend.map((v) => {
-        v.type = -1
-      })
-      this.messages = this.$clone(resource.videos)
-    },
-    toggleShowType(index) {
-      this.selectShowType = index
-      this.isShowType = false
-    },
-    remove(index) {
-      this.$notice('将不会再为你推荐该用户')
-      this.recommend.splice(index, 1)
-    },
-    async refresh() {
-      await this.$sleep(1000)
-      this.$refs.mainScroll.refreshEnd()
-    },
-    async loadData() {
-      if (this.loadingMore) return
-      this.loadingMore = true
-      await this.$sleep(500)
-      this.loadingMore = false
-      let temp = this.$clone(this.friends.all)
-      temp.map((v) => {
-        v.type = -1
-      })
-      this.recommend = this.recommend.concat(temp)
-    }
+import { computed, onMounted, reactive } from 'vue'
+import { useNav } from '@/utils/hooks/useNav.js'
+
+defineOptions({
+  name: 'AllMessage'
+})
+
+const store = useBaseStore()
+const nav = useNav()
+const data = reactive({
+  loading: false,
+  loadingMore: false,
+  isShowType: false,
+  showAll: false,
+  recommend: [],
+  fans: [],
+  messages: [],
+  selectShowType: 1
+})
+
+onMounted(() => {
+  getData()
+})
+
+const showTypeText = computed(() => {
+  switch (data.selectShowType) {
+    case 1:
+      return '全部消息'
+    case 2:
+      return '赞'
+    case 3:
+      return '@我的'
+    case 4:
+      return '评论'
+    default:
+      return ''
   }
+})
+
+const showMessageList = computed(() => {
+  if (data.showAll) {
+    return data.messages
+  }
+  return data.messages.slice(0, 2)
+})
+
+async function getData() {
+  data.loading = true
+  await _sleep(800)
+  data.loading = false
+  data.recommend = cloneDeep(store.friends.all)
+  data.fans = cloneDeep(store.friends.all)
+  data.recommend.map((v) => {
+    v.type = -1
+  })
+  data.messages = cloneDeep(resource.videos)
+}
+
+function toggleShowType(index) {
+  data.selectShowType = index
+  data.isShowType = false
+}
+
+// function remove(index) {
+//   _notice('将不会再为你推荐该用户')
+//   data.recommend.splice(index, 1)
+// }
+
+async function refresh() {
+  await _sleep(1000)
+  //TODO
+  // data.$refs.mainScroll.refreshEnd()
+}
+
+async function loadData() {
+  if (data.loadingMore) return
+  data.loadingMore = true
+  await _sleep(500)
+  data.loadingMore = false
+  let temp = cloneDeep(store.friends.all)
+  temp.map((v) => {
+    v.type = -1
+  })
+  data.recommend = data.recommend.concat(temp)
 }
 </script>
 

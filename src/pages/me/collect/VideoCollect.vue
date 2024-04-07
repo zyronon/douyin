@@ -7,63 +7,59 @@
     </BaseHeader>
     <div class="content">
       <Scroll class="Scroll" @pulldown="loadData">
-        <Posters mode="music" :list="videos" />
-        <Loading :is-full-screen="false" v-if="loading" />
+        <Posters mode="music" :list="data.videos" />
+        <Loading :is-full-screen="false" v-if="data.loading" />
         <NoMore v-else />
       </Scroll>
     </div>
   </div>
 </template>
-<script>
-import Posters from '../../../components/Posters'
-import Scroll from '../../../components/Scroll'
+<script setup lang="ts">
+import Posters from '@/components/Posters.vue'
+import Scroll from '@/components/Scroll.vue'
 import { myVideo } from '@/api/videos'
 
-export default {
-  name: 'VideoCollect',
-  components: {
-    Posters,
-    Scroll
-  },
-  data() {
-    return {
-      loading: false,
-      total: 0,
-      pageNo: 0,
-      pageSize: 15,
-      videos: []
+import { onMounted, reactive } from 'vue'
+
+defineOptions({
+  name: 'VideoCollect'
+})
+
+const data = reactive({
+  loading: false,
+  total: 0,
+  pageNo: 0,
+  pageSize: 15,
+  videos: []
+})
+
+onMounted(() => {
+  loadData(true)
+})
+
+async function loadData(init = false) {
+  if (data.loading) return
+  if (!init) {
+    if (data.total <= data.videos.length) {
+      return
     }
-  },
-  computed: {},
-  created() {
-    this.loadData(true)
-  },
-  methods: {
-    async loadData(init = false) {
-      if (this.loading) return
-      if (!init) {
-        if (this.total <= this.videos.length) {
-          return
-        }
-        this.pageNo++
-      }
-      this.loading = true
-      let res = await myVideo({
-        pageNo: this.pageNo,
-        pageSize: this.pageSize
-      })
-      this.loading = false
-      if (res.code === this.SUCCESS) {
-        this.videos = this.videos.concat(res.data.list)
-        this.total = res.data.total
-      }
-    }
+    data.pageNo++
+  }
+  data.loading = true
+  let res: any = await myVideo({
+    pageNo: data.pageNo,
+    pageSize: data.pageSize
+  })
+  data.loading = false
+  if (res.success) {
+    data.videos = data.videos.concat(res.data.list)
+    data.total = res.data.total
   }
 }
 </script>
 
 <style scoped lang="less">
-@import '../../../assets/less/index';
+@import '@/assets/less/index';
 
 .VideoCollect {
   position: fixed;

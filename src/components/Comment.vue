@@ -13,7 +13,7 @@
     <template v-slot:header>
       <div class="title">
         <dy-back mode="dark" img="close" direction="right" style="opacity: 0" />
-        <div class="num">{{ formatNumber(comments.length) }}条评论</div>
+        <div class="num">{{ _formatNumber(comments.length) }}条评论</div>
         <div class="right">
           <Icon icon="prime:arrow-up-right-and-arrow-down-left-from-center" @click.stop="$no" />
           <Icon icon="ic:round-close" @click.stop="cancel" />
@@ -36,7 +36,7 @@
                   <div class="time-wrapper">
                     <div class="left">
                       <div class="time">
-                        {{ $time(item.create_time)
+                        {{ _time(item.create_time)
                         }}{{ item.ip_location && ` · ${item.ip_location}` }}
                       </div>
                       <div class="reply-text">回复</div>
@@ -84,7 +84,7 @@
                       <div class="time-wrapper">
                         <div class="left">
                           <div class="time">
-                            {{ $time(child.create_time)
+                            {{ _time(child.create_time)
                             }}{{ child.ip_location && ` · ${item.ip_location}` }}
                           </div>
                           <div class="reply-text">回复</div>
@@ -104,7 +104,7 @@
                             v-show="!child.user_digged"
                             class="love-image"
                           />
-                          <span>{{ formatNumber(child.digg_count) }}</span>
+                          <span>{{ _formatNumber(child.digg_count) }}</span>
                         </div>
                       </div>
                     </div>
@@ -139,7 +139,7 @@
               <img
                 :style="item.select ? 'opacity: .5;' : ''"
                 class="avatar"
-                :src="$imgPreview(item.avatar)"
+                :src="_checkImgUrl(item.avatar)"
                 alt=""
               />
               <span>{{ item.name }}</span>
@@ -170,14 +170,22 @@
   </from-bottom-dialog>
 </template>
 
-<script>
-import AutoInput from './AutoInput'
-import ConfirmDialog from './dialog/ConfirmDialog'
+<script lang="ts">
+import AutoInput from './AutoInput.vue'
+import ConfirmDialog from './dialog/ConfirmDialog.vue'
 import { mapState } from 'pinia'
-import FromBottomDialog from './dialog/FromBottomDialog'
-import Loading from './Loading'
-import Search from './Search'
-import { $no, _checkImgUrl, _formatNumber, sampleSize } from '@/utils'
+import FromBottomDialog from './dialog/FromBottomDialog.vue'
+import Loading from './Loading.vue'
+import Search from './Search.vue'
+import {
+  $no,
+  _checkImgUrl,
+  _formatNumber,
+  _showSelectDialog,
+  _sleep,
+  _time,
+  sampleSize
+} from '@/utils'
 import { useBaseStore } from '@/store/pinia'
 import { videoComments } from '@/api/videos'
 
@@ -243,13 +251,14 @@ export default {
   },
   mounted() {},
   methods: {
+    _time,
     _formatNumber,
     _checkImgUrl,
     $no,
     async handShowChildren(item) {
       this.loadChildrenItemCId = item.comment_id
       this.loadChildren = true
-      await this.$sleep(500)
+      await _sleep(500)
       this.loadChildren = false
       if (item.showChildren) {
         item.children = item.children.concat(sampleSize(this.comments, 10))
@@ -273,7 +282,7 @@ export default {
       this.isCall = false
     },
     async getData() {
-      let res = await videoComments({ id: this.videoId })
+      let res: any = await videoComments({ id: this.videoId })
       if (res.success) {
         res.data.map((v) => {
           v.showChildren = false
@@ -304,19 +313,12 @@ export default {
       row.user_digged = !row.user_digged
     },
     showOptions(row) {
-      this.$showSelectDialog(this.options, (e) => {
+      _showSelectDialog(this.options, (e) => {
         if (e.id === 1) {
           this.selectRow = row
           this.showPrivateChat = true
         }
       })
-    },
-    // showComment() {
-    //     this.isCommenting = !this.isCommenting;
-    //     console.log(666)
-    // }
-    call() {
-      console.log(this.commit)
     }
   }
 }
@@ -353,6 +355,7 @@ export default {
     z-index: 9;
 
     svg {
+      color: #000;
       background: rgb(242, 242, 242);
       padding: 4rem;
       font-size: 16rem;
@@ -366,6 +369,7 @@ export default {
 }
 
 .comment {
+  color: #000;
   width: 100vw;
   height: v-bind(height);
   background: #fff;

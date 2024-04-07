@@ -2,10 +2,10 @@
   <div class="login">
     <BaseHeader mode="light" backMode="dark" backImg="close">
       <template v-slot:right>
-        <span class="f14" @click="$nav('/login/help')">帮助与设置</span>
+        <span class="f14" @click="nav('/login/help')">帮助与设置</span>
       </template>
     </BaseHeader>
-    <Loading v-if="loading.getPhone" />
+    <Loading v-if="data.loading.getPhone" />
     <div v-else class="content">
       <div class="desc">
         <div class="title">登录看朋友内容</div>
@@ -15,34 +15,34 @@
 
       <dy-button
         type="primary"
-        :loading="loading.login"
+        :loading="data.loading.login"
         :active="false"
         :loadingWithText="true"
         @click="login"
       >
-        {{ loading.login ? '登录中' : '一键登录' }}
+        {{ data.loading.login ? '登录中' : '一键登录' }}
       </dy-button>
-      <dy-button :active="false" type="white" @click="$nav('/login/other')"
-        >其他手机号码登录</dy-button
-      >
+      <dy-button :active="false" type="white" @click="nav('/login/other')"
+        >其他手机号码登录
+      </dy-button>
 
-      <div class="protocol" :class="showAnim ? 'anim-bounce' : ''">
-        <Tooltip style="top: -100%; left: -10rem" v-model="showTooltip" />
+      <div class="protocol" :class="data.showAnim ? 'anim-bounce' : ''">
+        <Tooltip style="top: -100%; left: -10rem" v-model="data.showTooltip" />
         <div class="left">
-          <Check v-model="isAgree" />
+          <Check v-model="data.isAgree" />
         </div>
         <div class="right">
           我已阅读并同意
-          <span class="link" @click="$nav('/service-protocol', { type: '“抖音”用户服务协议' })"
+          <span class="link" @click="nav('/service-protocol', { type: '“抖音”用户服务协议' })"
             >用户协议</span
           >
           和
-          <span class="link" @click="$nav('/service-protocol', { type: '“抖音”隐私政策' })"
+          <span class="link" @click="nav('/service-protocol', { type: '“抖音”隐私政策' })"
             >隐私政策</span
           >
           <div>
             以及
-            <span class="link" @click="$nav('/service-protocol', { type: '中国移动认证服务协议' })"
+            <span class="link" @click="nav('/service-protocol', { type: '中国移动认证服务协议' })"
               >《中国移动认证服务条款》</span
             >
             ，同时登录并使用抖音火山版（原“火山小视频”）和抖音
@@ -52,74 +52,72 @@
 
       <div class="other-login">
         <transition name="fade">
-          <div v-if="isOtherLogin" class="icons">
-            <img @click="$no" src="../../assets/img/icon/login/toutiao-round.png" alt="" />
-            <img @click="$no" src="../../assets/img/icon/login/qq-round.webp" alt="" />
-            <img @click="$no" src="../../assets/img/icon/login/wechat-round.png" alt="" />
-            <img @click="$no" src="../../assets/img/icon/login/weibo-round.webp" alt="" />
+          <div v-if="data.isOtherLogin" class="icons">
+            <img @click="_no" src="../../assets/img/icon/login/toutiao-round.png" alt="" />
+            <img @click="_no" src="../../assets/img/icon/login/qq-round.webp" alt="" />
+            <img @click="_no" src="../../assets/img/icon/login/wechat-round.png" alt="" />
+            <img @click="_no" src="../../assets/img/icon/login/weibo-round.webp" alt="" />
           </div>
         </transition>
       </div>
       <transition name="fade">
         <span
-          v-if="!isOtherLogin"
+          v-if="!data.isOtherLogin"
           class="other-login-text link"
-          @click="isOtherLogin = !isOtherLogin"
+          @click="data.isOtherLogin = !data.isOtherLogin"
           >其他方式登录</span
         >
       </transition>
     </div>
   </div>
 </template>
-<script>
-import Check from '../../components/Check'
-import Tooltip from './components/Tooltip'
-import Loading from '../../components/Loading'
+<script setup lang="ts">
+import Check from '../../components/Check.vue'
+import Tooltip from './components/Tooltip.vue'
+import Loading from '../../components/Loading.vue'
+import { onMounted, reactive } from 'vue'
+import { useNav } from '@/utils/hooks/useNav'
+import { _no, _sleep } from '@/utils'
 
-export default {
-  name: 'login',
-  components: {
-    Check,
-    Tooltip,
-    Loading
-  },
-  data() {
-    return {
-      isAgree: false,
-      isOtherLogin: false,
-      showAnim: false,
-      showTooltip: false,
-      loading: {
-        login: false,
-        getPhone: false
-      }
-    }
-  },
-  computed: {},
-  created() {
-    this.getPhone()
-  },
-  methods: {
-    async getPhone() {
-      this.loading.getPhone = true
-      await this.$sleep(1000)
-      this.loading.getPhone = false
-    },
-    login() {
-      if (this.isAgree) {
-        this.loading.login = true
-      } else {
-        if (!this.showAnim && !this.showTooltip) {
-          this.showAnim = true
-          setTimeout(() => {
-            this.showAnim = false
-            this.showTooltip = true
-          }, 500)
-          setTimeout(() => {
-            this.showTooltip = false
-          }, 3000)
-        }
-      }
+defineOptions({
+  name: 'login'
+})
+
+const nav = useNav()
+const data = reactive({
+  isAgree: false,
+  isOtherLogin: false,
+  showAnim: false,
+  showTooltip: false,
+  loading: {
+    login: false,
+    getPhone: false
+  }
+})
+
+onMounted(() => {
+  getPhone()
+})
+
+async function getPhone() {
+  data.loading.getPhone = true
+  await _sleep(1000)
+  data.loading.getPhone = false
+}
+
+function login() {
+  if (data.isAgree) {
+    data.loading.login = true
+  } else {
+    if (!data.showAnim && !data.showTooltip) {
+      data.showAnim = true
+      setTimeout(() => {
+        data.showAnim = false
+        data.showTooltip = true
+      }, 500)
+      setTimeout(() => {
+        data.showTooltip = false
+      }, 3000)
     }
   }
 }
