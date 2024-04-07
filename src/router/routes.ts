@@ -223,7 +223,6 @@ const routes: RouteRecordRaw[] = [
     path: '/message/share-to-friend',
     component: () => import('@/pages/message/Share2Friend.vue')
   },
-
   {
     path: '/video-detail',
     name: 'video-detail',

@@ -9,12 +9,12 @@
           <img
             src="../../assets/img/icon/menu-gray.png"
             style="width: 20rem"
-            @click="isShowOption = true"
+            @click="data.isShowOption = true"
           />
         </div>
       </template>
     </BaseHeader>
-    <Loading v-if="loading" />
+    <Loading v-if="data.loading" />
     <div v-else class="content">
       <div class="none" v-if="false">
         <img src="../../assets/img/icon/none-bg1.webp" alt="" />
@@ -26,22 +26,22 @@
         <!--        <div class="subtitle f12">上次发布作品：2020-08-01 上次开播：昨天23:12</div>-->
         <div class="subtitle f12">历史求更新（粉丝送礼后7天未开播则退还礼物）</div>
         <div class="list">
-          <div class="item" :key="i" v-for="(item, i) in friends.all">
+          <div class="item" :key="i" v-for="(item, i) in store.friends.all">
             <div class="left">
-              <img :src="$imgPreview(item.avatar)" />
+              <img :src="_checkImgUrl(item.avatar)" />
               <span class="name">{{ item.name }}</span>
             </div>
-            <span class="time">{{ $dateFormat(item.lastLoginTime, 'D') }}</span>
+            <span class="time">{{ _dateFormat(item.lastLoginTime, 'D') }}</span>
           </div>
         </div>
         <no-more>最多展示100位粉丝的历史求更新记录</no-more>
       </div>
     </div>
     <div class="buttons">
-      <dy-button type="white" :border="false" :active="false" @click="$nav('/publish')"
-        >发布作品</dy-button
-      >
-      <dy-button type="primary" :active="false" @click="$no">去直播</dy-button>
+      <dy-button type="white" :border="false" :active="false" @click="nav('/publish')"
+        >发布作品
+      </dy-button>
+      <dy-button type="primary" :active="false" @click="_no">去直播</dy-button>
     </div>
 
     <from-bottom-dialog
@@ -49,53 +49,53 @@
       height="160rem"
       :show-heng-gang="false"
       mode="white"
-      v-model="isShowOption"
+      v-model="data.isShowOption"
     >
       <div class="l-row" @click="toggleRequestUpdate">
-        {{ openRequestUpdate ? '关闭' : '开启' }}求更新提醒
+        {{ data.openRequestUpdate ? '关闭' : '开启' }}求更新提醒
       </div>
-      <div class="l-row" @click="$nav('/me/my-request-update')">我的求更新提醒</div>
+      <div class="l-row" @click="nav('/me/my-request-update')">我的求更新提醒</div>
       <div class="space"></div>
-      <div class="l-row" @click="isShowOption = false">取消</div>
+      <div class="l-row" @click="data.isShowOption = false">取消</div>
     </from-bottom-dialog>
   </div>
 </template>
-<script>
-import { mapState } from 'pinia'
-import FromBottomDialog from '../../components/dialog/FromBottomDialog'
+<script setup lang="ts">
+import FromBottomDialog from '../../components/dialog/FromBottomDialog.vue'
 import { useBaseStore } from '@/store/pinia'
+import { onMounted, reactive } from 'vue'
+import { useNav } from '@/utils/hooks/useNav'
+import { _checkImgUrl, _dateFormat, _notice, _sleep } from '@/utils'
 
-export default {
-  name: 'RequestUpdate',
-  components: { FromBottomDialog },
-  data() {
-    return {
-      isShowOption: false,
-      loading: false,
-      openRequestUpdate: true
-    }
-  },
-  computed: {
-    ...mapState(useBaseStore, ['friends'])
-  },
-  created() {
-    this.getData()
-  },
-  methods: {
-    async getData() {
-      this.loading = true
-      await this.$sleep(700)
-      this.loading = false
-    },
-    toggleRequestUpdate() {
-      this.openRequestUpdate = !this.openRequestUpdate
-      this.isShowOption = false
-      if (this.openRequestUpdate) {
-        this.$notice('提醒已开启，再次点击可关闭')
-      } else {
-        this.$notice('提醒已关闭，再次点击可开启')
-      }
-    }
+defineOptions({
+  name: 'RequestUpdate'
+})
+
+const nav = useNav()
+const store = useBaseStore()
+const data = reactive({
+  isShowOption: false,
+  loading: false,
+  openRequestUpdate: true
+})
+
+onMounted(() => {
+  getData()
+})
+
+async function getData() {
+  data.loading = true
+  await _sleep(700)
+  data.loading = false
+}
+
+function toggleRequestUpdate() {
+  data.openRequestUpdate = !data.openRequestUpdate
+  data.isShowOption = false
+  if (data.openRequestUpdate) {
+    _notice('提醒已开启，再次点击可关闭')
+  } else {
+    _notice('提醒已关闭，再次点击可开启')
   }
 }
 </script>

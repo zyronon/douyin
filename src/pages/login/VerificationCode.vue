@@ -2,7 +2,7 @@
   <div class="VerificationCode">
     <BaseHeader mode="light" backMode="dark" backImg="back">
       <template v-slot:right>
-        <span class="f14" @click="$nav('/login/help')">帮助与设置</span>
+        <span class="f14" @click="nav('/login/help')">帮助与设置</span>
       </template>
     </BaseHeader>
     <div class="content">
@@ -14,91 +14,93 @@
       <LoginInput
         autofocus
         type="code"
-        v-model="code"
+        v-model="data.code"
         placeholder="请输入验证码"
-        v-model:isSendVerificationCode="isSendVerificationCode"
+        v-model:isSendVerificationCode="data.isSendVerificationCode"
         @send="sendCode"
       />
-      <div class="options" v-if="showVoiceCode">
+      <div class="options" v-if="data.showVoiceCode">
         <span> 收不到短信？<span class="link" @click="getVoiceCode">获取语音验证码</span> </span>
       </div>
 
       <dy-button
         type="primary"
-        :loading="loading"
+        :loading="data.loading"
         :active="false"
-        :disabled="code.length < 4"
+        :disabled="data.code.length < 4"
         @click="login"
       >
-        {{ loading ? '登录中' : '登录' }}
+        {{ data.loading ? '登录中' : '登录' }}
       </dy-button>
     </div>
   </div>
 </template>
-<script>
-import LoginInput from './components/LoginInput'
+<script setup lang="ts">
+import LoginInput from './components/LoginInput.vue'
+import { onMounted, reactive } from 'vue'
+import { useNav } from '@/utils/hooks/useNav'
+import { _hideLoading, _showConfirmDialog, _showLoading, _showNoticeDialog, _sleep } from '@/utils'
 
-export default {
-  name: 'VerificationCode',
-  components: {
-    LoginInput
-  },
-  data() {
-    return {
-      showAnim: false,
-      showTooltip: false,
-      loading: false,
-      phone: '',
-      password: '',
-      code: '',
-      isSendVerificationCode: true,
-      showVoiceCode: false
-    }
-  },
-  created() {
-    setTimeout(() => {
-      this.showVoiceCode = true
-    }, 3000)
-  },
-  methods: {
-    getVoiceCode() {
-      return this.$showNoticeDialog(
-        '语音验证码',
-        '我们将以电话的方式告知你验证码，请注意接听',
-        '',
-        () => {
-          setTimeout(() => {
-            this.$showConfirmDialog(
-              '',
-              '您的手机可能由于空号/欠费/停机无法收到验证码，请恢复手机号状态，如果' +
-                '您因为换号无法收到验证码，可以尝试找回账号',
-              '',
-              () => {},
-              null,
-              '找回账号',
-              '返回',
-              ''
-            )
-          }, 2000)
-        },
-        '知道了'
-      )
-    },
-    //TODO loading样式不对
-    async sendCode() {
-      this.$showLoading()
-      await this.$sleep(500)
-      this.$hideLoading()
-      this.isSendVerificationCode = true
-    },
-    login() {
-      this.loading = true
+defineOptions({
+  name: 'VerificationCode'
+})
+
+const nav = useNav()
+const data = reactive({
+  showAnim: false,
+  showTooltip: false,
+  loading: false,
+  phone: '',
+  password: '',
+  code: '',
+  isSendVerificationCode: true,
+  showVoiceCode: false
+})
+
+onMounted(() => {
+  setTimeout(() => {
+    data.showVoiceCode = true
+  }, 3000)
+})
+
+function getVoiceCode() {
+  return _showNoticeDialog(
+    '语音验证码',
+    '我们将以电话的方式告知你验证码，请注意接听',
+    '',
+    () => {
       setTimeout(() => {
-        this.isSendVerificationCode = true
-        this.loading = false
-      }, 1000)
-    }
-  }
+        _showConfirmDialog(
+          '',
+          '您的手机可能由于空号/欠费/停机无法收到验证码，请恢复手机号状态，如果' +
+            '您因为换号无法收到验证码，可以尝试找回账号',
+          '',
+          () => {},
+          null,
+          '找回账号',
+          '返回',
+          ''
+        )
+      }, 2000)
+    },
+    '知道了'
+  )
+}
+
+//TODO loading样式不对
+async function sendCode() {
+  _showLoading()
+  await _sleep(500)
+  _hideLoading()
+  data.isSendVerificationCode = true
+}
+
+function login() {
+  data.loading = true
+  setTimeout(() => {
+    data.isSendVerificationCode = true
+    data.loading = false
+  }, 1000)
 }
 </script>
 

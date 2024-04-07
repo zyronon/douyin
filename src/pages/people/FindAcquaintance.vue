@@ -6,41 +6,41 @@
         style="width: 50%"
         tabStyleWidth="40%"
         :tabTexts="['发现朋友', '熟人列表']"
-        v-model:active-index="currentSlideItemIndex"
+        v-model:active-index="data.currentSlideItemIndex"
       >
       </Indicator>
       <img
         src="../../assets/img/icon/menu-gray.png"
         alt=""
         class="option"
-        @click="moreOptionDialog = true"
+        @click="data.moreOptionDialog = true"
       />
     </div>
-    <SlideHorizontal v-model:index="currentSlideItemIndex">
+    <SlideHorizontal v-model:index="data.currentSlideItemIndex">
       <SlideItem class="tab1" style="overflow: auto">
         <div class="mr2r ml2r mt1r">
           <Search
-            v-if="!isShowRightText"
+            v-if="!data.isShowRightText"
             placeholder="搜索用户名字/抖音号"
             :is-show-right-text="false"
-            @click="isShowRightText = true"
+            @click="data.isShowRightText = true"
           >
             <img
               src="../../assets/img/icon/scan-gray.png"
               style="width: 10rem; transform: scale(1.5)"
-              @click.stop="$nav('/scan')"
+              @click.stop="nav('/scan')"
             />
           </Search>
           <Search
             v-else
-            v-model="searchKey"
+            v-model="data.searchKey"
             :is-show-right-text="true"
             @notice="search"
-            @clear="isSearch = false"
+            @clear="data.isSearch = false"
           ></Search>
         </div>
-        <div class="no-search" v-if="!isShowRightText">
-          <div class="look-address-list" @click="findAddressListDialog = true">
+        <div class="no-search" v-if="!data.isShowRightText">
+          <div class="look-address-list" @click="data.findAddressListDialog = true">
             <img class="left" src="../../assets/img/icon/people/address-book.png" alt="" />
             <div class="right">
               <div class="notice">
@@ -60,21 +60,21 @@
           </div>
           <People
             :key="i"
-            v-for="(item, i) in friends.all"
+            v-for="(item, i) in store.friends.all"
             :people="item"
             mode="recommend"
           ></People>
         </div>
         <div class="is-search" v-else>
-          <div class="tooltip" v-if="searchKey && !isSearch">
+          <div class="tooltip" v-if="data.searchKey && !data.isSearch">
             <img src="../../assets/img/icon/close.svg" style="width: 10rem" />
-            搜索用户名字/抖音号：<span class="searchKey">{{ searchKey }}</span>
+            搜索用户名字/抖音号：<span class="searchKey">{{ data.searchKey }}</span>
           </div>
           <!--          TODO -->
-          <template v-if="isSearch">
+          <template v-if="data.isSearch">
             <People
               :key="i"
-              v-for="(item, i) in friends.all"
+              v-for="(item, i) in store.friends.all"
               :people="item"
               mode="recommend"
             ></People>
@@ -83,8 +83,13 @@
       </SlideItem>
       <SlideItem class="tab2" style="overflow: auto">
         <Search placeholder="搜索用户备注或名字" class="mr20p ml20p mt10p"></Search>
-        <div class="title">{{ friends.all.length }} 位朋友</div>
-        <People :key="i" v-for="(item, i) in friends.all" :people="item" mode="friend"></People>
+        <div class="title">{{ store.friends.all.length }} 位朋友</div>
+        <People
+          :key="i"
+          v-for="(item, i) in store.friends.all"
+          :people="item"
+          mode="friend"
+        ></People>
         <NoMore class="mb5r" />
       </SlideItem>
     </SlideHorizontal>
@@ -95,9 +100,9 @@
 
     <transition name="fade">
       <div
-        v-if="findAddressListDialog"
+        v-if="data.findAddressListDialog"
         class="find-address-list-dialog"
-        @click="findAddressListDialog = false"
+        @click="data.findAddressListDialog = false"
       >
         <div class="body">
           <div>
@@ -106,21 +111,21 @@
           <span class="title">发现通讯录好友</span>
           <span class="desc">
             <span>授权通讯录，看看哪些好友在使用抖音。具体使用场景及撤回授权方式详见</span>
-            <span class="link" @click="$nav('/service-protocol', { type: '“抖音”用户服务协议' })"
+            <span class="link" @click="nav('/service-protocol', { type: '“抖音”用户服务协议' })"
               >《隐私政策》</span
             >
           </span>
         </div>
         <div class="footer">
-          <div @click="findAddressListDialog = false">暂时不要</div>
-          <div @click="$nav('/address-list')">发现好友</div>
+          <div @click="data.findAddressListDialog = false">暂时不要</div>
+          <div @click="nav('/address-list')">发现好友</div>
         </div>
       </div>
     </transition>
 
     <from-bottom-dialog
       page-id="FindAcquaintance"
-      v-model="moreOptionDialog"
+      v-model="data.moreOptionDialog"
       :show-heng-gang="false"
       height="210rem"
       mode="white"
@@ -129,25 +134,25 @@
         <div class="row" @click="handleClick">
           <span>站外好友口令</span>
         </div>
-        <div class="row" @click="$nav('/scan')">
+        <div class="row" @click="nav('/scan')">
           <span>扫一扫加好友</span>
         </div>
-        <div class="row" style="border-bottom: none" @click="$nav('/face-to-face')">
+        <div class="row" style="border-bottom: none" @click="nav('/face-to-face')">
           <span>面对面加好友</span>
         </div>
         <div class="space"></div>
-        <div class="row" @click="moreOptionDialog = false">取消</div>
+        <div class="row" @click="data.moreOptionDialog = false">取消</div>
       </div>
     </from-bottom-dialog>
 
     <transition name="fade">
-      <div class="out-web-img-account-dialog" v-if="outWebImgAccountDialog">
+      <div class="out-web-img-account-dialog" v-if="data.outWebImgAccountDialog">
         <img src="../../assets/img/icon/head-image.jpeg" alt="" class="img-account" />
         <img
           src="../../assets/img/icon/close-white.png"
           alt=""
           class="close"
-          @click="outWebImgAccountDialog = false"
+          @click="data.outWebImgAccountDialog = false"
         />
         <div class="desc">
           <div>这是你的图片口令</div>
@@ -157,11 +162,11 @@
           <img src="../../assets/img/icon/close.svg" alt="" />
           <span>图片口令已保存到相册</span>
         </div>
-        <div class="btn wechat" @click="outWebImgAccountDialog = false">
+        <div class="btn wechat" @click="data.outWebImgAccountDialog = false">
           <img src="../../assets/img/icon/close.svg" alt="" />
           <span>发给微信好友</span>
         </div>
-        <div class="btn qq" @click="outWebImgAccountDialog = false">
+        <div class="btn qq" @click="data.outWebImgAccountDialog = false">
           <img src="../../assets/img/icon/close.svg" alt="" />
           <span>发给QQ好友</span>
         </div>
@@ -169,83 +174,82 @@
     </transition>
   </div>
 </template>
-<script>
-import People from './components/People'
-import Search from '../../components/Search'
-import Indicator from '../../components/slide/Indicator'
-import FromBottomDialog from '../../components/dialog/FromBottomDialog'
-import { mapState } from 'pinia'
+<script setup lang="ts">
+import People from './components/People.vue'
+import Search from '../../components/Search.vue'
+import Indicator from '../../components/slide/Indicator.vue'
+import FromBottomDialog from '../../components/dialog/FromBottomDialog.vue'
 import { useBaseStore } from '@/store/pinia'
+import { computed, onMounted, reactive } from 'vue'
+import { useRouter } from 'vue-router'
+import { useNav } from '@/utils/hooks/useNav'
+import { _hideLoading, _showLoading, _sleep } from '@/utils'
 
-export default {
-  name: 'FindAcquaintance',
-  components: {
-    People,
-    Search,
-    Indicator,
-    FromBottomDialog
-  },
-  data() {
-    return {
-      findAddressListDialog: false,
-      moreOptionDialog: false,
-      outWebImgAccountDialog: false,
-      indicatorFixed: false,
-      isShowRightText: false,
-      isSearch: false,
-      searchKey: '',
+defineOptions({
+  name: 'FindAcquaintance'
+})
 
-      currentSlideItemIndex: 0,
-      list: [
-        {
-          type: 1
-        },
-        {
-          type: 2
-        },
-        {
-          type: 3
-        },
-        {
-          type: 4
-        },
-        {
-          type: 5
-        }
-      ]
+const router = useRouter()
+const nav = useNav()
+const store = useBaseStore()
+const data = reactive({
+  findAddressListDialog: false,
+  moreOptionDialog: false,
+  outWebImgAccountDialog: false,
+  indicatorFixed: false,
+  isShowRightText: false,
+  isSearch: false,
+  searchKey: '',
+
+  currentSlideItemIndex: 0,
+  list: [
+    {
+      type: 1
+    },
+    {
+      type: 2
+    },
+    {
+      type: 3
+    },
+    {
+      type: 4
+    },
+    {
+      type: 5
     }
+  ]
+})
+
+onMounted(() => {})
+
+const maskDialog = computed({
+  get() {
+    return data.findAddressListDialog || data.outWebImgAccountDialog
   },
-  computed: {
-    maskDialog: {
-      get() {
-        return this.findAddressListDialog || this.outWebImgAccountDialog
-      },
-      set() {
-        this.findAddressListDialog = this.outWebImgAccountDialog = false
-      }
-    },
-    ...mapState(useBaseStore, ['friends'])
-  },
-  mounted() {},
-  methods: {
-    async search() {
-      this.$showLoading()
-      await this.$sleep(500)
-      this.$hideLoading()
-      this.isSearch = true
-    },
-    back() {
-      if (this.isShowRightText) {
-        this.isShowRightText = false
-      } else {
-        this.$back()
-      }
-    },
-    handleClick() {
-      this.outWebImgAccountDialog = true
-      this.moreOptionDialog = false
-    }
+  set() {
+    data.findAddressListDialog = data.outWebImgAccountDialog = false
   }
+})
+
+async function search() {
+  _showLoading()
+  await _sleep(500)
+  _hideLoading()
+  data.isSearch = true
+}
+
+function back() {
+  if (data.isShowRightText) {
+    data.isShowRightText = false
+  } else {
+    router.back()
+  }
+}
+
+function handleClick() {
+  data.outWebImgAccountDialog = true
+  data.moreOptionDialog = false
 }
 </script>
 

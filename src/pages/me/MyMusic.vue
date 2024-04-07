@@ -1,21 +1,21 @@
 <template>
   <div class="MyMusic">
     <div class="header">
-      <dy-back class="back" mode="light" img="back" @click="$back" />
+      <dy-back class="back" mode="light" img="back" @click="router.back()" />
       <IndicatorLight
         name="myMusicList"
         :tabTexts="['猜你爱听', '我的收藏']"
-        v-model:active-index="slideIndex"
+        v-model:active-index="data.slideIndex"
       >
       </IndicatorLight>
       <dy-back style="opacity: 0" mode="light" img="back" />
     </div>
-    <SlideHorizontal name="myMusicList" v-model:index="slideIndex">
+    <SlideHorizontal name="myMusicList" v-model:index="data.slideIndex">
       <SlideItem>
-        <GuessMusic :list="guessMusic" />
+        <GuessMusic :list="data.guessMusic" />
       </SlideItem>
       <SlideItem style="overflow: auto">
-        <Loading style="left: 150%" v-if="loading" />
+        <Loading style="left: 150%" v-if="data.loading" />
         <div v-else class="my-collect">
           <div class="wrapper">
             <div class="play-all">
@@ -30,25 +30,25 @@
               <div
                 class="item"
                 :key="index"
-                v-for="(item, index) in collectMusic"
+                v-for="(item, index) in data.collectMusic"
                 @click="page2PlayMusic(item)"
               >
                 <div class="left">
                   <div class="cover-wrapper">
-                    <img v-lazy="$imgPreview(item.cover)" alt="" class="cover" />
+                    <img v-lazy="_checkImgUrl(item.cover)" alt="" class="cover" />
                   </div>
                   <div class="desc">
                     <span class="name">{{ item.name }}</span>
                     <div class="author">{{ item.author }}</div>
                     <div class="desc-bottom">
                       <div class="tag">完整版</div>
-                      <div class="duration">{{ $duration(item.duration) }}</div>
+                      <div class="duration">{{ _duration(item.duration) }}</div>
                     </div>
                   </div>
                 </div>
                 <div class="right">
                   <img
-                    v-if="page2SlideIndex === index"
+                    v-if="data.page2SlideIndex === index"
                     class="playing-icon"
                     src="../../assets/img/icon/me/pinlv.gif"
                   />
@@ -59,32 +59,32 @@
               <span>推荐收藏</span>
               <div class="right">
                 <span class="auto-play">自动播放</span>
-                <switches v-model="isAutoPlay" theme="bootstrap" color="success"></switches>
+                <switches v-model="data.isAutoPlay" theme="bootstrap" color="success"></switches>
               </div>
             </div>
             <div class="recommend-list">
               <div
                 class="item"
                 :key="index"
-                v-for="(item, index) in recommendMusic"
+                v-for="(item, index) in data.recommendMusic"
                 @click="page2PlayMusic(item)"
               >
                 <div class="left">
                   <div class="cover-wrapper">
-                    <img v-lazy="$imgPreview(item.cover)" alt="" class="cover" />
+                    <img v-lazy="_checkImgUrl(item.cover)" alt="" class="cover" />
                   </div>
                   <div class="desc">
                     <span class="name">{{ item.name }}</span>
                     <div class="author">{{ item.author }}</div>
                     <div class="desc-bottom">
                       <div class="tag">完整版</div>
-                      <div class="duration">{{ $duration(item.duration) }}</div>
+                      <div class="duration">{{ _duration(item.duration) }}</div>
                     </div>
                   </div>
                 </div>
                 <div class="right">
                   <img
-                    v-if="page2SlideIndex - collectMusic.length === index"
+                    v-if="data.page2SlideIndex - data.collectMusic.length === index"
                     class="playing-icon"
                     src="../../assets/img/icon/me/pinlv.gif"
                   />
@@ -105,28 +105,32 @@
             </div>
           </div>
           <transition name="float-play">
-            <div v-if="isShowFloatPlay" class="playing" @click="isShowCollectDialog = true">
+            <div
+              v-if="data.isShowFloatPlay"
+              class="playing"
+              @click="data.isShowCollectDialog = true"
+            >
               <div class="playing-wrapper">
                 <div class="cover-wrapper">
-                  <img v-lazy="$imgPreview(currentMusic.cover)" alt="" class="cover" />
+                  <img v-lazy="_checkImgUrl(data.currentMusic.cover)" alt="" class="cover" />
                 </div>
-                <div class="name">{{ currentMusic.name }}</div>
+                <div class="name">{{ data.currentMusic.name }}</div>
                 <img
-                  v-show="page2IsPlay"
+                  v-show="data.page2IsPlay"
                   @click.stop="togglePage2Play"
                   class="option"
                   src="../../assets/img/icon/me/float-pause-one.png"
                   alt=""
                 />
                 <img
-                  v-show="!page2IsPlay"
+                  v-show="!data.page2IsPlay"
                   @click.stop="togglePage2Play"
                   class="option"
                   src="../../assets/img/icon/me/float-play.png"
                   alt=""
                 />
                 <img
-                  @click.stop="$no"
+                  @click.stop="_no"
                   class="menu-list"
                   src="../../assets/img/icon/me/music-list.png"
                   alt=""
@@ -138,104 +142,104 @@
       </SlideItem>
     </SlideHorizontal>
     <transition name="my-collect-dialog">
-      <div class="my-collect-dialog" v-show="isShowCollectDialog">
+      <div class="my-collect-dialog" v-show="data.isShowCollectDialog">
         <div class="dialog-header">
-          <dy-back class="close" mode="light" img="back" @click="isShowCollectDialog = false" />
+          <dy-back
+            class="close"
+            mode="light"
+            img="back"
+            @click="data.isShowCollectDialog = false"
+          />
           <span>我的收藏</span>
           <dy-back style="opacity: 0" mode="light" img="back" />
         </div>
         <CollectMusic
           ref="CollectMusic"
           :list="page2Music"
-          v-model:page2SlideIndex="page2SlideIndex"
+          v-model:page2SlideIndex="data.page2SlideIndex"
         />
       </div>
     </transition>
   </div>
 </template>
-<script>
-import { mapState } from 'pinia'
-import Switches from '../message/components/swtich/switches'
-import IndicatorLight from '../../components/slide/IndicatorLight'
-import GuessMusic from './components/GuessMusic'
-import CollectMusic from './components/CollectMusic'
-import Loading from '../../components/Loading'
+<script setup lang="ts">
+import Switches from '../message/components/swtich/switches.vue'
+import IndicatorLight from '../../components/slide/IndicatorLight.vue'
+import GuessMusic from './components/GuessMusic.vue'
+import Loading from '../../components/Loading.vue'
 import { userCollect } from '@/api/user'
 import { useBaseStore } from '@/store/pinia'
+import { computed, onMounted, reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useNav } from '@/utils/hooks/useNav'
+import { _checkImgUrl, _duration, _no } from '@/utils'
 
+defineOptions({
+  name: 'MyMusic'
+})
+
+const router = useRouter()
+const CollectMusic = ref()
+const data = reactive({
+  loading: false,
+  slideIndex: 1,
+  currentMusic: {
+    name: '告白气球',
+    mp3: 'https://mp32.9ku.com/upload/128/2017/02/05/858423.mp3',
+    cover: new URL('../../assets/img/music-cover/7.jpg', import.meta.url).href,
+    author: '周杰伦',
+    duration: 60,
+    use_count: 37441000,
+    is_collect: false,
+    is_play: false
+  },
+  collectMusic: [],
+  recommendMusic: [],
+  guessMusic: [],
+
+  isShowCollectDialog: false,
+  isShowFloatPlay: false,
+
+  isAutoPlay: true,
+  isCollect: false,
+
+  page2SlideIndex: -1,
+  page2IsPlay: false
+})
 //TODO 两个page页面的播放冲突未做
-export default {
-  name: 'MyMusic',
-  components: {
-    Switches,
-    IndicatorLight,
-    GuessMusic,
-    CollectMusic,
-    Loading
-  },
-  data() {
-    return {
-      loading: false,
-      slideIndex: 1,
-      currentMusic: {
-        name: '告白气球',
-        mp3: 'https://mp32.9ku.com/upload/128/2017/02/05/858423.mp3',
-        cover: new URL('../../assets/img/music-cover/7.jpg', import.meta.url).href,
-        author: '周杰伦',
-        duration: 60,
-        use_count: 37441000,
-        is_collect: false,
-        is_play: false
-      },
-      collectMusic: [],
-      recommendMusic: [],
-      guessMusic: [],
+onMounted(() => {
+  getCollectMusic()
+})
 
-      isShowCollectDialog: false,
-      isShowFloatPlay: false,
+const page2Music = computed(() => {
+  return data.collectMusic.concat(data.recommendMusic)
+})
 
-      isAutoPlay: true,
-      isCollect: false,
+function togglePage2Play() {
+  data.page2IsPlay = !data.page2IsPlay
+  if (data.page2IsPlay) {
+    CollectMusic.value.play(data.page2SlideIndex)
+  } else {
+    CollectMusic.value.pause()
+  }
+}
 
-      page2SlideIndex: -1,
-      page2IsPlay: false
-    }
-  },
-  computed: {
-    ...mapState(useBaseStore, ['bodyWidth']),
-    page2Music() {
-      return this.collectMusic.concat(this.recommendMusic)
-    }
-  },
-  created() {
-    this.getCollectMusic()
-  },
-  methods: {
-    togglePage2Play() {
-      this.page2IsPlay = !this.page2IsPlay
-      if (this.page2IsPlay) {
-        this.$refs.CollectMusic.play(this.page2SlideIndex)
-      } else {
-        this.$refs.CollectMusic.pause()
-      }
-    },
-    page2PlayMusic(item) {
-      this.currentMusic = item
-      this.isShowFloatPlay = true
-      this.page2IsPlay = true
-      this.page2SlideIndex = this.page2Music.findIndex((v) => v.name === item.name)
-      this.isShowCollectDialog = true
-      this.$refs.CollectMusic.play(this.page2SlideIndex)
-    },
-    async getCollectMusic() {
-      this.loading = true
-      let res = await userCollect()
-      this.loading = false
-      if (res.code === this.SUCCESS) {
-        this.collectMusic = res.data.music.list.slice(0, 2)
-        this.guessMusic = this.recommendMusic = res.data.music.list.slice(2, -1)
-      }
-    }
+function page2PlayMusic(item) {
+  data.currentMusic = item
+  data.isShowFloatPlay = true
+  data.page2IsPlay = true
+  data.page2SlideIndex = page2Music.value.findIndex((v) => v.name === item.name)
+  data.isShowCollectDialog = true
+  CollectMusic.value.play(data.page2SlideIndex)
+}
+
+async function getCollectMusic() {
+  data.loading = true
+  let res: any = await userCollect()
+  data.loading = false
+  if (res.success) {
+    data.collectMusic = res.data.music.list.slice(0, 2)
+    data.guessMusic = data.recommendMusic = res.data.music.list.slice(2, -1)
   }
 }
 </script>

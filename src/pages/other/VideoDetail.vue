@@ -1,7 +1,7 @@
 <template>
   <div id="video-detail">
     <div class="search-wrapper">
-      <Icon class="back" icon="icon-park-outline:left" @click="$back" />
+      <Icon class="back" icon="icon-park-outline:left" @click="router.back" />
       <div class="search" @click="nav('/home/search')">
         <div class="left">
           <Icon class="icon" icon="ion:search" />

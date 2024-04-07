@@ -3,9 +3,9 @@
     <BaseHeader>
       <template v-slot:center>
         <span class="f16">
-          <template v-if="mode === 'video'">视频</template>
-          <template v-if="mode === 'music'">音乐</template>
-          <template v-if="mode === 'chat'">私信</template>举报</span
+          <template v-if="data.mode === 'video'">视频</template>
+          <template v-if="data.mode === 'music'">音乐</template>
+          <template v-if="data.mode === 'chat'">私信</template>举报</span
         >
       </template>
     </BaseHeader>
@@ -16,7 +16,7 @@
         >
       </div>
       <div class="row">
-        <span> 举报理由：{{ type }} </span>
+        <span> 举报理由：{{ data.type }} </span>
       </div>
       <div class="l-row">
         <div class="notice">举报描述(选填)</div>
@@ -26,59 +26,61 @@
             id=""
             cols="30"
             rows="10"
-            v-model="desc"
+            v-model="data.desc"
             placeholder="详细描述举报理由"
           ></textarea>
         </div>
-        <div class="text-num">{{ desc.length }}/200</div>
+        <div class="text-num">{{ data.desc.length }}/200</div>
       </div>
       <div class="upload-photo">
-        <div class="photo-wrapper" :key="index" v-for="(item, index) in photos">
+        <div class="photo-wrapper" :key="index" v-for="(item, index) in data.photos">
           <img class="photo" :src="item" alt="" />
           <img
             class="close"
             src="../../assets/img/icon/components/light-close.png"
             alt=""
-            @click="photos.pop()"
+            @click="data.photos.pop()"
           />
         </div>
-        <div class="upload" @click="upload" v-if="photos.length !== 4">
+        <div class="upload" @click="upload" v-if="data.photos.length !== 4">
           <img src="../../assets/img/icon/home/camera-gray.png" alt="" />
-          <span>{{ photos.length }}/4</span>
+          <span>{{ data.photos.length }}/4</span>
         </div>
       </div>
 
-      <dy-button type="primary" @click="$no">提交</dy-button>
+      <dy-button type="primary" @click="_no">提交</dy-button>
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'Report',
-  props: {},
-  data() {
-    return {
-      type: '色情低俗',
-      mode: 'video',
-      desc: '',
-      photos: []
-    }
-  },
-  computed: {},
-  created() {
-    this.type = this.$route.query.type
-    this.mode = this.$route.query.mode
-  },
-  methods: {
-    async upload() {
-      this.$showLoading()
-      await this.$sleep(500)
-      this.$hideLoading()
-      this.photos.push(
-        new URL(`../../assets/img/poster/${this.photos.length}.jpg`, import.meta.url).href
-      )
-    }
-  }
+<script setup lang="ts">
+import { onMounted, reactive } from 'vue'
+import { useRoute } from 'vue-router'
+import { _hideLoading, _no, _showLoading, _sleep } from '@/utils'
+
+defineOptions({
+  name: 'SubmitReport'
+})
+
+const route = useRoute()
+const data = reactive({
+  type: '色情低俗',
+  mode: 'video',
+  desc: '',
+  photos: []
+})
+
+onMounted(() => {
+  data.type = route.query.type
+  data.mode = route.query.mode
+})
+
+async function upload() {
+  _showLoading()
+  await _sleep(500)
+  _hideLoading()
+  data.photos.push(
+    new URL(`../../assets/img/poster/${data.photos.length}.jpg`, import.meta.url).href
+  )
 }
 </script>
 

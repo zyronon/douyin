@@ -11,32 +11,28 @@
           <div class="left">已有20+位朋友加入抖音</div>
         </div>
         <div class="list">
-          <People :key="i" v-for="(item, i) in list" :people="item"></People>
+          <People :key="i" v-for="(item, i) in data.list" :people="item"></People>
         </div>
       </div>
       <div class="footer">为尊重用户选择，仅展示已授权用户</div>
     </div>
   </div>
 </template>
-<script>
-import People from './components/People'
+<script setup lang="ts">
+import People from './components/People.vue'
+import { reactive } from 'vue'
 
-export default {
-  name: 'AddressList',
-  components: {
-    People
-  },
-  data() {
-    return {
-      list: [
-        {
-          type: 5
-        }
-      ]
+defineOptions({
+  name: 'AddressList'
+})
+
+const data = reactive({
+  list: [
+    {
+      type: 5
     }
-  },
-  methods: {}
-}
+  ]
+})
 </script>
 
 <style scoped lang="less">

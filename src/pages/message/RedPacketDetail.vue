@@ -2,48 +2,43 @@
   <div id="RedPacketDetail">
     <BaseHeader mode="light">
       <template v-slot:right>
-        <span @click="$no" class="f14" style="color: rgb(193, 135, 79)">红包记录</span>
+        <span @click="_no" class="f14" style="color: rgb(193, 135, 79)">红包记录</span>
       </template>
     </BaseHeader>
     <div class="content">
       <div class="wrapper">
-        <img :src="_checkImgUrl(userinfo.cover_url[0].url_list[0])" alt="" class="avatar" />
-        <span class="belong">{{ userinfo.nickname }}的红包</span>
+        <img :src="_checkImgUrl(store.userinfo.cover_url[0].url_list[0])" alt="" class="avatar" />
+        <span class="belong">{{ store.userinfo.nickname }}的红包</span>
         <div class="password">大吉大利</div>
         <span class="money">0.01元</span>
         <!--        <span class="notice" @click="$nav('/me/money')">已存入我的零钱，可直接使用></span>-->
-        <span class="notice" @click="$no">已存入我的零钱，可直接使用></span>
+        <span class="notice" @click="_no">已存入我的零钱，可直接使用></span>
       </div>
       <img src="../../assets/img/icon/message/chat/money-detail-bg.png" alt="" class="bg" />
     </div>
   </div>
 </template>
-<script>
-import { mapState } from 'pinia'
+<script setup lang="ts">
 import { useBaseStore } from '@/store/pinia'
-import { _checkImgUrl } from '@/utils'
+import { _checkImgUrl, _no } from '@/utils'
+import { useRouter } from 'vue-router'
+import { useNav } from '@/utils/hooks/useNav'
 
-export default {
-  name: 'RedPacketDetail',
-  components: {},
-  props: {
-    modelValue: {
-      type: Boolean,
-      default() {
-        return false
-      }
+defineOptions({
+  name: 'RedPacketDetail'
+})
+
+defineProps({
+  modelValue: {
+    type: Boolean,
+    default() {
+      return false
     }
-  },
-  data() {
-    return {}
-  },
-  computed: {
-    ...mapState(useBaseStore, ['userinfo'])
-  },
-  watch: {},
-  created() {},
-  methods: { _checkImgUrl }
-}
+  }
+})
+const router = useRouter()
+const nav = useNav()
+const store = useBaseStore()
 </script>
 
 <style scoped lang="less">

@@ -5,16 +5,16 @@
         <span class="f16">任务通知</span>
       </template>
       <template v-slot:right>
-        <span class="f14" @click="$nav('/message/notice-setting', { type: 'TASK' })">通知设置</span>
+        <span class="f14" @click="nav('/message/notice-setting', { type: 'TASK' })">通知设置</span>
       </template>
     </BaseHeader>
-    <Loading v-if="loading" />
+    <Loading v-if="data.loading" />
     <div class="content" v-else>
       <Scroll ref="mainScroll">
         <div class="list">
           <NoMore />
           <!--TODO 超过3行显示全文-->
-          <div class="item" :key="i" v-for="(item, i) in list" @click="goDetail(item)">
+          <div class="item" :key="i" v-for="(item, i) in data.list" @click="goDetail(item)">
             <div class="header">
               <div class="left">
                 <img src="../../../assets/img/icon/message/task.webp" alt="" />
@@ -22,7 +22,7 @@
               <div class="right">
                 <span>成长任务</span>
                 <img
-                  @click.stop="isShowSetting = true"
+                  @click.stop="data.isShowSetting = true"
                   src="../../../assets/img/icon/menu-gray.png"
                   alt=""
                 />
@@ -41,7 +41,7 @@
           </div>
         </div>
       </Scroll>
-      <div class="footer" @click="$no">查看更多任务</div>
+      <div class="footer" @click="_no">查看更多任务</div>
     </div>
 
     <from-bottom-dialog
@@ -49,95 +49,89 @@
       mode="white"
       mask-mode="dark"
       :show-heng-gang="false"
-      v-model="isShowSetting"
+      v-model="data.isShowSetting"
       height="160rem"
     >
       <div class="setting-dialog">
         <div class="row disabled">成长任务</div>
-        <div class="row" @click="handleClick">{{ openNotice ? '关闭' : '开启' }}消息免打扰</div>
+        <div class="row" @click="handleClick">
+          {{ data.openNotice ? '关闭' : '开启' }}消息免打扰
+        </div>
         <div class="space"></div>
-        <div class="row" @click="isShowSetting = false">取消</div>
+        <div class="row" @click="data.isShowSetting = false">取消</div>
       </div>
     </from-bottom-dialog>
   </div>
 </template>
-<script>
-import { nextTick } from 'vue'
-import FromBottomDialog from '../../../components/dialog/FromBottomDialog'
-import Scroll from '../../../components/Scroll'
-import BasePage from '../../BasePage'
+<script setup lang="ts">
+import { nextTick, onMounted, reactive } from 'vue'
+import FromBottomDialog from '@/components/dialog/FromBottomDialog.vue'
+import Scroll from '@/components/Scroll.vue'
+import { useNav } from '@/utils/hooks/useNav'
+import { _no, _sleep } from '@/utils'
 
-export default {
-  extends: BasePage,
-  name: 'SystemNotice',
-  components: {
-    FromBottomDialog,
-    Scroll
-  },
-  data() {
-    return {
-      loading: false,
-      isShowSetting: false,
-      openNotice: false,
-      list: [
-        {
-          type: 1,
-          title: '发作品得流量',
-          detail: 'xxx',
-          time: '2021-10-12 12:12',
-          content:
-            '4.24-4.28，公开发布1个道具作品，即得50-100的额外流量。快来发布视频，获得更多关注'
-        },
-        {
-          type: 1,
-          title: '发作品得流量',
-          detail: 'xxx',
-          time: '2021-10-12 12:12',
-          content:
-            '4.24-4.28，公开发布1个道具作品，即得50-100的额外流量。快来发布视频，获得更多关注'
-        },
-        {
-          type: 1,
-          title: '发作品得流量',
-          detail: 'xxx',
-          time: '2021-10-12 12:12',
-          content:
-            '4.24-4.28，公开发布1个道具作品，即得50-100的额外流量。快来发布视频，获得更多关注'
-        },
-        {
-          type: 1,
-          title: '发作品得流量',
-          detail: 'xxx',
-          time: '2021-10-12 12:12',
-          content:
-            '4.24-4.28，公开发布1个道具作品，即得50-100的额外流量。快来发布视频，获得更多关注'
-        }
-      ]
-    }
-  },
-  watch: {},
-  computed: {},
-  created() {
-    this.getData()
-  },
-  methods: {
-    handleClick() {
-      this.openNotice = !this.openNotice
-      this.isShowSetting = false
+defineOptions({
+  name: 'TaskNotice'
+})
+
+const nav = useNav()
+const data = reactive({
+  loading: false,
+  isShowSetting: false,
+  openNotice: false,
+  list: [
+    {
+      type: 1,
+      title: '发作品得流量',
+      detail: 'xxx',
+      time: '2021-10-12 12:12',
+      content: '4.24-4.28，公开发布1个道具作品，即得50-100的额外流量。快来发布视频，获得更多关注'
     },
-    async getData() {
-      this.loading = true
-      await this.$sleep(700)
-      this.loading = false
-      await nextTick()
-      this.$refs.mainScroll.scrollBottom()
+    {
+      type: 1,
+      title: '发作品得流量',
+      detail: 'xxx',
+      time: '2021-10-12 12:12',
+      content: '4.24-4.28，公开发布1个道具作品，即得50-100的额外流量。快来发布视频，获得更多关注'
     },
-    goDetail(item) {
-      item.read = true
-      if (item.detail) {
-        this.$no()
-      }
+    {
+      type: 1,
+      title: '发作品得流量',
+      detail: 'xxx',
+      time: '2021-10-12 12:12',
+      content: '4.24-4.28，公开发布1个道具作品，即得50-100的额外流量。快来发布视频，获得更多关注'
+    },
+    {
+      type: 1,
+      title: '发作品得流量',
+      detail: 'xxx',
+      time: '2021-10-12 12:12',
+      content: '4.24-4.28，公开发布1个道具作品，即得50-100的额外流量。快来发布视频，获得更多关注'
     }
+  ]
+})
+
+onMounted(() => {
+  getData()
+})
+
+function handleClick() {
+  data.openNotice = !data.openNotice
+  data.isShowSetting = false
+}
+
+async function getData() {
+  data.loading = true
+  await _sleep(700)
+  data.loading = false
+  await nextTick()
+  // data.$refs.mainScroll.scrollBottom()
+}
+
+function goDetail(item: any) {
+  item.read = true
+  if (item.detail) {
+    _no()
   }
 }
 </script>

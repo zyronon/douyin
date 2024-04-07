@@ -8,34 +8,27 @@
     <div class="content">
       <div class="request">
         <div class="list">
-          <div class="item" :key="i" v-for="(item, i) in friends.all">
+          <div class="item" :key="i" v-for="(item, i) in store.friends.all">
             <div class="left">
-              <img :src="$imgPreview(item.avatar)" />
+              <img :src="_checkImgUrl(item.avatar)" />
               <span class="name">{{ item.name }}</span>
             </div>
-            <span class="time">{{ $dateFormat(item.lastLoginTime, 'D') }}</span>
+            <span class="time">{{ _dateFormat(item.lastLoginTime, 'D') }}</span>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-<script>
-import { mapState } from 'pinia'
+<script setup lang="ts">
 import { useBaseStore } from '@/store/pinia'
+import { _checkImgUrl, _dateFormat } from '../../utils'
 
-export default {
-  name: 'MyRequestUpdate',
-  components: {},
-  data() {
-    return {}
-  },
-  computed: {
-    ...mapState(useBaseStore, ['friends'])
-  },
-  created() {},
-  methods: {}
-}
+const store = useBaseStore()
+
+defineOptions({
+  name: 'MyRequestUpdate'
+})
 </script>
 
 <style scoped lang="less">

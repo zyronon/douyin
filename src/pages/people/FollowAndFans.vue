@@ -2,14 +2,14 @@
   <div class="FollowAndFans" id="FollowAndFans">
     <BaseHeader backMode="light">
       <template v-slot:center>
-        <span class="f14">{{ userinfo.nickname }}</span>
+        <span class="f14">{{ store.userinfo.nickname }}</span>
       </template>
       <template v-slot:right>
         <div>
           <img
             src="../../assets/img/icon/people/add-user.png"
             style="width: 2rem"
-            @click="$nav('/people/find-acquaintance')"
+            @click="nav('/people/find-acquaintance')"
           />
         </div>
       </template>
@@ -19,23 +19,23 @@
         <Indicator
           tabStyleWidth="50%"
           :tabTexts="['关注', '粉丝']"
-          v-model:active-index="slideIndex"
+          v-model:active-index="data.slideIndex"
         >
         </Indicator>
       </div>
       <SlideHorizontal
-        v-model:index="slideIndex"
+        v-model:index="data.slideIndex"
         style="height: calc(var(--vh, 1vh) * 100 - 111rem)"
       >
         <SlideItem class="tab1">
           <Search
-            v-model="searchKey"
+            v-model="data.searchKey"
             placeholder="搜索用户备注或名字"
             :is-show-right-text="false"
           />
-          <div class="is-search" v-if="searchKey">
-            <div class="search-result" v-if="searchFriends.length">
-              <People :key="i" v-for="(item, i) in searchFriends" :people="item"></People>
+          <div class="is-search" v-if="data.searchKey">
+            <div class="search-result" v-if="data.searchFriends.length">
+              <People :key="i" v-for="(item, i) in data.searchFriends" :people="item"></People>
             </div>
             <div class="no-result" v-else>
               <img src="../../assets/img/icon/no-result.png" alt="" />
@@ -45,75 +45,60 @@
           </div>
           <div class="no-search" v-else>
             <div class="title">我的关注</div>
-            <People :key="i" v-for="(item, i) in friends.all" :people="item"></People>
+            <People :key="i" v-for="(item, i) in store.friends.all" :people="item"></People>
           </div>
         </SlideItem>
         <SlideItem class="tab2">
-          <People :key="i" v-for="(item, i) in friends.all" :people="item"></People>
+          <People :key="i" v-for="(item, i) in store.friends.all" :people="item"></People>
           <NoMore />
         </SlideItem>
       </SlideHorizontal>
     </div>
   </div>
 </template>
-<script>
-import People from './components/People'
-import Search from '../../components/Search'
-import Indicator from '../../components/slide/Indicator'
-import { mapState } from 'pinia'
+<script setup lang="ts">
+import People from './components/People.vue'
+import Search from '../../components/Search.vue'
+import Indicator from '../../components/slide/Indicator.vue'
 import { useBaseStore } from '@/store/pinia'
+import { onMounted, reactive, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useNav } from '@/utils/hooks/useNav'
 
-export default {
-  name: 'FindAcquaintance',
-  components: {
-    People,
-    Search,
-    Indicator
-  },
-  data() {
-    return {
-      isSearch: false,
-      searchKey: '',
+defineOptions({
+  name: 'FindAcquaintance'
+})
 
-      slideIndex: 0,
-      searchFriends: []
-    }
-  },
-  computed: {
-    ...mapState(useBaseStore, ['friends', 'userinfo'])
-  },
-  watch: {
-    searchKey(newVal) {
-      if (newVal) {
-        //TODO 搜索时仅仅判断是否包含了对应字符串，抖音做了拼音判断的
-        this.searchFriends = this.friends.all.filter((v) => {
-          if (v.name.includes(newVal)) return true
-          return v.account.includes(newVal)
-        })
-      } else {
-        this.searchFriends = []
-      }
-    }
-  },
-  created() {
-    this.slideIndex = ~~this.$route.query.type
-  },
-  methods: {
-    async search() {
-      this.$showLoading()
-      await this.$sleep(500)
-      this.$hideLoading()
-      this.isSearch = true
-    },
-    back() {
-      if (this.isShowRightText) {
-        this.isShowRightText = false
-      } else {
-        this.$back()
-      }
+const router = useRouter()
+const route = useRoute()
+const nav = useNav()
+const store = useBaseStore()
+const data = reactive({
+  isSearch: false,
+  searchKey: '',
+
+  slideIndex: 0,
+  searchFriends: []
+})
+
+onMounted(() => {
+  data.slideIndex = ~~route.query.type
+})
+
+watch(
+  () => data.searchKey,
+  (newVal) => {
+    if (newVal) {
+      //TODO 搜索时仅仅判断是否包含了对应字符串，抖音做了拼音判断的
+      data.searchFriends = store.friends.all.filter((v) => {
+        if (v.name.includes(newVal)) return true
+        return v.account.includes(newVal)
+      })
+    } else {
+      data.searchFriends = []
     }
   }
-}
+)
 </script>
 
 <style scoped lang="less">

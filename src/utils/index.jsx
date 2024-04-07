@@ -677,5 +677,5 @@ export function _notice(val) {
 }
 
 export function _no() {
-  this.$notice('未实现')
+  _notice('未实现')
 }
