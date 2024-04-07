@@ -32,7 +32,7 @@
 
 Vercel:<http://dy.ttentau.top/>(China recomienda visitar esto)
 
-Netlificar:<https://douyins.netlify.app/>(Se recomienda visitar esto para áreas fuera de China)
+Netlificar:<https://douyins.netlify.app/>(Recomiende visitar esto para áreas fuera de China)
 
 Android Apk:<https://github.com/zyronon/douyin/releases>
 
@@ -61,7 +61,7 @@ npm run dev
 
 Abra su navegador y visite:<http://127.0.0.1:3000>
 
-**Nota: el navegador de la PC debe cambiarse al modo móvil, primero presione`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente**
+**Nota: La PC debe cambiar el navegador al modo móvil, primero presione`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente**
 
 ## Enlace
 
@@ -93,12 +93,12 @@ El contenido anterior es toda información pública en Internet.
 
 ## Funciones y sugerencias
 
-El proyecto se encuentra actualmente en las primeras etapas de desarrollo y continuamente se agregan nuevas características. Si tiene alguna característica o sugerencia para el software, no dude en contactarnos.`Issues`criado en
+El proyecto se encuentra actualmente en las primeras etapas de desarrollo y continuamente se agregan nuevas funciones. Si tiene alguna característica o sugerencia para el software, no dude en contactarnos.`Issues`criado en
 Si también le gustan las ideas de diseño de este software, envíelas.`PR`, ¡Muchas gracias por tu apoyo!
 
 ## contáctame
 
-Puedes contactar a mi correo electrónico<a href="mailto:zyronon@163.com">zyronon@163.com</a>
+Puedes contactar a mi correo<a href="mailto:zyronon@163.com">zyronon@163.com</a>
 
 > Comparta mis otros proyectos de código abierto:
 >
