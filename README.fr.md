@@ -77,7 +77,7 @@ La vidéo provient des célébrités Douyin suivantes
 -   `杨老虎 🐯（磕穿下巴掉牙版）`:<https://v.douyin.com/iYRA56de/>
 -   `条子`:<https://v.douyin.com/iYRAaqjr/>
 -   `达莎 Digi`：<https://v.douyin.com/iYRA6rwT/>
--   `小橙子`: <https://v.douyin.com/iYRAnudw/>
+-   `小橙子`:<https://v.douyin.com/iYRAnudw/>
 -   `南恬`:<https://v.douyin.com/iYRAbKm3/>
 -   `小霸宠牛排 🥩`：<https://v.douyin.com/iYRSosVB/>
 -   `奶茶妹 ◕🌱`:<https://v.douyin.com/iYRACKhP/>
