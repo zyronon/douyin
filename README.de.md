@@ -38,7 +38,7 @@ Android-Apk:<https://github.com/zyronon/douyin/releases>
 
 **Beachten**：`PC`Sie müssen den Browser in den mobilen Modus schalten, zuerst drücken`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen
 
-**Beachten**: Bitte benutzen Sie Ihr Mobiltelefon[über Browser](https://viayoo.com/zh-cn/)oder Chrome-Browservorschau. Andere Browser erzwingen möglicherweise, dass das Video im Vollbildmodus angezeigt wird, was dazu führt, dass es nicht richtig angezeigt wird.
+**注意**: Bitte benutzen Sie Ihr Mobiltelefon[über Browser](https://viayoo.com/zh-cn/)oder Chrome-Browservorschau. Andere Browser erzwingen möglicherweise, dass das Video im Vollbildmodus angezeigt wird, was dazu führt, dass es nicht richtig angezeigt wird.
 
 ## Haftungsausschluss
 
