@@ -98,7 +98,7 @@ Si también le gustan las ideas de diseño de este software, envíelas.`PR`, ¡M
 
 ## contáctame
 
-Puedes contactar a mi correo<a href="mailto:zyronon@163.com">zyronon@163.com</a>
+您可以联系我的邮箱 <a href="mailto:zyronon@163.com">zyronon@163.com</a>
 
 > Comparta mis otros proyectos de código abierto:
 >
