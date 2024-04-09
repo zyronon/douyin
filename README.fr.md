@@ -32,7 +32,7 @@
 
 Vercel :<http://dy.ttentau.top/>(La Chine recommande de visiter ceci)
 
-Netlifier :<https://douyins.netlify.app/>(Je recommande de visiter ceci pour les régions en dehors de la Chine)
+Netlifier :<https://douyins.netlify.app/>(Recommandé de visiter ceci pour les zones en dehors de la Chine)
 
 Android Apk :<https://github.com/zyronon/douyin/releases>
 
@@ -61,7 +61,7 @@ npm run dev
 
 Ouvrez votre navigateur et visitez :<http://127.0.0.1:3000>
 
-**Remarque : le PC doit passer le navigateur en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement**
+**Remarque : le navigateur du PC doit être basculé en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement**
 
 ## Lien
 
