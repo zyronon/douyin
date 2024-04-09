@@ -7,9 +7,11 @@ const BASE_URL_MAP = {
   DEV: '',
   PROD: '',
   GP_PAGES: '/dist',
+  // GP_PAGES: '/douyin',
   UNI: 'https://dy.ttentau.top'
 }
 
+export const IS_GP_PAGES = import.meta.env.VITE_ENV === 'GP_PAGES'
 export const BASE_URL = BASE_URL_MAP[import.meta.env.VITE_ENV]
 export const IMG_URL = BASE_URL + '/images/'
 export const FILE_URL = BASE_URL + '/data/'
