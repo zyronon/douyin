@@ -6,8 +6,8 @@ export default {
 const BASE_URL_MAP = {
   DEV: '',
   PROD: '',
-  GP_PAGES: '/dist',
-  // GP_PAGES: '/douyin',
+  // GP_PAGES: '/dist',
+  GP_PAGES: '/douyin',
   UNI: 'https://dy.ttentau.top'
 }
 
