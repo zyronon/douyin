@@ -8,6 +8,7 @@
     "serve": "vite --host",
     "build": "vite build --mode prod",
     "build-uni-app": "vite build --mode uni",
+    "build-gp-pages": "vite build --mode gp_pages",
     "build-only": "vite build",
     "build-check": "run-p type-check \"build-only {@}\" --",
     "type-check": "vue-tsc --build --force",
