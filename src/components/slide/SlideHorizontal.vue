@@ -40,7 +40,8 @@ const state = reactive({
   next: false,
   start: { x: 0, y: 0, time: 0 },
   move: { x: 0, y: 0 },
-  wrapper: { width: 0, height: 0, childrenLength: 0 }
+  wrapper: { width: 0, height: 0, childrenLength: 0 },
+  isDown: false
 })
 
 watch(
@@ -73,11 +74,11 @@ onUnmounted(() => {
   ob.disconnect()
 })
 
-function touchStart(e: TouchEvent) {
+function touchStart(e: PointerEvent) {
   slideTouchStart(e, wrapperEl.value, state)
 }
 
-function touchMove(e: TouchEvent) {
+function touchMove(e: PointerEvent) {
   slideTouchMove(
     e,
     wrapperEl.value,
@@ -91,7 +92,7 @@ function touchMove(e: TouchEvent) {
   )
 }
 
-function touchEnd(e: TouchEvent) {
+function touchEnd(e: PointerEvent) {
   slideTouchEnd(e, state, canNext, () => {})
   slideReset(wrapperEl.value, state, SlideType.HORIZONTAL, emit)
 }
@@ -109,9 +110,9 @@ function canNext(isNext: boolean) {
     <div
       class="slide-list"
       ref="wrapperEl"
-      @touchstart="touchStart"
-      @touchmove="touchMove"
-      @touchend="touchEnd"
+      @pointerdown="touchStart"
+      @pointermove="touchMove"
+      @pointerup="touchEnd"
     >
       <slot></slot>
     </div>

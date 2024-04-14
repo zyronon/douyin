@@ -21,8 +21,9 @@ export function slideInit(el, state, type) {
 
 export function slideTouchStart(e, el, state) {
   Utils.$setCss(el, 'transition-duration', `0ms`)
-  state.start.x = e.touches[0].pageX
-  state.start.y = e.touches[0].pageY
+  state.isDown = true
+  state.start.x = e.pageX
+  state.start.y = e.pageY
   state.start.time = Date.now()
 }
 
@@ -55,8 +56,11 @@ export function slideTouchMove(
   notNextCb,
   slideOtherDirectionCb = null
 ) {
-  state.move.x = e.touches[0].pageX - state.start.x
-  state.move.y = e.touches[0].pageY - state.start.y
+  if (!state.isDown) {
+    return
+  }
+  state.move.x = e.pageX - state.start.x
+  state.move.y = e.pageY - state.start.y
 
   let isNext = type === SlideType.HORIZONTAL ? state.move.x < 0 : state.move.y < 0
 
@@ -99,6 +103,8 @@ export function slideTouchEnd(
   doNotNextCb,
   type = SlideType.HORIZONTAL
 ) {
+  state.isDown = false
+
   let isHorizontal = type === SlideType.HORIZONTAL
   let isNext = isHorizontal ? state.move.x < 0 : state.move.y < 0
 
