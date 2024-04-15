@@ -39,9 +39,9 @@
     <div
       class="main"
       ref="main"
-      @touchstart="touchStart"
-      @touchmove="touchMove"
-      @touchend="touchEnd"
+      @pointerdown="touchStart"
+      @pointermove="touchMove"
+      @pointerup="touchEnd"
     >
       <!--   src="@/assets/img/header-bg.png"   -->
       <header>
@@ -193,7 +193,7 @@
           <span>你可能感兴趣</span>
           <img src="@/assets/img/icon/about-gray.png" />
         </div>
-        <div class="friends" @touchmove="stop">
+        <div class="friends" @pointermove="stop">
           <div class="friend" :key="i" v-for="(item, i) in baseStore.friends.all">
             <img
               :style="item.select ? 'opacity: .5;' : ''"
@@ -291,7 +291,8 @@ const state = reactive({
   canMoveMaxHeight: document.body.clientHeight / 4,
   //是否自动放大Cover
   isAutoScaleCover: false,
-  uid: null
+  uid: null,
+  isDown: false
 })
 
 watch(
@@ -351,9 +352,10 @@ function scroll() {
   }
 }
 
-function touchStart(e) {
-  state.start.x = e.touches[0].pageX
-  state.start.y = e.touches[0].pageY
+function touchStart(e: PointerEvent) {
+  state.isDown = true
+  state.start.x = e.pageX
+  state.start.y = e.pageY
   state.start.time = Date.now()
   state.isTop = page.value.scrollTop === 0
   if (state.isTop) {
@@ -362,9 +364,12 @@ function touchStart(e) {
   // console.log('touchStart', page.value.scrollTop)
 }
 
-function touchMove(e) {
-  state.move.x = e.touches[0].pageX - state.start.x
-  state.move.y = e.touches[0].pageY - state.start.y
+function touchMove(e: PointerEvent) {
+  if (!state.isDown) {
+    return
+  }
+  state.move.x = e.pageX - state.start.x
+  state.move.y = e.pageY - state.start.y
   let isNext = state.move.y < 0
 
   // console.log('touchMove', page.value.scrollTop)
@@ -377,6 +382,7 @@ function touchMove(e) {
 }
 
 function touchEnd() {
+  state.isDown = false
   if (state.isTop) {
     state.isTop = false
     cover.value.style.transition = 'all .3s'
