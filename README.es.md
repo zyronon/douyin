@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`es una parodia`抖音|TikTok`proyecto de vídeo corto móvil, que se basa en[Vista](https://cn.vuejs.org/)、[Rápidamente](https://cn.vitejs.dev/)lograr. Usado lo último`Vue`Pila de tecnología FamilyMart. Los datos de API se guardan localmente en el proyecto y el video se recopila de`抖音|TikTok`, el atlas se recoge de`小红书|Xiaohongshu`,aprobar[adaptador-simulado-axios](https://github.com/ctimmerm/axios-mock-adapter)La biblioteca intercepta la API y devuelve datos json locales para simular solicitudes de back-end reales.
+`douyin-vue`es una parodia`抖音|TikTok`proyecto de vídeo corto móvil, que se basa en[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)lograr. Usado lo último`Vue`Pila de tecnología FamilyMart. Los datos de API se guardan localmente en el proyecto y el video se recopila de`抖音|TikTok`，图集采集自`小红书|Xiaohongshu`,aprobar[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La biblioteca intercepta la API y devuelve datos json locales para simular solicitudes de back-end reales.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -28,21 +28,23 @@
 <img width="150px" src='docs/imgs/img-5.jpg' />
 </div>
 
-## Acceso en linea
+## 在线访问
 
 Vercel:<http://dy.ttentau.top/>(China recomienda visitar esto)
 
-Netlificar:<https://douyins.netlify.app/>(Recomiende visitar esto para áreas fuera de China)
+Netlificar:<https://douyins.netlify.app/>(Se recomienda visitar esto para áreas fuera de China)
+
+Android Apk:<https://github.com/zyronon/douyin/releases>
 
 **Aviso**：`PC`Debes cambiar el navegador al modo móvil, primero presiona`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente
 
-**Aviso**:Por favor utilice el teléfono móvil[a través del navegador](https://viayoo.com/zh-cn/)o vista previa del navegador Chrome. Otros navegadores pueden forzar el vídeo a pantalla completa, lo que hace que no se muestre correctamente.
+**Aviso**: Por favor utilice su teléfono móvil[a través del navegador](https://viayoo.com/zh-cn/)o vista previa del navegador Chrome. Otros navegadores pueden forzar el vídeo a pantalla completa, lo que hace que no se muestre correctamente.
 
 ## Descargo de responsabilidad
 
 Este proyecto es sólo para estudio e investigación, no para uso comercial.
 
-## correr
+## 运行
 
 ### Implemente rápidamente en Vercel
 
@@ -59,31 +61,31 @@ npm run dev
 
 Abra su navegador y visite:<http://127.0.0.1:3000>
 
-**Nota: La PC debe cambiar el navegador al modo móvil, primero presione`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente**
+**Nota: el navegador de la PC debe cambiarse al modo móvil, primero presione`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente**
 
 ## Enlace
 
--   China de código abierto:<https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g>
--   V2EX:<https://www.v2ex.com/t/1028678>
--   pepitas:<https://juejin.cn/post/7352813352051687458>
+-   `开源中国`:<https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g>
+-   `V2EX`:<https://www.v2ex.com/t/1028678>
+-   `掘金`:<https://juejin.cn/post/7352813352051687458>
 
 ## Fuentes de datos
 
 El video proviene de las siguientes celebridades de Douyin.
 
--   Soy Xiangxiu 🐂🍺:<https://v.douyin.com/iYRAPA2L/>
--   Yang Laohu 🐯 (Versión con mentón noqueado y dientes perdidos):<https://v.douyin.com/iYRA56de/>
--   Nota:<https://v.douyin.com/iYRAaqjr/>
--   Dasha Digi:<https://v.douyin.com/iYRA6rwT/>
--   Naranja pequeña:<https://v.douyin.com/iYRAnudw/>
--   Nan Tian:<https://v.douyin.com/iYRAbKm3/>
--   Filete de mascota Xiaoba 🥩:<https://v.douyin.com/iYRSosVB/>
--   Chica del té con leche ◕🌱:<https://v.douyin.com/iYRACKhP/>
--   Soy Lan Lan:<https://v.douyin.com/iYRAQM1C/>
--   周民艺 fueron:<https://v.douyin.com/iYRAQs4h/>
--   Liu Siyao agradable:<https://v.douyin.com/iYRAaERn/>
--   Elfo Peng Shiliu:<https://v.douyin.com/iYRAHrVG/>
--   Li Ziqi:<https://v.douyin.com/iYRA5B88/>
+-   `我是香秀 🐂🍺`:<https://v.douyin.com/iYRAPA2L/>
+-   `杨老虎 🐯（磕穿下巴掉牙版）`:<https://v.douyin.com/iYRA56de/>
+-   `条子`:<https://v.douyin.com/iYRAaqjr/>
+-   `达莎 Digi`：<https://v.douyin.com/iYRA6rwT/>
+-   `小橙子`:<https://v.douyin.com/iYRAnudw/>
+-   `南恬`:<https://v.douyin.com/iYRAbKm3/>
+-   `小霸宠牛排 🥩`：<https://v.douyin.com/iYRSosVB/>
+-   `奶茶妹 ◕🌱`:<https://v.douyin.com/iYRACKhP/>
+-   `我才是岚岚`:<https://v.douyin.com/iYRAQM1C/>
+-   `周憬艺 ziran`:<https://v.douyin.com/iYRAQs4h/>
+-   `刘思瑶 nice`:<https://v.douyin.com/iYRAaERn/>
+-   `彭十六 elf`:<https://v.douyin.com/iYRAHrVG/>
+-   `李子柒`:<https://v.douyin.com/iYRA5B88/>
 
 Imagen de las notas públicas de Xiaohongshu.
 
@@ -91,8 +93,8 @@ El contenido anterior es toda información pública en Internet.
 
 ## Funciones y sugerencias
 
-El proyecto se encuentra actualmente en las primeras etapas de desarrollo y continuamente se agregan nuevas características. Si tiene alguna característica o sugerencia para el software, no dude en contactarnos.`Issues`criado en
-Si también le gustan las ideas de diseño de este software, envíelas.`PR`，非常感谢你对我们的支持！
+El proyecto se encuentra actualmente en las primeras etapas de desarrollo y continuamente se agregan nuevas funciones. Si tiene alguna característica o sugerencia para el software, no dude en contactarnos.`Issues`criado en
+Si también le gustan las ideas de diseño de este software, envíelas.`PR`, ¡Muchas gracias por tu apoyo!
 
 ## contáctame
 
