@@ -1,9 +1,10 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import routes from './routes'
 import { useBaseStore } from '@/store/pinia'
+import { IS_GP_PAGES } from '@/config'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: IS_GP_PAGES ? createWebHashHistory() : createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
     // console.log('savedPosition', savedPosition)

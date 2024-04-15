@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`es una parodia`抖音|TikTok`proyecto de vídeo corto móvil, que se basa en[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)lograr. Usado lo último`Vue`Pila de tecnología FamilyMart. Los datos de API se guardan localmente en el proyecto y el video se recopila de`抖音|TikTok`, el atlas se recoge de`小红书|Xiaohongshu`,aprobar[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La biblioteca intercepta la API y devuelve datos json locales para simular solicitudes de back-end reales.
+`douyin-vue`es una parodia`抖音|TikTok`proyecto de vídeo corto móvil, que se basa en[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)lograr. Usado lo último`Vue`Pila de tecnología FamilyMart. Los datos de API se guardan localmente en el proyecto y el video se recopila de`抖音|TikTok`，图集采集自`小红书|Xiaohongshu`,aprobar[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La biblioteca intercepta la API y devuelve datos json locales para simular solicitudes de back-end reales.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -28,11 +28,11 @@
 <img width="150px" src='docs/imgs/img-5.jpg' />
 </div>
 
-## Acceso en linea
+## 在线访问
 
 Vercel:<http://dy.ttentau.top/>(China recomienda visitar esto)
 
-Netlificar:<https://douyins.netlify.app/>(Recomiende visitar esto para áreas fuera de China)
+Netlificar:<https://douyins.netlify.app/>(Se recomienda visitar esto para áreas fuera de China)
 
 Android Apk:<https://github.com/zyronon/douyin/releases>
 
@@ -44,7 +44,7 @@ Android Apk:<https://github.com/zyronon/douyin/releases>
 
 Este proyecto es sólo para estudio e investigación, no para uso comercial.
 
-## correr
+## 运行
 
 ### Implemente rápidamente en Vercel
 
@@ -61,7 +61,7 @@ npm run dev
 
 Abra su navegador y visite:<http://127.0.0.1:3000>
 
-**Nota: La PC debe cambiar el navegador al modo móvil, primero presione`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente**
+**Nota: el navegador de la PC debe cambiarse al modo móvil, primero presione`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente**
 
 ## Enlace
 
@@ -98,7 +98,7 @@ Si también le gustan las ideas de diseño de este software, envíelas.`PR`, ¡M
 
 ## contáctame
 
-您可以联系我的邮箱 <a href="mailto:zyronon@163.com">zyronon@163.com</a>
+Puedes contactar a mi correo<a href="mailto:zyronon@163.com">zyronon@163.com</a>
 
 > Comparta mis otros proyectos de código abierto:
 >
