@@ -35,7 +35,8 @@ const state = reactive({
   next: false,
   start: { x: 0, y: 0, time: 0 },
   move: { x: 0, y: 0 },
-  wrapper: { width: 0, height: 0, childrenLength: 0 }
+  wrapper: { width: 0, height: 0, childrenLength: 0 },
+  isDown: false
 })
 
 watch(
@@ -85,9 +86,9 @@ function canNext(isNext) {
     <div
       class="slide-list flex-direction-column"
       ref="wrapperEl"
-      @touchstart="touchStart"
-      @touchmove="touchMove"
-      @touchend="touchEnd"
+      @pointerdown="touchStart"
+      @pointermove="touchMove"
+      @pointerup="touchEnd"
     >
       <slot></slot>
     </div>
