@@ -102,12 +102,12 @@ import {
   watch
 } from 'vue'
 import {
-  getSlideDistance,
+  getSlideOffset,
   slideInit,
   slideReset,
-  slideTouchEnd,
-  slideTouchMove,
-  slideTouchStart
+  slideTouchUp,
+  slidePointerMove,
+  slidePointerDown
 } from '@/utils/slide'
 import { SlideAlbumOperationStatus, SlideItemPlayStatus, SlideType } from '../../utils/const_var'
 import ItemToolbar from './ItemToolbar'
@@ -243,6 +243,8 @@ const wrapperEl = ref(null)
 let lockDatetime = 0
 
 const state = reactive({
+  type: SlideType.HORIZONTAL,
+  judgeValue: 20,
   name: 'SlideHorizontal',
   localIndex: 0,
   needCheck: true,
@@ -354,7 +356,7 @@ watch(
     GM.$setCss(
       wrapperEl.value,
       'transform',
-      `translate3d(${getSlideDistance(state, SlideType.HORIZONTAL)}px, 0, 0)`
+      `translate3d(${getSlideOffset(state, wrapperEl.value)}px, 0, 0)`
     )
   }
 )
@@ -408,7 +410,7 @@ function touchStart(e) {
   // Utils.$showNoticeDialog('start'+e.touches.length)
   console.log('start', e.touches.length)
   if (e.touches.length === 1) {
-    slideTouchStart(e, wrapperEl.value, state)
+    slidePointerDown(e, wrapperEl.value, state)
   } else {
     if (state.operationStatus === SlideAlbumOperationStatus.Zooming) {
       // state.start.center = Utils.getCenter(state.start.point1, state.start.point2)
@@ -451,16 +453,14 @@ function touchMove(e) {
     } else {
       // console.log('m2')
       state.isAutoPlay = false
-      slideTouchMove(
+      slidePointerMove(
         e,
         wrapperEl.value,
         state,
-        judgeValue,
         canNext,
         () => {
           // console.log('move-nextcb')
         },
-        SlideType.HORIZONTAL,
         () => {
           if (state.operationStatus !== SlideAlbumOperationStatus.Normal) {
             Utils.$stopPropagation(e)
@@ -567,7 +567,7 @@ function touchEnd(e) {
       startLoop()
       state.operationStatus = SlideAlbumOperationStatus.Look
     } else {
-      slideTouchEnd(
+      slideTouchUp(
         e,
         state,
         canNext,
@@ -582,7 +582,7 @@ function touchEnd(e) {
           startLoop()
         }
       )
-      slideReset(wrapperEl.value, state, SlideType.HORIZONTAL, null)
+      slideReset(wrapperEl.value, state)
     }
   }
 }

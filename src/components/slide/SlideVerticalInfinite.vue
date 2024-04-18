@@ -2,12 +2,12 @@
 import { createApp, onMounted, reactive, ref, render as vueRender, watch } from 'vue'
 import GM from '../../utils'
 import {
-  getSlideDistance,
+  getSlideOffset,
   slideInit,
   slideReset,
-  slideTouchEnd,
-  slideTouchMove,
-  slideTouchStart
+  slideTouchUp,
+  slidePointerMove,
+  slidePointerDown
 } from '@/utils/slide'
 import { SlideType } from '@/utils/const_var'
 import SlideItem from '@/components/slide/SlideItem.vue'
@@ -62,14 +62,15 @@ const appInsMap = new Map()
 const itemClassName = 'slide-item'
 const wrapperEl = ref(null)
 const state = reactive({
+  judgeValue: 20,
+  type: SlideType.VERTICAL,
   name: props.name,
   localIndex: props.index,
   needCheck: true,
   next: false,
   start: { x: 0, y: 0, time: 0 },
   move: { x: 0, y: 0 },
-  wrapper: { width: 0, height: 0, childrenLength: 0 },
-  isDown: false
+  wrapper: { width: 0, height: 0, childrenLength: 0 }
 })
 const baseStore = useBaseStore()
 
@@ -169,11 +170,7 @@ function insertContent(list = props.list) {
     let el = getInsEl(item, start + index, start + index === state.localIndex)
     wrapperEl.value.appendChild(el)
   })
-  GM.$setCss(
-    wrapperEl.value,
-    'transform',
-    `translate3d(0px,${getSlideDistance(state, SlideType.VERTICAL)}px,  0px)`
-  )
+  GM.$setCss(wrapperEl.value, 'transform', `translate3d(0px,${getSlideOffset(state)}px,  0px)`)
 
   if (state.localIndex > 2 && list.length > 5) {
     $(wrapperEl.value)
@@ -229,12 +226,12 @@ function getInsEl(item, index, play = false) {
 }
 
 function touchStart(e) {
-  slideTouchStart(e, wrapperEl.value, state)
+  slidePointerDown(e, wrapperEl.value, state)
 }
 
 //TODO 2022-3-28:在最顶部，反复滑动会抖动一下，初步猜测是因为方向变了，导致的加判断距离变成了减
 function touchMove(e) {
-  slideTouchMove(e, wrapperEl.value, state, baseStore.judgeValue, canNext, null, SlideType.VERTICAL)
+  slidePointerMove(e, wrapperEl.value, state, canNext)
 }
 
 function touchEnd(e) {
@@ -246,7 +243,7 @@ function touchEnd(e) {
   ) {
     emit('refresh')
   }
-  slideTouchEnd(
+  slideTouchUp(
     e,
     state,
     canNext,
@@ -325,7 +322,7 @@ function touchEnd(e) {
     null,
     SlideType.VERTICAL
   )
-  slideReset(wrapperEl.value, state, SlideType.VERTICAL, emit)
+  slideReset(wrapperEl.value, state, emit)
 }
 
 function canNext(isNext) {
@@ -343,9 +340,9 @@ function canNext(isNext) {
       class="slide-list flex-direction-column"
       ref="wrapperEl"
       @click="null"
-      @pointerdown="touchStart"
-      @pointermove="touchMove"
-      @pointerup="touchEnd"
+      @touchstart="touchStart"
+      @touchmove="touchMove"
+      @touchend="touchEnd"
     >
       <slot></slot>
     </div>
