@@ -108,7 +108,7 @@ import {
   slideTouchEnd,
   slideTouchMove,
   slideTouchStart
-} from './common'
+} from '@/utils/slide'
 import { SlideAlbumOperationStatus, SlideItemPlayStatus, SlideType } from '../../utils/const_var'
 import ItemToolbar from './ItemToolbar'
 import ItemDesc from './ItemDesc'

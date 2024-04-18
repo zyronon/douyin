@@ -73,7 +73,7 @@ onMounted(() => {
   setVh()
   // 监听resize事件 视图大小发生变化就重新计算1vh的值
   window.addEventListener('resize', () => {
-    location.reload()
+    location.href = '/'
     setVh()
   })
   //禁止选中文字

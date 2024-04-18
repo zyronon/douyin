@@ -8,7 +8,7 @@ import {
   slideTouchEnd,
   slideTouchMove,
   slideTouchStart
-} from './common'
+} from '@/utils/slide'
 import { SlideType } from '@/utils/const_var'
 import SlideItem from '@/components/slide/SlideItem.vue'
 import bus, { EVENT_KEY } from '../../utils/bus'

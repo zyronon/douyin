@@ -1,6 +1,6 @@
 import bus from '@/utils/bus'
-import Utils from '@/utils'
-import GM from '@/utils'
+import Utils from '@/utils/index'
+import GM from '@/utils/index'
 import { SlideType } from '@/utils/const_var'
 import { nextTick } from 'vue'
 

@@ -8,7 +8,7 @@ import {
   slideTouchEnd,
   slideTouchMove,
   slideTouchStart
-} from './common'
+} from '@/utils/slide'
 import { SlideType } from '@/utils/const_var'
 
 const props = defineProps({
