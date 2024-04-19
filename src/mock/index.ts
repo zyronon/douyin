@@ -1,6 +1,6 @@
 import resource from '../assets/data/resource.js'
 import posts6 from '@/assets/data/posts6.json'
-import { cloneDeep, random } from '@/utils'
+import { _fetch, cloneDeep, random } from '@/utils'
 import { BASE_URL, FILE_URL } from '@/config'
 import { useBaseStore } from '@/store/pinia'
 import axiosInstance from '@/utils/request'
@@ -278,7 +278,7 @@ export async function startMock() {
     const page = getPage2(config.params)
 
     if (!allRecommendPosts.length) {
-      const r = await fetch(BASE_URL + '/data/posts.json')
+      const r = await _fetch(BASE_URL + '/data/posts.7z')
       allRecommendPosts = await r.json()
     }
     return [
@@ -298,7 +298,7 @@ export async function startMock() {
   mock.onGet(/shop\/recommended/).reply(async (config) => {
     const page = getPage2(config.params)
 
-    const r2 = await fetch(BASE_URL + '/data/goods.json')
+    const r2 = await _fetch(BASE_URL + '/data/goods.7z')
     const v = await r2.json()
     return [
       200,

@@ -33,7 +33,8 @@
     "pinia": "^2.1.7",
     "vue": "3.4.21",
     "vue-router": "4.3.0",
-    "vue-switches": "2.0.1"
+    "vue-switches": "2.0.1",
+    "libarchive-wasm": "^1.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.2.1",
