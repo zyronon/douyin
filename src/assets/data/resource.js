@@ -697,7 +697,7 @@ export default {
     {
       name: '给我一首歌的时间',
       mp3: 'http://m3.8js.net:99/1938/041204380445445.mp3',
-      cover: new URL('../../assets/img/music-cover/13.jpg', import.meta.url).href,
+      cover: new URL('../../assets/img/music-cover/18.jpg', import.meta.url).href,
       author: '周杰伦',
       duration: 60,
       use_count: 37441000,

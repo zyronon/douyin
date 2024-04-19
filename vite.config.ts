@@ -166,7 +166,7 @@ export default defineConfig({
     assetsInlineLimit: 2048
   },
   esbuild: {
-    drop: ['console', 'debugger']
+    // drop: ['console', 'debugger']
   },
   server: {
     port: 3000,

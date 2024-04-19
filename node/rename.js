@@ -10,5 +10,5 @@ dirs.forEach((dictName) => {
 
 function formatDict(dir, name) {
   let filePath = dir + name
-  fs.copyFile(filePath, save + name.replace('.webp', '.png'), () => {})
+  fs.copyFile(filePath, save + name.replace('.jpg', '.png'), () => {})
 }

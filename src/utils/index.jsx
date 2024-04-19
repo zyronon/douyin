@@ -7,6 +7,7 @@ import Config, { IMG_URL } from '../config'
 import NoticeDialog from '../components/dialog/NoticeDialog'
 import dayjs from 'dayjs'
 import bus, { EVENT_KEY } from './bus'
+import { ArchiveReader, libarchiveWasm } from 'libarchive-wasm'
 
 const Utils = {
   $showLoading() {
@@ -678,4 +679,37 @@ export function _notice(val) {
 
 export function _no() {
   _notice('未实现')
+}
+
+/**
+ * 逃避国内某pages，因为json文件被提示有违禁词，json压缩成7z文件，7z和zip文件被屏蔽了，所以7z重命名为md
+ * @param url
+ * @returns {Promise<unknown>}
+ * @private
+ */
+export async function _fetch(url) {
+  // eslint-disable-next-line no-async-promise-executor
+  return new Promise(async (resolve) => {
+    let r = await fetch(url)
+    if (url.includes('.md')) {
+      // console.time()
+      const data = await r.arrayBuffer()
+      const mod = await libarchiveWasm()
+      const reader = new ArchiveReader(mod, new Int8Array(data))
+      for (const entry of reader.entries()) {
+        if (entry.getPathname().endsWith('.json')) {
+          let data = new TextDecoder().decode(entry.readData())
+          resolve({
+            json() {
+              return Promise.resolve(JSON.parse(data))
+            }
+          })
+        }
+        // console.timeEnd()
+      }
+      reader.free()
+    } else {
+      resolve(r)
+    }
+  })
 }

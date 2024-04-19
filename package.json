@@ -9,6 +9,7 @@
     "build": "vite build --mode prod",
     "build-uni-app": "vite build --mode uni",
     "build-gp-pages": "vite build --mode gp_pages",
+    "build-gitee-pages": "vite build --mode gitee_pages",
     "build-only": "vite build",
     "build-check": "run-p type-check \"build-only {@}\" --",
     "type-check": "vue-tsc --build --force",
@@ -33,7 +34,8 @@
     "pinia": "^2.1.7",
     "vue": "3.4.21",
     "vue-router": "4.3.0",
-    "vue-switches": "2.0.1"
+    "vue-switches": "2.0.1",
+    "libarchive-wasm": "^1.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.2.1",
