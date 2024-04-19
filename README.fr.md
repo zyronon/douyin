@@ -28,17 +28,21 @@
 <img width="150px" src='docs/imgs/img-5.jpg' />
 </div>
 
-## Accès en ligne
+## accès en ligne
 
-Vercel :<http://dy.ttentau.top/>(La Chine recommande de visiter ceci)
+Pages GitHub :<https://zyronon.github.io/douyin/>
 
-Netlifier :<https://douyins.netlify.app/>(Recommandé de visiter ceci pour les zones en dehors de la Chine)
+[//]: # "Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/) (中国推荐访问这个)~~"
+
+[//]: # "Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/) (中国以外地区推荐访问这个)~~"
+
+Les 100G de données gratuites fournies par Vercel et Netlify ont été épuisées...🤣
 
 Android Apk :<https://github.com/zyronon/douyin/releases>
 
 **Avis**：`PC`Vous devez passer le navigateur en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement
 
-**Avis**: Veuillez utiliser votre téléphone portable[via un navigateur](https://viayoo.com/zh-cn/)ou aperçu du navigateur Chrome. D'autres navigateurs peuvent forcer la vidéo à passer en plein écran, ce qui l'empêchera de s'afficher correctement.
+**Avis**：Veuillez utiliser un téléphone portable[via un navigateur](https://viayoo.com/zh-cn/)ou aperçu du navigateur Chrome. D'autres navigateurs peuvent forcer la vidéo à passer en plein écran, ce qui l'empêchera de s'afficher correctement.
 
 ## Clause de non-responsabilité
 
@@ -61,7 +65,7 @@ npm run dev
 
 Ouvrez votre navigateur et visitez :<http://127.0.0.1:3000>
 
-**Remarque : le navigateur du PC doit être basculé en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement**
+**Remarque : le PC doit passer le navigateur en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement**
 
 ## Lien
 
@@ -98,7 +102,7 @@ Si vous aimez également les idées de conception de ce logiciel, veuillez le so
 
 ## Contactez moi
 
-Vous pouvez contacter mon email<a href="mailto:zyronon@163.com">zyronon@163.com</a>
+您可以联系我的邮箱 <a href="mailto:zyronon@163.com">zyronon@163.com</a>
 
 > Partagez mes autres projets open source :
 >
