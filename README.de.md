@@ -30,19 +30,23 @@
 
 ## Online-Zugang
 
-Vercel:  <http://dy.ttentau.top/>(China empfiehlt den Besuch hier)
+Github-Seiten:<https://zyronon.github.io/douyin/>
 
-Netlify:<https://douyins.netlify.app/>(Empfehlenswert für Gebiete außerhalb Chinas, dies zu besuchen)
+[//]: # "Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/) (中国推荐访问这个)~~"
+
+[//]: # "Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/) (中国以外地区推荐访问这个)~~"
+
+Die 100G kostenlosen Daten von Vercel und Netlify sind aufgebraucht...🤣
 
 Android-Apk:<https://github.com/zyronon/douyin/releases>
 
 **Beachten**：`PC`Sie müssen den Browser in den mobilen Modus schalten, zuerst drücken`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen
 
-**Beachten**: Bitte benutzen Sie Ihr Mobiltelefon[über Browser](https://viayoo.com/zh-cn/)oder Chrome-Browservorschau. Andere Browser erzwingen möglicherweise, dass das Video im Vollbildmodus angezeigt wird, was dazu führt, dass es nicht richtig angezeigt wird.
+**Beachten**：手机请用  [über Browser](https://viayoo.com/zh-cn/)oder Chrome-Browservorschau. Andere Browser erzwingen möglicherweise, dass das Video im Vollbildmodus angezeigt wird, was dazu führt, dass es nicht richtig angezeigt wird.
 
 ## Haftungsausschluss
 
-本项目仅适用于学习和研究，不得用于商业使用
+Dieses Projekt dient ausschließlich Studien- und Forschungszwecken, nicht der kommerziellen Nutzung
 
 ## laufen
 
@@ -61,7 +65,7 @@ npm run dev
 
 Öffnen Sie Ihren Browser und besuchen Sie:<http://127.0.0.1:3000>
 
-**Hinweis: Der PC-Browser muss zuerst in den Mobilmodus geschaltet werden`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen**
+**Hinweis: Der PC muss den Browser in den Mobilmodus schalten, zuerst drücken`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen**
 
 ## Verknüpfung
 
@@ -103,7 +107,7 @@ Sie können meine E-Mail kontaktieren<a href="mailto:zyronon@163.com">zyronon@16
 > Teilen Sie meine anderen Open-Source-Projekte:
 >
 > _[**Wort eingeben**- Software zum Auswendiglernen von Vokabeln, die im Internet verwendet werden kann](https://github.com/zyronon/typing-word)<img src="https://img.shields.io/github/stars/zyronon/typing-word.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_  
-> _[**Webskripte** - 一些好用的油猴脚本~](https://github.com/zyronon/web-scripts)<img src="https://img.shields.io/github/stars/zyronon/web-scripts.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_
+> _[**Webskripte**- Einige nützliche Grease Monkey-Skripte ~](https://github.com/zyronon/web-scripts)<img src="https://img.shields.io/github/stars/zyronon/web-scripts.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_
 
 ## Vereinbarung
 
