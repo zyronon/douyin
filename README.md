@@ -33,11 +33,11 @@
 
 Github pages: [https://zyronon.github.io/douyin/](https://zyronon.github.io/douyin/)
 
-~~Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/) (中国推荐访问这个)~~
+[//]: # (Vercel:  [http://dy.ttentau.top/]&#40;http://dy.ttentau.top/&#41; &#40;中国推荐访问这个&#41;~~)
 
-~~Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/) (中国以外地区推荐访问这个)~~
+[//]: # (Netlify: [https://douyins.netlify.app/]&#40;https://douyins.netlify.app/&#41; &#40;中国以外地区推荐访问这个&#41;~~)
 
-Vercel和Netlify分别送的100G免费流量已经用完了...
+Vercel和Netlify分别送的100G免费流量已经用完了...🤣
 
 Android Apk: https://github.com/zyronon/douyin/releases
 

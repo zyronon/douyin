@@ -11,7 +11,7 @@
         </div>
         <WaterfallList :list="list" class="list">
           <template v-slot="{ item }">
-            <div class="card" @click="(e) => test(e, item)">
+            <div class="card" @click="(e) => showDetail(e, item)">
               <img class="poster" v-lazy="_checkImgUrl(item.note_card?.cover?.url_default)" />
               <div class="bottom">
                 <div class="title">
@@ -127,7 +127,7 @@ function close() {
   }, 300)
 }
 
-function test(e, item) {
+function showDetail(e, item) {
   let data = Mock.mock({
     'comment_list|3-50': [
       {

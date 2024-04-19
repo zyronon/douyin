@@ -2,13 +2,13 @@
 import { onMounted, reactive, ref, watch } from 'vue'
 import GM from '../../utils'
 import {
-  getSlideDistance,
+  getSlideOffset,
   slideInit,
   slideReset,
   slideTouchEnd,
-  slideTouchMove,
-  slideTouchStart
-} from './common'
+  slidePointerMove,
+  slidePointerDown
+} from '@/utils/slide'
 import { SlideType } from '@/utils/const_var'
 
 const props = defineProps({
@@ -26,9 +26,10 @@ const props = defineProps({
 })
 const emit = defineEmits(['update:index'])
 
-const judgeValue = 20
 const wrapperEl = ref(null)
 const state = reactive({
+  judgeValue: 20,
+  type: SlideType.HORIZONTAL,
   name: 'SlideVertical',
   localIndex: props.index,
   needCheck: true,
@@ -49,34 +50,27 @@ watch(
       GM.$setCss(
         wrapperEl.value,
         'transform',
-        `translate3d(0,${getSlideDistance(state, SlideType.VERTICAL)}px, 0)`
+        `translate3d(0,${getSlideOffset(state, wrapperEl.value)}px, 0)`
       )
     }
   }
 )
 
 onMounted(() => {
-  slideInit(wrapperEl.value, state, SlideType.VERTICAL)
+  slideInit(wrapperEl.value, state)
 })
 
 function touchStart(e) {
-  slideTouchStart(e, wrapperEl.value, state)
+  slidePointerDown(e, wrapperEl.value, state)
 }
 
 function touchMove(e) {
-  slideTouchMove(e, wrapperEl.value, state, judgeValue, canNext, null, SlideType.VERTICAL)
+  slidePointerMove(e, wrapperEl.value, state)
 }
 
 function touchEnd(e) {
-  slideTouchEnd(e, state, canNext, null, null, SlideType.VERTICAL)
-  slideReset(wrapperEl.value, state, SlideType.VERTICAL, emit)
-}
-
-function canNext(isNext) {
-  return !(
-    (state.localIndex === 0 && !isNext) ||
-    (state.localIndex === state.wrapper.childrenLength - 1 && isNext)
-  )
+  slideTouchEnd(e, state)
+  slideReset(wrapperEl.value, state, emit)
 }
 </script>
 

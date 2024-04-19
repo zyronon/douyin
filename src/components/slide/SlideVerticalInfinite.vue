@@ -2,13 +2,13 @@
 import { createApp, onMounted, reactive, ref, render as vueRender, watch } from 'vue'
 import GM from '../../utils'
 import {
-  getSlideDistance,
+  getSlideOffset,
   slideInit,
   slideReset,
   slideTouchEnd,
-  slideTouchMove,
-  slideTouchStart
-} from './common'
+  slidePointerMove,
+  slidePointerDown
+} from '@/utils/slide'
 import { SlideType } from '@/utils/const_var'
 import SlideItem from '@/components/slide/SlideItem.vue'
 import bus, { EVENT_KEY } from '../../utils/bus'
@@ -62,6 +62,8 @@ const appInsMap = new Map()
 const itemClassName = 'slide-item'
 const wrapperEl = ref(null)
 const state = reactive({
+  judgeValue: 20,
+  type: SlideType.VERTICAL,
   name: props.name,
   localIndex: props.index,
   needCheck: true,
@@ -168,11 +170,7 @@ function insertContent(list = props.list) {
     let el = getInsEl(item, start + index, start + index === state.localIndex)
     wrapperEl.value.appendChild(el)
   })
-  GM.$setCss(
-    wrapperEl.value,
-    'transform',
-    `translate3d(0px,${getSlideDistance(state, SlideType.VERTICAL)}px,  0px)`
-  )
+  GM.$setCss(wrapperEl.value, 'transform', `translate3d(0px,${getSlideOffset(state)}px,  0px)`)
 
   if (state.localIndex > 2 && list.length > 5) {
     $(wrapperEl.value)
@@ -228,12 +226,12 @@ function getInsEl(item, index, play = false) {
 }
 
 function touchStart(e) {
-  slideTouchStart(e, wrapperEl.value, state)
+  slidePointerDown(e, wrapperEl.value, state)
 }
 
 //TODO 2022-3-28:在最顶部，反复滑动会抖动一下，初步猜测是因为方向变了，导致的加判断距离变成了减
 function touchMove(e) {
-  slideTouchMove(e, wrapperEl.value, state, baseStore.judgeValue, canNext, null, SlideType.VERTICAL)
+  slidePointerMove(e, wrapperEl.value, state, canNext)
 }
 
 function touchEnd(e) {
@@ -245,89 +243,77 @@ function touchEnd(e) {
   ) {
     emit('refresh')
   }
-  slideTouchEnd(
-    e,
-    state,
-    canNext,
-    (isNext) => {
-      let half = (props.virtualTotal + 1) / 2
-      if (props.list.length > props.virtualTotal) {
-        if (isNext) {
-          if (
-            state.localIndex > props.list.length - props.virtualTotal &&
-            state.localIndex >= half
-          ) {
-            emit('loadMore')
+  slideTouchEnd(e, state, canNext, (isNext) => {
+    let half = (props.virtualTotal + 1) / 2
+    if (props.list.length > props.virtualTotal) {
+      if (isNext) {
+        if (state.localIndex > props.list.length - props.virtualTotal && state.localIndex >= half) {
+          emit('loadMore')
+        }
+        let addItemIndex = state.localIndex + 2
+        let res = $(wrapperEl.value).find(`.${itemClassName}[data-index=${addItemIndex}]`)
+        if (state.wrapper.childrenLength < props.virtualTotal) {
+          if (res.length === 0) {
+            wrapperEl.value.appendChild(getInsEl(props.list[addItemIndex], addItemIndex))
           }
-          let addItemIndex = state.localIndex + 2
-          let res = $(wrapperEl.value).find(`.${itemClassName}[data-index=${addItemIndex}]`)
-          if (state.wrapper.childrenLength < props.virtualTotal) {
-            if (res.length === 0) {
-              wrapperEl.value.appendChild(getInsEl(props.list[addItemIndex], addItemIndex))
-            }
-          }
-          if (
-            state.wrapper.childrenLength === props.virtualTotal &&
-            state.localIndex >= (props.virtualTotal + 1) / 2 &&
-            state.localIndex <= props.list.length - 3
-          ) {
-            if (res.length === 0) {
-              wrapperEl.value.appendChild(getInsEl(props.list[addItemIndex], addItemIndex))
-              appInsMap
-                .get($(wrapperEl.value).find(`.${itemClassName}:first`).data('index'))
-                .unmount()
-              // $(wrapperEl.value).find(".base-slide-item:first").remove()
-              $(wrapperEl.value)
-                .find(`.${itemClassName}`)
-                .each(function () {
-                  $(this).css('top', (state.localIndex - 2) * state.wrapper.height)
-                })
-            }
-          }
-          if (state.wrapper.childrenLength > props.virtualTotal) {
+        }
+        if (
+          state.wrapper.childrenLength === props.virtualTotal &&
+          state.localIndex >= (props.virtualTotal + 1) / 2 &&
+          state.localIndex <= props.list.length - 3
+        ) {
+          if (res.length === 0) {
+            wrapperEl.value.appendChild(getInsEl(props.list[addItemIndex], addItemIndex))
+            appInsMap
+              .get($(wrapperEl.value).find(`.${itemClassName}:first`).data('index'))
+              .unmount()
+            // $(wrapperEl.value).find(".base-slide-item:first").remove()
             $(wrapperEl.value)
               .find(`.${itemClassName}`)
               .each(function () {
-                let index = $(this).data('index')
-                if (index < state.localIndex - 2) {
-                  appInsMap.get(index).unmount()
-                }
                 $(this).css('top', (state.localIndex - 2) * state.wrapper.height)
               })
           }
-        } else {
-          let addItemIndex = state.localIndex - 2
-          let res = $(wrapperEl.value).find(`.${itemClassName}[data-index=${addItemIndex}]`)
+        }
+        if (state.wrapper.childrenLength > props.virtualTotal) {
+          $(wrapperEl.value)
+            .find(`.${itemClassName}`)
+            .each(function () {
+              let index = $(this).data('index')
+              if (index < state.localIndex - 2) {
+                appInsMap.get(index).unmount()
+              }
+              $(this).css('top', (state.localIndex - 2) * state.wrapper.height)
+            })
+        }
+      } else {
+        let addItemIndex = state.localIndex - 2
+        let res = $(wrapperEl.value).find(`.${itemClassName}[data-index=${addItemIndex}]`)
 
-          if (state.localIndex > 1 && state.localIndex <= props.list.length - 4) {
-            if (res.length === 0) {
-              wrapperEl.value.prepend(getInsEl(props.list[addItemIndex], addItemIndex))
-              appInsMap
-                .get($(wrapperEl.value).find(`.${itemClassName}:last`).data('index'))
-                .unmount()
-              // $(wrapperEl.value).find(".base-slide-item:last").remove()
-              $(wrapperEl.value)
-                .find(`.${itemClassName}`)
-                .each(function () {
-                  $(this).css('top', (state.localIndex - 2) * state.wrapper.height)
-                })
-            }
-          }
-
-          if (state.wrapper.childrenLength > props.virtualTotal) {
+        if (state.localIndex > 1 && state.localIndex <= props.list.length - 4) {
+          if (res.length === 0) {
+            wrapperEl.value.prepend(getInsEl(props.list[addItemIndex], addItemIndex))
             appInsMap.get($(wrapperEl.value).find(`.${itemClassName}:last`).data('index')).unmount()
+            // $(wrapperEl.value).find(".base-slide-item:last").remove()
+            $(wrapperEl.value)
+              .find(`.${itemClassName}`)
+              .each(function () {
+                $(this).css('top', (state.localIndex - 2) * state.wrapper.height)
+              })
           }
         }
-        state.wrapper.childrenLength = wrapperEl.value.children.length
+
+        if (state.wrapper.childrenLength > props.virtualTotal) {
+          appInsMap.get($(wrapperEl.value).find(`.${itemClassName}:last`).data('index')).unmount()
+        }
       }
-    },
-    null,
-    SlideType.VERTICAL
-  )
-  slideReset(wrapperEl.value, state, SlideType.VERTICAL, emit)
+      state.wrapper.childrenLength = wrapperEl.value.children.length
+    }
+  })
+  slideReset(wrapperEl.value, state, emit)
 }
 
-function canNext(isNext) {
+function canNext(state, isNext) {
   return !(
     (state.localIndex === 0 && !isNext) ||
     (state.localIndex === props.list.length - 1 && isNext)

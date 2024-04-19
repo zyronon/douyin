@@ -351,7 +351,7 @@ function scroll() {
   }
 }
 
-function touchStart(e) {
+function touchStart(e: TouchEvent) {
   state.start.x = e.touches[0].pageX
   state.start.y = e.touches[0].pageY
   state.start.time = Date.now()
@@ -362,7 +362,7 @@ function touchStart(e) {
   // console.log('touchStart', page.value.scrollTop)
 }
 
-function touchMove(e) {
+function touchMove(e: TouchEvent) {
   state.move.x = e.touches[0].pageX - state.start.x
   state.move.y = e.touches[0].pageY - state.start.y
   let isNext = state.move.y < 0

@@ -4,7 +4,7 @@
     v-love="props.uniqueId"
     :id="props.uniqueId"
     :uniqueId="props.uniqueId"
-    name="main"
+    name="infinite"
     :active="props.active"
     :loading="baseStore.loading"
     v-model:index="state.index"

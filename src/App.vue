@@ -6,16 +6,16 @@
       </keep-alive>
     </transition>
   </router-view>
-  <BaseMask v-if="!isMobile" />
-  <div v-if="!isMobile" class="guide">
-    <Icon icon="mynaui:danger-triangle" />
-    <div class="txt">
-      <h2>切换至手机模式才可正常使用</h2>
-      <h3>1. 按 F12 调出控制台</h3>
-      <h3>2. 按 Ctrl+Shift+M，或点击下面图标</h3>
-    </div>
-    <img src="@/assets/img/guide.png" alt="" />
-  </div>
+  <!--  <BaseMask v-if="!isMobile" />-->
+  <!--  <div v-if="!isMobile" class="guide">-->
+  <!--    <Icon icon="mynaui:danger-triangle" />-->
+  <!--    <div class="txt">-->
+  <!--      <h2>切换至手机模式才可正常使用</h2>-->
+  <!--      <h3>1. 按 F12 调出控制台</h3>-->
+  <!--      <h3>2. 按 Ctrl+Shift+M，或点击下面图标</h3>-->
+  <!--    </div>-->
+  <!--    <img src="@/assets/img/guide.png" alt="" />-->
+  <!--  </div>-->
   <Call />
 </template>
 <script setup lang="ts">

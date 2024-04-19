@@ -6,7 +6,7 @@ export function useNav() {
   const router = useRouter()
   const store = useBaseStore()
 
-  return (path, query = {}, data) => {
+  return (path, query = {}, data?: any) => {
     if (data) {
       store.routeData = cloneDeep(data)
     }

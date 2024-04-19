@@ -1,6 +1,6 @@
 <template>
   <div class="test-slide-wrapper" id="home-index">
-    <SlideHorizontal v-model:index="state.baseIndex">
+    <SlideHorizontal name="first" v-model:index="state.baseIndex">
       <SlideItem class="sidebar">
         <div class="header">
           <div class="left">下午好</div>
@@ -100,13 +100,13 @@
         <IndicatorHome
           v-if="!state.fullScreen"
           :loading="baseStore.loading"
-          name="main"
+          name="second"
           @showSlidebar="state.baseIndex = 0"
           v-model:index="state.navIndex"
         />
         <SlideHorizontal
           class="first-horizontal-item"
-          name="main"
+          name="second"
           :change-active-index-use-anim="false"
           v-model:index="state.navIndex"
         >
