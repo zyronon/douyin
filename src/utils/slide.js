@@ -54,12 +54,24 @@ export function canSlide(state) {
 }
 
 /**
+ * 能否继续滑动
+ * @param state
+ * @param isNext 朝向，向右或向下
+ * @returns {boolean}
+ */
+function canNext(state, isNext) {
+  return !(
+    (state.localIndex === 0 && !isNext) ||
+    (state.localIndex === state.wrapper.childrenLength - 1 && isNext)
+  )
+}
+
+/**
  * move事件
  * @param e
  * @param el
  * @param state
  * @param canNextCb 是否能继续滑的回调
- * @param nextCb 能继续滑的回调
  * @param notNextCb 不能继续滑的回调
  * @param slideOtherDirectionCb 滑动其他方向时的回调，目前用于图集进于放大模式后，上下滑动推出放大模式
  */
@@ -68,32 +80,43 @@ export function slidePointerMove(
   el,
   state,
   canNextCb = null,
-  nextCb = null,
   notNextCb = null,
   slideOtherDirectionCb = null
 ) {
+  //计算移动距离
   state.move.x = e.touches[0].pageX - state.start.x
   state.move.y = e.touches[0].pageY - state.start.y
   // console.log('move', state.name)
 
-  let isNext = state.type === SlideType.HORIZONTAL ? state.move.x < 0 : state.move.y < 0
-
+  //检测能否滑动
   let canSlideRes = canSlide(state)
 
-  if (canSlideRes && state.localIndex === 0 && !isNext && state.type === SlideType.VERTICAL) {
-    bus.emit(state.name + '-moveY', state.move.y)
+  //是否是往下（右）滑动
+  let isNext = state.type === SlideType.HORIZONTAL ? state.move.x < 0 : state.move.y < 0
+
+  //特别处理：竖直的slide组件，在第一页往下滑动时，向外发送事件
+  //用于首页顶部导航栏的刷新动画
+  if (state.type === SlideType.VERTICAL_INFINITE) {
+    if (canSlideRes && state.localIndex === 0 && !isNext) {
+      bus.emit(state.name + '-moveY', state.move.y)
+    }
   }
 
   if (canSlideRes) {
-    if (canNextCb?.(isNext, e)) {
-      nextCb?.()
+    //如果传了就用，没传就用默认的
+    //无限滑动组件，要特别判断，所以需要传canNextCb
+    if (!canNextCb) canNextCb = canNext
+    if (canNextCb(state, isNext)) {
+      //能滑动，那就把事件捕获，不能给父组件处理
+      Utils.$stopPropagation(e)
       if (state.type === SlideType.HORIZONTAL) {
         bus.emit(state.name + '-moveX', state.move.x)
       }
-      Utils.$stopPropagation(e)
+      //获取偏移量
       let t = getSlideOffset(state, el) + (isNext ? state.judgeValue : -state.judgeValue)
-      let dx1 = 0
-      let dx2 = 0
+      let dx1 = 0,
+        dx2 = 0
+      //偏移量加当前手指移动的距离就是slide要偏移的值
       if (state.type === SlideType.HORIZONTAL) {
         dx1 = t + state.move.x
       } else {
@@ -102,6 +125,7 @@ export function slidePointerMove(
       Utils.$setCss(el, 'transition-duration', `0ms`)
       Utils.$setCss(el, 'transform', `translate3d(${dx1}px, ${dx2}px, 0)`)
     } else {
+      //SlideAlbum.vue组件在用，用于捕获事件，阻止事件传递给父slide
       notNextCb?.()
     }
   } else {
@@ -109,33 +133,57 @@ export function slidePointerMove(
   }
 }
 
-export function slideTouchUp(e, state, canNextCb, nextCb, doNotNextCb) {
+/**
+ * 滑动结束事件
+ * @param e
+ * @param state
+ * @param canNextCb
+ * @param nextCb
+ * @param notNextCb
+ * @returns {*}
+ */
+export function slideTouchEnd(e, state, canNextCb, nextCb, notNextCb) {
   let isHorizontal = state.type === SlideType.HORIZONTAL
   let isNext = isHorizontal ? state.move.x < 0 : state.move.y < 0
 
-  if (!canNextCb?.(isNext)) return doNotNextCb?.()
   if (state.next) {
-    //用pointer事件，子元素在这里拦截事件之后，会导致父元素触发一次pointermove事件
-    //用touch事件，不会出现这种情况
-    // Utils.$stopPropagation(e)
-    let endTime = Date.now()
-    let gapTime = endTime - state.start.time
-    let distance = isHorizontal ? state.move.x : state.move.y
-    let judgeValue = isHorizontal ? state.wrapper.width : state.wrapper.height
-    if (Math.abs(distance) < 20) gapTime = 1000
-    if (Math.abs(distance) > judgeValue / 3) gapTime = 100
-    if (gapTime < 150) {
-      if (isNext) {
-        state.localIndex++
-      } else {
-        state.localIndex--
+    //同move事件
+    if (!canNextCb) canNextCb = canNext
+    if (canNextCb(state, isNext)) {
+      //能滑动，那就把事件捕获，不能给父组件处理
+      Utils.$stopPropagation(e)
+      //结合时间、距离来判断是否成功滑动
+      let endTime = Date.now()
+      let gapTime = endTime - state.start.time
+      let distance = isHorizontal ? state.move.x : state.move.y
+      let judgeValue = isHorizontal ? state.wrapper.width : state.wrapper.height
+      //1、距离太短，直接不通过
+      if (Math.abs(distance) < 20) gapTime = 1000
+      //2、距离太长，直接通过
+      if (Math.abs(distance) > judgeValue / 3) gapTime = 100
+      //3、若不在上面那个情况，那么只需要判断时间即可
+      if (gapTime < 150) {
+        if (isNext) {
+          state.localIndex++
+        } else {
+          state.localIndex--
+        }
+        return nextCb?.(isNext)
       }
-      return nextCb?.(isNext)
+    } else {
+      return notNextCb?.()
     }
+  } else {
+    notNextCb?.()
   }
-  doNotNextCb?.()
 }
 
+/**
+ * 结束后重置变量
+ * @param el
+ * @param state
+ * @param emit
+ */
 export function slideReset(el, state, emit = null) {
   Utils.$setCss(el, 'transition-duration', `300ms`)
   let t = getSlideOffset(state, el)
@@ -160,37 +208,32 @@ export function slideReset(el, state, emit = null) {
 export function getSlideOffset(state, el) {
   //横竖判断逻辑基本同理
   if (state.type === SlideType.HORIZONTAL) {
-    //TODO 去掉if判断
-    if (el) {
-      let widths = []
-      //获取所有子元素的宽度
-      Array.from(el.children).map((v) => {
-        widths.push(v.getBoundingClientRect().width)
-      })
-      //取0到当前index的子元素的宽度
-      widths = widths.slice(0, state.localIndex)
-      if (widths.length) {
-        //累计就是当前index之前所有页面的宽度
-        return -widths.reduce((a, b) => a + b)
-      }
-      return 0
+    let widths = []
+    //获取所有子元素的宽度
+    Array.from(el.children).map((v) => {
+      widths.push(v.getBoundingClientRect().width)
+    })
+    //取0到当前index的子元素的宽度
+    widths = widths.slice(0, state.localIndex)
+    if (widths.length) {
+      //累计就是当前index之前所有页面的宽度
+      return -widths.reduce((a, b) => a + b)
     }
-    return -state.localIndex * state.wrapper.width
+    return 0
+    // return -state.localIndex * state.wrapper.width
   } else {
-    //TODO 这里有冲突
-    //infinite 列表只需要计算index * 高就行
-    // if (el) {
-    //   //同上
-    //   let heights = []
-    //   Array.from(el.children).map((v) => {
-    //     heights.push(v.getBoundingClientRect().height)
-    //   })
-    //   heights = heights.slice(0, state.localIndex)
-    //   if (heights.length) {
-    //     return -heights.reduce((a, b) => a + b)
-    //   }
-    //   return 0
-    // }
-    return -state.localIndex * state.wrapper.height
+    if (state.type === SlideType.VERTICAL_INFINITE) {
+      //同上
+      let heights = []
+      Array.from(el.children).map((v) => {
+        heights.push(v.getBoundingClientRect().height)
+      })
+      heights = heights.slice(0, state.localIndex)
+      if (heights.length) return -heights.reduce((a, b) => a + b)
+      return 0
+    } else {
+      //VERTICAL_INFINITE 列表只需要计算index * 高就行
+      return -state.localIndex * state.wrapper.height
+    }
   }
 }

@@ -21,7 +21,8 @@ export default {
 }
 export const SlideType = {
   HORIZONTAL: 0,
-  VERTICAL: 1
+  VERTICAL: 1,
+  VERTICAL_INFINITE: 2
 }
 
 /*图集操作状态*/

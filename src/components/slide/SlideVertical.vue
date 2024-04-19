@@ -5,7 +5,7 @@ import {
   getSlideOffset,
   slideInit,
   slideReset,
-  slideTouchUp,
+  slideTouchEnd,
   slidePointerMove,
   slidePointerDown
 } from '@/utils/slide'
@@ -65,19 +65,12 @@ function touchStart(e) {
 }
 
 function touchMove(e) {
-  slidePointerMove(e, wrapperEl.value, state, canNext)
+  slidePointerMove(e, wrapperEl.value, state)
 }
 
 function touchEnd(e) {
-  slideTouchUp(e, state, canNext, null, null, SlideType.VERTICAL)
+  slideTouchEnd(e, state)
   slideReset(wrapperEl.value, state, emit)
-}
-
-function canNext(isNext) {
-  return !(
-    (state.localIndex === 0 && !isNext) ||
-    (state.localIndex === state.wrapper.childrenLength - 1 && isNext)
-  )
 }
 </script>
 

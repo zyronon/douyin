@@ -105,7 +105,7 @@ import {
   getSlideOffset,
   slideInit,
   slideReset,
-  slideTouchUp,
+  slideTouchEnd,
   slidePointerMove,
   slidePointerDown
 } from '@/utils/slide'
@@ -459,9 +459,7 @@ function touchMove(e) {
         state,
         canNext,
         () => {
-          // console.log('move-nextcb')
-        },
-        () => {
+          //TODO 这里需要这个事件吗
           if (state.operationStatus !== SlideAlbumOperationStatus.Normal) {
             Utils.$stopPropagation(e)
           }
@@ -567,7 +565,7 @@ function touchEnd(e) {
       startLoop()
       state.operationStatus = SlideAlbumOperationStatus.Look
     } else {
-      slideTouchUp(
+      slideTouchEnd(
         e,
         state,
         canNext,
@@ -595,7 +593,7 @@ function setItemRef(el, key) {
   el && state[key].push(el)
 }
 
-function canNext(isNext) {
+function canNext(state, isNext) {
   let res = !(
     (state.localIndex === 0 && !isNext) ||
     (state.localIndex === props.item.imgs.length - 1 && isNext)

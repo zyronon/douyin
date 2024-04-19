@@ -7,7 +7,7 @@ import {
   slidePointerDown,
   slidePointerMove,
   slideReset,
-  slideTouchUp
+  slideTouchEnd
 } from '@/utils/slide'
 import { SlideType } from '@/utils/const_var'
 
@@ -86,19 +86,12 @@ function touchStart(e: TouchEvent) {
 }
 
 function touchMove(e: TouchEvent) {
-  slidePointerMove(e, wrapperEl.value, state, canNext)
+  slidePointerMove(e, wrapperEl.value, state)
 }
 
 function touchEnd(e: TouchEvent) {
-  slideTouchUp(e, state, canNext, () => {})
+  slideTouchEnd(e, state)
   slideReset(wrapperEl.value, state, emit)
-}
-
-function canNext(isNext: boolean) {
-  return !(
-    (state.localIndex === 0 && !isNext) ||
-    (state.localIndex === state.wrapper.childrenLength - 1 && isNext)
-  )
 }
 </script>
 
