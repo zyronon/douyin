@@ -142,7 +142,7 @@ export function slidePointerMove(
  * @param notNextCb
  * @returns {*}
  */
-export function slideTouchEnd(e, state, canNextCb, nextCb, notNextCb) {
+export function slideTouchEnd(e, state, canNextCb = null, nextCb = null, notNextCb = null) {
   let isHorizontal = state.type === SlideType.HORIZONTAL
   let isNext = isHorizontal ? state.move.x < 0 : state.move.y < 0
 

@@ -681,12 +681,18 @@ export function _no() {
   _notice('未实现')
 }
 
+/**
+ * 逃避国内某pages，因为json文件被提示有违禁词，json压缩成7z文件，7z和zip文件被屏蔽了，所以7z重命名为md
+ * @param url
+ * @returns {Promise<unknown>}
+ * @private
+ */
 export async function _fetch(url) {
   // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve) => {
     let r = await fetch(url)
-    if (url.includes('.7z')) {
-      console.time()
+    if (url.includes('.md')) {
+      // console.time()
       const data = await r.arrayBuffer()
       const mod = await libarchiveWasm()
       const reader = new ArchiveReader(mod, new Int8Array(data))
@@ -699,12 +705,11 @@ export async function _fetch(url) {
             }
           })
         }
-        console.timeEnd()
+        // console.timeEnd()
       }
       reader.free()
     } else {
-      let v = await r.json()
-      resolve(v)
+      resolve(r)
     }
   })
 }
