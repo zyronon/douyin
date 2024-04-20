@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`is a parody`抖音|TikTok`mobile short video project, which is based on[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)accomplish. Used the latest`Vue`FamilyMart technology stack. Api data is saved locally in the project, and the video is collected from`抖音|TikTok`, the atlas is collected from`小红书|Xiaohongshu`,pass[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)The library intercepts the API and returns local json data to simulate real back-end requests.
+`douyin-vue`is a parody`抖音|TikTok`The mobile short video project has a completeness of 90%. Used the latest`Vue`FamilyMart technology stack, which is based on[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)accomplish. The data is saved locally in the project, and the video is collected from`抖音|TikTok`, the atlas is collected from`小红书|Xiaohongshu`,pass[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)The library intercepts the API and returns local json data to simulate real backend requests.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -28,15 +28,21 @@
 <img width="150px" src='docs/imgs/img-5.jpg' />
 </div>
 
-## online access
+## Online access
+
+### China region:
+
+Gitee pages:<https://zyronon.gitee.io/douyin/>
+
+### Outside China
 
 Github pages:<https://zyronon.github.io/douyin/>
 
-[//]: # "Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/) (中国推荐访问这个)~~"
+~~Vercel:<http://dy.ttentau.top/>~~
 
-[//]: # "Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/) (中国以外地区推荐访问这个)~~"
+~~Netlify:<https://douyins.netlify.app/>~~
 
-The 100G free data provided by Vercel and Netlify have been used up...🤣
+The 100G free data provided by Vercel and Netlify respectively have been used up...🤣
 
 Android Apk:<https://github.com/zyronon/douyin/releases>
 
@@ -65,7 +71,7 @@ npm run dev
 
 Open your browser and visit:<http://127.0.0.1:3000>
 
-**Note: PC must switch the browser to mobile mode, first press`F12`To bring up the console, press`Ctrl+Shift+M`to preview normally**
+**Note: PC browser must be switched to mobile mode, first press`F12`To bring up the console, press`Ctrl+Shift+M`to preview normally**
 
 ## Link
 

@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`es una parodia`抖音|TikTok`proyecto de vídeo corto móvil, que se basa en[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)lograr. Usado lo último`Vue`Pila de tecnología FamilyMart. Los datos de API se guardan localmente en el proyecto y el video se recopila de`抖音|TikTok`, el atlas se recoge de`小红书|Xiaohongshu`,aprobar[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La biblioteca intercepta la API y devuelve datos json locales para simular solicitudes de back-end reales.
+`douyin-vue`es una parodia`抖音|TikTok`El proyecto de vídeo corto móvil tiene un avance del 90%. Usado lo último`Vue`Pila de tecnología FamilyMart, que se basa en[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)lograr. Los datos se guardan localmente en el proyecto y el vídeo se recopila de`抖音|TikTok`, el atlas se recoge de`小红书|Xiaohongshu`,aprobar[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La biblioteca intercepta la API y devuelve datos json locales para simular solicitudes de backend reales.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -30,13 +30,19 @@
 
 ## Acceso en linea
 
+### Región de China:
+
+Páginas del albergue:<https://zyronon.gitee.io/douyin/>
+
+### Fuera de China
+
 Páginas de Github:<https://zyronon.github.io/douyin/>
 
-[//]: # "Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/) (中国推荐访问这个)~~"
+~~Vercel:<http://dy.ttentau.top/>~~
 
-[//]: # "Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/) (中国以外地区推荐访问这个)~~"
+~~Netlificar:<https://douyins.netlify.app/>~~
 
-Los 100G de datos gratuitos proporcionados por Vercel y Netlify se han agotado...🤣
+Los 100G de datos gratuitos proporcionados por Vercel y Netlify respectivamente se han agotado...🤣
 
 Android Apk:<https://github.com/zyronon/douyin/releases>
 
@@ -65,11 +71,11 @@ npm run dev
 
 Abra su navegador y visite:<http://127.0.0.1:3000>
 
-**Nota: La PC debe cambiar el navegador al modo móvil, primero presione`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente**
+**Nota: el navegador de la PC debe cambiarse al modo móvil, primero presione`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente**
 
 ## Enlace
 
--   `开源中国`:<https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g>
+-   `开源中国`: <https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g>
 -   `V2EX`:<https://www.v2ex.com/t/1028678>
 -   `掘金`:<https://juejin.cn/post/7352813352051687458>
 
@@ -102,7 +108,7 @@ Si también le gustan las ideas de diseño de este software, envíelas.`PR`, ¡M
 
 ## contáctame
 
-Puedes contactar a mi correo<a href="mailto:zyronon@163.com">zyronon@163.com</a>
+Puedes contactar a mi correo electrónico<a href="mailto:zyronon@163.com">zyronon@163.com</a>
 
 > Comparta mis otros proyectos de código abierto:
 >

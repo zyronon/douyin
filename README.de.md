@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`ist eine Parodie`抖音|TikTok`mobiles Kurzvideoprojekt, das auf basiert[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)erreichen. Habe das Neueste verwendet`Vue`FamilyMart-Technologie-Stack. API-Daten werden lokal im Projekt gespeichert und das Video wird daraus gesammelt`抖音|TikTok`, der Atlas stammt aus`小红书|Xiaohongshu`,passieren[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)Die Bibliothek fängt die API ab und gibt lokale JSON-Daten zurück, um echte Back-End-Anfragen zu simulieren.
+`douyin-vue`ist eine Parodie`抖音|TikTok`Das mobile Kurzvideoprojekt weist eine Vollständigkeit von 90 % auf. Habe das Neueste verwendet`Vue`FamilyMart-Technologie-Stack, der auf basiert[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)erreichen. Die Daten werden lokal im Projekt gespeichert und das Video daraus gesammelt`抖音|TikTok`, der Atlas stammt aus`小红书|Xiaohongshu`,passieren[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)Die Bibliothek fängt die API ab und gibt lokale JSON-Daten zurück, um echte Backend-Anfragen zu simulieren.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -30,19 +30,25 @@
 
 ## Online-Zugang
 
+### Region China:
+
+Gitee-Seiten:<https://zyronon.gitee.io/douyin/>
+
+### Außerhalb Chinas
+
 Github-Seiten:<https://zyronon.github.io/douyin/>
 
-[//]: # "Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/) (中国推荐访问这个)~~"
+~~Vercel:<http://dy.ttentau.top/>~~
 
-[//]: # "Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/) (中国以外地区推荐访问这个)~~"
+~~Netlify:<https://douyins.netlify.app/>~~
 
-Die 100G kostenlosen Daten von Vercel und Netlify sind aufgebraucht...🤣
+Die von Vercel bzw. Netlify bereitgestellten kostenlosen 100G-Daten sind aufgebraucht...🤣
 
 Android-Apk:<https://github.com/zyronon/douyin/releases>
 
 **Beachten**：`PC`Sie müssen den Browser in den mobilen Modus schalten, zuerst drücken`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen
 
-**Beachten**：手机请用  [über Browser](https://viayoo.com/zh-cn/)oder Chrome-Browservorschau. Andere Browser erzwingen möglicherweise, dass das Video im Vollbildmodus angezeigt wird, was dazu führt, dass es nicht richtig angezeigt wird.
+**Beachten**:Bitte benutzen Sie Ihr Mobiltelefon[über Browser](https://viayoo.com/zh-cn/)oder Chrome-Browservorschau. Andere Browser erzwingen möglicherweise, dass das Video im Vollbildmodus angezeigt wird, was dazu führt, dass es nicht richtig angezeigt wird.
 
 ## Haftungsausschluss
 
@@ -65,7 +71,7 @@ npm run dev
 
 Öffnen Sie Ihren Browser und besuchen Sie:<http://127.0.0.1:3000>
 
-**Hinweis: Der PC muss den Browser in den Mobilmodus schalten, zuerst drücken`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen**
+**Hinweis: Der PC-Browser muss zuerst in den Mobilmodus geschaltet werden`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen**
 
 ## Verknüpfung
 
