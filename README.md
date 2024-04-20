@@ -13,8 +13,8 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue` 是一个模仿 `抖音|TikTok` 的移动端短视频项目，它基于 [`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)
-实现。使用了最新的 `Vue` 全家桶技术栈。Api 数据保存在项目本地，视频采集自`抖音|TikTok`，图集采集自`小红书|Xiaohongshu`，通过 [`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter) 库拦截Api 并返回本地json数据，模拟出真实的后端请求
+`douyin-vue` 是一个模仿 `抖音|TikTok` 的移动端短视频项目，完全度90%。使用了最新的 `Vue` 全家桶技术栈，它基于 [`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)
+、[`Pinia`](https://pinia.vuejs.org/)实现。数据保存在项目本地，视频采集自`抖音|TikTok`，图集采集自`小红书|Xiaohongshu`，通过 [`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter) 库拦截Api 并返回本地json数据，模拟真实后端请求
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -31,11 +31,15 @@
 
 ## 在线访问
 
+### 中国地区：
+Gitee pages: [https://zyronon.gitee.io/douyin/](https://zyronon.gitee.io/douyin/)
+
+### 中国以外地区
 Github pages: [https://zyronon.github.io/douyin/](https://zyronon.github.io/douyin/)
 
-[//]: # (Vercel:  [http://dy.ttentau.top/]&#40;http://dy.ttentau.top/&#41; &#40;中国推荐访问这个&#41;~~)
+~~Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/)~~
 
-[//]: # (Netlify: [https://douyins.netlify.app/]&#40;https://douyins.netlify.app/&#41; &#40;中国以外地区推荐访问这个&#41;~~)
+~~Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/)~~
 
 Vercel和Netlify分别送的100G免费流量已经用完了...🤣
 
@@ -44,7 +48,6 @@ Android Apk: https://github.com/zyronon/douyin/releases
 **注意**：`PC` 必须将浏览器切到手机模式，先按 `F12` 调出控制台，再按 `Ctrl+Shift+M`才能正常预览
 
 **注意**：手机请用  [Via 浏览器](https://viayoo.com/zh-cn/)  或 Chrome 浏览器预览。其它浏览器可能会强制将视频全屏，导致无法正常显示
-
 
 ## 免责声明
 
