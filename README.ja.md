@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`パロディです`抖音|TikTok`をベースにしたモバイルショートビデオプロジェクト[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)成し遂げる。最新のものを使用しました`Vue`ファミリーマートのテクノロジースタック。 API データはプロジェクトのローカルに保存され、ビデオはから収集されます。`抖音|TikTok`、アトラスはから収集されています`小红书|Xiaohongshu`、合格[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)ライブラリは API をインターセプトし、ローカルの JSON データを返して、実際のバックエンド リクエストをシミュレートします。
+`douyin-vue`パロディです`抖音|TikTok`モバイル向けショートビデオプロジェクトの完成度は90％。最新のものを使用しました`Vue`ファミリーマートのテクノロジースタックをベースに、[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)成し遂げる。データはプロジェクトのローカルに保存され、ビデオは次から収集されます。`抖音|TikTok`、アトラスはから収集されています`小红书|Xiaohongshu`、合格[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)ライブラリは API をインターセプトし、ローカルの JSON データを返して、実際のバックエンド リクエストをシミュレートします。
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -30,13 +30,19 @@
 
 ## オンラインアクセス
 
+### 中国地区：
+
+Gite ページ:[ｈっｔｐｓ：／／ｚｙろのん。ぎてえ。いお／どうｙいん／](https://zyronon.gitee.io/douyin/)
+
+### 中国以外地区
+
 Github ページ:[ｈっｔｐｓ：／／ｚｙろのん。ぎてゅｂ。いお／どうｙいん／](https://zyronon.github.io/douyin/)
 
-[//]: # "Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/) (中国推荐访问这个)~~"
+~~ヴェルセル:[ｈっｔｐ：／／ｄｙ。ってんたう。とｐ／](http://dy.ttentau.top/)~~
 
-[//]: # "Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/) (中国以外地区推荐访问这个)~~"
+~~ネットリファイ:[ｈっｔｐｓ：／／どうｙいんｓ。ねｔぃｆｙ。あっｐ／](https://douyins.netlify.app/)~~
 
-VercelとNetlifyが提供する100Gの無料データは使い切ってしまいました…🤣
+VercelとNetlifyがそれぞれ提供する100Gの無料データを使い切ってしまいました...🤣
 
 アンドロイドAPK:[ｈっｔｐｓ：／／ぎてゅｂ。こｍ／ｚｙろのん／どうｙいん／れぇあせｓ](https://github.com/zyronon/douyin/releases)
 
@@ -46,7 +52,7 @@ VercelとNetlifyが提供する100Gの無料データは使い切ってしまい
 
 ## 免責事項
 
-このプロジェクトは調査と研究のみを目的としており、商用目的ではありません
+このプロジェクトは研究と研究のみを目的としており、商業利用は目的ではありません
 
 ## 走る
 
@@ -65,9 +71,9 @@ npm run dev
 
 ブラウザを開いて、以下にアクセスしてください。[ｈっｔｐ：／／１２７。０。０。１：３０００](http://127.0.0.1:3000)
 
-**注: PC はブラウザをモバイル モードに切り替える必要があり、最初に押します。`F12`コンソールを表示するには、 を押します。`Ctrl+Shift+M`通常にプレビューする**
+**注: PC ブラウザを最初に押してモバイル モードに切り替える必要があります。`F12`コンソールを表示するには、 を押します。`Ctrl+Shift+M`通常にプレビューする**
 
-## リンク
+## 链接
 
 -   `开源中国`：[ｈっｔｐｓ：／／ｍｐ。うぇいぃん。っｑ。こｍ／ｓ／とぉｗｍＺぷ＿おじぇ５Ｇ２Ｋｚぅう８ｇ](https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g)
 -   `V2EX`：[ｈっｔｐｓ：／／ｗっｗ。ｖ２えｘ。こｍ／ｔ／１０２８６７８](https://www.v2ex.com/t/1028678)
@@ -97,7 +103,7 @@ npm run dev
 
 ## 特徴と提案
 
-プロジェクトは現在開発の初期段階にあり、ソフトウェアの新機能や提案があれば、お気軽にお問い合わせください。`Issues`で育ちました
+プロジェクトは現在開発の初期段階にあり、新しい機能が継続的に追加されています。ソフトウェアの機能や提案がありましたら、お気軽にお問い合わせください。`Issues`で育ちました
 このソフトウェアのデザインアイデアも気に入っていただけましたら、ぜひ送信してください`PR`、 ご支援ありがとうございました！
 
 ## 私に連絡して
