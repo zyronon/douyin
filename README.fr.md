@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`est une parodie`抖音|TikTok`projet de courte vidéo mobile, basé sur[`Vue`](https://cn.vuejs.org/)、[`Vite`](https://cn.vitejs.dev/)accomplir. Utilisé le dernier`Vue`Pile technologique FamilyMart. Les données API sont enregistrées localement dans le projet et la vidéo est collectée à partir de`抖音|TikTok`, l'atlas est collecté auprès de`小红书|Xiaohongshu`,passer[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La bibliothèque intercepte l'API et renvoie des données json locales pour simuler de véritables requêtes back-end.
+`douyin-vue`est une parodie`抖音|TikTok`Le projet de courte vidéo mobile a un taux d'exhaustivité de 90 %. Utilisé le dernier`Vue`Pile technologique FamilyMart, basée sur[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)accomplir. Les données sont enregistrées localement dans le projet et la vidéo est collectée à partir de`抖音|TikTok`, l'atlas est collecté auprès de`小红书|Xiaohongshu`,passer[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La bibliothèque intercepte l'API et renvoie des données json locales pour simuler de véritables requêtes backend.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -28,21 +28,27 @@
 <img width="150px" src='docs/imgs/img-5.jpg' />
 </div>
 
-## accès en ligne
+## Accès en ligne
+
+### Région Chine :
+
+Pages du gîte :<https://zyronon.gitee.io/douyin/>
+
+### Hors de Chine
 
 Pages GitHub :<https://zyronon.github.io/douyin/>
 
-[//]: # "Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/) (中国推荐访问这个)~~"
+~~Vercel :<http://dy.ttentau.top/>~~
 
-[//]: # "Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/) (中国以外地区推荐访问这个)~~"
+~~Netlifier :<https://douyins.netlify.app/>~~
 
-Les 100G de données gratuites fournies par Vercel et Netlify ont été épuisées...🤣
+Les 100G de données gratuites fournies respectivement par Vercel et Netlify ont été épuisées...🤣
 
 Android Apk :<https://github.com/zyronon/douyin/releases>
 
 **Avis**：`PC`Vous devez passer le navigateur en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement
 
-**Avis**：Veuillez utiliser un téléphone portable[via un navigateur](https://viayoo.com/zh-cn/)ou aperçu du navigateur Chrome. D'autres navigateurs peuvent forcer la vidéo à passer en plein écran, ce qui l'empêchera de s'afficher correctement.
+**Avis**：Veuillez utiliser un téléphone portable[via un navigateur](https://viayoo.com/zh-cn/)ou aperçu du navigateur Chrome. D'autres navigateurs peuvent forcer la vidéo à passer en plein écran, ce qui l'empêche de s'afficher correctement.
 
 ## Clause de non-responsabilité
 
@@ -65,7 +71,7 @@ npm run dev
 
 Ouvrez votre navigateur et visitez :<http://127.0.0.1:3000>
 
-**Remarque : le PC doit passer le navigateur en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement**
+**Remarque : le navigateur du PC doit être basculé en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement**
 
 ## Lien
 
@@ -102,7 +108,7 @@ Si vous aimez également les idées de conception de ce logiciel, veuillez le so
 
 ## Contactez moi
 
-您可以联系我的邮箱 <a href="mailto:zyronon@163.com">zyronon@163.com</a>
+Vous pouvez contacter mon email<a href="mailto:zyronon@163.com">zyronon@163.com</a>
 
 > Partagez mes autres projets open source :
 >
