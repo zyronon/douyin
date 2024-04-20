@@ -15,11 +15,6 @@ permissions:
   pages: write
   id-token: write
 
-# 允许一个并发的部署
-concurrency:
-  group: 'pages'
-  cancel-in-progress: true
-
 jobs:
   # 单次部署的工作描述
   deploy:

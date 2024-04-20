@@ -1,36 +1,36 @@
-#name: Translate README
-#
-#on:
-#  push:
-#    branches:
-#      - master
-#jobs:
-#  build:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: Setup Node.js
-#        uses: actions/setup-node@v1
-#        with:
-#          node-version: 12.x
-#      # ISO Langusge Codes: https://cloud.google.com/translate/docs/languages
-#      - name: Adding README - English
-#        uses: dephraiim/translate-readme@main
-#        with:
-#          LANG: en
-#      - name: Adding README - Japanese
-#        uses: dephraiim/translate-readme@main
-#        with:
-#          LANG: ja
-#      - name: Adding README - German
-#        uses: dephraiim/translate-readme@main
-#        with:
-#          LANG: de
-#      - name: Adding README - French
-#        uses: dephraiim/translate-readme@main
-#        with:
-#          LANG: fr
-#      - name: Adding README - Spanish
-#        uses: dephraiim/translate-readme@main
-#        with:
-#          LANG: es
+name: Translate README
+
+on:
+  # 这个选项可以使你手动在 Action tab 页面触发工作流
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      # ISO Langusge Codes: https://cloud.google.com/translate/docs/languages
+      - name: Adding README - English
+        uses: dephraiim/translate-readme@main
+        with:
+          LANG: en
+      - name: Adding README - Japanese
+        uses: dephraiim/translate-readme@main
+        with:
+          LANG: ja
+      - name: Adding README - German
+        uses: dephraiim/translate-readme@main
+        with:
+          LANG: de
+      - name: Adding README - French
+        uses: dephraiim/translate-readme@main
+        with:
+          LANG: fr
+      - name: Adding README - Spanish
+        uses: dephraiim/translate-readme@main
+        with:
+          LANG: es
