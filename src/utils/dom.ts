@@ -1,7 +1,7 @@
 export default class Dom {
   els = []
 
-  constructor(arg) {
+  constructor(arg?: any) {
     if (typeof arg === 'string') {
       return this.find(arg)
     }
@@ -35,7 +35,7 @@ export default class Dom {
   }
 
   find(tag) {
-    let els = []
+    let els: any = []
     if (this.els.length) {
       els = this.els[0].querySelectorAll(tag)
     } else {
@@ -48,7 +48,7 @@ export default class Dom {
   }
 
   create(template) {
-    let tempNode = document.createElement('div')
+    const tempNode = document.createElement('div')
     tempNode.innerHTML = template.trim()
     this.els = [tempNode.firstChild]
     return this
@@ -101,7 +101,7 @@ export default class Dom {
   }
 
   on(eventName, fn) {
-    let eventArray = eventName.split(' ')
+    const eventArray = eventName.split(' ')
     this.els.forEach((el) => {
       eventArray.map((event) => {
         el.addEventListener(event, fn)
@@ -111,7 +111,7 @@ export default class Dom {
   }
 
   trigger(eventName) {
-    let eventArray = eventName.split(' ')
+    const eventArray = eventName.split(' ')
     this.els.forEach((el) => {
       eventArray.map((event) => {
         el.dispatchEvent(new Event(event))
@@ -129,7 +129,7 @@ export default class Dom {
   }
 
   getStyleValue(key, value) {
-    let whiteList = ['top', 'left', 'right', 'bottom']
+    const whiteList = ['top', 'left', 'right', 'bottom']
     if (whiteList.find((v) => v === key)) {
       if (typeof value === 'number') {
         return value + 'px'

@@ -181,10 +181,7 @@
 <script setup lang="ts">
 import Check from '../../components/Check.vue'
 import { friends } from '@/api/user'
-
-import { useBaseStore } from '@/store/pinia'
 import { onMounted, reactive, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
 import { useNav } from '@/utils/hooks/useNav'
 import { _checkImgUrl, cloneDeep } from '@/utils'
 
@@ -192,9 +189,7 @@ defineOptions({
   name: 'Share2Friend'
 })
 
-const router = useRouter()
 const nav = useNav()
-const store = useBaseStore()
 const data = reactive({
   isCreateChat: false,
   searchKey: '',

@@ -62,14 +62,13 @@ import Search from '../../components/Search.vue'
 import Indicator from '../../components/slide/Indicator.vue'
 import { useBaseStore } from '@/store/pinia'
 import { onMounted, reactive, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useNav } from '@/utils/hooks/useNav'
 
 defineOptions({
   name: 'FindAcquaintance'
 })
 
-const router = useRouter()
 const route = useRoute()
 const nav = useNav()
 const store = useBaseStore()

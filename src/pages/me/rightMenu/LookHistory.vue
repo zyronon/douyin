@@ -16,7 +16,7 @@
         v-model:active-index="data.currentSlideItemIndex"
       >
       </Indicator>
-      <SlideHorizontal v-model:index="data.currentSlideItemIndex" class="SlideRowList">
+      <SlideHorizontal v-model:index="data.currentSlideItemIndex" class="SlideHorizontal">
         <SlideItem class="tab1" style="overflow: auto">
           <Scroll class="Scroll" @pulldown="getHistoryVideo">
             <Posters :list="data.historyVideo.list" v-if="data.historyVideo.total"></Posters>
@@ -150,7 +150,7 @@ function clear() {
   .content {
     padding-top: 60rem;
 
-    .SlideRowList,
+    .SlideHorizontal,
     .Scroll {
       height: calc(
         var(--vh, 1vh) * 100 - var(--indicator-height) - var(--common-header-height)

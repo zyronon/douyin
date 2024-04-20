@@ -21,8 +21,6 @@
 <script setup lang="ts">
 import { useBaseStore } from '@/store/pinia'
 import { _checkImgUrl, _no } from '@/utils'
-import { useRouter } from 'vue-router'
-import { useNav } from '@/utils/hooks/useNav'
 
 defineOptions({
   name: 'RedPacketDetail'
@@ -36,8 +34,6 @@ defineProps({
     }
   }
 })
-const router = useRouter()
-const nav = useNav()
 const store = useBaseStore()
 </script>
 

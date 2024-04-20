@@ -499,9 +499,6 @@ onUnmounted(() => {
 const isExpand = computed(() => {
   return data.showOption
 })
-const isTyping = computed(() => {
-  return data.typing || isExpand
-})
 
 function handleClick() {
   data.recording = true

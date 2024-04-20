@@ -61,10 +61,7 @@ import Switches from '../components/swtich/switches.vue'
 import People from '../../people/components/People.vue'
 import BlockDialog from '../components/BlockDialog.vue'
 import CONST_VAR from '../../../utils/const_var'
-
-import { useBaseStore } from '@/store/pinia'
 import { onMounted, reactive } from 'vue'
-import { useRouter } from 'vue-router'
 import { useNav } from '@/utils/hooks/useNav'
 import { _showConfirmDialog } from '@/utils'
 
@@ -72,9 +69,7 @@ defineOptions({
   name: 'ChatDetail'
 })
 
-const router = useRouter()
 const nav = useNav()
-const store = useBaseStore()
 const data = reactive({
   noMessage: false,
   top: false,

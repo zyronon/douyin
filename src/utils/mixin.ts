@@ -1,14 +1,13 @@
 import globalMethods from './index'
-import BaseHeader from '../components/BaseHeader'
-import SlideRowList from '../components/slide/SlideRowList'
-import SlideItem from '../components/slide/SlideItem'
-import Indicator from '../components/slide/Indicator'
-import BaseFooter from '../components/BaseFooter'
+import BaseHeader from '../components/BaseHeader.vue'
+import SlideItem from '../components/slide/SlideItem.vue'
+import Indicator from '../components/slide/Indicator.vue'
+import BaseFooter from '../components/BaseFooter.vue'
 import BaseMask from '../components/BaseMask.vue'
-import NoMore from '../components/NoMore'
-import Back from '../components/Back'
-import Loading from '../components/Loading'
-import BaseButton from '../components/BaseButton'
+import NoMore from '../components/NoMore.vue'
+import Back from '../components/Back.vue'
+import Loading from '../components/Loading.vue'
+import BaseButton from '../components/BaseButton.vue'
 import CONST_VAR from './const_var'
 import Dom from './dom'
 import bus, { EVENT_KEY } from './bus'
@@ -20,7 +19,6 @@ export default {
   components: {
     BaseHeader,
     SlideHorizontal,
-    SlideRowList,
     SlideItem,
     Indicator,
     BaseFooter,
@@ -58,7 +56,7 @@ export default {
         let pressTimer = null
         // 定义函数处理程序
         // 创建计时器（ 1秒后执行函数 ）
-        let start = (e) => {
+        const start = (e) => {
           if (e.type === 'click' && e.button !== 0) {
             return
           }
@@ -70,7 +68,7 @@ export default {
           }
         }
         // 取消计时器
-        let cancel = () => {
+        const cancel = () => {
           // 检查计时器是否有值
           if (pressTimer !== null) {
             clearTimeout(pressTimer)
@@ -115,16 +113,16 @@ export default {
         let clickTimer = null
         let dbClickTimer = null
         let lastClickTime = null
-        let checkTime = 200
-        let dbCheckCancelTime = 500
+        const checkTime = 200
+        const dbCheckCancelTime = 500
 
-        let dbClick = (e) => {
+        const dbClick = (e) => {
           // console.log('dbClick')
-          let id = 'a' + Date.now()
-          let elWidth = 80
-          let rotate = random(0, 1)
-          let template = `<img class="${rotate ? 'left love-dbclick' : 'right love-dbclick'}" id="${id}" src="${new URL('../assets/img/icon/loved.svg', import.meta.url).href}">`
-          let el = new Dom().create(template)
+          const id = 'a' + Date.now()
+          const elWidth = 80
+          const rotate = random(0, 1)
+          const template = `<img class="${rotate ? 'left love-dbclick' : 'right love-dbclick'}" id="${id}" src="${new URL('../assets/img/icon/loved.svg', import.meta.url).href}">`
+          const el = new Dom().create(template)
           el.css({ top: e.y - elWidth - 40, left: e.x - elWidth / 2 })
           new Dom(`#${binding.value}`).append(el)
           setTimeout(() => {
@@ -132,14 +130,14 @@ export default {
           }, 1000)
         }
 
-        let check = (e) => {
+        const check = (e) => {
           if (isDbClick) {
             clearTimeout(dbClickTimer)
             dbClick(e)
             dbClickTimer = setTimeout(() => (isDbClick = false), dbCheckCancelTime)
             return
           }
-          let nowTime = new Date().getTime()
+          const nowTime = new Date().getTime()
           if (nowTime - lastClickTime < checkTime) {
             clearTimeout(clickTimer)
             dbClick(e)

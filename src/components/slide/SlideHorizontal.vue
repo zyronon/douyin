@@ -22,6 +22,14 @@ const props = defineProps({
     type: String,
     default: () => ''
   },
+  autoplay: {
+    type: Boolean,
+    default: () => false
+  },
+  indicator: {
+    type: Boolean,
+    default: () => false
+  },
   //改变index，是否使用动画
   changeActiveIndexUseAnim: {
     type: Boolean,
@@ -69,6 +77,16 @@ watch(
 onMounted(() => {
   slideInit(wrapperEl.value, state)
 
+  if (props.autoplay) {
+    setInterval(() => {
+      if (state.localIndex === state.wrapper.childrenLength - 1) {
+        emit('update:index', 0)
+      } else {
+        emit('update:index', state.localIndex + 1)
+      }
+    }, 3000)
+  }
+
   //观察子元素数量变动，获取最新数量
   //childrenLength用于canNext方法判断当前页是否是最后一页，是则不能滑动，不捕获事件
   ob = new MutationObserver(() => {
@@ -97,6 +115,15 @@ function touchEnd(e: TouchEvent) {
 
 <template>
   <div class="slide horizontal">
+    <div class="indicator-bullets" v-if="indicator && state.wrapper.childrenLength">
+      <div
+        class="bullet"
+        :class="{ active: state.localIndex === item - 1 }"
+        :key="i"
+        v-for="(item, i) in state.wrapper.childrenLength"
+      ></div>
+    </div>
+
     <div
       class="slide-list"
       ref="wrapperEl"
@@ -108,3 +135,28 @@ function touchEnd(e: TouchEvent) {
     </div>
   </div>
 </template>
+
+<style scoped lang="less">
+.indicator-bullets {
+  position: absolute;
+  bottom: 10rem;
+  z-index: 2;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  .bullet {
+    @width: 5rem;
+    width: @width;
+    height: @width;
+    margin: 0 3rem;
+    border-radius: 50%;
+    background: var(--second-btn-color);
+
+    &.active {
+      background: white;
+    }
+  }
+}
+</style>

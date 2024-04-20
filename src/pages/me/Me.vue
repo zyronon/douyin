@@ -382,10 +382,11 @@ import { $no, _checkImgUrl, _formatNumber, _getUserDouyinId } from '@/utils'
 import { likeVideo, myVideo, privateVideo } from '@/api/videos'
 import { useBaseStore } from '@/store/pinia'
 import { userCollect } from '@/api/user'
+import SlideRowList from '@/components/slide/SlideRowList.vue'
 
 export default {
   name: 'Me',
-  components: { Posters, Indicator, ConfirmDialog },
+  components: { SlideRowList, Posters, Indicator, ConfirmDialog },
   data() {
     return {
       previewImg: '',
@@ -473,7 +474,7 @@ export default {
     }
   },
   mounted() {
-    setTimeout(() => {
+    nextTick(() => {
       this.refs.header = this.$refs.header
       this.refs.headerHeight = this.$refs.header.offsetHeight
       this.refs.descHeight = this.$refs.desc.offsetHeight
@@ -537,7 +538,7 @@ export default {
           this.loadings['loading' + newVal] = true
           let res = await userCollect()
           console.log('res', res)
-          if (res.code === this.SUCCESS) this.videos.collect = res.data
+          if (res.success) this.videos.collect = res.data
         }
       } else {
         if (videoOb.total === -1) {
@@ -549,21 +550,21 @@ export default {
                 pageNo: this.videos.my.pageNo,
                 pageSize: this.pageSize
               })
-              if (res.code === this.SUCCESS) this.videos.my = res.data
+              if (res.success) this.videos.my = res.data
               break
             case 1:
               res = await privateVideo({
                 pageNo: this.videos.private.pageNo,
                 pageSize: this.pageSize
               })
-              if (res.code === this.SUCCESS) this.videos.private = res.data
+              if (res.success) this.videos.private = res.data
               break
             case 2:
               res = await likeVideo({
                 pageNo: this.videos.like.pageNo,
                 pageSize: this.pageSize
               })
-              if (res.code === this.SUCCESS) this.videos.like = res.data
+              if (res.success) this.videos.like = res.data
               break
           }
         }
@@ -627,7 +628,7 @@ export default {
             break
         }
         this.loadings['loading' + this.contentIndex] = false
-        if (res.code === this.SUCCESS) {
+        if (res.success) {
           videoOb.list = videoOb.list.concat(res.data.list)
         }
       }

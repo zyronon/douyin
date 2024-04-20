@@ -1,10 +1,10 @@
 import * as Vue from 'vue'
-import SelectDialog from '../components/dialog/SelectDialog'
-import SimpleConfirmDialog from '../components/dialog/SimpleConfirmDialog'
-import ConfirmDialog from '../components/dialog/ConfirmDialog'
+import SelectDialog from '../components/dialog/SelectDialog.vue'
+import SimpleConfirmDialog from '../components/dialog/SimpleConfirmDialog.vue'
+import ConfirmDialog from '../components/dialog/ConfirmDialog.vue'
 import Loading from '../components/Loading.vue'
-import Config, { IMG_URL } from '../config'
-import NoticeDialog from '../components/dialog/NoticeDialog'
+import Config, { IMG_URL, IS_DEV } from '../config'
+import NoticeDialog from '../components/dialog/NoticeDialog.vue'
 import dayjs from 'dayjs'
 import bus, { EVENT_KEY } from './bus'
 import { ArchiveReader, libarchiveWasm } from 'libarchive-wasm'
@@ -16,24 +16,24 @@ const Utils = {
         return <Loading />
       }
     })
-    let parent = document.createElement('div')
+    const parent = document.createElement('div')
     parent.classList.add(...['dialog-ctn'])
     document.body.append(parent)
     app.mount(parent)
   },
   $hideLoading() {
-    let parent = document.querySelector('.dialog-ctn')
+    const parent = document.querySelector('.dialog-ctn')
     parent.remove()
   },
   $showSelectDialog(sexList, cb) {
-    let remove = () => {
-      let parent = document.querySelector('.dialog-ctn')
+    const remove = () => {
+      const parent = document.querySelector('.dialog-ctn')
       parent.classList.replace('fade-in', 'fade-out')
       setTimeout(() => {
         parent.remove()
       }, 300)
     }
-    let tempCb = (e) => {
+    const tempCb = (e) => {
       remove()
       cb(e)
     }
@@ -42,7 +42,7 @@ const Utils = {
         return <SelectDialog onCancel={remove} list={sexList} onOk={tempCb} />
       }
     })
-    let parent = document.createElement('div')
+    const parent = document.createElement('div')
     parent.classList.add(...['dialog-ctn', 'fade-in'])
     document.body.append(parent)
     app.mount(parent)
@@ -51,18 +51,18 @@ const Utils = {
     if (!cancelCb) {
       cancelCb = () => {}
     }
-    let remove = () => {
-      let parent = document.querySelector('.dialog-ctn')
+    const remove = () => {
+      const parent = document.querySelector('.dialog-ctn')
       parent.classList.replace('fade-in', 'fade-out')
       setTimeout(() => {
         parent.remove()
       }, 300)
     }
-    let tempOkCb = (e) => {
+    const tempOkCb = (e) => {
       remove()
       okCb(e)
     }
-    let tempCancelCb = (e) => {
+    const tempCancelCb = (e) => {
       remove()
       cancelCb(e)
     }
@@ -80,7 +80,7 @@ const Utils = {
         )
       }
     })
-    let parent = document.createElement('div')
+    const parent = document.createElement('div')
     parent.classList.add(...['dialog-ctn', 'fade-in'])
     document.body.append(parent)
     app.mount(parent)
@@ -95,18 +95,18 @@ const Utils = {
     cancelText,
     cancelTextColor
   ) {
-    let remove = () => {
-      let parent = document.querySelector('.dialog-ctn')
+    const remove = () => {
+      const parent = document.querySelector('.dialog-ctn')
       parent.classList.replace('fade-in', 'fade-out')
       setTimeout(() => {
         parent.remove()
       }, 300)
     }
-    let tempOkCb = (e) => {
+    const tempOkCb = (e) => {
       remove()
       okCb && okCb(e)
     }
-    let tempCancelCb = (e) => {
+    const tempCancelCb = (e) => {
       remove()
       cancelCb && cancelCb(e)
     }
@@ -127,20 +127,20 @@ const Utils = {
         )
       }
     })
-    let parent = document.createElement('div')
+    const parent = document.createElement('div')
     parent.classList.add(...['dialog-ctn', 'fade-in'])
     document.body.append(parent)
     app.mount(parent)
   },
   $showNoticeDialog(title, subtitle, subtitleColor, cancelCb, cancelText) {
-    let remove = () => {
-      let parent = document.querySelector('.dialog-ctn')
+    const remove = () => {
+      const parent = document.querySelector('.dialog-ctn')
       parent.classList.replace('fade-in', 'fade-out')
       setTimeout(() => {
         parent.remove()
       }, 300)
     }
-    let tempCancelCb = (e) => {
+    const tempCancelCb = (e) => {
       remove()
       cancelCb(e)
     }
@@ -158,13 +158,13 @@ const Utils = {
         )
       }
     })
-    let parent = document.createElement('div')
+    const parent = document.createElement('div')
     parent.classList.add(...['dialog-ctn', 'fade-in'])
     document.body.append(parent)
     app.mount(parent)
   },
   $notice(val) {
-    let div = document.createElement('div')
+    const div = document.createElement('div')
     div.classList.add('global-notice')
     div.textContent = val
     document.body.append(div)
@@ -294,7 +294,7 @@ const Utils = {
     localStorage.setItem(key, JSON.stringify(value))
   },
   $storageGet(key, defaultValue = '') {
-    let res = localStorage.getItem(key)
+    const res = localStorage.getItem(key)
     if (res) {
       return JSON.parse(res)
     }
@@ -340,9 +340,9 @@ const Utils = {
     if (String(time).length === 10) {
       time = time * 1000
     }
-    let date = new dayjs(time)
-    let now = new dayjs()
-    let d = now.valueOf() - date.valueOf()
+    const date = new dayjs(time)
+    const now = new dayjs()
+    const d = now.valueOf() - date.valueOf()
     let str = ''
     if (d < 1000 * 60) {
       str = '刚刚'
@@ -365,16 +365,16 @@ const Utils = {
   },
   $duration(v) {
     if (!v) return '00:00'
-    let m = Math.floor(v / 60)
+    const m = Math.floor(v / 60)
     // let s = v % 60
-    let s = Math.round(v % 60)
-    let str = ''
+    const s = Math.round(v % 60)
+    let str: string = ''
     if (m === 0) {
       str = '00'
     } else if (m > 0 && m < 10) {
       str = '0' + m
     } else {
-      str = m
+      str = m + ''
     }
     str += ':'
     if (s === 0) {
@@ -406,13 +406,13 @@ const Utils = {
     return Math.hypot(stop.x - start.x, stop.y - start.y)
   },
   updateItem(props, key, val, emit) {
-    let old = cloneDeep(props.item)
+    const old = cloneDeep(props.item)
     old[key] = val
     emit('update:item', old)
     bus.emit(EVENT_KEY.UPDATE_ITEM, { position: props.position, item: old })
   },
   copy(val) {
-    let textarea = document.createElement('textarea')
+    const textarea = document.createElement('textarea')
     document.body.appendChild(textarea)
     textarea.style.position = 'absolute'
     textarea.style.clip = 'rect(0 0 0 0)'
@@ -433,7 +433,7 @@ export function _dateFormat(val, type) {
 }
 
 export function $no() {
-  Utils.$no(arguments)
+  Utils.$no()
 }
 
 export function $notice(val) {
@@ -496,10 +496,10 @@ export function random(min, max) {
 }
 
 export function sampleSize(arr, num) {
-  let list = []
-  let indexs = []
+  const list = []
+  const indexs = []
   while (list.length !== num) {
-    let j = random(0, arr.length - 1)
+    const j = random(0, arr.length - 1)
     if (!indexs.includes(j)) {
       list.push(arr[j])
       indexs.push(j)
@@ -514,26 +514,26 @@ export function _showLoading() {
       return <Loading />
     }
   })
-  let parent = document.createElement('div')
+  const parent = document.createElement('div')
   parent.classList.add(...['dialog-ctn'])
   document.body.append(parent)
   app.mount(parent)
 }
 
 export function _hideLoading() {
-  let parent = document.querySelector('.dialog-ctn')
+  const parent = document.querySelector('.dialog-ctn')
   parent.remove()
 }
 
 export function _showSelectDialog(sexList, cb) {
-  let remove = () => {
-    let parent = document.querySelector('.dialog-ctn')
+  const remove = () => {
+    const parent = document.querySelector('.dialog-ctn')
     parent.classList.replace('fade-in', 'fade-out')
     setTimeout(() => {
       parent.remove()
     }, 300)
   }
-  let tempCb = (e) => {
+  const tempCb = (e) => {
     remove()
     cb(e)
   }
@@ -542,7 +542,7 @@ export function _showSelectDialog(sexList, cb) {
       return <SelectDialog onCancel={remove} list={sexList} onOk={tempCb} />
     }
   })
-  let parent = document.createElement('div')
+  const parent = document.createElement('div')
   parent.classList.add(...['dialog-ctn', 'fade-in'])
   document.body.append(parent)
   app.mount(parent)
@@ -552,18 +552,18 @@ export function _showSimpleConfirmDialog(title, okCb, cancelCb, okText, cancelTe
   if (!cancelCb) {
     cancelCb = () => {}
   }
-  let remove = () => {
-    let parent = document.querySelector('.dialog-ctn')
+  const remove = () => {
+    const parent = document.querySelector('.dialog-ctn')
     parent.classList.replace('fade-in', 'fade-out')
     setTimeout(() => {
       parent.remove()
     }, 300)
   }
-  let tempOkCb = (e) => {
+  const tempOkCb = (e) => {
     remove()
     okCb(e)
   }
-  let tempCancelCb = (e) => {
+  const tempCancelCb = (e) => {
     remove()
     cancelCb(e)
   }
@@ -581,7 +581,7 @@ export function _showSimpleConfirmDialog(title, okCb, cancelCb, okText, cancelTe
       )
     }
   })
-  let parent = document.createElement('div')
+  const parent = document.createElement('div')
   parent.classList.add(...['dialog-ctn', 'fade-in'])
   document.body.append(parent)
   app.mount(parent)
@@ -597,18 +597,18 @@ export function _showConfirmDialog(
   cancelText,
   cancelTextColor
 ) {
-  let remove = () => {
-    let parent = document.querySelector('.dialog-ctn')
+  const remove = () => {
+    const parent = document.querySelector('.dialog-ctn')
     parent.classList.replace('fade-in', 'fade-out')
     setTimeout(() => {
       parent.remove()
     }, 300)
   }
-  let tempOkCb = (e) => {
+  const tempOkCb = (e) => {
     remove()
     okCb && okCb(e)
   }
-  let tempCancelCb = (e) => {
+  const tempCancelCb = (e) => {
     remove()
     cancelCb && cancelCb(e)
   }
@@ -629,21 +629,21 @@ export function _showConfirmDialog(
       )
     }
   })
-  let parent = document.createElement('div')
+  const parent = document.createElement('div')
   parent.classList.add(...['dialog-ctn', 'fade-in'])
   document.body.append(parent)
   app.mount(parent)
 }
 
 export function _showNoticeDialog(title, subtitle, subtitleColor, cancelCb, cancelText) {
-  let remove = () => {
-    let parent = document.querySelector('.dialog-ctn')
+  const remove = () => {
+    const parent = document.querySelector('.dialog-ctn')
     parent.classList.replace('fade-in', 'fade-out')
     setTimeout(() => {
       parent.remove()
     }, 300)
   }
-  let tempCancelCb = (e) => {
+  const tempCancelCb = (e) => {
     remove()
     cancelCb(e)
   }
@@ -661,14 +661,14 @@ export function _showNoticeDialog(title, subtitle, subtitleColor, cancelCb, canc
       )
     }
   })
-  let parent = document.createElement('div')
+  const parent = document.createElement('div')
   parent.classList.add(...['dialog-ctn', 'fade-in'])
   document.body.append(parent)
   app.mount(parent)
 }
 
 export function _notice(val) {
-  let div = document.createElement('div')
+  const div = document.createElement('div')
   div.classList.add('global-notice')
   div.textContent = val
   document.body.append(div)
@@ -682,34 +682,39 @@ export function _no() {
 }
 
 /**
- * 逃避国内某pages，因为json文件被提示有违禁词，json压缩成7z文件，7z和zip文件被屏蔽了，所以7z重命名为md
+ * 逃避国内某pages审查，因为json文件被提示有违禁词，json压缩成7z文件，7z和zip文件被屏蔽了，所以7z重命名为md
  * @param url
- * @returns {Promise<unknown>}
- * @private
+ * @returns Promise<{ json(): Promise<any> } | Response>
+ * @privateF
  */
-export async function _fetch(url) {
-  // eslint-disable-next-line no-async-promise-executor
-  return new Promise(async (resolve) => {
-    let r = await fetch(url)
-    if (url.includes('.md')) {
-      // console.time()
-      const data = await r.arrayBuffer()
-      const mod = await libarchiveWasm()
-      const reader = new ArchiveReader(mod, new Int8Array(data))
-      for (const entry of reader.entries()) {
-        if (entry.getPathname().endsWith('.json')) {
-          let data = new TextDecoder().decode(entry.readData())
-          resolve({
-            json() {
-              return Promise.resolve(JSON.parse(data))
-            }
-          })
+export async function _fetch(url: string): Promise<{ json(): Promise<any> } | Response> {
+  if (IS_DEV) {
+    url = url.replace('.md', '.json')
+    return fetch(url)
+  } else {
+    // eslint-disable-next-line no-async-promise-executor
+    return new Promise(async (resolve) => {
+      const r = await fetch(url)
+      if (url.includes('.md')) {
+        // console.time()
+        const data = await r.arrayBuffer()
+        const mod = await libarchiveWasm()
+        const reader = new ArchiveReader(mod, new Int8Array(data))
+        for (const entry of reader.entries()) {
+          if (entry.getPathname().endsWith('.json')) {
+            const data = new TextDecoder().decode(entry.readData())
+            resolve({
+              json() {
+                return Promise.resolve(JSON.parse(data))
+              }
+            })
+          }
+          // console.timeEnd()
         }
-        // console.timeEnd()
+        reader.free()
+      } else {
+        resolve(r)
       }
-      reader.free()
-    } else {
-      resolve(r)
-    }
-  })
+    })
+  }
 }

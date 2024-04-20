@@ -16,3 +16,4 @@ export const IS_SUB_DOMAIN = ['GITEE_PAGES', 'GP_PAGES'].includes(import.meta.en
 export const BASE_URL = BASE_URL_MAP[import.meta.env.VITE_ENV]
 export const IMG_URL = BASE_URL + '/images/'
 export const FILE_URL = BASE_URL + '/data/'
+export const IS_DEV = process.env.NODE_ENV !== 'production'

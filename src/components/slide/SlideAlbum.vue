@@ -236,7 +236,6 @@ const props = defineProps({
     }
   }
 })
-const judgeValue = 20
 const wrapperEl = ref(null)
 
 //用于解决，touch事件触发startPlay,然后click事件又触发stopLoop的问题

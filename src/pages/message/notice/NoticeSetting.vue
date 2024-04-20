@@ -74,11 +74,8 @@
 </template>
 <script setup lang="ts">
 import Switches from '../components/swtich/switches.vue'
-
-import { useBaseStore } from '@/store/pinia'
 import { onMounted, reactive } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useNav } from '@/utils/hooks/useNav'
+import { useRoute } from 'vue-router'
 
 defineOptions({
   name: 'NoticeSetting'
@@ -92,10 +89,7 @@ defineProps({
     }
   }
 })
-const router = useRouter()
 const route = useRoute()
-const nav = useNav()
-const store = useBaseStore()
 const data = reactive({
   option: true,
   option1: false,

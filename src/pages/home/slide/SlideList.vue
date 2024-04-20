@@ -89,7 +89,7 @@ async function getData(refresh = false) {
   })
   // console.log('getSlide4Data-', 'refresh', refresh, res)
   baseStore.loading = false
-  if (res.code === 200) {
+  if (res.success) {
     state.totalSize = res.data.total
     if (refresh) {
       state.list = []

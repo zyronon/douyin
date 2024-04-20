@@ -3,7 +3,7 @@ import posts6 from '@/assets/data/posts6.json'
 import { _fetch, cloneDeep, random } from '@/utils'
 import { BASE_URL, FILE_URL } from '@/config'
 import { useBaseStore } from '@/store/pinia'
-import axiosInstance from '@/utils/request'
+import { axiosInstance } from '@/utils/request'
 import MockAdapter from 'axios-mock-adapter'
 
 const mock = new MockAdapter(axiosInstance, { delayResponse: 300 })

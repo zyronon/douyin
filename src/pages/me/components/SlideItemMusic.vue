@@ -214,7 +214,7 @@ export default {
       this.loading = true
       let res = await userCollect()
       this.loading = false
-      if (res.code === this.SUCCESS) {
+      if (res.success) {
         this.collectMusic = res.data.music.list.slice(0, 2)
         this.guessMusic = this.recommendMusic = res.data.music.list.slice(2, -1)
       }

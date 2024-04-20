@@ -16,7 +16,7 @@
     "type-check": "vue-tsc --build --force",
     "report": "vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "lint": "eslint  --fix  . --ext .vue,.js,.ts,.tsx,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "prepare": "husky",
     "commit": "git-cz"

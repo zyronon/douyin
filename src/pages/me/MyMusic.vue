@@ -168,10 +168,8 @@ import IndicatorLight from '../../components/slide/IndicatorLight.vue'
 import GuessMusic from './components/GuessMusic.vue'
 import Loading from '../../components/Loading.vue'
 import { userCollect } from '@/api/user'
-import { useBaseStore } from '@/store/pinia'
 import { computed, onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useNav } from '@/utils/hooks/useNav'
 import { _checkImgUrl, _duration, _no } from '@/utils'
 
 defineOptions({
