@@ -172,18 +172,18 @@
         </div>
       </div>
 
-      <div class="version">抖音 version{{ store.version }}</div>
+      <div class="version">抖音 {{ gitLastCommitHash }}</div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { useBaseStore } from '@/store/pinia'
+import { ref } from 'vue'
+
+const gitLastCommitHash = ref(LATEST_COMMIT_HASH)
 
 defineOptions({
   name: 'ChooseSchool'
 })
-
-const store = useBaseStore()
 </script>
 
 <style scoped lang="less">

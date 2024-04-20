@@ -65,7 +65,8 @@
     "vite": "^5.1.7",
     "vite-plugin-cdn-import": "0.3.5",
     "vite-plugin-commonjs": "^0.10.1",
-    "vue-tsc": "^2.0.6"
+    "vue-tsc": "^2.0.6",
+    "git-last-commit": "^1.0.1"
   },
   "lint-staged": {
     "*.{js,ts,vue,jsx,tsx}": [

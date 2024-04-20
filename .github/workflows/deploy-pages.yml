@@ -47,16 +47,12 @@ jobs:
 
       - name: Build
         run: pnpm run build
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          # Upload dist repository
-          path: './dist'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+          deploy_key: ${{ secrets.GITHUB_TOKEN  }}
+          publish_dir: ./dist
 
       - name: Sync to Gitee
         uses: wearerequired/git-mirror-action@master
