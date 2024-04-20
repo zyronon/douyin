@@ -1,0 +1,1 @@
+const e={name:"Base",props:{},data(){return{isAgree:!1,isOtherLogin:!1,showAnim:!1,showTooltip:!1,loading:!1}},computed:{},created(){},methods:{async check(){return new Promise(s=>{this.isAgree?s(!0):!this.showAnim&&!this.showTooltip&&(this.showAnim=!0,setTimeout(()=>{this.showAnim=!1,this.showTooltip=!0},500),setTimeout(()=>{this.showTooltip=!1},3e3))})}}};export{e as B};
