@@ -44,7 +44,7 @@ jobs:
       - name: Build
         run: pnpm run build-gitee-pages
 
-      - name: Deploy to gh-pages
+      - name: Deploy to Gitee Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN  }}
