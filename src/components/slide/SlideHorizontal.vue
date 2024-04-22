@@ -4,8 +4,8 @@ import GM from '../../utils'
 import {
   getSlideOffset,
   slideInit,
-  slidePointerDown,
-  slidePointerMove,
+  slideTouchStart,
+  slideTouchMove,
   slideReset,
   slideTouchEnd
 } from '@/utils/slide'
@@ -39,16 +39,20 @@ const props = defineProps({
 const emit = defineEmits(['update:index'])
 
 let ob = null
+//slide-list的ref引用
 const wrapperEl = ref(null)
+
 const state = reactive({
-  judgeValue: 20,
-  type: SlideType.HORIZONTAL,
+  judgeValue: 20, //一个用于判断滑动朝向的固定值
+  type: SlideType.HORIZONTAL, //组件类型
   name: props.name,
-  localIndex: props.index,
-  needCheck: true,
-  next: false,
-  start: { x: 0, y: 0, time: 0 },
-  move: { x: 0, y: 0 },
+  localIndex: props.index, //当前下标
+  needCheck: true, //是否需要检测，每次按下都需要检测，up事件会重置为true
+  next: false, //能否滑动
+  isDown: false, //是否按下，用于move事件判断
+  start: { x: 0, y: 0, time: 0 }, //按下时的起点坐标
+  move: { x: 0, y: 0 }, //移动时的坐标
+  //slide-list的宽度和子元素数量
   wrapper: {
     width: 0,
     height: 0,
@@ -99,17 +103,17 @@ onUnmounted(() => {
   ob.disconnect()
 })
 
-function touchStart(e: TouchEvent) {
-  slidePointerDown(e, wrapperEl.value, state)
+function touchStart(e) {
+  slideTouchStart(e, wrapperEl.value, state)
 }
 
-function touchMove(e: TouchEvent) {
-  slidePointerMove(e, wrapperEl.value, state)
+function touchMove(e) {
+  slideTouchMove(e, wrapperEl.value, state)
 }
 
-function touchEnd(e: TouchEvent) {
+function touchEnd(e) {
   slideTouchEnd(e, state)
-  slideReset(wrapperEl.value, state, emit)
+  slideReset(e, wrapperEl.value, state, emit)
 }
 </script>
 
@@ -127,9 +131,9 @@ function touchEnd(e: TouchEvent) {
     <div
       class="slide-list"
       ref="wrapperEl"
-      @touchstart="touchStart"
-      @touchmove="touchMove"
-      @touchend="touchEnd"
+      @pointerdown="touchStart"
+      @pointermove="touchMove"
+      @pointerup="touchEnd"
     >
       <slot></slot>
     </div>
@@ -141,16 +145,16 @@ function touchEnd(e: TouchEvent) {
   position: absolute;
   bottom: 10rem;
   z-index: 2;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
-  width: 100%;
+  gap: 7rem;
 
   .bullet {
     @width: 5rem;
     width: @width;
     height: @width;
-    margin: 0 3rem;
     border-radius: 50%;
     background: var(--second-btn-color);
 

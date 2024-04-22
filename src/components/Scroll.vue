@@ -123,6 +123,7 @@ export default {
 @import '../assets/less/index';
 
 .scroll-wrapper {
+  touch-action: pan-y;
   overflow: auto;
 
   .scroll-content {

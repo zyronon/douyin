@@ -6,8 +6,8 @@ import {
   slideInit,
   slideReset,
   slideTouchEnd,
-  slidePointerMove,
-  slidePointerDown
+  slideTouchMove,
+  slideTouchStart
 } from '@/utils/slide'
 import { SlideType } from '@/utils/const_var'
 import SlideItem from '@/components/slide/SlideItem.vue'
@@ -68,6 +68,7 @@ const state = reactive({
   localIndex: props.index,
   needCheck: true,
   next: false,
+  isDown: false,
   start: { x: 0, y: 0, time: 0 },
   move: { x: 0, y: 0 },
   wrapper: { width: 0, height: 0, childrenLength: 0 }
@@ -226,12 +227,12 @@ function getInsEl(item, index, play = false) {
 }
 
 function touchStart(e) {
-  slidePointerDown(e, wrapperEl.value, state)
+  slideTouchStart(e, wrapperEl.value, state)
 }
 
 //TODO 2022-3-28:在最顶部，反复滑动会抖动一下，初步猜测是因为方向变了，导致的加判断距离变成了减
 function touchMove(e) {
-  slidePointerMove(e, wrapperEl.value, state, canNext)
+  slideTouchMove(e, wrapperEl.value, state, canNext)
 }
 
 function touchEnd(e) {
@@ -310,7 +311,7 @@ function touchEnd(e) {
       state.wrapper.childrenLength = wrapperEl.value.children.length
     }
   })
-  slideReset(wrapperEl.value, state, emit)
+  slideReset(e, wrapperEl.value, state, emit)
 }
 
 function canNext(state, isNext) {
@@ -328,9 +329,9 @@ function canNext(state, isNext) {
       class="slide-list flex-direction-column"
       ref="wrapperEl"
       @click="null"
-      @touchstart="touchStart"
-      @touchmove="touchMove"
-      @touchend="touchEnd"
+      @pointerdown="touchStart"
+      @pointermove="touchMove"
+      @pointerup="touchEnd"
     >
       <slot></slot>
     </div>

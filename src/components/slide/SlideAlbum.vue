@@ -23,13 +23,13 @@
     />
 
     <template v-if="state.operationStatus === SlideAlbumOperationStatus.Normal">
-      <ItemToolbar
-        class="mb3r"
-        v-model:item="state.localItem"
-        :position="position"
-        v-bind="$attrs"
-      />
-      <ItemDesc class="mb3r" v-model:item="state.localItem" :position="position" />
+      <!--      <ItemToolbar-->
+      <!--        class="mb3r"-->
+      <!--        v-model:item="state.localItem"-->
+      <!--        :position="position"-->
+      <!--        v-bind="$attrs"-->
+      <!--      />-->
+      <!--      <ItemDesc class="mb3r" v-model:item="state.localItem" :position="position" />-->
     </template>
     <!--不知为啥touch事件，在下部20px的空间内不触发，加上click事件不好了  -->
     <div
@@ -106,8 +106,8 @@ import {
   slideInit,
   slideReset,
   slideTouchEnd,
-  slidePointerMove,
-  slidePointerDown
+  slideTouchMove,
+  slideTouchStart
 } from '@/utils/slide'
 import { SlideAlbumOperationStatus, SlideItemPlayStatus, SlideType } from '../../utils/const_var'
 import ItemToolbar from './ItemToolbar'
@@ -409,7 +409,7 @@ function touchStart(e) {
   // Utils.$showNoticeDialog('start'+e.touches.length)
   console.log('start', e.touches.length)
   if (e.touches.length === 1) {
-    slidePointerDown(e, wrapperEl.value, state)
+    slideTouchStart(e, wrapperEl.value, state)
   } else {
     if (state.operationStatus === SlideAlbumOperationStatus.Zooming) {
       // state.start.center = Utils.getCenter(state.start.point1, state.start.point2)
@@ -452,7 +452,7 @@ function touchMove(e) {
     } else {
       // console.log('m2')
       state.isAutoPlay = false
-      slidePointerMove(
+      slideTouchMove(
         e,
         wrapperEl.value,
         state,
@@ -579,7 +579,7 @@ function touchEnd(e) {
           startLoop()
         }
       )
-      slideReset(wrapperEl.value, state)
+      slideReset(e, wrapperEl.value, state)
     }
   }
 }

@@ -8,6 +8,31 @@ import mixin from './utils/mixin'
 import VueLazyload from '@jambonn/vue-lazyload'
 import { createPinia } from 'pinia'
 
+HTMLElement.prototype._rawAddEventListener_ = HTMLElement.prototype.addEventListener
+HTMLElement.prototype._rawRemoveEventListener_ = HTMLElement.prototype.removeEventListener
+window.isMoved = false
+HTMLElement.prototype.addEventListener = new Proxy(HTMLElement.prototype.addEventListener, {
+  apply(target, ctx, args) {
+    const eventName = args[0]
+    const listener = args[1]
+    // console.log('e', eventName, '')
+    if (listener instanceof Function && eventName === 'click') {
+      args[1] = new Proxy(listener, {
+        apply(target, ctx, args) {
+          // console.log('点击', window.isMoved)
+          if (window.isMoved) return
+          try {
+            return target.apply(ctx, args)
+          } catch (e) {
+            console.error(`[proxyPlayerEvent][${eventName}]`, listener, e)
+          }
+        }
+      })
+    }
+    return target.apply(ctx, args)
+  }
+})
+
 const pinia = createPinia()
 const emitter = mitt()
 const app = createApp(App)

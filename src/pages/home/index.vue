@@ -346,6 +346,7 @@ function dislike() {
   overflow: hidden;
 
   .sidebar {
+    touch-action: pan-y;
     width: 80vw;
     height: calc(var(--vh, 1vh) * 100);
     overflow: auto;
