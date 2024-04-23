@@ -776,7 +776,7 @@ function toggle() {
     align-items: center;
     border-bottom: 1px solid var(--line-color);
     position: fixed;
-    width: 100vw;
+    width: 100%;
     box-sizing: border-box;
     top: 0;
 
@@ -912,7 +912,7 @@ function toggle() {
             justify-content: space-between;
 
             .center {
-              width: calc(100vw - 140rem);
+              width: calc(100% - 140rem);
               box-sizing: border-box;
               //padding: 0 1rem;
               //flex: 1;
@@ -980,7 +980,7 @@ function toggle() {
             justify-content: space-between;
 
             .center {
-              width: calc(100vw - 160rem);
+              width: calc(100% - 160rem);
               box-sizing: border-box;
               //padding: 0 1rem;
               //flex: 1;
@@ -1092,7 +1092,7 @@ function toggle() {
             justify-content: space-between;
 
             .center {
-              width: calc(100vw - 150rem);
+              width: calc(100% - 150rem);
               box-sizing: border-box;
               //padding: 0 1rem;
               //flex: 1;
@@ -1197,7 +1197,7 @@ function toggle() {
               justify-content: space-between;
 
               .center {
-                width: calc(100vw - 150rem);
+                width: calc(100% - 150rem);
                 box-sizing: border-box;
                 //padding: 0 1rem;
                 //flex: 1;

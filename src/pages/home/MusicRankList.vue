@@ -305,7 +305,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { computed, onDeactivated, onMounted, onUnmounted, reactive } from 'vue'
-import { $notice, _checkImgUrl, _dateFormat, _duration, _formatNumber } from '@/utils/index.jsx'
+import { _checkImgUrl, _dateFormat, _duration, _formatNumber, _notice } from '@/utils/index.jsx'
 import { useNav } from '@/utils/hooks/useNav'
 
 defineOptions({
@@ -523,9 +523,9 @@ function scroll(e) {
 function toggleCollect(item) {
   item.is_collect = !item.is_collect
   if (item.is_collect) {
-    $notice('收藏成功')
+    _notice('收藏成功')
   } else {
-    $notice('取消收藏')
+    _notice('取消收藏')
   }
 }
 

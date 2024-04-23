@@ -222,7 +222,7 @@ function closeComments() {
 function dislike() {
   // listRef.value.dislike(state.list[1])
   // state.list[state.index] = state.list[1]
-  // Utils.$notice('操作成功，将减少此类视频的推荐')
+  // _notice('操作成功，将减少此类视频的推荐')
 }
 </script>
 

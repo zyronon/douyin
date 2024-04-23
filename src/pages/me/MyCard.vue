@@ -20,13 +20,13 @@
     </div>
     <div class="footer">
       <!--      <div class="btn" @click="$nav('/scan')">-->
-      <div class="btn" @click="$no">
+      <div class="btn" @click="_no">
         <div class="wrapper">
           <img src="../../assets/img/icon/scan.png" alt="" />
         </div>
         <span>扫一扫</span>
       </div>
-      <div class="btn" @click="$no">
+      <div class="btn" @click="_no">
         <div class="wrapper">
           <img src="../../assets/img/icon/download.png" alt="" />
         </div>
@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import Share from '../../components/Share.vue'
 import { useBaseStore } from '@/store/pinia'
-import { $no, _checkImgUrl } from '@/utils'
+import { _checkImgUrl, _no } from '@/utils'
 import { reactive, watch } from 'vue'
 import { useRouter } from 'vue-router'
 

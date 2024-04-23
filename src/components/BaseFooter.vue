@@ -47,6 +47,9 @@ export default {
     bus.off(EVENT_KEY.EXIT_FULLSCREEN)
   },
   methods: {
+    $nav(path) {
+      this.$router.push(path)
+    },
     tab(index) {
       switch (index) {
         case 1:

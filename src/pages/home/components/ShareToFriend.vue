@@ -26,7 +26,7 @@
               v-for="(item, i) in searchResult"
               @click="handleClick2(item)"
             >
-              <img class="left" v-lazy="$imgPreview(item.avatar)" alt="" />
+              <img class="left" v-lazy="_checkImgUrl(item.avatar)" alt="" />
               <div class="right">
                 <div class="info">
                   <span class="name">
@@ -60,7 +60,7 @@
           <div class="friend-list">
             <div class="index">所有朋友</div>
             <div class="friend-item" :key="i" v-for="(item, i) in localFriends">
-              <img class="left" v-lazy="$imgPreview(item.avatar)" alt="" />
+              <img class="left" v-lazy="_checkImgUrl(item.avatar)" alt="" />
               <div class="right">
                 <span>{{ item.name }}</span>
                 <dy-button :type="item.shared ? 'dark' : 'primary'" @click="item.shared = true">
@@ -80,7 +80,7 @@
 
         <div class="chat-list">
           <div class="chat-item" :key="i" v-for="(item, i) in localFriends">
-            <img class="left" v-lazy="$imgPreview(item.avatar)" alt="" />
+            <img class="left" v-lazy="_checkImgUrl(item.avatar)" alt="" />
             <div class="right">
               <div class="title">
                 <div class="name">{{ text }}</div>
@@ -101,6 +101,7 @@ import FromBottomDialog from '../../../components/dialog/FromBottomDialog'
 import { mapState } from 'pinia'
 import Search from '../../../components/Search'
 import { useBaseStore } from '@/store/pinia'
+import { _checkImgUrl, cloneDeep } from '@/utils'
 /*
 分享给朋友
 * */
@@ -136,7 +137,7 @@ export default {
   watch: {
     searchKey(newVal) {
       if (newVal) {
-        let temp = this.$clone(this.localFriends)
+        let temp = cloneDeep(this.localFriends)
         this.searchResult = temp.filter((v) => {
           // return v.name.includes(newVal) || v.account.includes(newVal);
           return v.name.includes(newVal)
@@ -147,7 +148,7 @@ export default {
     },
     modelValue(newVal) {
       if (newVal) {
-        this.localFriends = this.$clone(this.friends.all)
+        this.localFriends = cloneDeep(this.friends.all)
         this.localFriends.map((v) => (v.shared = false))
       } else {
         this.searchKey = ''
@@ -165,6 +166,7 @@ export default {
   },
   created() {},
   methods: {
+    _checkImgUrl,
     handleClick() {
       this.isShowRightText = true
       this.height = 'calc(var(--vh, 1vh) * 100)'

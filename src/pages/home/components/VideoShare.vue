@@ -41,8 +41,8 @@
         <to-share item-type="report" @click="$nav('/home/report', { mode: this.mode })" />
         <to-share item-type="copyPassword" @click="copyLink" />
         <to-share :item-type="isCollect ? 'collectYellow' : 'collect'" @click="toggleCollect" />
-        <to-share item-type="comeon" @click="$no" />
-        <to-share item-type="dou" @click="$no" />
+        <to-share item-type="comeon" @click="_no" />
+        <to-share item-type="dou" @click="_no" />
         <to-share item-type="copyLink" @click="copyLink" />
         <template v-if="isShowMore">
           <to-share item-type="duoshan" @click="isShowMore = true" />
@@ -50,12 +50,12 @@
         </template>
         <to-share v-else item-type="share" @click="isShowMore = true" />
         <to-share item-type="dislike" @click="isShowMore = true" />
-        <to-share item-type="bizhi" @click="$no" />
-        <to-share item-type="code" @click="$no" />
+        <to-share item-type="bizhi" @click="_no" />
+        <to-share item-type="code" @click="_no" />
       </div>
       <div class="friends">
         <div class="item" :key="i" v-for="(item, i) in friends.all">
-          <img class="left" v-lazy="$imgPreview(item.avatar)" alt="" />
+          <img class="left" v-lazy="_checkImgUrl(item.avatar)" alt="" />
           <div class="right">
             <span>{{ item.name }}</span>
             <dy-button
@@ -81,6 +81,15 @@ import { mapState } from 'pinia'
 import FromBottomDialog from '../../../components/dialog/FromBottomDialog'
 import LoadingCircle from './LoadingCircle'
 import { useBaseStore } from '@/store/pinia'
+import {
+  _checkImgUrl,
+  _hideLoading,
+  _no,
+  _notice,
+  _showLoading,
+  _sleep,
+  _stopPropagation
+} from '@/utils'
 // import DouyinCode from "./DouyinCode";
 
 export default {
@@ -149,17 +158,17 @@ export default {
         click(e) {
           if (!this.canDownload) {
             if (this.itemType === 'download') {
-              this.$stopPropagation(e)
+              _stopPropagation(e)
             } else {
-              this.$notice('作者已关闭下载功能')
+              _notice('作者已关闭下载功能')
               this.$emit('copy')
             }
             return
           }
-          if (this.needDown) this.$stopPropagation(e)
+          if (this.needDown) _stopPropagation(e)
           else return
           if (this.progress === 100) {
-            this.$notice('未实现分享跳转到其他App')
+            _notice('未实现分享跳转到其他App')
           } else {
             this.loading = true
             let interval = setInterval(() => {
@@ -170,7 +179,7 @@ export default {
                 this.loading = false
                 this.$emit('click')
                 this.$emit('click')
-                this.$notice('未实现分享跳转到其他App')
+                _notice('未实现分享跳转到其他App')
               }
             }, 10)
           }
@@ -249,6 +258,8 @@ export default {
     }
   },
   methods: {
+    _checkImgUrl,
+    _no,
     displayText(type) {
       if (this.loading[type]) {
         return this.progress !== 100 ? '下载中' : this.text[type]
@@ -257,17 +268,17 @@ export default {
     },
     async copyLink() {
       this.closeShare()
-      this.$showLoading()
-      await this.$sleep(500)
-      this.$hideLoading()
-      this.$notice('复制成功')
+      _showLoading()
+      await _sleep(500)
+      _hideLoading()
+      _notice('复制成功')
     },
     toggleCollect() {
       this.closeShare()
       if (this.isCollect) {
-        this.$notice('取消收藏成功')
+        _notice('取消收藏成功')
       } else {
-        this.$notice('收藏成功')
+        _notice('收藏成功')
       }
       this.isCollect = !this.isCollect
     },

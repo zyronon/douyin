@@ -251,7 +251,7 @@ function stopPlay() {
   .float-play-music {
     position: fixed;
     bottom: 0;
-    width: 100vw;
+    width: 100%;
     background: var(--main-bg);
     display: flex;
     align-items: center;
@@ -267,7 +267,7 @@ function stopPlay() {
     }
 
     .music-wrapper {
-      width: 100vw;
+      width: 100%;
       border-top: 1px solid #414141;
       padding: 10rem 15rem;
       display: flex;

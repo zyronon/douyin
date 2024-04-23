@@ -16,23 +16,23 @@
       <div class="toolbar">
         <div class="title">分享到</div>
         <div class="shares">
-          <div class="share-to" @click="$no">
+          <div class="share-to" @click="_no">
             <img src="../assets/img/icon/components/video/toqq.webp" alt="" />
             <span>QQ好友</span>
           </div>
-          <div class="share-to" @click="$no">
+          <div class="share-to" @click="_no">
             <img src="../assets/img/icon/components/video/tozone.webp" alt="" />
             <span>QQ空间</span>
           </div>
-          <div class="share-to" @click="$no">
+          <div class="share-to" @click="_no">
             <img src="../assets/img/icon/components/video/towechatchat.webp" alt="" />
             <span>微信好友</span>
           </div>
-          <div class="share-to" @click="$no">
+          <div class="share-to" @click="_no">
             <img src="../assets/img/icon/components/video/towechat.webp" alt="" />
             <span>朋友圈</span>
           </div>
-          <div class="share-to" @click="$no">
+          <div class="share-to" @click="_no">
             <img src="../assets/img/icon/components/video/todownload.webp" alt="" />
             <span>保存到相册</span>
           </div>
@@ -43,7 +43,7 @@
   </transition>
 </template>
 <script>
-import { _checkImgUrl } from '@/utils'
+import { _checkImgUrl, _no } from '@/utils'
 
 export default {
   name: 'DouyinCode',
@@ -62,6 +62,7 @@ export default {
   computed: {},
   created() {},
   methods: {
+    _no,
     _checkImgUrl,
     cancel() {
       this.$emit('update:modelValue', false)

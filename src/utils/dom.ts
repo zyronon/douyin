@@ -142,7 +142,7 @@ export default class Dom {
 }
 
 export function _css(el, key, value?) {
-  const reg = /^\d+(px|pt|em|rem|vw|vh|%|rpx)$/i
+  const reg = /^\d+.?\d*(px|pt|em|rem|vw|vh|%|rpx|ms)$/i
   if (value === undefined) {
     let val = null
     if ('getComputedStyle' in window) {
@@ -167,7 +167,9 @@ export function _css(el, key, value?) {
       ].includes(key)
     ) {
       if (!reg.test(value)) {
-        value += 'px'
+        if (!String(value).includes('calc')) {
+          value += 'px'
+        }
       }
     }
     // console.log(value)

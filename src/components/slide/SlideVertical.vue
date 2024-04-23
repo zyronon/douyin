@@ -1,6 +1,5 @@
 <script setup>
 import { onMounted, reactive, ref, watch } from 'vue'
-import GM from '../../utils'
 import {
   getSlideOffset,
   slideInit,
@@ -10,6 +9,7 @@ import {
   slideTouchStart
 } from '@/utils/slide'
 import { SlideType } from '@/utils/const_var'
+import { _css } from '@/utils/dom'
 
 const props = defineProps({
   index: {
@@ -58,9 +58,9 @@ watch(
     if (state.localIndex !== newVal) {
       state.localIndex = newVal
       if (props.changeActiveIndexUseAnim) {
-        GM.$setCss(wrapperEl.value, 'transition-duration', `300ms`)
+        _css(wrapperEl.value, 'transition-duration', `300ms`)
       }
-      GM.$setCss(
+      _css(
         wrapperEl.value,
         'transform',
         `translate3d(0,${getSlideOffset(state, wrapperEl.value)}px, 0)`

@@ -62,7 +62,7 @@
 import SlideItem from '@/components/slide/SlideItem.vue'
 import { onMounted, onUnmounted, reactive, ref } from 'vue'
 import bus, { EVENT_KEY } from '@/utils/bus'
-import Utils from '@/utils'
+import { _stopPropagation } from '@/utils'
 import SlideList from './SlideList.vue'
 import { recommendedVideo } from '@/api/videos'
 
@@ -94,7 +94,7 @@ const state = reactive({
 })
 
 function showSubType(e) {
-  Utils.$stopPropagation(e)
+  _stopPropagation(e)
   console.log('subTypeRef')
   state.subTypeHeight = subTypeRef.value.getBoundingClientRect().height + 'px'
   state.subTypeVisible = true
@@ -107,7 +107,7 @@ function pageClick(e) {
   if (state.subTypeVisible) {
     state.subTypeIsTop = state.subTypeVisible = false
     bus.emit(EVENT_KEY.CLOSE_SUB_TYPE)
-    Utils.$stopPropagation(e)
+    _stopPropagation(e)
   }
 }
 

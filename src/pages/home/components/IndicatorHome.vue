@@ -56,6 +56,7 @@ import Loading from '../../../components/Loading.vue'
 import bus from '../../../utils/bus'
 import { mapState } from 'pinia'
 import { useBaseStore } from '@/store/pinia'
+import { _css } from '@/utils/dom'
 
 export default {
   name: 'IndicatorHome',
@@ -179,16 +180,16 @@ export default {
         this.open = false
       }
       this.$emit('update:index', index)
-      this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
-      this.$setCss(this.indicatorRef, 'left', this.lefts[index] + 'px')
+      _css(this.indicatorRef, 'transition-duration', `300ms`)
+      _css(this.indicatorRef, 'left', this.lefts[index] + 'px')
     },
     initTabs() {
       let tabs = this.$refs.tabs
       this.indicatorRef = this.$refs.indicator
-      let indicatorWidth = this.$getCss(this.indicatorRef, 'width')
+      let indicatorWidth = _css(this.indicatorRef, 'width')
       for (let i = 0; i < tabs.children.length; i++) {
         let item = tabs.children[i]
-        let tabWidth = this.$getCss(item, 'width')
+        let tabWidth = _css(item, 'width')
         this.lefts.push(
           item.getBoundingClientRect().x -
             tabs.children[0].getBoundingClientRect().x +
@@ -196,12 +197,12 @@ export default {
         )
       }
       this.indicatorSpace = this.lefts[1] - this.lefts[0]
-      this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
-      this.$setCss(this.indicatorRef, 'left', this.lefts[this.index] + 'px')
+      _css(this.indicatorRef, 'transition-duration', `300ms`)
+      _css(this.indicatorRef, 'left', this.lefts[this.index] + 'px')
     },
     move(e) {
-      this.$setCss(this.indicatorRef, 'transition-duration', `0ms`)
-      this.$setCss(
+      _css(this.indicatorRef, 'transition-duration', `0ms`)
+      _css(
         this.indicatorRef,
         'left',
         this.lefts[this.index] - e / (this.baseStore.bodyWidth / this.indicatorSpace) + 'px'
@@ -209,10 +210,10 @@ export default {
     },
     end(index) {
       this.moveY = 0
-      this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
-      this.$setCss(this.indicatorRef, 'left', this.lefts[index] + 'px')
+      _css(this.indicatorRef, 'transition-duration', `300ms`)
+      _css(this.indicatorRef, 'left', this.lefts[index] + 'px')
       setTimeout(() => {
-        this.$setCss(this.indicatorRef, 'transition-duration', `0ms`)
+        _css(this.indicatorRef, 'transition-duration', `0ms`)
       }, 300)
     }
   }

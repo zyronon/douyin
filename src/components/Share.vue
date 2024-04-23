@@ -25,7 +25,7 @@
           <img
             :style="item.select ? 'opacity: .5;' : ''"
             class="avatar"
-            :src="$imgPreview(item.avatar)"
+            :src="_checkImgUrl(item.avatar)"
             alt=""
           />
           <span>{{ item.name }}</span>
@@ -54,11 +54,11 @@
             <Icon icon="humbleicons:link" />
             <span>复制链接</span>
           </div>
-          <div class="option" @click.stop="$no">
+          <div class="option" @click.stop="_no">
             <img class="small" src="../assets/img/icon/components/video/comeonplay.png" alt="" />
             <span>合拍</span>
           </div>
-          <div class="option" @click.stop="$no">
+          <div class="option" @click.stop="_no">
             <img class="small" src="../assets/img/icon/components/video/dou.webp" alt="" />
             <span>帮上热门</span>
           </div>
@@ -74,12 +74,12 @@
             <Icon icon="mingcute:download-fill" />
             <span>保存本地</span>
           </div>
-          <div class="option" @click.stop="$no">
+          <div class="option" @click.stop="_no">
             <!--TODO icon不对            -->
             <img class="small" src="../assets/img/icon/components/video/feedback.webp" alt="" />
             <span>建群分享</span>
           </div>
-          <div class="option" @click.stop="$no">
+          <div class="option" @click.stop="_no">
             <img class="small" src="../assets/img/icon/components/video/comeonlook.webp" alt="" />
             <span>一起看视频</span>
           </div>
@@ -91,7 +91,7 @@
             <Icon icon="tabler:photo" />
             <span>生成图片</span>
           </div>
-          <div class="option" @click.stop="$no">
+          <div class="option" @click.stop="_no">
             <img class="small" src="../assets/img/icon/components/video/bizhi.webp" alt="" />
             <span>动态壁纸</span>
           </div>
@@ -111,7 +111,7 @@
           </div>
         </template>
         <template v-if="mode === 'my-music'">
-          <div class="option" @click.stop="$no">
+          <div class="option" @click.stop="_no">
             <img class="small" src="../assets/img/icon/components/video/torichang.png" alt="" />
             <span>转发到日常</span>
           </div>
@@ -128,10 +128,10 @@
           <img class="poster" src="../assets/img/poster/1.jpg" alt="" />
         </div>
         <div class="btns">
-          <dy-button type="dark2" radius="7" v-if="selectFriends.length > 1" @click.stop="$no"
+          <dy-button type="dark2" radius="7" v-if="selectFriends.length > 1" @click.stop="_no"
             >建群并发送
           </dy-button>
-          <dy-button type="primary" radius="7" @click.stop="$no"
+          <dy-button type="primary" radius="7" @click.stop="_no"
             >{{ selectFriends.length > 1 ? '分别发送' : '发送' }}
           </dy-button>
         </div>
@@ -144,7 +144,7 @@
 import { mapState } from 'pinia'
 import FromBottomDialog from './dialog/FromBottomDialog'
 import { useBaseStore } from '@/store/pinia'
-import { $no, _copy } from '@/utils'
+import { _checkImgUrl, _copy, _hideLoading, _no, _notice, _showLoading, _sleep } from '@/utils'
 
 export default {
   name: 'Share',
@@ -196,15 +196,16 @@ export default {
     return {}
   },
   methods: {
-    $no,
+    _checkImgUrl,
+    _no,
     async copyLink() {
       this.closeShare()
-      this.$showLoading()
-      await this.$sleep(500)
-      this.$hideLoading()
+      _showLoading()
+      await _sleep(500)
+      _hideLoading()
       _copy(this.item.share_info.share_link_desc + this.item.share_info.share_url)
       //TODO 抖音样式改了
-      this.$notice('复制成功')
+      _notice('复制成功')
     },
 
     toggleCall(item) {
@@ -325,7 +326,7 @@ export default {
     bottom: 0;
     padding: 20rem;
     box-sizing: border-box;
-    width: 100vw;
+    width: 100%;
     height: 180rem;
     background: black;
     display: flex;

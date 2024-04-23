@@ -1,6 +1,5 @@
 <script setup lang="tsx">
 import { createApp, onMounted, reactive, ref, render as vueRender, watch } from 'vue'
-import GM from '../../utils'
 import {
   getSlideOffset,
   slideInit,
@@ -171,7 +170,7 @@ function insertContent(list = props.list) {
     let el = getInsEl(item, start + index, start + index === state.localIndex)
     wrapperEl.value.appendChild(el)
   })
-  GM.$setCss(
+  _css(
     wrapperEl.value,
     'transform',
     `translate3d(0px,${getSlideOffset(state, wrapperEl.value)}px,  0px)`
@@ -192,7 +191,7 @@ function insertContent(list = props.list) {
   bus.emit(EVENT_KEY.CURRENT_ITEM, list[state.localIndex])
 }
 
-function dislike(item) {
+function dislike() {
   // let currentItem = $(wrapperEl.value).find(`.${itemClassName}[data-index=${state.localIndex}]`)
   // let replaceItem = getInsEl(item, state.localIndex, true)
   // $(replaceItem).css('top', currentItem.css('top'))
@@ -281,7 +280,6 @@ function touchEnd(e) {
           wrapperEl.value.querySelectorAll(`.${itemClassName}`).forEach((item) => {
             let index = Number(item.getAttribute('data-index'))
             if (index < state.localIndex - 2) {
-              console.log(2, appInsMap.get(Number(index)))
               appInsMap.get(index).unmount()
             }
             _css(item, 'top', (state.localIndex - 2) * state.wrapper.height)

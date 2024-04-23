@@ -20,12 +20,12 @@
           class="poster-item"
           :key="index"
           v-for="(i, index) in modelValue.videos.slice(0, 3)"
-          @click="globalMethods.$no"
+          @click="_no"
         >
-          <img class="poster" :src="globalMethods.$imgPreview(i.cover)" />
+          <img class="poster" :src="_checkImgUrl(i.cover)" />
           <div class="num">
             <img class="love" src="../../assets/img/icon/love.svg" alt="" />
-            <span>{{ globalMethods.formatNumber(i.digg_count) }}</span>
+            <span>{{ _formatNumber(i.digg_count) }}</span>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
   </div>
 </template>
 <script>
-import globalMethods from '../../utils'
+import { _checkImgUrl, _formatNumber, _no } from '../../utils'
 import BaseButton from '../BaseButton'
 
 export default {
@@ -240,17 +240,12 @@ export default {
       }
     }
   },
-  data() {
-    return {
-      globalMethods
-    }
-  },
   computed: {},
   watch: {},
   created() {
     console.log('modelValue', this.modelValue)
   },
-  methods: {}
+  methods: { _formatNumber, _checkImgUrl, _no }
 }
 </script>
 

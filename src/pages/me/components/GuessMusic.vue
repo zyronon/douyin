@@ -151,7 +151,7 @@ export default {
 </script>
 <style scoped lang="less">
 #GuessMusic {
-  //width: 100vw;
+  //width: 100%;
   //height: calc(var(--vh, 1vh) * 100);
   position: fixed;
   left: 0;
@@ -170,7 +170,7 @@ export default {
 
   .music-list-header {
     position: fixed;
-    width: 100vw;
+    width: 100%;
     background: @bg-color;
     box-sizing: border-box;
     border-bottom: 1px solid #2a2828;

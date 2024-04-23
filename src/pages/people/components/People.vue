@@ -1,6 +1,6 @@
 <template>
   <div class="People">
-    <img :src="$imgPreview(people.avatar)" alt="" class="head-image pull-left" />
+    <img :src="_checkImgUrl(people.avatar)" alt="" class="head-image pull-left" />
     <div class="content">
       <template v-if="mode === 'normal'">
         <div class="left">
@@ -161,6 +161,8 @@
   </div>
 </template>
 <script>
+import { _checkImgUrl } from '@/utils'
+
 export default {
   name: 'People',
   props: {
@@ -186,7 +188,7 @@ export default {
   },
   computed: {},
   created() {},
-  methods: {}
+  methods: { _checkImgUrl }
 }
 </script>
 

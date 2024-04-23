@@ -1,10 +1,10 @@
 <template>
-  <div id="Community" @dragstart="(e) => Utils.$stopPropagation(e)">
+  <div id="Community" @dragstart="(e) => _stopPropagation(e)">
     <ScrollList class="Scroll" v-if="state.show" :api="recommendedPost">
       <template v-slot="{ list }">
         <div class="search" @click="nav('/home/search')">
           <div class="left">
-            <Icon class="icon" icon="ion:search" @click.stop="$no()" />
+            <Icon class="icon" icon="ion:search" @click.stop="_no" />
             <span>壁纸</span>
           </div>
           <div class="right">搜索</div>
@@ -47,7 +47,7 @@
 
 <script setup>
 import { reactive, ref, watch } from 'vue'
-import Utils, { $no, _checkImgUrl, cloneDeep } from '@/utils'
+import { _checkImgUrl, _no, _stopPropagation, cloneDeep } from '@/utils'
 import { recommendedPost } from '@/api/user'
 import { useNav } from '@/utils/hooks/useNav'
 import { Icon } from '@iconify/vue'
@@ -210,8 +210,8 @@ function showDetail(e, item) {
   @p: 1rem;
 
   .search {
-    margin-left: 2vw;
-    width: 96vw;
+    margin-left: 2%;
+    width: 96%;
     box-sizing: border-box;
     padding: 10rem;
     border: 1px solid #646464;
@@ -235,8 +235,8 @@ function showDetail(e, item) {
   }
 
   .list {
-    margin-left: 2vw;
-    width: 96vw;
+    margin-left: 2%;
+    width: 96%;
   }
 }
 
@@ -299,7 +299,7 @@ function showDetail(e, item) {
   position: absolute;
   left: 0;
   top: -200vh;
-  width: 100vw;
+  width: 100%;
   transition: all 0.3s;
   overflow: hidden;
   z-index: -100;

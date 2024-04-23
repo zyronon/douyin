@@ -25,6 +25,8 @@
 <script>
 import bus from '../../utils/bus'
 import { useBaseStore } from '@/store/pinia'
+import { _css } from '@/utils/dom'
+import { _stopPropagation } from '@/utils'
 
 export default {
   name: 'BaseSlideList',
@@ -157,14 +159,14 @@ export default {
   methods: {
     changeIndex(init = false, index = null) {
       this.currentSlideItemIndex = index !== null ? index : this.activeIndex
-      !init && this.$setCss(this.slideList, 'transition-duration', `300ms`)
-      this.$setCss(
+      !init && _css(this.slideList, 'transition-duration', `300ms`)
+      _css(
         this.slideList,
         'transform',
         `translate3d(${-this.getWidth(this.currentSlideItemIndex) + this.moveXDistance}px, 0px, 0px)`
       )
       if (this.isHome) {
-        this.$setCss(
+        _css(
           this.indicatorRef,
           'left',
           this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px'
@@ -178,7 +180,7 @@ export default {
       this.indicatorRef = this.$refs.indicator
       for (let i = 0; i < tabs.children.length; i++) {
         let item = tabs.children[i]
-        this.tabWidth = this.$getCss(item, 'width')
+        this.tabWidth = _css(item, 'width')
         //TODO 这里算得不对，两个字时正常，字一多就会出问题，修改参考IndicatorLight.vue
         this.tabIndicatorRelationActiveIndexLefts.push(
           item.getBoundingClientRect().x -
@@ -190,8 +192,8 @@ export default {
       this.indicatorSpace =
         this.tabIndicatorRelationActiveIndexLefts[1] - this.tabIndicatorRelationActiveIndexLefts[0]
       if (this.isHome) {
-        this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
-        this.$setCss(
+        _css(this.indicatorRef, 'transition-duration', `300ms`)
+        _css(
           this.indicatorRef,
           'left',
           this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px'
@@ -201,16 +203,16 @@ export default {
     async checkChildren() {
       this.slideList = this.$refs.slideList
       this.slideItems = this.slideList.children
-      this.wrapperWidth = this.$getCss(this.slideList, 'width')
-      this.wrapperHeight = this.$getCss(this.slideList, 'height')
+      this.wrapperWidth = _css(this.slideList, 'width')
+      this.wrapperHeight = _css(this.slideList, 'height')
       for (let i = 0; i < this.slideItems.length; i++) {
         let el = this.slideItems[i]
-        this.slideItemsWidths.push(this.$getCss(el, 'width'))
+        this.slideItemsWidths.push(_css(el, 'width'))
       }
     },
     touchStart(e) {
-      this.$setCss(this.slideList, 'transition-duration', `0ms`)
-      this.isHome && this.$setCss(this.indicatorRef, 'transition-duration', `0ms`)
+      _css(this.slideList, 'transition-duration', `0ms`)
+      this.isHome && _css(this.indicatorRef, 'transition-duration', `0ms`)
       this.toolbarStyleTransitionDuration = 0
 
       this.startLocationX = e.touches[0].pageX
@@ -218,7 +220,6 @@ export default {
       this.startTime = Date.now()
     },
     touchMove(e) {
-      //  this.$stopPropagation(e)
       if (!this.canMove) return
       this.moveXDistance = e.touches[0].pageX - this.startLocationX
       this.moveYDistance = e.touches[0].pageY - this.startLocationY
@@ -244,8 +245,8 @@ export default {
           x: { distance: this.moveXDistance, isDrawRight: this.isDrawRight }
         })
 
-        this.$stopPropagation(e)
-        this.$setCss(
+        _stopPropagation(e)
+        _css(
           this.slideList,
           'transform',
           `translate3d(${
@@ -256,7 +257,7 @@ export default {
         )
 
         this.isHome &&
-          this.$setCss(
+          _css(
             this.indicatorRef,
             'left',
             this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] -
@@ -278,8 +279,8 @@ export default {
         if (this.currentSlideItemIndex === 0 && !this.isDrawRight) return
         if (this.currentSlideItemIndex === this.slideItems.length - 1 && this.isDrawRight) return
 
-        this.$setCss(this.slideList, 'transition-duration', `300ms`)
-        this.isHome && this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
+        _css(this.slideList, 'transition-duration', `300ms`)
+        this.isHome && _css(this.indicatorRef, 'transition-duration', `300ms`)
         let endTime = Date.now()
         let gapTime = endTime - this.startTime
 
@@ -287,7 +288,7 @@ export default {
         // this.$stopPropagation(e)//todo 如果是嵌套竖状的slide，会出问题,会到moveYDistance停下，不会移到
         //this.getWidth(this.currentSlideItemIndex)位置，但是不禁示冒泡的话，又会出现划动过快，把父级也会移动。
         if (this.moveXDistance !== 0) {
-          this.$stopPropagation(e)
+          _stopPropagation(e)
         }
         if (Math.abs(this.moveXDistance) < 20) gapTime = 1000
         if (Math.abs(this.moveXDistance) > this.wrapperWidth / 3) gapTime = 100
@@ -298,13 +299,13 @@ export default {
             this.currentSlideItemIndex -= 1
           }
         }
-        this.$setCss(
+        _css(
           this.slideList,
           'transform',
           `translate3d(${-this.getWidth(this.currentSlideItemIndex)}px, 0px, 0px)`
         )
         if (this.isHome) {
-          this.$setCss(
+          _css(
             this.indicatorRef,
             'left',
             this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px'

@@ -62,8 +62,8 @@
           @touchend="touchend"
         >
           <div class="time" v-if="isMove">
-            <span class="currentTime">{{ LUtils.$duration(currentTime) }}</span>
-            <span class="duration"> / {{ LUtils.$duration(duration) }}</span>
+            <span class="currentTime">{{ _duration(currentTime) }}</span>
+            <span class="duration"> / {{ _duration(duration) }}</span>
           </div>
           <template v-if="duration > 15 || isMove || !isPlaying">
             <div class="bg"></div>
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import Utils, { _checkImgUrl } from '../../utils'
+import { _checkImgUrl, _duration, _stopPropagation } from '@/utils'
 import Loading from '../Loading'
 import ItemToolbar from './ItemToolbar'
 import ItemDesc from './ItemDesc'
@@ -85,6 +85,7 @@ import bus, { EVENT_KEY } from '../../utils/bus'
 import { SlideItemPlayStatus } from '@/utils/const_var'
 import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
+import { _css } from '@/utils/dom'
 
 export default {
   name: 'BVideo',
@@ -173,8 +174,7 @@ export default {
       localItem: this.item,
       progressBarRect: {},
       videoScreenHeight: 0,
-      commentVisible: false,
-      LUtils: Utils
+      commentVisible: false
     }
   },
   mounted() {
@@ -258,6 +258,7 @@ export default {
     bus.off(EVENT_KEY.CLOSE_SUB_TYPE, this.onCloseSubType)
   },
   methods: {
+    _duration,
     _checkImgUrl,
     onOpenSubType() {
       this.commentVisible = true
@@ -267,33 +268,33 @@ export default {
     },
     onDialogMove({ tag, e }) {
       if (this.commentVisible && tag === 'comment') {
-        Utils.$setCss(this.$refs.video, 'transition-duration', `0ms`)
-        Utils.$setCss(this.$refs.video, 'height', `calc(var(--vh, 1vh) * 30 + ${e}px)`)
+        _css(this.$refs.video, 'transition-duration', `0ms`)
+        _css(this.$refs.video, 'height', `calc(var(--vh, 1vh) * 30 + ${e}px)`)
       }
     },
     onDialogEnd({ tag, isClose }) {
       if (this.commentVisible && tag === 'comment') {
         console.log('isClose', isClose)
-        Utils.$setCss(this.$refs.video, 'transition-duration', `300ms`)
+        _css(this.$refs.video, 'transition-duration', `300ms`)
         if (isClose) {
           this.commentVisible = false
-          Utils.$setCss(this.$refs.video, 'height', '100%')
+          _css(this.$refs.video, 'height', '100%')
         } else {
-          Utils.$setCss(this.$refs.video, 'height', 'calc(var(--vh, 1vh) * 30)')
+          _css(this.$refs.video, 'height', 'calc(var(--vh, 1vh) * 30)')
         }
       }
     },
     onOpenComments(id) {
       if (id === this.item.id) {
-        Utils.$setCss(this.$refs.video, 'transition-duration', `300ms`)
-        Utils.$setCss(this.$refs.video, 'height', 'calc(var(--vh, 1vh) * 30)')
+        _css(this.$refs.video, 'transition-duration', `300ms`)
+        _css(this.$refs.video, 'height', 'calc(var(--vh, 1vh) * 30)')
         this.commentVisible = true
       }
     },
     onCloseComments() {
       if (this.commentVisible) {
-        Utils.$setCss(this.$refs.video, 'transition-duration', `300ms`)
-        Utils.$setCss(this.$refs.video, 'height', '100%')
+        _css(this.$refs.video, 'transition-duration', `300ms`)
+        _css(this.$refs.video, 'height', '100%')
         this.commentVisible = false
       }
     },
@@ -340,14 +341,14 @@ export default {
       this.$refs.video.pause()
     },
     touchstart(e) {
-      Utils.$stopPropagation(e)
+      _stopPropagation(e)
       this.start.x = e.touches[0].pageX
       this.last.x = this.playX
       this.last.time = this.currentTime
     },
     touchmove(e) {
       // console.log('move',e)
-      Utils.$stopPropagation(e)
+      _stopPropagation(e)
       this.isMove = true
       this.pause()
       let dx = e.touches[0].pageX - this.start.x
@@ -358,7 +359,7 @@ export default {
     },
     touchend(e) {
       // console.log('end', e)
-      Utils.$stopPropagation(e)
+      _stopPropagation(e)
       if (this.isPlaying) return
       setTimeout(() => (this.isMove = false), 1000)
       this.$refs.video.currentTime = this.currentTime
@@ -387,7 +388,7 @@ export default {
   text-align: center;
 
   video {
-    max-width: 100vw;
+    max-width: 100%;
     height: 100%;
     transition:
       height,

@@ -33,6 +33,7 @@
 <script>
 import People from './People'
 import FromBottomDialog from '../../../components/dialog/FromBottomDialog'
+import { _notice, _showConfirmDialog } from '@/utils'
 
 export default {
   name: 'Peoples',
@@ -75,7 +76,7 @@ export default {
   created() {},
   methods: {
     remove(index) {
-      this.$notice('将不会再为你推荐该用户')
+      _notice('将不会再为你推荐该用户')
       this.localList.splice(index, 1)
     },
     follow(index) {
@@ -120,12 +121,12 @@ export default {
     },
     noLook() {
       this.isShowUnfollow = false
-      this.$showConfirmDialog(
+      _showConfirmDialog(
         '确认不看 TA?',
         '确认后，将不再为你推荐对方的作品，你可以在对方主页随时恢复。',
         'gray',
         () => {
-          this.$notice('设置成功')
+          _notice('设置成功')
         },
         () => {},
         '不看 TA'

@@ -475,7 +475,7 @@ function handleClick() {
     left: 50%;
     top: 50%;
     transform: translate3d(-50%, -50%, 0);
-    width: 80vw;
+    width: 80%;
     color: black;
     background: white;
     box-sizing: border-box;

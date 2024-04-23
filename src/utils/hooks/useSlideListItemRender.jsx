@@ -1,4 +1,3 @@
-import SlideAlbum from '@/components/slide/SlideAlbum.vue'
 import SlideUser from '@/components/slide/SlideUser.vue'
 import BVideo from '@/components/slide/BVideo.vue'
 
@@ -10,9 +9,9 @@ export function useSlideListItemRender(props) {
       case 'img':
         node = <img src={item.src} style="height:100%;" alt={''} />
         break
-      case 'imgs':
-        node = <SlideAlbum isPlay={play} index={index} position={{ uniqueId, index }} {...props} />
-        break
+      // case 'imgs':
+      //   node = <SlideAlbum isPlay={play} index={index} position={{ uniqueId, index }} {...props} />
+      //   break
       case 'user':
         node = <SlideUser {...props} />
         break
