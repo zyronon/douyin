@@ -3,6 +3,7 @@ import Utils from '@/utils/index'
 import GM from '@/utils/index'
 import { SlideType } from '@/utils/const_var'
 import { nextTick } from 'vue'
+import { _css } from '@/utils/dom'
 
 function checkEvent(e) {
   const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent)
@@ -33,7 +34,7 @@ export function slideInit(el, state) {
     dx2 = 0
   if (state.type === SlideType.HORIZONTAL) dx1 = t
   else dx2 = t
-  Utils.$setCss(el, 'transform', `translate3d(${dx1}px, ${dx2}px, 0)`)
+  _css(el, 'transform', `translate3d(${dx1}px, ${dx2}px, 0)`)
 }
 
 /**
@@ -81,7 +82,7 @@ function canNext(state, isNext) {
 export function slideTouchStart(e, el, state) {
   // console.log('e', e, state.name)
   if (!checkEvent(e)) return
-  Utils.$setCss(el, 'transition-duration', `0ms`)
+  _css(el, 'transition-duration', `0ms`)
   //记录起点坐标，用于move事件计算移动距离
   state.start.x = e.touches[0].pageX
   state.start.y = e.touches[0].pageY
@@ -151,8 +152,8 @@ export function slideTouchMove(
       } else {
         dx2 = t + state.move.y
       }
-      Utils.$setCss(el, 'transition-duration', `0ms`)
-      Utils.$setCss(el, 'transform', `translate3d(${dx1}px, ${dx2}px, 0)`)
+      _css(el, 'transition-duration', `0ms`)
+      _css(el, 'transform', `translate3d(${dx1}px, ${dx2}px, 0)`)
     } else {
       //SlideAlbum.vue组件在用，用于捕获事件，阻止事件传递给父slide
       notNextCb?.()
@@ -219,7 +220,7 @@ export function slideTouchEnd(e, state, canNextCb = null, nextCb = null, notNext
 export function slideReset(e, el, state, emit = null) {
   if (!checkEvent(e)) return
 
-  Utils.$setCss(el, 'transition-duration', `300ms`)
+  _css(el, 'transition-duration', `300ms`)
   const t = getSlideOffset(state, el)
   let dx1 = 0
   let dx2 = 0
@@ -230,7 +231,7 @@ export function slideReset(e, el, state, emit = null) {
     bus.emit(state.name + '-end')
     dx2 = t
   }
-  Utils.$setCss(el, 'transform', `translate3d(${dx1}px, ${dx2}px, 0)`)
+  _css(el, 'transform', `translate3d(${dx1}px, ${dx2}px, 0)`)
   state.start.x = state.start.y = state.start.time = state.move.x = state.move.y = 0
   state.next = false
   state.needCheck = true

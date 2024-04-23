@@ -450,7 +450,7 @@ function dislike() {
 .first-horizontal-item {
   //width: 90vw;
   //height: 80vh;
-  width: 100vw;
+  width: 100%;
   height: calc(var(--vh, 1vh) * 100 - var(--footer-height)) !important;
   overflow: hidden;
   border-radius: 10rem;

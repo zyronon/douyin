@@ -81,8 +81,6 @@ export default class Dom {
       //情况一：获取样式
       if (typeof args[0] === 'string') {
         return window.getComputedStyle(this.els[this.els.length - 1], null)[args[0]]
-        // return globalMethods.$getCss2
-        // return this.els[0].style[args[0]]
       } else {
         //情况三：设置多个样式
         Object.keys(args[0]).map((key) => {
