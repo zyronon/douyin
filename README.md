@@ -74,7 +74,7 @@ npm run dev
 
 ## 链接
 
-【douyin-vue】教程一: 不到200行用Vue实现类似Swiper.js的轮播组件: [https://juejin.cn/post/7360512664317018146](https://juejin.cn/post/7360512664317018146)  
+【douyin-vue】教程一: 200行代码实现类似Swiper.js的轮播组件 : [https://juejin.cn/post/7360512664317018146](https://juejin.cn/post/7360512664317018146)  
 后续教程再在准备中...
 
 ## 数据来源
