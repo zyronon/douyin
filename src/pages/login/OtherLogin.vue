@@ -58,19 +58,19 @@
         mode="white"
       >
         <div class="block-dialog">
-          <div class="item" @click="$no">
+          <div class="item" @click="_no">
             <img src="../../assets/img/icon/login/toutiao-round.png" alt="" />
             <span>今日头条登录</span>
           </div>
-          <div class="item" @click="$no">
+          <div class="item" @click="_no">
             <img src="../../assets/img/icon/login/qq.webp" alt="" />
             <span>QQ登录</span>
           </div>
-          <div class="item" @click="$no">
+          <div class="item" @click="_no">
             <img src="../../assets/img/icon/login/wechat.webp" alt="" />
             <span>微信登录</span>
           </div>
-          <div class="item" @click="$no">
+          <div class="item" @click="_no">
             <img src="../../assets/img/icon/login/weibo.webp" alt="" />
             <span>微博登录</span>
           </div>
@@ -87,6 +87,7 @@ import Tooltip from './components/Tooltip'
 import LoginInput from './components/LoginInput'
 import Base from './Base.js'
 import FromBottomDialog from '../../components/dialog/FromBottomDialog'
+import { _no } from '@/utils'
 
 export default {
   name: 'OtherLogin',
@@ -106,6 +107,7 @@ export default {
   computed: {},
   created() {},
   methods: {
+    _no,
     async getCode() {
       let res = await this.check()
       if (res) {

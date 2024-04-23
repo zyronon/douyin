@@ -24,66 +24,6 @@ const Utils = {
     const parent = document.querySelector('.dialog-ctn')
     parent.remove()
   },
-  $showSelectDialog(sexList, cb) {
-    const remove = () => {
-      const parent = document.querySelector('.dialog-ctn')
-      parent.classList.replace('fade-in', 'fade-out')
-      setTimeout(() => {
-        parent.remove()
-      }, 300)
-    }
-    const tempCb = (e) => {
-      remove()
-      cb(e)
-    }
-    const app = Vue.createApp({
-      render() {
-        return <SelectDialog onCancel={remove} list={sexList} onOk={tempCb} />
-      }
-    })
-    const parent = document.createElement('div')
-    parent.classList.add(...['dialog-ctn', 'fade-in'])
-    document.body.append(parent)
-    app.mount(parent)
-  },
-  $showSimpleConfirmDialog(title, okCb, cancelCb, okText, cancelText) {
-    if (!cancelCb) {
-      cancelCb = () => {}
-    }
-    const remove = () => {
-      const parent = document.querySelector('.dialog-ctn')
-      parent.classList.replace('fade-in', 'fade-out')
-      setTimeout(() => {
-        parent.remove()
-      }, 300)
-    }
-    const tempOkCb = (e) => {
-      remove()
-      okCb(e)
-    }
-    const tempCancelCb = (e) => {
-      remove()
-      cancelCb(e)
-    }
-    const app = Vue.createApp({
-      render() {
-        return (
-          <SimpleConfirmDialog
-            onCancel={tempCancelCb}
-            onDismiss={remove}
-            title={title}
-            okText={okText}
-            cancelText={cancelText}
-            onOk={tempOkCb}
-          />
-        )
-      }
-    })
-    const parent = document.createElement('div')
-    parent.classList.add(...['dialog-ctn', 'fade-in'])
-    document.body.append(parent)
-    app.mount(parent)
-  },
   $showConfirmDialog(
     title,
     subtitle,
@@ -170,9 +110,6 @@ const Utils = {
     setTimeout(() => {
       document.body.removeChild(div)
     }, 1000)
-  },
-  $no() {
-    this.$notice('未实现')
   },
   $back() {
     this.$router.back()
@@ -368,14 +305,6 @@ export function _dateFormat(val, type): string {
     default:
       return `${year}-${mStr}-${dayStr} ${hStr}:${minStr}:${secStr}`
   }
-}
-
-export function $no() {
-  Utils.$no()
-}
-
-export function $notice(val) {
-  Utils.$notice(val)
 }
 
 export function _time(time) {

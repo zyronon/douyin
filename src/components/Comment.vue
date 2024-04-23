@@ -15,7 +15,7 @@
         <dy-back mode="dark" img="close" direction="right" style="opacity: 0" />
         <div class="num">{{ _formatNumber(comments.length) }}条评论</div>
         <div class="right">
-          <Icon icon="prime:arrow-up-right-and-arrow-down-left-from-center" @click.stop="$no" />
+          <Icon icon="prime:arrow-up-right-and-arrow-down-left-from-center" @click.stop="_no" />
           <Icon icon="ic:round-close" @click.stop="cancel" />
         </div>
       </div>
@@ -157,7 +157,7 @@
             <AutoInput v-model="comment" placeholder="善语结善缘，恶言伤人心"></AutoInput>
             <div class="right">
               <img src="../assets/img/icon/message/call.png" @click="isCall = !isCall" />
-              <img src="../assets/img/icon/message/emoji-black.png" @click="$no" />
+              <img src="../assets/img/icon/message/emoji-black.png" @click="_no" />
             </div>
           </div>
           <img v-if="comment" src="../assets/img/icon/message/up.png" @click="send" />
@@ -178,9 +178,9 @@ import FromBottomDialog from './dialog/FromBottomDialog.vue'
 import Loading from './Loading.vue'
 import Search from './Search.vue'
 import {
-  $no,
   _checkImgUrl,
   _formatNumber,
+  _no,
   _showSelectDialog,
   _sleep,
   _time,
@@ -251,10 +251,10 @@ export default {
   },
   mounted() {},
   methods: {
+    _no,
     _time,
     _formatNumber,
     _checkImgUrl,
-    $no,
     async handShowChildren(item) {
       this.loadChildrenItemCId = item.comment_id
       this.loadChildren = true
@@ -370,7 +370,7 @@ export default {
 
 .comment {
   color: #000;
-  width: 100vw;
+  width: 100%;
   height: v-bind(height);
   background: #fff;
   z-index: 5;
@@ -529,7 +529,7 @@ export default {
     border-radius: 10rem 10rem 0 0;
     background: white;
     position: fixed;
-    width: 100vw;
+    width: 100%;
     bottom: 0;
     z-index: 3;
 
@@ -601,7 +601,7 @@ export default {
         }
 
         .auto-input {
-          width: calc(100vw - 180rem);
+          width: calc(100% - 180rem);
         }
       }
 

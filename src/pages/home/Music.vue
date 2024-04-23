@@ -75,11 +75,11 @@
       </Scroll>
     </div>
     <div class="options">
-      <div class="l-button white" @click="$no">
+      <div class="l-button white" @click="_no">
         <img src="../../assets/img/icon/home/music3.png" alt="" />
         <span>分享到日常</span>
       </div>
-      <div class="l-button primary" @click="$no">
+      <div class="l-button primary" @click="_no">
         <img src="../../assets/img/icon/home/record.png" alt="" />
         <span>拍同款</span>
       </div>
@@ -130,7 +130,7 @@ import { myVideo } from '@/api/videos'
 import { onDeactivated, onMounted, onUnmounted, reactive, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useNav } from '@/utils/hooks/useNav'
-import { $no, $notice, _checkImgUrl, _formatNumber } from '@/utils'
+import { _checkImgUrl, _formatNumber, _no, _notice } from '@/utils'
 
 const route = useRoute()
 const router = useRouter()
@@ -203,7 +203,7 @@ async function loadData(init = false) {
   if (data.loading) return
   if (!init) {
     if (data.total <= data.videos.length) {
-      return $notice('暂时没有更多了')
+      _notice('暂时没有更多了')
     }
     data.pageNo++
   }
@@ -376,7 +376,7 @@ function stopPlay() {
 
   .options {
     font-size: 14rem;
-    width: 100vw;
+    width: 100%;
     position: fixed;
     bottom: 20rem;
     display: flex;

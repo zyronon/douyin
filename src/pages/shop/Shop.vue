@@ -18,27 +18,27 @@
         <div class="top-card">
           <div class="card">
             <div class="options">
-              <div class="option" @click="$no">
+              <div class="option" @click="_no">
                 <Icon icon="lets-icons:order-light" />
                 <div>我的订单</div>
               </div>
-              <div class="option" @click="$no">
+              <div class="option" @click="_no">
                 <Icon icon="material-symbols-light:charging-station-outline" />
                 <div>手机充值</div>
               </div>
-              <div class="option" @click="$no">
+              <div class="option" @click="_no">
                 <Icon icon="system-uicons:message" />
                 <div>购物消息</div>
               </div>
-              <div class="option" @click="$no">
+              <div class="option" @click="_no">
                 <Icon icon="fluent:location-16-regular" />
                 <div>小时达</div>
               </div>
-              <div class="option" @click="$no">
+              <div class="option" @click="_no">
                 <Icon icon="dashicons:money-alt" />
                 <div>退款/售后</div>
               </div>
-              <div class="option" @click="$no">
+              <div class="option" @click="_no">
                 <Icon icon="icon-park-outline:clothes-turtleneck" />
                 <div>潮流服饰</div>
               </div>
@@ -114,7 +114,7 @@
 
 <script setup lang="tsx">
 import { useNav } from '@/utils/hooks/useNav'
-import { $no, _checkImgUrl } from '@/utils'
+import { _checkImgUrl, _no } from '@/utils'
 import ScrollList from '@/components/ScrollList.vue'
 import { recommendedShop } from '@/api/user'
 import WaterfallList from '@/components/WaterfallList.vue'

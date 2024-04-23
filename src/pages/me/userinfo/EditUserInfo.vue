@@ -223,8 +223,8 @@ function showBirthdayDialog() {
   justify-content: center;
 
   .resource {
-    width: 100vw;
-    max-height: 100vw;
+    width: 100%;
+    max-height: %;
   }
 
   .download {

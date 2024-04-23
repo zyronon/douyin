@@ -53,7 +53,7 @@ defineOptions({
     bottom: 60rem;
     display: flex;
     justify-content: space-between;
-    width: 80vw;
+    width: 80%;
     left: 10vw;
 
     .option {

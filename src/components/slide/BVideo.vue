@@ -387,7 +387,7 @@ export default {
   text-align: center;
 
   video {
-    max-width: 100vw;
+    max-width: 100%;
     height: 100%;
     transition:
       height,

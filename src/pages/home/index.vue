@@ -18,7 +18,7 @@
             </div>
           </div>
           <div class="content">
-            <div class="item" @click="$no">
+            <div class="item" @click="_no">
               <img
                 class="xcx"
                 src="https://lf3-static.bytednsdoc.com/obj/eden-cn/pipieh7nupabozups/toutiao_web_pc/tt-icon.png"
@@ -26,7 +26,7 @@
               />
               <span>今日头条</span>
             </div>
-            <div class="item" @click="$no">
+            <div class="item" @click="_no">
               <img
                 class="xcx"
                 src="https://gd-hbimg.huaban.com/65130a3e6a139530bb03bd118e21a2603af7df4e1303b-OOzcBu_fw658webp"
@@ -46,7 +46,7 @@
             </div>
           </div>
           <div class="content">
-            <div class="item avatar" @click="$no" :key="i" v-for="i in 6">
+            <div class="item avatar" @click="_no" :key="i" v-for="i in 6">
               <img
                 src="https://img.tol.vip/avatar/WEIXIN/3aSuTGYTzjHvcHy0y0tH1eiShKRk9Sgd.jpg?_upt=de4a5c251709635127"
               />
@@ -61,35 +61,35 @@
             <div class="right"></div>
           </div>
           <div class="content">
-            <div class="item" @click="$no">
+            <div class="item" @click="_no">
               <Icon icon="ion:wallet-outline" />
               <span>我的钱包</span>
             </div>
-            <div class="item" @click="$no">
+            <div class="item" @click="_no">
               <Icon icon="mingcute:coupon-line" />
               <span>券包</span>
             </div>
-            <div class="item" @click="$no">
+            <div class="item" @click="_no">
               <Icon icon="icon-park-outline:bytedance-applets" />
               <span>小程序</span>
             </div>
-            <div class="item" @click="$no">
+            <div class="item" @click="_no">
               <Icon icon="solar:history-linear" />
               <span>观看历史</span>
             </div>
-            <div class="item" @click="$no">
+            <div class="item" @click="_no">
               <Icon icon="fluent:content-settings-24-regular" />
               <span>内容偏好</span>
             </div>
-            <div class="item" @click="$no">
+            <div class="item" @click="_no">
               <Icon icon="iconoir:cloud-download" />
               <span>离线模式</span>
             </div>
-            <div class="item" @click="$no">
+            <div class="item" @click="_no">
               <Icon icon="ep:setting" />
               <span>设置</span>
             </div>
-            <div class="item" @click="$no">
+            <div class="item" @click="_no">
               <Icon icon="icon-park-outline:baggage-delay" />
               <span>稍后再看</span>
             </div>
@@ -223,7 +223,7 @@ import Slide0 from '@/pages/home/slide/Slide0.vue'
 import Slide2 from '@/pages/home/slide/Slide2.vue'
 import Slide4 from '@/pages/home/slide/Slide4.vue'
 import { DefaultUser } from '@/utils/const_var'
-import { $no } from '@/utils'
+import { _no } from '@/utils'
 import LongVideo from '@/pages/home/slide/LongVideo.vue'
 import { useBaseStore } from '@/store/pinia'
 
@@ -333,7 +333,7 @@ function closeComments() {
 function dislike() {
   // listRef.value.dislike(state.list[1])
   // state.list[state.index] = state.list[1]
-  // Utils.$notice('操作成功，将减少此类视频的推荐')
+  // _notice('操作成功，将减少此类视频的推荐')
 }
 </script>
 
@@ -347,7 +347,7 @@ function dislike() {
 
   .sidebar {
     touch-action: pan-y;
-    width: 80vw;
+    width: 80%;
     height: calc(var(--vh, 1vh) * 100);
     overflow: auto;
     background: rgb(22, 22, 22);

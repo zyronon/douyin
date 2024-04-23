@@ -32,7 +32,7 @@
             <span>求更新</span>
           </div>
         </transition>
-        <Icon class="icon" icon="ion:search" @click.stop="$no()" />
+        <Icon class="icon" icon="ion:search" @click.stop="_no" />
         <Icon class="icon" icon="ri:more-line" @click.stop="emit('showFollowSetting')" />
       </div>
     </div>
@@ -234,7 +234,7 @@
 
 <script setup lang="ts">
 import { reactive, ref, watch } from 'vue'
-import Utils, { $no, _checkImgUrl, _getUserDouyinId } from '@/utils'
+import Utils, { _checkImgUrl, _getUserDouyinId, _no } from '@/utils'
 import { useNav } from '@/utils/hooks/useNav'
 import Posters from '@/components/Posters.vue'
 import { DefaultUser } from '@/utils/const_var'
@@ -424,8 +424,8 @@ function touchEnd() {
     justify-content: center;
 
     .resource {
-      width: 100vw;
-      max-height: 100vw;
+      width: 100%;
+      max-height: 100%;
     }
 
     .download {
@@ -443,7 +443,7 @@ function touchEnd() {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     height: calc(var(--vh, 1vh) * 100);
     z-index: 3;
   }
@@ -573,7 +573,7 @@ function touchEnd() {
             .poster {
               border-radius: 4rem;
               width: 100%;
-              height: calc((100vw - 34rem) / 3);
+              height: calc((100% - 34rem) / 3);
               display: block;
             }
 
@@ -593,7 +593,7 @@ function touchEnd() {
       .cover {
         height: 220rem;
         object-fit: cover;
-        width: 100vw;
+        width: 100%;
         //transition: height .3s;
       }
 
@@ -978,7 +978,7 @@ function touchEnd() {
   .float {
     position: fixed;
     box-sizing: border-box;
-    width: 100vw;
+    width: 100%;
     z-index: 2;
     display: flex;
     justify-content: space-between;

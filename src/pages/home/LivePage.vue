@@ -376,7 +376,7 @@ export default {
 .barrage {
   position: fixed;
   top: 50%;
-  transform: translateX(100vw);
+  transform: translateX(100%);
   display: flex;
   align-items: center;
   font-size: 12rem;
@@ -384,7 +384,7 @@ export default {
 
   @keyframes anim {
     from {
-      transform: translateX(100vw);
+      transform: translateX(100%);
     }
     to {
       transform: translateX(-100%);
@@ -467,14 +467,14 @@ export default {
 @import '../../assets/less/index';
 
 .LivePage {
-  width: 100vw;
+  width: 100%;
   height: calc(var(--vh, 1vh) * 100);
   color: white;
   font-size: 14rem;
   position: relative;
 
   .live-wrapper {
-    width: 100vw;
+    width: 100%;
     height: calc(var(--vh, 1vh) * 100);
     background: black;
     display: flex;
@@ -487,7 +487,7 @@ export default {
     }
 
     img {
-      width: 100vw;
+      width: 100%;
       height: calc(var(--vh, 1vh) * 100);
       color: rgb(229, 229, 229);
     }
@@ -496,7 +496,7 @@ export default {
   .float {
     position: absolute;
     top: 0;
-    width: 100vw;
+    width: 100%;
     height: calc(var(--vh, 1vh) * 100);
 
     @tag-bg: rgba(58, 58, 70, 0.3);
@@ -634,7 +634,7 @@ export default {
     .bottom {
       position: absolute;
       bottom: 0;
-      width: 100vw;
+      width: 100%;
       box-sizing: border-box;
       padding: var(--page-padding);
       padding-bottom: 10rem;

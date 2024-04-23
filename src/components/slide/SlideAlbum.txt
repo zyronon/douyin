@@ -70,7 +70,7 @@
           />
         </div>
         <div class="right">
-          <Icon icon="heroicons-outline:menu-alt-1" @click="Utils.$no" />
+          <Icon icon="heroicons-outline:menu-alt-1" @click="Utils._no" />
           <Icon
             icon="fluent:play-28-filled"
             v-if="state.status === SlideItemPlayStatus.Pause"
@@ -78,7 +78,7 @@
             @click="startPlay"
           />
           <Icon icon="bi:pause-fill" v-else class="pause" @click="stopPlay" />
-          <Icon icon="system-uicons:push-down" @click="$notice('已保存到系统相册')" />
+          <Icon icon="system-uicons:push-down" @click="_notice('已保存到系统相册')" />
         </div>
       </div>
     </Teleport>
@@ -88,7 +88,7 @@
 <script setup lang="jsx">
 import enums from '../../utils/enums'
 import Utils from '../../utils'
-import GM, { $notice } from '../../utils'
+import GM, { _notice } from '../../utils'
 import { mat4 } from 'gl-matrix'
 import { Icon } from '@iconify/vue'
 import {

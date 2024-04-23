@@ -31,7 +31,7 @@
             >
               <Icon icon="eva:people-outline" />
             </div>
-            <div class="item" @click="$no">
+            <div class="item" @click="_no">
               <Icon icon="ic:round-search" />
             </div>
             <div class="item" @click.stop="baseActiveIndex = 1">
@@ -123,7 +123,7 @@
                 </div>
               </div>
               <div class="other">
-                <div class="item" @click="$no">
+                <div class="item" @click="_no">
                   <Icon icon="iconamoon:shopping-card-light" />
                   <span>抖音商城</span>
                 </div>
@@ -131,11 +131,11 @@
                   <Icon icon="iconamoon:music-2-light" />
                   <span>我的音乐</span>
                 </div>
-                <div class="item" @click="$no">
+                <div class="item" @click="_no">
                   <Icon icon="streamline:chat-two-bubbles-oval" />
                   <span>我的群聊</span>
                 </div>
-                <div class="item" @click="$no">
+                <div class="item" @click="_no">
                   <Icon icon="iconamoon:shopping-card-light" />
                   <span>查看更多</span>
                 </div>
@@ -242,11 +242,11 @@
       <SlideItem style="width: 70vw; overflow: auto">
         <transition name="fade1">
           <div class="ul" v-if="!isMoreFunction">
-            <div class="li" @click="$no">
+            <div class="li" @click="_no">
               <img src="../../assets/img/icon/newicon/left_menu/shopping.png" alt="" />
               <span>我的订单</span>
             </div>
-            <div class="li" @click="$no">
+            <div class="li" @click="_no">
               <img src="../../assets/img/icon/newicon/left_menu/wallet.png" alt="" />
               <span>钱包</span>
             </div>
@@ -260,22 +260,22 @@
               <img src="../../assets/img/icon/newicon/left_menu/time.png" alt="" />
               <span>观看历史</span>
             </div>
-            <div class="li" @click="$no">
+            <div class="li" @click="_no">
               <img src="../../assets/img/icon/newicon/left_menu/clock.png" alt="" />
               <span>时间管理</span>
             </div>
-            <div class="li" @click="$no">
+            <div class="li" @click="_no">
               <img src="../../assets/img/icon/newicon/left_menu/workbench.png" alt="" />
               <span>创作者服务中心</span>
             </div>
 
             <div class="line"></div>
 
-            <div class="li" @click="$no">
+            <div class="li" @click="_no">
               <img src="../../assets/img/icon/newicon/left_menu/bytedance-mini-app.png" alt="" />
               <span>小程序</span>
             </div>
-            <div class="li" @click="$no">
+            <div class="li" @click="_no">
               <img src="../../assets/img/icon/newicon/left_menu/gongyi.png" alt="" />
               <span>抖音公益</span>
             </div>
@@ -283,7 +283,7 @@
               <img src="../../assets/img/icon/newicon/left_menu/umbrella.png" alt="" />
               <span>未成年保护工具</span>
             </div>
-            <div class="li" @click="$no">
+            <div class="li" @click="_no">
               <img src="../../assets/img/icon/newicon/left_menu/headset.png" alt="" />
               <span>我的客服</span>
             </div>
@@ -295,38 +295,38 @@
           <div v-else class="more-function">
             <div class="title">生活服务</div>
             <div class="functions">
-              <div class="function" @click="$no">
+              <div class="function" @click="_no">
                 <img src="../../assets/img/icon/newicon/left_menu/quan.png" alt="" />
                 <span>卡券</span>
               </div>
-              <div class="function" @click="$no">
+              <div class="function" @click="_no">
                 <img src="../../assets/img/icon/newicon/left_menu/sd-card.png" alt="" />
                 <span>免流量</span>
               </div>
-              <div class="function" @click="$no">
+              <div class="function" @click="_no">
                 <img src="../../assets/img/icon/newicon/left_menu/alarmmmmmmmmmmmm.png" alt="" />
                 <span>视频彩铃</span>
               </div>
             </div>
             <div class="title">拓展功能</div>
             <div class="functions">
-              <div class="function" @click="$no">
+              <div class="function" @click="_no">
                 <img src="../../assets/img/icon/newicon/left_menu/sun-one.png" alt="" />
                 <span>我的动态</span>
               </div>
-              <div class="function" @click="$no">
+              <div class="function" @click="_no">
                 <img src="../../assets/img/icon/newicon/left_menu/download.png" alt="" />
                 <span>我的缓存</span>
               </div>
-              <div class="function" @click="$no">
+              <div class="function" @click="_no">
                 <img src="../../assets/img/icon/newicon/left_menu/hot.png" alt="" />
                 <span>上热门</span>
               </div>
-              <div class="function" @click="$no">
+              <div class="function" @click="_no">
                 <img src="../../assets/img/icon/newicon/left_menu/shop.png" alt="" />
                 <span>小店随心推</span>
               </div>
-              <div class="function" @click="$no">
+              <div class="function" @click="_no">
                 <img src="../../assets/img/icon/newicon/left_menu/yuandi.png" alt="" />
                 <span>投教园地</span>
               </div>
@@ -351,7 +351,7 @@
           class="download"
           src="@/assets/img/icon/components/video/download.png"
           alt=""
-          @click.stop="$no"
+          @click.stop="_no"
         />
       </div>
     </transition>
@@ -378,7 +378,7 @@ import { mapState } from 'pinia'
 
 import bus from '../../utils/bus'
 import ConfirmDialog from '../../components/dialog/ConfirmDialog'
-import { $no, _checkImgUrl, _formatNumber, _getUserDouyinId } from '@/utils'
+import { _checkImgUrl, _formatNumber, _getUserDouyinId, _no } from '@/utils'
 import { likeVideo, myVideo, privateVideo } from '@/api/videos'
 import { useBaseStore } from '@/store/pinia'
 import { userCollect } from '@/api/user'
@@ -488,10 +488,10 @@ export default {
     bus.on('baseSlide-end', () => (this.canScroll = true))
   },
   methods: {
+    _no,
     _getUserDouyinId,
     _checkImgUrl,
     _formatNumber,
-    $no,
     setLoadingFalse() {
       this.loadings.loading0 = false
       this.loadings.loading1 = false

@@ -15,67 +15,67 @@
         </dy-button>
 
         <template v-if="canDownload">
-          <dy-button type="green" v-if="showShare2WeChatZone" @click="$no">
+          <dy-button type="green" v-if="showShare2WeChatZone" @click="_no">
             <template v-slot:prefix>
               <img src="../../../assets/img/icon/components/video/wechatzone-white.webp" alt="" />
             </template>
             发送视频到朋友圈
           </dy-button>
-          <dy-button type="green" v-if="showShare2WeChat" @click="$no">
+          <dy-button type="green" v-if="showShare2WeChat" @click="_no">
             <template v-slot:prefix>
               <img src="../../../assets/img/icon/components/video/wechat-white.webp" alt="" />
             </template>
             发送视频到微信
           </dy-button>
-          <dy-button type="qqzone" v-if="showShare2QQZone" @click="$no">
+          <dy-button type="qqzone" v-if="showShare2QQZone" @click="_no">
             <template v-slot:prefix>
               <img src="../../../assets/img/icon/components/video/qqzone-white.png" alt="" />
             </template>
             发送视频到QQ空间
           </dy-button>
-          <dy-button type="qq" v-if="showShare2QQ" @click="$no">
+          <dy-button type="qq" v-if="showShare2QQ" @click="_no">
             <template v-slot:prefix>
               <img src="../../../assets/img/icon/components/video/qq-white.webp" alt="" />
             </template>
             发送视频到QQ
           </dy-button>
-          <dy-button type="webo" v-if="showShare2Webo" @click="$no">
+          <dy-button type="webo" v-if="showShare2Webo" @click="_no">
             <template v-slot:prefix>
               <img src="../../../assets/img/icon/components/video/webo-white.webp" alt="" />
             </template>
             发送视频到微博
           </dy-button>
-          <dy-button v-if="!showDownload" class="mt1r" type="white" @click="$no"
+          <dy-button v-if="!showDownload" class="mt1r" type="white" @click="_no"
             >复制口令发给好友
           </dy-button>
         </template>
 
         <template v-else>
-          <dy-button type="green" v-if="showShare2WeChatZone" @click="$no">
+          <dy-button type="green" v-if="showShare2WeChatZone" @click="_no">
             <template v-slot:prefix>
               <img src="../../../assets/img/icon/components/video/wechatzone-white.webp" alt="" />
             </template>
             复制口令发给好友
           </dy-button>
-          <dy-button type="green" v-if="showShare2WeChat" @click="$no">
+          <dy-button type="green" v-if="showShare2WeChat" @click="_no">
             <template v-slot:prefix>
               <img src="../../../assets/img/icon/components/video/wechat-white.webp" alt="" />
             </template>
             复制口令发给好友
           </dy-button>
-          <dy-button type="qqzone" v-if="showShare2QQZone" @click="$no">
+          <dy-button type="qqzone" v-if="showShare2QQZone" @click="_no">
             <template v-slot:prefix>
               <img src="../../../assets/img/icon/components/video/qqzone-white.png" alt="" />
             </template>
             复制口令发给好友
           </dy-button>
-          <dy-button type="qq" v-if="showShare2QQ" @click="$no">
+          <dy-button type="qq" v-if="showShare2QQ" @click="_no">
             <template v-slot:prefix>
               <img src="../../../assets/img/icon/components/video/qq-white.webp" alt="" />
             </template>
             复制口令发给好友
           </dy-button>
-          <dy-button type="webo" v-if="showShare2Webo" @click="$no">
+          <dy-button type="webo" v-if="showShare2Webo" @click="_no">
             <template v-slot:prefix>
               <img src="../../../assets/img/icon/components/video/webo-white.webp" alt="" />
             </template>
@@ -84,12 +84,12 @@
         </template>
 
         <template v-if="showDownload">
-          <dy-button type="primary" @click="$no">
+          <dy-button type="primary" @click="_no">
             已保存，请去相册查看
             <dy-back scale="0.7" mode="light" direction="right"></dy-back>
           </dy-button>
 
-          <dy-button class="mt1r" type="white" @click="$no">
+          <dy-button class="mt1r" type="white" @click="_no">
             <img src="../../../assets/img/icon/components/video/wechat.webp" alt="" />
             发送视频到微信
           </dy-button>
@@ -123,6 +123,7 @@
 import FromBottomDialog from '../../../components/dialog/FromBottomDialog'
 import { mapState } from 'pinia'
 import { useBaseStore } from '@/store/pinia'
+import { _no, _notice } from '@/utils'
 /*
  * 分享到各种工具
  * */
@@ -173,6 +174,7 @@ export default {
   },
   created() {},
   methods: {
+    _no,
     async change(newVal) {
       if (newVal === -1) return
       this.showShareDialog = true
@@ -227,7 +229,7 @@ export default {
     },
     share(item) {
       if (item.select) {
-        this.$notice('已分享给朋友')
+        _notice('已分享给朋友')
       }
       item.select = true
     }

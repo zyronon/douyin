@@ -258,7 +258,7 @@ async function getCollectMusic() {
   .header {
     z-index: 9;
     position: fixed;
-    width: 100vw;
+    width: 100%;
     top: 0;
     height: 50rem;
     display: flex;
@@ -277,6 +277,7 @@ async function getCollectMusic() {
   }
 
   .my-collect {
+    touch-action: pan-y;
     margin-top: 50rem;
     color: rgba(88, 88, 96);
     position: relative;
@@ -422,7 +423,7 @@ async function getCollectMusic() {
       box-sizing: border-box;
       position: fixed;
       bottom: 0;
-      width: 100vw;
+      width: 100%;
       color: white;
       background: rgba(56, 59, 68);
 
@@ -470,7 +471,7 @@ async function getCollectMusic() {
   .my-collect-dialog {
     position: fixed;
     z-index: 11;
-    width: 100vw;
+    width: 100%;
     height: calc(var(--vh, 1vh) * 100);
     top: 0;
     background: rgb(136, 132, 133);
@@ -480,7 +481,7 @@ async function getCollectMusic() {
       font-size: 16rem;
       position: fixed;
       top: 0;
-      width: 100vw;
+      width: 100%;
       padding: var(--page-padding);
       box-sizing: border-box;
       height: 50rem;
