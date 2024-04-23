@@ -28,33 +28,31 @@
 <img width="150px" src='docs/imgs/img-5.jpg' />
 </div>
 
-## オンラインアクセス
+## 在线访问
 
-### 中国地区：
-
-Gite ページ:[ｈっｔｐｓ：／／ｚｙろのん。ぎてえ。いお／どうｙいん／](https://zyronon.gitee.io/douyin/)
-
-### 中国以外地区
-
+Gite ページ:[ｈっｔｐｓ：／／ｚｙろのん。ぎてえ。いお／どうｙいん／](https://zyronon.gitee.io/douyin/)(中国ではこのアドレスにアクセスすることをお勧めします)  
 Github ページ:[ｈっｔｐｓ：／／ｚｙろのん。ぎてゅｂ。いお／どうｙいん／](https://zyronon.github.io/douyin/)
 
-~~ヴェルセル:[ｈっｔｐ：／／ｄｙ。ってんたう。とｐ／](http://dy.ttentau.top/)~~
+[//]: # "~~Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/)~~"
 
-~~ネットリファイ:[ｈっｔｐｓ：／／どうｙいんｓ。ねｔぃｆｙ。あっｐ／](https://douyins.netlify.app/)~~
+[//]: # "~~Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/)~~"
 
-VercelとNetlifyがそれぞれ提供する100Gの無料データを使い切ってしまいました...🤣
+[//]: # "Vercel和Netlify分别送的100G免费流量已经用完了...🤣"
 
-アンドロイドAPK:[ｈっｔｐｓ：／／ぎてゅｂ。こｍ／ｚｙろのん／どうｙいん／れぇあせｓ](https://github.com/zyronon/douyin/releases)
+[//]: # "Android Apk: https://github.com/zyronon/douyin/releases"
 
-**注意**：`PC`ブラウザをモバイル モードに切り替えて、最初に を押す必要があります。`F12`コンソールを表示するには、 を押します。`Ctrl+Shift+M`通常にプレビューする
+[//]: # "**注意**：`PC` 必须将浏览器切到手机模式，先按 `F12` 调出控制台，再按 `Ctrl+Shift+M`才能正常预览"
 
-**注意**：携帯電話をご利用ください[ブラウザ経由](https://viayoo.com/zh-cn/)またはChromeブラウザのプレビュー。他のブラウザではビデオが強制的に全画面表示になり、正しく表示されない場合があります。
+[//]: # "**注意**：手机请用  [Via 浏览器](https://viayoo.com/zh-cn/)  或 Chrome 浏览器预览。其它浏览器可能会强制将视频全屏，导致无法正常显示"
 
-## 免責事項
+## リンク
 
-このプロジェクトは研究と研究のみを目的としており、商業利用は目的ではありません
+【douyin-vue】一:[Swiper.js に似たカルーセル コンポーネントを実装するための 200 行のコード](https://juejin.cn/post/7360512664317018146)  
+続報記事も準備中です...
 
 ## 走る
+
+注: このプロジェクトは研究と研究のみに適しており、商業利用には適していません。
 
 ### Vercel への迅速な導入
 
@@ -69,15 +67,9 @@ npm install
 npm run dev
 ```
 
-ブラウザを開いて、以下にアクセスしてください。[ｈっｔｐ：／／１２７。０。０。１：３０００](http://127.0.0.1:3000)
+打开浏览器并访问: [ｈっｔｐ：／／１２７。０。０。１：３０００](http://127.0.0.1:3000)
 
-**注: PC ブラウザを最初に押してモバイル モードに切り替える必要があります。`F12`コンソールを表示するには、 を押します。`Ctrl+Shift+M`通常にプレビューする**
-
-## 链接
-
--   `开源中国`：[ｈっｔｐｓ：／／ｍｐ。うぇいぃん。っｑ。こｍ／ｓ／とぉｗｍＺぷ＿おじぇ５Ｇ２Ｋｚぅう８ｇ](https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g)
--   `V2EX`：[ｈっｔｐｓ：／／ｗっｗ。ｖ２えｘ。こｍ／ｔ／１０２８６７８](https://www.v2ex.com/t/1028678)
--   `掘金`：[ｈっｔｐｓ：／／じゅえじん。ｃん／ぽｓｔ／７３５２８１３３５２０５１６８７４５８](https://juejin.cn/post/7352813352051687458)
+**注意：需要将浏览器切至手机模式，先按 `F12`コンソールを表示するには、 を押します。`Ctrl+Shift+M`通常にプレビューする**
 
 ## データソース
 
@@ -101,16 +93,16 @@ npm run dev
 
 上記内容は全てインターネット上の公開情報です
 
-## 特徴と提案
+## 功能与建议
 
-プロジェクトは現在開発の初期段階にあり、新しい機能が継続的に追加されています。ソフトウェアの機能や提案がありましたら、お気軽にお問い合わせください。`Issues`で育ちました
+プロジェクトは現在開発の初期段階にあり、新しい機能が継続的に追加されています。ソフトウェアに関する機能や提案がありましたら、お気軽にお問い合わせください。`Issues`で育ちました
 このソフトウェアのデザインアイデアも気に入っていただけましたら、ぜひ送信してください`PR`、 ご支援ありがとうございました！
 
 ## 私に連絡して
 
 私のメールアドレスにご連絡いただけます<a href="mailto:zyronon@163.com">ｚｙろのん＠１６３。こｍ</a>
 
-> 私の他のオープンソース プロジェクトを共有してください:
+> 分享我其他开源项目：
 >
 > _[**単語を入力する**～Web上で使える単語暗記ソフト～](https://github.com/zyronon/typing-word)<img src="https://img.shields.io/github/stars/zyronon/typing-word.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_  
 > _[**ウェブスクリプト**- いくつかの便利な Grease Monkey スクリプト~](https://github.com/zyronon/web-scripts)<img src="https://img.shields.io/github/stars/zyronon/web-scripts.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_
