@@ -74,9 +74,8 @@ npm run dev
 
 ## 链接
 
-- `开源中国`: https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g
-- `V2EX`: https://www.v2ex.com/t/1028678
-- `掘金`: https://juejin.cn/post/7352813352051687458
+【douyin-vue】教程一: 不到200行用Vue实现类似Swiper.js的轮播组件: [https://juejin.cn/post/7360512664317018146](https://juejin.cn/post/7360512664317018146)  
+后续教程再在准备中...
 
 ## 数据来源
 
