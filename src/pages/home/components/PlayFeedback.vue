@@ -161,7 +161,7 @@
 </template>
 <script>
 import Check from '../../../components/Check'
-import { _notice } from '@/utils'
+import { _hideLoading, _notice, _showLoading, _sleep } from '@/utils'
 
 export default {
   name: 'Test',
@@ -223,9 +223,9 @@ export default {
     },
     async submit() {
       this.cancel()
-      this.$showLoading()
-      await this.$sleep(1000)
-      this.$hideLoading()
+      _showLoading()
+      await _sleep(1000)
+      _hideLoading()
       _notice('感谢你的反馈，我们会尽快答复！')
     }
   }

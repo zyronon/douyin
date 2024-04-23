@@ -25,7 +25,7 @@
           <img
             :style="item.select ? 'opacity: .5;' : ''"
             class="avatar"
-            :src="$imgPreview(item.avatar)"
+            :src="_checkImgUrl(item.avatar)"
             alt=""
           />
           <span>{{ item.name }}</span>
@@ -144,7 +144,7 @@
 import { mapState } from 'pinia'
 import FromBottomDialog from './dialog/FromBottomDialog'
 import { useBaseStore } from '@/store/pinia'
-import { _copy, _no, _notice } from '@/utils'
+import { _checkImgUrl, _copy, _hideLoading, _no, _notice, _showLoading, _sleep } from '@/utils'
 
 export default {
   name: 'Share',
@@ -196,12 +196,13 @@ export default {
     return {}
   },
   methods: {
+    _checkImgUrl,
     _no,
     async copyLink() {
       this.closeShare()
-      this.$showLoading()
-      await this.$sleep(500)
-      this.$hideLoading()
+      _showLoading()
+      await _sleep(500)
+      _hideLoading()
       _copy(this.item.share_info.share_link_desc + this.item.share_info.share_url)
       //TODO 抖音样式改了
       _notice('复制成功')

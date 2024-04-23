@@ -49,7 +49,7 @@
             <img src="../../assets/img/icon/avatar/2.png" alt="" class="round" />
             <img src="../../assets/img/icon/avatar/3.png" alt="" class="round" />
             <div class="round count">107</div>
-            <dy-back class="round close" img="close" mode="light" @click="$back" />
+            <dy-back class="round close" img="close" mode="light" @click="$router.back()" />
           </div>
           <div class="more">
             <div class="wrapper">
@@ -117,7 +117,7 @@ import Dom from '../../utils/dom'
 import { nextTick } from 'vue'
 import { mapState } from 'pinia'
 import { useBaseStore } from '@/store/pinia'
-import { _checkImgUrl, random } from '@/utils'
+import { _checkImgUrl, _sleep, random } from '@/utils'
 import Mock from 'mockjs'
 
 export default {
@@ -205,7 +205,7 @@ export default {
     this.page = this.$refs.page
     this.timer1 = setInterval(async () => {
       this.sendGift()
-      await this.$sleep(300)
+      await _sleep(300)
       this.sendGift()
       this.joinUser()
     }, 1000)

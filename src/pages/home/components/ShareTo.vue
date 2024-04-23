@@ -102,7 +102,7 @@
           v-for="(item, i) in localFriends.all"
           @click="share(item)"
         >
-          <img :src="$imgPreview(item.avatar)" alt="" />
+          <img :src="_checkImgUrl(item.avatar)" alt="" />
           <div class="right">
             <span>{{ item.name }}</span>
             <div class="share-btn" v-if="!item.select">分享</div>
@@ -123,7 +123,7 @@
 import FromBottomDialog from '../../../components/dialog/FromBottomDialog'
 import { mapState } from 'pinia'
 import { useBaseStore } from '@/store/pinia'
-import { _no, _notice } from '@/utils'
+import { _checkImgUrl, _no, _notice, _storageGet, _storageSet, cloneDeep } from '@/utils'
 /*
  * 分享到各种工具
  * */
@@ -151,7 +151,7 @@ export default {
       this.change(newVal)
     },
     showShareDialog() {
-      this.localFriends = this.$clone(this.friends)
+      this.localFriends = cloneDeep(this.friends)
     }
   },
   data() {
@@ -174,12 +174,13 @@ export default {
   },
   created() {},
   methods: {
+    _checkImgUrl,
     _no,
     async change(newVal) {
       if (newVal === -1) return
       this.showShareDialog = true
       if (this.canDownload) {
-        let downloadedVideo = this.$storageGet('downloadedVideo', [])
+        let downloadedVideo = _storageGet('downloadedVideo', [])
         if (!downloadedVideo.find((v) => v === this.videoId) && !this.downloading) {
           await this.downloadVideo()
         }
@@ -215,9 +216,9 @@ export default {
         this.downloading = true
         let time = setInterval(() => {
           if (this.progress >= 100) {
-            let downloadedVideo = this.$storageGet('downloadedVideo', [])
+            let downloadedVideo = _storageGet('downloadedVideo', [])
             downloadedVideo.push(this.videoId)
-            this.$storageSet('downloadedVideo', downloadedVideo)
+            _storageSet('downloadedVideo', downloadedVideo)
             clearInterval(time)
             this.downloading = false
             resolve()

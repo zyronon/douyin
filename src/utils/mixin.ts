@@ -1,4 +1,3 @@
-import globalMethods from './index'
 import BaseHeader from '../components/BaseHeader.vue'
 import SlideItem from '../components/slide/SlideItem.vue'
 import Indicator from '../components/slide/Indicator.vue'
@@ -34,9 +33,6 @@ export default {
       SUCCESS: 200,
       RELATE_ENUM: CONST_VAR.RELATE_ENUM
     }
-  },
-  methods: {
-    ...globalMethods
   },
   directives: {
     longpress: {

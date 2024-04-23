@@ -33,7 +33,7 @@
 <script>
 import People from './People'
 import FromBottomDialog from '../../../components/dialog/FromBottomDialog'
-import { _notice } from '@/utils'
+import { _notice, _showConfirmDialog } from '@/utils'
 
 export default {
   name: 'Peoples',
@@ -121,7 +121,7 @@ export default {
     },
     noLook() {
       this.isShowUnfollow = false
-      this.$showConfirmDialog(
+      _showConfirmDialog(
         '确认不看 TA?',
         '确认后，将不再为你推荐对方的作品，你可以在对方主页随时恢复。',
         'gray',

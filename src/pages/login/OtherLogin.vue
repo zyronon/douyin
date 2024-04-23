@@ -113,7 +113,7 @@ export default {
       if (res) {
         this.loading = true
         setTimeout(() => {
-          this.$nav('/login/verification-code')
+          this.$router.push('/login/verification-code')
         }, 2000)
       }
     },

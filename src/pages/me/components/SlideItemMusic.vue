@@ -2,7 +2,7 @@
   <div class="SlideItemMusic">
     <div v-show="!isFullLyrics">
       <div class="cover">
-        <img v-lazy="$imgPreview(modelValue.cover)" alt="" />
+        <img v-lazy="_checkImgUrl(modelValue.cover)" alt="" />
       </div>
       <div class="lyrics-wrapper" ref="lyrics-wrapper" @click="isFullLyrics = true">
         <div class="container">
@@ -96,7 +96,7 @@
 </template>
 <script>
 import { nextTick } from 'vue'
-import globalMethods from '../../../utils'
+import { _checkImgUrl, _duration, _stopPropagation } from '@/utils'
 import gaobaiqiqiu from '../../../assets/data/lyrics/gaobaiqiqiu.lrc?raw'
 import { userCollect } from '@/api/user'
 
@@ -193,6 +193,7 @@ export default {
     })
   },
   methods: {
+    _checkImgUrl,
     slide(state) {
       this.togglePlay(false)
       this.$emit(state)
@@ -291,7 +292,7 @@ export default {
       if (this.pageX < 0) this.pageX = 0
       if (this.pageX > this.slideBarWidth) this.pageX = this.slideBarWidth - 5
       this.currentTime = Math.ceil(this.pageX / this.step)
-      globalMethods.$stopPropagation(e)
+      _stopPropagation(e)
     },
     end(e) {
       this.lastPageX = this.pageX
@@ -299,12 +300,12 @@ export default {
       this.audio.currentTime = this.currentTime
       this.audio.play()
       this.isMove = false
-      globalMethods.$stopPropagation(e)
+      _stopPropagation(e)
     },
     $durationTime(time) {
       if (time === 0) return '00:00'
       else {
-        return this.$duration(time)
+        return _duration(time)
       }
     },
     durationStyle(type) {

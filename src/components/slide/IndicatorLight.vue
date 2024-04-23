@@ -1,6 +1,7 @@
 <script lang="jsx">
 import bus from '../../utils/bus'
 import { useBaseStore } from '@/store/pinia'
+import { _css } from '@/utils/dom'
 
 export default {
   name: 'IndicatorLight',
@@ -85,8 +86,8 @@ export default {
       this.currentSlideItemIndex = index
       this.$attrs['onUpdate:activeIndex'] &&
         this.$emit('update:active-index', this.currentSlideItemIndex)
-      this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
-      this.$setCss(
+      _css(this.indicatorRef, 'transition-duration', `300ms`)
+      _css(
         this.indicatorRef,
         'left',
         this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px'
@@ -95,10 +96,10 @@ export default {
     initTabs() {
       let tabs = this.$refs.tabs
       this.indicatorRef = this.$refs.indicator
-      let indicatorWidth = this.$getCss(this.indicatorRef, 'width')
+      let indicatorWidth = _css(this.indicatorRef, 'width')
       for (let i = 0; i < tabs.children.length; i++) {
         let item = tabs.children[i]
-        this.tabWidth = this.$getCss(item, 'width')
+        this.tabWidth = _css(item, 'width')
         this.tabIndicatorRelationActiveIndexLefts.push(
           item.getBoundingClientRect().x -
             tabs.children[0].getBoundingClientRect().x +
@@ -108,15 +109,15 @@ export default {
 
       this.indicatorSpace =
         this.tabIndicatorRelationActiveIndexLefts[1] - this.tabIndicatorRelationActiveIndexLefts[0]
-      this.$setCss(this.indicatorRef, 'transition-duration', `0ms`)
-      this.$setCss(
+      _css(this.indicatorRef, 'transition-duration', `0ms`)
+      _css(
         this.indicatorRef,
         'left',
         this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px'
       )
     },
     move(e) {
-      this.$setCss(
+      _css(
         this.indicatorRef,
         'left',
         this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] -
@@ -127,14 +128,14 @@ export default {
     end(index) {
       // console.log(index)
       this.currentSlideItemIndex = index
-      this.$setCss(this.indicatorRef, 'transition-duration', `300ms`)
-      this.$setCss(
+      _css(this.indicatorRef, 'transition-duration', `300ms`)
+      _css(
         this.indicatorRef,
         'left',
         this.tabIndicatorRelationActiveIndexLefts[this.currentSlideItemIndex] + 'px'
       )
       setTimeout(() => {
-        this.$setCss(this.indicatorRef, 'transition-duration', `0ms`)
+        _css(this.indicatorRef, 'transition-duration', `0ms`)
       }, 300)
     }
   }

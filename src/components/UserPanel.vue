@@ -1,5 +1,5 @@
 <template>
-  <div id="UserPanel" @scroll="scroll" @dragstart="(e) => Utils.$stopPropagation(e)" ref="page">
+  <div id="UserPanel" @scroll="scroll" @dragstart="(e) => _stopPropagation(e)" ref="page">
     <div ref="float" class="float" :class="state.floatFixed ? 'fixed' : ''">
       <div class="left">
         <Icon @click="emit('back')" class="icon" icon="eva:arrow-ios-back-fill" />
@@ -76,7 +76,7 @@
               <img
                 src="@/assets/img/icon/me/copy.png"
                 alt=""
-                @click.stop="Utils.copy(_getUserDouyinId(props.currentItem))"
+                @click.stop="_copy(_getUserDouyinId(props.currentItem))"
               />
             </div>
           </div>
@@ -85,20 +85,16 @@
       <div class="info">
         <div class="heat">
           <div class="text">
-            <span class="num">{{
-              Utils.formatNumber(props.currentItem.author.total_favorited)
-            }}</span>
+            <span class="num">{{ _formatNumber(props.currentItem.author.total_favorited) }}</span>
             <span>获赞</span>
           </div>
           <div class="text">
-            <span class="num">{{
-              Utils.formatNumber(props.currentItem.author.following_count)
-            }}</span>
+            <span class="num">{{ _formatNumber(props.currentItem.author.following_count) }}</span>
             <span>关注</span>
           </div>
           <div class="text">
             <span class="num">{{
-              Utils.formatNumber(props.currentItem.author.mplatform_followers_count)
+              _formatNumber(props.currentItem.author.mplatform_followers_count)
             }}</span>
             <span>粉丝</span>
           </div>
@@ -234,7 +230,14 @@
 
 <script setup lang="ts">
 import { reactive, ref, watch } from 'vue'
-import Utils, { _checkImgUrl, _getUserDouyinId, _no } from '@/utils'
+import {
+  _checkImgUrl,
+  _copy,
+  _formatNumber,
+  _getUserDouyinId,
+  _no,
+  _stopPropagation
+} from '@/utils'
 import { useNav } from '@/utils/hooks/useNav'
 import Posters from '@/components/Posters.vue'
 import { DefaultUser } from '@/utils/const_var'

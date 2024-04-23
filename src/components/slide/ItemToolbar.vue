@@ -1,6 +1,6 @@
 <script setup>
 import BaseMusic from '../BaseMusic'
-import Utils from '../../utils'
+import { _formatNumber, _updateItem } from '@/utils'
 import bus, { EVENT_KEY } from '@/utils/bus'
 import { Icon } from '@iconify/vue'
 
@@ -27,13 +27,13 @@ const props = defineProps({
 const emit = defineEmits(['update:item', 'goUserInfo', 'showComments', 'showShare', 'goMusic'])
 
 function loved() {
-  Utils.updateItem(props, 'isLoved', !props.item.isLoved, emit)
+  _updateItem(props, 'isLoved', !props.item.isLoved, emit)
 }
 
 function attention(e) {
   e.currentTarget.classList.add('attention')
   setTimeout(() => {
-    Utils.updateItem(props, 'isAttention', true, emit)
+    _updateItem(props, 'isAttention', true, emit)
   }, 1000)
 }
 
@@ -64,24 +64,24 @@ function showComments() {
         <img src="../../assets/img/icon/love.svg" class="love-image" v-if="!props.item.isLoved" />
         <img src="../../assets/img/icon/loved.svg" class="love-image" v-if="props.item.isLoved" />
       </div>
-      <span>{{ Utils.formatNumber(props.item.statistics.digg_count) }}</span>
+      <span>{{ _formatNumber(props.item.statistics.digg_count) }}</span>
     </div>
     <div class="message mb2r" @click.stop="showComments">
       <Icon icon="mage:message-dots-round-fill" class="icon" style="color: white" />
-      <span>{{ Utils.formatNumber(props.item.statistics.comment_count) }}</span>
+      <span>{{ _formatNumber(props.item.statistics.comment_count) }}</span>
     </div>
     <!--TODO     -->
     <div
       class="message mb2r"
-      @click.stop="Utils.updateItem(props, 'isCollect', !props.item.isCollect, emit)"
+      @click.stop="_updateItem(props, 'isCollect', !props.item.isCollect, emit)"
     >
       <Icon v-if="props.item.isCollect" icon="ic:round-star" class="icon" style="color: yellow" />
       <Icon v-else icon="ic:round-star" class="icon" style="color: white" />
-      <span>{{ Utils.formatNumber(props.item.statistics.comment_count) }}</span>
+      <span>{{ _formatNumber(props.item.statistics.comment_count) }}</span>
     </div>
     <div v-if="!props.isMy" class="share mb2r" @click.stop="bus.emit(EVENT_KEY.SHOW_SHARE)">
       <img src="../../assets/img/icon/share-white-full.png" alt="" class="share-image" />
-      <span>{{ Utils.formatNumber(props.item.statistics.share_count) }}</span>
+      <span>{{ _formatNumber(props.item.statistics.share_count) }}</span>
     </div>
     <div v-else class="share mb2r" @click.stop="bus.emit(EVENT_KEY.SHOW_SHARE)">
       <img src="../../assets/img/icon/menu-white.png" alt="" class="share-image" />

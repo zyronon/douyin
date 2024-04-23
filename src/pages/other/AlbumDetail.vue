@@ -1,5 +1,5 @@
 <template>
-  <div class="goods-detail" @dragstart="(e) => Utils.$stopPropagation(e)">
+  <div class="goods-detail" @dragstart="(e) => _stopPropagation(e)">
     <header>
       <Icon @click="close" icon="material-symbols-light:arrow-back-ios-new" />
       <div class="option" @click="nav('/home/search')">
@@ -99,7 +99,7 @@ import SlideItem from '@/components/slide/SlideItem.vue'
 import { reactive, ref } from 'vue'
 import { useNav } from '@/utils/hooks/useNav'
 import { Icon } from '@iconify/vue'
-import Utils, { _checkImgUrl } from '@/utils'
+import { _checkImgUrl, _stopPropagation } from '@/utils'
 
 const nav = useNav()
 

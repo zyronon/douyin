@@ -2,6 +2,8 @@
   <img class="close" ref="img" :src="src" />
 </template>
 <script>
+import { _css } from '@/utils/dom'
+
 export default {
   name: 'Back',
   props: {
@@ -32,7 +34,7 @@ export default {
     }
   },
   mounted() {
-    this.$setCss(
+    _css(
       this.$refs.img,
       'transform',
       `rotate(${this.direction === 'left' ? '0' : '180'}deg) scale(${this.scale})`

@@ -55,7 +55,7 @@
       </div>
       <div class="friends">
         <div class="item" :key="i" v-for="(item, i) in friends.all">
-          <img class="left" v-lazy="$imgPreview(item.avatar)" alt="" />
+          <img class="left" v-lazy="_checkImgUrl(item.avatar)" alt="" />
           <div class="right">
             <span>{{ item.name }}</span>
             <dy-button
@@ -81,7 +81,15 @@ import { mapState } from 'pinia'
 import FromBottomDialog from '../../../components/dialog/FromBottomDialog'
 import LoadingCircle from './LoadingCircle'
 import { useBaseStore } from '@/store/pinia'
-import { _no, _notice } from '@/utils'
+import {
+  _checkImgUrl,
+  _hideLoading,
+  _no,
+  _notice,
+  _showLoading,
+  _sleep,
+  _stopPropagation
+} from '@/utils'
 // import DouyinCode from "./DouyinCode";
 
 export default {
@@ -150,14 +158,14 @@ export default {
         click(e) {
           if (!this.canDownload) {
             if (this.itemType === 'download') {
-              this.$stopPropagation(e)
+              _stopPropagation(e)
             } else {
               _notice('作者已关闭下载功能')
               this.$emit('copy')
             }
             return
           }
-          if (this.needDown) this.$stopPropagation(e)
+          if (this.needDown) _stopPropagation(e)
           else return
           if (this.progress === 100) {
             _notice('未实现分享跳转到其他App')
@@ -250,6 +258,7 @@ export default {
     }
   },
   methods: {
+    _checkImgUrl,
     _no,
     displayText(type) {
       if (this.loading[type]) {
@@ -259,9 +268,9 @@ export default {
     },
     async copyLink() {
       this.closeShare()
-      this.$showLoading()
-      await this.$sleep(500)
-      this.$hideLoading()
+      _showLoading()
+      await _sleep(500)
+      _hideLoading()
       _notice('复制成功')
     },
     toggleCollect() {

@@ -1,6 +1,5 @@
 import bus from '@/utils/bus'
-import Utils from '@/utils/index'
-import GM from '@/utils/index'
+import { _stopPropagation } from '@/utils/index'
 import { SlideType } from '@/utils/const_var'
 import { nextTick } from 'vue'
 import { _css } from '@/utils/dom'
@@ -22,8 +21,8 @@ function checkEvent(e) {
 
 //初始化信息，获取slide dom的长宽、子元素数量，用于move事件判断能否滑动
 export function slideInit(el, state) {
-  state.wrapper.width = GM.$getCss(el, 'width')
-  state.wrapper.height = GM.$getCss(el, 'height')
+  state.wrapper.width = _css(el, 'width')
+  state.wrapper.height = _css(el, 'height')
   nextTick(() => {
     state.wrapper.childrenLength = el.children.length
   })
@@ -138,7 +137,7 @@ export function slideTouchMove(
     if (canNextCb(state, isNext)) {
       window.isMoved = true
       //能滑动，那就把事件捕获，不能给父组件处理
-      Utils.$stopPropagation(e)
+      _stopPropagation(e)
       if (state.type === SlideType.HORIZONTAL) {
         bus.emit(state.name + '-moveX', state.move.x)
       }

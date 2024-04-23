@@ -1,7 +1,7 @@
 <template>
   <SlideItem class="slide-item-class">
     <div class="sub-type" :class="state.subTypeIsTop ? 'top' : ''" ref="subTypeRef">
-      <div class="card" @touchmove.capture="stop">
+      <div class="card" @touchmove="_stop">
         <div class="nav-item" @click="goLive(i)" :key="j" v-for="(i, j) in store.users">
           <img :src="_checkImgUrl(i.avatar_168x168.url_list[0])" alt="" />
           <span>{{ i.nickname }}</span>
@@ -33,7 +33,7 @@
 import SlideItem from '@/components/slide/SlideItem.vue'
 import { onMounted, onUnmounted, reactive, ref } from 'vue'
 import bus, { EVENT_KEY } from '@/utils/bus'
-import Utils, { _checkImgUrl } from '@/utils'
+import { _checkImgUrl, _stop, _stopPropagation } from '@/utils'
 import SlideList from './SlideList.vue'
 import { recommendedVideo } from '@/api/videos'
 import { useBaseStore } from '@/store/pinia'
@@ -46,10 +46,6 @@ const props = defineProps({
   }
 })
 
-function stop(e) {
-  e.stopPropagation()
-}
-
 const subTypeRef = ref(null)
 const state = reactive({
   index: 0,
@@ -61,7 +57,7 @@ const state = reactive({
 })
 
 function showSubType(e) {
-  Utils.$stopPropagation(e)
+  _stopPropagation(e)
   console.log('subTypeRef')
   state.subTypeHeight = subTypeRef.value.getBoundingClientRect().height + 'px'
   state.subTypeVisible = true
@@ -74,7 +70,7 @@ function pageClick(e) {
   if (state.subTypeVisible) {
     state.subTypeIsTop = state.subTypeVisible = false
     bus.emit(EVENT_KEY.CLOSE_SUB_TYPE)
-    Utils.$stopPropagation(e)
+    _stopPropagation(e)
   }
 }
 

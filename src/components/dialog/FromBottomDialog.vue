@@ -30,6 +30,7 @@
 <script>
 import Dom, { _css } from '../../utils/dom'
 import bus, { EVENT_KEY } from '@/utils/bus'
+import { _stopPropagation } from '@/utils'
 
 export default {
   name: 'FromBottomDialog',
@@ -73,6 +74,7 @@ export default {
   watch: {
     modelValue(newVal) {
       let page = document.getElementById(this.pageId)
+      if (!page) return
       if (newVal) {
         this.pagePosition = _css(page, 'position')
         page.style.position = 'absolute'
@@ -83,12 +85,11 @@ export default {
         let maskTemplate = `<div class="Mask fade-in ${this.maskMode}"></div>`
         let mask = new Dom().create(maskTemplate)
         mask.on('click', (e) => {
-          this.$stopPropagation(e)
+          _stopPropagation(e)
           this.hide(false)
         })
         page.appendChild(mask.els[0])
       } else {
-        let page = document.getElementById(this.pageId)
         page.style.position = this.pagePosition || 'fixed'
         document.body.style.position = 'static'
         document.documentElement.scrollTop = this.scroll

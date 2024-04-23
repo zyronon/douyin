@@ -223,7 +223,7 @@
                       :key="j"
                       v-for="(i, j) in videos.collect.music.list.slice(0, 3)"
                     >
-                      <img class="poster" :src="$imgPreview(i.cover)" alt="" />
+                      <img class="poster" :src="_checkImgUrl(i.cover)" alt="" />
                       <div class="title">{{ i.name }}</div>
                     </div>
                   </div>
@@ -378,7 +378,7 @@ import { mapState } from 'pinia'
 
 import bus from '../../utils/bus'
 import ConfirmDialog from '../../components/dialog/ConfirmDialog'
-import { _checkImgUrl, _formatNumber, _getUserDouyinId, _no } from '@/utils'
+import { _checkImgUrl, _formatNumber, _getUserDouyinId, _no, _stopPropagation } from '@/utils'
 import { likeVideo, myVideo, privateVideo } from '@/api/videos'
 import { useBaseStore } from '@/store/pinia'
 import { userCollect } from '@/api/user'
@@ -502,7 +502,7 @@ export default {
       if (this.baseActiveIndex === 0) return
       if (this.baseActiveIndex === 1) {
         this.baseActiveIndex = 0
-        this.$stopPropagation(e)
+        _stopPropagation(e)
       }
     },
     async getScrollAreaHeight(index = this.contentIndex) {
@@ -790,10 +790,9 @@ export default {
                 } else {
                   //transformY === 0说明，本来就在顶部，然后猛的一划,这里要判断下
                   if (transformY !== 0) {
-                    if (this.$getCss(this.refs.header, 'height') < 400) {
+                    if (_css(this.refs.header, 'height') < 400) {
                       this.refs.header.style.transition = 'none'
-                      this.refs.header.style.height =
-                        this.$getCss(this.refs.header, 'height') + 10 + 'px'
+                      this.refs.header.style.height = _css(this.refs.header, 'height') + 10 + 'px'
                       timer = requestAnimationFrame(fn)
                     } else {
                       this.refs.header.style.transition = 'all .6s'

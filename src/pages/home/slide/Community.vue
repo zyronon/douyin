@@ -1,5 +1,5 @@
 <template>
-  <div id="Community" @dragstart="(e) => Utils.$stopPropagation(e)">
+  <div id="Community" @dragstart="(e) => _stopPropagation(e)">
     <ScrollList class="Scroll" v-if="state.show" :api="recommendedPost">
       <template v-slot="{ list }">
         <div class="search" @click="nav('/home/search')">
@@ -47,7 +47,7 @@
 
 <script setup>
 import { reactive, ref, watch } from 'vue'
-import Utils, { _checkImgUrl, _no, cloneDeep } from '@/utils'
+import { _checkImgUrl, _no, _stopPropagation, cloneDeep } from '@/utils'
 import { recommendedPost } from '@/api/user'
 import { useNav } from '@/utils/hooks/useNav'
 import { Icon } from '@iconify/vue'
