@@ -78,27 +78,32 @@ watch(
   () => props.list,
   (newVal, oldVal) => {
     // console.log('watch-list', newVal.length, oldVal.length, newVal)
-    //新数据比老数据小，是刷新
+    //新数据长度比老数据长度小，说明是刷新
     if (newVal.length < oldVal.length) {
       insertContent()
     } else {
+      //没数据就直接插入
       if (oldVal.length === 0) {
         insertContent()
       } else {
-        let lastSlideItem = wrapperEl.value.querySelector(`.${itemClassName}:last-child`)
-        let top = _css(lastSlideItem, 'top')
-        let lastIndex = Number(lastSlideItem.getAttribute('data-index')) + 1
-        // console.log('lastIndex', lastIndex)
-        newVal.slice(lastIndex, lastIndex + 3).map((item, index) => {
-          let el = getInsEl(item, lastIndex + index)
-          //这里必须要设置个top值，不然会把前面的条目给覆盖掉
-          //2022-3-27，这里不用计算，直接用已用slide-item最后一条的top值，
-          //因为有一条情况：当滑动最后一条和二条的时候top值不会继续加。此时新增的数据如果还
-          // 计算top值的，会和前面的对不上
-          _css(el, 'top', top)
-          wrapperEl.value.appendChild(el)
-          state.wrapper.childrenLength++
-        })
+        // 走到这里，说明是通过接口加载了下一页的数据，
+        // 为了在用户快速滑动时，无需频繁等待请求接口加载数据，给用户更好的使用体验
+        // 这里额外加载3条数据。所以此刻，html里面有原本的5个加新增的3个，一共8个dom
+        // 用户往下滑动时只删除前面多余的dom，等滑动到临界值（virtualTotal/2+1）时，再去执行新增逻辑
+        // let lastSlideItem = wrapperEl.value.querySelector(`.${itemClassName}:last-child`)
+        // let top = _css(lastSlideItem, 'top')
+        // let newListStartIndex = Number(lastSlideItem.getAttribute('data-index')) + 1
+        // // console.log('newListStartIndex', newListStartIndex)
+        // newVal.slice(newListStartIndex, newListStartIndex + 3).map((item, index) => {
+        //   let el = getInsEl(item, newListStartIndex + index)
+        //   //这里必须要设置个top值，不然会把前面的条目给覆盖掉
+        //   //2022-3-27，这里不用计算，直接用已用slide-item最后一条的top值，
+        //   //因为有一条情况：当滑动最后一条和二条的时候top值不会继续加。此时新增的数据如果还
+        //   // 计算top值的，会和前面的对不上
+        //   _css(el, 'top', top)
+        //   wrapperEl.value.appendChild(el)
+        //   state.wrapper.childrenLength++
+        // })
       }
     }
   }
@@ -129,6 +134,7 @@ watch(
 watch(
   () => props.active,
   (newVal) => {
+    //当激活此页时，如果list为空，那么向上发射事件通知父组件请求数据
     if (newVal && !props.list.length) {
       return emit('refresh')
     }
@@ -147,7 +153,6 @@ watch(
 
 onMounted(() => {
   slideInit(wrapperEl.value, state)
-  insertContent()
 })
 
 function insertContent(list = props.list) {

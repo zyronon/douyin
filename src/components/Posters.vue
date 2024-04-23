@@ -92,7 +92,7 @@ function getMonth(time) {
 
 .poster-item {
   height: 200rem;
-  max-height: calc(33.33vw * 1.2);
+  max-height: calc(33.33vw * 1.3);
   border: 0.5px solid black;
   overflow: hidden;
   position: relative;
