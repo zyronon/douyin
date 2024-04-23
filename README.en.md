@@ -30,31 +30,29 @@
 
 ## Online access
 
-### China region:
-
-Gitee pages:<https://zyronon.gitee.io/douyin/>
-
-### Outside China
-
+Gitee pages:<https://zyronon.gitee.io/douyin/>(It is recommended to visit this address in China)  
 Github pages:<https://zyronon.github.io/douyin/>
 
-~~Vercel:<http://dy.ttentau.top/>~~
+[//]: # "~~Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/)~~"
 
-~~Netlify:<https://douyins.netlify.app/>~~
+[//]: # "~~Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/)~~"
 
-The 100G free data provided by Vercel and Netlify respectively have been used up...🤣
+[//]: # "Vercel和Netlify分别送的100G免费流量已经用完了...🤣"
 
-Android Apk:<https://github.com/zyronon/douyin/releases>
+[//]: # "Android Apk: https://github.com/zyronon/douyin/releases"
 
-**Notice**：`PC`You must switch the browser to mobile mode, first press`F12`To bring up the console, press`Ctrl+Shift+M`to preview normally
+[//]: # "**注意**：`PC` 必须将浏览器切到手机模式，先按 `F12` 调出控制台，再按 `Ctrl+Shift+M`才能正常预览"
 
-**Notice**：Please use mobile phone[via browser](https://viayoo.com/zh-cn/)or Chrome browser preview. Other browsers may force the video to full screen, causing it to not display properly.
+[//]: # "**注意**：手机请用  [Via 浏览器](https://viayoo.com/zh-cn/)  或 Chrome 浏览器预览。其它浏览器可能会强制将视频全屏，导致无法正常显示"
 
-## Disclaimer
+## Link
 
-This project is for study and research only, not for commercial use
+【douyin-vue】One:[200 lines of code to implement a carousel component similar to Swiper.js](https://juejin.cn/post/7360512664317018146)  
+Follow-up articles are being prepared...
 
 ## run
+
+Note: This project is only suitable for study and research, not for commercial use
 
 ### Quickly deploy to Vercel
 
@@ -71,13 +69,7 @@ npm run dev
 
 Open your browser and visit:<http://127.0.0.1:3000>
 
-**Note: PC browser must be switched to mobile mode, first press`F12`To bring up the console, press`Ctrl+Shift+M`to preview normally**
-
-## Link
-
--   `开源中国`:<https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g>
--   `V2EX`:<https://www.v2ex.com/t/1028678>
--   `掘金`:<https://juejin.cn/post/7352813352051687458>
+**Note: You need to switch the browser to mobile mode, first press`F12`To bring up the console, press`Ctrl+Shift+M`to preview normally**
 
 ## Data Sources
 
@@ -103,7 +95,7 @@ The above content is all public information on the Internet
 
 ## Features and suggestions
 
-The project is currently in the early stages of development and new features are being added continuously. If you have any features or suggestions for the software, please feel free to contact us.`Issues`raised in
+The project is currently in the early stages of development, and new features are being added continuously. If you have any features or suggestions for the software, please feel free to contact us.`Issues`raised in
 If you also like the design ideas of this software, please submit it`PR`, thank you very much for your support!
 
 ## contact me
