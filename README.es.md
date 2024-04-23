@@ -30,31 +30,29 @@
 
 ## Acceso en linea
 
-### Región de China:
-
-Páginas del albergue:<https://zyronon.gitee.io/douyin/>
-
-### Fuera de China
-
+Páginas de casas rurales:<https://zyronon.gitee.io/douyin/>(Se recomienda visitar esta dirección en China)  
 Páginas de Github:<https://zyronon.github.io/douyin/>
 
-~~Vercel:<http://dy.ttentau.top/>~~
+[//]: # "~~Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/)~~"
 
-~~Netlificar:<https://douyins.netlify.app/>~~
+[//]: # "~~Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/)~~"
 
-Los 100G de datos gratuitos proporcionados por Vercel y Netlify respectivamente se han agotado...🤣
+[//]: # "Vercel和Netlify分别送的100G免费流量已经用完了...🤣"
 
-Android Apk:<https://github.com/zyronon/douyin/releases>
+[//]: # "Android Apk: https://github.com/zyronon/douyin/releases"
 
-**Aviso**：`PC`Debes cambiar el navegador al modo móvil, primero presiona`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente
+[//]: # "**注意**：`PC` 必须将浏览器切到手机模式，先按 `F12` 调出控制台，再按 `Ctrl+Shift+M`才能正常预览"
 
-**Aviso**:Por favor utilice el teléfono móvil[a través del navegador](https://viayoo.com/zh-cn/)o vista previa del navegador Chrome. Otros navegadores pueden forzar el vídeo a pantalla completa, lo que hace que no se muestre correctamente.
+[//]: # "**注意**：手机请用  [Via 浏览器](https://viayoo.com/zh-cn/)  或 Chrome 浏览器预览。其它浏览器可能会强制将视频全屏，导致无法正常显示"
 
-## Descargo de responsabilidad
+## Enlace
 
-Este proyecto es sólo para estudio e investigación, no para uso comercial.
+【douyin-vue】Uno:[200 líneas de código para implementar un componente carrusel similar a Swiper.js](https://juejin.cn/post/7360512664317018146)  
+Se están preparando artículos de seguimiento...
 
 ## correr
+
+Nota: Este proyecto sólo es apto para estudio e investigación, no para uso comercial.
 
 ### Implemente rápidamente en Vercel
 
@@ -71,13 +69,7 @@ npm run dev
 
 Abra su navegador y visite:<http://127.0.0.1:3000>
 
-**Nota: el navegador de la PC debe cambiarse al modo móvil, primero presione`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente**
-
-## Enlace
-
--   `开源中国`: <https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g>
--   `V2EX`:<https://www.v2ex.com/t/1028678>
--   `掘金`:<https://juejin.cn/post/7352813352051687458>
+**Nota: Debe cambiar el navegador al modo móvil, primero presione`F12`Para abrir la consola, presione`Ctrl+Shift+M`para obtener una vista previa normalmente**
 
 ## Fuentes de datos
 
@@ -108,7 +100,7 @@ Si también le gustan las ideas de diseño de este software, envíelas.`PR`, ¡M
 
 ## contáctame
 
-Puedes contactar a mi correo electrónico<a href="mailto:zyronon@163.com">zyronon@163.com</a>
+Puedes contactar a mi correo<a href="mailto:zyronon@163.com">zyronon@163.com</a>
 
 > Comparta mis otros proyectos de código abierto:
 >
