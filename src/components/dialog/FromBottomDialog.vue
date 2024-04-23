@@ -30,7 +30,6 @@
 <script>
 import Dom, { _css } from '../../utils/dom'
 import bus, { EVENT_KEY } from '@/utils/bus'
-import Utils from '@/utils'
 
 export default {
   name: 'FromBottomDialog',

@@ -5,7 +5,6 @@ import ConfirmDialog from '../components/dialog/ConfirmDialog.vue'
 import Loading from '../components/Loading.vue'
 import Config, { IMG_URL, IS_DEV } from '../config'
 import NoticeDialog from '../components/dialog/NoticeDialog.vue'
-import dayjs from 'dayjs'
 import bus, { EVENT_KEY } from './bus'
 import { ArchiveReader, libarchiveWasm } from 'libarchive-wasm'
 
@@ -280,69 +279,6 @@ const Utils = {
     }
     return defaultValue
   },
-  $storageClear(key, isAll = false) {
-    if (isAll) {
-      localStorage.clear()
-    } else {
-      localStorage.removeItem(key)
-    }
-  },
-  $dateFormat(val, type) {
-    if (!val) return
-    if (typeof val === 'number') {
-      //
-    } else {
-      if (val.length === 10) {
-        val += '000'
-      }
-      if (typeof val === 'string' && (val.length === 10 || val.length === 13)) {
-        val = Number(val)
-      }
-    }
-    switch (type) {
-      case 'Y':
-        return dayjs(val).format('YYYY')
-      case 'M':
-        return dayjs(val).format('YYYY-MM')
-      case 'M_CN':
-        return dayjs(val).format('YYYY年MM月')
-      case 'D':
-        return dayjs(val).format('YYYY-MM-DD')
-      case 'm':
-        return dayjs(val).format('YYYY-MM-DD HH:mm')
-      case 'S':
-        return dayjs(val).format('YYYY-MM-DD HH:mm:ss')
-      default:
-        return dayjs(val).format('YYYY-MM-DD HH:mm:ss')
-    }
-  },
-  $time(time) {
-    if (String(time).length === 10) {
-      time = time * 1000
-    }
-    const date = new dayjs(time)
-    const now = new dayjs()
-    const d = now.valueOf() - date.valueOf()
-    let str = ''
-    if (d < 1000 * 60) {
-      str = '刚刚'
-    } else if (d < 1000 * 60 * 60) {
-      str = `${(d / (1000 * 60)).toFixed()}分钟前`
-    } else if (d < 1000 * 60 * 60 * 24) {
-      str = `${(d / (1000 * 60 * 60)).toFixed()}小时前`
-    } else if (d < 1000 * 60 * 60 * 24 * 2) {
-      str = '1天前'
-    } else if (d < 1000 * 60 * 60 * 24 * 3) {
-      str = '2天前'
-    } else if (d < 1000 * 60 * 60 * 24 * 4) {
-      str = '3天前'
-    } else if (date.isSame(now, 'year')) {
-      str = dayjs(time).format('MM-DD')
-    } else {
-      str = dayjs(time).format('YYYY-MM-DD')
-    }
-    return str
-  },
   $duration(v) {
     if (!v) return '00:00'
     const m = Math.floor(v / 60)
@@ -376,15 +312,6 @@ const Utils = {
       return num
     }
   },
-  getCenter(a, b) {
-    const x = (a.x + b.x) / 2
-    const y = (a.y + b.y) / 2
-    return { x, y }
-  },
-  // 获取坐标之间的举例
-  getDistance(start, stop) {
-    return Math.hypot(stop.x - start.x, stop.y - start.y)
-  },
   updateItem(props, key, val, emit) {
     const old = cloneDeep(props.item)
     old[key] = val
@@ -408,8 +335,39 @@ const Utils = {
 
 export default Utils
 
-export function _dateFormat(val, type) {
-  return Utils.$dateFormat(val, type)
+export function _dateFormat(val, type): string {
+  if (!val) return
+  if (String(val).length === 10) {
+    val = val * 1000
+  }
+  const d = new Date(Number(val))
+  const year = d.getFullYear()
+  const m = d.getMonth() + 1
+  const mStr = m < 10 ? '0' + m : m
+  const day = d.getDate()
+  const dayStr = day < 10 ? '0' + day : day
+  const h = d.getHours()
+  const hStr = h < 10 ? '0' + h : h
+  const min = d.getMinutes()
+  const minStr = min < 10 ? '0' + min : min
+  const sec = d.getSeconds()
+  const secStr = sec < 10 ? '0' + sec : sec
+  switch (type) {
+    case 'Y':
+      return year + ''
+    case 'M':
+      return `${year}-${mStr}`
+    case 'M_D':
+      return `${mStr}-${dayStr}`
+    case 'M_CN':
+      return `${year}年${mStr}月`
+    case 'D':
+      return `${year}-${mStr}-${dayStr}`
+    case 'm':
+      return `${year}-${mStr}-${dayStr} ${hStr}:${minStr}`
+    default:
+      return `${year}-${mStr}-${dayStr} ${hStr}:${minStr}:${secStr}`
+  }
 }
 
 export function $no() {
@@ -420,8 +378,32 @@ export function $notice(val) {
   Utils.$notice(val)
 }
 
-export function _time(val) {
-  return Utils.$time(val)
+export function _time(time) {
+  if (String(time).length === 10) {
+    time = time * 1000
+  }
+  const date = new Date(Number(time))
+  const now = new Date()
+  const d = now.valueOf() - date.valueOf()
+  let str = ''
+  if (d < 1000 * 60) {
+    str = '刚刚'
+  } else if (d < 1000 * 60 * 60) {
+    str = `${(d / (1000 * 60)).toFixed()}分钟前`
+  } else if (d < 1000 * 60 * 60 * 24) {
+    str = `${(d / (1000 * 60 * 60)).toFixed()}小时前`
+  } else if (d < 1000 * 60 * 60 * 24 * 2) {
+    str = '1天前'
+  } else if (d < 1000 * 60 * 60 * 24 * 3) {
+    str = '2天前'
+  } else if (d < 1000 * 60 * 60 * 24 * 4) {
+    str = '3天前'
+  } else if (date.getFullYear() === now.getFullYear()) {
+    str = _dateFormat(time, 'M_D')
+  } else {
+    str = _dateFormat(time, 'D')
+  }
+  return str
 }
 
 export function _checkImgUrl(url) {

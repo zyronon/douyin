@@ -192,7 +192,7 @@ function insertContent(list = props.list) {
   bus.emit(EVENT_KEY.CURRENT_ITEM, list[state.localIndex])
 }
 
-function dislike(item) {
+function dislike() {
   // let currentItem = $(wrapperEl.value).find(`.${itemClassName}[data-index=${state.localIndex}]`)
   // let replaceItem = getInsEl(item, state.localIndex, true)
   // $(replaceItem).css('top', currentItem.css('top'))
