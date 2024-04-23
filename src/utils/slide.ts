@@ -79,8 +79,7 @@ function canNext(state, isNext) {
  * @param state
  */
 export function slideTouchStart(e, el, state) {
-  console.log('e', e, state.name)
-  return
+  // console.log('e', e, state.name)
   if (!checkEvent(e)) return
   Utils.$setCss(el, 'transition-duration', `0ms`)
   //记录起点坐标，用于move事件计算移动距离
@@ -245,7 +244,7 @@ export function slideReset(e, el, state, emit = null) {
 
 //根据当前index，获取slide偏移距离
 //如果每个页面的宽度是相同均为100%，只需要当前index * wrapper的宽（高）度即可： -state.localIndex * state.wrapper.width
-export function getSlideOffset(state, el) {
+export function getSlideOffset(state: any, el: HTMLDivElement) {
   //横竖判断逻辑基本同理
   if (state.type === SlideType.HORIZONTAL) {
     let widths = []
@@ -262,7 +261,10 @@ export function getSlideOffset(state, el) {
     return 0
     // return -state.localIndex * state.wrapper.width
   } else {
+    //VERTICAL_INFINITE 列表只需要计算index * 高就行
     if (state.type === SlideType.VERTICAL_INFINITE) {
+      return -state.localIndex * state.wrapper.height
+    } else {
       //同上
       let heights = []
       Array.from(el.children).map((v) => {
@@ -271,9 +273,6 @@ export function getSlideOffset(state, el) {
       heights = heights.slice(0, state.localIndex)
       if (heights.length) return -heights.reduce((a, b) => a + b)
       return 0
-    } else {
-      //VERTICAL_INFINITE 列表只需要计算index * 高就行
-      return -state.localIndex * state.wrapper.height
     }
   }
 }

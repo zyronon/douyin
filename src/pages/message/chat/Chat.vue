@@ -191,7 +191,6 @@ import { computed, inject, nextTick, onMounted, onUnmounted, reactive, ref } fro
 import Loading from '@/components/Loading.vue'
 import { useBaseStore } from '@/store/pinia'
 import { _checkImgUrl, _no, _sleep } from '@/utils'
-import $ from 'jquery'
 import { useRouter } from 'vue-router'
 import { useNav } from '@/utils/hooks/useNav'
 
@@ -238,6 +237,7 @@ const mitt = inject('mitt')
 const router = useRouter()
 const nav = useNav()
 const store = useBaseStore()
+const msgWrapper = ref<HTMLDivElement>()
 const data = reactive({
   previewImg: new URL('../../../assets/img/poster/3.jpg', import.meta.url).href,
   videoCall: [],
@@ -488,12 +488,16 @@ const data = reactive({
 })
 
 onMounted(() => {
-  $('img').on('load', scrollBottom)
+  msgWrapper.value
+    .querySelectorAll('img')
+    .forEach((item) => item.addEventListener('load', scrollBottom))
   scrollBottom()
 })
 
 onUnmounted(() => {
-  $('img').off('load', scrollBottom)
+  msgWrapper.value
+    .querySelectorAll('img')
+    .forEach((item) => item.removeEventListener('load', scrollBottom))
 })
 
 const isExpand = computed(() => {
@@ -504,8 +508,6 @@ function handleClick() {
   data.recording = true
   data.showOption = false
 }
-
-const msgWrapper = ref()
 
 function scrollBottom() {
   nextTick(() => {

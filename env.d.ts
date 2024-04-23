@@ -3,6 +3,10 @@
 declare const LATEST_COMMIT_HASH: string
 
 declare global {
+  interface Window {
+    isMoved: boolean
+  }
+
   interface Navigator {
     control: any
     webkitGetUserMedia: any

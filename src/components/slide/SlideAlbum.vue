@@ -110,11 +110,8 @@ import {
   slideTouchStart
 } from '@/utils/slide'
 import { SlideAlbumOperationStatus, SlideItemPlayStatus, SlideType } from '../../utils/const_var'
-import ItemToolbar from './ItemToolbar'
-import ItemDesc from './ItemDesc'
 import { cloneDeep } from '@/utils'
 import bus, { EVENT_KEY } from '../../utils/bus'
-import $ from 'jquery'
 
 let out = new Float32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 let ov = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1])
@@ -430,6 +427,9 @@ function touchStart(e) {
 }
 
 function touchMove(e) {
+  const s = true
+  if (s) return
+
   // Utils.$showNoticeDialog('move'+e.touches.length)
   // console.log('move', e.touches.length, state.operationStatus)
   let current1 = { x: e.touches[0].pageX, y: e.touches[0].pageY }
@@ -481,10 +481,11 @@ function touchMove(e) {
     if (rectMap.has(state.localIndex)) {
       rect = rectMap.get(state.localIndex)
     } else {
+      //TODO 这里去掉jquery
       //getBoundingClientRect在手机上获取不到值
-      let offset = $(state.itemRefs[state.localIndex]).offset()
-      rect = { x: offset.left, y: offset.top }
-      rectMap.set(state.localIndex, rect)
+      // let offset = $(state.itemRefs[state.localIndex]).offset()
+      // rect = { x: offset.left, y: offset.top }
+      // rectMap.set(state.localIndex, rect)
     }
 
     let current2 = { x: e.touches[1].pageX, y: e.touches[1].pageY }

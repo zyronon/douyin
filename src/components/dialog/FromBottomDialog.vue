@@ -28,8 +28,9 @@
   </transition>
 </template>
 <script>
-import Dom from '../../utils/dom'
+import Dom, { _css } from '../../utils/dom'
 import bus, { EVENT_KEY } from '@/utils/bus'
+import Utils from '@/utils'
 
 export default {
   name: 'FromBottomDialog',
@@ -74,7 +75,7 @@ export default {
     modelValue(newVal) {
       let page = document.getElementById(this.pageId)
       if (newVal) {
-        this.pagePosition = this.$getCss2(page, 'position')
+        this.pagePosition = _css(page, 'position')
         page.style.position = 'absolute'
         this.scroll = document.documentElement.scrollTop
         document.body.style.position = 'fixed'
@@ -113,28 +114,28 @@ export default {
   created() {},
   methods: {
     beforeEnter(el) {
-      this.$setCss(el, 'transition-duration', `250ms`)
-      this.$setCss(el, 'transform', `translate3d(0,${this.height},0)`)
+      _css(el, 'transition-duration', `250ms`)
+      _css(el, 'transform', `translate3d(0,${this.height},0)`)
     },
     enter(el, done) {
       setTimeout(() => {
-        this.$setCss(el, 'transform', `translate3d(0,0,0)`)
+        _css(el, 'transform', `translate3d(0,0,0)`)
       }, 0)
       setTimeout(() => {
-        // this.$setCss(el, 'transition-duration', `0ms`)
-        this.$setCss(el, 'transform', `none`)
+        // _css(el, 'transition-duration', `0ms`)
+        _css(el, 'transform', `none`)
         done()
       }, 250)
     },
     afterEnter() {},
     beforeLeave(el) {
-      this.$setCss(el, 'transition-duration', `250ms`)
-      this.$setCss(el, 'transform', `translate3d(0,0,0)`)
+      _css(el, 'transition-duration', `250ms`)
+      _css(el, 'transform', `translate3d(0,0,0)`)
     },
     leave(el, done) {
       //ref获取不到
       let maxHeight = new Dom('.FromBottomDialog').css('max-height')
-      this.$setCss(el, 'transform', `translate3d(0,${maxHeight},0)`)
+      _css(el, 'transform', `translate3d(0,${maxHeight},0)`)
       setTimeout(done, 250)
     },
     afterLeave() {},
@@ -147,7 +148,7 @@ export default {
       if (this.$refs.dialog.scrollTop !== 0) return
       this.startLocationY = e.touches[0].pageY
       this.startTime = Date.now()
-      this.$setCss(this.$refs.dialog, 'transition-duration', `0ms`)
+      _css(this.$refs.dialog, 'transition-duration', `0ms`)
     },
     move(e) {
       if (this.$refs.dialog.scrollTop !== 0) return
@@ -157,7 +158,7 @@ export default {
           tag: this.tag,
           e: this.moveYDistance
         })
-        this.$setCss(this.$refs.dialog, 'transform', `translate3d(0,${this.moveYDistance}px,0)`)
+        _css(this.$refs.dialog, 'transform', `translate3d(0,${this.moveYDistance}px,0)`)
       }
     },
     end() {
@@ -168,17 +169,17 @@ export default {
       //滑动
       if (this.$refs.dialog.scrollTop !== 0) return
       let clientHeight = this.$refs.dialog.clientHeight
-      this.$setCss(this.$refs.dialog, 'transition-duration', `250ms`)
+      _css(this.$refs.dialog, 'transition-duration', `250ms`)
       if (Math.abs(this.moveYDistance) > clientHeight / 2) {
-        this.$setCss(this.$refs.dialog, 'transform', `translate3d(0,${clientHeight}px,0)`)
+        _css(this.$refs.dialog, 'transform', `translate3d(0,${clientHeight}px,0)`)
         bus.emit(EVENT_KEY.DIALOG_END, { tag: this.tag, isClose: true })
         setTimeout(this.hide, 250)
       } else {
-        this.$setCss(this.$refs.dialog, 'transform', `translate3d(0,0,0)`)
+        _css(this.$refs.dialog, 'transform', `translate3d(0,0,0)`)
         bus.emit(EVENT_KEY.DIALOG_END, { tag: this.tag, isClose: false })
         setTimeout(() => {
-          this.$setCss(this.$refs.dialog, 'transform', 'none')
-          // this.$setCss(this.$refs.dialog, 'transition-duration', `0ms`)
+          _css(this.$refs.dialog, 'transform', 'none')
+          // _css(this.$refs.dialog, 'transition-duration', `0ms`)
         }, 250)
       }
       this.moveYDistance = 0

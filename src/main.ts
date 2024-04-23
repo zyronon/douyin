@@ -8,8 +8,6 @@ import mixin from './utils/mixin'
 import VueLazyload from '@jambonn/vue-lazyload'
 import { createPinia } from 'pinia'
 
-HTMLElement.prototype._rawAddEventListener_ = HTMLElement.prototype.addEventListener
-HTMLElement.prototype._rawRemoveEventListener_ = HTMLElement.prototype.removeEventListener
 window.isMoved = false
 HTMLElement.prototype.addEventListener = new Proxy(HTMLElement.prototype.addEventListener, {
   apply(target, ctx, args) {
