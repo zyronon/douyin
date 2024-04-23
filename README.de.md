@@ -30,31 +30,29 @@
 
 ## Online-Zugang
 
-### Region China:
-
-Gitee-Seiten:<https://zyronon.gitee.io/douyin/>
-
-### Außerhalb Chinas
-
+Gitee-Seiten:<https://zyronon.gitee.io/douyin/>(Es wird empfohlen, diese Adresse in China zu besuchen)  
 Github-Seiten:<https://zyronon.github.io/douyin/>
 
-~~Vercel:<http://dy.ttentau.top/>~~
+[//]: # "~~Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/)~~"
 
-~~Netlify:<https://douyins.netlify.app/>~~
+[//]: # "~~Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/)~~"
 
-Die von Vercel bzw. Netlify bereitgestellten kostenlosen 100G-Daten sind aufgebraucht...🤣
+[//]: # "Vercel和Netlify分别送的100G免费流量已经用完了...🤣"
 
-Android-Apk:<https://github.com/zyronon/douyin/releases>
+[//]: # "Android Apk: https://github.com/zyronon/douyin/releases"
 
-**Beachten**：`PC`Sie müssen den Browser in den mobilen Modus schalten, zuerst drücken`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen
+[//]: # "**注意**：`PC` 必须将浏览器切到手机模式，先按 `F12` 调出控制台，再按 `Ctrl+Shift+M`才能正常预览"
 
-**Beachten**:Bitte benutzen Sie Ihr Mobiltelefon[über Browser](https://viayoo.com/zh-cn/)oder Chrome-Browservorschau. Andere Browser erzwingen möglicherweise, dass das Video im Vollbildmodus angezeigt wird, was dazu führt, dass es nicht richtig angezeigt wird.
+[//]: # "**注意**：手机请用  [Via 浏览器](https://viayoo.com/zh-cn/)  或 Chrome 浏览器预览。其它浏览器可能会强制将视频全屏，导致无法正常显示"
 
-## Haftungsausschluss
+## Verknüpfung
 
-Dieses Projekt dient ausschließlich Studien- und Forschungszwecken, nicht der kommerziellen Nutzung
+【douyin-vue】Eins:[200 Codezeilen zur Implementierung einer Karussellkomponente ähnlich Swiper.js](https://juejin.cn/post/7360512664317018146)  
+Folgeartikel sind in Vorbereitung...
 
 ## laufen
+
+Hinweis: Dieses Projekt ist nur für Studien- und Forschungszwecke geeignet, nicht für die kommerzielle Nutzung
 
 ### Schnelle Bereitstellung in Vercel
 
@@ -71,13 +69,7 @@ npm run dev
 
 Öffnen Sie Ihren Browser und besuchen Sie:<http://127.0.0.1:3000>
 
-**Hinweis: Der PC-Browser muss zuerst in den Mobilmodus geschaltet werden`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen**
-
-## Verknüpfung
-
--   `开源中国`:<https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g>
--   `V2EX`:<https://www.v2ex.com/t/1028678>
--   `掘金`:<https://juejin.cn/post/7352813352051687458>
+**Hinweis: Sie müssen den Browser in den Mobilmodus schalten, indem Sie zuerst drücken`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen**
 
 ## Datenquellen
 
