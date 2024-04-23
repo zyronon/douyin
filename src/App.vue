@@ -6,16 +6,17 @@
       </keep-alive>
     </transition>
   </router-view>
-    <BaseMask v-if="!isMobile" />
-    <div v-if="!isMobile" class="guide">
-      <Icon icon="mynaui:danger-triangle" />
-      <div class="txt">
-        <h2>切换至手机模式才可正常使用</h2>
-        <h3>1. 按 F12 调出控制台</h3>
-        <h3>2. 按 Ctrl+Shift+M，或点击下面图标</h3>
-      </div>
-      <img src="@/assets/img/guide.png" alt="" />
+  <BaseMask v-if="!isMobile" @click="isMobile = true" />
+  <div v-if="!isMobile" class="guide">
+    <Icon class="danger" icon="mynaui:danger-triangle" />
+    <Icon class="close" icon="simple-line-icons:close" @click="isMobile = true" />
+    <div class="txt">
+      <h2>切换至手机模式获取最佳体验</h2>
+      <h3>1. 按 F12 调出控制台</h3>
+      <h3>2. 按 Ctrl+Shift+M，或点击下面图标</h3>
     </div>
+    <img src="@/assets/img/guide.png" alt="" />
+  </div>
   <Call />
 </template>
 <script setup lang="ts">
@@ -92,6 +93,15 @@ onMounted(() => {
   font-size: 14rem;
 }
 
+@media screen and (min-width: 500px) {
+  #app {
+    width: 500px !important;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
 .guide {
   color: white;
   z-index: 999;
@@ -104,10 +114,19 @@ onMounted(() => {
   overflow: hidden;
   text-align: center;
 
-  svg {
+  .danger {
     margin-top: 10rem;
     font-size: 40rem;
     color: red;
+  }
+
+  .close {
+    cursor: pointer;
+    font-size: 18rem;
+    color: white;
+    position: absolute;
+    right: 15rem;
+    top: 15rem;
   }
 
   .txt {

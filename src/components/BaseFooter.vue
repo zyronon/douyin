@@ -128,6 +128,7 @@ export default {
     }
 
     .add-ctn {
+      cursor: pointer;
       @height: 27rem;
       @width: 36rem;
       height: @height;
@@ -147,6 +148,8 @@ export default {
     }
 
     span {
+      cursor: pointer;
+
       font-weight: bold;
       opacity: 0.7;
 

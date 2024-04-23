@@ -28,23 +28,71 @@ const t = [
     type: 'imgs',
     src: `https://imgapi.cn/bing.php`,
     author: {
-      unique_id: 1
-    }
-  },
-  {
-    type: 'user',
-    src: `https://imgapi.cn/bing.php`,
-    author: {
-      unique_id: 2
-    }
-  },
-  {
-    type: 'img',
-    src: `https://imgapi.cn/bing.php`,
-    author: {
-      unique_id: 3
+      unique_id: 1,
+      avatar_168x168: {
+        url_list: []
+      },
+      avatar_300x300: {
+        url_list: []
+      },
+      cover_url: [
+        {
+          url_list: []
+        }
+      ],
+      white_cover_url: [
+        {
+          url_list: []
+        }
+      ]
     }
   }
+  // {
+  //   type: 'user',
+  //   src: `https://imgapi.cn/bing.php`,
+  //   author: {
+  //     unique_id: 2,
+  //     avatar_168x168: {
+  //       url_list: []
+  //     },
+  //     avatar_300x300: {
+  //       url_list: []
+  //     },
+  //     cover_url: [
+  //       {
+  //         url_list: []
+  //       }
+  //     ],
+  //     white_cover_url: [
+  //       {
+  //         url_list: []
+  //       }
+  //     ]
+  //   }
+  // },
+  // {
+  //   type: 'img',
+  //   src: `https://imgapi.cn/bing.php`,
+  //   author: {
+  //     unique_id: 3,
+  //     avatar_168x168: {
+  //       url_list: []
+  //     },
+  //     avatar_300x300: {
+  //       url_list: []
+  //     },
+  //     cover_url: [
+  //       {
+  //         url_list: []
+  //       }
+  //     ],
+  //     white_cover_url: [
+  //       {
+  //         url_list: []
+  //       }
+  //     ]
+  //   }
+  // }
 ]
 
 // allRecommendVideos.unshift(...t)

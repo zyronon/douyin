@@ -1,5 +1,5 @@
 <template>
-  <div id="Community">
+  <div id="Community" @dragstart="(e) => Utils.$stopPropagation(e)">
     <ScrollList class="Scroll" v-if="state.show" :api="recommendedPost">
       <template v-slot="{ list }">
         <div class="search" @click="nav('/home/search')">
@@ -47,7 +47,7 @@
 
 <script setup>
 import { reactive, ref, watch } from 'vue'
-import { $no, _checkImgUrl, cloneDeep } from '@/utils'
+import Utils, { $no, _checkImgUrl, cloneDeep } from '@/utils'
 import { recommendedPost } from '@/api/user'
 import { useNav } from '@/utils/hooks/useNav'
 import { Icon } from '@iconify/vue'
@@ -56,9 +56,7 @@ import ScrollList from '@/components/ScrollList.vue'
 import { useBaseStore } from '@/store/pinia'
 import AlbumDetail from '@/pages/other/AlbumDetail.vue'
 import Mock from 'mockjs'
-import $ from 'jquery'
-
-//@click="nav('album-detail',{},item)"
+import { _css } from '@/utils/dom'
 
 const nav = useNav()
 const baseStore = useBaseStore()
@@ -98,32 +96,32 @@ watch(
 )
 
 function close() {
-  let s = $('.shadow ')
+  let s = document.querySelector('.shadow ')
   let domRect = rect.value
   let t = '.3'
-  s.css('transition', `all ${t}s`)
-  s.css('top', domRect.top)
-  s.css('left', domRect.left)
-  s.css('width', domRect.width)
-  s.css('height', domRect.height)
+  _css(s, 'transition', `all ${t}s`)
+  _css(s, 'top', domRect.top)
+  _css(s, 'left', domRect.left)
+  _css(s, 'width', domRect.width)
+  _css(s, 'height', domRect.height)
 
-  let a = $('.goods-detail')
-  a.css('transition', `all ${t}s`)
-  a.css('opacity', '0')
-  a.css('width', '100vw')
-  a.css('height', '100vh')
-  a.css('transform', `scale(${domRect.sw},${domRect.sh})`)
-  a.css('transform-origin', `0 0`)
+  let a = document.querySelector('.goods-detail')
+  _css(a, 'transition', `all ${t}s`)
+  _css(a, 'opacity', '0')
+  _css(a, 'width', '100vw')
+  _css(a, 'height', '100vh')
+  _css(a, 'transform', `scale(${domRect.sw},${domRect.sh})`)
+  _css(a, 'transform-origin', `0 0`)
 
-  let d = $('.shadow .wrap')
-  d.css('transition', `all ${t}s`)
-  d.css('opacity', '1')
+  let d = document.querySelector('.shadow .wrap')
+  _css(d, 'transition', `all ${t}s`)
+  _css(d, 'opacity', '1')
 
   // state.d = false
   setTimeout(() => {
-    s.css('z-index', '-100')
-    s.css('transition', 'all 0s')
-    s.css('top', '-200vh')
+    _css(s, 'z-index', '-100')
+    _css(s, 'transition', 'all 0s')
+    _css(s, 'top', '-200vh')
   }, 300)
 }
 
@@ -144,52 +142,54 @@ function showDetail(e, item) {
   // console.log(state.current)
 
   state.d = true
-  let domRect = e.currentTarget.getBoundingClientRect()
-  // console.log('e', domRect)
-  let s = $('.shadow ')
 
-  s.css('z-index', '1')
-  s.css('transition', '0s')
-  s.css('top', domRect.top)
-  s.css('left', domRect.left)
-  s.css('width', domRect.width)
-  s.css('height', domRect.height)
+  let domRect = e.currentTarget.getBoundingClientRect()
+  // // console.log('e', domRect)
+
+  let s = document.querySelector('.shadow')
+
+  _css(s, 'z-index', '1')
+  _css(s, 'transition', '0s')
+  _css(s, 'top', domRect.top)
+  _css(s, 'left', domRect.left)
+  _css(s, 'width', domRect.width)
+  _css(s, 'height', domRect.height)
 
   let t = '.3'
-  let d = $('.shadow .wrap')
-  d.empty()
-  d.show()
-  d.append($(e.currentTarget).clone())
-  d.css('transition', `all ${t}s`)
-  d.css('opacity', '1')
+  let d = document.querySelector('.shadow .wrap')
+  d.innerHTML = ''
+  d.append(e.currentTarget.cloneNode(true))
+  _css(d, 'display', 'block')
+  _css(d, 'transition', `all ${t}s`)
+  _css(d, 'opacity', '1')
 
   let sw = domRect.width / baseStore.bodyWidth
   let sh = domRect.height / baseStore.bodyHeight
   domRect.sw = sw
   domRect.sh = sh
 
-  let a = $('.goods-detail')
-  a.css('opacity', '0')
-  a.css('width', '100vw')
-  a.css('height', '100vh')
-  a.css('transform', `scale(${domRect.sw},${domRect.sh})`)
-  a.css('transform-origin', `0 0`)
+  let a = document.querySelector('.goods-detail')
+  _css(a, 'opacity', '0')
+  _css(a, 'width', '100vw')
+  _css(a, 'height', '100vh')
+  _css(a, 'transform', `scale(${domRect.sw},${domRect.sh})`)
+  _css(a, 'transform-origin', `0 0`)
 
   rect.value = domRect
   setTimeout(() => {
-    s.css('transition', `all ${t}s`)
-    s.css('top', 0)
-    s.css('left', 0)
-    s.css('width', '100vw')
-    s.css('height', '100vh')
+    _css(s, 'transition', `all ${t}s`)
+    _css(s, 'top', 0)
+    _css(s, 'left', 0)
+    _css(s, 'width', '100vw')
+    _css(s, 'height', '100vh')
 
-    d.css('opacity', '0')
-    d.css('z-index', '-1')
+    _css(d, 'opacity', '0')
+    _css(d, 'z-index', '-1')
 
-    a.css('transition', `all ${t}s`)
-    a.css('opacity', '1')
-    a.css('transform', `scale(1,1)`)
-    a.css('transform-origin', `0 0`)
+    _css(a, 'transition', `all ${t}s`)
+    _css(a, 'opacity', '1')
+    _css(a, 'transform', `scale(1,1)`)
+    _css(a, 'transform-origin', `0 0`)
   })
 }
 </script>

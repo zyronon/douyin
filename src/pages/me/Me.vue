@@ -1,6 +1,6 @@
 <template>
   <div class="Me">
-    <SlideRowList name="baseSlide" style="width: 100vw" v-model:active-index="baseActiveIndex">
+    <SlideRowList name="baseSlide" style="width: 100%" v-model:active-index="baseActiveIndex">
       <SlideItem>
         <div ref="float" class="float" :class="floatFixed ? 'fixed' : ''">
           <div

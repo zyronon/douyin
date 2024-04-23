@@ -63,12 +63,6 @@ export default defineConfig(async () => {
             name: 'mockjs',
             var: 'Mock',
             path: 'https://lib.baomitu.com/Mock.js/1.0.1-beta3/mock-min.js'
-          },
-
-          {
-            name: 'jquery',
-            var: '$',
-            path: 'https://lib.baomitu.com/jquery/3.6.0/jquery.min.js'
           }
         ]
       })

@@ -81,8 +81,6 @@ export default class Dom {
       //情况一：获取样式
       if (typeof args[0] === 'string') {
         return window.getComputedStyle(this.els[this.els.length - 1], null)[args[0]]
-        // return globalMethods.$getCss2
-        // return this.els[0].style[args[0]]
       } else {
         //情况三：设置多个样式
         Object.keys(args[0]).map((key) => {
@@ -140,5 +138,50 @@ export default class Dom {
 
   removePx(val) {
     return parseInt(val)
+  }
+}
+
+export function _css(el, key, value?) {
+  const reg = /^\d+(px|pt|em|rem|vw|vh|%|rpx)$/i
+  if (value === undefined) {
+    let val = null
+    if ('getComputedStyle' in window) {
+      val = window.getComputedStyle(el, null)[key]
+    } else {
+      val = el.currentStyle[key]
+    }
+    return reg.test(val) ? parseFloat(val) : val
+    // return parseFloat(val)
+  } else {
+    if (
+      [
+        'top',
+        'left',
+        'bottom',
+        'right',
+        'width',
+        'height',
+        'font-size',
+        'margin',
+        'padding'
+      ].includes(key)
+    ) {
+      if (!reg.test(value)) {
+        value += 'px'
+      }
+    }
+    // console.log(value)
+    if (key === 'transform') {
+      //直接设置不生效
+      el.style.webkitTransform =
+        el.style.MsTransform =
+        el.style.msTransform =
+        el.style.MozTransform =
+        el.style.OTransform =
+        el.style.transform =
+          value
+    } else {
+      el.style[key] = value
+    }
   }
 }

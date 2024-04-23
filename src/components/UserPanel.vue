@@ -1,5 +1,5 @@
 <template>
-  <div id="UserPanel" @scroll="scroll" ref="page">
+  <div id="UserPanel" @scroll="scroll" @dragstart="(e) => Utils.$stopPropagation(e)" ref="page">
     <div ref="float" class="float" :class="state.floatFixed ? 'fixed' : ''">
       <div class="left">
         <Icon @click="emit('back')" class="icon" icon="eva:arrow-ios-back-fill" />
@@ -405,6 +405,7 @@ function touchEnd() {
 }
 
 #UserPanel {
+  touch-action: pan-y;
   position: fixed;
   background: var(--color-user);
   height: 100%;
@@ -500,7 +501,7 @@ function touchEnd() {
           grid-template-columns: 33.33% 33.33% 33.33%;
 
           .item {
-            height: calc(33.33vw * 1.3);
+            height: calc(33.33% * 1.3);
             padding: 2rem;
             overflow: hidden;
             position: relative;
