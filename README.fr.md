@@ -30,31 +30,29 @@
 
 ## Accès en ligne
 
-### Région Chine :
-
-Pages du gîte :<https://zyronon.gitee.io/douyin/>
-
-### Hors de Chine
-
+Pages du gîte :<https://zyronon.gitee.io/douyin/>(Il est recommandé de visiter cette adresse en Chine)  
 Pages GitHub :<https://zyronon.github.io/douyin/>
 
-~~Vercel :<http://dy.ttentau.top/>~~
+[//]: # "~~Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/)~~"
 
-~~Netlifier :<https://douyins.netlify.app/>~~
+[//]: # "~~Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/)~~"
 
-Les 100G de données gratuites fournies respectivement par Vercel et Netlify ont été épuisées...🤣
+[//]: # "Vercel和Netlify分别送的100G免费流量已经用完了...🤣"
 
-Android Apk :<https://github.com/zyronon/douyin/releases>
+[//]: # "Android Apk: https://github.com/zyronon/douyin/releases"
 
-**Avis**：`PC`Vous devez passer le navigateur en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement
+[//]: # "**注意**：`PC` 必须将浏览器切到手机模式，先按 `F12` 调出控制台，再按 `Ctrl+Shift+M`才能正常预览"
 
-**Avis**：Veuillez utiliser un téléphone portable[via un navigateur](https://viayoo.com/zh-cn/)ou aperçu du navigateur Chrome. D'autres navigateurs peuvent forcer la vidéo à passer en plein écran, ce qui l'empêche de s'afficher correctement.
+[//]: # "**注意**：手机请用  [Via 浏览器](https://viayoo.com/zh-cn/)  或 Chrome 浏览器预览。其它浏览器可能会强制将视频全屏，导致无法正常显示"
 
-## Clause de non-responsabilité
+## Lien
 
-Ce projet est destiné uniquement à l'étude et à la recherche, et non à un usage commercial.
+【douyin-vue】Un :[200 lignes de code pour implémenter un composant carrousel similaire à Swiper.js](https://juejin.cn/post/7360512664317018146)  
+Des articles de suivi sont en préparation...
 
 ## courir
+
+Remarque : ce projet convient uniquement à l'étude et à la recherche, et non à un usage commercial.
 
 ### Déployez rapidement sur Vercel
 
@@ -71,13 +69,7 @@ npm run dev
 
 Ouvrez votre navigateur et visitez :<http://127.0.0.1:3000>
 
-**Remarque : le navigateur du PC doit être basculé en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement**
-
-## Lien
-
--   `开源中国`:<https://mp.weixin.qq.com/s/TWowmZpU_ojE5G2KzXuU8g>
--   `V2EX`:<https://www.v2ex.com/t/1028678>
--   `掘金`:<https://juejin.cn/post/7352813352051687458>
+**Remarque : Vous devez passer le navigateur en mode mobile, appuyez d'abord sur`F12`Pour afficher la console, appuyez sur`Ctrl+Shift+M`pour prévisualiser normalement**
 
 ## Les sources de données
 
