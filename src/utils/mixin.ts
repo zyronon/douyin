@@ -104,7 +104,7 @@ export default {
       }
     },
     love: {
-      beforeMount: function (el, binding) {
+      beforeMount: function (el: HTMLDivElement, binding) {
         let isDbClick = false
         let clickTimer = null
         let dbClickTimer = null

@@ -62,7 +62,7 @@ export function _formatNumber(num) {
   }
 }
 
-export function _dateFormat(val, type): string {
+export function _dateFormat(val, type?): string {
   if (!val) return
   if (String(val).length === 10) {
     val = val * 1000

@@ -69,25 +69,25 @@ const state = reactive({
   index: props.index,
   list: props.list,
   totalSize: 0,
-  pageSize: 10,
-  pageNo: 0
+  pageSize: 10
 })
 
 function loadMore() {
+  console.log('load')
   if (!baseStore.loading) {
-    state.pageNo++
     getData()
   }
 }
 
 async function getData(refresh = false) {
+  if (!refresh && state.totalSize === state.list.length) return
   if (baseStore.loading) return
   baseStore.loading = true
   let res = await props.api({
-    pageNo: refresh ? 0 : state.pageNo,
+    start: refresh ? 0 : state.list.length,
     pageSize: state.pageSize
   })
-  // console.log('getSlide4Data-', 'refresh', refresh, res)
+  // console.log('getSlide4Data-', refresh, res, state.totalSize, state.list.length)
   baseStore.loading = false
   if (res.success) {
     state.totalSize = res.data.total
@@ -95,8 +95,6 @@ async function getData(refresh = false) {
       state.list = []
     }
     state.list = state.list.concat(res.data.list)
-  } else {
-    state.pageNo--
   }
 }
 

@@ -84,10 +84,12 @@ export default {
 
         let maskTemplate = `<div class="Mask fade-in ${this.maskMode}"></div>`
         let mask = new Dom().create(maskTemplate)
-        mask.on('click', (e) => {
-          _stopPropagation(e)
-          this.hide(false)
-        })
+        setTimeout(() => {
+          mask.on('click', (e) => {
+            _stopPropagation(e)
+            this.hide(false)
+          })
+        }, 200)
         page.appendChild(mask.els[0])
       } else {
         page.style.position = this.pagePosition || 'fixed'

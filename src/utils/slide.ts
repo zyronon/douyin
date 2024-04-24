@@ -183,7 +183,8 @@ export function slideTouchEnd(e, state, canNextCb = null, nextCb = null, notNext
     if (!canNextCb) canNextCb = canNext
     if (canNextCb(state, isNext)) {
       //能滑动，那就把事件捕获，不能给父组件处理
-      // Utils.$stopPropagation(e)
+      // _stopPropagation(e)
+
       //结合时间、距离来判断是否成功滑动
       const endTime = Date.now()
       let gapTime = endTime - state.start.time

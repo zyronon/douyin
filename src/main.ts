@@ -17,7 +17,7 @@ HTMLElement.prototype.addEventListener = new Proxy(HTMLElement.prototype.addEven
     if (listener instanceof Function && eventName === 'click') {
       args[1] = new Proxy(listener, {
         apply(target, ctx, args) {
-          // console.log('点击', window.isMoved)
+          console.log('点击', window.isMoved)
           if (window.isMoved) return
           try {
             return target.apply(ctx, args)

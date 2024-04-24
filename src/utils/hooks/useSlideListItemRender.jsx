@@ -1,5 +1,5 @@
 import SlideUser from '@/components/slide/SlideUser.vue'
-import BVideo from '@/components/slide/BVideo.vue'
+import BaseVideo from '@/components/slide/BaseVideo.vue'
 
 export function useSlideListItemRender(props) {
   return function render(item, index, play, uniqueId) {
@@ -20,7 +20,7 @@ export function useSlideListItemRender(props) {
         break
       default:
         node = (
-          <BVideo
+          <BaseVideo
             isPlay={play}
             item={item}
             index={index}
