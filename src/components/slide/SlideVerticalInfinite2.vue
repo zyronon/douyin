@@ -276,61 +276,63 @@ function touchEnd(e) {
         if (state.localIndex > props.list.length - props.virtualTotal && state.localIndex > half) {
           emit('loadMore')
         }
-        let addItemIndex = state.localIndex + half
+        let addItemIndex = state.localIndex + 2
+        console.log('addItemIndex', addItemIndex)
         let res = slideListEl.value.querySelector(`.${itemClassName}[data-index='${addItemIndex}']`)
-        if (!res) {
-          slideListEl.value.appendChild(getInsEl(props.list[addItemIndex], addItemIndex))
+        if (state.wrapper.childrenLength < props.virtualTotal) {
+          if (!res) {
+            slideListEl.value.appendChild(getInsEl(props.list[addItemIndex], addItemIndex))
+          }
         }
-        if (state.localIndex > half) {
-          let index = slideListEl.value
-            .querySelector(`.${itemClassName}:first-child`)
-            .getAttribute('data-index')
-          appInsMap.get(Number(index)).unmount()
-
+        if (
+          state.wrapper.childrenLength === props.virtualTotal &&
+          state.localIndex > half &&
+          state.localIndex <= props.list.length - 3
+        ) {
+          if (!res) {
+            slideListEl.value.appendChild(getInsEl(props.list[addItemIndex], addItemIndex))
+            let index = slideListEl.value
+              .querySelector(`.${itemClassName}:first-child`)
+              .getAttribute('data-index')
+            appInsMap.get(Number(index)).unmount()
+            slideListEl.value.querySelectorAll(`.${itemClassName}`).forEach((item) => {
+              _css(item, 'top', (state.localIndex - 2) * state.wrapper.height)
+            })
+          }
+        }
+        if (state.wrapper.childrenLength > props.virtualTotal) {
           slideListEl.value.querySelectorAll(`.${itemClassName}`).forEach((item) => {
-            _css(item, 'top', (state.localIndex - half) * state.wrapper.height)
+            let index = Number(item.getAttribute('data-index'))
+            if (index < state.localIndex - 2) {
+              appInsMap.get(index).unmount()
+            }
+            _css(item, 'top', (state.localIndex - 2) * state.wrapper.height)
           })
         }
       } else {
-        let addIndex = state.localIndex - half
-        if (addIndex >= 0) {
-          let res = slideListEl.value.querySelector(`.${itemClassName}[data-index='${addIndex}']`)
+        let addItemIndex = state.localIndex - 2
+        let res = slideListEl.value.querySelector(`.${itemClassName}[data-index='${addItemIndex}']`)
+
+        if (state.localIndex > 1 && state.localIndex <= props.list.length - 4) {
           if (!res) {
-            slideListEl.value.prepend(getInsEl(props.list[addIndex], addIndex))
+            slideListEl.value.prepend(getInsEl(props.list[addItemIndex], addItemIndex))
+            let index = slideListEl.value
+              .querySelector(`.${itemClassName}:last-child`)
+              .getAttribute('data-index')
+            appInsMap.get(Number(index)).unmount()
+            // $(slideListEl.value).find(".base-slide-item:last").remove()
+            slideListEl.value.querySelectorAll(`.${itemClassName}`).forEach((item) => {
+              _css(item, 'top', (state.localIndex - 2) * state.wrapper.height)
+            })
           }
         }
 
-        if (state.localIndex >= half) {
+        if (state.wrapper.childrenLength > props.virtualTotal) {
           let index = slideListEl.value
             .querySelector(`.${itemClassName}:last-child`)
             .getAttribute('data-index')
           appInsMap.get(Number(index)).unmount()
-
-          slideListEl.value.querySelectorAll(`.${itemClassName}`).forEach((item) => {
-            _css(item, 'top', (state.localIndex - half) * state.wrapper.height)
-          })
         }
-
-        // if (state.localIndex > 1 && state.localIndex <= props.list.length - 4) {
-        //   if (!res) {
-        //     slideListEl.value.prepend(getInsEl(props.list[addIndex], addIndex))
-        //     let index = slideListEl.value
-        //       .querySelector(`.${itemClassName}:last-child`)
-        //       .getAttribute('data-index')
-        //     appInsMap.get(Number(index)).unmount()
-        //     // $(slideListEl.value).find(".base-slide-item:last").remove()
-        //     slideListEl.value.querySelectorAll(`.${itemClassName}`).forEach((item) => {
-        //       _css(item, 'top', (state.localIndex - 2) * state.wrapper.height)
-        //     })
-        //   }
-        // }
-        //
-        // if (state.wrapper.childrenLength > props.virtualTotal) {
-        //   let index = slideListEl.value
-        //     .querySelector(`.${itemClassName}:last-child`)
-        //     .getAttribute('data-index')
-        //   appInsMap.get(Number(index)).unmount()
-        // }
       }
       state.wrapper.childrenLength = slideListEl.value.children.length
     }

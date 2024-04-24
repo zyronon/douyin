@@ -3,7 +3,7 @@
     <div class="img-slide-wrapper">
       <div
         class="img-slide-list"
-        ref="wrapperEl"
+        ref="slideListEl"
         @touchstart.passive="touchStart"
         @touchmove="touchMove"
         @touchend="touchEnd"
@@ -233,7 +233,7 @@ const props = defineProps({
     }
   }
 })
-const wrapperEl = ref(null)
+const slideListEl = ref(null)
 
 //用于解决，touch事件触发startPlay,然后click事件又触发stopLoop的问题
 let lockDatetime = 0
@@ -301,7 +301,7 @@ function startLoop() {
 
 onMounted(async () => {
   await nextTick()
-  slideInit(wrapperEl.value, state, SlideType.HORIZONTAL)
+  slideInit(slideListEl.value, state, SlideType.HORIZONTAL)
   startPlay()
   // setTimeout(() => {
   //   state.operationStatus = SlideAlbumOperationStatus.Zooming
@@ -348,11 +348,11 @@ onBeforeUpdate(() => {
 watch(
   () => state.localIndex,
   () => {
-    GM.$setCss(wrapperEl.value, 'transition-duration', `300ms`)
+    GM.$setCss(slideListEl.value, 'transition-duration', `300ms`)
     GM.$setCss(
-      wrapperEl.value,
+      slideListEl.value,
       'transform',
-      `translate3d(${getSlideOffset(state, wrapperEl.value)}px, 0, 0)`
+      `translate3d(${getSlideOffset(state, slideListEl.value)}px, 0, 0)`
     )
   }
 )
@@ -406,7 +406,7 @@ function touchStart(e) {
   // Utils.$showNoticeDialog('start'+e.touches.length)
   console.log('start', e.touches.length)
   if (e.touches.length === 1) {
-    slideTouchStart(e, wrapperEl.value, state)
+    slideTouchStart(e, slideListEl.value, state)
   } else {
     if (state.operationStatus === SlideAlbumOperationStatus.Zooming) {
       // state.start.center = Utils.getCenter(state.start.point1, state.start.point2)
@@ -454,7 +454,7 @@ function touchMove(e) {
       state.isAutoPlay = false
       slideTouchMove(
         e,
-        wrapperEl.value,
+        slideListEl.value,
         state,
         canNext,
         () => {
@@ -580,7 +580,7 @@ function touchEnd(e) {
           startLoop()
         }
       )
-      slideReset(e, wrapperEl.value, state)
+      slideReset(e, slideListEl.value, state)
     }
   }
 }

@@ -31,7 +31,7 @@ const props = defineProps({
 const emit = defineEmits(['update:index'])
 
 //slide-list的ref引用
-const wrapperEl = ref(null)
+const slideListEl = ref(null)
 
 const state = reactive({
   judgeValue: 20, //一个用于判断滑动朝向的固定值
@@ -58,32 +58,32 @@ watch(
     if (state.localIndex !== newVal) {
       state.localIndex = newVal
       if (props.changeActiveIndexUseAnim) {
-        _css(wrapperEl.value, 'transition-duration', `300ms`)
+        _css(slideListEl.value, 'transition-duration', `300ms`)
       }
       _css(
-        wrapperEl.value,
+        slideListEl.value,
         'transform',
-        `translate3d(0,${getSlideOffset(state, wrapperEl.value)}px, 0)`
+        `translate3d(0,${getSlideOffset(state, slideListEl.value)}px, 0)`
       )
     }
   }
 )
 
 onMounted(() => {
-  slideInit(wrapperEl.value, state)
+  slideInit(slideListEl.value, state)
 })
 
 function touchStart(e) {
-  slideTouchStart(e, wrapperEl.value, state)
+  slideTouchStart(e, slideListEl.value, state)
 }
 
 function touchMove(e) {
-  slideTouchMove(e, wrapperEl.value, state)
+  slideTouchMove(e, slideListEl.value, state)
 }
 
 function touchEnd(e) {
   slideTouchEnd(e, state)
-  slideReset(e, wrapperEl.value, state, emit)
+  slideReset(e, slideListEl.value, state, emit)
 }
 </script>
 
@@ -91,7 +91,7 @@ function touchEnd(e) {
   <div class="slide v">
     <div
       class="slide-list flex-direction-column"
-      ref="wrapperEl"
+      ref="slideListEl"
       @pointerdown="touchStart"
       @pointermove="touchMove"
       @pointerup="touchEnd"

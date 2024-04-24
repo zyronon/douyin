@@ -40,7 +40,7 @@ const emit = defineEmits(['update:index'])
 
 let ob = null
 //slide-list的ref引用
-const wrapperEl = ref(null)
+const slideListEl = ref(null)
 
 const state = reactive({
   judgeValue: 20, //一个用于判断滑动朝向的固定值
@@ -67,19 +67,19 @@ watch(
     if (state.localIndex !== newVal) {
       state.localIndex = newVal
       if (props.changeActiveIndexUseAnim) {
-        _css(wrapperEl.value, 'transition-duration', `300ms`)
+        _css(slideListEl.value, 'transition-duration', `300ms`)
       }
       _css(
-        wrapperEl.value,
+        slideListEl.value,
         'transform',
-        `translate3d(${getSlideOffset(state, wrapperEl.value)}px, 0, 0)`
+        `translate3d(${getSlideOffset(state, slideListEl.value)}px, 0, 0)`
       )
     }
   }
 )
 
 onMounted(() => {
-  slideInit(wrapperEl.value, state)
+  slideInit(slideListEl.value, state)
 
   if (props.autoplay) {
     setInterval(() => {
@@ -94,9 +94,9 @@ onMounted(() => {
   //观察子元素数量变动，获取最新数量
   //childrenLength用于canNext方法判断当前页是否是最后一页，是则不能滑动，不捕获事件
   ob = new MutationObserver(() => {
-    state.wrapper.childrenLength = wrapperEl.value.children.length
+    state.wrapper.childrenLength = slideListEl.value.children.length
   })
-  ob.observe(wrapperEl.value, { childList: true })
+  ob.observe(slideListEl.value, { childList: true })
 })
 
 onUnmounted(() => {
@@ -104,16 +104,16 @@ onUnmounted(() => {
 })
 
 function touchStart(e) {
-  slideTouchStart(e, wrapperEl.value, state)
+  slideTouchStart(e, slideListEl.value, state)
 }
 
 function touchMove(e) {
-  slideTouchMove(e, wrapperEl.value, state)
+  slideTouchMove(e, slideListEl.value, state)
 }
 
 function touchEnd(e) {
   slideTouchEnd(e, state)
-  slideReset(e, wrapperEl.value, state, emit)
+  slideReset(e, slideListEl.value, state, emit)
 }
 </script>
 
@@ -130,7 +130,7 @@ function touchEnd(e) {
 
     <div
       class="slide-list"
-      ref="wrapperEl"
+      ref="slideListEl"
       @pointerdown="touchStart"
       @pointermove="touchMove"
       @pointerup="touchEnd"
