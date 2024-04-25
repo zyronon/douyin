@@ -16,7 +16,7 @@
         <div class="num">{{ _formatNumber(comments.length) }}条评论</div>
         <div class="right">
           <Icon icon="prime:arrow-up-right-and-arrow-down-left-from-center" @click.stop="_no" />
-          <Icon icon="ic:round-close" @click.stop="cancel" />
+          <Icon icon="ic:round-close" v-click="cancel" />
         </div>
       </div>
     </template>
@@ -328,10 +328,8 @@ export default {
 @import '../assets/less/index';
 
 .title {
-  z-index: 2;
-  position: fixed;
-  left: 0;
-  right: 0;
+  box-sizing: border-box;
+  width: 100%;
   height: 40rem;
   padding: 0 15rem;
   background: white;
@@ -371,15 +369,12 @@ export default {
 .comment {
   color: #000;
   width: 100%;
-  height: v-bind(height);
   background: #fff;
   z-index: 5;
-  border-radius: 10rem 10rem 0 0;
 
   .wrapper {
     width: 100%;
     position: relative;
-    padding-top: 40rem;
     padding-bottom: 60rem;
   }
 
@@ -601,7 +596,7 @@ export default {
         }
 
         .auto-input {
-          width: calc(100% - 180rem);
+          width: calc(100% - 160rem);
         }
       }
 

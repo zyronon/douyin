@@ -88,7 +88,7 @@ import { Icon } from '@iconify/vue'
 import { _css } from '@/utils/dom'
 
 export default {
-  name: 'BVideo',
+  name: 'BaseVideo',
   components: {
     Loading,
     ItemToolbar,
@@ -178,7 +178,7 @@ export default {
     }
   },
   mounted() {
-    // console.log('video', this.localItem.id)
+    // console.log('video', this.localItem.aweme_id)
     // console.log(this.commentVisible)
     this.height = document.body.clientHeight
     this.width = document.body.clientWidth
@@ -200,7 +200,7 @@ export default {
       video.addEventListener(
         e,
         () => {
-          // console.log('eventTester', e, this.item.id)
+          // console.log('eventTester', e, this.item.aweme_id)
           if (e === 'playing') this.loading = false
           if (e === 'waiting') {
             if (!this.paused && !this.ignoreWaiting) {
@@ -285,7 +285,7 @@ export default {
       }
     },
     onOpenComments(id) {
-      if (id === this.item.id) {
+      if (id === this.item.aweme_id) {
         _css(this.$refs.video, 'transition-duration', `300ms`)
         _css(this.$refs.video, 'height', 'calc(var(--vh, 1vh) * 30)')
         this.commentVisible = true
@@ -306,7 +306,7 @@ export default {
               this.pause()
               bus.emit(EVENT_KEY.NAV, {
                 path: '/home/live',
-                query: { id: this.item.id }
+                query: { id: this.item.aweme_id }
               })
             }
           } else {

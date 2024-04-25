@@ -1,20 +1,11 @@
 <template>
-  <!--  <transition name="from-bottom"> -->
-  <transition
-    @before-enter="beforeEnter"
-    @enter="enter"
-    @after-enter="afterEnter"
-    @before-leave="beforeLeave"
-    @leave="leave"
-    @after-leave="afterLeave"
-    :css="false"
-  >
+  <!--  <transition> -->
+  <Transition name="test">
     <div
       ref="dialog"
       class="FromBottomDialog"
       v-if="modelValue"
       :class="[mode, showHengGang ? '' : 'no-heng-gang']"
-      :style="{ 'max-height': height }"
       @touchstart="start"
       @touchmove="move"
       @touchend="end"
@@ -23,9 +14,11 @@
       <div class="heng-gang" :class="mode" v-if="showHengGang">
         <div class="content"></div>
       </div>
-      <slot></slot>
+      <div class="wrapper" ref="wrapper">
+        <slot></slot>
+      </div>
     </div>
-  </transition>
+  </Transition>
 </template>
 <script>
 import Dom, { _css } from '../../utils/dom'
@@ -106,8 +99,8 @@ export default {
   data() {
     return {
       scroll: 0,
-      startLocationY: 0,
-      moveYDistance: 0,
+      startY: 0,
+      moveY: 0,
       startTime: 0,
       pagePosition: null
     }
@@ -115,76 +108,41 @@ export default {
   computed: {},
   created() {},
   methods: {
-    beforeEnter(el) {
-      _css(el, 'transition-duration', `250ms`)
-      _css(el, 'transform', `translate3d(0,${this.height},0)`)
-    },
-    enter(el, done) {
-      setTimeout(() => {
-        _css(el, 'transform', `translate3d(0,0,0)`)
-      }, 0)
-      setTimeout(() => {
-        // _css(el, 'transition-duration', `0ms`)
-        _css(el, 'transform', `none`)
-        done()
-      }, 250)
-    },
-    afterEnter() {},
-    beforeLeave(el) {
-      _css(el, 'transition-duration', `250ms`)
-      _css(el, 'transform', `translate3d(0,0,0)`)
-    },
-    leave(el, done) {
-      //ref获取不到
-      let maxHeight = new Dom('.FromBottomDialog').css('max-height')
-      _css(el, 'transform', `translate3d(0,${maxHeight},0)`)
-      setTimeout(done, 250)
-    },
-    afterLeave() {},
-
     hide(val = false) {
       this.$emit('update:modelValue', val)
       this.$emit('cancel')
     },
     start(e) {
-      if (this.$refs.dialog.scrollTop !== 0) return
-      this.startLocationY = e.touches[0].pageY
+      if (this.$refs.wrapper.scrollTop !== 0) return
+      this.startY = e.touches[0].pageY
       this.startTime = Date.now()
       _css(this.$refs.dialog, 'transition-duration', `0ms`)
     },
     move(e) {
-      if (this.$refs.dialog.scrollTop !== 0) return
-      this.moveYDistance = e.touches[0].pageY - this.startLocationY
-      if (this.moveYDistance > 0) {
+      if (this.$refs.wrapper.scrollTop !== 0) return
+      this.moveY = e.touches[0].pageY - this.startY
+      if (this.moveY > 0) {
         bus.emit(EVENT_KEY.DIALOG_MOVE, {
           tag: this.tag,
-          e: this.moveYDistance
+          e: this.moveY
         })
-        _css(this.$refs.dialog, 'transform', `translate3d(0,${this.moveYDistance}px,0)`)
+        _css(this.$refs.dialog, 'transform', `translate3d(0,${this.moveY}px,0)`)
       }
     },
     end() {
-      //点击
-      if (Date.now() - this.startTime < 150 && Math.abs(this.moveYDistance) < 30) {
-        return
-      }
-      //滑动
-      if (this.$refs.dialog.scrollTop !== 0) return
+      //如果是外部改变modelValue值的话，这里会没有ref
+      if (!this.$refs.dialog) return
+      if (Date.now() - this.startTime < 150 && Math.abs(this.moveY) < 30) return
       let clientHeight = this.$refs.dialog.clientHeight
       _css(this.$refs.dialog, 'transition-duration', `250ms`)
-      if (Math.abs(this.moveYDistance) > clientHeight / 2) {
-        _css(this.$refs.dialog, 'transform', `translate3d(0,${clientHeight}px,0)`)
+      if (Math.abs(this.moveY) > clientHeight / 2) {
+        _css(this.$refs.dialog, 'transform', `translate3d(0,100%,0)`)
         bus.emit(EVENT_KEY.DIALOG_END, { tag: this.tag, isClose: true })
         setTimeout(this.hide, 250)
       } else {
         _css(this.$refs.dialog, 'transform', `translate3d(0,0,0)`)
         bus.emit(EVENT_KEY.DIALOG_END, { tag: this.tag, isClose: false })
-        setTimeout(() => {
-          _css(this.$refs.dialog, 'transform', 'none')
-          // _css(this.$refs.dialog, 'transition-duration', `0ms`)
-        }, 250)
       }
-      this.moveYDistance = 0
     }
   }
 }
@@ -193,17 +151,31 @@ export default {
 <style scoped lang="less">
 @import '../../assets/less/index';
 
+.test-enter-active,
+.test-leave-active {
+  transition-duration: 250ms !important;
+}
+
+.test-enter-from,
+.test-leave-to {
+  transform: translate3d(0, 101%, 0) !important;
+}
+
 .FromBottomDialog {
   z-index: 9;
   position: fixed;
   width: 100%;
-  overflow-y: auto;
   padding-top: 24rem;
   bottom: 0;
   left: 0;
   box-sizing: border-box;
-  border-radius: v-bind(borderRadius);
-  transition: all 0.3s;
+  border-radius: 15rem 15rem 0 0;
+  transform: translate3d(0, 0, 0);
+  overflow: hidden;
+  display: flex;
+  height: v-bind(height);
+  max-height: v-bind(height);
+  flex-direction: column;
 
   &.dark {
     background: var(--main-bg);
@@ -231,6 +203,7 @@ export default {
     transform: translateY(-24rem);
     justify-content: center;
     align-items: center;
+    touch-action: pan-y;
 
     &.dark {
       background: var(--main-bg);
@@ -261,6 +234,11 @@ export default {
       height: 4rem;
       width: 30rem;
     }
+  }
+
+  .wrapper {
+    flex: 1;
+    overflow: auto;
   }
 }
 </style>

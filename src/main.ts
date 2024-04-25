@@ -7,20 +7,21 @@ import router from './router'
 import mixin from './utils/mixin'
 import VueLazyload from '@jambonn/vue-lazyload'
 import { createPinia } from 'pinia'
+import { useClick } from '@/utils/hooks/useClick'
 
 window.isMoved = false
 HTMLElement.prototype.addEventListener = new Proxy(HTMLElement.prototype.addEventListener, {
   apply(target, ctx, args) {
     const eventName = args[0]
     const listener = args[1]
-    // console.log('e', eventName, '')
     if (listener instanceof Function && eventName === 'click') {
       args[1] = new Proxy(listener, {
-        apply(target, ctx, args) {
-          console.log('点击', window.isMoved)
+        apply(target1, ctx1, args1) {
+          // console.log('e', args1)
+          // console.log('click点击', window.isMoved)
           if (window.isMoved) return
           try {
-            return target.apply(ctx, args)
+            return target1.apply(ctx1, args1)
           } catch (e) {
             console.error(`[proxyPlayerEvent][${eventName}]`, listener, e)
           }
@@ -31,6 +32,7 @@ HTMLElement.prototype.addEventListener = new Proxy(HTMLElement.prototype.addEven
   }
 })
 
+const vClick = useClick()
 const pinia = createPinia()
 const emitter = mitt()
 const app = createApp(App)
@@ -46,6 +48,7 @@ app.use(VueLazyload, {
 app.use(pinia)
 app.use(router)
 app.mount('#app')
+app.directive('click', vClick)
 
 //放到最后才可以使用pinia
 startMock()

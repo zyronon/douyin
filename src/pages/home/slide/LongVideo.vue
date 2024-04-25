@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, ref, watch } from 'vue'
 import { _checkImgUrl, _duration, _formatNumber, _stopPropagation } from '@/utils'
-import { recommendedVideo } from '@/api/videos'
+import { recommendedLongVideo, recommendedVideo } from '@/api/videos'
 import ScrollList from '@/components/ScrollList.vue'
 import { useNav } from '@/utils/hooks/useNav'
 
@@ -79,7 +79,7 @@ const nav = useNav()
 
 <template>
   <div class="long-video" @dragstart="(e) => _stopPropagation(e)">
-    <ScrollList class="Scroll" v-if="state.show" :api="recommendedVideo">
+    <ScrollList class="Scroll" v-if="state.show" :api="recommendedLongVideo">
       <template v-slot="{ list }">
         <div class="list">
           <div

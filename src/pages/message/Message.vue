@@ -310,7 +310,7 @@
             </div>
           </template>
           <div class="btn-wrapper">
-            <div class="btn" :class="selectFriends ? 'primary' : ''">发起聊天</div>
+            <div class="btn primary">发起群聊{{ selectFriends ? `(${selectFriends})` : '' }}</div>
           </div>
         </div>
         <div class="joined-chat-wrapper" v-show="data.showJoinedChat">
@@ -615,21 +615,17 @@ async function loadRecommendData() {
         display: flex;
         align-items: center;
         justify-content: center;
+        padding-bottom: 20rem;
 
         .btn {
-          margin-bottom: 20rem;
           width: calc(100% - 40rem);
           height: 40rem;
           display: flex;
           align-items: center;
           font-size: 14rem;
           justify-content: center;
-          background: #3f445c;
-          border-radius: 2rem;
-
-          &.primary {
-            background: var(--primary-btn-color);
-          }
+          border-radius: 10rem;
+          background: var(--primary-btn-color);
         }
       }
 

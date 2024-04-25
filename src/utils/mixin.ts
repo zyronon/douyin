@@ -10,7 +10,7 @@ import BaseButton from '../components/BaseButton.vue'
 import CONST_VAR from './const_var'
 import Dom from './dom'
 import bus, { EVENT_KEY } from './bus'
-import { random } from '@/utils'
+import { _stopPropagation, random } from '@/utils'
 import { Icon } from '@iconify/vue'
 import SlideHorizontal from '@/components/slide/SlideHorizontal.vue'
 
@@ -104,11 +104,13 @@ export default {
       }
     },
     love: {
-      beforeMount: function (el: HTMLDivElement, binding) {
+      mounted: function (el: HTMLDivElement, binding) {
         let isDbClick = false
         let clickTimer = null
         let dbClickTimer = null
         let lastClickTime = null
+        let isDown = false
+        let isMove = false
         const checkTime = 200
         const dbCheckCancelTime = 500
 
@@ -141,13 +143,22 @@ export default {
             dbClickTimer = setTimeout(() => (isDbClick = false), dbCheckCancelTime)
           } else {
             clickTimer = setTimeout(() => {
-              console.log('单击', binding.value)
+              // console.log('单击', binding.value)
               bus.emit(EVENT_KEY.SINGLE_CLICK, binding.value)
             }, checkTime)
           }
           lastClickTime = nowTime
         }
-        el.addEventListener('click', check)
+
+        const up = (e) => {
+          if (!isDown) return
+          if (!isMove) check(e)
+          isMove = isDown = false
+        }
+
+        el.addEventListener('pointerdown', () => (isDown = true))
+        el.addEventListener('pointermove', () => isDown && (isMove = true))
+        el.addEventListener('pointerup', up)
       }
     }
   }

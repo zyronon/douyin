@@ -492,6 +492,9 @@ export default {
     _getUserDouyinId,
     _checkImgUrl,
     _formatNumber,
+    $nav(path) {
+      this.$router.push(path)
+    },
     setLoadingFalse() {
       this.loadings.loading0 = false
       this.loadings.loading1 = false

@@ -1,8 +1,9 @@
-<script setup>
-import BaseMusic from '../BaseMusic'
-import { _dateFormat, _formatNumber, _updateItem } from '@/utils'
+<script setup lang="ts">
+import BaseMusic from '../BaseMusic.vue'
+import { _dateFormat, _formatNumber, _stopPropagation, _updateItem } from '@/utils'
 import bus, { EVENT_KEY } from '@/utils/bus'
 import { Icon } from '@iconify/vue'
+import { useClick } from '@/utils/hooks/useClick'
 
 const props = defineProps({
   item: {
@@ -38,14 +39,10 @@ function attention(e) {
 }
 
 function showComments() {
-  console.log('showComments', _dateFormat(Date.now()))
-  // emit('showComments')
-  bus.emit(EVENT_KEY.OPEN_COMMENTS, props.item.id)
+  bus.emit(EVENT_KEY.OPEN_COMMENTS, props.item.aweme_id)
 }
 
-function s() {
-  console.log('ss', _dateFormat(Date.now()))
-}
+const vClick = useClick()
 </script>
 
 <template>
@@ -55,45 +52,45 @@ function s() {
         class="avatar"
         :src="props.item.author.avatar_168x168.url_list[0]"
         alt=""
-        @pointerup="bus.emit(EVENT_KEY.GO_USERINFO)"
+        v-click="() => bus.emit(EVENT_KEY.GO_USERINFO)"
       />
       <transition name="fade">
-        <div v-if="!props.item.isAttention" @pointerup="attention" class="options">
+        <div v-if="!props.item.isAttention" v-click="attention" class="options">
           <img class="no" src="../../assets/img/icon/add-light.png" alt="" />
           <img class="yes" src="../../assets/img/icon/ok-red.png" alt="" />
         </div>
       </transition>
     </div>
-    <div class="love mb2r" @pointerup="loved($event)">
+    <div class="love mb2r" v-click="loved">
       <div>
         <img src="../../assets/img/icon/love.svg" class="love-image" v-if="!props.item.isLoved" />
         <img src="../../assets/img/icon/loved.svg" class="love-image" v-if="props.item.isLoved" />
       </div>
       <span>{{ _formatNumber(props.item.statistics.digg_count) }}</span>
     </div>
-    <div class="message mb2r" @pointerup="showComments">
+    <div class="message mb2r" v-click="showComments">
       <Icon icon="mage:message-dots-round-fill" class="icon" style="color: white" />
       <span>{{ _formatNumber(props.item.statistics.comment_count) }}</span>
     </div>
     <!--TODO     -->
     <div
       class="message mb2r"
-      @pointerup="_updateItem(props, 'isCollect', !props.item.isCollect, emit)"
+      v-click="() => _updateItem(props, 'isCollect', !props.item.isCollect, emit)"
     >
       <Icon v-if="props.item.isCollect" icon="ic:round-star" class="icon" style="color: yellow" />
       <Icon v-else icon="ic:round-star" class="icon" style="color: white" />
       <span>{{ _formatNumber(props.item.statistics.comment_count) }}</span>
     </div>
-    <div v-if="!props.isMy" class="share mb2r" @pointerup="bus.emit(EVENT_KEY.SHOW_SHARE)">
+    <div v-if="!props.isMy" class="share mb2r" v-click="() => bus.emit(EVENT_KEY.SHOW_SHARE)">
       <img src="../../assets/img/icon/share-white-full.png" alt="" class="share-image" />
       <span>{{ _formatNumber(props.item.statistics.share_count) }}</span>
     </div>
-    <div v-else class="share mb2r" @pointerup="bus.emit(EVENT_KEY.SHOW_SHARE)">
+    <div v-else class="share mb2r" v-click="() => bus.emit(EVENT_KEY.SHOW_SHARE)">
       <img src="../../assets/img/icon/menu-white.png" alt="" class="share-image" />
     </div>
     <!--    <BaseMusic-->
     <!--        :cover="props.item.music.cover"-->
-    <!--        @pointerup="$nav('/home/music')"-->
+    <!--        v-click="$nav('/home/music')"-->
     <!--    /> -->
     <BaseMusic :item="props.item" />
   </div>

@@ -34,7 +34,7 @@ export default {
     this.eventMap = new Map()
   },
   emit(eventType, val?) {
-    console.log('emit', eventType, val)
+    // console.log('emit', eventType, val)
     const cbs = this.eventMap.get(eventType)
     if (cbs) {
       cbs.map((cb) => cb(val))

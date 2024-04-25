@@ -79,7 +79,7 @@ function canNext(state, isNext) {
  * @param state
  */
 export function slideTouchStart(e, el, state) {
-  // console.log('e', e, state.name)
+  // console.log('start', state.name)
   if (!checkEvent(e)) return
   _css(el, 'transition-duration', `0ms`)
   //记录起点坐标，用于move事件计算移动距离
@@ -107,9 +107,9 @@ export function slideTouchMove(
   notNextCb = null,
   slideOtherDirectionCb = null
 ) {
+  console.log('move', state.name)
   if (!checkEvent(e)) return
   if (!state.isDown) return
-  // console.log('move', state.name)
 
   //计算移动距离
   state.move.x = e.touches[0].pageX - state.start.x
@@ -174,15 +174,15 @@ export function slideTouchMove(
 export function slideTouchEnd(e, state, canNextCb = null, nextCb = null, notNextCb = null) {
   if (!checkEvent(e)) return
   if (!state.isDown) return
-
-  const isHorizontal = state.type === SlideType.HORIZONTAL
-  const isNext = isHorizontal ? state.move.x < 0 : state.move.y < 0
+  // console.log('end', state.name)
 
   if (state.next) {
+    const isHorizontal = state.type === SlideType.HORIZONTAL
+    const isNext = isHorizontal ? state.move.x < 0 : state.move.y < 0
     //同move事件
     if (!canNextCb) canNextCb = canNext
     if (canNextCb(state, isNext)) {
-      //能滑动，那就把事件捕获，不能给父组件处理
+      //2024-04-25：换成pointer事件之后不能捕获了，需要让父组件重置自己的isDown，不然PC上move事件会一直触发
       // _stopPropagation(e)
 
       //结合时间、距离来判断是否成功滑动

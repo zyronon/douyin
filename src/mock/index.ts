@@ -148,6 +148,20 @@ export async function startMock() {
       }
     ]
   })
+  mock.onGet(/video\/long\/recommended/).reply(async (config) => {
+    const page = getPage2(config.params)
+    return [
+      200,
+      {
+        data: {
+          total: 844,
+          list: allRecommendVideos.slice(page.offset, page.limit)
+        },
+        code: 200,
+        msg: ''
+      }
+    ]
+  })
 
   mock.onGet(/video\/comments/).reply(async (config) => {
     const videoIds = [

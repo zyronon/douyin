@@ -61,5 +61,3 @@ async function getData(refresh = false) {
 
 onMounted(getData)
 </script>
-
-<style scoped lang="less"></style>

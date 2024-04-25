@@ -12,6 +12,10 @@ export function recommendedVideo(params?: any, data?: any) {
   return request({ url: '/video/recommended', method: 'get', params, data })
 }
 
+export function recommendedLongVideo(params?: any, data?: any) {
+  return request({ url: '/video/long/recommended/', method: 'get', params, data })
+}
+
 export function myVideo(params?: any, data?: any) {
   return request({ url: '/video/my', method: 'get', params, data })
 }

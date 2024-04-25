@@ -335,7 +335,6 @@ function canNext(state, isNext) {
     <div
       class="slide-list flex-direction-column"
       ref="slideListEl"
-      @click="null"
       @pointerdown.prevent="touchStart"
       @pointermove.prevent="touchMove"
       @pointerup.prevent="touchEnd"
