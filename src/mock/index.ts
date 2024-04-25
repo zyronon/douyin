@@ -6,7 +6,7 @@ import { useBaseStore } from '@/store/pinia'
 import { axiosInstance } from '@/utils/request'
 import MockAdapter from 'axios-mock-adapter'
 
-const mock = new MockAdapter(axiosInstance, { delayResponse: 300 })
+const mock = new MockAdapter(axiosInstance)
 
 function getPage2(params: any): { limit: number; offset: number; pageNo: number } {
   const offset = params.pageNo * params.pageSize
