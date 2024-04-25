@@ -271,8 +271,9 @@ function touchEnd(e) {
   slideTouchEnd(e, state, canNext, (isNext) => {
     let half = (props.virtualTotal - 1) / 2
     if (props.list.length > props.virtualTotal) {
-      //往下滑
+      //手指往上滑(即列表展示下一条内容)
       if (isNext) {
+        //删除最前面的 `dom` ，然后在最后面添加一个 `dom`
         if (state.localIndex > props.list.length - props.virtualTotal && state.localIndex > half) {
           emit('loadMore')
         }
@@ -297,6 +298,7 @@ function touchEnd(e) {
           })
         }
       } else {
+        //删除最后面的 `dom` ，然后在最前面添加一个 `dom`
         if (state.localIndex >= half && state.localIndex < props.list.length - (half + 1)) {
           let addIndex = state.localIndex - half
           if (addIndex >= 0) {
