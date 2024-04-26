@@ -47,8 +47,9 @@ Github-Seiten:<https://zyronon.github.io/douyin/>
 
 ## Verknüpfung
 
-【douyin-vue】Eins:[200 Codezeilen zur Implementierung einer Karussellkomponente ähnlich Swiper.js](https://juejin.cn/post/7360512664317018146)  
-Folgeartikel sind in Vorbereitung...
+\[douyin-vue] Eins:[200 Codezeilen zur Implementierung einer Karussellkomponente ähnlich wie Swiper.js](https://juejin.cn/post/7360512664317018146)  
+\[douyin-vue] Zweitens:[Verwirklichen Sie den „unendlich gleitenden Video“-Effekt auf Douyin](https://juejin.cn/post/7361614921519054883)  
+Weitere Artikel sind in Vorbereitung...
 
 ## laufen
 
@@ -67,7 +68,7 @@ npm install
 npm run dev
 ```
 
-Öffnen Sie Ihren Browser und besuchen Sie:<http://127.0.0.1:3000>
+打开浏览器并访问: <http://127.0.0.1:3000>
 
 **Hinweis: Sie müssen den Browser in den Mobilmodus schalten, indem Sie zuerst drücken`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen**
 
