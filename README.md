@@ -48,8 +48,10 @@ Github pages: [https://zyronon.github.io/douyin/](https://zyronon.github.io/douy
 
 ## 链接
 
-【douyin-vue】一: [200行代码实现类似Swiper.js的轮播组件](https://juejin.cn/post/7360512664317018146)  
-后续文章正在准备中...
+【douyin-vue】一：[200行代码实现类似Swiper.js的轮播组件](https://juejin.cn/post/7360512664317018146)  
+【douyin-vue】二：[实现抖音 “视频无限滑动“效果
+](https://juejin.cn/post/7361614921519054883)  
+更多文章正在准备中...
 
 
 ## 运行
