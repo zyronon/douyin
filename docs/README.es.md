@@ -4,7 +4,7 @@
 
 <p align="center">
  <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
-<a href="README.fr.md">French</a> | <a href="README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
+<a href="README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -16,16 +16,16 @@
 `douyin-vue`es una parodia`抖音|TikTok`El proyecto de vídeo corto móvil tiene un avance del 90%. Usado lo último`Vue`Pila de tecnología FamilyMart, que se basa en[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)lograr. Los datos se guardan localmente en el proyecto y el vídeo se recopila de`抖音|TikTok`, el atlas se recoge de`小红书|Xiaohongshu`,aprobar[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La biblioteca intercepta la API y devuelve datos json locales para simular solicitudes de backend reales.
 
 <div>
-<img width="150px" src='docs/imgs/1.gif' />
-<img width="150px" src='docs/imgs/2.gif' />
-<img width="150px" src='docs/imgs/3.gif' />
-<img width="150px" src='docs/imgs/4.gif' />
-<img width="150px" src='docs/imgs/5.gif' />
-<img width="150px" src='docs/imgs/img-1.jpg' />
-<img width="150px" src='docs/imgs/img-2.jpg' />
-<img width="150px" src='docs/imgs/img-3.jpg' />
-<img width="150px" src='docs/imgs/img-4.jpg' />
-<img width="150px" src='docs/imgs/img-5.jpg' />
+<img width="150px" src='imgs/1.gif' />
+<img width="150px" src='imgs/2.gif' />
+<img width="150px" src='imgs/3.gif' />
+<img width="150px" src='imgs/4.gif' />
+<img width="150px" src='imgs/5.gif' />
+<img width="150px" src='imgs/img-1.jpg' />
+<img width="150px" src='imgs/img-2.jpg' />
+<img width="150px" src='imgs/img-3.jpg' />
+<img width="150px" src='imgs/img-4.jpg' />
+<img width="150px" src='imgs/img-5.jpg' />
 </div>
 
 ## Acceso en linea
@@ -110,4 +110,4 @@ Puedes contactar a mi correo<a href="mailto:zyronon@163.com">zyronon@163.com</a>
 
 ## acuerdo
 
-[GPL](LICENSE)
+[GPL](../LICENSE)

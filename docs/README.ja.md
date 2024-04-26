@@ -4,7 +4,7 @@
 
 <p align="center">
  <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
-<a href="README.fr.md">French</a> | <a href="README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
+<a href="README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -16,16 +16,16 @@
 `douyin-vue`パロディです`抖音|TikTok`モバイル向けショートビデオプロジェクトの完成度は90％。最新のものを使用しました`Vue` 全家桶技术栈，它基于 [`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)成し遂げる。データはプロジェクトのローカルに保存され、ビデオは次から収集されます。`抖音|TikTok`、アトラスはから収集されています`小红书|Xiaohongshu`、合格[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)ライブラリは API をインターセプトし、ローカルの JSON データを返して、実際のバックエンド リクエストをシミュレートします。
 
 <div>
-<img width="150px" src='docs/imgs/1.gif' />
-<img width="150px" src='docs/imgs/2.gif' />
-<img width="150px" src='docs/imgs/3.gif' />
-<img width="150px" src='docs/imgs/4.gif' />
-<img width="150px" src='docs/imgs/5.gif' />
-<img width="150px" src='docs/imgs/img-1.jpg' />
-<img width="150px" src='docs/imgs/img-2.jpg' />
-<img width="150px" src='docs/imgs/img-3.jpg' />
-<img width="150px" src='docs/imgs/img-4.jpg' />
-<img width="150px" src='docs/imgs/img-5.jpg' />
+<img width="150px" src='imgs/1.gif' />
+<img width="150px" src='imgs/2.gif' />
+<img width="150px" src='imgs/3.gif' />
+<img width="150px" src='imgs/4.gif' />
+<img width="150px" src='imgs/5.gif' />
+<img width="150px" src='imgs/img-1.jpg' />
+<img width="150px" src='imgs/img-2.jpg' />
+<img width="150px" src='imgs/img-3.jpg' />
+<img width="150px" src='imgs/img-4.jpg' />
+<img width="150px" src='imgs/img-5.jpg' />
 </div>
 
 ## オンラインアクセス
@@ -110,4 +110,4 @@ npm run dev
 
 ## 合意
 
-[GPL](LICENSE)
+[GPL](../LICENSE)
