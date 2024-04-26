@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`パロディです`抖音|TikTok`モバイル向けショートビデオプロジェクトの完成度は90％。最新のものを使用しました`Vue`ファミリーマートのテクノロジースタックをベースに、[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)成し遂げる。データはプロジェクトのローカルに保存され、ビデオは次から収集されます。`抖音|TikTok`、アトラスはから収集されています`小红书|Xiaohongshu`、合格[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)ライブラリは API をインターセプトし、ローカルの JSON データを返して、実際のバックエンド リクエストをシミュレートします。
+`douyin-vue`パロディです`抖音|TikTok`モバイル向けショートビデオプロジェクトの完成度は90％。最新のものを使用しました`Vue` 全家桶技术栈，它基于 [`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)成し遂げる。データはプロジェクトのローカルに保存され、ビデオは次から収集されます。`抖音|TikTok`、アトラスはから収集されています`小红书|Xiaohongshu`、合格[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)ライブラリは API をインターセプトし、ローカルの JSON データを返して、実際のバックエンド リクエストをシミュレートします。
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -28,7 +28,7 @@
 <img width="150px" src='docs/imgs/img-5.jpg' />
 </div>
 
-## 在线访问
+## オンラインアクセス
 
 Gite ページ:[ｈっｔｐｓ：／／ｚｙろのん。ぎてえ。いお／どうｙいん／](https://zyronon.gitee.io/douyin/)(中国ではこのアドレスにアクセスすることをお勧めします)  
 Github ページ:[ｈっｔｐｓ：／／ｚｙろのん。ぎてゅｂ。いお／どうｙいん／](https://zyronon.github.io/douyin/)
@@ -47,8 +47,9 @@ Github ページ:[ｈっｔｐｓ：／／ｚｙろのん。ぎてゅｂ。い�
 
 ## リンク
 
-【douyin-vue】一:[Swiper.js に似たカルーセル コンポーネントを実装するための 200 行のコード](https://juejin.cn/post/7360512664317018146)  
-続報記事も準備中です...
+【douyin-vue】一：[Swiper.js に似たカルーセル コンポーネントを実装するための 200 行のコード](https://juejin.cn/post/7360512664317018146)  
+【douyin-vue】二：[Douyinで「無限スライドビデオ」効果を実現](https://juejin.cn/post/7361614921519054883)  
+さらなる記事も準備中です...
 
 ## 走る
 
@@ -67,9 +68,9 @@ npm install
 npm run dev
 ```
 
-打开浏览器并访问: [ｈっｔｐ：／／１２７。０。０。１：３０００](http://127.0.0.1:3000)
+ブラウザを開いて、以下にアクセスしてください。[ｈっｔｐ：／／１２７。０。０。１：３０００](http://127.0.0.1:3000)
 
-**注意：需要将浏览器切至手机模式，先按 `F12`コンソールを表示するには、 を押します。`Ctrl+Shift+M`通常にプレビューする**
+**注: ブラウザをモバイル モードに切り替える必要があります。最初に を押します。`F12`コンソールを表示するには、 を押します。`Ctrl+Shift+M`通常にプレビューする**
 
 ## データソース
 
@@ -93,16 +94,16 @@ npm run dev
 
 上記内容は全てインターネット上の公開情報です
 
-## 功能与建议
+## 特徴と提案
 
-プロジェクトは現在開発の初期段階にあり、新しい機能が継続的に追加されています。ソフトウェアに関する機能や提案がありましたら、お気軽にお問い合わせください。`Issues`で育ちました
+プロジェクトは現在開発の初期段階にあり、ソフトウェアの新機能や提案があれば、お気軽にお問い合わせください。`Issues`で育ちました
 このソフトウェアのデザインアイデアも気に入っていただけましたら、ぜひ送信してください`PR`、 ご支援ありがとうございました！
 
 ## 私に連絡して
 
 私のメールアドレスにご連絡いただけます<a href="mailto:zyronon@163.com">ｚｙろのん＠１６３。こｍ</a>
 
-> 分享我其他开源项目：
+> 私の他のオープンソース プロジェクトを共有してください:
 >
 > _[**単語を入力する**～Web上で使える単語暗記ソフト～](https://github.com/zyronon/typing-word)<img src="https://img.shields.io/github/stars/zyronon/typing-word.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_  
 > _[**ウェブスクリプト**- いくつかの便利な Grease Monkey スクリプト~](https://github.com/zyronon/web-scripts)<img src="https://img.shields.io/github/stars/zyronon/web-scripts.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_
