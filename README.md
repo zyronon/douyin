@@ -64,7 +64,8 @@ Github pages: [https://zyronon.github.io/douyin/](https://zyronon.github.io/douy
 ### 本地开发
 
 ```bash
-git clone https://github.com/zyronon/douyin.git
+git clone https://gitee.com/zyronon/douyin.git (中国地区推荐)
+          https://github.com/zyronon/douyin.git 
 cd douyin
 npm install
 npm run dev
