@@ -4,7 +4,7 @@
 
 <p align="center">
  <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
-<a href="README.fr.md">French</a> | <a href="README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
+<a href="README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -16,21 +16,21 @@
 `douyin-vue`est une parodie`抖音|TikTok`Le projet de courte vidéo mobile a un taux d'exhaustivité de 90 %. Utilisé le dernier`Vue`Pile technologique FamilyMart, basée sur[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)accomplir. Les données sont enregistrées localement dans le projet et la vidéo est collectée à partir de`抖音|TikTok`, l'atlas est collecté auprès de`小红书|Xiaohongshu`,passer[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La bibliothèque intercepte l'API et renvoie des données json locales pour simuler de véritables requêtes backend.
 
 <div>
-<img width="150px" src='docs/imgs/1.gif' />
-<img width="150px" src='docs/imgs/2.gif' />
-<img width="150px" src='docs/imgs/3.gif' />
-<img width="150px" src='docs/imgs/4.gif' />
-<img width="150px" src='docs/imgs/5.gif' />
-<img width="150px" src='docs/imgs/img-1.jpg' />
-<img width="150px" src='docs/imgs/img-2.jpg' />
-<img width="150px" src='docs/imgs/img-3.jpg' />
-<img width="150px" src='docs/imgs/img-4.jpg' />
-<img width="150px" src='docs/imgs/img-5.jpg' />
+<img width="150px" src='imgs/1.gif' />
+<img width="150px" src='imgs/2.gif' />
+<img width="150px" src='imgs/3.gif' />
+<img width="150px" src='imgs/4.gif' />
+<img width="150px" src='imgs/5.gif' />
+<img width="150px" src='imgs/img-1.jpg' />
+<img width="150px" src='imgs/img-2.jpg' />
+<img width="150px" src='imgs/img-3.jpg' />
+<img width="150px" src='imgs/img-4.jpg' />
+<img width="150px" src='imgs/img-5.jpg' />
 </div>
 
-## Accès en ligne
+## accès en ligne
 
-Pages du gîte :<https://zyronon.gitee.io/douyin/>(Il est recommandé de visiter cette adresse en Chine)  
+Pages du gîte :<https://zyronon.gitee.io/douyin/>(Il est recommandé de visiter cette adresse en Chine)  
 Pages GitHub :<https://zyronon.github.io/douyin/>
 
 [//]: # "~~Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/)~~"
@@ -47,8 +47,9 @@ Pages GitHub :<https://zyronon.github.io/douyin/>
 
 ## Lien
 
-【douyin-vue】Un :[200 lignes de code pour implémenter un composant carrousel similaire à Swiper.js](https://juejin.cn/post/7360512664317018146)  
-Des articles de suivi sont en préparation...
+\[douyin-vue] Un :[200 lignes de code pour implémenter un composant carrousel similaire à Swiper.js](https://juejin.cn/post/7360512664317018146)  
+\[douyin-vue] Deuxièmement :[Réaliser l'effet "vidéo coulissante infinie" sur Douyin](https://juejin.cn/post/7361614921519054883)  
+D'autres articles sont en préparation...
 
 ## courir
 
@@ -84,7 +85,7 @@ La vidéo provient des célébrités Douyin suivantes
 -   `小霸宠牛排 🥩`：<https://v.douyin.com/iYRSosVB/>
 -   `奶茶妹 ◕🌱`:<https://v.douyin.com/iYRACKhP/>
 -   `我才是岚岚`:<https://v.douyin.com/iYRAQM1C/>
--   `周憬艺 ziran`:<https://v.douyin.com/iYRAQs4h/>
+-   `周憬艺 ziran`: <https://v.douyin.com/iYRAQs4h/>
 -   `刘思瑶 nice`:<https://v.douyin.com/iYRAaERn/>
 -   `彭十六 elf`:<https://v.douyin.com/iYRAHrVG/>
 -   `李子柒`:<https://v.douyin.com/iYRA5B88/>
@@ -109,4 +110,4 @@ Vous pouvez contacter mon email<a href="mailto:zyronon@163.com">zyronon@163.com<
 
 ## accord
 
-[GPL](LICENSE)
+[GPL](../LICENSE)

@@ -3,8 +3,8 @@
 </h1>
 
 <p align="center">
- <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
-<a href="README.fr.md">French</a> | <a href="README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
+ <a href="docs/README.en.md">English</a> | <a href="docs/README.es.md">Spanish</a> | <a href="docs/README.de.md">German</a> | 
+<a href="docs/README.fr.md">French</a> | <a href="README.md">简体中文</a> |  <a href="docs/README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -48,8 +48,10 @@ Github pages: [https://zyronon.github.io/douyin/](https://zyronon.github.io/douy
 
 ## 链接
 
-【douyin-vue】一: [200行代码实现类似Swiper.js的轮播组件](https://juejin.cn/post/7360512664317018146)  
-后续文章正在准备中...
+【douyin-vue】一：[200行代码实现类似Swiper.js的轮播组件](https://juejin.cn/post/7360512664317018146)  
+【douyin-vue】二：[实现抖音 “视频无限滑动“效果
+](https://juejin.cn/post/7361614921519054883)  
+更多文章正在准备中...
 
 
 ## 运行

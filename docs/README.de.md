@@ -4,7 +4,7 @@
 
 <p align="center">
  <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
-<a href="README.fr.md">French</a> | <a href="README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
+<a href="README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -16,16 +16,16 @@
 `douyin-vue`ist eine Parodie`抖音|TikTok`Das mobile Kurzvideoprojekt weist eine Vollständigkeit von 90 % auf. Habe das Neueste verwendet`Vue`FamilyMart-Technologie-Stack, der auf basiert[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)erreichen. Die Daten werden lokal im Projekt gespeichert und das Video daraus gesammelt`抖音|TikTok`, der Atlas stammt aus`小红书|Xiaohongshu`,passieren[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)Die Bibliothek fängt die API ab und gibt lokale JSON-Daten zurück, um echte Backend-Anfragen zu simulieren.
 
 <div>
-<img width="150px" src='docs/imgs/1.gif' />
-<img width="150px" src='docs/imgs/2.gif' />
-<img width="150px" src='docs/imgs/3.gif' />
-<img width="150px" src='docs/imgs/4.gif' />
-<img width="150px" src='docs/imgs/5.gif' />
-<img width="150px" src='docs/imgs/img-1.jpg' />
-<img width="150px" src='docs/imgs/img-2.jpg' />
-<img width="150px" src='docs/imgs/img-3.jpg' />
-<img width="150px" src='docs/imgs/img-4.jpg' />
-<img width="150px" src='docs/imgs/img-5.jpg' />
+<img width="150px" src='imgs/1.gif' />
+<img width="150px" src='imgs/2.gif' />
+<img width="150px" src='imgs/3.gif' />
+<img width="150px" src='imgs/4.gif' />
+<img width="150px" src='imgs/5.gif' />
+<img width="150px" src='imgs/img-1.jpg' />
+<img width="150px" src='imgs/img-2.jpg' />
+<img width="150px" src='imgs/img-3.jpg' />
+<img width="150px" src='imgs/img-4.jpg' />
+<img width="150px" src='imgs/img-5.jpg' />
 </div>
 
 ## Online-Zugang
@@ -47,8 +47,9 @@ Github-Seiten:<https://zyronon.github.io/douyin/>
 
 ## Verknüpfung
 
-【douyin-vue】Eins:[200 Codezeilen zur Implementierung einer Karussellkomponente ähnlich Swiper.js](https://juejin.cn/post/7360512664317018146)  
-Folgeartikel sind in Vorbereitung...
+\[douyin-vue] Eins:[200 Codezeilen zur Implementierung einer Karussellkomponente ähnlich wie Swiper.js](https://juejin.cn/post/7360512664317018146)  
+\[douyin-vue] Zweitens:[Verwirklichen Sie den „unendlich gleitenden Video“-Effekt auf Douyin](https://juejin.cn/post/7361614921519054883)  
+Weitere Artikel sind in Vorbereitung...
 
 ## laufen
 
@@ -67,7 +68,7 @@ npm install
 npm run dev
 ```
 
-Öffnen Sie Ihren Browser und besuchen Sie:<http://127.0.0.1:3000>
+打开浏览器并访问: <http://127.0.0.1:3000>
 
 **Hinweis: Sie müssen den Browser in den Mobilmodus schalten, indem Sie zuerst drücken`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen**
 
@@ -109,4 +110,4 @@ Sie können meine E-Mail kontaktieren<a href="mailto:zyronon@163.com">zyronon@16
 
 ## Vereinbarung
 
-[GPL](LICENSE)
+[GPL](../LICENSE)
