@@ -1,19 +1,7 @@
-<script setup>
-import { reactive } from 'vue'
+<script setup lang="ts">
+import { inject, reactive } from 'vue'
 
 const props = defineProps({
-  item: {
-    type: Object,
-    default: () => {
-      return {}
-    }
-  },
-  position: {
-    type: Object,
-    default: () => {
-      return {}
-    }
-  },
   isMy: {
     type: Boolean,
     default: () => {
@@ -28,6 +16,8 @@ const props = defineProps({
   }
 })
 
+const item = inject<any>('item')
+
 const state = reactive({
   isAttention: false,
   test: [1, 2]
@@ -36,26 +26,26 @@ const state = reactive({
 <template>
   <div class="item-desc ml1r mb1r">
     <div class="content" v-if="!props.isMy">
-      <div class="location-wrapper" v-if="props.item.city || item.address">
+      <div class="location-wrapper" v-if="item.city || item.address">
         <div class="location">
           <img src="../../assets/img/icon/location.webp" alt="" />
-          <span>{{ props.item.city }}</span>
-          <template v-if="props.item.address">
+          <span>{{ item.city }}</span>
+          <template v-if="item.address">
             <div class="gang"></div>
           </template>
-          <span>{{ props.item.address }}</span>
+          <span>{{ item.address }}</span>
         </div>
       </div>
       <div class="live" v-if="props.isLive">直播中</div>
       <div class="name mb1r f18 fb" @click.stop="$emit('goUserInfo')">
-        @{{ props.item.author.nickname }}
+        @{{ item.author.nickname }}
       </div>
       <div class="description">
-        {{ props.item.desc }}
+        {{ item.desc }}
       </div>
       <!--      <div class="music" @click.stop="bus.emit('nav','/home/music')">-->
       <!--        <img src="../../assets/img/icon/music.svg" alt="" class="music-image">-->
-      <!--        <span>{{ props.item.music.title }}</span>-->
+      <!--        <span>{{ item.music.title }}</span>-->
       <!--      </div>-->
     </div>
     <div v-else class="comment-status">
@@ -88,7 +78,7 @@ const state = reactive({
 
   .content {
     color: #fff;
-    width: 75vw;
+    width: 70vw;
     text-align: left;
 
     .location-wrapper {

@@ -2,7 +2,7 @@
   <div class="other-login" id="other-login">
     <BaseHeader mode="light" backMode="dark" backImg="back">
       <template v-slot:right>
-        <span class="f14" @click="$nav('/login/help')">帮助与设置</span>
+        <span class="f14" @click="$router.push('/login/help')">帮助与设置</span>
       </template>
     </BaseHeader>
     <div class="content">
@@ -24,11 +24,13 @@
         </div>
         <div class="right">
           已阅读并同意
-          <span class="link" @click="$nav('/service-protocol', { type: '“抖音”用户服务协议' })"
+          <span
+            class="link"
+            @click="$router.push('/service-protocol', { type: '“抖音”用户服务协议' })"
             >用户协议</span
           >
           和
-          <span class="link" @click="$nav('/service-protocol', { type: '“抖音”隐私政策' })"
+          <span class="link" @click="$router.push('/service-protocol', { type: '“抖音”隐私政策' })"
             >隐私政策</span
           >
           ，同时登录并使用抖音火山版（原“火山小视频”）和抖音
@@ -46,7 +48,7 @@
       </dy-button>
 
       <div class="options">
-        <span class="link" @click="$nav('/login/password')">密码登录</span>
+        <span class="link" @click="$router.push('/login/password')">密码登录</span>
         <span class="link" @click="otherLogin">其他方式登录</span>
       </div>
 

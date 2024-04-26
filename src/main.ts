@@ -8,8 +8,11 @@ import mixin from './utils/mixin'
 import VueLazyload from '@jambonn/vue-lazyload'
 import { createPinia } from 'pinia'
 import { useClick } from '@/utils/hooks/useClick'
+import bus, { EVENT_KEY } from '@/utils/bus'
 
 window.isMoved = false
+window.isMuted = true
+window.showMutedNotice = true
 HTMLElement.prototype.addEventListener = new Proxy(HTMLElement.prototype.addEventListener, {
   apply(target, ctx, args) {
     const eventName = args[0]
@@ -52,3 +55,10 @@ app.directive('click', vClick)
 
 //放到最后才可以使用pinia
 startMock()
+setTimeout(() => {
+  bus.emit(EVENT_KEY.HIDE_MUTED_NOTICE)
+  window.showMutedNotice = false
+}, 2000)
+bus.on(EVENT_KEY.REMOVE_MUTED, () => {
+  window.isMuted = false
+})

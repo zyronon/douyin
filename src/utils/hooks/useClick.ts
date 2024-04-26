@@ -8,10 +8,11 @@ export function useClick() {
       el.addEventListener('pointerdown', (e) => _stopPropagation(e))
       el.addEventListener('pointerup', (e) => {
         _stopPropagation(e)
-        binding.value?.()
+        binding.value?.(e)
       })
     },
     unmounted(el: HTMLDivElement) {
+      // eslint-disable-next-line
       el = null
     }
   }

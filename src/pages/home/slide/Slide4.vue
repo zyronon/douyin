@@ -1,6 +1,11 @@
 <template>
   <SlideItem>
-    <SlideList style="background: #000" :active="props.active" :api="recommendedVideo" />
+    <SlideList
+      uniqueId="home"
+      style="background: #000"
+      :active="props.active"
+      :api="recommendedVideo"
+    />
   </SlideItem>
 </template>
 

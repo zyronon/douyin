@@ -35,7 +35,7 @@
             src="../assets/img/icon/components/check/check-red-share.png"
           />
         </div>
-        <div class="option" @click.stop="closeShare($nav('/message/share-to-friend'))">
+        <div class="option" @click.stop="closeShare($router.push('/message/share-to-friend'))">
           <dy-back class="more" mode="light" direction="right"></dy-back>
           <span>更多朋友</span>
         </div>
@@ -62,7 +62,7 @@
             <img class="small" src="../assets/img/icon/components/video/dou.webp" alt="" />
             <span>帮上热门</span>
           </div>
-          <div class="option" @click.stop="$nav('/home/report', { mode: this.mode })">
+          <div class="option" @click.stop="$router.push('/home/report', { mode: this.mode })">
             <img class="small" src="../assets/img/icon/components/video/warring.png" alt="" />
             <span>举报</span>
           </div>
@@ -105,7 +105,7 @@
             <img class="small" src="../assets/img/icon/components/video/tofriend.webp" alt="" />
             <span>私信朋友</span>
           </div>
-          <div class="option" @click.stop="$nav('/home/report', { mode: this.mode })">
+          <div class="option" @click.stop="$router.push('/home/report', { mode: this.mode })">
             <img class="small" src="../assets/img/icon/components/video/warring.png" alt="" />
             <span>举报音乐</span>
           </div>

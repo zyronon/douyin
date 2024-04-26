@@ -38,7 +38,7 @@
           :can-download="canDownload"
           @click="closeShare()"
         />
-        <to-share item-type="report" @click="$nav('/home/report', { mode: this.mode })" />
+        <to-share item-type="report" @click="$router.push('/home/report', { mode: this.mode })" />
         <to-share item-type="copyPassword" @click="copyLink" />
         <to-share :item-type="isCollect ? 'collectYellow' : 'collect'" @click="toggleCollect" />
         <to-share item-type="comeon" @click="_no" />
@@ -67,7 +67,7 @@
             </dy-button>
           </div>
         </div>
-        <div class="more" @click="closeShare($nav('/message/share-to-friend'))">
+        <div class="more" @click="closeShare($router.push('/message/share-to-friend'))">
           <img class="left" src="../../../assets/img/icon/components/video/more-dark.png" />
           <span>更多朋友</span>
         </div>

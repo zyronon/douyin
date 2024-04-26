@@ -1,13 +1,11 @@
 import { defineConfig, PluginOption } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
-import { resolve } from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
-import DefineOptions from 'unplugin-vue-define-options/vite' // 引入插件
 import { Plugin as importToCDN } from 'vite-plugin-cdn-import'
-import commonjs from 'vite-plugin-commonjs'
 import { fileURLToPath, URL } from 'node:url'
 import { getLastCommit } from 'git-last-commit'
+import VueMacros from 'unplugin-vue-macros/vite'
 
 // import viteImagemin from 'vite-plugin-imagemin'
 // import viteCompression from 'vite-plugin-compression'
@@ -28,20 +26,19 @@ export default defineConfig(async () => {
     base: './',
     envDir: 'env',
     plugins: [
-      // VueMacros({
-      //   plugins: {
-      //     vue: Vue(),
-      //     vueJsx: VueJsx(), // if needed
-      //   },
-      //   betterDefine: true,
-      //   // reactivityTransform: {
-      //   //   exclude: [/node_modules/, /jQuery\.js/]
-      //   // }
-      // }),
+      VueMacros({
+        plugins: {
+          vue: Vue(),
+          vueJsx: VueJsx() // if needed
+        }
+        // betterDefine: true,
+        // reactivityTransform: {
+        //   exclude: [/node_modules/, /jQuery\.js/]
+        // }
+      }),
+      // Vue(),
+      // VueJsx(),
       lifecycle === 'report' ? (visualizer({ open: false }) as any as PluginOption) : null,
-      DefineOptions(),
-      Vue(),
-      VueJsx(),
       importToCDN({
         modules: [
           {

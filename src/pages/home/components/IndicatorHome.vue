@@ -37,7 +37,12 @@
         </div>
         <div class="indicator" ref="indicator"></div>
       </div>
-      <Icon v-hide="loading" icon="ion:search" class="search" @click="$nav('/home/search')" />
+      <Icon
+        v-hide="loading"
+        icon="ion:search"
+        class="search"
+        @click="$router.push('/home/search')"
+      />
     </div>
     <div class="toggle-type" :class="{ open }">
       <div class="l-button" :class="{ active: type === 0 }" @click="toggleType(0)">
@@ -276,6 +281,7 @@ export default {
           color: rgba(white, 0.7);
           position: relative;
           font-size: 17rem;
+          cursor: pointer;
 
           .tab1-img {
             position: absolute;

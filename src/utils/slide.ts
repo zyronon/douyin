@@ -107,7 +107,7 @@ export function slideTouchMove(
   notNextCb = null,
   slideOtherDirectionCb = null
 ) {
-  console.log('move', state.name)
+  // console.log('move', state.name)
   if (!checkEvent(e)) return
   if (!state.isDown) return
 
