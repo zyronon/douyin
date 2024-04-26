@@ -28,9 +28,9 @@
 <img width="150px" src='docs/imgs/img-5.jpg' />
 </div>
 
-## Accès en ligne
+## accès en ligne
 
-Pages du gîte :<https://zyronon.gitee.io/douyin/>(Il est recommandé de visiter cette adresse en Chine)  
+Pages du gîte :<https://zyronon.gitee.io/douyin/>(Il est recommandé de visiter cette adresse en Chine)  
 Pages GitHub :<https://zyronon.github.io/douyin/>
 
 [//]: # "~~Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/)~~"
@@ -47,8 +47,9 @@ Pages GitHub :<https://zyronon.github.io/douyin/>
 
 ## Lien
 
-【douyin-vue】Un :[200 lignes de code pour implémenter un composant carrousel similaire à Swiper.js](https://juejin.cn/post/7360512664317018146)  
-Des articles de suivi sont en préparation...
+\[douyin-vue] Un :[200 lignes de code pour implémenter un composant carrousel similaire à Swiper.js](https://juejin.cn/post/7360512664317018146)  
+\[douyin-vue] Deuxièmement :[Réaliser l'effet "vidéo coulissante infinie" sur Douyin](https://juejin.cn/post/7361614921519054883)  
+D'autres articles sont en préparation...
 
 ## courir
 
@@ -84,7 +85,7 @@ La vidéo provient des célébrités Douyin suivantes
 -   `小霸宠牛排 🥩`：<https://v.douyin.com/iYRSosVB/>
 -   `奶茶妹 ◕🌱`:<https://v.douyin.com/iYRACKhP/>
 -   `我才是岚岚`:<https://v.douyin.com/iYRAQM1C/>
--   `周憬艺 ziran`:<https://v.douyin.com/iYRAQs4h/>
+-   `周憬艺 ziran`: <https://v.douyin.com/iYRAQs4h/>
 -   `刘思瑶 nice`:<https://v.douyin.com/iYRAaERn/>
 -   `彭十六 elf`:<https://v.douyin.com/iYRAHrVG/>
 -   `李子柒`:<https://v.douyin.com/iYRA5B88/>
