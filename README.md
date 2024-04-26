@@ -31,8 +31,8 @@
 
 ## 在线访问
 
-Gitee pages: [https://zyronon.gitee.io/douyin/](https://zyronon.gitee.io/douyin/) (中国地区推荐访问这个地址)  
-Github pages: [https://zyronon.github.io/douyin/](https://zyronon.github.io/douyin/)
+Gitee Pages: [https://zyronon.gitee.io/douyin/](https://zyronon.gitee.io/douyin/) (中国推荐访问这个地址)  
+Github Pages: [https://zyronon.github.io/douyin/](https://zyronon.github.io/douyin/)
 
 [//]: # (~~Vercel:  [http://dy.ttentau.top/]&#40;http://dy.ttentau.top/&#41;~~)
 
@@ -64,7 +64,7 @@ Github pages: [https://zyronon.github.io/douyin/](https://zyronon.github.io/douy
 ### 本地开发
 
 ```bash
-git clone https://gitee.com/zyronon/douyin.git (中国地区推荐)
+git clone https://gitee.com/zyronon/douyin.git (中国使用)
           https://github.com/zyronon/douyin.git 
 cd douyin
 npm install
