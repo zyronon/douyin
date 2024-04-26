@@ -30,7 +30,7 @@
 
 ## Acceso en linea
 
-Páginas de casas rurales:<https://zyronon.gitee.io/douyin/>(Se recomienda visitar esta dirección en China)  
+Páginas del albergue:<https://zyronon.gitee.io/douyin/> (中国地区推荐访问这个地址)  
 Páginas de Github:<https://zyronon.github.io/douyin/>
 
 [//]: # "~~Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/)~~"
@@ -47,8 +47,9 @@ Páginas de Github:<https://zyronon.github.io/douyin/>
 
 ## Enlace
 
-【douyin-vue】Uno:[200 líneas de código para implementar un componente carrusel similar a Swiper.js](https://juejin.cn/post/7360512664317018146)  
-Se están preparando artículos de seguimiento...
+\[douyin-vue] Uno:[200 líneas de código para implementar un componente carrusel similar a Swiper.js](https://juejin.cn/post/7360512664317018146)  
+\[douyin-vue] Segundo:[Realice el efecto de "vídeo deslizante infinito" en Douyin](https://juejin.cn/post/7361614921519054883)  
+Más artículos están en preparación...
 
 ## correr
 
@@ -76,7 +77,7 @@ Abra su navegador y visite:<http://127.0.0.1:3000>
 El video proviene de las siguientes celebridades de Douyin.
 
 -   `我是香秀 🐂🍺`:<https://v.douyin.com/iYRAPA2L/>
--   `杨老虎 🐯（磕穿下巴掉牙版）`:<https://v.douyin.com/iYRA56de/>
+-   `杨老虎 🐯（磕穿下巴掉牙版）`: <https://v.douyin.com/iYRA56de/>
 -   `条子`:<https://v.douyin.com/iYRAaqjr/>
 -   `达莎 Digi`：<https://v.douyin.com/iYRA6rwT/>
 -   `小橙子`:<https://v.douyin.com/iYRAnudw/>
@@ -85,7 +86,7 @@ El video proviene de las siguientes celebridades de Douyin.
 -   `奶茶妹 ◕🌱`:<https://v.douyin.com/iYRACKhP/>
 -   `我才是岚岚`:<https://v.douyin.com/iYRAQM1C/>
 -   `周憬艺 ziran`:<https://v.douyin.com/iYRAQs4h/>
--   `刘思瑶 nice`:<https://v.douyin.com/iYRAaERn/>
+-   `刘思瑶 nice`: <https://v.douyin.com/iYRAaERn/>
 -   `彭十六 elf`:<https://v.douyin.com/iYRAHrVG/>
 -   `李子柒`:<https://v.douyin.com/iYRA5B88/>
 
