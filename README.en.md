@@ -28,7 +28,7 @@
 <img width="150px" src='docs/imgs/img-5.jpg' />
 </div>
 
-## Online access
+## online access
 
 Gitee pages:<https://zyronon.gitee.io/douyin/>(It is recommended to visit this address in China)  
 Github pages:<https://zyronon.github.io/douyin/>
@@ -47,12 +47,13 @@ Github pages:<https://zyronon.github.io/douyin/>
 
 ## Link
 
-【douyin-vue】One:[200 lines of code to implement a carousel component similar to Swiper.js](https://juejin.cn/post/7360512664317018146)  
-Follow-up articles are being prepared...
+\[douyin-vue] One:[200 lines of code to implement a carousel component similar to Swiper.js](https://juejin.cn/post/7360512664317018146)  
+\[douyin-vue] Second:[Realize the "infinite sliding video" effect on Douyin](https://juejin.cn/post/7361614921519054883)  
+更多文章正在准备中...
 
 ## run
 
-Note: This project is only suitable for study and research, not for commercial use
+注意：本项目仅适用于学习和研究，不得用于商业使用
 
 ### Quickly deploy to Vercel
 
@@ -67,7 +68,7 @@ npm install
 npm run dev
 ```
 
-Open your browser and visit:<http://127.0.0.1:3000>
+打开浏览器并访问: <http://127.0.0.1:3000>
 
 **Note: You need to switch the browser to mobile mode, first press`F12`To bring up the console, press`Ctrl+Shift+M`to preview normally**
 
@@ -95,7 +96,7 @@ The above content is all public information on the Internet
 
 ## Features and suggestions
 
-The project is currently in the early stages of development, and new features are being added continuously. If you have any features or suggestions for the software, please feel free to contact us.`Issues`raised in
+The project is currently in the early stages of development and new features are being added continuously. If you have any features or suggestions for the software, please feel free to contact us.`Issues`raised in
 If you also like the design ideas of this software, please submit it`PR`, thank you very much for your support!
 
 ## contact me
