@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`est une parodie`抖音|TikTok`projet de courte vidéo mobile.`Vue`sur le mobile`最佳实践`, comparable au natif`App`Expérience soyeuse et douce. Utilisé le dernier`Vue`pile technologique, basée sur[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)accomplir. Les données sont enregistrées localement dans le projet via[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La bibliothèque intercepte l'API et renvoie des données json locales pour simuler de véritables requêtes backend.
+`douyin-vue`est une parodie`抖音|TikTok`projet de courte vidéo mobile.`Vue`Des « bonnes pratiques » côté mobile, comparables au natif`App`Expérience soyeuse et douce. Utilisé le dernier`Vue`pile technologique, basée sur[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)accomplir. Les données sont enregistrées localement dans le projet via[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La bibliothèque intercepte l'API et renvoie des données json locales pour simuler de véritables requêtes backend.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -49,7 +49,7 @@ Netlifier :<https://douyins.netlify.app/>
 
 ## Lien
 
-\[douyin-vue] Un :[200 lignes de code pour implémenter un composant carrousel similaire à Swiper.js](https://juejin.cn/post/7360512664317018146)  
+\[douyin-vue] Un :[200行代码实现类似Swiper.js的轮播组件](https://juejin.cn/post/7360512664317018146)  
 \[douyin-vue] Deuxièmement :[Réaliser l'effet "vidéo coulissante infinie" sur Douyin](https://juejin.cn/post/7361614921519054883)  
 D'autres articles sont en préparation...
 
