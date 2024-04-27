@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`es una parodia`抖音|TikTok`Proyecto de vídeo corto móvil.`Vue`en movil`最佳实践`, comparable al nativo`App`Experiencia sedosa y suave. Usado lo último`Vue`pila de tecnología, basada en[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)lograr. Los datos se guardan localmente en el proyecto a través de[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La biblioteca intercepta la API y devuelve datos json locales para simular solicitudes de backend reales.
+`douyin-vue`es una parodia`抖音|TikTok`Proyecto de vídeo corto móvil.`Vue`"Mejores prácticas" en el lado móvil, comparables a las nativas`App`Experiencia sedosa y suave. Usado lo último`Vue`pila de tecnología, basada en[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)lograr. Los datos se guardan localmente en el proyecto a través de[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La biblioteca intercepta la API y devuelve datos json locales para simular solicitudes de backend reales.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
@@ -99,7 +99,7 @@ El contenido anterior es toda información pública en Internet.
 ## Funciones y sugerencias
 
 El proyecto se encuentra actualmente en las primeras etapas de desarrollo y continuamente se agregan nuevas funciones. Si tiene alguna característica o sugerencia para el software, no dude en contactarnos.`Issues`criado en
-Si también le gustan las ideas de diseño de este software, envíelas.`PR`, ¡Muchas gracias por tu apoyo!
+Si también le gustan las ideas de diseño de este software, envíelas.`PR`，非常感谢你对我们的支持！
 
 ## contáctame
 
