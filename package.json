@@ -27,7 +27,6 @@
     "axios-mock-adapter": "^1.22.0",
     "core-js": "3.21.1",
     "libarchive-wasm": "^1.1.0",
-    "mitt": "3.0.0",
     "mockjs": "^1.1.0",
     "pinia": "^2.1.7",
     "vue": "3.4.21",

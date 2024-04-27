@@ -9,7 +9,7 @@
         </div>
         <div class="right">
           <img
-            @click="mitt.emit('showAudioCall')"
+            @click="bus.emit(EVENT_KEY.SHOW_AUDIO_CALL)"
             src="../../../assets/img/icon/message/chat/call.png"
             alt=""
           />
@@ -187,12 +187,13 @@
 </template>
 <script setup lang="ts">
 import ChatMessage from '../components/ChatMessage.vue'
-import { computed, inject, nextTick, onMounted, onUnmounted, reactive, ref } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, reactive, ref } from 'vue'
 import Loading from '@/components/Loading.vue'
 import { useBaseStore } from '@/store/pinia'
 import { _checkImgUrl, _no, _sleep } from '@/utils'
 import { useRouter } from 'vue-router'
 import { useNav } from '@/utils/hooks/useNav'
+import bus, { EVENT_KEY } from '@/utils/bus'
 
 let CALL_STATE = {
   REJECT: 0,
@@ -233,7 +234,6 @@ defineOptions({
   name: 'Chat'
 })
 
-const mitt = inject('mitt')
 const router = useRouter()
 const nav = useNav()
 const store = useBaseStore()
