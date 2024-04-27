@@ -32,14 +32,14 @@
 
 ## 在线访问
 
-Gitee pages: [https://zyronon.gitee.io/douyin/](https://zyronon.gitee.io/douyin/) (中国地区推荐访问这个地址)  
-Vercel:  [https://douyins.vercel.app](https://douyins.vercel.app)
+Gitee pages: [https://dy.ttentau.top/](https://dy.ttentau.top/) (中国地区推荐访问这个地址)  
+Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/)
+
+[//]: # (Vercel:  [https://douyins.vercel.app]&#40;https://douyins.vercel.app&#41;)
+
+[//]: # (Gitee pages: [https://zyronon.gitee.io/douyin/]&#40;https://zyronon.gitee.io/douyin/&#41; &#40;中国地区推荐访问这个地址&#41;  )
 
 [//]: # (Github pages: [https://zyronon.github.io/douyin/]&#40;https://zyronon.github.io/douyin/&#41;  )
-
-[//]: # (Vercel:  [http://dy.ttentau.top/]&#40;http://dy.ttentau.top/&#41;)
-
-[//]: # (~~Netlify: [https://douyins.netlify.app/]&#40;https://douyins.netlify.app/&#41;~~)
 
 [//]: # (Vercel和Netlify分别送的100G免费流量已经用完了...🤣)
 
