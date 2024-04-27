@@ -32,9 +32,11 @@
 ## 在线访问
 
 Gitee pages: [https://zyronon.gitee.io/douyin/](https://zyronon.gitee.io/douyin/) (中国地区推荐访问这个地址)  
-Github pages: [https://zyronon.github.io/douyin/](https://zyronon.github.io/douyin/)
+Vercel:  [https://douyins.vercel.app](https://douyins.vercel.app)
 
-[//]: # (~~Vercel:  [http://dy.ttentau.top/]&#40;http://dy.ttentau.top/&#41;~~)
+[//]: # (Github pages: [https://zyronon.github.io/douyin/]&#40;https://zyronon.github.io/douyin/&#41;  )
+
+[//]: # (Vercel:  [http://dy.ttentau.top/]&#40;http://dy.ttentau.top/&#41;)
 
 [//]: # (~~Netlify: [https://douyins.netlify.app/]&#40;https://douyins.netlify.app/&#41;~~)
 
