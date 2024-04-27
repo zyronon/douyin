@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`ist eine Parodie`抖音|TikTok`mobiles Kurzvideoprojekt.`Vue`auf dem Handy最佳实践`, vergleichbar mit Native`App`Seidiges und geschmeidiges Erlebnis. Habe das Neueste verwendet`Vue`Technologie-Stack, basierend auf[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)erreichen. Die Daten werden lokal im Projekt gespeichert[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)Die Bibliothek fängt die API ab und gibt lokale JSON-Daten zurück, um echte Backend-Anfragen zu simulieren.
+`douyin-vue`ist eine Parodie`抖音|TikTok`mobiles Kurzvideoprojekt.`Vue`„Best Practices“ auf der mobilen Seite, vergleichbar mit Native`App`Seidiges und geschmeidiges Erlebnis. Habe das Neueste verwendet`Vue`Technologie-Stack, basierend auf[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)erreichen. Die Daten werden lokal im Projekt gespeichert[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)Die Bibliothek fängt die API ab und gibt lokale JSON-Daten zurück, um echte Backend-Anfragen zu simulieren.
 
 <div>
 <img width="150px" src='docs/imgs/1.gif' />
