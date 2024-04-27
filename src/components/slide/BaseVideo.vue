@@ -217,7 +217,10 @@ onMounted(() => {
             state.loading = true
           }
         }
-        console.log(e, t)
+        let s = false
+        if (s) {
+          console.log(e, t)
+        }
       },
       false
     )

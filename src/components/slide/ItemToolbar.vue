@@ -20,7 +20,7 @@ const item = inject<any>('item')
 const emit = defineEmits(['update:item', 'goUserInfo', 'showComments', 'showShare', 'goMusic'])
 
 function loved() {
-  _updateItem(props, 'isLoved', !item.isLoved, emit)
+  _updateItem(props, 'isLoved', !item.value.isLoved, emit)
 }
 
 function attention(e) {
@@ -31,7 +31,7 @@ function attention(e) {
 }
 
 function showComments() {
-  bus.emit(EVENT_KEY.OPEN_COMMENTS, item.aweme_id)
+  bus.emit(EVENT_KEY.OPEN_COMMENTS, item.value.aweme_id)
 }
 
 const vClick = useClick()
