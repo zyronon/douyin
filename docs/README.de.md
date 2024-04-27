@@ -3,8 +3,8 @@
 </h1>
 
 <p align="center">
- <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
-<a href="README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
+ <a href="docs/README.en.md">English</a> | <a href="docs/README.es.md">Spanish</a> | <a href="docs/README.de.md">German</a> | 
+<a href="docs/README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="docs/README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`ist eine Parodie`抖音|TikTok`Das mobile Kurzvideoprojekt weist eine Vollständigkeit von 90 % auf. Habe das Neueste verwendet`Vue`FamilyMart-Technologie-Stack, der auf basiert[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)erreichen. Die Daten werden lokal im Projekt gespeichert und das Video daraus gesammelt`抖音|TikTok`, der Atlas stammt aus`小红书|Xiaohongshu`,passieren[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)Die Bibliothek fängt die API ab und gibt lokale JSON-Daten zurück, um echte Backend-Anfragen zu simulieren.
+`douyin-vue`ist eine Parodie`抖音|TikTok`mobiles Kurzvideoprojekt.`Vue`„Best Practices“ auf der mobilen Seite, vergleichbar mit Native`App`Seidiges und geschmeidiges Erlebnis. Habe das Neueste verwendet`Vue`Technologie-Stack, basierend auf[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)erreichen. Die Daten werden lokal im Projekt gespeichert[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)Die Bibliothek fängt die API ab und gibt lokale JSON-Daten zurück, um echte Backend-Anfragen zu simulieren.
 
 <div>
 <img width="150px" src='imgs/1.gif' />
@@ -30,12 +30,14 @@
 
 ## Online-Zugang
 
-Gitee-Seiten:<https://zyronon.gitee.io/douyin/>(Es wird empfohlen, diese Adresse in China zu besuchen)  
-Github-Seiten:<https://zyronon.github.io/douyin/>
+Gitee-Seiten:<https://dy.ttentau.top/>(Es wird empfohlen, diese Adresse in China zu besuchen)  
+Netlify:<https://douyins.netlify.app/>
 
-[//]: # "~~Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/)~~"
+[//]: # "Vercel:  [https://douyins.vercel.app](https://douyins.vercel.app)"
 
-[//]: # "~~Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/)~~"
+[//]: # "Gitee pages: [https://zyronon.gitee.io/douyin/](https://zyronon.gitee.io/douyin/) (中国地区推荐访问这个地址)  "
+
+[//]: # "Github pages: [https://zyronon.github.io/douyin/](https://zyronon.github.io/douyin/)  "
 
 [//]: # "Vercel和Netlify分别送的100G免费流量已经用完了...🤣"
 
@@ -47,7 +49,7 @@ Github-Seiten:<https://zyronon.github.io/douyin/>
 
 ## Verknüpfung
 
-\[douyin-vue] Eins:[200 Codezeilen zur Implementierung einer Karussellkomponente ähnlich wie Swiper.js](https://juejin.cn/post/7360512664317018146)  
+\[douyin-vue] Eins:[200 Codezeilen zur Implementierung einer Karussellkomponente ähnlich Swiper.js](https://juejin.cn/post/7360512664317018146)  
 \[douyin-vue] Zweitens:[Verwirklichen Sie den „unendlich gleitenden Video“-Effekt auf Douyin](https://juejin.cn/post/7361614921519054883)  
 Weitere Artikel sind in Vorbereitung...
 
@@ -68,7 +70,7 @@ npm install
 npm run dev
 ```
 
-打开浏览器并访问: <http://127.0.0.1:3000>
+Öffnen Sie Ihren Browser und besuchen Sie:<http://127.0.0.1:3000>
 
 **Hinweis: Sie müssen den Browser in den Mobilmodus schalten, indem Sie zuerst drücken`F12`Um die Konsole aufzurufen, drücken Sie`Ctrl+Shift+M`um eine normale Vorschau anzuzeigen**
 
