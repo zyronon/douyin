@@ -327,13 +327,11 @@ function click({ uniqueId, index, type }) {
   if (props.position.uniqueId === uniqueId && props.position.index === index) {
     if (type === EVENT_KEY.ITEM_TOGGLE) {
       if (props.isLive) {
-        if (type === EVENT_KEY.ITEM_TOGGLE) {
-          pause()
-          bus.emit(EVENT_KEY.NAV, {
-            path: '/home/live',
-            query: { id: props.item.aweme_id }
-          })
-        }
+        pause()
+        bus.emit(EVENT_KEY.NAV, {
+          path: '/home/live',
+          query: { id: props.item.aweme_id }
+        })
       } else {
         if (state.status === SlideItemPlayStatus.Play) {
           pause()

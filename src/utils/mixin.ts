@@ -152,7 +152,7 @@ export default {
 
         const up = (e) => {
           if (!isDown) return
-          if (!isMove) check(e)
+          if (!isMove && !window.isMoved) check(e)
           isMove = isDown = false
         }
 

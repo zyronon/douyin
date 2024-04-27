@@ -139,15 +139,18 @@ watch(
     if (newVal && !props.list.length) {
       return emit('refresh')
     }
+    let t = newVal ? 0 : 200
     // console.log('active', 'newVal', newVal, 'oldVal', oldVal)
     if (newVal) {
       bus.emit(EVENT_KEY.CURRENT_ITEM, props.list[state.localIndex])
     }
-    bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
-      uniqueId: props.uniqueId,
-      index: state.localIndex,
-      type: newVal === false ? EVENT_KEY.ITEM_STOP : EVENT_KEY.ITEM_PLAY
-    })
+    setTimeout(() => {
+      bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
+        uniqueId: props.uniqueId,
+        index: state.localIndex,
+        type: newVal === false ? EVENT_KEY.ITEM_STOP : EVENT_KEY.ITEM_PLAY
+      })
+    }, t)
   },
   { immediate: true }
 )
@@ -323,7 +326,7 @@ function touchEnd(e) {
   slideReset(e, slideListEl.value, state, emit)
 }
 
-function canNext(state, isNext) {
+function canNext(state, isNext: boolean) {
   return !(
     (state.localIndex === 0 && !isNext) ||
     (state.localIndex === props.list.length - 1 && isNext)

@@ -109,6 +109,7 @@ async function getData(refresh = false) {
 // }
 
 function click(uniqueId) {
+  if (!props.active) return
   if (uniqueId !== props.uniqueId) return
   bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
     uniqueId,
@@ -135,11 +136,11 @@ function togglePlay() {
 onMounted(() => {
   bus.on(EVENT_KEY.SINGLE_CLICK, click)
   bus.on(EVENT_KEY.UPDATE_ITEM, updateItem)
-  bus.on(EVENT_KEY.TOGGLE_VIDEO, togglePlay)
+  bus.on(EVENT_KEY.TOGGLE_CURRENT_VIDEO, togglePlay)
 })
 onUnmounted(() => {
   bus.off(EVENT_KEY.SINGLE_CLICK, click)
   bus.off(EVENT_KEY.UPDATE_ITEM, updateItem)
-  bus.off(EVENT_KEY.TOGGLE_VIDEO, togglePlay)
+  bus.off(EVENT_KEY.TOGGLE_CURRENT_VIDEO, togglePlay)
 })
 </script>
