@@ -22,8 +22,8 @@ axiosInstance.interceptors.request.use(
 )
 
 /*
- * 响应拦截器，目前的处理是，无论失败或者成功都会返回{ code: xxx, data: xxx }这种类型的数据，没有reject和抛error。
- * 如果有问题，拦截器里会进行提示，然后返回{ code: Xxx, data:xxx }这种数据。在then里面总是会接收到
+ * 响应拦截器，无论失败或者成功都会返回{ success: boolean, data: xxx }这种类型的数据，没有reject和抛error。
+ * 如果有问题，拦截器里会进行提示。在then里面总是会接收到返回值
  * */
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {

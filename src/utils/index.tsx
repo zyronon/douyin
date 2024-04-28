@@ -3,7 +3,7 @@ import SelectDialog from '../components/dialog/SelectDialog.vue'
 import SimpleConfirmDialog from '../components/dialog/SimpleConfirmDialog.vue'
 import ConfirmDialog from '../components/dialog/ConfirmDialog.vue'
 import Loading from '../components/Loading.vue'
-import { IMG_URL, IS_DEV } from '@/config'
+import { IMG_URL, IS_DEV, IS_GITEE_PAGES } from '@/config'
 import NoticeDialog from '../components/dialog/NoticeDialog.vue'
 import bus, { EVENT_KEY } from './bus'
 import { ArchiveReader, libarchiveWasm } from 'libarchive-wasm'
@@ -381,7 +381,7 @@ export function _no() {
  * @privateF
  */
 export async function _fetch(url: string): Promise<{ json(): Promise<any> } | Response> {
-  if (IS_DEV) {
+  if (IS_DEV || !IS_GITEE_PAGES) {
     url = url.replace('.md', '.json')
     return fetch(url)
   } else {

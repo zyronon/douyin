@@ -18,6 +18,9 @@
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "types": [
+      "unplugin-vue-macros/macros-global"
+    ]
   }
 }

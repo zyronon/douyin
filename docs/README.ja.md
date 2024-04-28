@@ -3,8 +3,8 @@
 </h1>
 
 <p align="center">
- <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
-<a href="README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
+ <a href="docs/README.en.md">English</a> | <a href="docs/README.es.md">Spanish</a> | <a href="docs/README.de.md">German</a> | 
+<a href="docs/README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="docs/README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`パロディです`抖音|TikTok`モバイル向けショートビデオプロジェクトの完成度は90％。最新のものを使用しました`Vue` 全家桶技术栈，它基于 [`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)成し遂げる。データはプロジェクトのローカルに保存され、ビデオは次から収集されます。`抖音|TikTok`、アトラスはから収集されています`小红书|Xiaohongshu`、合格[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)ライブラリは API をインターセプトし、ローカルの JSON データを返して、実際のバックエンド リクエストをシミュレートします。
+`douyin-vue`パロディです`抖音|TikTok`モバイルショートビデオプロジェクト。`Vue`ネイティブと同等のモバイル側の「ベスト プラクティス」`App`シルキーで滑らかな使い心地。最新のものを使用しました`Vue`テクノロジースタック、に基づく[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)成し遂げる。データはプロジェクト内でローカルに保存されます。[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)ライブラリは API をインターセプトし、ローカルの JSON データを返して、実際のバックエンド リクエストをシミュレートします。
 
 <div>
 <img width="150px" src='imgs/1.gif' />
@@ -30,12 +30,14 @@
 
 ## オンラインアクセス
 
-Gite ページ:[ｈっｔｐｓ：／／ｚｙろのん。ぎてえ。いお／どうｙいん／](https://zyronon.gitee.io/douyin/)(中国ではこのアドレスにアクセスすることをお勧めします)  
-Github ページ:[ｈっｔｐｓ：／／ｚｙろのん。ぎてゅｂ。いお／どうｙいん／](https://zyronon.github.io/douyin/)
+Gite ページ:[ｈっｔｐｓ：／／ｄｙ。ってんたう。とｐ／](https://dy.ttentau.top/)(中国ではこのアドレスにアクセスすることをお勧めします)  
+ネットリファイ:[ｈっｔｐｓ：／／どうｙいんｓ。ねｔぃｆｙ。あっｐ／](https://douyins.netlify.app/)
 
-[//]: # "~~Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/)~~"
+[//]: # "Vercel:  [https://douyins.vercel.app](https://douyins.vercel.app)"
 
-[//]: # "~~Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/)~~"
+[//]: # "Gitee pages: [https://zyronon.gitee.io/douyin/](https://zyronon.gitee.io/douyin/) (中国地区推荐访问这个地址)  "
+
+[//]: # "Github pages: [https://zyronon.github.io/douyin/](https://zyronon.github.io/douyin/)  "
 
 [//]: # "Vercel和Netlify分别送的100G免费流量已经用完了...🤣"
 
@@ -96,12 +98,12 @@ npm run dev
 
 ## 特徴と提案
 
-プロジェクトは現在開発の初期段階にあり、ソフトウェアの新機能や提案があれば、お気軽にお問い合わせください。`Issues`で育ちました
+プロジェクトは現在開発の初期段階にあり、新しい機能が継続的に追加されています。ソフトウェアに関する機能や提案がありましたら、お気軽にお問い合わせください。`Issues`で育ちました
 このソフトウェアのデザインアイデアも気に入っていただけましたら、ぜひ送信してください`PR`、 ご支援ありがとうございました！
 
 ## 私に連絡して
 
-私のメールアドレスにご連絡いただけます<a href="mailto:zyronon@163.com">ｚｙろのん＠１６３。こｍ</a>
+您可以联系我的邮箱 <a href="mailto:zyronon@163.com">ｚｙろのん＠１６３。こｍ</a>
 
 > 私の他のオープンソース プロジェクトを共有してください:
 >

@@ -18,7 +18,7 @@
     <SlideList
       :cbs="{ isLive: true }"
       :active="props.active"
-      uniqueId="uniqueId2"
+      uniqueId="live"
       :style="{
         background: 'black',
         marginTop: state.subTypeVisible ? state.subTypeHeight : 0

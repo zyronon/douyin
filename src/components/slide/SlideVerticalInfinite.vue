@@ -139,15 +139,18 @@ watch(
     if (newVal && !props.list.length) {
       return emit('refresh')
     }
+    let t = newVal ? 0 : 200
     // console.log('active', 'newVal', newVal, 'oldVal', oldVal)
     if (newVal) {
       bus.emit(EVENT_KEY.CURRENT_ITEM, props.list[state.localIndex])
     }
-    bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
-      uniqueId: props.uniqueId,
-      index: state.localIndex,
-      type: newVal === false ? EVENT_KEY.ITEM_STOP : EVENT_KEY.ITEM_PLAY
-    })
+    setTimeout(() => {
+      bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
+        uniqueId: props.uniqueId,
+        index: state.localIndex,
+        type: newVal === false ? EVENT_KEY.ITEM_STOP : EVENT_KEY.ITEM_PLAY
+      })
+    }, t)
   },
   { immediate: true }
 )
@@ -271,8 +274,9 @@ function touchEnd(e) {
   slideTouchEnd(e, state, canNext, (isNext) => {
     let half = (props.virtualTotal - 1) / 2
     if (props.list.length > props.virtualTotal) {
-      //往下滑
+      //手指往上滑(即列表展示下一条内容)
       if (isNext) {
+        //删除最前面的 `dom` ，然后在最后面添加一个 `dom`
         if (state.localIndex > props.list.length - props.virtualTotal && state.localIndex > half) {
           emit('loadMore')
         }
@@ -297,6 +301,7 @@ function touchEnd(e) {
           })
         }
       } else {
+        //删除最后面的 `dom` ，然后在最前面添加一个 `dom`
         if (state.localIndex >= half && state.localIndex < props.list.length - (half + 1)) {
           let addIndex = state.localIndex - half
           if (addIndex >= 0) {
@@ -321,7 +326,7 @@ function touchEnd(e) {
   slideReset(e, slideListEl.value, state, emit)
 }
 
-function canNext(state, isNext) {
+function canNext(state, isNext: boolean) {
   return !(
     (state.localIndex === 0 && !isNext) ||
     (state.localIndex === props.list.length - 1 && isNext)

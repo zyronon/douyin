@@ -3,8 +3,8 @@
 </h1>
 
 <p align="center">
- <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
-<a href="README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
+ <a href="docs/README.en.md">English</a> | <a href="docs/README.es.md">Spanish</a> | <a href="docs/README.de.md">German</a> | 
+<a href="docs/README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="docs/README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`es una parodia`抖音|TikTok`El proyecto de vídeo corto móvil tiene un avance del 90%. Usado lo último`Vue`Pila de tecnología FamilyMart, que se basa en[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)lograr. Los datos se guardan localmente en el proyecto y el vídeo se recopila de`抖音|TikTok`, el atlas se recoge de`小红书|Xiaohongshu`,aprobar[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La biblioteca intercepta la API y devuelve datos json locales para simular solicitudes de backend reales.
+`douyin-vue`es una parodia`抖音|TikTok`Proyecto de vídeo corto móvil.`Vue`"Mejores prácticas" en el lado móvil, comparables a las nativas`App`Experiencia sedosa y suave. Usado lo último`Vue`pila de tecnología, basada en[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)lograr. Los datos se guardan localmente en el proyecto a través de[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La biblioteca intercepta la API y devuelve datos json locales para simular solicitudes de backend reales.
 
 <div>
 <img width="150px" src='imgs/1.gif' />
@@ -30,12 +30,14 @@
 
 ## Acceso en linea
 
-Páginas del albergue:<https://zyronon.gitee.io/douyin/> (中国地区推荐访问这个地址)  
-Páginas de Github:<https://zyronon.github.io/douyin/>
+Páginas del albergue:<https://dy.ttentau.top/>(Se recomienda visitar esta dirección en China)  
+Netlificar:<https://douyins.netlify.app/>
 
-[//]: # "~~Vercel:  [http://dy.ttentau.top/](http://dy.ttentau.top/)~~"
+[//]: # "Vercel:  [https://douyins.vercel.app](https://douyins.vercel.app)"
 
-[//]: # "~~Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/)~~"
+[//]: # "Gitee pages: [https://zyronon.gitee.io/douyin/](https://zyronon.gitee.io/douyin/) (中国地区推荐访问这个地址)  "
+
+[//]: # "Github pages: [https://zyronon.github.io/douyin/](https://zyronon.github.io/douyin/)  "
 
 [//]: # "Vercel和Netlify分别送的100G免费流量已经用完了...🤣"
 
@@ -77,7 +79,7 @@ Abra su navegador y visite:<http://127.0.0.1:3000>
 El video proviene de las siguientes celebridades de Douyin.
 
 -   `我是香秀 🐂🍺`:<https://v.douyin.com/iYRAPA2L/>
--   `杨老虎 🐯（磕穿下巴掉牙版）`: <https://v.douyin.com/iYRA56de/>
+-   `杨老虎 🐯（磕穿下巴掉牙版）`:<https://v.douyin.com/iYRA56de/>
 -   `条子`:<https://v.douyin.com/iYRAaqjr/>
 -   `达莎 Digi`：<https://v.douyin.com/iYRA6rwT/>
 -   `小橙子`:<https://v.douyin.com/iYRAnudw/>
@@ -86,7 +88,7 @@ El video proviene de las siguientes celebridades de Douyin.
 -   `奶茶妹 ◕🌱`:<https://v.douyin.com/iYRACKhP/>
 -   `我才是岚岚`:<https://v.douyin.com/iYRAQM1C/>
 -   `周憬艺 ziran`:<https://v.douyin.com/iYRAQs4h/>
--   `刘思瑶 nice`: <https://v.douyin.com/iYRAaERn/>
+-   `刘思瑶 nice`:<https://v.douyin.com/iYRAaERn/>
 -   `彭十六 elf`:<https://v.douyin.com/iYRAHrVG/>
 -   `李子柒`:<https://v.douyin.com/iYRA5B88/>
 
@@ -97,7 +99,7 @@ El contenido anterior es toda información pública en Internet.
 ## Funciones y sugerencias
 
 El proyecto se encuentra actualmente en las primeras etapas de desarrollo y continuamente se agregan nuevas funciones. Si tiene alguna característica o sugerencia para el software, no dude en contactarnos.`Issues`criado en
-Si también le gustan las ideas de diseño de este software, envíelas.`PR`, ¡Muchas gracias por tu apoyo!
+Si también le gustan las ideas de diseño de este software, envíelas.`PR`，非常感谢你对我们的支持！
 
 ## contáctame
 

@@ -10,7 +10,7 @@ import BaseButton from '../components/BaseButton.vue'
 import CONST_VAR from './const_var'
 import Dom from './dom'
 import bus, { EVENT_KEY } from './bus'
-import { _stopPropagation, random } from '@/utils'
+import { random } from '@/utils'
 import { Icon } from '@iconify/vue'
 import SlideHorizontal from '@/components/slide/SlideHorizontal.vue'
 
@@ -152,7 +152,7 @@ export default {
 
         const up = (e) => {
           if (!isDown) return
-          if (!isMove) check(e)
+          if (!isMove && !window.isMoved) check(e)
           isMove = isDown = false
         }
 

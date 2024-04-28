@@ -13,6 +13,7 @@ const BASE_URL_MAP = {
 }
 
 export const IS_SUB_DOMAIN = ['GITEE_PAGES', 'GP_PAGES'].includes(import.meta.env.VITE_ENV)
+export const IS_GITEE_PAGES = ['GITEE_PAGES'].includes(import.meta.env.VITE_ENV)
 export const BASE_URL = BASE_URL_MAP[import.meta.env.VITE_ENV]
 export const IMG_URL = BASE_URL + '/images/'
 export const FILE_URL = BASE_URL + '/data/'

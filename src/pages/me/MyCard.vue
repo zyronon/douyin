@@ -19,7 +19,7 @@
       <span class="notice">抖音扫一扫，立即关注我</span>
     </div>
     <div class="footer">
-      <!--      <div class="btn" @click="$nav('/scan')">-->
+      <!--      <div class="btn" @click="$router.push('/scan')">-->
       <div class="btn" @click="_no">
         <div class="wrapper">
           <img src="../../assets/img/icon/scan.png" alt="" />

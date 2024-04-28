@@ -1,11 +1,11 @@
 <template>
   <div
     class="call-float"
-    v-if="isSmall"
+    v-if="state.isSmall"
     :style="callFloatStyle"
     @touchmove="touchmove"
     @touchend="touchend"
-    @click="isSmall = false"
+    @click="state.isSmall = false"
   >
     <img src="@/assets/img/icon/message/chat/call-float.png" alt="" />
     <span>呼叫中</span>
@@ -14,134 +14,145 @@
   <transition name="scale">
     <div
       class="audio-call"
-      :style="isSmall ? callFloatStyle : { zIndex: 10 }"
-      :class="isSmall ? 'small' : ''"
-      v-if="isShowAudioCall"
+      :style="state.isSmall ? callFloatStyle : { zIndex: 10 }"
+      :class="state.isSmall ? 'small' : ''"
+      v-if="state.isShowAudioCall"
     >
       <div class="float">
         <div class="header">
           <div class="left">
-            <img @click="isSmall = true" src="@/assets/img/icon/message/chat/narrow.png" alt="" />
+            <img
+              @click="state.isSmall = true"
+              src="@/assets/img/icon/message/chat/narrow.png"
+              alt=""
+            />
           </div>
           <span class="center">等待对方接听...</span>
           <div class="right">
             <div class="option">
               <img
-                v-show="!isOpenCamera"
-                @click="isOpenCamera = !isOpenCamera"
+                v-show="!state.isOpenCamera"
+                @click="state.isOpenCamera = !state.isOpenCamera"
                 src="@/assets/img/icon/message/chat/disabled-camera.png"
                 alt=""
               />
               <img
-                v-show="isOpenCamera"
-                @click="isOpenCamera = !isOpenCamera"
+                v-show="state.isOpenCamera"
+                @click="state.isOpenCamera = !state.isOpenCamera"
                 src="@/assets/img/icon/message/chat/able-camera.png"
                 alt=""
               />
               <span>摄像头</span>
             </div>
-            <div class="option" v-if="isExpand">
+            <div class="option" v-if="state.isExpand">
               <img
-                v-show="!isOpenAudio"
-                @click="isOpenAudio = !isOpenAudio"
+                v-show="!state.isOpenAudio"
+                @click="state.isOpenAudio = !state.isOpenAudio"
                 src="@/assets/img/icon/message/chat/disabled-volume.png"
                 alt=""
               />
               <img
-                v-show="isOpenAudio"
-                @click="isOpenAudio = !isOpenAudio"
+                v-show="state.isOpenAudio"
+                @click="state.isOpenAudio = !state.isOpenAudio"
                 src="@/assets/img/icon/message/chat/able-volume.png"
                 alt=""
               />
               <span>免提</span>
             </div>
             <div class="option">
-              <dy-back mode="light" @click="isExpand = !isExpand" img="back" class="shrink" />
+              <dy-back
+                mode="light"
+                @click="state.isExpand = !state.isExpand"
+                img="back"
+                class="shrink"
+              />
               <!--              <img src="@/assets/img/icon/message/chat/narrow.png" alt="">-->
             </div>
           </div>
         </div>
         <img src="@/assets/img/icon/avatar/2.png" alt="" class="big-avatar" />
         <div class="footer">
-          <img @click="isShowAudioCall = false" src="@/assets/img/icon/message/chat/call-end.png" />
+          <img
+            @click="state.isShowAudioCall = false"
+            src="@/assets/img/icon/message/chat/call-end.png"
+          />
           <span>挂断</span>
         </div>
       </div>
     </div>
   </transition>
 </template>
-<script>
-import { inject } from 'vue'
+<script setup lang="ts">
+import { onMounted, reactive, watch } from 'vue'
+import bus, { EVENT_KEY } from '@/utils/bus'
 
-export default {
-  name: 'Call',
-  components: {},
-  props: {
-    modelValue: {
-      type: Boolean,
-      default() {
-        return false
-      }
+defineOptions({
+  name: 'Call'
+})
+defineProps({
+  modelValue: {
+    type: Boolean,
+    default() {
+      return false
     }
-  },
-  data() {
-    return {
-      mitt: inject('mitt'),
-      callFloatTransitionTime: 300,
-      callFloatLeft: 15,
-      callFloatTop: 100,
-      isOpenCamera: false,
-      isOpenAudio: true,
-      isExpand: true,
-      isSmall: false,
-      isShowAudioCall: false,
-      height: 0,
-      width: 0
+  }
+})
+
+const state = reactive({
+  callFloatTransitionTime: 300,
+  callFloatLeft: 15,
+  callFloatTop: 100,
+  isOpenCamera: false,
+  isOpenAudio: true,
+  isExpand: true,
+  isSmall: false,
+  isShowAudioCall: false,
+  height: 0,
+  width: 0
+})
+
+const callFloatStyle = $computed(() => {
+  return {
+    'transition-duration': state.callFloatTransitionTime + 'ms',
+    left: state.callFloatLeft + 'px',
+    top: state.callFloatTop + 'px'
+  }
+})
+
+watch(
+  () => state.isShowAudioCall,
+  (newVal) => {
+    if (!newVal) {
+      state.isOpenCamera = false
+      state.isOpenAudio = true
     }
-  },
-  computed: {
-    callFloatStyle() {
-      return {
-        'transition-duration': this.callFloatTransitionTime + 'ms',
-        left: this.callFloatLeft + 'px',
-        top: this.callFloatTop + 'px'
-      }
+  }
+)
+
+onMounted(() => {
+  bus.on(EVENT_KEY.SHOW_AUDIO_CALL, () => {
+    if (state.isShowAudioCall) {
+      state.isSmall = false
+    } else {
+      state.isShowAudioCall = true
     }
-  },
-  watch: {
-    isShowAudioCall(newVal) {
-      if (!newVal) {
-        this.isOpenCamera = false
-        this.isOpenAudio = true
-      }
-    }
-  },
-  created() {},
-  methods: {
-    touchmove(e) {
-      this.callFloatTransitionTime = 0
-      this.callFloatLeft = e.touches[0].pageX - 35
-      this.callFloatTop = e.touches[0].pageY - 40
-    },
-    touchend() {
-      this.callFloatTransitionTime = 300
-      if (this.callFloatLeft < this.width / 2) {
-        this.callFloatLeft = 15
-      } else {
-        this.callFloatLeft = this.width - 15 - 70
-      }
-    }
-  },
-  mounted() {
-    this.mitt.on('showAudioCall', () => {
-      if (this.isShowAudioCall) {
-        this.isSmall = false
-      } else {
-        this.isShowAudioCall = true
-      }
-    })
-    this.height = document.body.clientHeight
-    this.width = document.body.clientWidth
+  })
+  state.height = document.body.clientHeight
+  state.width = document.body.clientWidth
+})
+
+function touchmove(e) {
+  state.callFloatTransitionTime = 0
+  state.callFloatLeft = e.touches[0].pageX - 35
+  state.callFloatTop = e.touches[0].pageY - 40
+}
+
+function touchend() {
+  state.callFloatTransitionTime = 300
+  if (state.callFloatLeft < state.width / 2) {
+    state.callFloatLeft = 15
+  } else {
+    state.callFloatLeft = state.width - 15 - 70
   }
 }
 </script>

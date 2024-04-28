@@ -109,7 +109,7 @@
             <div class="share-btn shared" v-else>已私信</div>
           </div>
         </div>
-        <div class="more" @click="cancel($nav('/message/share-to-friend'))">
+        <div class="more" @click="cancel($router.push('/message/share-to-friend'))">
           <img src="../../../assets/img/icon/components/video/more-dark.png" />
           <div class="right">
             <span>更多好友</span>

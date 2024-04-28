@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import mitt from 'mitt'
 import './assets/less/index.less'
 import { startMock } from '@/mock'
 import router from './router'
@@ -8,8 +7,11 @@ import mixin from './utils/mixin'
 import VueLazyload from '@jambonn/vue-lazyload'
 import { createPinia } from 'pinia'
 import { useClick } from '@/utils/hooks/useClick'
+import bus, { EVENT_KEY } from '@/utils/bus'
 
 window.isMoved = false
+window.isMuted = true
+window.showMutedNotice = true
 HTMLElement.prototype.addEventListener = new Proxy(HTMLElement.prototype.addEventListener, {
   apply(target, ctx, args) {
     const eventName = args[0]
@@ -34,10 +36,7 @@ HTMLElement.prototype.addEventListener = new Proxy(HTMLElement.prototype.addEven
 
 const vClick = useClick()
 const pinia = createPinia()
-const emitter = mitt()
 const app = createApp(App)
-app.config.globalProperties.emitter = emitter
-app.provide('mitt', emitter)
 app.mixin(mixin)
 const loadImage = new URL('./assets/img/icon/img-loading.png', import.meta.url).href
 app.use(VueLazyload, {
@@ -52,3 +51,10 @@ app.directive('click', vClick)
 
 //放到最后才可以使用pinia
 startMock()
+setTimeout(() => {
+  bus.emit(EVENT_KEY.HIDE_MUTED_NOTICE)
+  window.showMutedNotice = false
+}, 2000)
+bus.on(EVENT_KEY.REMOVE_MUTED, () => {
+  window.isMuted = false
+})

@@ -32,11 +32,13 @@
         </div>
         <div class="right">
           已阅读并同意
-          <span class="link" @click="$nav('/service-protocol', { type: '“抖音”用户服务协议' })"
+          <span
+            class="link"
+            @click="$router.push('/service-protocol', { type: '“抖音”用户服务协议' })"
             >用户协议</span
           >
           和
-          <span class="link" @click="$nav('/service-protocol', { type: '“抖音”隐私政策' })"
+          <span class="link" @click="$router.push('/service-protocol', { type: '“抖音”隐私政策' })"
             >隐私政策</span
           >
           ，同时登录并使用抖音火山版（原“火山小视频”）和抖音
