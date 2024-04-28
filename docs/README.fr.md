@@ -16,16 +16,16 @@
 `douyin-vue`est une parodie`抖音|TikTok`projet de courte vidéo mobile.`Vue`Des « bonnes pratiques » côté mobile, comparables au natif`App`Expérience soyeuse et douce. Utilisé le dernier`Vue`pile technologique, basée sur[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)accomplir. Les données sont enregistrées localement dans le projet via[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La bibliothèque intercepte l'API et renvoie des données json locales pour simuler de véritables requêtes backend.
 
 <div>
-<img width="150px" src='docs/imgs/1.gif' />
-<img width="150px" src='docs/imgs/2.gif' />
-<img width="150px" src='docs/imgs/3.gif' />
-<img width="150px" src='docs/imgs/4.gif' />
-<img width="150px" src='docs/imgs/5.gif' />
-<img width="150px" src='docs/imgs/img-1.jpg' />
-<img width="150px" src='docs/imgs/img-2.jpg' />
-<img width="150px" src='docs/imgs/img-3.jpg' />
-<img width="150px" src='docs/imgs/img-4.jpg' />
-<img width="150px" src='docs/imgs/img-5.jpg' />
+<img width="150px" src='imgs/1.gif' />
+<img width="150px" src='imgs/2.gif' />
+<img width="150px" src='imgs/3.gif' />
+<img width="150px" src='imgs/4.gif' />
+<img width="150px" src='imgs/5.gif' />
+<img width="150px" src='imgs/img-1.jpg' />
+<img width="150px" src='imgs/img-2.jpg' />
+<img width="150px" src='imgs/img-3.jpg' />
+<img width="150px" src='imgs/img-4.jpg' />
+<img width="150px" src='imgs/img-5.jpg' />
 </div>
 
 ## Accès en ligne

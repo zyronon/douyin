@@ -99,7 +99,7 @@ El contenido anterior es toda información pública en Internet.
 ## Funciones y sugerencias
 
 El proyecto se encuentra actualmente en las primeras etapas de desarrollo y continuamente se agregan nuevas funciones. Si tiene alguna característica o sugerencia para el software, no dude en contactarnos.`Issues`criado en
-Si también le gustan las ideas de diseño de este software, envíelas.`PR`，非常感谢你对我们的支持！
+Si también le gustan las ideas de diseño de este software, envíelas.`PR`，¡Muchas gracias por su apoyo!
 
 ## contáctame
 
