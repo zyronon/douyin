@@ -23,11 +23,6 @@
 <img width="150px" src='docs/imgs/3.gif' />
 <img width="150px" src='docs/imgs/4.gif' />
 <img width="150px" src='docs/imgs/5.gif' />
-<img width="150px" src='docs/imgs/img-1.jpg' />
-<img width="150px" src='docs/imgs/img-2.jpg' />
-<img width="150px" src='docs/imgs/img-3.jpg' />
-<img width="150px" src='docs/imgs/img-4.jpg' />
-<img width="150px" src='docs/imgs/img-5.jpg' />
 </div>
 
 ## 在线访问
