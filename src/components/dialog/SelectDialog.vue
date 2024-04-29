@@ -1,30 +1,39 @@
 <template>
-  <div class="SelectDialog" @click="$emit('cancel')">
+  <div class="SelectDialog" @click="onCancel">
     <div class="content">
-      <div class="item" :key="i" v-for="(item, i) in list" @click.stop="$emit('ok', item)">
+      <div class="item" :key="i" v-for="(item, i) in list" @click.stop="onOk(item)">
         {{ item.name }}
       </div>
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'SelectDialog',
-  props: {
-    visible: {
-      type: Boolean,
-      default: false
-    },
-    list: {
-      type: Array,
-      default() {
-        return []
-      }
-    }
-  },
-  data() {
-    return {}
-  }
+
+<script setup lang="ts" generic="T">
+defineOptions({ name: 'SelectDialog' })
+
+type Item = { name: string } & T
+
+interface Props {
+  visible?: boolean
+  list?: Item[]
+}
+
+withDefaults(defineProps<Props>(), {
+  visible: false,
+  list: () => []
+})
+
+const emit = defineEmits<{
+  (ev: 'ok', item: Item): void
+  (ev: 'cancel'): void
+}>()
+
+const onOk = (item: Item) => {
+  emit('ok', item)
+}
+
+const onCancel = () => {
+  emit('cancel')
 }
 </script>
 
