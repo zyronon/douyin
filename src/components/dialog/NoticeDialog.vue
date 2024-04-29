@@ -1,57 +1,51 @@
 <template>
-  <div class="NoticeDialog" @click="$emit('dismiss')">
-    <div class="content" @click.stop="stop">
+  <div class="NoticeDialog" @click="onDismiss">
+    <div class="content">
       <div class="body">
         <div class="title">{{ title }}</div>
-        <div class="subtitle" :class="subtitleColor" v-if="subtitle">
+        <div :class="['subtitle', subtitleColor]" v-if="subtitle">
           {{ subtitle }}
         </div>
       </div>
       <div class="footer">
-        <div class="cancel" @click.stop="$emit('cancel')">{{ cancelText }}</div>
+        <div class="cancel" @click.stop="onCancel">{{ cancelText }}</div>
       </div>
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'NoticeDialog',
-  props: {
-    visible: {
-      type: Boolean,
-      default: false
-    },
-    title: {
-      type: String,
-      default() {
-        return ''
-      }
-    },
-    subtitle: {
-      type: String,
-      default() {
-        return ''
-      }
-    },
-    subtitleColor: {
-      type: String,
-      default() {
-        return 'gray'
-      }
-    },
-    cancelText: {
-      type: String,
-      default() {
-        return '取消'
-      }
-    }
-  },
-  data() {
-    return {}
-  },
-  methods: {
-    stop() {}
-  }
+
+<script setup lang="ts">
+defineOptions({ name: 'NoticeDialog' })
+
+interface Props {
+  title?: string
+  subtitle?: string
+  subtitleColor?: string
+  cancelText?: string
+}
+
+withDefaults(defineProps<Props>(), {
+  title: '',
+  subtitle: '',
+  subtitleColor: 'gray',
+  cancelText: '取消'
+})
+
+const emit = defineEmits<{
+  (ev: 'ok'): void
+  (ev: 'cancel'): void
+  (ev: 'dismiss'): void
+}>()
+
+const visible = defineModel<boolean>('visible', { type: Boolean, default: true })
+
+const onCancel = () => {
+  visible.value = false
+  emit('cancel')
+}
+
+const onDismiss = () => {
+  emit('dismiss')
 }
 </script>
 

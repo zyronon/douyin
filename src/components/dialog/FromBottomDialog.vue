@@ -1,17 +1,15 @@
 <template>
-  <!--  <transition> -->
   <Transition name="test">
     <div
       ref="dialog"
-      class="FromBottomDialog"
       v-if="modelValue"
-      :class="[mode, showHengGang ? '' : 'no-heng-gang']"
-      @touchstart="start"
-      @touchmove="move"
-      @touchend="end"
+      :class="['FromBottomDialog', mode, showHengGang ? '' : 'no-heng-gang']"
+      @touchstart="onStart"
+      @touchmove="onMove"
+      @touchend="onEnd"
     >
       <slot name="header"></slot>
-      <div class="heng-gang" :class="mode" v-if="showHengGang">
+      <div :class="['heng-gang', mode]" v-if="showHengGang">
         <div class="content"></div>
       </div>
       <div class="wrapper" ref="wrapper">
@@ -20,130 +18,128 @@
     </div>
   </Transition>
 </template>
-<script>
+
+<script setup lang="ts">
+import { ref, watch } from 'vue'
 import Dom, { _css } from '../../utils/dom'
 import bus, { EVENT_KEY } from '@/utils/bus'
 import { _stopPropagation } from '@/utils'
 
-export default {
-  name: 'FromBottomDialog',
-  props: {
-    modelValue: {
-      type: Boolean,
-      default: false
-    },
-    mode: {
-      type: String,
-      default: 'dark'
-      // default: 'light'
-      // default: 'white'
-    },
-    maskMode: {
-      type: String,
-      default: 'dark'
-    },
-    height: {
-      type: String,
-      default: 'calc(var(--vh, 1vh) * 70)'
-    },
-    showHengGang: {
-      type: Boolean,
-      default: true
-    },
-    pageId: {
-      type: String,
-      default: null,
-      required: true
-    },
-    borderRadius: {
-      type: String,
-      default: '15rem 15rem 0 0'
-    },
-    tag: {
-      type: String,
-      default: ''
-    }
-  },
-  watch: {
-    modelValue(newVal) {
-      let page = document.getElementById(this.pageId)
-      if (!page) return
-      if (newVal) {
-        this.pagePosition = _css(page, 'position')
-        page.style.position = 'absolute'
-        this.scroll = document.documentElement.scrollTop
-        document.body.style.position = 'fixed'
-        document.body.style.top = -this.scroll + 'px'
+defineOptions({ name: 'FromBottomDialog' })
 
-        let maskTemplate = `<div class="Mask fade-in ${this.maskMode}"></div>`
-        let mask = new Dom().create(maskTemplate)
-        setTimeout(() => {
-          mask.on('click', (e) => {
-            _stopPropagation(e)
-            this.hide(false)
-          })
-        }, 200)
-        page.appendChild(mask.els[0])
-      } else {
-        page.style.position = this.pagePosition || 'fixed'
-        document.body.style.position = 'static'
-        document.documentElement.scrollTop = this.scroll
+interface Props {
+  mode?: 'dark' | 'light' | 'white'
+  maskMode?: 'dark' | 'light' | 'white'
+  height?: string
+  showHengGang?: boolean
+  pageId: string | null
+  borderRadius?: string
+  tag?: string
+}
 
-        let mask = new Dom('.Mask').replaceClass('fade-in', 'fade-out')
-        setTimeout(() => {
-          mask.remove()
-        }, 250)
-      }
-    }
-  },
-  data() {
-    return {
-      scroll: 0,
-      startY: 0,
-      moveY: 0,
-      startTime: 0,
-      pagePosition: null
-    }
-  },
-  computed: {},
-  created() {},
-  methods: {
-    hide(val = false) {
-      this.$emit('update:modelValue', val)
-      this.$emit('cancel')
-    },
-    start(e) {
-      if (this.$refs.wrapper.scrollTop !== 0) return
-      this.startY = e.touches[0].pageY
-      this.startTime = Date.now()
-      _css(this.$refs.dialog, 'transition-duration', `0ms`)
-    },
-    move(e) {
-      if (this.$refs.wrapper.scrollTop !== 0) return
-      this.moveY = e.touches[0].pageY - this.startY
-      if (this.moveY > 0) {
-        bus.emit(EVENT_KEY.DIALOG_MOVE, {
-          tag: this.tag,
-          e: this.moveY
+interface Emits {
+  (ev: 'cancel'): void
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  mode: 'dark',
+  maskMode: 'dark',
+  height: 'calc(var(--vh, 1vh) * 70)',
+  showHengGang: true,
+  pageId: null,
+  borderRadius: '15rem 15rem 0 0',
+  tag: ''
+})
+
+const emit = defineEmits<Emits>()
+
+const modelValue = defineModel<boolean>('value', { type: Boolean, default: false })
+
+const dialog = ref<HTMLElement | null>(null)
+
+const wrapper = ref<HTMLElement | null>(null)
+
+const scroll = ref(0)
+
+const startY = ref(0)
+
+const moveY = ref(0)
+
+const startTime = ref(0)
+
+const pagePosition = ref(null)
+
+watch(
+  () => modelValue.value,
+  (newVal: boolean) => {
+    let page = document.getElementById(props.pageId)
+    if (!page) return
+    if (newVal) {
+      pagePosition.value = _css(page, 'position')
+      page.style.position = 'absolute'
+      scroll.value = document.documentElement.scrollTop
+      document.body.style.position = 'fixed'
+      document.body.style.top = -scroll.value + 'px'
+
+      let maskTemplate = `<div class="Mask fade-in ${props.maskMode}"></div>`
+      let mask = new Dom().create(maskTemplate)
+      setTimeout(() => {
+        mask.on('click', (e: Event) => {
+          _stopPropagation(e)
+          onHide()
         })
-        _css(this.$refs.dialog, 'transform', `translate3d(0,${this.moveY}px,0)`)
-      }
-    },
-    end() {
-      //如果是外部改变modelValue值的话，这里会没有ref
-      if (!this.$refs.dialog) return
-      if (Date.now() - this.startTime < 150 && Math.abs(this.moveY) < 30) return
-      let clientHeight = this.$refs.dialog.clientHeight
-      _css(this.$refs.dialog, 'transition-duration', `250ms`)
-      if (Math.abs(this.moveY) > clientHeight / 2) {
-        _css(this.$refs.dialog, 'transform', `translate3d(0,100%,0)`)
-        bus.emit(EVENT_KEY.DIALOG_END, { tag: this.tag, isClose: true })
-        setTimeout(this.hide, 250)
-      } else {
-        _css(this.$refs.dialog, 'transform', `translate3d(0,0,0)`)
-        bus.emit(EVENT_KEY.DIALOG_END, { tag: this.tag, isClose: false })
-      }
+      }, 200)
+      page.appendChild(mask.els[0])
+    } else {
+      page.style.position = pagePosition.value || 'fixed'
+      document.body.style.position = 'static'
+      document.documentElement.scrollTop = scroll.value
+
+      let mask = new Dom('.Mask').replaceClass('fade-in', 'fade-out')
+      setTimeout(() => {
+        mask.remove()
+      }, 250)
     }
+  }
+)
+
+const onHide = () => {
+  modelValue.value = false
+  emit('cancel')
+}
+
+const onStart = (e: TouchEvent) => {
+  if (wrapper.value?.scrollTop !== 0) return
+  startY.value = e.touches[0].clientY
+  startTime.value = Date.now()
+  _css(dialog.value, 'transition-duration', '0ms')
+}
+
+const onMove = (e: TouchEvent) => {
+  if (wrapper.value?.scrollTop !== 0) return
+  moveY.value = e.touches[0].pageY - startY.value
+  if (moveY.value < 0) {
+    bus.emit(EVENT_KEY.DIALOG_MOVE, {
+      tag: props.tag,
+      e: moveY.value
+    })
+    _css(dialog.value, 'transform', `translate3d(0, ${moveY.value}px, 0)`)
+  }
+}
+
+const onEnd = () => {
+  // 如果是外部改变 modelValue 值的话，这里会没有 ref
+  if (!dialog.value) return
+  if (Date.now() - startTime.value < 150 && Math.abs(moveY.value) < 30) return
+  let clientHeight = dialog.value?.clientHeight
+  _css(dialog.value, 'transition-duration', `250ms`)
+  if (Math.abs(moveY.value) > clientHeight / 2) {
+    _css(dialog.value, 'transform', `translate3d(0,100%,0)`)
+    bus.emit(EVENT_KEY.DIALOG_END, { tag: props.tag, isClose: true })
+    setTimeout(onHide, 250)
+  } else {
+    _css(dialog.value, 'transform', `translate3d(0,0,0)`)
+    bus.emit(EVENT_KEY.DIALOG_END, { tag: props.tag, isClose: false })
   }
 }
 </script>

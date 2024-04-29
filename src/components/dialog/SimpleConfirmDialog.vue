@@ -1,47 +1,50 @@
 <template>
-  <div class="SimpleConfirmDialog" @click="$emit('dismiss')">
-    <div class="content" @click.stop="stop">
+  <div class="SimpleConfirmDialog" @click="onDismiss">
+    <div class="content">
       <div class="item">{{ title }}</div>
       <div class="footer">
-        <div class="cancel" @click.stop="$emit('cancel')">{{ cancelText }}</div>
-        <div class="ok" @click.stop="$emit('ok')">{{ okText }}</div>
+        <div class="cancel" @click.stop="onCancel">{{ cancelText }}</div>
+        <div class="ok" @click.stop="onOk">{{ okText }}</div>
       </div>
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'SimpleConfirmDialog',
-  props: {
-    visible: {
-      type: Boolean,
-      default: false
-    },
-    title: {
-      type: String,
-      default() {
-        return ''
-      }
-    },
-    okText: {
-      type: String,
-      default() {
-        return '保存'
-      }
-    },
-    cancelText: {
-      type: String,
-      default() {
-        return '放弃'
-      }
-    }
-  },
-  data() {
-    return {}
-  },
-  methods: {
-    stop() {}
-  }
+
+<script setup lang="ts">
+defineOptions({ name: 'SimpleConfirmDialog' })
+
+interface Props {
+  title?: string
+  okText?: string
+  cancelText?: string
+}
+
+withDefaults(defineProps<Props>(), {
+  title: '',
+  okText: '确定',
+  cancelText: '取消'
+})
+
+const emit = defineEmits<{
+  (ev: 'ok'): void
+  (ev: 'cancel'): void
+  (ev: 'dismiss'): void
+}>()
+
+const visible = defineModel<boolean>('visible', { type: Boolean, default: true })
+
+const onOk = () => {
+  visible.value = false
+  emit('ok')
+}
+
+const onCancel = () => {
+  visible.value = false
+  emit('cancel')
+}
+
+const onDismiss = () => {
+  emit('dismiss')
 }
 </script>
 
