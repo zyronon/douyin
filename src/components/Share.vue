@@ -15,223 +15,229 @@
         <span>分享给朋友</span>
         <dy-back mode="light" img="close" direction="right" @click.stop="closeShare"></dy-back>
       </div>
-      <div class="friends list">
-        <div
-          class="option"
-          :key="i"
-          v-for="(item, i) in friends.all"
-          @click.stop="toggleCall(item)"
-        >
-          <img
-            :style="item.select ? 'opacity: .5;' : ''"
-            class="avatar"
-            :src="_checkImgUrl(item.avatar)"
-            alt=""
-          />
-          <span>{{ item.name }}</span>
-          <img
-            v-if="item.select"
-            class="checked"
-            src="../assets/img/icon/components/check/check-red-share.png"
-          />
+      <div class="content">
+        <div class="friends list">
+          <div
+            class="option"
+            :key="i"
+            v-for="(item, i) in store.friends.all"
+            @click.stop="toggleCall(item)"
+          >
+            <img
+              :style="item.select ? 'opacity: .5;' : ''"
+              class="avatar"
+              :src="_checkImgUrl(item.avatar)"
+              alt=""
+            />
+            <span>{{ item.name }}</span>
+            <img
+              v-if="item.select"
+              class="checked"
+              src="../assets/img/icon/components/check/check-red-share.png"
+            />
+          </div>
+          <div class="option" @click.stop="closeShare($router.push('/message/share-to-friend'))">
+            <dy-back class="more" mode="light" direction="right"></dy-back>
+            <span>更多朋友</span>
+          </div>
         </div>
-        <div class="option" @click.stop="closeShare($router.push('/message/share-to-friend'))">
-          <dy-back class="more" mode="light" direction="right"></dy-back>
-          <span>更多朋友</span>
-        </div>
-      </div>
-      <div class="shares list">
-        <template v-if="mode === 'video'">
-          <div class="option" @click.stop="closeShare($emit('ShareToFriend'))">
-            <img class="avatar" src="../assets/img/icon/components/video/torichang.png" alt="" />
-            <span>转发</span>
+        <div class="bottom">
+          <div class="share2friend" v-if="store.selectFriends.length">
+            <div class="line"></div>
+            <div class="comment">
+              <textarea placeholder="有什么想和好友说的..."></textarea>
+              <img class="poster" src="../assets/img/poster/1.jpg" alt="" />
+            </div>
+            <div class="btns">
+              <dy-button type="dark2" radius="7" v-if="store.selectFriends.length > 1" @click="_no"
+                >建群并发送
+              </dy-button>
+              <dy-button type="primary" radius="7" @click="_no"
+                >{{ store.selectFriends.length > 1 ? '分别发送' : '发送' }}
+              </dy-button>
+            </div>
           </div>
-          <div class="option" @click.stop="closeShare($emit('ShareToFriend'))">
-            <Icon icon="icon-park-solid:good-two" />
-            <span>推荐给朋友</span>
-          </div>
-          <div class="option" @click.stop="copyLink">
-            <Icon icon="humbleicons:link" />
-            <span>复制链接</span>
-          </div>
-          <div class="option" @click.stop="_no">
-            <img class="small" src="../assets/img/icon/components/video/comeonplay.png" alt="" />
-            <span>合拍</span>
-          </div>
-          <div class="option" @click.stop="_no">
-            <img class="small" src="../assets/img/icon/components/video/dou.webp" alt="" />
-            <span>帮上热门</span>
-          </div>
-          <div class="option" @click.stop="$router.push('/home/report', { mode: this.mode })">
-            <img class="small" src="../assets/img/icon/components/video/warring.png" alt="" />
-            <span>举报</span>
-          </div>
-          <div class="option" @click.stop="closeShare($emit('ShareToFriend'))">
-            <Icon icon="ion:paper-plane" />
-            <span>私信朋友</span>
-          </div>
-          <div class="option" v-if="canDownload" @click.stop="closeShare($emit('download'))">
-            <Icon icon="mingcute:download-fill" />
-            <span>保存本地</span>
-          </div>
-          <div class="option" @click.stop="_no">
-            <!--TODO icon不对            -->
-            <img class="small" src="../assets/img/icon/components/video/feedback.webp" alt="" />
-            <span>建群分享</span>
-          </div>
-          <div class="option" @click.stop="_no">
-            <img class="small" src="../assets/img/icon/components/video/comeonlook.webp" alt="" />
-            <span>一起看视频</span>
-          </div>
-          <div class="option" @click.stop="closeShare($emit('dislike'))">
-            <img class="small" src="../assets/img/icon/components/video/dislike.png" alt="" />
-            <span>不感兴趣</span>
-          </div>
-          <div class="option" @click.stop="closeShare($emit('showDouyinCode'))">
-            <Icon icon="tabler:photo" />
-            <span>生成图片</span>
-          </div>
-          <div class="option" @click.stop="_no">
-            <img class="small" src="../assets/img/icon/components/video/bizhi.webp" alt="" />
-            <span>动态壁纸</span>
-          </div>
-          <div class="option" @click.stop="closeShare($emit('play-feedback'))">
-            <img class="small" src="../assets/img/icon/components/video/feedback.webp" alt="" />
-            <span>播放反馈</span>
-          </div>
-        </template>
-        <template v-if="mode === 'music'">
-          <div class="option" @click.stop="closeShare($emit('ShareToFriend'))">
-            <img class="small" src="../assets/img/icon/components/video/tofriend.webp" alt="" />
-            <span>私信朋友</span>
-          </div>
-          <div class="option" @click.stop="$router.push('/home/report', { mode: this.mode })">
-            <img class="small" src="../assets/img/icon/components/video/warring.png" alt="" />
-            <span>举报音乐</span>
-          </div>
-        </template>
-        <template v-if="mode === 'my-music'">
-          <div class="option" @click.stop="_no">
-            <img class="small" src="../assets/img/icon/components/video/torichang.png" alt="" />
-            <span>转发到日常</span>
-          </div>
-          <div class="option" @click.stop="closeShare($emit('ShareToFriend'))">
-            <img class="small" src="../assets/img/icon/components/video/tofriend.webp" alt="" />
-            <span>私信朋友</span>
-          </div>
-        </template>
-      </div>
 
-      <div class="share2friend" v-if="selectFriends.length">
-        <div class="comment">
-          <textarea placeholder="有什么想和好友说的..."></textarea>
-          <img class="poster" src="../assets/img/poster/1.jpg" alt="" />
-        </div>
-        <div class="btns">
-          <dy-button type="dark2" radius="7" v-if="selectFriends.length > 1" @click.stop="_no"
-            >建群并发送
-          </dy-button>
-          <dy-button type="primary" radius="7" @click.stop="_no"
-            >{{ selectFriends.length > 1 ? '分别发送' : '发送' }}
-          </dy-button>
+          <div class="shares list" v-else>
+            <template v-if="mode === 'video'">
+              <div class="option" @click.stop="closeShare($emit('ShareToFriend'))">
+                <img
+                  class="avatar"
+                  src="../assets/img/icon/components/video/torichang.png"
+                  alt=""
+                />
+                <span>转发</span>
+              </div>
+              <div class="option" @click.stop="closeShare($emit('ShareToFriend'))">
+                <Icon icon="icon-park-solid:good-two" />
+                <span>推荐给朋友</span>
+              </div>
+              <div class="option" @click.stop="copyLink">
+                <Icon icon="humbleicons:link" />
+                <span>复制链接</span>
+              </div>
+              <div class="option" @click.stop="_no">
+                <img
+                  class="small"
+                  src="../assets/img/icon/components/video/comeonplay.png"
+                  alt=""
+                />
+                <span>合拍</span>
+              </div>
+              <div class="option" @click.stop="_no">
+                <img class="small" src="../assets/img/icon/components/video/dou.webp" alt="" />
+                <span>帮上热门</span>
+              </div>
+              <div class="option" @click.stop="$router.push('/home/report', { mode: this.mode })">
+                <img class="small" src="../assets/img/icon/components/video/warring.png" alt="" />
+                <span>举报</span>
+              </div>
+              <div class="option" @click.stop="closeShare($emit('ShareToFriend'))">
+                <Icon icon="ion:paper-plane" />
+                <span>私信朋友</span>
+              </div>
+              <div class="option" v-if="canDownload" @click.stop="closeShare($emit('download'))">
+                <Icon icon="mingcute:download-fill" />
+                <span>保存本地</span>
+              </div>
+              <div class="option" @click.stop="_no">
+                <!--TODO icon不对            -->
+                <img class="small" src="../assets/img/icon/components/video/feedback.webp" alt="" />
+                <span>建群分享</span>
+              </div>
+              <div class="option" @click.stop="_no">
+                <img
+                  class="small"
+                  src="../assets/img/icon/components/video/comeonlook.webp"
+                  alt=""
+                />
+                <span>一起看视频</span>
+              </div>
+              <div class="option" @click.stop="closeShare($emit('dislike'))">
+                <img class="small" src="../assets/img/icon/components/video/dislike.png" alt="" />
+                <span>不感兴趣</span>
+              </div>
+              <div class="option" @click.stop="closeShare($emit('showDouyinCode'))">
+                <Icon icon="tabler:photo" />
+                <span>生成图片</span>
+              </div>
+              <div class="option" @click.stop="_no">
+                <img class="small" src="../assets/img/icon/components/video/bizhi.webp" alt="" />
+                <span>动态壁纸</span>
+              </div>
+              <div class="option" @click.stop="closeShare($emit('play-feedback'))">
+                <img class="small" src="../assets/img/icon/components/video/feedback.webp" alt="" />
+                <span>播放反馈</span>
+              </div>
+            </template>
+            <template v-if="mode === 'music'">
+              <div class="option" @click.stop="closeShare($emit('ShareToFriend'))">
+                <img class="small" src="../assets/img/icon/components/video/tofriend.webp" alt="" />
+                <span>私信朋友</span>
+              </div>
+              <div class="option" @click.stop="$router.push('/home/report', { mode: this.mode })">
+                <img class="small" src="../assets/img/icon/components/video/warring.png" alt="" />
+                <span>举报音乐</span>
+              </div>
+            </template>
+            <template v-if="mode === 'my-music'">
+              <div class="option" @click.stop="_no">
+                <img class="small" src="../assets/img/icon/components/video/torichang.png" alt="" />
+                <span>转发到日常</span>
+              </div>
+              <div class="option" @click.stop="closeShare($emit('ShareToFriend'))">
+                <img class="small" src="../assets/img/icon/components/video/tofriend.webp" alt="" />
+                <span>私信朋友</span>
+              </div>
+            </template>
+          </div>
         </div>
       </div>
     </div>
   </from-bottom-dialog>
 </template>
 
-<script>
-import { mapState } from 'pinia'
+<script setup>
 import FromBottomDialog from './dialog/FromBottomDialog'
 import { useBaseStore } from '@/store/pinia'
 import { _checkImgUrl, _copy, _hideLoading, _no, _notice, _showLoading, _sleep } from '@/utils'
 
-export default {
-  name: 'Share',
-  components: {
-    FromBottomDialog
-  },
-  props: {
-    modelValue: {
-      type: Boolean,
-      default() {
-        return false
-      }
-    },
-    item: {},
-    videoId: {
-      type: String,
-      default() {
-        return null
-      }
-    },
-    pageId: {
-      type: String,
-      default() {
-        return 'home-index'
-      }
-    },
-    canDownload: {
-      type: Boolean,
-      default() {
-        return true
-      }
-    },
-    mode: {
-      type: String,
-      default() {
-        return 'video'
-        //music
-        //qrcode
-      }
-    }
-  },
-  computed: {
-    ...mapState(useBaseStore, ['friends']),
-    selectFriends() {
-      return this.friends.all.filter((v) => v.select)
-    }
-  },
-  data() {
-    return {}
-  },
-  methods: {
-    _checkImgUrl,
-    _no,
-    async copyLink() {
-      this.closeShare()
-      _showLoading()
-      await _sleep(500)
-      _hideLoading()
-      _copy(this.item.share_info.share_link_desc + this.item.share_info.share_url)
-      //TODO 抖音样式改了
-      _notice('复制成功')
-    },
+defineOptions({
+  name: 'Share'
+})
 
-    toggleCall(item) {
-      item.select = !item.select
-    },
-    closeShare() {
-      this.friends.all = this.friends.all.map((v) => {
-        v.select = false
-        return v
-      })
-      this.$emit('update:modelValue', false)
+const props = defineProps({
+  modelValue: {
+    type: Boolean,
+    default() {
+      return false
+    }
+  },
+  item: {},
+  videoId: {
+    type: String,
+    default() {
+      return null
+    }
+  },
+  pageId: {
+    type: String,
+    default() {
+      return 'home-index'
+    }
+  },
+  canDownload: {
+    type: Boolean,
+    default() {
+      return true
+    }
+  },
+  mode: {
+    type: String,
+    default() {
+      return 'video'
+      //music
+      //qrcode
     }
   }
+})
+
+const store = useBaseStore()
+const emit = defineEmits(['update:item'])
+
+async function copyLink() {
+  closeShare()
+  _showLoading()
+  await _sleep(500)
+  _hideLoading()
+  _copy(props.item.share_info.share_link_desc + props.item.share_info.share_url)
+  //TODO 抖音样式改了
+  _notice('复制成功')
+}
+
+function toggleCall(item) {
+  item.select = !item.select
+}
+
+function closeShare() {
+  store.friends.all = store.friends.all.map((v) => {
+    v.select = false
+    return v
+  })
+  emit('update:modelValue', false)
 }
 </script>
 
 <style lang="less" scoped>
-@import '../assets/less/index';
-
 .share {
   width: 100%;
   height: 100%;
-  background: black;
+  background: var(--color-share-bg);
   border-radius: 10px 10px 0 0;
   color: white;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 
   @space-width: 26rem;
   @avatar-width: 58rem;
@@ -255,12 +261,25 @@ export default {
     }
   }
 
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10rem;
+
+    .bottom {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
   .list {
     overflow-x: scroll;
     display: flex;
     padding: 0 20rem;
     gap: 22rem;
-    padding-bottom: 50rem;
   }
 
   @c: rgb(51, 51, 51);
@@ -323,13 +342,11 @@ export default {
   }
 
   .share2friend {
-    position: fixed;
-    bottom: 0;
     padding: 20rem;
+    padding-top: 0;
     box-sizing: border-box;
     width: 100%;
-    height: 180rem;
-    background: black;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -337,9 +354,11 @@ export default {
     .comment {
       display: flex;
       flex: 1;
+      margin-top: 15rem;
 
       textarea {
         flex: 1;
+        font-size: 14rem;
         outline: none;
         border: none;
         background: transparent;
@@ -348,8 +367,10 @@ export default {
 
       .poster {
         margin-left: 20rem;
-        height: 40rem;
-        width: 40rem;
+        height: 60rem;
+        width: 60rem;
+        object-fit: cover;
+        border-radius: 4rem;
       }
     }
 

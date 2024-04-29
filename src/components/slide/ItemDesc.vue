@@ -75,10 +75,10 @@ const state = reactive({
 .item-desc {
   position: absolute;
   bottom: 0;
+  width: 70%;
 
   .content {
     color: #fff;
-    width: 70%;
     text-align: left;
 
     .location-wrapper {

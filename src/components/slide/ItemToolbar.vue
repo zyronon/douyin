@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import BaseMusic from '../BaseMusic.vue'
-import { _formatNumber, _updateItem } from '@/utils'
+import { _formatNumber, cloneDeep } from '@/utils'
 import bus, { EVENT_KEY } from '@/utils/bus'
 import { Icon } from '@iconify/vue'
 import { useClick } from '@/utils/hooks/useClick'
@@ -12,26 +12,39 @@ const props = defineProps({
     default: () => {
       return false
     }
+  },
+  item: {
+    type: Object,
+    default: () => {
+      return {}
+    }
   }
 })
 
-const item = inject<any>('item')
+const position = inject<any>('position')
 
 const emit = defineEmits(['update:item', 'goUserInfo', 'showComments', 'showShare', 'goMusic'])
 
+function _updateItem(props, key, val) {
+  const old = cloneDeep(props.item)
+  old[key] = val
+  emit('update:item', old)
+  bus.emit(EVENT_KEY.UPDATE_ITEM, { position: position.value, item: old })
+}
+
 function loved() {
-  _updateItem(props, 'isLoved', !item.value.isLoved, emit)
+  _updateItem(props, 'isLoved', !props.item.isLoved)
 }
 
 function attention(e) {
   e.currentTarget.classList.add('attention')
   setTimeout(() => {
-    _updateItem(props, 'isAttention', true, emit)
+    _updateItem(props, 'isAttention', true)
   }, 1000)
 }
 
 function showComments() {
-  bus.emit(EVENT_KEY.OPEN_COMMENTS, item.value.aweme_id)
+  bus.emit(EVENT_KEY.OPEN_COMMENTS, props.item.aweme_id)
 }
 
 const vClick = useClick()
@@ -65,11 +78,13 @@ const vClick = useClick()
       <span>{{ _formatNumber(item.statistics.comment_count) }}</span>
     </div>
     <!--TODO     -->
-    <div
-      class="message mb2r"
-      v-click="() => _updateItem(props, 'isCollect', !item.isCollect, emit)"
-    >
-      <Icon v-if="item.isCollect" icon="ic:round-star" class="icon" style="color: yellow" />
+    <div class="message mb2r" v-click="() => _updateItem(props, 'isCollect', !item.isCollect)">
+      <Icon
+        v-if="item.isCollect"
+        icon="ic:round-star"
+        class="icon"
+        style="color: rgb(252, 179, 3)"
+      />
       <Icon v-else icon="ic:round-star" class="icon" style="color: white" />
       <span>{{ _formatNumber(item.statistics.comment_count) }}</span>
     </div>
@@ -120,8 +135,8 @@ const vClick = useClick()
       bottom: -5px;
       background: red;
       //background: black;
-      width: 18px;
-      height: 18px;
+      width: 18rem;
+      height: 18rem;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -129,8 +144,8 @@ const vClick = useClick()
 
       img {
         position: absolute;
-        width: 12px;
-        height: 12px;
+        width: 14rem;
+        height: 14rem;
         transition: all 1s;
       }
 

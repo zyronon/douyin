@@ -134,7 +134,7 @@ export default {
   }
 
   &.dark2 {
-    background: rgb(36, 36, 36);
+    background: rgb(51, 51, 51);
     color: #fff;
   }
 

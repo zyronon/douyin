@@ -5,17 +5,9 @@ import ConfirmDialog from '../components/dialog/ConfirmDialog.vue'
 import Loading from '../components/Loading.vue'
 import { IMG_URL, IS_DEV, IS_GITEE_PAGES } from '@/config'
 import NoticeDialog from '../components/dialog/NoticeDialog.vue'
-import bus, { EVENT_KEY } from './bus'
 import { ArchiveReader, libarchiveWasm } from 'libarchive-wasm'
 import SlideUser from '@/components/slide/SlideUser.vue'
 import BaseVideo from '@/components/slide/BaseVideo.vue'
-
-export function _updateItem(props, key, val, emit) {
-  const old = cloneDeep(props.item)
-  old[key] = val
-  emit('update:item', old)
-  bus.emit(EVENT_KEY.UPDATE_ITEM, { position: props.position, item: old })
-}
 
 export function _storageSet(key, value) {
   localStorage.setItem(key, JSON.stringify(value))

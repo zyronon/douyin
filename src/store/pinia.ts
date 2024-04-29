@@ -53,7 +53,11 @@ export const useBaseStore = defineStore('base', {
       friends: resource.users
     }
   },
-  getters: {},
+  getters: {
+    selectFriends() {
+      return this.friends.all.filter((v) => v.select)
+    }
+  },
   actions: {
     async init() {
       const r = await panel()
