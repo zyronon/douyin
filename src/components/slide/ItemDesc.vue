@@ -78,7 +78,7 @@ const state = reactive({
 
   .content {
     color: #fff;
-    width: 70vw;
+    width: 70%;
     text-align: left;
 
     .location-wrapper {

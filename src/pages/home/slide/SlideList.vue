@@ -19,8 +19,8 @@
 import SlideVerticalInfinite from '@/components/slide/SlideVerticalInfinite.vue'
 import { onMounted, onUnmounted, reactive, ref } from 'vue'
 import bus, { EVENT_KEY } from '@/utils/bus'
-import { useSlideListItemRender } from '@/utils/hooks/useSlideListItemRender'
 import { useBaseStore } from '@/store/pinia'
+import { slideItemRender } from '@/utils'
 
 const props = defineProps({
   cbs: {
@@ -63,7 +63,7 @@ const p = {
   }
 }
 
-const render = useSlideListItemRender({ ...props.cbs, ...p })
+const render = slideItemRender({ ...props.cbs, ...p })
 const listRef = ref(null)
 const state = reactive({
   index: props.index,

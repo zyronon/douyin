@@ -43,7 +43,7 @@ watch(
   () => route.path,
   (to, from) => {
     store.setMaskDialog({ state: false, mode: store.maskDialogMode })
-    //footer下面的5个按钮，对跳不要用动画
+    //底部tab的按钮，跳转是不需要用动画的
     let noAnimation = [
       '/',
       '/home',

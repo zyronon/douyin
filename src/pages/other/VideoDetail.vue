@@ -116,10 +116,9 @@ import ConfirmDialog from '../../components/dialog/ConfirmDialog.vue'
 import FollowSetting2 from '@/pages/home/components/FollowSetting2.vue'
 import ShareToFriend from '@/pages/home/components/ShareToFriend.vue'
 import { DefaultUser } from '@/utils/const_var'
-import { _checkImgUrl } from '@/utils'
+import { _checkImgUrl, slideItemRender } from '@/utils'
 import { useBaseStore } from '@/store/pinia'
 import SlideVerticalInfinite from '@/components/slide/SlideVerticalInfinite.vue'
-import { useSlideListItemRender } from '@/utils/hooks/useSlideListItemRender'
 import { useRouter } from 'vue-router'
 
 defineOptions({
@@ -164,7 +163,7 @@ const state = reactive({
   pageNo: 0
 })
 
-const render = useSlideListItemRender()
+const render = slideItemRender()
 
 onMounted(() => {
   // console.log('s', store.routeData)
