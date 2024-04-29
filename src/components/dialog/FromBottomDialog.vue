@@ -28,32 +28,32 @@ import { _stopPropagation } from '@/utils'
 defineOptions({ name: 'FromBottomDialog' })
 
 interface Props {
+  modelValue?: boolean
   mode?: 'dark' | 'light' | 'white'
   maskMode?: 'dark' | 'light' | 'white'
   height?: string
   showHengGang?: boolean
-  pageId: string | null
+  pageId: string
   borderRadius?: string
   tag?: string
 }
 
 interface Emits {
+  (ev: 'update:modelValue', val: boolean): void
   (ev: 'cancel'): void
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  modelValue: false,
   mode: 'dark',
   maskMode: 'dark',
   height: 'calc(var(--vh, 1vh) * 70)',
   showHengGang: true,
-  pageId: null,
   borderRadius: '15rem 15rem 0 0',
   tag: ''
 })
 
 const emit = defineEmits<Emits>()
-
-const modelValue = defineModel<boolean>('value', { type: Boolean, default: false })
 
 const dialog = ref<HTMLElement | null>(null)
 
@@ -70,9 +70,9 @@ const startTime = ref(0)
 const pagePosition = ref(null)
 
 watch(
-  () => modelValue.value,
+  () => props.modelValue,
   (newVal: boolean) => {
-    let page = document.getElementById(props.pageId)
+    const page = document.getElementById(props.pageId)
     if (!page) return
     if (newVal) {
       pagePosition.value = _css(page, 'position')
@@ -81,8 +81,8 @@ watch(
       document.body.style.position = 'fixed'
       document.body.style.top = -scroll.value + 'px'
 
-      let maskTemplate = `<div class="Mask fade-in ${props.maskMode}"></div>`
-      let mask = new Dom().create(maskTemplate)
+      const maskTemplate = `<div class="Mask fade-in ${props.maskMode}"></div>`
+      const mask = new Dom().create(maskTemplate)
       setTimeout(() => {
         mask.on('click', (e: Event) => {
           _stopPropagation(e)
@@ -95,7 +95,7 @@ watch(
       document.body.style.position = 'static'
       document.documentElement.scrollTop = scroll.value
 
-      let mask = new Dom('.Mask').replaceClass('fade-in', 'fade-out')
+      const mask = new Dom('.Mask').replaceClass('fade-in', 'fade-out')
       setTimeout(() => {
         mask.remove()
       }, 250)
@@ -103,8 +103,8 @@ watch(
   }
 )
 
-const onHide = () => {
-  modelValue.value = false
+const onHide = (val = false) => {
+  emit('update:modelValue', val)
   emit('cancel')
 }
 
@@ -118,7 +118,7 @@ const onStart = (e: TouchEvent) => {
 const onMove = (e: TouchEvent) => {
   if (wrapper.value?.scrollTop !== 0) return
   moveY.value = e.touches[0].pageY - startY.value
-  if (moveY.value < 0) {
+  if (moveY.value > 0) {
     bus.emit(EVENT_KEY.DIALOG_MOVE, {
       tag: props.tag,
       e: moveY.value
@@ -131,7 +131,7 @@ const onEnd = () => {
   // 如果是外部改变 modelValue 值的话，这里会没有 ref
   if (!dialog.value) return
   if (Date.now() - startTime.value < 150 && Math.abs(moveY.value) < 30) return
-  let clientHeight = dialog.value?.clientHeight
+  const clientHeight = dialog.value?.clientHeight
   _css(dialog.value, 'transition-duration', `250ms`)
   if (Math.abs(moveY.value) > clientHeight / 2) {
     _css(dialog.value, 'transform', `translate3d(0,100%,0)`)
