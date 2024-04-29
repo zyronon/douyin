@@ -1,83 +1,65 @@
 <template>
-  <div class="ConfirmDialog" @click="$emit('dismiss')" v-if="visible">
-    <div class="content" @click.stop="stop">
+  <div class="ConfirmDialog" @click="onDismiss" v-if="visible">
+    <div class="content">
       <slot name="header"></slot>
       <div class="body">
         <div class="title" v-if="title">{{ title }}</div>
-        <div class="subtitle" :class="subtitleColor" v-if="subtitle">
+        <div :class="['subtitle', subtitleColor]" v-if="subtitle">
           {{ subtitle }}
         </div>
         <slot></slot>
       </div>
       <div class="footer">
-        <div class="cancel" :class="cancelTextColor" @click.stop="cancel">
+        <div :class="['cancel', cancelTextColor]" @click.stop="onCancel">
           {{ cancelText }}
         </div>
-        <div class="ok" @click.stop="ok">{{ okText }}</div>
+        <div class="ok" @click.stop="onOk">{{ okText }}</div>
       </div>
     </div>
   </div>
 </template>
-<script lang="ts">
-/*TODO 单独使用时，没有mark*/
-export default {
-  name: 'ConfirmDialog',
-  props: {
-    visible: {
-      type: Boolean,
-      default: true
-    },
-    title: {
-      type: String,
-      default() {
-        return ''
-      }
-    },
-    subtitle: {
-      type: String,
-      default() {
-        return ''
-      }
-    },
-    subtitleColor: {
-      type: String,
-      default() {
-        return 'gray'
-      }
-    },
-    okText: {
-      type: String,
-      default() {
-        return '确定'
-      }
-    },
-    cancelText: {
-      type: String,
-      default() {
-        return '取消'
-      }
-    },
-    cancelTextColor: {
-      type: String,
-      default() {
-        return 'gray'
-      }
-    }
-  },
-  data() {
-    return {}
-  },
-  methods: {
-    stop() {},
-    ok() {
-      this.$emit('ok')
-      this.$emit('update:visible', false)
-    },
-    cancel() {
-      this.$emit('cancel')
-      this.$emit('update:visible', false)
-    }
-  }
+
+<script setup lang="ts">
+defineOptions({ name: 'ConfirmDialog' })
+
+interface Props {
+  title?: string
+  subtitle?: string
+  subtitleColor?: string
+  okText?: string
+  cancelText?: string
+  cancelTextColor?: string
+}
+
+withDefaults(defineProps<Props>(), {
+  title: '',
+  subtitle: '',
+  subtitleColor: 'gray',
+  okText: '确定',
+  cancelText: '取消',
+  cancelTextColor: 'gray'
+})
+
+const emit = defineEmits<{
+  (ev: 'ok'): void
+  (ev: 'cancel'): void
+  (ev: 'dismiss'): void
+}>()
+
+const visible = defineModel<boolean>('visible', { type: Boolean, default: true })
+
+const onOk = () => {
+  visible.value = false
+  emit('ok')
+}
+
+const onCancel = () => {
+  visible.value = false
+  emit('cancel')
+}
+
+const onDismiss = () => {
+  emit('dismiss')
 }
 </script>
 

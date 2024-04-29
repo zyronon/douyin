@@ -3,16 +3,9 @@
     <slot></slot>
   </div>
 </template>
-<script>
-export default {
-  name: 'FadeDialog',
-  data() {
-    return {}
-  },
-  computed: {},
-  created() {},
-  methods: {}
-}
+
+<script setup lang="ts">
+defineOptions({ name: 'FadeDialog' })
 </script>
 
 <style scoped lang="less">
