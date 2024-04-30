@@ -3,8 +3,8 @@
 </h1>
 
 <p align="center">
- <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
-<a href="README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
+ <a href="REREADME.en.md">English</a> | <a href="REREADME.es.md">Spanish</a> | <a href="REREADME.de.md">German</a> | 
+<a href="REREADME.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="REREADME.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -21,25 +21,22 @@
 <img width="150px" src='imgs/3.gif' />
 <img width="150px" src='imgs/4.gif' />
 <img width="150px" src='imgs/5.gif' />
-<img width="150px" src='imgs/img-1.jpg' />
-<img width="150px" src='imgs/img-2.jpg' />
-<img width="150px" src='imgs/img-3.jpg' />
-<img width="150px" src='imgs/img-4.jpg' />
-<img width="150px" src='imgs/img-5.jpg' />
 </div>
 
 ## オンラインアクセス
 
-Gite ページ:[ｈっｔｐｓ：／／ｄｙ。ってんたう。とｐ／](https://dy.ttentau.top/)(中国ではこのアドレスにアクセスすることをお勧めします)  
-ネットリファイ:[ｈっｔｐｓ：／／どうｙいんｓ。ねｔぃｆｙ。あっｐ／](https://douyins.netlify.app/)
+ジーティーページ:[ｈっｔｐｓ：／／ｚｙろのん。ぎてえ。いお／どうｙいん／](https://zyronon.gitee.io/douyin/)(中国ではこのアドレスにアクセスすることをお勧めします)  
+注: コードが最新ではないため、現在 Gitee ページを更新できません。ファイアウォールを回避できる場合は、次のアドレスにアクセスすることをお勧めします。
 
-[//]: # "Vercel:  [https://douyins.vercel.app](https://douyins.vercel.app)"
+Github ページ:[ｈっｔｐｓ：／／ｄｙ。ってんたう。とｐ／](https://dy.ttentau.top/)
 
-[//]: # "Gitee pages: [https://zyronon.gitee.io/douyin/](https://zyronon.gitee.io/douyin/) (中国地区推荐访问这个地址)  "
+[//]: # "Gitee pages: [https://dy.ttentau.top/](https://dy.ttentau.top/) (中国地区推荐访问这个地址)  "
 
 [//]: # "Github pages: [https://zyronon.github.io/douyin/](https://zyronon.github.io/douyin/)  "
 
-[//]: # "Vercel和Netlify分别送的100G免费流量已经用完了...🤣"
+[//]: # "Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/)"
+
+[//]: # "Vercel:  [https://douyins.vercel.app](https://douyins.vercel.app)"
 
 [//]: # "Android Apk: https://github.com/zyronon/douyin/releases"
 
@@ -49,8 +46,10 @@ Gite ページ:[ｈっｔｐｓ：／／ｄｙ。ってんたう。とｐ／](ht
 
 ## リンク
 
-【douyin-vue】一：[Swiper.js に似たカルーセル コンポーネントを実装するための 200 行のコード](https://juejin.cn/post/7360512664317018146)  
-【douyin-vue】二：[Douyinで「無限スライドビデオ」効果を実現](https://juejin.cn/post/7361614921519054883)  
+【模倣同音シリーズ】 1:[Swiper.js に似たカルーセル コンポーネントを実装するための 200 行のコード](https://juejin.cn/post/7360512664317018146)  
+【模倣同音シリーズ】２：[Douyinで「無限スライドビデオ」効果を実現](https://juejin.cn/post/7361614921519054883)  
+【模倣同音シリーズ】その３：[Vue ルーティングの使用とトランジション アニメーションの追加の概要](https://juejin.cn/post/7362528152777130025)
+
 さらなる記事も準備中です...
 
 ## 走る
@@ -64,7 +63,8 @@ Gite ページ:[ｈっｔｐｓ：／／ｄｙ。ってんたう。とｐ／](ht
 ### 地域開発
 
 ```bash
-git clone https://github.com/zyronon/douyin.git
+git clone https://gitee.com/zyronon/douyin.git (中国使用)
+          https://github.com/zyronon/douyin.git 
 cd douyin
 npm install
 npm run dev
@@ -103,7 +103,7 @@ npm run dev
 
 ## 私に連絡して
 
-您可以联系我的邮箱 <a href="mailto:zyronon@163.com">ｚｙろのん＠１６３。こｍ</a>
+私のメールアドレスにご連絡いただけます<a href="mailto:zyronon@163.com">ｚｙろのん＠１６３。こｍ</a>
 
 > 私の他のオープンソース プロジェクトを共有してください:
 >

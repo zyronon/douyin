@@ -3,8 +3,8 @@
 </h1>
 
 <p align="center">
- <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
-<a href="README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
+ <a href="REREADME.en.md">English</a> | <a href="REREADME.es.md">Spanish</a> | <a href="REREADME.de.md">German</a> | 
+<a href="REREADME.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="REREADME.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -21,25 +21,22 @@
 <img width="150px" src='imgs/3.gif' />
 <img width="150px" src='imgs/4.gif' />
 <img width="150px" src='imgs/5.gif' />
-<img width="150px" src='imgs/img-1.jpg' />
-<img width="150px" src='imgs/img-2.jpg' />
-<img width="150px" src='imgs/img-3.jpg' />
-<img width="150px" src='imgs/img-4.jpg' />
-<img width="150px" src='imgs/img-5.jpg' />
 </div>
 
 ## Accès en ligne
 
-Pages du gîte :<https://dy.ttentau.top/>(Il est recommandé de visiter cette adresse en Chine)  
-Netlifier :<https://douyins.netlify.app/>
+Pages du gîte :<https://zyronon.gitee.io/douyin/>(Il est recommandé de visiter cette adresse en Chine)  
+Remarque : Les pages Gitee ne peuvent pas être mises à jour pour le moment, le code n'est pas à jour. Si vous pouvez contourner le pare-feu, je vous recommande de visiter l'adresse suivante :
 
-[//]: # "Vercel:  [https://douyins.vercel.app](https://douyins.vercel.app)"
+Pages GitHub :<https://dy.ttentau.top/>
 
-[//]: # "Gitee pages: [https://zyronon.gitee.io/douyin/](https://zyronon.gitee.io/douyin/) (中国地区推荐访问这个地址)  "
+[//]: # "Gitee pages: [https://dy.ttentau.top/](https://dy.ttentau.top/) (中国地区推荐访问这个地址)  "
 
 [//]: # "Github pages: [https://zyronon.github.io/douyin/](https://zyronon.github.io/douyin/)  "
 
-[//]: # "Vercel和Netlify分别送的100G免费流量已经用完了...🤣"
+[//]: # "Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/)"
+
+[//]: # "Vercel:  [https://douyins.vercel.app](https://douyins.vercel.app)"
 
 [//]: # "Android Apk: https://github.com/zyronon/douyin/releases"
 
@@ -49,8 +46,10 @@ Netlifier :<https://douyins.netlify.app/>
 
 ## Lien
 
-\[douyin-vue] Un :[200行代码实现类似Swiper.js的轮播组件](https://juejin.cn/post/7360512664317018146)  
-\[douyin-vue] Deuxièmement :[Réaliser l'effet "vidéo coulissante infinie" sur Douyin](https://juejin.cn/post/7361614921519054883)  
+\[Série Imitation Douyin] 1 :[200 lignes de code pour implémenter un composant carrousel similaire à Swiper.js](https://juejin.cn/post/7360512664317018146)  
+\[Série Imitation Douyin] 2 :[Réaliser l'effet "vidéo coulissante infinie" sur Douyin](https://juejin.cn/post/7361614921519054883)  
+\[Série Imitation Douyin] Trois :[Introduction à l'utilisation du routage Vue et à l'ajout d'animations de transition](https://juejin.cn/post/7362528152777130025)
+
 D'autres articles sont en préparation...
 
 ## courir
@@ -64,7 +63,8 @@ Remarque : ce projet convient uniquement à l'étude et à la recherche, et non
 ### développement local
 
 ```bash
-git clone https://github.com/zyronon/douyin.git
+git clone https://gitee.com/zyronon/douyin.git (中国使用)
+          https://github.com/zyronon/douyin.git 
 cd douyin
 npm install
 npm run dev

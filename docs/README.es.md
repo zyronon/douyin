@@ -3,8 +3,8 @@
 </h1>
 
 <p align="center">
- <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
-<a href="README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
+ <a href="REREADME.en.md">English</a> | <a href="REREADME.es.md">Spanish</a> | <a href="REREADME.de.md">German</a> | 
+<a href="REREADME.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="REREADME.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -21,25 +21,22 @@
 <img width="150px" src='imgs/3.gif' />
 <img width="150px" src='imgs/4.gif' />
 <img width="150px" src='imgs/5.gif' />
-<img width="150px" src='imgs/img-1.jpg' />
-<img width="150px" src='imgs/img-2.jpg' />
-<img width="150px" src='imgs/img-3.jpg' />
-<img width="150px" src='imgs/img-4.jpg' />
-<img width="150px" src='imgs/img-5.jpg' />
 </div>
 
 ## Acceso en linea
 
-Páginas del albergue:<https://dy.ttentau.top/>(Se recomienda visitar esta dirección en China)  
-Netlificar:<https://douyins.netlify.app/>
+Páginas de casas rurales:<https://zyronon.gitee.io/douyin/>(Se recomienda visitar esta dirección en China)  
+Nota: Las páginas de Gitee no se pueden actualizar ahora, el código no está actualizado. Si puede eludir el firewall, le recomiendo visitar la siguiente dirección:
 
-[//]: # "Vercel:  [https://douyins.vercel.app](https://douyins.vercel.app)"
+Páginas de Github:<https://dy.ttentau.top/>
 
-[//]: # "Gitee pages: [https://zyronon.gitee.io/douyin/](https://zyronon.gitee.io/douyin/) (中国地区推荐访问这个地址)  "
+[//]: # "Gitee pages: [https://dy.ttentau.top/](https://dy.ttentau.top/) (中国地区推荐访问这个地址)  "
 
 [//]: # "Github pages: [https://zyronon.github.io/douyin/](https://zyronon.github.io/douyin/)  "
 
-[//]: # "Vercel和Netlify分别送的100G免费流量已经用完了...🤣"
+[//]: # "Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/)"
+
+[//]: # "Vercel:  [https://douyins.vercel.app](https://douyins.vercel.app)"
 
 [//]: # "Android Apk: https://github.com/zyronon/douyin/releases"
 
@@ -49,8 +46,10 @@ Netlificar:<https://douyins.netlify.app/>
 
 ## Enlace
 
-\[douyin-vue] Uno:[200 líneas de código para implementar un componente carrusel similar a Swiper.js](https://juejin.cn/post/7360512664317018146)  
-\[douyin-vue] Segundo:[Realice el efecto de "vídeo deslizante infinito" en Douyin](https://juejin.cn/post/7361614921519054883)  
+\[Serie Imitación Douyin] 1:[200 líneas de código para implementar un componente carrusel similar a Swiper.js](https://juejin.cn/post/7360512664317018146)  
+\[Serie Imitación Douyin] 2:[Realice el efecto de "vídeo deslizante infinito" en Douyin](https://juejin.cn/post/7361614921519054883)  
+\[Serie Imitación Douyin] Tres:[Introducción al uso del enrutamiento de Vue y la adición de animaciones de transición](https://juejin.cn/post/7362528152777130025)
+
 Más artículos están en preparación...
 
 ## correr
@@ -64,7 +63,8 @@ Nota: Este proyecto sólo es apto para estudio e investigación, no para uso com
 ### desarrollo local
 
 ```bash
-git clone https://github.com/zyronon/douyin.git
+git clone https://gitee.com/zyronon/douyin.git (中国使用)
+          https://github.com/zyronon/douyin.git 
 cd douyin
 npm install
 npm run dev
@@ -99,7 +99,7 @@ El contenido anterior es toda información pública en Internet.
 ## Funciones y sugerencias
 
 El proyecto se encuentra actualmente en las primeras etapas de desarrollo y continuamente se agregan nuevas funciones. Si tiene alguna característica o sugerencia para el software, no dude en contactarnos.`Issues`criado en
-Si también le gustan las ideas de diseño de este software, envíelas.`PR`，¡Muchas gracias por su apoyo!
+Si también le gustan las ideas de diseño de este software, envíelas.`PR`, ¡Muchas gracias por tu apoyo!
 
 ## contáctame
 
