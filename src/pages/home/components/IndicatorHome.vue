@@ -285,12 +285,12 @@ export default {
 
           .tab1-img {
             position: absolute;
-            @width: 1rem;
+            @width: 12rem;
             width: @width;
             height: @width;
             margin-left: 4rem;
             transition: all 0.3s;
-            margin-top: 7rem;
+            // margin-top: 7rem;
           }
 
           .tab2-img {
