@@ -3,8 +3,8 @@
 </h1>
 
 <p align="center">
- <a href="REREADME.en.md">English</a> | <a href="REREADME.es.md">Spanish</a> | <a href="REREADME.de.md">German</a> | 
-<a href="REREADME.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="REREADME.ja.md">日本語</a> 
+ <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
+<a href="README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
