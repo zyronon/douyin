@@ -56,6 +56,7 @@ Github Pages: [https://dy.ttentau.top/](https://dy.ttentau.top/)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/zyronon/douyin)
 
 ### 本地开发
+**注意：必须 git 命令 clone 下来才能运行，下载 zip 包是无法运行的。如果 clone 速度太慢，推荐使用 gitee 地址**
 
 ```bash
 git clone https://gitee.com/zyronon/douyin.git (中国使用)
