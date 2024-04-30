@@ -1023,6 +1023,7 @@ function toggle() {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                flex-shrink: 0;
                 font-size: 10rem;
                 color: var(--second-text-color);
                 margin-left: 5rem;
