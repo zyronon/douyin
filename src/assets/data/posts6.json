@@ -354,6 +354,7 @@
         "width": 720,
         "height": 720
       },
+      "poster": "out6.jpg",
       "height": 1280,
       "width": 720,
       "ratio": "720p",
@@ -607,6 +608,7 @@
         "width": 720,
         "height": 720
       },
+      "poster": "out7.jpg",
       "height": 3840,
       "width": 2160,
       "ratio": "1080p",
@@ -894,6 +896,7 @@
         "width": 720,
         "height": 720
       },
+      "poster": "out8.jpg",
       "height": 1920,
       "width": 1080,
       "ratio": "1080p",
@@ -1220,6 +1223,7 @@
         "width": 720,
         "height": 720
       },
+      "poster": "out9.jpg",
       "height": 1280,
       "width": 720,
       "ratio": "1080p",
@@ -1481,6 +1485,7 @@
         "width": 720,
         "height": 720
       },
+      "poster": "out1.jpg",
       "height": 1920,
       "width": 1080,
       "ratio": "1080p",
