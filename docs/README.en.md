@@ -21,25 +21,22 @@
 <img width="150px" src='imgs/3.gif' />
 <img width="150px" src='imgs/4.gif' />
 <img width="150px" src='imgs/5.gif' />
-<img width="150px" src='imgs/img-1.jpg' />
-<img width="150px" src='imgs/img-2.jpg' />
-<img width="150px" src='imgs/img-3.jpg' />
-<img width="150px" src='imgs/img-4.jpg' />
-<img width="150px" src='imgs/img-5.jpg' />
 </div>
 
 ## Online access
 
-Gitee pages:<https://dy.ttentau.top/>(It is recommended to visit this address in China)  
-Netlify:<https://douyins.netlify.app/>
+Gitee Pages:<https://zyronon.gitee.io/douyin/>(It is recommended to visit this address in China)  
+Note: Gitee Pages cannot be updated now, the code is not up to date. If you can circumvent the firewall, I recommend visiting the following address:
 
-[//]: # "Vercel:  [https://douyins.vercel.app](https://douyins.vercel.app)"
+Github Pages:<https://dy.ttentau.top/>
 
-[//]: # "Gitee pages: [https://zyronon.gitee.io/douyin/](https://zyronon.gitee.io/douyin/) (中国地区推荐访问这个地址)  "
+[//]: # "Gitee pages: [https://dy.ttentau.top/](https://dy.ttentau.top/) (中国地区推荐访问这个地址)  "
 
 [//]: # "Github pages: [https://zyronon.github.io/douyin/](https://zyronon.github.io/douyin/)  "
 
-[//]: # "Vercel和Netlify分别送的100G免费流量已经用完了...🤣"
+[//]: # "Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/)"
+
+[//]: # "Vercel:  [https://douyins.vercel.app](https://douyins.vercel.app)"
 
 [//]: # "Android Apk: https://github.com/zyronon/douyin/releases"
 
@@ -49,8 +46,10 @@ Netlify:<https://douyins.netlify.app/>
 
 ## Link
 
-\[douyin-vue] One:[200 lines of code to implement a carousel component similar to Swiper.js](https://juejin.cn/post/7360512664317018146)  
-\[douyin-vue] Second:[Realize the "infinite sliding video" effect on Douyin](https://juejin.cn/post/7361614921519054883)  
+\[Imitation Douyin Series] 1:[200 lines of code to implement a carousel component similar to Swiper.js](https://juejin.cn/post/7360512664317018146)  
+\[Imitation Douyin Series] 2:[Realize the "infinite sliding video" effect on Douyin](https://juejin.cn/post/7361614921519054883)  
+\[Imitation Douyin Series] Three:[Introduction to using Vue routing and adding transition animations](https://juejin.cn/post/7362528152777130025)
+
 More articles are in preparation...
 
 ## run
@@ -64,7 +63,8 @@ Note: This project is only suitable for study and research, not for commercial u
 ### local development
 
 ```bash
-git clone https://github.com/zyronon/douyin.git
+git clone https://gitee.com/zyronon/douyin.git (中国使用)
+          https://github.com/zyronon/douyin.git 
 cd douyin
 npm install
 npm run dev
@@ -101,7 +101,7 @@ The above content is all public information on the Internet
 The project is currently in the early stages of development, and new features are being added continuously. If you have any features or suggestions for the software, please feel free to contact us.`Issues`raised in
 If you also like the design ideas of this software, please submit it`PR`, thank you very much for your support!
 
-## contact me
+## 联系我
 
 You can contact my email<a href="mailto:zyronon@163.com">zyronon@163.com</a>
 

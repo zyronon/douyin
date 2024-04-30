@@ -21,25 +21,22 @@
 <img width="150px" src='imgs/3.gif' />
 <img width="150px" src='imgs/4.gif' />
 <img width="150px" src='imgs/5.gif' />
-<img width="150px" src='imgs/img-1.jpg' />
-<img width="150px" src='imgs/img-2.jpg' />
-<img width="150px" src='imgs/img-3.jpg' />
-<img width="150px" src='imgs/img-4.jpg' />
-<img width="150px" src='imgs/img-5.jpg' />
 </div>
 
 ## Online-Zugang
 
-Gitee-Seiten:<https://dy.ttentau.top/>(Es wird empfohlen, diese Adresse in China zu besuchen)  
-Netlify:<https://douyins.netlify.app/>
+Gitee-Seiten:<https://zyronon.gitee.io/douyin/>(Es wird empfohlen, diese Adresse in China zu besuchen)  
+Hinweis: Gitee-Seiten können derzeit nicht aktualisiert werden, da der Code nicht aktuell ist. Wenn Sie die Firewall umgehen können, empfehle ich den Besuch der folgenden Adresse:
 
-[//]: # "Vercel:  [https://douyins.vercel.app](https://douyins.vercel.app)"
+Github-Seiten:<https://dy.ttentau.top/>
 
-[//]: # "Gitee pages: [https://zyronon.gitee.io/douyin/](https://zyronon.gitee.io/douyin/) (中国地区推荐访问这个地址)  "
+[//]: # "Gitee pages: [https://dy.ttentau.top/](https://dy.ttentau.top/) (中国地区推荐访问这个地址)  "
 
 [//]: # "Github pages: [https://zyronon.github.io/douyin/](https://zyronon.github.io/douyin/)  "
 
-[//]: # "Vercel和Netlify分别送的100G免费流量已经用完了...🤣"
+[//]: # "Netlify: [https://douyins.netlify.app/](https://douyins.netlify.app/)"
+
+[//]: # "Vercel:  [https://douyins.vercel.app](https://douyins.vercel.app)"
 
 [//]: # "Android Apk: https://github.com/zyronon/douyin/releases"
 
@@ -49,8 +46,10 @@ Netlify:<https://douyins.netlify.app/>
 
 ## Verknüpfung
 
-\[douyin-vue] Eins:[200 Codezeilen zur Implementierung einer Karussellkomponente ähnlich Swiper.js](https://juejin.cn/post/7360512664317018146)  
-\[douyin-vue] Zweitens:[Verwirklichen Sie den „unendlich gleitenden Video“-Effekt auf Douyin](https://juejin.cn/post/7361614921519054883)  
+\[Imitation Douyin-Serie] 1:[200 Codezeilen zur Implementierung einer Karussellkomponente ähnlich Swiper.js](https://juejin.cn/post/7360512664317018146)  
+\[Imitation Douyin-Serie] 2:[Verwirklichen Sie den „unendlich gleitenden Video“-Effekt auf Douyin](https://juejin.cn/post/7361614921519054883)  
+\[Imitation Douyin-Serie] Drei:[Einführung in die Verwendung von Vue-Routing und das Hinzufügen von Übergangsanimationen](https://juejin.cn/post/7362528152777130025)
+
 Weitere Artikel sind in Vorbereitung...
 
 ## laufen
@@ -64,7 +63,8 @@ Hinweis: Dieses Projekt ist nur für Studien- und Forschungszwecke geeignet, nic
 ### lokale Entwicklung
 
 ```bash
-git clone https://github.com/zyronon/douyin.git
+git clone https://gitee.com/zyronon/douyin.git (中国使用)
+          https://github.com/zyronon/douyin.git 
 cd douyin
 npm install
 npm run dev
