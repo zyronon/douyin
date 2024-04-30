@@ -910,6 +910,7 @@ function toggle() {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            min-width: 0;
 
             .center {
               width: calc(100% - 140rem);
