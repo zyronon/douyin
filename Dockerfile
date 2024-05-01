@@ -6,7 +6,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
 WORKDIR /src
-COPY ./ /src
+COPY ./ ./
 
 # RUN两次方便观察install和build, 也可以用pnpm cache and locked
 RUN pnpm install      
