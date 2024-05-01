@@ -81,7 +81,7 @@
                 <!--                          <div class="not-read"></div>-->
                 <!--                          <img class="camera" src="../../assets/img/icon/close-white.png" alt="">-->
                 <!--            <img class="arrow" src="../../assets/img/icon/close-white.png" alt="">-->
-                <div class="badge">12</div>
+                <div class="badge">2</div>
               </div>
             </div>
           </div>

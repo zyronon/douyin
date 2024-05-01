@@ -2,10 +2,13 @@
   <div class="posters">
     <div class="poster-item" :key="index" v-for="(i, index) in list" @click="goDetail(index)">
       <img class="poster" v-lazy="_checkImgUrl(i.video.cover.url_list[0])" alt="" />
-      <div class="num" v-if="mode === 'normal'">
-        <Icon icon="icon-park-outline:like" />
-        <span>{{ _formatNumber(i.statistics.digg_count) }}</span>
-      </div>
+      <template v-if="mode === 'normal'">
+        <div class="num">
+          <Icon icon="icon-park-outline:like" />
+          <span>{{ _formatNumber(i.statistics.digg_count) }}</span>
+        </div>
+        <div class="top" v-if="i.is_top">置顶</div>
+      </template>
       <div class="date" v-if="mode === 'date'">
         <div class="day">{{ getDay(i.create_time) }}</div>
         <div class="month">{{ getMonth(i.create_time) }}</div>
@@ -104,6 +107,7 @@ function getMonth(time) {
     object-fit: cover;
   }
 
+  .top,
   .music {
     position: absolute;
     font-size: 12rem;

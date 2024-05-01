@@ -255,6 +255,7 @@ function showDetail(e, item) {
   .bottom {
     color: gainsboro;
     padding: 10rem;
+    padding-bottom: 15rem;
 
     .title {
       font-size: 14rem;

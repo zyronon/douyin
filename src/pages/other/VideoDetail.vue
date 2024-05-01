@@ -103,7 +103,7 @@
 <script setup lang="jsx">
 import Comment from '../../components/Comment.vue'
 import Share from '../../components/Share.vue'
-import { onMounted, onUnmounted, reactive } from 'vue'
+import { onActivated, onDeactivated, onMounted, onUnmounted, reactive } from 'vue'
 import bus, { EVENT_KEY } from '../../utils/bus'
 import { useNav } from '@/utils/hooks/useNav'
 import PlayFeedback from '@/pages/home/components/PlayFeedback.vue'
@@ -157,7 +157,7 @@ const state = reactive({
   },
   index: 0,
   list: [],
-  uniqueId: 'uniqueId_2',
+  uniqueId: 'video_detail_list',
   totalSize: 0,
   pageSize: 10,
   pageNo: 0
@@ -190,6 +190,7 @@ function setCurrentItem(item) {
 }
 
 onMounted(() => {
+  bus.on(EVENT_KEY.SINGLE_CLICK, click)
   bus.on(EVENT_KEY.ENTER_FULLSCREEN, () => (state.fullScreen = true))
   bus.on(EVENT_KEY.EXIT_FULLSCREEN, () => (state.fullScreen = false))
   bus.on(EVENT_KEY.OPEN_COMMENTS, () => {
@@ -223,6 +224,22 @@ function dislike() {
   // state.list[state.index] = state.list[1]
   // _notice('操作成功，将减少此类视频的推荐')
 }
+
+function click(uniqueId) {
+  bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
+    uniqueId,
+    index: state.index,
+    type: EVENT_KEY.ITEM_TOGGLE
+  })
+}
+
+onActivated(() => {
+  bus.emit(EVENT_KEY.TOGGLE_CURRENT_VIDEO)
+})
+
+onDeactivated(() => {
+  bus.emit(EVENT_KEY.TOGGLE_CURRENT_VIDEO)
+})
 </script>
 
 <style scoped lang="less">

@@ -162,8 +162,8 @@ export default {
     }
 
     .badge {
-      right: 10rem;
-      top: 6rem;
+      right: 14rem;
+      top: 12rem;
       position: absolute;
     }
   }

@@ -1,8 +1,5 @@
 <template>
   <div class="indicator-home" :class="{ isLight }">
-    <transition name="fade">
-      <div class="mask" v-if="open" @click="open = false"></div>
-    </transition>
     <div class="notice" :style="noticeStyle"><span>下拉刷新内容</span></div>
     <div class="toolbar" ref="toolbar" :style="toolbarStyle">
       <Icon
@@ -13,13 +10,8 @@
       />
       <div class="tab-ctn">
         <div class="tabs" ref="tabs">
-          <div class="tab" :class="tabOneClass" @click.stop="change(0)">
+          <div class="tab" :class="{ active: index === 0 }" @click.stop="change(0)">
             <span>热点</span>
-            <img
-              v-show="index === 0"
-              src="../../../assets/img/icon/arrow-up-white.png"
-              class="tab1-img"
-            />
           </div>
           <div class="tab" :class="{ active: index === 1 }" @click.stop="change(1)">
             <span>长视频</span>
@@ -44,15 +36,6 @@
         @click="$router.push('/home/search')"
       />
     </div>
-    <div class="toggle-type" :class="{ open }">
-      <div class="l-button" :class="{ active: type === 0 }" @click="toggleType(0)">
-        <span>同城</span>
-        <img v-if="type === 0" src="../../../assets/img/icon/switch.png" alt="" />
-      </div>
-      <div class="l-button" :class="{ active: type === 1 }" @click="toggleType(1)">学习</div>
-      <div class="l-button" :class="{ active: type === 2 }" @click="toggleType(2)">热点</div>
-    </div>
-
     <Loading :style="loadingStyle" class="loading" style="width: 40rem" :is-full-screen="false" />
   </div>
 </template>
@@ -98,16 +81,12 @@ export default {
       indicatorRef: null,
       lefts: [],
       indicatorSpace: 0,
-      open: false,
       type: 1,
       moveY: 0
     }
   },
   computed: {
     ...mapState(useBaseStore, ['judgeValue', 'homeRefresh']),
-    tabOneClass() {
-      return { active: this.index === 0, open: this.open }
-    },
     transform() {
       return `translate3d(0, ${this.moveY - this.judgeValue > this.homeRefresh ? this.homeRefresh : this.moveY - this.judgeValue}px, 0)`
     },
@@ -172,18 +151,7 @@ export default {
   },
 
   methods: {
-    toggleType(type) {
-      if (type !== this.type) {
-        this.type = type
-        this.open = false
-      }
-    },
     change(index) {
-      if (this.index === 0 && index === 0) {
-        this.open = !this.open
-      } else {
-        this.open = false
-      }
       this.$emit('update:index', index)
       _css(this.indicatorRef, 'transition-duration', `300ms`)
       _css(this.indicatorRef, 'left', this.lefts[index] + 'px')
@@ -300,12 +268,6 @@ export default {
             top: -5rem;
           }
 
-          &.open {
-            .tab1-img {
-              transform: rotate(180deg);
-            }
-          }
-
           &.active {
             color: white;
           }
@@ -316,8 +278,8 @@ export default {
         //transition: left .3s;
         position: absolute;
         bottom: -6rem;
-        height: 2rem;
-        width: 20rem;
+        height: 2.6rem;
+        width: 26rem;
         //width: calc(100% / 5);
         background: #fff;
         border-radius: 5rem;
@@ -327,56 +289,6 @@ export default {
     .search {
       color: white;
       font-size: 24rem;
-    }
-  }
-
-  .toggle-type {
-    @height: 100rem;
-    position: absolute;
-    height: @height;
-    //padding-top: @height;
-    padding-left: 10rem;
-    padding-right: 10rem;
-    padding-bottom: 10rem;
-    width: 100%;
-    background: var(--main-bg);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    box-sizing: border-box;
-    font-size: 12rem;
-    top: -@height;
-    transition: all 0.3s;
-    opacity: 0;
-
-    &.open {
-      top: 0;
-      opacity: 1;
-    }
-
-    .l-button {
-      flex: 1;
-      margin: 0 3rem;
-      height: 28rem;
-      background: rgb(33, 36, 45);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 20rem;
-      color: rgb(157, 161, 170);
-      transition: all 0.3s;
-
-      &.active {
-        background: rgb(57, 57, 65);
-        color: white;
-      }
-
-      img {
-        @width: 9rem;
-        width: @width;
-        height: @width;
-        margin-left: 8rem;
-      }
     }
   }
 
