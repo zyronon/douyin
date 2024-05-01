@@ -2,6 +2,7 @@ name: Docker Image CI
 
 on:
   push:
+    branches: [ 'dev' ]
     tags:
       - v*
 
