@@ -78,13 +78,15 @@ onMounted(() => {
     location.href = BASE_URL + '/'
     setVh()
   })
-  //禁止选中文字
-  document.onselectstart = new Function('return false') as any
 })
 </script>
 
 <style lang="less">
 @import './assets/less/index';
+
+* {
+  user-select: none;
+}
 
 #app {
   height: 100%;
