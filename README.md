@@ -51,10 +51,18 @@ Github Pages: [https://dy.ttentau.top/](https://dy.ttentau.top/)
 ## 运行
 注意：本项目仅适用于学习和研究，不得用于商业使用
 
-### 快速部署至Vercel
+### 快速部署至 Vercel
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/zyronon/douyin)
 
+### 部署到 Docker
+```bash
+# pull Docker image
+docker pull ghcr.io/zyronon/douyin-vue:latest
+
+# start container, nginx reverse proxy custom port, for example: docker run -d -p 80:80 ghcr.io/zyronon/douyin-vue:latest
+docker run -d -p 80:80 ghcr.io/zyronon/douyin-vue:latest
+```
 ### 本地开发
 **注意：必须 git 命令 clone 下来才能运行，下载 zip 包是无法运行的。如果 clone 速度太慢，推荐使用 gitee 地址**
 
