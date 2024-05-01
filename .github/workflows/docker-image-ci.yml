@@ -2,7 +2,6 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ 'dev' ]
     tags:
       - v*
 
@@ -38,4 +37,5 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/${{ github.repository_owner }}/douyin:latest
+            ghcr.io/${{ github.repository_owner }}/douyin-vue:${{ steps.vars.outputs.version }}
+            ghcr.io/${{ github.repository_owner }}/douyin-vue:latest
