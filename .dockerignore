@@ -6,11 +6,13 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
- 
+
 .DS_Store
 coverage
 *.local
 
+dist
+node_modules
 .vscode/*
 !.vscode/extensions.json
 .idea
