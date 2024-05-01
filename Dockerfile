@@ -9,9 +9,8 @@ WORKDIR /app
 COPY . .
 
 # RUN两次方便观察install和build, 也可以用pnpm cache and locked
-RUN pnpm install      
-RUN npm run build
-        
+RUN pnpm install && pnpm run build
+
 FROM --platform=${BUILDPLATFORM:-linux/amd64,linux/arm64} ghcr.io/rookie-luochao/nginx-runner:latest
 
 COPY --from=builder /app/dist .
