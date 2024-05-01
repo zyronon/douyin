@@ -1,5 +1,5 @@
 # syntax = docker/dockerfile:experimental
-FROM --platform=${BUILDPLATFORM:-linux/amd64,linux/arm64} node:20-buster AS builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64,linux/arm64} node:18-buster AS builder
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
