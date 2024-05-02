@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, ref, watch } from 'vue'
 import { _checkImgUrl, _duration, _formatNumber, _stopPropagation } from '@/utils'
-import { recommendedLongVideo, recommendedVideo } from '@/api/videos'
+import { recommendedLongVideo } from '@/api/videos'
 import ScrollList from '@/components/ScrollList.vue'
 import { useNav } from '@/utils/hooks/useNav'
 
