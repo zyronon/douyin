@@ -1,22 +1,11 @@
 <template>
   <router-view v-slot="{ Component }">
     <transition :name="transitionName">
-      <keep-alive :exclude="store.excludeRoutes">
+      <keep-alive :exclude="store.excludeNames">
         <component :is="Component" />
       </keep-alive>
     </transition>
   </router-view>
-  <BaseMask v-if="!isMobile" @click="isMobile = true" />
-  <div v-if="!isMobile" class="guide">
-    <Icon class="danger" icon="mynaui:danger-triangle" />
-    <Icon class="close" icon="simple-line-icons:close" @click="isMobile = true" />
-    <div class="txt">
-      <h2>切换至手机模式获取最佳体验</h2>
-      <h3>1. 按 F12 调出控制台</h3>
-      <h3>2. 按 Ctrl+Shift+M，或点击下面图标</h3>
-    </div>
-    <img src="@/assets/img/guide.png" alt="" />
-  </div>
   <Call />
 </template>
 <script setup lang="ts">
@@ -35,7 +24,6 @@ import { BASE_URL } from '@/config'
 
 const store = useBaseStore()
 const route = useRoute()
-const isMobile = ref(/Mobi|Android|iPhone/i.test(navigator.userAgent))
 const transitionName = ref('go')
 
 // watch $route 决定使用哪种过渡
@@ -101,44 +89,6 @@ onMounted(() => {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-  }
-}
-
-.guide {
-  color: white;
-  z-index: 999;
-  background: var(--active-main-bg);
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 16rem;
-  overflow: hidden;
-  text-align: center;
-
-  .danger {
-    margin-top: 10rem;
-    font-size: 40rem;
-    color: red;
-  }
-
-  .close {
-    cursor: pointer;
-    font-size: 18rem;
-    color: white;
-    position: absolute;
-    right: 15rem;
-    top: 15rem;
-  }
-
-  .txt {
-    text-align: left;
-    padding: 0 24rem;
-  }
-
-  img {
-    display: block;
-    width: 350rem;
   }
 }
 

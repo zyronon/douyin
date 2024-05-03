@@ -196,6 +196,18 @@
     </ConfirmDialog>
 
     <ShareToFriend v-model="state.shareToFriend" />
+
+    <BaseMask v-if="!isMobile" @click="isMobile = true" />
+    <div v-if="!isMobile" class="guide">
+      <Icon class="danger" icon="mynaui:danger-triangle" />
+      <Icon class="close" icon="simple-line-icons:close" @click="isMobile = true" />
+      <div class="txt">
+        <h2>切换至手机模式获取最佳体验</h2>
+        <h3>1. 按 F12 调出控制台</h3>
+        <h3>2. 按 Ctrl+Shift+M，或点击下面图标</h3>
+      </div>
+      <img src="@/assets/img/guide.png" alt="" />
+    </div>
   </div>
 </template>
 
@@ -226,10 +238,12 @@ import { DefaultUser } from '@/utils/const_var'
 import { _no } from '@/utils'
 import LongVideo from '@/pages/home/slide/LongVideo.vue'
 import { useBaseStore } from '@/store/pinia'
+import BaseMask from '@/components/BaseMask.vue'
 
 const nav = useNav()
 const baseStore = useBaseStore()
 const uploader = ref()
+const isMobile = ref(/Mobi|Android|iPhone/i.test(navigator.userAgent))
 
 const state = reactive({
   active: true,
@@ -456,5 +470,43 @@ function dislike() {
   height: calc(var(--vh, 1vh) * 100 - var(--footer-height)) !important;
   overflow: hidden;
   border-radius: 10rem;
+}
+
+.guide {
+  color: white;
+  z-index: 999;
+  background: var(--active-main-bg);
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 16rem;
+  overflow: hidden;
+  text-align: center;
+
+  .danger {
+    margin-top: 10rem;
+    font-size: 40rem;
+    color: red;
+  }
+
+  .close {
+    cursor: pointer;
+    font-size: 18rem;
+    color: white;
+    position: absolute;
+    right: 15rem;
+    top: 15rem;
+  }
+
+  .txt {
+    text-align: left;
+    padding: 0 24rem;
+  }
+
+  img {
+    display: block;
+    width: 350rem;
+  }
 }
 </style>
