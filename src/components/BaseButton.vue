@@ -51,7 +51,7 @@ export default {
     },
     radius: {
       type: String,
-      default: '3'
+      default: '6'
     }
   },
   data() {
@@ -159,9 +159,9 @@ export default {
   }
 
   &.white {
-    background: white;
+    background: white !important;
     color: black;
-    border: 1px solid gainsboro;
+    border: 1px solid gainsboro !important;
   }
 
   &.info {

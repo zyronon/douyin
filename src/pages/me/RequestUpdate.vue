@@ -1,6 +1,6 @@
 <template>
   <div class="RequestUpdate" id="RequestUpdate">
-    <BaseHeader>
+    <BaseHeader :is-fixed="false">
       <template v-slot:center>
         <span class="f16">求更新</span>
       </template>
@@ -112,9 +112,13 @@ function toggleRequestUpdate() {
   overflow: auto;
   color: white;
   font-size: 14rem;
+  display: flex;
+  flex-direction: column;
 
   .content {
-    padding: 60rem 15rem 60rem 15rem;
+    flex: 1;
+    overflow: auto;
+    padding: 15rem 15rem 60rem 15rem;
 
     .none {
       display: flex;

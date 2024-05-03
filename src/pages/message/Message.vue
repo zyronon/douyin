@@ -8,9 +8,9 @@
       </header>
 
       <Scroll ref="mainScroll">
-        <div class="friends pl1r">
+        <div class="friends">
           <div
-            class="friend pr1r pl1r"
+            class="friend"
             @click="nav('/message/chat')"
             :key="index"
             v-for="(item, index) in store.friends.all"
@@ -20,12 +20,13 @@
             </div>
             <span>{{ item.name }}</span>
           </div>
-          <div class="friend pr10p">
-            <img src="../../assets/img/icon/message/setting.png" alt="" />
-            <span class="ml1r">状态设置</span>
+          <div class="friend">
+            <div class="avatar">
+              <img src="../../assets/img/icon/message/setting.png" alt="" />
+            </div>
+            <span>状态设置</span>
           </div>
         </div>
-        <div class="line mt2r"></div>
         <div class="messages">
           <!--      粉丝-->
           <div class="message" @click="nav('/message/fans')">
@@ -54,7 +55,7 @@
                 <div class="name">
                   <span>互动消息</span>
                 </div>
-                <div class="detail">xxx 赞了你的评论</div>
+                <div class="detail">xxx 近期访问过你的主页</div>
               </div>
               <div class="right">
                 <dy-back class="arrow" mode="gray" img="back" direction="right" />
@@ -433,11 +434,13 @@ import { useBaseStore } from '@/store/pinia'
 import { computed, onMounted, reactive, watch } from 'vue'
 import { useNav } from '@/utils/hooks/useNav.js'
 import { _checkImgUrl, _sleep, cloneDeep } from '@/utils'
+import { useScroll } from '@/utils/hooks/useScroll'
 
 defineOptions({
   name: 'Message'
 })
 
+const mainScroll = useScroll()
 const store = useBaseStore()
 const nav = useNav()
 const data = reactive({
@@ -521,6 +524,8 @@ async function loadRecommendData() {
 
   .no-search {
     height: calc(var(--vh, 1vh) * 100);
+    display: flex;
+    flex-direction: column;
 
     > header {
       padding: 0 20rem;
@@ -772,36 +777,48 @@ async function loadRecommendData() {
     }
 
     .scroll {
-      height: calc(100% - var(--common-header-height) - var(--footer-height));
+      flex: 1;
       padding-top: 10rem;
+      padding-bottom: var(--footer-height);
     }
 
     .friends {
       overflow-x: scroll;
       display: flex;
       font-size: 14rem;
+      padding: 0 10rem;
+      gap: 20rem;
 
       .friend {
+        @width: 70rem;
+        width: @width;
+        min-width: @width;
+
         &:nth-last-child(1) {
-          img {
-            margin: 0 10rem;
-            padding: 17rem;
-            background: var(--second-btn-color-tran);
-            width: 30rem;
-            height: 30rem;
+          .avatar {
+            height: @width;
             border-radius: 50%;
-            margin-bottom: 6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--second-btn-color-tran);
+            margin-bottom: 10rem;
+
+            img {
+              width: 35rem;
+              height: 35rem;
+            }
           }
         }
 
         .avatar {
           position: relative;
           margin-bottom: 6rem;
+          width: 100%;
 
           img {
-            @width: 64rem;
-            width: @width;
-            height: @width;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
           }
 
@@ -821,7 +838,7 @@ async function loadRecommendData() {
         span {
           width: 64rem;
           font-size: 12rem;
-          color: lightgray;
+          color: white;
           display: block;
           text-align: center;
           word-break: break-all;
@@ -833,6 +850,8 @@ async function loadRecommendData() {
     }
 
     .messages {
+      margin-top: 20rem;
+
       .message {
         display: flex;
         align-items: center;
@@ -874,12 +893,12 @@ async function loadRecommendData() {
           flex: 1;
           display: flex;
           justify-content: space-between;
-          @padding: 14rem;
+          @padding: 16rem;
           padding: @padding 0 @padding 0;
 
           .left {
             .name {
-              font-size: 14rem;
+              font-size: 16rem;
               color: white;
               display: flex;
               align-items: flex-start;
@@ -896,7 +915,7 @@ async function loadRecommendData() {
 
             .detail {
               color: var(--second-text-color);
-              font-size: 12rem;
+              font-size: 14rem;
               margin-top: 4rem;
               display: flex;
               align-items: center;

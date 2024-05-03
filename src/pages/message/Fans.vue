@@ -81,6 +81,7 @@ onMounted(getData)
   bottom: 0;
   top: 0;
   overflow: auto;
+  background: var(--color-message);
   color: white;
   font-size: 14rem;
 

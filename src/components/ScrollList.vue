@@ -1,5 +1,10 @@
 <template>
-  <Scroll :loading="state.loading" :full-loading="!state.list.length" @pulldown="loadData">
+  <Scroll
+    ref="scroll"
+    :loading="state.loading"
+    :full-loading="!state.list.length"
+    @pulldown="loadData"
+  >
     <slot :list="state.list"></slot>
     <NoMore v-if="state.total !== 0 && state.total === state.list.length" />
   </Scroll>
@@ -10,6 +15,7 @@ import { onMounted, reactive } from 'vue'
 import { _notice } from '@/utils'
 import Scroll from '@/components/Scroll.vue'
 import NoMore from '@/components/NoMore.vue'
+import { useScroll } from '@/utils/hooks/useScroll.ts'
 
 const props = defineProps({
   api: {
@@ -19,6 +25,7 @@ const props = defineProps({
     }
   }
 })
+const scroll = useScroll()
 
 const state = reactive({
   list: [],

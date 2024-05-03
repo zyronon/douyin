@@ -68,11 +68,13 @@ import { nextTick, onMounted, reactive, watch } from 'vue'
 import Scroll from '@/components/Scroll.vue'
 import { useNav } from '@/utils/hooks/useNav.js'
 import { _no, _sleep } from '@/utils'
+import { useScroll } from '@/utils/hooks/useScroll'
 
 defineOptions({
   name: 'SystemNotice'
 })
 
+const mainScroll = useScroll()
 const nav = useNav()
 const data = reactive({
   loading: false,

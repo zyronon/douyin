@@ -14,7 +14,7 @@ export default {
 @import '../assets/less/index';
 
 .NoMore {
-  font-size: 12rem;
+  font-size: 13rem;
   height: 60rem;
   display: flex;
   align-items: center;
