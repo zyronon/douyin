@@ -44,7 +44,7 @@ Github Pages: [https://dy.ttentau.top/](https://dy.ttentau.top/)
 
 【模仿抖音系列】一：[200行代码实现类似Swiper.js的轮播组件](https://juejin.cn/post/7360512664317018146)  
 【模仿抖音系列】二：[实现抖音 “视频无限滑动“效果](https://juejin.cn/post/7361614921519054883)  
-【模仿抖音系列】三：[Vue 路由使用介绍以及添加转场动画](https://juejin.cn/post/7362528152777130025) 
+【模仿抖音系列】三：[Vue 路由使用介绍以及添加转场动画](https://juejin.cn/post/7362528152777130025)  
 【模仿抖音系列】四：[Vue 有条件路由缓存，就像传统新闻网站一样](https://juejin.cn/post/7365334891473240101)
 
 ## 运行
