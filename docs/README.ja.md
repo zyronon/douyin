@@ -4,7 +4,7 @@
 
 <p align="center">
  <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
-<a href="README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
+<a href="README.fr.md">French</a> | <a href="README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -16,17 +16,18 @@
 `douyin-vue`パロディです`抖音|TikTok`モバイルショートビデオプロジェクト。`Vue`ネイティブと同等のモバイル側の「ベスト プラクティス」`App`シルキーで滑らかな使い心地。最新のものを使用しました`Vue`テクノロジースタック、に基づく[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)成し遂げる。データはプロジェクト内でローカルに保存されます。[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)ライブラリは API をインターセプトし、ローカルの JSON データを返して、実際のバックエンド リクエストをシミュレートします。
 
 <div>
-<img width="150px" src='imgs/1.gif' />
-<img width="150px" src='imgs/2.gif' />
-<img width="150px" src='imgs/3.gif' />
-<img width="150px" src='imgs/4.gif' />
-<img width="150px" src='imgs/5.gif' />
+<img width="150px" src='docs/imgs/1.gif' />
+<img width="150px" src='docs/imgs/2.gif' />
+<img width="150px" src='docs/imgs/3.gif' />
+<img width="150px" src='docs/imgs/4.gif' />
+<img width="150px" src='docs/imgs/5.gif' />
 </div>
 
 ## オンラインアクセス
 
-ジーティーページ:[ｈっｔｐｓ：／／ｚｙろのん。ぎてえ。いお／どうｙいん／](https://zyronon.gitee.io/douyin/)(中国ではこのアドレスにアクセスすることをお勧めします)  
-注: コードが最新ではないため、現在 Gitee ページを更新できません。ファイアウォールを回避できる場合は、次のアドレスにアクセスすることをお勧めします。
+[//]: # "Gitee Pages: [https://zyronon.gitee.io/douyin/](https://zyronon.gitee.io/douyin/)(中国地区推荐访问这个地址)   "
+
+[//]: # "注意：Gitee Pages现在无法更新，代码不是最新的。如果你能翻墙推荐访问下面地址  "
 
 Github ページ:[ｈっｔｐｓ：／／ｄｙ。ってんたう。とｐ／](https://dy.ttentau.top/)
 
@@ -48,9 +49,8 @@ Github ページ:[ｈっｔｐｓ：／／ｄｙ。ってんたう。とｐ／](
 
 【模倣同音シリーズ】 1:[Swiper.js に似たカルーセル コンポーネントを実装するための 200 行のコード](https://juejin.cn/post/7360512664317018146)  
 【模倣同音シリーズ】２：[Douyinで「無限スライドビデオ」効果を実現](https://juejin.cn/post/7361614921519054883)  
-【模倣同音シリーズ】その３：[Vue ルーティングの使用とトランジション アニメーションの追加の概要](https://juejin.cn/post/7362528152777130025)
-
-さらなる記事も準備中です...
+【模倣同音シリーズ】その３：[Vue ルーティングの使用とトランジション アニメーションの追加の概要](https://juejin.cn/post/7362528152777130025)  
+【模倣同音シリーズ】 4：[従来のニュースサイトと同様に、Vue の条件付きルート キャッシュ](https://juejin.cn/post/7365334891473240101)
 
 ## 走る
 
@@ -60,7 +60,19 @@ Github ページ:[ｈっｔｐｓ：／／ｄｙ。ってんたう。とｐ／](
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/zyronon/douyin)
 
+### Dockerへのデプロイ
+
+```bash
+# pull Docker image
+docker pull ghcr.io/zyronon/douyin-vue:latest
+
+# start container, nginx reverse proxy custom port, for example: docker run -d -p 80:80 ghcr.io/zyronon/douyin-vue:latest
+docker run -d -p 80:80 ghcr.io/zyronon/douyin-vue:latest
+```
+
 ### 地域開発
+
+**注: git コマンドを実行するには、クローンを作成する必要があります。zip パッケージのダウンロードは実行できません。クローン速度が遅すぎる場合は、gitee アドレスを使用することをお勧めします。**
 
 ```bash
 git clone https://gitee.com/zyronon/douyin.git (中国使用)
@@ -87,7 +99,7 @@ npm run dev
 -   `小霸宠牛排 🥩`：[ｈっｔｐｓ：／／ｖ。どうｙいん。こｍ／いＹＲそｓＶＢ／](https://v.douyin.com/iYRSosVB/)
 -   `奶茶妹 ◕🌱`：[ｈっｔｐｓ：／／ｖ。どうｙいん。こｍ／いＹらＣＫｈＰ／](https://v.douyin.com/iYRACKhP/)
 -   `我才是岚岚`：[ｈっｔｐｓ：／／ｖ。どうｙいん。こｍ／いＹらＱＭ１Ｃ／](https://v.douyin.com/iYRAQM1C/)
--   `周憬艺 ziran`：[ｈっｔｐｓ：／／ｖ。どうｙいん。こｍ／いＹらＱｓ４ｈ／](https://v.douyin.com/iYRAQs4h/)
+-   `周憬艺 ziran`: [ｈっｔｐｓ：／／ｖ。どうｙいん。こｍ／いＹらＱｓ４ｈ／](https://v.douyin.com/iYRAQs4h/)
 -   `刘思瑶 nice`：[ｈっｔｐｓ：／／ｖ。どうｙいん。こｍ／いＹらあえＲん／](https://v.douyin.com/iYRAaERn/)
 -   `彭十六 elf`：[ｈっｔｐｓ：／／ｖ。どうｙいん。こｍ／いＹらＨｒＶＧ／](https://v.douyin.com/iYRAHrVG/)
 -   `李子柒`：[ｈっｔｐｓ：／／ｖ。どうｙいん。こｍ／いＹら５Ｂ８８／](https://v.douyin.com/iYRA5B88/)
@@ -98,7 +110,7 @@ npm run dev
 
 ## 特徴と提案
 
-プロジェクトは現在開発の初期段階にあり、新しい機能が継続的に追加されています。ソフトウェアに関する機能や提案がありましたら、お気軽にお問い合わせください。`Issues`で育ちました
+プロジェクトは現在開発の初期段階にあり、ソフトウェアの新機能や提案があれば、お気軽にお問い合わせください。`Issues`で育ちました
 このソフトウェアのデザインアイデアも気に入っていただけましたら、ぜひ送信してください`PR`、 ご支援ありがとうございました！
 
 ## 私に連絡して
