@@ -25,8 +25,9 @@
 
 ## Online-Zugang
 
-Gitee-Seiten:<https://zyronon.gitee.io/douyin/>(Es wird empfohlen, diese Adresse in China zu besuchen)  
-Hinweis: Gitee-Seiten können derzeit nicht aktualisiert werden, da der Code nicht aktuell ist. Wenn Sie die Firewall umgehen können, empfehle ich den Besuch der folgenden Adresse:
+[//]: # "Gitee Pages: [https://zyronon.gitee.io/douyin/](https://zyronon.gitee.io/douyin/)(中国地区推荐访问这个地址)   "
+
+[//]: # "注意：Gitee Pages现在无法更新，代码不是最新的。如果你能翻墙推荐访问下面地址  "
 
 Github-Seiten:<https://dy.ttentau.top/>
 
@@ -48,9 +49,8 @@ Github-Seiten:<https://dy.ttentau.top/>
 
 \[Imitation Douyin-Serie] 1:[200 Codezeilen zur Implementierung einer Karussellkomponente ähnlich Swiper.js](https://juejin.cn/post/7360512664317018146)  
 \[Imitation Douyin-Serie] 2:[Verwirklichen Sie den „unendlich gleitenden Video“-Effekt auf Douyin](https://juejin.cn/post/7361614921519054883)  
-\[Imitation Douyin-Serie] Drei:[Einführung in die Verwendung von Vue-Routing und das Hinzufügen von Übergangsanimationen](https://juejin.cn/post/7362528152777130025)
-
-Weitere Artikel sind in Vorbereitung...
+\[Imitation Douyin-Serie] Drei:[Einführung in die Verwendung des Vue-Routings und das Hinzufügen von Übergangsanimationen](https://juejin.cn/post/7362528152777130025)  
+\[Imitation Douyin-Serie] Vier:[Bedingtes Routen-Caching von Vue, genau wie bei herkömmlichen Nachrichtenseiten](https://juejin.cn/post/7365334891473240101)
 
 ## laufen
 
@@ -60,7 +60,19 @@ Hinweis: Dieses Projekt ist nur für Studien- und Forschungszwecke geeignet, nic
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/zyronon/douyin)
 
+### Auf Docker bereitstellen
+
+```bash
+# pull Docker image
+docker pull ghcr.io/zyronon/douyin-vue:latest
+
+# start container, nginx reverse proxy custom port, for example: docker run -d -p 80:80 ghcr.io/zyronon/douyin-vue:latest
+docker run -d -p 80:80 ghcr.io/zyronon/douyin-vue:latest
+```
+
 ### lokale Entwicklung
+
+**Hinweis: Der Git-Befehl muss geklont werden, damit er ausgeführt werden kann. Das Herunterladen des ZIP-Pakets ist nicht möglich. Wenn die Klongeschwindigkeit zu langsam ist, wird empfohlen, die Gitee-Adresse zu verwenden**
 
 ```bash
 git clone https://gitee.com/zyronon/douyin.git (中国使用)
