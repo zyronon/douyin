@@ -47,10 +47,11 @@ Github Pages:<https://dy.ttentau.top/>
 
 ## Link
 
-\[Imitation Douyin Series] 1:[200行代码实现类似Swiper.js的轮播组件](https://juejin.cn/post/7360512664317018146)  
+\[Imitation Douyin Series] 1:[200 lines of code to implement a carousel component similar to Swiper.js](https://juejin.cn/post/7360512664317018146)  
 \[Imitation Douyin Series] 2:[Realize the "infinite sliding video" effect on Douyin](https://juejin.cn/post/7361614921519054883)  
 \[Imitation Douyin Series] Three:[Introduction to using Vue routing and adding transition animations](https://juejin.cn/post/7362528152777130025)  
-\[Imitation Douyin Series] Four:[Vue conditional route caching, just like traditional news sites](https://juejin.cn/post/7365334891473240101)\[Imitation Douyin Series] Four:[Github Actions deploy Pages, synchronize to Gitee, translate README, package docker image](https://juejin.cn/post/7365757742381957161)
+\[Imitation Douyin Series] Four:[Vue conditional route caching, just like traditional news sites](https://juejin.cn/post/7365334891473240101)  
+\[Imitation Douyin Series] Four:[Github Actions deploy Pages, synchronize to Gitee, translate README, package docker image](https://juejin.cn/post/7365757742381957161)
 
 ## run
 
@@ -84,7 +85,7 @@ npm run dev
 
 Open your browser and visit:<http://127.0.0.1:3000>
 
-**Note: You need to switch the browser to mobile mode, first press`F12`To bring up the console, press`Ctrl+Shift+M`to preview normally**
+**注意：需要将浏览器切至手机模式，先按 `F12`To bring up the console, press`Ctrl+Shift+M`to preview normally**
 
 ## Data Sources
 

@@ -4,7 +4,7 @@
 
 <p align="center">
  <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
-<a href="README.fr.md">French</a> | <a href="README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
+<a href="README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -50,7 +50,8 @@ Pages GitHub :<https://dy.ttentau.top/>
 \[Série Imitation Douyin] 1 :[200 lignes de code pour implémenter un composant carrousel similaire à Swiper.js](https://juejin.cn/post/7360512664317018146)  
 \[Série Imitation Douyin] 2 :[Réaliser l'effet "vidéo coulissante infinie" sur Douyin](https://juejin.cn/post/7361614921519054883)  
 \[Série Imitation Douyin] Trois :[Introduction à l'utilisation du routage Vue et à l'ajout d'animations de transition](https://juejin.cn/post/7362528152777130025)  
-\[Série Imitation Douyin] Quatre :[Mise en cache des routes conditionnelles Vue, tout comme les sites d'information traditionnels](https://juejin.cn/post/7365334891473240101)\[Série Imitation Douyin] Quatre :[Les actions Github déploient des pages, synchronisent avec Gitee, traduisent README, emballent l'image Docker](https://juejin.cn/post/7365757742381957161)
+\[Série Imitation Douyin] Quatre :[Mise en cache des routes conditionnelles Vue, tout comme les sites d'information traditionnels](https://juejin.cn/post/7365334891473240101)  
+\[Série Imitation Douyin] Quatre :[Les actions Github déploient des pages, synchronisent avec Gitee, traduisent README, emballent l'image Docker](https://juejin.cn/post/7365757742381957161)
 
 ## courir
 
@@ -113,13 +114,14 @@ Le contenu ci-dessus est toute l'information publique sur Internet
 Le projet en est actuellement aux premiers stades de développement et de nouvelles fonctionnalités sont ajoutées continuellement. Si vous avez des fonctionnalités ou des suggestions pour le logiciel, n'hésitez pas à nous contacter.`Issues`élevé dans
 Si vous aimez également les idées de conception de ce logiciel, veuillez le soumettre`PR`, Merci beaucoup pour votre soutient!
 
-## 联系我
+## Contactez moi
 
 Vous pouvez contacter mon email<a href="mailto:zyronon@163.com">zyronon@163.com</a>
 
 > Partagez mes autres projets open source :
 >
-> _[**Taper un mot**- Logiciel de mémorisation de vocabulaire utilisable sur le web~](https://github.com/zyronon/typing-word)<img src="https://img.shields.io/github/stars/zyronon/typing-word.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_  
+> _[**Typing Word
+> **- Logiciel de mémorisation de vocabulaire utilisable sur le web~](https://github.com/zyronon/typing-word)<img src="https://img.shields.io/github/stars/zyronon/typing-word.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_  
 > _[**Scripts Web**- Quelques scripts Grease Monkey utiles ~](https://github.com/zyronon/web-scripts)<img src="https://img.shields.io/github/stars/zyronon/web-scripts.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_
 
 ## accord

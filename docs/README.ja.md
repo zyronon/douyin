@@ -4,7 +4,7 @@
 
 <p align="center">
  <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
-<a href="README.fr.md">French</a> | <a href="README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
+<a href="README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -16,11 +16,11 @@
 `douyin-vue`パロディです`抖音|TikTok`モバイルショートビデオプロジェクト。`Vue`ネイティブと同等のモバイル側の「ベスト プラクティス」`App`シルキーで滑らかな使い心地。最新のものを使用しました`Vue`テクノロジースタック、に基づく[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)成し遂げる。データはプロジェクト内でローカルに保存されます。[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)ライブラリは API をインターセプトし、ローカルの JSON データを返して、実際のバックエンド リクエストをシミュレートします。
 
 <div>
-<img width="150px" src='docs/imgs/1.gif' />
-<img width="150px" src='docs/imgs/2.gif' />
-<img width="150px" src='docs/imgs/3.gif' />
-<img width="150px" src='docs/imgs/4.gif' />
-<img width="150px" src='docs/imgs/5.gif' />
+<img width="150px" src='imgs/1.gif' />
+<img width="150px" src='imgs/2.gif' />
+<img width="150px" src='imgs/3.gif' />
+<img width="150px" src='imgs/4.gif' />
+<img width="150px" src='imgs/5.gif' />
 </div>
 
 ## オンラインアクセス
@@ -50,7 +50,8 @@ Github ページ:[ｈっｔｐｓ：／／ｄｙ。ってんたう。とｐ／](
 【模倣同音シリーズ】 1:[Swiper.js に似たカルーセル コンポーネントを実装するための 200 行のコード](https://juejin.cn/post/7360512664317018146)  
 【模倣同音シリーズ】２：[Douyinで「無限スライドビデオ」効果を実現](https://juejin.cn/post/7361614921519054883)  
 【模倣同音シリーズ】その３：[Vue ルーティングの使用とトランジション アニメーションの追加の概要](https://juejin.cn/post/7362528152777130025)  
-【模仿抖音系列】四：[従来のニュースサイトと同様に、Vue の条件付きルート キャッシュ](https://juejin.cn/post/7365334891473240101)【模倣同音シリーズ】 4：[Github Actions ページのデプロイ、Gitee への同期、README の翻訳、Docker イメージのパッケージ化](https://juejin.cn/post/7365757742381957161)
+【模倣同音シリーズ】 4：[従来のニュースサイトと同様に、Vue の条件付きルート キャッシュ](https://juejin.cn/post/7365334891473240101)  
+【模倣同音シリーズ】 4：[Github Actions ページのデプロイ、Gitee への同期、README の翻訳、Docker イメージのパッケージ化](https://juejin.cn/post/7365757742381957161)
 
 ## 走る
 
@@ -120,7 +121,7 @@ npm run dev
 > 私の他のオープンソース プロジェクトを共有してください:
 >
 > _[**単語を入力する**～Web上で使える単語暗記ソフト～](https://github.com/zyronon/typing-word)<img src="https://img.shields.io/github/stars/zyronon/typing-word.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_  
-> _[**ウェブスクリプト**- いくつかの便利な Grease Monkey スクリプト~](https://github.com/zyronon/web-scripts)<img src="https://img.shields.io/github/stars/zyronon/web-scripts.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_
+> _[**ウェブスクリプト** - 一些好用的油猴脚本~](https://github.com/zyronon/web-scripts)<img src="https://img.shields.io/github/stars/zyronon/web-scripts.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_
 
 ## 合意
 

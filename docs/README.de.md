@@ -13,7 +13,7 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`ist eine Parodie`抖音|TikTok`mobiles Kurzvideoprojekt.`Vue`„Best Practices“ auf der mobilen Seite, vergleichbar mit Native`App`Seidiges und geschmeidiges Erlebnis. Habe das Neueste verwendet`Vue`Technologie-Stack, basierend auf[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)erreichen. Die Daten werden lokal im Projekt gespeichert[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)Die Bibliothek fängt die API ab und gibt lokale JSON-Daten zurück, um echte Backend-Anfragen zu simulieren.
+`douyin-vue` 是一个模仿 `抖音|TikTok`mobiles Kurzvideoprojekt.`Vue`„Best Practices“ auf der mobilen Seite, vergleichbar mit Native`App`Seidiges und geschmeidiges Erlebnis. Habe das Neueste verwendet`Vue`Technologie-Stack, basierend auf[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)erreichen. Die Daten werden lokal im Projekt gespeichert[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)Die Bibliothek fängt die API ab und gibt lokale JSON-Daten zurück, um echte Backend-Anfragen zu simulieren.
 
 <div>
 <img width="150px" src='imgs/1.gif' />
@@ -50,7 +50,8 @@ Github-Seiten:<https://dy.ttentau.top/>
 \[Imitation Douyin-Serie] 1:[200 Codezeilen zur Implementierung einer Karussellkomponente ähnlich Swiper.js](https://juejin.cn/post/7360512664317018146)  
 \[Imitation Douyin-Serie] 2:[Verwirklichen Sie den „unendlich gleitenden Video“-Effekt auf Douyin](https://juejin.cn/post/7361614921519054883)  
 \[Imitation Douyin-Serie] Drei:[Einführung in die Verwendung des Vue-Routings und das Hinzufügen von Übergangsanimationen](https://juejin.cn/post/7362528152777130025)  
-\[Imitation Douyin-Serie] Vier:[Bedingtes Routen-Caching von Vue, genau wie bei herkömmlichen Nachrichtenseiten](https://juejin.cn/post/7365334891473240101)\[Imitation Douyin-Serie] Vier:[Github-Aktionen stellen Seiten bereit, synchronisieren mit Gitee, übersetzen README, packen Docker-Image](https://juejin.cn/post/7365757742381957161)
+\[Imitation Douyin-Serie] Vier:[Bedingtes Routen-Caching von Vue, genau wie bei herkömmlichen Nachrichtenseiten](https://juejin.cn/post/7365334891473240101)  
+\[Imitation Douyin-Serie] Vier:[Github-Aktionen stellen Seiten bereit, synchronisieren mit Gitee, übersetzen README, packen Docker-Image](https://juejin.cn/post/7365757742381957161)
 
 ## laufen
 
