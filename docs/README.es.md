@@ -4,7 +4,7 @@
 
 <p align="center">
  <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
-<a href="README.fr.md">French</a> | <a href="README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
+<a href="README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -16,11 +16,11 @@
 `douyin-vue`es una parodia`抖音|TikTok`Proyecto de vídeo corto móvil.`Vue`"Mejores prácticas" en el lado móvil, comparables a las nativas`App`Experiencia sedosa y suave. Usado lo último`Vue`pila de tecnología, basada en[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)lograr. Los datos se guardan localmente en el proyecto a través de[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La biblioteca intercepta la API y devuelve datos json locales para simular solicitudes de backend reales.
 
 <div>
-<img width="150px" src='docs/imgs/1.gif' />
-<img width="150px" src='docs/imgs/2.gif' />
-<img width="150px" src='docs/imgs/3.gif' />
-<img width="150px" src='docs/imgs/4.gif' />
-<img width="150px" src='docs/imgs/5.gif' />
+<img width="150px" src='imgs/1.gif' />
+<img width="150px" src='imgs/2.gif' />
+<img width="150px" src='imgs/3.gif' />
+<img width="150px" src='imgs/4.gif' />
+<img width="150px" src='imgs/5.gif' />
 </div>
 
 ## Acceso en linea
@@ -50,7 +50,7 @@ Páginas de Github:<https://dy.ttentau.top/>
 \[Serie Imitación Douyin] 1:[200 líneas de código para implementar un componente carrusel similar a Swiper.js](https://juejin.cn/post/7360512664317018146)  
 \[Serie Imitación Douyin] 2:[Realice el efecto de "vídeo deslizante infinito" en Douyin](https://juejin.cn/post/7361614921519054883)  
 \[Serie Imitación Douyin] Tres:[Introducción al uso del enrutamiento de Vue y la adición de animaciones de transición](https://juejin.cn/post/7362528152777130025)  
-\[Serie Imitación Douyin] Cuatro:[Almacenamiento en caché de rutas condicionales de Vue, al igual que los sitios de noticias tradicionales](https://juejin.cn/post/7365334891473240101)
+\[Serie Imitación Douyin] Cuatro:[Almacenamiento en caché de rutas condicionales de Vue, al igual que los sitios de noticias tradicionales](https://juejin.cn/post/7365334891473240101)\[Serie Imitación Douyin] Cuatro:[Github Actions implementa páginas, sincroniza con Gitee, traduce README, empaqueta la imagen de la ventana acoplable](https://juejin.cn/post/7365757742381957161)
 
 ## correr
 

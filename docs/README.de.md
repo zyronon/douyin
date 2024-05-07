@@ -50,7 +50,7 @@ Github-Seiten:<https://dy.ttentau.top/>
 \[Imitation Douyin-Serie] 1:[200 Codezeilen zur Implementierung einer Karussellkomponente ähnlich Swiper.js](https://juejin.cn/post/7360512664317018146)  
 \[Imitation Douyin-Serie] 2:[Verwirklichen Sie den „unendlich gleitenden Video“-Effekt auf Douyin](https://juejin.cn/post/7361614921519054883)  
 \[Imitation Douyin-Serie] Drei:[Einführung in die Verwendung des Vue-Routings und das Hinzufügen von Übergangsanimationen](https://juejin.cn/post/7362528152777130025)  
-\[Imitation Douyin-Serie] Vier:[Bedingtes Routen-Caching von Vue, genau wie bei herkömmlichen Nachrichtenseiten](https://juejin.cn/post/7365334891473240101)
+\[Imitation Douyin-Serie] Vier:[Bedingtes Routen-Caching von Vue, genau wie bei herkömmlichen Nachrichtenseiten](https://juejin.cn/post/7365334891473240101)\[Imitation Douyin-Serie] Vier:[Github-Aktionen stellen Seiten bereit, synchronisieren mit Gitee, übersetzen README, packen Docker-Image](https://juejin.cn/post/7365757742381957161)
 
 ## laufen
 

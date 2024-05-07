@@ -4,7 +4,7 @@
 
 <p align="center">
  <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
-<a href="README.fr.md">French</a> | <a href="README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
+<a href="README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -16,11 +16,11 @@
 `douyin-vue`is a parody`抖音|TikTok`mobile short video project.`Vue`"Best practices" on the mobile side, comparable to native`App`Silky and smooth experience. Used the latest`Vue`technology stack, based on[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)accomplish. The data is saved locally in the project through[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)The library intercepts the API and returns local json data to simulate real backend requests.
 
 <div>
-<img width="150px" src='docs/imgs/1.gif' />
-<img width="150px" src='docs/imgs/2.gif' />
-<img width="150px" src='docs/imgs/3.gif' />
-<img width="150px" src='docs/imgs/4.gif' />
-<img width="150px" src='docs/imgs/5.gif' />
+<img width="150px" src='imgs/1.gif' />
+<img width="150px" src='imgs/2.gif' />
+<img width="150px" src='imgs/3.gif' />
+<img width="150px" src='imgs/4.gif' />
+<img width="150px" src='imgs/5.gif' />
 </div>
 
 ## Online access
@@ -47,10 +47,10 @@ Github Pages:<https://dy.ttentau.top/>
 
 ## Link
 
-\[Imitation Douyin Series] 1:[200 lines of code to implement a carousel component similar to Swiper.js](https://juejin.cn/post/7360512664317018146)  
+\[Imitation Douyin Series] 1:[200行代码实现类似Swiper.js的轮播组件](https://juejin.cn/post/7360512664317018146)  
 \[Imitation Douyin Series] 2:[Realize the "infinite sliding video" effect on Douyin](https://juejin.cn/post/7361614921519054883)  
 \[Imitation Douyin Series] Three:[Introduction to using Vue routing and adding transition animations](https://juejin.cn/post/7362528152777130025)  
-\[Imitation Douyin Series] Four:[Vue conditional route caching, just like traditional news sites](https://juejin.cn/post/7365334891473240101)
+\[Imitation Douyin Series] Four:[Vue conditional route caching, just like traditional news sites](https://juejin.cn/post/7365334891473240101)\[Imitation Douyin Series] Four:[Github Actions deploy Pages, synchronize to Gitee, translate README, package docker image](https://juejin.cn/post/7365757742381957161)
 
 ## run
 

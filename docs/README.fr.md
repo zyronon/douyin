@@ -4,7 +4,7 @@
 
 <p align="center">
  <a href="README.en.md">English</a> | <a href="README.es.md">Spanish</a> | <a href="README.de.md">German</a> | 
-<a href="README.fr.md">French</a> | <a href="../README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
+<a href="README.fr.md">French</a> | <a href="README.md">简体中文</a> |  <a href="README.ja.md">日本語</a> 
 </p>
 
 <p align="center">
@@ -16,11 +16,11 @@
 `douyin-vue`est une parodie`抖音|TikTok`projet de courte vidéo mobile.`Vue`Des « bonnes pratiques » côté mobile, comparables au natif`App`Expérience soyeuse et douce. Utilisé le dernier`Vue`pile technologique, basée sur[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)accomplir. Les données sont enregistrées localement dans le projet via[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)La bibliothèque intercepte l'API et renvoie des données json locales pour simuler de véritables requêtes backend.
 
 <div>
-<img width="150px" src='imgs/1.gif' />
-<img width="150px" src='imgs/2.gif' />
-<img width="150px" src='imgs/3.gif' />
-<img width="150px" src='imgs/4.gif' />
-<img width="150px" src='imgs/5.gif' />
+<img width="150px" src='docs/imgs/1.gif' />
+<img width="150px" src='docs/imgs/2.gif' />
+<img width="150px" src='docs/imgs/3.gif' />
+<img width="150px" src='docs/imgs/4.gif' />
+<img width="150px" src='docs/imgs/5.gif' />
 </div>
 
 ## Accès en ligne
@@ -50,7 +50,7 @@ Pages GitHub :<https://dy.ttentau.top/>
 \[Série Imitation Douyin] 1 :[200 lignes de code pour implémenter un composant carrousel similaire à Swiper.js](https://juejin.cn/post/7360512664317018146)  
 \[Série Imitation Douyin] 2 :[Réaliser l'effet "vidéo coulissante infinie" sur Douyin](https://juejin.cn/post/7361614921519054883)  
 \[Série Imitation Douyin] Trois :[Introduction à l'utilisation du routage Vue et à l'ajout d'animations de transition](https://juejin.cn/post/7362528152777130025)  
-\[Série Imitation Douyin] Quatre :[Mise en cache des routes conditionnelles Vue, tout comme les sites d'information traditionnels](https://juejin.cn/post/7365334891473240101)
+\[Série Imitation Douyin] Quatre :[Mise en cache des routes conditionnelles Vue, tout comme les sites d'information traditionnels](https://juejin.cn/post/7365334891473240101)\[Série Imitation Douyin] Quatre :[Les actions Github déploient des pages, synchronisent avec Gitee, traduisent README, emballent l'image Docker](https://juejin.cn/post/7365757742381957161)
 
 ## courir
 
@@ -113,7 +113,7 @@ Le contenu ci-dessus est toute l'information publique sur Internet
 Le projet en est actuellement aux premiers stades de développement et de nouvelles fonctionnalités sont ajoutées continuellement. Si vous avez des fonctionnalités ou des suggestions pour le logiciel, n'hésitez pas à nous contacter.`Issues`élevé dans
 Si vous aimez également les idées de conception de ce logiciel, veuillez le soumettre`PR`, Merci beaucoup pour votre soutient!
 
-## Contactez moi
+## 联系我
 
 Vous pouvez contacter mon email<a href="mailto:zyronon@163.com">zyronon@163.com</a>
 
