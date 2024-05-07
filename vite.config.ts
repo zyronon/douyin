@@ -1,4 +1,4 @@
-import { defineConfig, PluginOption } from 'vite'
+import { defineConfig, PluginOption, UserConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import { visualizer } from 'rollup-plugin-visualizer'
@@ -9,7 +9,7 @@ import VueMacros from 'unplugin-vue-macros/vite'
 
 const lifecycle = process.env.npm_lifecycle_event
 
-export default defineConfig(() => {
+export default defineConfig((): Promise<UserConfig> => {
   let latestCommitHash = ''
 
   return new Promise((resolve) => {
@@ -109,7 +109,7 @@ export default defineConfig(() => {
           rollupOptions: {
             // https://rollupjs.org/guide/en/#outputmanualchunks
             output: {
-              manualChunks(id, { getModuleInfo }) {
+              manualChunks(id: string, { getModuleInfo }: any) {
                 const reg = /(.*)\/src\/components\/(.*)/
                 if (reg.test(id)) {
                   const importersLen = getModuleInfo(id)?.importers.length ?? 0
