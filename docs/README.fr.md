@@ -51,7 +51,7 @@ Pages GitHub :<https://dy.ttentau.top/>
 \[Série Imitation Douyin] 2 :[Réaliser l'effet "vidéo coulissante infinie" sur Douyin](https://juejin.cn/post/7361614921519054883)  
 \[Série Imitation Douyin] Trois :[Introduction à l'utilisation du routage Vue et à l'ajout d'animations de transition](https://juejin.cn/post/7362528152777130025)  
 \[Série Imitation Douyin] Quatre :[Mise en cache des routes conditionnelles Vue, tout comme les sites d'information traditionnels](https://juejin.cn/post/7365334891473240101)  
-\[Série Imitation Douyin] Quatre :[Les actions Github déploient des pages, synchronisent avec Gitee, traduisent README, emballent l'image Docker](https://juejin.cn/post/7365757742381957161)
+\[Série Imitation Douyin] Cinq :[Les actions Github déploient des pages, synchronisent avec Gitee, traduisent README, emballent l'image Docker](https://juejin.cn/post/7365757742381957161)
 
 ## courir
 
@@ -120,8 +120,7 @@ Vous pouvez contacter mon email<a href="mailto:zyronon@163.com">zyronon@163.com<
 
 > Partagez mes autres projets open source :
 >
-> _[**Typing Word
-> **- Logiciel de mémorisation de vocabulaire utilisable sur le web~](https://github.com/zyronon/typing-word)<img src="https://img.shields.io/github/stars/zyronon/typing-word.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_  
+> _[**Taper un mot**- Logiciel de mémorisation de vocabulaire utilisable sur le web~](https://github.com/zyronon/typing-word)<img src="https://img.shields.io/github/stars/zyronon/typing-word.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_  
 > _[**Scripts Web**- Quelques scripts Grease Monkey utiles ~](https://github.com/zyronon/web-scripts)<img src="https://img.shields.io/github/stars/zyronon/web-scripts.svg?style=flat-square&label=Star&color=4285dd&logo=github" height="16px" />_
 
 ## accord

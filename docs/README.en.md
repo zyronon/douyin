@@ -13,14 +13,14 @@
   <a><img src="https://img.shields.io/badge/Powered%20by-Vue-blue"/></a>
 </p>
 
-`douyin-vue`is a parody`抖音|TikTok`mobile short video project.`Vue`"Best practices" on the mobile side, comparable to native`App`Silky and smooth experience. Used the latest`Vue`technology stack, based on[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)accomplish. The data is saved locally in the project through[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)The library intercepts the API and returns local json data to simulate real backend requests.
+`douyin-vue`is a parody`抖音|TikTok`mobile short video project.`Vue`"Best practices" on the mobile side, comparable to native`App` 丝滑流畅的使用体验。使用了最新的 `Vue`technology stack, based on[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)accomplish. The data is saved locally in the project through[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)The library intercepts the API and returns local json data to simulate real backend requests.
 
 <div>
-<img width="150px" src='imgs/1.gif' />
-<img width="150px" src='imgs/2.gif' />
-<img width="150px" src='imgs/3.gif' />
-<img width="150px" src='imgs/4.gif' />
-<img width="150px" src='imgs/5.gif' />
+<img width="150px" src='docs/imgs/1.gif' />
+<img width="150px" src='docs/imgs/2.gif' />
+<img width="150px" src='docs/imgs/3.gif' />
+<img width="150px" src='docs/imgs/4.gif' />
+<img width="150px" src='docs/imgs/5.gif' />
 </div>
 
 ## Online access
@@ -51,7 +51,7 @@ Github Pages:<https://dy.ttentau.top/>
 \[Imitation Douyin Series] 2:[Realize the "infinite sliding video" effect on Douyin](https://juejin.cn/post/7361614921519054883)  
 \[Imitation Douyin Series] Three:[Introduction to using Vue routing and adding transition animations](https://juejin.cn/post/7362528152777130025)  
 \[Imitation Douyin Series] Four:[Vue conditional route caching, just like traditional news sites](https://juejin.cn/post/7365334891473240101)  
-\[Imitation Douyin Series] Four:[Github Actions deploy Pages, synchronize to Gitee, translate README, package docker image](https://juejin.cn/post/7365757742381957161)
+\[Imitation Douyin Series] Five:[Github Actions deploy Pages, synchronize to Gitee, translate README, package docker image](https://juejin.cn/post/7365757742381957161)
 
 ## run
 
@@ -111,7 +111,7 @@ The above content is all public information on the Internet
 
 ## Features and suggestions
 
-The project is currently in the early stages of development, and new features are being added continuously. If you have any features or suggestions for the software, please feel free to contact us.`Issues`raised in
+The project is currently in the early stages of development and new features are being added continuously. If you have any features or suggestions for the software, please feel free to contact us.`Issues`raised in
 If you also like the design ideas of this software, please submit it`PR`, thank you very much for your support!
 
 ## contact me
