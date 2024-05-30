@@ -46,7 +46,8 @@ Github Pages: [https://dy.ttentau.top/](https://dy.ttentau.top/)
 【模仿抖音系列】二：[实现抖音 “视频无限滑动“效果](https://juejin.cn/post/7361614921519054883)  
 【模仿抖音系列】三：[Vue 路由使用介绍以及添加转场动画](https://juejin.cn/post/7362528152777130025)  
 【模仿抖音系列】四：[Vue 有条件路由缓存，就像传统新闻网站一样](https://juejin.cn/post/7365334891473240101)  
-【模仿抖音系列】五：[Github Actions 部署 Pages、同步到 Gitee、翻译 README 、 打包 docker 镜像](https://juejin.cn/post/7365757742381957161)
+【模仿抖音系列】五：[Github Actions 部署 Pages、同步到 Gitee、翻译 README 、 打包 docker 镜像](https://juejin.cn/post/7365757742381957161)  
+【模仿抖音系列】六：[使用rem、动态vh自适应移动端](https://juejin.cn/post/7374452765273538595)
 
 ## 运行
 注意：本项目仅适用于学习和研究，不得用于商业使用
