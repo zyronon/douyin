@@ -79,8 +79,8 @@ watch(
   () => props.list,
   (newVal, oldVal) => {
     // console.log('watch-list', newVal.length, oldVal.length, newVal)
-    //新数据长度比老数据长度小，说明是刷新
-    if (newVal.length < oldVal.length) {
+    //新数据长度小于老数据长度，说明是刷新
+    if (newVal.length <= oldVal.length) {
       insertContent()
     } else {
       //没数据就直接插入
@@ -112,10 +112,45 @@ watch(
 
 watch(
   () => props.index,
-  (newVal, oldVal) => {
+  (newVal) => {
     state.localIndex = newVal
     // console.log('watch-index', newVal, oldVal)
-    if (!props.list.length) return
+    if (!props?.list?.length) return
+    // 父组件强行改变指定可见节点，比如合集中跳转到指定集等
+    if (
+      slideListEl.value &&
+      slideListEl.value?.innerHTML &&
+      state.localIndex < props?.list?.length
+    ) {
+      let startIndex = slideListEl.value
+        .querySelector(`.${itemClassName}:first-child`)
+        .getAttribute('data-index')
+
+      let endIndex = slideListEl.value
+        .querySelector(`.${itemClassName}:last-child`)
+        .getAttribute('data-index')
+
+      if (
+        state.localIndex >= (startIndex as any) * 1 &&
+        state.localIndex <= (endIndex as any) * 1
+      ) {
+        // 在可见范围内
+
+        touchEnd({})
+      } else {
+        // 不在可见范围内
+        insertContent()
+      }
+    }
+  }
+)
+
+/**
+ * 滑动
+ */
+watch(
+  () => state.localIndex,
+  (newVal, oldVal) => {
     bus.emit(EVENT_KEY.CURRENT_ITEM, props.list[newVal])
     bus.emit(EVENT_KEY.SINGLE_CLICK_BROADCAST, {
       uniqueId: props.uniqueId,
@@ -131,7 +166,6 @@ watch(
     }, 200)
   }
 )
-
 watch(
   () => props.active,
   (newVal) => {
@@ -166,7 +200,7 @@ function insertContent() {
   if (!props.list.length) return
   //清空SlideList
   slideListEl.value.innerHTML = ''
-  let half = (props.virtualTotal - 1) / 2
+  let half = parseInt((props.virtualTotal / 2).toString()) //虚拟列表的一半
   //因为我们只渲染 props.virtualTotal 条数据到dom中，并且当前index有可能不是0，所以需要计算出起始下标和结束下标
   let start = 0
   if (state.localIndex > half) {
@@ -272,7 +306,7 @@ function touchEnd(e) {
     emit('refresh')
   }
   slideTouchEnd(e, state, canNext, (isNext) => {
-    let half = (props.virtualTotal - 1) / 2
+    let half = parseInt((props.virtualTotal / 2).toString()) //虚拟列表的一半
     if (props.list.length > props.virtualTotal) {
       //手指往上滑(即列表展示下一条内容)
       if (isNext) {
