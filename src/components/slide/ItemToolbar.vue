@@ -33,7 +33,29 @@ function _updateItem(props, key, val) {
 }
 
 function loved() {
-  _updateItem(props, 'isLoved', !props.item.isLoved)
+  setTimeout(() => {
+    _updateItem(props, 'isLoved', !props.item.isLoved)
+  }, 100)
+  if (!props.item.isLoved) {
+    // eslint-disable-next-line vue/no-mutating-props
+    props.item.statistics.digg_count++
+  } else {
+    // eslint-disable-next-line vue/no-mutating-props
+    props.item.statistics.digg_count--
+  }
+}
+
+function collected() {
+  setTimeout(() => {
+    _updateItem(props, 'isCollect', !props.item.isCollect)
+  }, 100)
+  if (!props.item.isCollect) {
+    // eslint-disable-next-line vue/no-mutating-props
+    props.item.statistics.collect_count++
+  } else {
+    // eslint-disable-next-line vue/no-mutating-props
+    props.item.statistics.collect_count--
+  }
 }
 
 function attention(e) {
@@ -78,7 +100,7 @@ const vClick = useClick()
       <span>{{ _formatNumber(item.statistics.comment_count) }}</span>
     </div>
     <!--TODO     -->
-    <div class="message mb2r" v-click="() => _updateItem(props, 'isCollect', !item.isCollect)">
+    <div class="message mb2r" v-click="collected">
       <Icon
         v-if="item.isCollect"
         icon="ic:round-star"
@@ -86,7 +108,7 @@ const vClick = useClick()
         style="color: rgb(252, 179, 3)"
       />
       <Icon v-else icon="ic:round-star" class="icon" style="color: white" />
-      <span>{{ _formatNumber(item.statistics.comment_count) }}</span>
+      <span>{{ _formatNumber(item.statistics.collect_count) }}</span>
     </div>
     <div v-if="!props.isMy" class="share mb2r" v-click="() => bus.emit(EVENT_KEY.SHOW_SHARE)">
       <img src="../../assets/img/icon/share-white-full.png" alt="" class="share-image" />
