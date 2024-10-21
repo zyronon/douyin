@@ -116,7 +116,7 @@
 import { useNav } from '@/utils/hooks/useNav'
 import { _checkImgUrl, _no } from '@/utils'
 import ScrollList from '@/components/ScrollList.vue'
-import { recommendedShop } from '@/api/user'
+import { recommendedShop } from '@/api/shop'
 import WaterfallList from '@/components/WaterfallList.vue'
 
 defineOptions({

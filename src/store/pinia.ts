@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia'
-import { friends, panel } from '@/api/user'
+import { friends, getAwemeStatus, panel } from '@/api/user'
 import enums from '@/utils/enums'
-import resource from '@/assets/data/resource'
+import { ref } from 'vue'
+import cookie from 'js-cookie'
+import { getAllMsg } from '@/api/message'
 
 export const useBaseStore = defineStore('base', {
   state: () => {
@@ -17,15 +19,20 @@ export const useBaseStore = defineStore('base', {
       loading: false,
       routeData: null,
       users: [],
+      login_id: '',
+      token: ref(window.localStorage.getItem('token') || cookie.get('x-token') || ''), // Add token field
       userinfo: {
-        nickname: '',
-        desc: '',
-        user_age: '',
-        signature: '',
+        uid: '',
+        short_id: '',
         unique_id: '',
+        gender: '',
+        user_age: '',
+        nickname: '',
         province: '',
         city: '',
-        gender: '',
+        signature: '',
+        ip_location: '',
+        desc: '',
         school: {
           name: '',
           department: null,
@@ -33,10 +40,10 @@ export const useBaseStore = defineStore('base', {
           education: null,
           displayType: enums.DISPLAY_TYPE.ALL
         },
-        avatar_168x168: {
+        avatar_small: {
           url_list: []
         },
-        avatar_300x300: {
+        avatar_large: {
           url_list: []
         },
         cover_url: [
@@ -50,7 +57,19 @@ export const useBaseStore = defineStore('base', {
           }
         ]
       },
-      friends: resource.users
+      friends: {
+        all: [],
+        recent: [],
+        eachOther: []
+      },
+      follow: [],
+      fans: [],
+      AwemeStatus: {
+        Attentions: [],
+        Likes: [],
+        Collects: []
+      },
+      message: ''
     }
   },
   getters: {
@@ -60,17 +79,29 @@ export const useBaseStore = defineStore('base', {
   },
   actions: {
     async init() {
-      const r = await panel()
-      if (r.success) {
-        this.userinfo = Object.assign(this.userinfo, r.data)
+      this.token = window.localStorage.getItem('token') || cookie.get('token') || '' // Initialize token in init
+      const r1 = await panel()
+      if (r1.success) {
+        this.userinfo = Object.assign(this.userinfo, r1.data)
       }
       const r2 = await friends()
+      // console.log('friends:', r2)
       if (r2.success) {
-        this.users = r2.data
+        this.friends.all = r2.data
+      }
+      const r3 = await getAwemeStatus()
+      console.log('getAwemeStatus:', r3)
+      if (r3.success) {
+        this.AwemeStatus = r3.data
       }
     },
     setUserinfo(val) {
       this.userinfo = val
+    },
+    setToken(val) {
+      this.token = val
+      window.localStorage.setItem('token', val)
+      cookie.set('token', val)
     },
     setMaskDialog(val) {
       this.maskDialog = val.state
@@ -90,6 +121,45 @@ export const useBaseStore = defineStore('base', {
         }
       }
       // console.log('store.excludeNames', store.excludeNames,val)
+    }
+  }
+})
+
+export const useChatStore = defineStore('chat', {
+  state: () => ({
+    chatObject: null,
+    messages: [
+      {
+        msg_type: 1,
+        msg_data: '',
+        create_time: '2024-11-19 22:50'
+      }
+    ],
+    previewImg: '',
+    videoCall: [],
+    newMessage: '',
+    MESSAGE_TYPE: {},
+    all_messages: {},
+    typing: false,
+    loading: false,
+    opening: false,
+    isOpened: false,
+    recording: false,
+    showOption: false,
+    isShowOpenRedPacket: false,
+    tooltipTop: -1,
+    tooltipTopLocation: ''
+  }),
+  actions: {
+    async init() {
+      const r1 = await getAllMsg()
+      if (r1.success) {
+        this.all_messages = Object.assign(this.all_messages, r1.data)
+      }
+    },
+    setChatObject(newChatObject) {
+      this.chatObject = newChatObject
+      this.messages = this.all_messages[String(newChatObject.uid)]
     }
   }
 })

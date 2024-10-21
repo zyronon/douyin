@@ -139,10 +139,10 @@
               <img
                 :style="item.select ? 'opacity: .5;' : ''"
                 class="avatar"
-                :src="_checkImgUrl(item.avatar)"
+                :src="_checkImgUrl(item.avatar_small['url_list'][0])"
                 alt=""
               />
-              <span>{{ item.name }}</span>
+              <span>{{ item.nickname }}</span>
               <img
                 v-if="item.select"
                 class="checked"
@@ -187,7 +187,7 @@ import {
   sampleSize
 } from '@/utils'
 import { useBaseStore } from '@/store/pinia'
-import { videoComments } from '@/api/videos'
+import { videoComment, videoComments } from '@/api/videos'
 
 export default {
   name: 'Comment',
@@ -255,6 +255,12 @@ export default {
     _time,
     _formatNumber,
     _checkImgUrl,
+    // 评论发送成功后调用此方法
+    resetSelectStatus() {
+      this.friends.all.forEach((item) => {
+        item.select = false // 重置选中状态
+      })
+    },
     async handShowChildren(item) {
       this.loadChildrenItemCId = item.comment_id
       this.loadChildren = true
@@ -267,22 +273,49 @@ export default {
         item.showChildren = true
       }
     },
-    send() {
-      this.comments.push({
-        id: '2',
-        avatar: new URL('../assets/img/icon/avatar/4.png', import.meta.url).href,
-        name: '成都旅行',
-        text: this.comment,
-        loveNum: 27,
-        isLoved: false,
-        time: '2021-08-24 20:33',
-        children: []
-      })
-      this.comment = ''
-      this.isCall = false
+    async send() {
+      if (!this.comment.trim()) {
+        return // 如果评论内容为空，直接返回
+      }
+      const baseStore = useBaseStore()
+      const commentData = {
+        ip_location: baseStore.userinfo.ip_location,
+        aweme_id: this.videoId,
+        content: this.comment,
+        uid: String(baseStore.userinfo.uid),
+        short_id: String(baseStore.userinfo.short_id),
+        unique_id: baseStore.userinfo.unique_id,
+        signature: baseStore.userinfo.signature,
+        nickname: baseStore.userinfo.nickname,
+        avatar: baseStore.userinfo.avatar_small['url_list'][0]
+        // 其他必要的字段可以根据你的需求添加
+      }
+
+      try {
+        const response = await videoComment({}, commentData)
+        if (response.success) {
+          this.comments.unshift({
+            id: response.data.id || '2', // Use the ID from the response if available
+            avatar: baseStore.userinfo.avatar_small['url_list'][0],
+            nickname: baseStore.userinfo.nickname,
+            content: this.comment,
+            ip_location: baseStore.userinfo.ip_location,
+            loveNum: 27,
+            isLoved: false,
+            create_time: Date.now().toString(), // Use the current time
+            children: []
+          })
+          this.comment = '' // Clear the input after sending
+          this.isCall = false
+          this.resetSelectStatus()
+        }
+      } catch (error) {
+        console.error('Error sending comment:', error)
+      }
     },
     async getData() {
-      let res: any = await videoComments({ id: this.videoId })
+      let res: any = await videoComments({ aweme_id: this.videoId })
+      console.log('comments:', res.data)
       if (res.success) {
         res.data.map((v) => {
           v.showChildren = false
@@ -297,11 +330,11 @@ export default {
     },
     toggleCall(item) {
       item.select = !item.select
-      let name = item.name
-      if (this.comment.includes('@' + name)) {
-        this.comment = this.comment.replace(`@${name} `, '')
+      let nickname = item.nickname
+      if (this.comment.includes('@' + nickname)) {
+        this.comment = this.comment.replace(`@${nickname} `, '')
       } else {
-        this.comment += `@${name} `
+        this.comment += `@${nickname} `
       }
     },
     loved(row) {

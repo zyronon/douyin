@@ -44,10 +44,11 @@
 import Posters from '@/components/Posters.vue'
 import Scroll from '@/components/Scroll.vue'
 import NoMore from '@/components/NoMore.vue'
-import { historyOther, historyVideo } from '@/api/videos'
-
+import { historyVideo } from '@/api/videos'
+import { historyOther } from '@/api/user'
 import { computed, onMounted, reactive } from 'vue'
 import { _showConfirmDialog } from '@/utils'
+import { useBaseStore } from '@/store/pinia'
 
 defineOptions({
   name: 'LookHistory'
@@ -95,7 +96,7 @@ async function getHistoryVideo(init = false) {
     pageNo: data.historyVideo.pageNo,
     pageSize: data.pageSize
   })
-  console.log(res)
+  console.log('history:', res)
   data.loadingVideo = false
   if (res.success) {
     data.historyVideo.list = data.historyVideo.list.concat(res.data.list)

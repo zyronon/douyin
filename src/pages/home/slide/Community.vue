@@ -48,7 +48,7 @@
 <script setup>
 import { reactive, ref, watch } from 'vue'
 import { _checkImgUrl, _no, _stopPropagation, cloneDeep } from '@/utils'
-import { recommendedPost } from '@/api/user'
+import { recommendedPost } from '@/api/post'
 import { useNav } from '@/utils/hooks/useNav'
 import { Icon } from '@iconify/vue'
 import WaterfallList from '@/components/WaterfallList.vue'

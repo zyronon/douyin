@@ -156,7 +156,7 @@
       ]
     },
     "author": {
-      "avatar_168x168": {
+      "avatar_small": {
         "height": 720,
         "uri": "aweme-avatar/mosaic-legacy_20b7700050147c01968f3",
         "url_list": [
@@ -164,7 +164,7 @@
         ],
         "width": 720
       },
-      "avatar_300x300": {
+      "avatar_large": {
         "height": 720,
         "uri": "aweme-avatar/mosaic-legacy_20b7700050147c01968f3",
         "url_list": [
@@ -425,7 +425,7 @@
       ]
     },
     "author": {
-      "avatar_168x168": {
+      "avatar_small": {
         "height": 720,
         "uri": "aweme-avatar/tos-cn-avt-0015_f59bfced5c6a3b56d152f1e0437f06ec",
         "url_list": [
@@ -433,7 +433,7 @@
         ],
         "width": 720
       },
-      "avatar_300x300": {
+      "avatar_large": {
         "height": 720,
         "uri": "aweme-avatar/tos-cn-avt-0015_f59bfced5c6a3b56d152f1e0437f06ec",
         "url_list": [
@@ -701,7 +701,7 @@
       ]
     },
     "author": {
-      "avatar_168x168": {
+      "avatar_small": {
         "height": 720,
         "uri": "aweme-avatar/mosaic-legacy_310e3000a130132511b54",
         "url_list": [
@@ -709,7 +709,7 @@
         ],
         "width": 720
       },
-      "avatar_300x300": {
+      "avatar_large": {
         "height": 720,
         "uri": "aweme-avatar/mosaic-legacy_310e3000a130132511b54",
         "url_list": [
@@ -941,7 +941,7 @@
       ]
     },
     "author": {
-      "avatar_168x168": {
+      "avatar_small": {
         "height": 720,
         "uri": "aweme-avatar/tos-cn-avt-0015_c7784af3a0bd2e7c5fc92ece450f12e0",
         "url_list": [
@@ -949,7 +949,7 @@
         ],
         "width": 720
       },
-      "avatar_300x300": {
+      "avatar_large": {
         "height": 720,
         "uri": "aweme-avatar/tos-cn-avt-0015_c7784af3a0bd2e7c5fc92ece450f12e0",
         "url_list": [
@@ -1266,7 +1266,7 @@
       ]
     },
     "author": {
-      "avatar_168x168": {
+      "avatar_small": {
         "height": 720,
         "uri": "aweme-avatar/mosaic-legacy_310e3000a130132511b54",
         "url_list": [
@@ -1274,7 +1274,7 @@
         ],
         "width": 720
       },
-      "avatar_300x300": {
+      "avatar_large": {
         "height": 720,
         "uri": "aweme-avatar/mosaic-legacy_310e3000a130132511b54",
         "url_list": [
@@ -1529,7 +1529,7 @@
       ]
     },
     "author": {
-      "avatar_168x168": {
+      "avatar_small": {
         "height": 720,
         "uri": "aweme-avatar/tos-cn-avt-0015_78ecf820d31560e298e32684589c00b3",
         "url_list": [
@@ -1537,7 +1537,7 @@
         ],
         "width": 720
       },
-      "avatar_300x300": {
+      "avatar_large": {
         "height": 720,
         "uri": "aweme-avatar/tos-cn-avt-0015_78ecf820d31560e298e32684589c00b3",
         "url_list": [

@@ -5,6 +5,8 @@ import bus, { EVENT_KEY } from '@/utils/bus'
 import { Icon } from '@iconify/vue'
 import { useClick } from '@/utils/hooks/useClick'
 import { inject } from 'vue'
+import { videoCollect, videoDigg } from '@/api/videos'
+import { userAttention } from '@/api/user'
 
 const props = defineProps({
   isMy: {
@@ -32,21 +34,93 @@ function _updateItem(props, key, val) {
   bus.emit(EVENT_KEY.UPDATE_ITEM, { position: position.value, item: old })
 }
 
-function loved() {
-  _updateItem(props, 'isLoved', !props.item.isLoved)
+async function loved() {
+  // 切换当前点赞状态
+  try {
+    // 调用点赞 API，传入 videoId 和新状态
+    console.log('aweme_id:', props)
+    const res = await videoDigg(
+      {},
+      {
+        aweme_id: props.item.aweme_id,
+        action: !props.item.isLoved
+      }
+    )
+    if (res.success) {
+      // 更新 isLoved 状态
+      setTimeout(() => {
+        _updateItem(props, 'isLoved', !props.item.isLoved)
+      }, 100)
+      // 更新点赞数量
+      console.log(props.item.statistics.digg_count)
+      const newDiggCount = props.item.statistics.digg_count + 1 // 增加点赞数量
+      _updateItem(props, 'item.statistics.digg_count', newDiggCount)
+    } else {
+      console.error('点赞请求失败:', res.data.msg)
+    }
+  } catch (error) {
+    console.error('点赞时出现错误:', error)
+  }
 }
 
-function attention(e) {
+async function collecte() {
+  // 切换当前收藏状态
+  try {
+    // 调用点赞 API，传入 videoId 和新状态
+    console.log('aweme_id:', props)
+    const res = await videoCollect(
+      {},
+      {
+        aweme_id: props.item.aweme_id,
+        action: !props.item.isCollect
+      }
+    )
+    if (res.success) {
+      // 更新 isCollect 状态
+      setTimeout(() => {
+        _updateItem(props, 'isCollect', !props.item.isCollect)
+      }, 100)
+      console.log(props.item.statistics.collect_count)
+      const newCollectCount = props.item.statistics.collect_count + 1 // 增加收藏数量
+      _updateItem(props, 'item.statistics.collect_count', newCollectCount)
+    } else {
+      console.error('收藏失败:', res.data.msg)
+    }
+  } catch (error) {
+    console.error('收藏时出现错误:', error)
+  }
+}
+
+async function attention(e) {
+  console.log('关注', props.item)
   e.currentTarget.classList.add('attention')
-  setTimeout(() => {
-    _updateItem(props, 'isAttention', true)
-  }, 1000)
+
+  // 切换当前关注状态
+  try {
+    // 调用点赞 API，传入 videoId 和新状态
+    const res = await userAttention(
+      {},
+      {
+        following_id: String(props.item.author.uid),
+        action: !props.item.isAttention
+      }
+    )
+    if (res.success) {
+      // 更新 isAttention 状态
+      setTimeout(() => {
+        _updateItem(props, 'isAttention', !props.item.isAttention)
+      }, 1000)
+    } else {
+      console.error('关注失败:', res.data.msg)
+    }
+  } catch (error) {
+    console.error('关注时出现错误:', error)
+  }
 }
 
 function showComments() {
   bus.emit(EVENT_KEY.OPEN_COMMENTS, props.item.aweme_id)
 }
-
 const vClick = useClick()
 </script>
 
@@ -55,7 +129,7 @@ const vClick = useClick()
     <div class="avatar-ctn mb2r">
       <img
         class="avatar"
-        :src="item.author.avatar_168x168.url_list[0]"
+        :src="item.author.avatar_small.url_list[0]"
         alt=""
         v-click="() => bus.emit(EVENT_KEY.GO_USERINFO)"
       />
@@ -78,7 +152,7 @@ const vClick = useClick()
       <span>{{ _formatNumber(item.statistics.comment_count) }}</span>
     </div>
     <!--TODO     -->
-    <div class="message mb2r" v-click="() => _updateItem(props, 'isCollect', !item.isCollect)">
+    <div class="message mb2r" v-click="collecte">
       <Icon
         v-if="item.isCollect"
         icon="ic:round-star"
@@ -86,7 +160,7 @@ const vClick = useClick()
         style="color: rgb(252, 179, 3)"
       />
       <Icon v-else icon="ic:round-star" class="icon" style="color: white" />
-      <span>{{ _formatNumber(item.statistics.comment_count) }}</span>
+      <span>{{ _formatNumber(item.statistics.collect_count) }}</span>
     </div>
     <div v-if="!props.isMy" class="share mb2r" v-click="() => bus.emit(EVENT_KEY.SHOW_SHARE)">
       <img src="../../assets/img/icon/share-white-full.png" alt="" class="share-image" />

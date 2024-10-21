@@ -26,10 +26,10 @@
             <img
               :style="item.select ? 'opacity: .5;' : ''"
               class="avatar"
-              :src="_checkImgUrl(item.avatar)"
+              :src="item.avatar_small['url_list'][0]"
               alt=""
             />
-            <span>{{ item.name }}</span>
+            <span>{{ item.nickname }}</span>
             <img
               v-if="item.select"
               class="checked"
@@ -45,14 +45,14 @@
           <div class="share2friend" v-if="store.selectFriends.length">
             <div class="line"></div>
             <div class="comment">
-              <textarea placeholder="有什么想和好友说的..."></textarea>
-              <img class="poster" src="../assets/img/poster/1.jpg" alt="" />
+              <textarea v-model="store.message" placeholder="有什么想和好友说的..."></textarea>
+              <img class="poster" :src="props.item.video.cover['url_list'][0]" alt="" />
             </div>
             <div class="btns">
               <dy-button type="dark2" radius="7" v-if="store.selectFriends.length > 1" @click="_no"
                 >建群并发送
               </dy-button>
-              <dy-button type="primary" radius="7" @click="_no"
+              <dy-button type="primary" radius="7" @click="share"
                 >{{ store.selectFriends.length > 1 ? '分别发送' : '发送' }}
               </dy-button>
             </div>
@@ -160,7 +160,8 @@
 <script setup>
 import FromBottomDialog from './dialog/FromBottomDialog'
 import { useBaseStore } from '@/store/pinia'
-import { _checkImgUrl, _copy, _hideLoading, _no, _notice, _showLoading, _sleep } from '@/utils'
+import { _copy, _hideLoading, _no, _notice, _showLoading, _sleep } from '@/utils'
+import { videoShare } from '@/api/videos'
 
 defineOptions({
   name: 'Share'
@@ -225,6 +226,31 @@ function closeShare() {
     return v
   })
   emit('update:modelValue', false)
+}
+
+async function share() {
+  try {
+    // 调用点赞 API，传入 videoId 和新状态
+    console.log('aweme_id:', props)
+    const res = await videoShare({
+      share_uid_list: String(store.selectFriends.map((friend) => friend.uid)),
+      aweme_id: props.item.aweme_id,
+      message: store.message
+    })
+
+    if (res.success) {
+      // 更新分享数量
+      console.log(props.item.statistics.share_count)
+      _notice('分享成功！')
+      store.message = ''
+      // 更新分享数量
+      // _updateItem(props, 'item.statistics.share_count', props.item.statistics.share_count + 1);
+    } else {
+      console.error('分享失败:', res.data.msg)
+    }
+  } catch (error) {
+    console.error('分享时出现错误:', error)
+  }
 }
 </script>
 

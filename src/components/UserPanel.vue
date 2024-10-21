@@ -6,7 +6,7 @@
         <transition name="fade">
           <div class="float-user" v-if="state.floatFixed">
             <img
-              v-lazy="_checkImgUrl(props.currentItem.author.avatar_168x168.url_list[0])"
+              v-lazy="_checkImgUrl(props.currentItem.author.avatar_small.url_list[0])"
               class="avatar"
             />
             <img
@@ -59,10 +59,10 @@
         />
         <div class="avatar-wrapper">
           <img
-            v-lazy="_checkImgUrl(props.currentItem.author.avatar_168x168.url_list[0])"
+            v-lazy="_checkImgUrl(props.currentItem.author.avatar_small.url_list[0])"
             class="avatar"
             @click="
-              state.previewImg = _checkImgUrl(props.currentItem.author.avatar_300x300.url_list[0])
+              state.previewImg = _checkImgUrl(props.currentItem.author.avatar_large.url_list[0])
             "
           />
           <div class="description">
@@ -163,7 +163,7 @@
                 <span>已关注</span>
                 <Icon icon="bxs:down-arrow" class="arrow" />
               </div>
-              <div class="l-button" @click="$nav('/message/chat')">
+              <div class="l-button" @click="handleNavigation(props.currentItem.author)">
                 <span>私信</span>
               </div>
             </div>
@@ -242,8 +242,8 @@ import { useNav } from '@/utils/hooks/useNav'
 import Posters from '@/components/Posters.vue'
 import { DefaultUser } from '@/utils/const_var'
 import Loading from '@/components/Loading.vue'
-import { useBaseStore } from '@/store/pinia'
-import { userVideoList } from '@/api/user'
+import { useBaseStore, useChatStore } from '@/store/pinia'
+import { userVideoList } from '@/api/videos'
 
 const $nav = useNav()
 const baseStore = useBaseStore()
@@ -253,6 +253,15 @@ const emit = defineEmits<{
   showFollowSetting: []
   showFollowSetting2: []
 }>()
+
+const chatStore = useChatStore()
+
+function handleNavigation(item) {
+  console.log('uid:', item.uid)
+  chatStore.setChatObject(item)
+  // 执行导航
+  $nav('/message/chat')
+}
 
 const props = defineProps({
   currentItem: {
@@ -302,8 +311,10 @@ watch(
   async (newVal) => {
     if (newVal && !props.currentItem.aweme_list.length) {
       // console.log('props.currentItem',props.currentItem)
-      let id = _getUserDouyinId(props.currentItem)
-      let r: any = await userVideoList({ id })
+      // TODO 这部分可能需要修改
+      let uid = props.currentItem.author_user_id
+      console.log(props.currentItem.author_user_id)
+      let r: any = await userVideoList({ uid })
       if (r.success) {
         setTimeout(() => {
           r.data = r.data.map((a) => {

@@ -31,7 +31,7 @@
       <div class="comment">
         <div class="left">
           <img
-            :src="_checkImgUrl(baseStore.userinfo.avatar_168x168.url_list[0])"
+            :src="_checkImgUrl(baseStore.userinfo.avatar_small.url_list[0])"
             class="avatar"
             alt=""
           />
@@ -166,10 +166,10 @@ const state = reactive({
 const render = slideItemRender()
 
 onMounted(() => {
-  // console.log('s', store.routeData)
+  console.log('s', baseStore.routeData)
   state.index = baseStore.routeData.index
   state.list = baseStore.routeData.list
-  // console.log('sss', state.list[state.index])
+  console.log('sss', state.list[state.index])
 })
 
 function delayShowDialog(cb) {
@@ -177,8 +177,17 @@ function delayShowDialog(cb) {
 }
 
 function setCurrentItem(item) {
-  // console.log('sss',item,state.baseIndex)
+  console.log('sss1', item.aweme_id)
   if (state.baseIndex !== 1) return
+  if (baseStore.AwemeStatus.Attentions.includes(item.author.uid)) {
+    item.isAttention = true
+  }
+  if (baseStore.AwemeStatus.Likes.includes(item.aweme_id)) {
+    item.isLoved = true
+  }
+  if (baseStore.AwemeStatus.Collects.includes(item.aweme_id)) {
+    item.isCollect = true
+  }
   if (state.currentItem.author.uid !== item.author.uid) {
     state.currentItem = {
       ...item,

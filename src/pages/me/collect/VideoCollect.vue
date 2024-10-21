@@ -17,9 +17,9 @@
 <script setup lang="ts">
 import Posters from '@/components/Posters.vue'
 import Scroll from '@/components/Scroll.vue'
-import { myVideo } from '@/api/videos'
-
+import { collectVideo } from '@/api/videos'
 import { onMounted, reactive } from 'vue'
+import { useBaseStore } from '@/store/pinia'
 
 defineOptions({
   name: 'VideoCollect'
@@ -46,14 +46,15 @@ async function loadData(init = false) {
     data.pageNo++
   }
   data.loading = true
-  let res: any = await myVideo({
+  let res: any = await collectVideo({
     pageNo: data.pageNo,
     pageSize: data.pageSize
   })
   data.loading = false
+  console.log('coll:', res)
   if (res.success) {
-    data.videos = data.videos.concat(res.data.list)
-    data.total = res.data.total
+    data.videos = data.videos.concat(res.data.video.list)
+    data.total = res.data.video.total
   }
 }
 </script>

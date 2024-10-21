@@ -28,8 +28,8 @@
         <div class="list">
           <div class="item" :key="i" v-for="(item, i) in store.friends.all">
             <div class="left">
-              <img :src="_checkImgUrl(item.avatar)" />
-              <span class="name">{{ item.name }}</span>
+              <img :src="_checkImgUrl(item.avatar_small['url_list'][0])" />
+              <span class="name">{{ item.nickname }}</span>
             </div>
             <span class="time">{{ _dateFormat(item.lastLoginTime, 'D') }}</span>
           </div>

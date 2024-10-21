@@ -45,11 +45,11 @@
           </div>
           <div class="no-search" v-else>
             <div class="title">我的关注</div>
-            <People :key="i" v-for="(item, i) in store.friends.all" :people="item"></People>
+            <People :key="i" v-for="(item, i) in store.follow" :people="item"></People>
           </div>
         </SlideItem>
         <SlideItem class="tab2">
-          <People :key="i" v-for="(item, i) in store.friends.all" :people="item"></People>
+          <People :key="i" v-for="(item, i) in store.fans" :people="item"></People>
           <NoMore />
         </SlideItem>
       </SlideHorizontal>
@@ -64,6 +64,7 @@ import { useBaseStore } from '@/store/pinia'
 import { onMounted, reactive, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useNav } from '@/utils/hooks/useNav'
+import { getFans, getFollow } from '@/api/user'
 
 defineOptions({
   name: 'FindAcquaintance'
@@ -80,7 +81,23 @@ const data = reactive({
   searchFriends: []
 })
 
+const getData = async () => {
+  const follow = await getFollow()
+  if (follow.success) {
+    store.follow = follow.data
+  } else {
+    console.log('获取关注失败')
+  }
+  const fans = await getFans()
+  if (fans.success) {
+    store.fans = fans.data
+  } else {
+    console.log('获取粉丝失败')
+  }
+}
+
 onMounted(() => {
+  getData()
   data.slideIndex = ~~route.query.type
 })
 

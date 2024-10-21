@@ -5,7 +5,7 @@
         <div class="left">
           <dy-back @click="router.back"></dy-back>
           <div class="badge">12</div>
-          <span>zzzz</span>
+          <span>{{ data.chatObject.nickname }}</span>
         </div>
         <div class="right">
           <img
@@ -36,6 +36,8 @@
           <input
             @click="data.typing = true"
             @blur="data.typing = false"
+            v-model="data.newMessage"
+            @keyup.enter="sendMessage1"
             type="text"
             placeholder="发送信息..."
           />
@@ -142,7 +144,7 @@
             <div class="wrapper">
               <div class="top">
                 <div class="money">0.01元</div>
-                <div class="belong">{{ store.userinfo.nickname }}的红包</div>
+                <div class="belong">{{ data.chatObject.nickname }}的红包</div>
                 <div class="password">大吉大利</div>
               </div>
               <div class="notice" @click="nav('/message/chat/red-packet-detail')">
@@ -155,11 +157,11 @@
             <div class="wrapper">
               <div class="top">
                 <img
-                  :src="_checkImgUrl(store.userinfo.cover_url[0].url_list[0])"
+                  :src="_checkImgUrl(data.chatObject.avatar_small['url_list'][0])"
                   alt=""
                   class="avatar"
                 />
-                <div class="belong">{{ store.userinfo.nickname }}的红包</div>
+                <div class="belong">{{ data.chatObject.nickname }}的红包</div>
                 <div class="password">大吉大利</div>
               </div>
 
@@ -187,13 +189,14 @@
 </template>
 <script setup lang="ts">
 import ChatMessage from '../components/ChatMessage.vue'
-import { computed, nextTick, onMounted, onUnmounted, reactive, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, onUnmounted, reactive, ref } from 'vue'
 import Loading from '@/components/Loading.vue'
-import { useBaseStore } from '@/store/pinia'
+import { useBaseStore, useChatStore } from '@/store/pinia'
 import { _checkImgUrl, _no, _sleep } from '@/utils'
 import { useRouter } from 'vue-router'
 import { useNav } from '@/utils/hooks/useNav'
 import bus, { EVENT_KEY } from '@/utils/bus'
+import { sendMsg } from '@/api/message'
 
 let CALL_STATE = {
   REJECT: 0,
@@ -211,7 +214,7 @@ let AUDIO_STATE = {
 let READ_STATE = {
   SENDING: 0,
   ARRIVED: 1,
-  READ: 1
+  READ: 2
 }
 let MESSAGE_TYPE = {
   TEXT: 0,
@@ -234,248 +237,27 @@ defineOptions({
   name: 'Chat'
 })
 
+// 获取 token
+const token = window.localStorage.getItem('token')
+// 将 token 添加到 WebSocket 连接的 URL 查询参数中
+const wsServerIp = `ws://10.156.200.20:22001/message/ws?token=${token}`
+let websocket = null
+
 const router = useRouter()
 const nav = useNav()
 const store = useBaseStore()
 const msgWrapper = ref<HTMLDivElement>()
+
+const chatStore = useChatStore()
+console.log('chatStore:', chatStore.chatObject)
+
 const data = reactive({
+  chatObject: chatStore.chatObject,
   previewImg: new URL('../../../assets/img/poster/3.jpg', import.meta.url).href,
   videoCall: [],
+  newMessage: '',
   MESSAGE_TYPE,
-  messages: [
-    {
-      type: MESSAGE_TYPE.TIME,
-      data: '',
-      time: '2021-01-02 21:21',
-      user: {
-        id: '2739632844317827',
-        avatar: '../../assets/img/icon/head-image.jpg'
-      }
-    },
-
-    {
-      type: MESSAGE_TYPE.MEME,
-      state: AUDIO_STATE.NORMAL,
-      data: new URL('../../../assets/img/poster/1.jpg', import.meta.url).href,
-      time: '2021-01-02 21:21',
-      user: {
-        id: '2739632844317827',
-        avatar: '../../assets/img/icon/head-image.jpg'
-      },
-      loved: [
-        {
-          id: 2,
-          avatar: '../../assets/img/icon/head-image.jpg'
-        },
-        {
-          id: 2,
-          avatar: '../../assets/img/icon/head-image.jpg'
-        }
-      ]
-    },
-    {
-      type: MESSAGE_TYPE.IMAGE,
-      state: AUDIO_STATE.NORMAL,
-      data: new URL('../../../assets/img/poster/1.jpg', import.meta.url).href,
-      time: '2021-01-02 21:21',
-      user: {
-        id: 1,
-        avatar: '../../assets/img/icon/head-image.jpg'
-      }
-    },
-    {
-      type: MESSAGE_TYPE.IMAGE,
-      state: AUDIO_STATE.NORMAL,
-      data: new URL('../../../assets/img/poster/1.jpg', import.meta.url).href,
-      time: '2021-01-02 21:21',
-      user: {
-        id: '2739632844317827',
-        avatar: '../../assets/img/icon/head-image.jpg'
-      },
-      readState: READ_STATE.ARRIVED
-    },
-    {
-      type: MESSAGE_TYPE.VIDEO_CALL,
-      state: CALL_STATE.REJECT,
-      data: '2021-01-02 21:44',
-      time: '2021-01-02 21:21',
-      user: {
-        id: '2739632844317827',
-        avatar: '../../assets/img/icon/head-image.jpg'
-      }
-    },
-    {
-      type: MESSAGE_TYPE.VIDEO_CALL,
-      state: CALL_STATE.RESOLVE,
-      data: '2021-01-02 21:44',
-      time: '2021-01-02 21:21',
-      user: {
-        id: '2739632844317827',
-        avatar: '../../assets/img/icon/head-image.jpg'
-      }
-    },
-    {
-      type: MESSAGE_TYPE.VIDEO_CALL,
-      state: CALL_STATE.NONE,
-      data: '2021-01-02 21:44',
-      time: '2021-01-02 21:21',
-      user: {
-        id: '2739632844317827',
-        avatar: '../../assets/img/icon/head-image.jpg'
-      }
-    },
-    {
-      type: MESSAGE_TYPE.AUDIO_CALL,
-      state: CALL_STATE.REJECT,
-      data: '2021-01-02 21:44',
-      time: '2021-01-02 21:21',
-      user: {
-        id: '2739632844317827',
-        avatar: '../../assets/img/icon/head-image.jpg'
-      }
-    },
-    {
-      type: MESSAGE_TYPE.AUDIO_CALL,
-      state: CALL_STATE.RESOLVE,
-      data: '2021-01-02 21:44',
-      time: '2021-01-02 21:21',
-      user: {
-        id: '2739632844317827',
-        avatar: '../../assets/img/icon/head-image.jpg'
-      }
-    },
-    {
-      type: MESSAGE_TYPE.AUDIO_CALL,
-      state: CALL_STATE.NONE,
-      data: '2021-01-02 21:44',
-      time: '2021-01-02 21:21',
-      user: {
-        id: '2739632844317827',
-        avatar: '../../assets/img/icon/head-image.jpg'
-      }
-    },
-    {
-      type: MESSAGE_TYPE.AUDIO,
-      state: AUDIO_STATE.NORMAL,
-      data: {
-        duration: 5,
-        src: ''
-      },
-      time: '2021-01-02 21:21',
-      user: {
-        id: '1',
-        avatar: '../../assets/img/icon/head-image.jpg'
-      }
-    },
-    {
-      type: MESSAGE_TYPE.AUDIO,
-      state: AUDIO_STATE.NORMAL,
-      data: {
-        duration: 10,
-        src: ''
-      },
-      time: '2021-01-02 21:21',
-      user: {
-        id: '2739632844317827',
-        avatar: '../../assets/img/icon/head-image.jpg'
-      }
-    },
-    {
-      type: MESSAGE_TYPE.TEXT,
-      data: '又在刷抖音',
-      time: '2021-01-02 21:21',
-      user: {
-        id: '2739632844317827',
-        avatar: '../../assets/img/icon/head-image.jpg'
-      }
-    },
-    {
-      type: MESSAGE_TYPE.TEXT,
-      data: '我昨天@你那个视频发给我下',
-      time: '2021-01-02 21:21',
-      user: {
-        id: '2739632844317827',
-        avatar: '../../assets/img/icon/head-image.jpg'
-      }
-    },
-    {
-      type: MESSAGE_TYPE.TEXT,
-      data: '我找不到了',
-      time: '2021-01-02 21:21',
-      user: {
-        id: '1',
-        avatar: '../../assets/img/icon/head-image.jpg'
-      }
-    },
-    {
-      type: MESSAGE_TYPE.TEXT,
-      data: '我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了',
-      time: '2021-01-02 21:21',
-      user: {
-        id: '2739632844317827',
-        avatar: '../../assets/img/icon/head-image.jpg'
-      }
-    },
-    {
-      type: MESSAGE_TYPE.DOUYIN_VIDEO,
-      state: VIDEO_STATE.VALID,
-      data: {
-        poster: new URL('../../../assets/img/poster/3.jpg', import.meta.url).href,
-        author: {
-          name: 'safasdfassafasdfassafasdfassafasdfas',
-          avatar: new URL('../../../assets/img/icon/head-image.jpeg', import.meta.url).href
-        },
-        title: '服了asd'
-      },
-      time: '2021-01-02 21:21',
-      user: {
-        id: '1',
-        avatar: '../../../assets/img/icon/head-image.jpg'
-      }
-    },
-    {
-      type: MESSAGE_TYPE.VIDEO,
-      state: VIDEO_STATE.VALID,
-      data: {
-        poster: new URL('../../../assets/img/poster/3.jpg', import.meta.url).href
-      },
-      time: '2021-01-02 21:21',
-      user: {
-        id: '2739632844317827',
-        avatar: '../../../assets/img/icon/head-image.jpg'
-      }
-    },
-    {
-      type: MESSAGE_TYPE.RED_PACKET,
-      state: AUDIO_STATE.NORMAL,
-      mode: RED_PACKET_MODE.MULTIPLE,
-      data: {
-        money: 5.11,
-        title: '大吉大利',
-        state: '未领取'
-      },
-      time: '2021-01-02 21:21',
-      user: {
-        id: '2739632844317827',
-        avatar: '../../assets/img/icon/head-image.jpg'
-      }
-    },
-    {
-      type: MESSAGE_TYPE.RED_PACKET,
-      state: AUDIO_STATE.NORMAL,
-      mode: RED_PACKET_MODE.SINGLE,
-      data: {
-        money: 5.11,
-        title: '大吉大利',
-        state: '已过期'
-      },
-      time: '2021-01-02 21:21',
-      user: {
-        id: 1,
-        avatar: '../../assets/img/icon/head-image.jpg'
-      }
-    }
-  ],
+  messages: chatStore.messages,
   typing: false,
   loading: false,
   opening: false,
@@ -487,11 +269,49 @@ const data = reactive({
   tooltipTopLocation: ''
 })
 
+const sendMessage = async () => {
+  console.log('messages:', data.messages)
+  if (!data.newMessage.trim()) {
+    return // 输入内容为空时不发送
+  }
+  const messageToSend = {
+    tx_uid: store.userinfo.uid,
+    rx_uid: data.chatObject.uid,
+    msg_type: MESSAGE_TYPE.TEXT, // 默认文本消息
+    msg_data: data.newMessage,
+    read_state: READ_STATE.SENDING,
+    create_time: Date.now()
+  }
+  try {
+    // 调用后端 API 发送消息
+    const res = await sendMsg({}, messageToSend)
+    // console.log('发送消息结果', res);
+    if (res.success) {
+      // 发送成功后更新本地消息列表
+      data.messages = [...data.messages, { ...messageToSend, status: 'sent' }]
+    } else {
+      console.error('发送消息失败', res)
+      data.messages = [...data.messages, { ...messageToSend, status: 'failed' }]
+    }
+  } catch (error) {
+    console.error('网络错误', error)
+    data.messages = [...data.messages, { ...messageToSend, status: 'failed' }]
+  } finally {
+    // 清空输入框
+    data.newMessage = ''
+    nextTick(() => {
+      // 滚动到底部
+      msgWrapper.value?.scrollTo(0, msgWrapper.value.scrollHeight)
+    })
+  }
+}
+
 onMounted(() => {
   msgWrapper.value
     .querySelectorAll('img')
     .forEach((item) => item.addEventListener('load', scrollBottom))
   scrollBottom()
+  initWebSocket() // 初始化 WebSocket
 })
 
 onUnmounted(() => {
@@ -499,6 +319,62 @@ onUnmounted(() => {
     .querySelectorAll('img')
     .forEach((item) => item.removeEventListener('load', scrollBottom))
 })
+onBeforeUnmount(() => {
+  if (websocket) {
+    websocket.close() // 页面卸载时关闭 WebSocket
+  }
+})
+
+// 初始化 WebSocket 连接
+const initWebSocket = () => {
+  websocket = new WebSocket(wsServerIp)
+  // WebSocket 事件监听
+  websocket.onopen = (event) => {
+    console.log('Connected to WebSocket server.')
+  }
+  websocket.onmessage = (event) => {
+    console.log('收到消息:', event.data)
+    const recvMessage = JSON.parse(event.data)
+    data.messages = [...data.messages, { ...recvMessage, status: 'received' }]
+    nextTick(() => {
+      // 滚动到底部
+      msgWrapper.value?.scrollTo(0, msgWrapper.value.scrollHeight)
+    })
+  }
+  websocket.onclose = (event) => {
+    console.log('WebSocket 已断开:', event)
+    alert('与服务器连接断开！')
+  }
+  websocket.onerror = (event) => {
+    console.error('WebSocket 错误:', event)
+    alert('发生错误，请检查连接！')
+  }
+}
+// 发送消息
+const sendMessage1 = () => {
+  if (websocket && websocket.readyState === WebSocket.OPEN) {
+    console.log('发送消息：', data.newMessage)
+    const messageToSend = {
+      tx_uid: store.userinfo.uid,
+      rx_uid: data.chatObject.uid,
+      msg_type: MESSAGE_TYPE.TEXT, // 默认文本消息
+      msg_data: data.newMessage,
+      read_state: READ_STATE.SENDING,
+      create_time: Date.now(),
+      delete_time: null
+    }
+    const jsonMessage = JSON.stringify(messageToSend)
+    websocket.send(jsonMessage)
+    data.messages = [...data.messages, { ...messageToSend, status: 'sent' }]
+    data.newMessage = ''
+    nextTick(() => {
+      // 滚动到底部
+      msgWrapper.value?.scrollTo(0, msgWrapper.value.scrollHeight)
+    })
+  } else {
+    alert('WebSocket 尚未连接！')
+  }
+}
 
 const isExpand = computed(() => {
   return data.showOption

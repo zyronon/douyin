@@ -11,14 +11,14 @@
         <div class="friends">
           <div
             class="friend"
-            @click="nav('/message/chat')"
+            @click="handleNavigation(item)"
             :key="index"
             v-for="(item, index) in store.friends.all"
           >
             <div class="avatar" :class="index % 2 === 0 ? 'on-line' : ''">
-              <img :src="_checkImgUrl(item.avatar)" alt="" />
+              <img :src="item.avatar_small['url_list'][0]" alt="" />
             </div>
-            <span>{{ item.name }}</span>
+            <span>{{ item.nickname }}</span>
           </div>
           <div class="friend">
             <div class="avatar">
@@ -65,7 +65,11 @@
           <!--      消息-->
           <div class="message" @click="nav('/message/chat')">
             <div class="avatar on-line">
-              <img src="../../assets/img/icon/avatar/2.png" alt="" class="head-image" />
+              <img
+                :src="_checkImgUrl(store.userinfo.avatar_small.url_list[0])"
+                alt=""
+                class="head-image"
+              />
             </div>
             <div class="content">
               <div class="left">
@@ -302,9 +306,9 @@
                 v-for="(item, i) in store.friends.all"
                 @click="item.select = !item.select"
               >
-                <img class="left" :src="_checkImgUrl(item.avatar)" alt="" />
+                <img class="left" :src="_checkImgUrl(item.avatar_small['url_list'][0])" alt="" />
                 <div class="right">
-                  <span>{{ item.name }}</span>
+                  <span>{{ item.nickname }}</span>
                   <Check mode="red" style="height: 20rem; width: 20rem" v-model="item.select" />
                 </div>
               </div>
@@ -429,7 +433,7 @@ import Check from '../../components/Check.vue'
 import Peoples from '../people/components/Peoples.vue'
 import People from '../people/components/Peoples.vue'
 import Scroll from '../../components/Scroll.vue'
-import { useBaseStore } from '@/store/pinia'
+import { useBaseStore, useChatStore } from '@/store/pinia'
 
 import { computed, onMounted, reactive, watch } from 'vue'
 import { useNav } from '@/utils/hooks/useNav.js'
@@ -440,6 +444,7 @@ defineOptions({
   name: 'Message'
 })
 
+const chatStore = useChatStore()
 const mainScroll = useScroll()
 const store = useBaseStore()
 const nav = useNav()
@@ -455,16 +460,29 @@ const data = reactive({
   text: 'AAAAAAAAA、BBBBBBBBBBBBB、CCCCCCCC',
   searchFriends: [],
   recommend: [],
-  moreChat: []
+  moreChat: [],
+  all_message: chatStore.all_messages
 })
 
-onMounted(() => {
-  console.log('create')
+function handleNavigation(item) {
+  console.log('uid:', item.uid)
+  chatStore.setChatObject(item)
+  // 执行导航
+  nav('/message/chat')
+}
+
+onMounted(async () => {
+  await chatStore.init()
+  data.all_message = chatStore.all_messages
   data.recommend = cloneDeep(store.friends.all)
-  data.recommend.map((v) => {
+  // data.recommend.map((v) => {
+  //   v.type = -2
+  // })
+  Object.values(data.recommend).forEach((v) => {
     v.type = -2
   })
-  data.moreChat = cloneDeep(store.friends.all.slice(0, 3))
+  // data.moreChat = cloneDeep(store.friends.all.slice(0, 3))
+  data.moreChat = cloneDeep(Object.values(store.friends.all).slice(0, 3))
 })
 
 const selectFriends = computed(() => {

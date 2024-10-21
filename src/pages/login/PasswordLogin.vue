@@ -68,6 +68,11 @@ import Check from '../../components/Check'
 import LoginInput from './components/LoginInput'
 import Tooltip from './components/Tooltip'
 import Base from './Base'
+import { login } from '@/api/base'
+import { useBaseStore, useChatStore } from '@/store/pinia'
+
+const baseStore = useBaseStore()
+const chatStore = useChatStore()
 
 export default {
   name: 'PasswordLogin',
@@ -93,9 +98,39 @@ export default {
   created() {},
   methods: {
     async login() {
-      let res = await this.check()
-      if (res) {
-        this.loading = true
+      let isCheckPassed = await this.check() // 验证协议是否已勾选
+      if (!isCheckPassed) return
+
+      this.loading = true
+      try {
+        const res = await login(
+          {},
+          {
+            phone: this.phone,
+            password: this.password
+            // 还可以补充其他字段
+          }
+        )
+        console.log('resss:', res.data)
+        if (res.data.isExist) {
+          // 登录成功后的处理逻辑，如存储 Token、跳转页面等
+          console.log('登录成功')
+          // 调用初始化方法
+          // await baseStore.init();
+          baseStore.setToken(res.data.token)
+          console.log('baseStore:', window.localStorage.getItem('token'))
+          baseStore.login_id = res.data.uid
+          // console.log("用户信息:", baseStore);
+          await baseStore.init()
+          await chatStore.init()
+          this.$router.push('/home') // 跳转到主页面
+        } else {
+          this.notice = res.data.message || '登录失败'
+        }
+      } catch (error) {
+        this.notice = '网络错误，请稍后再试'
+      } finally {
+        this.loading = false
       }
     }
   }
@@ -116,5 +151,56 @@ export default {
   color: black;
   font-size: 14rem;
   background: white;
+
+  .content {
+    padding: 60rem 30rem;
+
+    .desc {
+      margin-bottom: 60rem;
+      margin-top: 120rem;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      .title {
+        margin-bottom: 20rem;
+        font-size: 20rem;
+      }
+
+      .phone-number {
+        letter-spacing: 3rem;
+        font-size: 30rem;
+        margin-bottom: 10rem;
+      }
+
+      .sub-title {
+        font-size: 12rem;
+        color: var(--second-text-color);
+      }
+    }
+
+    .button {
+      width: 100%;
+      margin-bottom: 5rem;
+    }
+
+    .protocol {
+      position: relative;
+      color: gray;
+      margin-top: 20rem;
+      font-size: 12rem;
+      display: flex;
+
+      .left {
+        padding-top: 1rem;
+        margin-right: 5rem;
+      }
+    }
+    .options {
+      position: relative;
+      font-size: 14rem;
+      display: flex;
+    }
+  }
 }
 </style>

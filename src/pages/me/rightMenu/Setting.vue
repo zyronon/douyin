@@ -163,7 +163,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="left">
+        <div class="left" @click="LoginOut">
           <img src="@/assets/img/icon/newicon/left_menu/logout.png" alt="" />
           <span>退出登录</span>
         </div>
@@ -178,8 +178,30 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
+import router from '@/router'
 
 const gitLastCommitHash = ref(LATEST_COMMIT_HASH)
+
+/* 登出*/
+const LoginOut = async () => {
+  // TODO 对应后端需要完成的操作
+  // const res = await logout()
+  //
+  // // 登出失败
+  // if (!res.success) {
+  //   return
+  // }
+
+  await ClearStorage()
+  await router.push('/login') // 使用 Vue Router 跳转到首页
+
+  window.location.reload()
+}
+/* 清理数据 */
+const ClearStorage = async () => {
+  sessionStorage.clear()
+  window.localStorage.removeItem('token')
+}
 
 defineOptions({
   name: 'ChooseSchool'

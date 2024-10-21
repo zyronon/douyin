@@ -106,7 +106,7 @@ const nav = useNav()
                 :fullscreen="false"
                 v-is-can-play
                 :poster="_checkImgUrl(item.video.cover.url_list[0])"
-                :src="item.video.play_addr.url_list[0]"
+                :src="item.video.play_addr.url_list[2]"
               ></video>
               <div class="options">
                 <div class="left"></div>
@@ -128,12 +128,12 @@ const nav = useNav()
             <img v-else v-lazy="_checkImgUrl(item.video.cover.url_list[0])" alt="" class="poster" />
             <div class="duration">{{ _duration(item.duration / 1000) }}</div>
             <div class="title">
-              {{ item.desc }}
+              {{ item.video_desc }}
             </div>
             <div class="bottom">
               <div class="l">
                 <img
-                  v-lazy="_checkImgUrl(item.author.avatar_168x168.url_list[0])"
+                  v-lazy="_checkImgUrl(item.author.avatar_small.url_list[0])"
                   alt=""
                   class="avatar"
                 />

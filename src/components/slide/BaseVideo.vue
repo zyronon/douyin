@@ -3,7 +3,7 @@
     <Loading v-if="state.loading" style="position: absolute" />
     <!--    <video :src="item.video + '?v=123'"-->
     <video
-      :src="item.video.play_addr.url_list[0]"
+      :src="item.video.play_addr.url_list[2]"
       :poster="poster"
       ref="videoEl"
       :muted="state.isMuted"
@@ -296,7 +296,7 @@ function onDialogMove({ tag, e }) {
 
 function onDialogEnd({ tag, isClose }) {
   if (state.commentVisible && tag === 'comment') {
-    console.log('isClose', isClose)
+    // console.log('isClose', isClose)
     _css(videoEl, 'transition-duration', `300ms`)
     if (isClose) {
       state.commentVisible = false

@@ -3,7 +3,7 @@
     <div class="sub-type" :class="state.subTypeIsTop ? 'top' : ''" ref="subTypeRef">
       <div class="card" @touchmove="_stop">
         <div class="nav-item" @click="goLive(i)" :key="j" v-for="(i, j) in store.users">
-          <img :src="_checkImgUrl(i.avatar_168x168.url_list[0])" alt="" />
+          <img :src="_checkImgUrl(i.avatar_small.url_list[0])" alt="" />
           <span>{{ i.nickname }}</span>
         </div>
       </div>
