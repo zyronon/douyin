@@ -205,6 +205,12 @@ export default {
         return false
       }
     },
+    item: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    },
     videoId: {
       type: String,
       default: null
@@ -294,6 +300,7 @@ export default {
       try {
         const response = await videoComment({}, commentData)
         if (response.success) {
+          console.log(this.$props)
           this.comments.unshift({
             id: response.data.id || '2', // Use the ID from the response if available
             avatar: baseStore.userinfo.avatar_small['url_list'][0],
@@ -305,6 +312,7 @@ export default {
             create_time: Date.now().toString(), // Use the current time
             children: []
           })
+          this.$props.item.statistics.comment_count++
           this.comment = '' // Clear the input after sending
           this.isCall = false
           this.resetSelectStatus()

@@ -63,7 +63,7 @@
             </div>
           </div>
           <!--      消息-->
-          <div class="message" @click="nav('/message/chat')">
+          <div class="message" @click="handleNavigation(store.userinfo)">
             <div class="avatar on-line">
               <img
                 :src="_checkImgUrl(store.userinfo.avatar_small.url_list[0])"
@@ -435,7 +435,7 @@ import People from '../people/components/Peoples.vue'
 import Scroll from '../../components/Scroll.vue'
 import { useBaseStore, useChatStore } from '@/store/pinia'
 
-import { computed, onMounted, reactive, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, reactive, watch } from 'vue'
 import { useNav } from '@/utils/hooks/useNav.js'
 import { _checkImgUrl, _sleep, cloneDeep } from '@/utils'
 import { useScroll } from '@/utils/hooks/useScroll'
@@ -443,6 +443,12 @@ import { useScroll } from '@/utils/hooks/useScroll'
 defineOptions({
   name: 'Message'
 })
+
+// 获取 token
+const token = window.localStorage.getItem('token')
+// 将 token 添加到 WebSocket 连接的 URL 查询参数中
+const wsServerIp = `ws://10.156.200.20:22001/message/ws?token=${token}`
+let websocket = null
 
 const chatStore = useChatStore()
 const mainScroll = useScroll()
@@ -464,6 +470,41 @@ const data = reactive({
   all_message: chatStore.all_messages
 })
 
+// 初始化 WebSocket 连接
+const initWebSocket = () => {
+  websocket = new WebSocket(wsServerIp)
+  chatStore.ws = websocket
+  // WebSocket 事件监听
+  websocket.onopen = () => {
+    console.log('Connected to WebSocket server.')
+  }
+  websocket.onmessage = (event) => {
+    // console.log('收到消息:', event.data)
+    const recvMsg = JSON.parse(event.data)
+    // console.log('recvMessage:', recvMsg)
+    if (!(recvMsg.code === 2000)) {
+      if (Array.isArray(data.all_message[String(recvMsg.rx_uid)])) {
+        data.all_message[String(recvMsg.tx_uid)] = [
+          ...data.all_message[String(recvMsg.tx_uid)],
+          { ...recvMsg, status: 'received' }
+        ]
+      } else {
+        data.all_message[String(recvMsg.tx_uid)] = []
+        data.all_message[String(recvMsg.tx_uid)] = [
+          ...data.all_message[String(recvMsg.tx_uid)],
+          { ...recvMsg, status: 'received' }
+        ]
+      }
+    }
+  }
+  websocket.onclose = () => {
+    // alert('与服务器连接断开！')
+  }
+  websocket.onerror = () => {
+    // alert('发生错误，请检查连接！')
+  }
+}
+
 function handleNavigation(item) {
   console.log('uid:', item.uid)
   chatStore.setChatObject(item)
@@ -483,6 +524,7 @@ onMounted(async () => {
   })
   // data.moreChat = cloneDeep(store.friends.all.slice(0, 3))
   data.moreChat = cloneDeep(Object.values(store.friends.all).slice(0, 3))
+  initWebSocket() // 初始化 WebSocket
 })
 
 const selectFriends = computed(() => {
@@ -526,6 +568,12 @@ async function loadRecommendData() {
   })
   data.recommend = data.recommend.concat(temp)
 }
+
+onBeforeUnmount(() => {
+  if (websocket) {
+    websocket.close() // 页面卸载时关闭 WebSocket
+  }
+})
 </script>
 <style scoped lang="less">
 @import '../../assets/less/index';

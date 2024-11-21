@@ -232,19 +232,23 @@ async function share() {
   try {
     // 调用点赞 API，传入 videoId 和新状态
     console.log('aweme_id:', props)
-    const res = await videoShare({
-      share_uid_list: String(store.selectFriends.map((friend) => friend.uid)),
-      aweme_id: props.item.aweme_id,
-      message: store.message
-    })
+    const res = await videoShare(
+      {},
+      {
+        share_uid_list: String(store.selectFriends.map((friend) => friend.uid)),
+        aweme_id: props.item.aweme_id,
+        message: store.message
+      }
+    )
 
     if (res.success) {
       // 更新分享数量
-      console.log(props.item.statistics.share_count)
       _notice('分享成功！')
       store.message = ''
       // 更新分享数量
-      // _updateItem(props, 'item.statistics.share_count', props.item.statistics.share_count + 1);
+      // eslint-disable-next-line vue/no-mutating-props
+      props.item.statistics.share_count += store.selectFriends.map((friend) => friend.uid).length
+      closeShare()
     } else {
       console.error('分享失败:', res.data.msg)
     }

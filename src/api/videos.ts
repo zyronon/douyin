@@ -48,6 +48,6 @@ export function videoCollect(params?: any, data?: any) {
   return request({ url: '/video/collect', method: 'post', params, data })
 }
 
-export function videoShare(params?: any) {
-  return request({ url: '/video/share', method: 'post', params })
+export function videoShare(params?: any, data?: any) {
+  return request({ url: '/video/share', method: 'post', params, data })
 }

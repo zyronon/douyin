@@ -37,7 +37,7 @@
             @click="data.typing = true"
             @blur="data.typing = false"
             v-model="data.newMessage"
-            @keyup.enter="sendMessage1"
+            @keyup.enter="sendMessage"
             type="text"
             placeholder="发送信息..."
           />
@@ -196,7 +196,6 @@ import { _checkImgUrl, _no, _sleep } from '@/utils'
 import { useRouter } from 'vue-router'
 import { useNav } from '@/utils/hooks/useNav'
 import bus, { EVENT_KEY } from '@/utils/bus'
-import { sendMsg } from '@/api/message'
 
 let CALL_STATE = {
   REJECT: 0,
@@ -237,21 +236,16 @@ defineOptions({
   name: 'Chat'
 })
 
-// 获取 token
-const token = window.localStorage.getItem('token')
-// 将 token 添加到 WebSocket 连接的 URL 查询参数中
-const wsServerIp = `ws://10.156.200.20:22001/message/ws?token=${token}`
-let websocket = null
-
 const router = useRouter()
 const nav = useNav()
 const store = useBaseStore()
 const msgWrapper = ref<HTMLDivElement>()
-
 const chatStore = useChatStore()
+const websocket = chatStore.ws
 console.log('chatStore:', chatStore.chatObject)
 
 const data = reactive({
+  ws: null,
   chatObject: chatStore.chatObject,
   previewImg: new URL('../../../assets/img/poster/3.jpg', import.meta.url).href,
   videoCall: [],
@@ -269,49 +263,11 @@ const data = reactive({
   tooltipTopLocation: ''
 })
 
-const sendMessage = async () => {
-  console.log('messages:', data.messages)
-  if (!data.newMessage.trim()) {
-    return // 输入内容为空时不发送
-  }
-  const messageToSend = {
-    tx_uid: store.userinfo.uid,
-    rx_uid: data.chatObject.uid,
-    msg_type: MESSAGE_TYPE.TEXT, // 默认文本消息
-    msg_data: data.newMessage,
-    read_state: READ_STATE.SENDING,
-    create_time: Date.now()
-  }
-  try {
-    // 调用后端 API 发送消息
-    const res = await sendMsg({}, messageToSend)
-    // console.log('发送消息结果', res);
-    if (res.success) {
-      // 发送成功后更新本地消息列表
-      data.messages = [...data.messages, { ...messageToSend, status: 'sent' }]
-    } else {
-      console.error('发送消息失败', res)
-      data.messages = [...data.messages, { ...messageToSend, status: 'failed' }]
-    }
-  } catch (error) {
-    console.error('网络错误', error)
-    data.messages = [...data.messages, { ...messageToSend, status: 'failed' }]
-  } finally {
-    // 清空输入框
-    data.newMessage = ''
-    nextTick(() => {
-      // 滚动到底部
-      msgWrapper.value?.scrollTo(0, msgWrapper.value.scrollHeight)
-    })
-  }
-}
-
 onMounted(() => {
   msgWrapper.value
     .querySelectorAll('img')
     .forEach((item) => item.addEventListener('load', scrollBottom))
   scrollBottom()
-  initWebSocket() // 初始化 WebSocket
 })
 
 onUnmounted(() => {
@@ -319,41 +275,14 @@ onUnmounted(() => {
     .querySelectorAll('img')
     .forEach((item) => item.removeEventListener('load', scrollBottom))
 })
-onBeforeUnmount(() => {
-  if (websocket) {
-    websocket.close() // 页面卸载时关闭 WebSocket
-  }
-})
 
-// 初始化 WebSocket 连接
-const initWebSocket = () => {
-  websocket = new WebSocket(wsServerIp)
-  // WebSocket 事件监听
-  websocket.onopen = (event) => {
-    console.log('Connected to WebSocket server.')
-  }
-  websocket.onmessage = (event) => {
-    console.log('收到消息:', event.data)
-    const recvMessage = JSON.parse(event.data)
-    data.messages = [...data.messages, { ...recvMessage, status: 'received' }]
-    nextTick(() => {
-      // 滚动到底部
-      msgWrapper.value?.scrollTo(0, msgWrapper.value.scrollHeight)
-    })
-  }
-  websocket.onclose = (event) => {
-    console.log('WebSocket 已断开:', event)
-    alert('与服务器连接断开！')
-  }
-  websocket.onerror = (event) => {
-    console.error('WebSocket 错误:', event)
-    alert('发生错误，请检查连接！')
-  }
-}
 // 发送消息
-const sendMessage1 = () => {
+const sendMessage = () => {
   if (websocket && websocket.readyState === WebSocket.OPEN) {
-    console.log('发送消息：', data.newMessage)
+    if (!data.newMessage.trim()) {
+      return // 输入内容为空时不发送
+    }
+    // console.log('发送消息：', data.newMessage)
     const messageToSend = {
       tx_uid: store.userinfo.uid,
       rx_uid: data.chatObject.uid,
@@ -365,14 +294,41 @@ const sendMessage1 = () => {
     }
     const jsonMessage = JSON.stringify(messageToSend)
     websocket.send(jsonMessage)
-    data.messages = [...data.messages, { ...messageToSend, status: 'sent' }]
+    if (Array.isArray(data.messages)) {
+      data.messages = [...data.messages, { ...messageToSend, status: 'sent' }]
+    } else {
+      data.messages = []
+      data.messages = [...data.messages, { ...messageToSend, status: 'sent' }]
+    }
+
     data.newMessage = ''
     nextTick(() => {
       // 滚动到底部
       msgWrapper.value?.scrollTo(0, msgWrapper.value.scrollHeight)
     })
   } else {
-    alert('WebSocket 尚未连接！')
+    // alert('WebSocket 尚未连接！')
+  }
+}
+// WebSocket 事件监听
+websocket.onopen = () => {
+  console.log('Connected to WebSocket server.')
+}
+websocket.onmessage = (event) => {
+  // console.log('收到消息:', event.data)
+  const recvMsg = JSON.parse(event.data)
+  // console.log('recvMessage:', recvMessage.code)
+  if (!(recvMsg.code === 2000)) {
+    if (Array.isArray(data.messages)) {
+      data.messages = [...data.messages, { ...recvMsg, status: 'received' }]
+    } else {
+      data.messages = []
+      data.messages = [...data.messages, { ...recvMsg, status: 'received' }]
+    }
+    nextTick(() => {
+      // 滚动到底部
+      msgWrapper.value?.scrollTo(0, msgWrapper.value.scrollHeight)
+    })
   }
 }
 

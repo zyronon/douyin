@@ -52,9 +52,13 @@ async function loved() {
         _updateItem(props, 'isLoved', !props.item.isLoved)
       }, 100)
       // 更新点赞数量
-      console.log(props.item.statistics.digg_count)
-      const newDiggCount = props.item.statistics.digg_count + 1 // 增加点赞数量
-      _updateItem(props, 'item.statistics.digg_count', newDiggCount)
+      if (!props.item.isLoved) {
+        // eslint-disable-next-line vue/no-mutating-props
+        props.item.statistics.digg_count++
+      } else {
+        // eslint-disable-next-line vue/no-mutating-props
+        props.item.statistics.digg_count--
+      }
     } else {
       console.error('点赞请求失败:', res.data.msg)
     }
@@ -80,9 +84,13 @@ async function collecte() {
       setTimeout(() => {
         _updateItem(props, 'isCollect', !props.item.isCollect)
       }, 100)
-      console.log(props.item.statistics.collect_count)
-      const newCollectCount = props.item.statistics.collect_count + 1 // 增加收藏数量
-      _updateItem(props, 'item.statistics.collect_count', newCollectCount)
+      if (!props.item.isCollect) {
+        // eslint-disable-next-line vue/no-mutating-props
+        props.item.statistics.collect_count++
+      } else {
+        // eslint-disable-next-line vue/no-mutating-props
+        props.item.statistics.collect_count--
+      }
     } else {
       console.error('收藏失败:', res.data.msg)
     }
