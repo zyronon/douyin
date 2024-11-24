@@ -7,8 +7,12 @@
     </BaseHeader>
     <div class="content">
       <div class="wrapper">
-        <img :src="_checkImgUrl(store.userinfo.cover_url[0].url_list[0])" alt="" class="avatar" />
-        <span class="belong">{{ store.userinfo.nickname }}的红包</span>
+        <img
+          :src="_checkImgUrl(data.chatObject.avatar_small['url_list'][0])"
+          alt=""
+          class="avatar"
+        />
+        <span class="belong">{{ data.chatObject.nickname }}的红包</span>
         <div class="password">大吉大利</div>
         <span class="money">0.01元</span>
         <!--        <span class="notice" @click="$router.push('/me/money')">已存入我的零钱，可直接使用></span>-->
@@ -21,6 +25,7 @@
 <script setup lang="ts">
 import { useBaseStore } from '@/store/pinia'
 import { _checkImgUrl, _no } from '@/utils'
+import { reactive } from 'vue'
 
 defineOptions({
   name: 'RedPacketDetail'
@@ -35,6 +40,11 @@ defineProps({
   }
 })
 const store = useBaseStore()
+
+// TODO 需要添加事件，在点击进入之后修改 chatObject
+const data = reactive({
+  chatObject: store.friends.all[0]
+})
 </script>
 
 <style scoped lang="less">

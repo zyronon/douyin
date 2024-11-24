@@ -1,29 +1,33 @@
 import { request } from '@/utils/request'
 
-export function userinfo(params?: any, data?: any) {
-  return request({ url: '/user/userinfo', method: 'get', params, data })
+export function panel(params?: any) {
+  return request({ url: '/user/panel', method: 'get', params })
 }
 
-export function userVideoList(params?: any, data?: any) {
-  return request({ url: '/user/video_list', method: 'get', params, data })
+export function historyOther(params?: any) {
+  return request({ url: '/user/my-history-other', method: 'get', params })
 }
 
-export function panel(params?: any, data?: any) {
-  return request({ url: '/user/panel', method: 'get', params, data })
+export function friends(params?: any) {
+  return request({ url: '/user/friends', method: 'get', params })
 }
 
-export function friends(params?: any, data?: any) {
-  return request({ url: '/user/friends', method: 'get', params, data })
+export function getFollow(params?: any) {
+  return request({ url: '/user/follow', method: 'get', params })
 }
 
-export function userCollect(params?: any, data?: any) {
-  return request({ url: '/user/collect', method: 'get', params, data })
+export function getFans(params?: any) {
+  return request({ url: '/user/fans', method: 'get', params })
 }
 
-export function recommendedPost(params?: any, data?: any) {
-  return request({ url: '/post/recommended', method: 'get', params, data })
+export function userinfo(params?: any) {
+  return request({ url: '/user/userinfo', method: 'get', params })
 }
 
-export function recommendedShop(params?: any, data?: any) {
-  return request({ url: '/shop/recommended', method: 'get', params, data })
+export function userAttention(params?: any, data?: any) {
+  return request({ url: '/user/attention', method: 'post', params, data })
+}
+
+export function getAwemeStatus(params?: any, data?: any) {
+  return request({ url: '/user/aweme-status', method: 'get', params, data })
 }

@@ -16,6 +16,7 @@ import { _notice } from '@/utils'
 import Scroll from '@/components/Scroll.vue'
 import NoMore from '@/components/NoMore.vue'
 import { useScroll } from '@/utils/hooks/useScroll.ts'
+import { useBaseStore } from '@/store/pinia'
 
 const props = defineProps({
   api: {
@@ -26,6 +27,8 @@ const props = defineProps({
   }
 })
 const scroll = useScroll()
+
+const baseStore = useBaseStore()
 
 const state = reactive({
   list: [],

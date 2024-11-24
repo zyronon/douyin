@@ -56,9 +56,9 @@
             >
               <div class="info">
                 <img
-                  :src="_checkImgUrl(userinfo.avatar_168x168.url_list[0])"
+                  :src="_checkImgUrl(userinfo.avatar_small.url_list[0])"
                   class="avatar"
-                  @click.stop="previewImg = _checkImgUrl(userinfo.avatar_300x300.url_list[0])"
+                  @click.stop="previewImg = _checkImgUrl(userinfo.avatar_large.url_list[0])"
                 />
                 <div class="right">
                   <p class="name">{{ userinfo.nickname }}</p>
@@ -379,9 +379,8 @@ import { mapState } from 'pinia'
 import bus from '../../utils/bus'
 import ConfirmDialog from '../../components/dialog/ConfirmDialog'
 import { _checkImgUrl, _formatNumber, _getUserDouyinId, _no, _stopPropagation } from '@/utils'
-import { likeVideo, myVideo, privateVideo } from '@/api/videos'
+import { collectVideo, likeVideo, myVideo, privateVideo } from '@/api/videos'
 import { useBaseStore } from '@/store/pinia'
-import { userCollect } from '@/api/user'
 import SlideRowList from '@/components/slide/SlideRowList.vue'
 
 export default {
@@ -431,7 +430,8 @@ export default {
         collect: {
           video: {
             list: [],
-            total: -1
+            total: -1,
+            pageNo: 0
           },
           music: {
             list: [],
@@ -539,8 +539,11 @@ export default {
       if (newVal === 3) {
         if (videoOb.video.total === -1) {
           this.loadings['loading' + newVal] = true
-          let res = await userCollect()
-          console.log('res', res)
+          let res = await collectVideo({
+            pageNo: this.videos.collect.video.pageNo,
+            pageSize: this.pageSize
+          })
+          console.log('res_coll', res)
           if (res.success) this.videos.collect = res.data
         }
       } else {
@@ -553,6 +556,7 @@ export default {
                 pageNo: this.videos.my.pageNo,
                 pageSize: this.pageSize
               })
+              console.log('res_my', res)
               if (res.success) this.videos.my = res.data
               break
             case 1:
@@ -610,24 +614,28 @@ export default {
               pageNo: videoOb.pageNo,
               pageSize: this.pageSize
             })
+            console.log('res:', res.data)
             break
           case 1:
             res = await privateVideo({
               pageNo: videoOb.pageNo,
               pageSize: this.pageSize
             })
+            console.log(res.data)
             break
           case 2:
             res = await likeVideo({
               pageNo: videoOb.pageNo,
               pageSize: this.pageSize
             })
+            console.log(res.data)
             break
           case 3:
-            res = await userCollect({
+            res = await collectVideo({
               pageNo: videoOb.pageNo,
               pageSize: this.pageSize
             })
+            console.log(res.data)
             break
         }
         this.loadings['loading' + this.contentIndex] = false

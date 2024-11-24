@@ -1,7 +1,7 @@
 export default {
-  baseUrl: 'https://dy.ttentau.top/imgs/',
+  baseUrl: 'http://10.156.200.20:22001',
   imgPath: '/imgs/',
-  filePreview: 'http://192.168.0.103/static/uploads/'
+  filePreview: 'http://10.156.200.20/static/uploads/'
 }
 const BASE_URL_MAP = {
   DEV: '',
@@ -9,7 +9,7 @@ const BASE_URL_MAP = {
   // GP_PAGES: '/dist',
   GP_PAGES: '',
   GITEE_PAGES: '/douyin',
-  UNI: 'https://dy.ttentau.top'
+  UNI: 'http://10.156.200.20:22001'
 }
 
 export const IS_SUB_DOMAIN = ['GITEE_PAGES', 'GP_PAGES'].includes(import.meta.env.VITE_ENV)

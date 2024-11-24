@@ -10,10 +10,21 @@ export const axiosInstance = axios.create({
 // request拦截器
 axiosInstance.interceptors.request.use(
   (config) => {
-    // 如果没有设置Content-Type，默认application/json
     if (!config.headers['Content-Type']) {
       config.headers['Content-Type'] = 'application/json'
     }
+
+    // 从 localStorage 获取 token 和 uid，并检查有效性
+    const token = window.localStorage.getItem('token')
+    // const uid = window.localStorage.getItem("uid")
+    // console.log('token', token)
+    // 如果 token 和 uid 存在且有效，则添加到 headers 中
+    if (!config.headers['token']) {
+      config.headers['token'] = token
+    }
+    // if (!config.headers['x-user-id']) {
+    //   config.headers['x-user-id'] = uid
+    // }
     return config
   },
   (error) => {
@@ -32,7 +43,7 @@ axiosInstance.interceptors.response.use(
      * 响应成功的拦截器，主要是对data作处理，如果没有返回data，那么会添加一个data字段，并把response.data的内容合并到data里面，然后返回
      * */
     const { data } = response
-    // console.log(response)
+    // console.log("response:", response)
     if (data === undefined || data === null || data === '') {
       _notice('请求失败，请稍后重试！')
       return { success: false, code: 500, data: [] }
@@ -40,7 +51,7 @@ axiosInstance.interceptors.response.use(
       return { success: true, code: 200, data }
     } else {
       if (data.data === undefined || data.data === null) {
-        data.data = { ...data }
+        data.data = data
       }
       let resCode = data.code
       if (resCode) {
@@ -68,8 +79,6 @@ axiosInstance.interceptors.response.use(
   },
   (error: AxiosError) => {
     console.log('error', error)
-    // console.log(error.response)
-    // console.log(error.response.status)
     if (error.response === undefined) {
       _notice('服务器响应超时')
       return { success: false, code: 500, msg: '服务器响应超时', data: [] }
@@ -95,8 +104,9 @@ axiosInstance.interceptors.response.use(
         return { success: true, code: 200, data: [] }
       } else {
         const resCode = data.code
+        console.log('IsHere:', data)
         if (data.data === undefined || data.data === null) {
-          data.data = { ...data }
+          data.data = data
         }
         if (resCode && typeof resCode == 'number' && resCode !== 200) {
           _notice('请求失败，请稍后重试！')

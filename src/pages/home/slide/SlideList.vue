@@ -23,6 +23,12 @@ import { useBaseStore } from '@/store/pinia'
 import { slideItemRender } from '@/utils'
 
 const props = defineProps({
+  uid: {
+    type: String,
+    default() {
+      return ''
+    }
+  },
   cbs: {
     type: Object,
     default() {
@@ -73,7 +79,6 @@ const state = reactive({
 })
 
 function loadMore() {
-  console.log('load')
   if (!baseStore.loading) {
     getData()
   }
@@ -82,17 +87,30 @@ function loadMore() {
 async function getData(refresh = false) {
   if (!refresh && state.totalSize === state.list.length) return
   if (baseStore.loading) return
+
   baseStore.loading = true
   let res = await props.api({
     start: refresh ? 0 : state.list.length,
     pageSize: state.pageSize
   })
-  // console.log('getSlide4Data-', refresh, res, state.totalSize, state.list.length)
+  console.log('getSlide4Data-', res)
   baseStore.loading = false
   if (res.success) {
     state.totalSize = res.data.total
     if (refresh) {
       state.list = []
+    }
+    // 为每个视频加上状态信息，用户是否关注过、视频是否点赞过、视频是否收藏过
+    for (let i = 0; i < res.data.list.length; i++) {
+      if (baseStore.AwemeStatus.Attentions.includes(res.data.list[i].author.uid)) {
+        res.data.list[i].isAttention = true
+      }
+      if (baseStore.AwemeStatus.Likes.includes(res.data.list[i].aweme_id)) {
+        res.data.list[i].isLoved = true
+      }
+      if (baseStore.AwemeStatus.Collects.includes(res.data.list[i].aweme_id)) {
+        res.data.list[i].isCollect = true
+      }
     }
     state.list = state.list.concat(res.data.list)
   }

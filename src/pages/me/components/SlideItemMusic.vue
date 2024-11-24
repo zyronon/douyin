@@ -98,7 +98,6 @@
 import { nextTick } from 'vue'
 import { _checkImgUrl, _duration, _stopPropagation } from '@/utils'
 import gaobaiqiqiu from '../../../assets/data/lyrics/gaobaiqiqiu.lrc?raw'
-import { userCollect } from '@/api/user'
 
 export default {
   name: 'SlideItemMusic',

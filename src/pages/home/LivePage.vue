@@ -23,7 +23,7 @@
       <div class="top">
         <div class="left">
           <div class="liver">
-            <img class="avatar" :src="_checkImgUrl(userinfo.avatar_168x168.url_list[0])" alt="" />
+            <img class="avatar" :src="_checkImgUrl(userinfo.avatar_small.url_list[0])" alt="" />
             <div class="desc">
               <div class="desc-wrapper">
                 <div class="name">{{ userinfo.nickname }}</div>

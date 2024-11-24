@@ -119,6 +119,57 @@ function login() {
   font-size: 14rem;
   background: white;
 
+  .content {
+    padding: 60rem 30rem;
+
+    .desc {
+      margin-bottom: 60rem;
+      margin-top: 120rem;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      .title {
+        margin-bottom: 20rem;
+        font-size: 20rem;
+      }
+
+      .phone-number {
+        letter-spacing: 3rem;
+        font-size: 30rem;
+        margin-bottom: 10rem;
+      }
+
+      .sub-title {
+        font-size: 12rem;
+        color: var(--second-text-color);
+      }
+    }
+
+    .button {
+      width: 100%;
+      margin-bottom: 5rem;
+    }
+
+    .protocol {
+      position: relative;
+      color: gray;
+      margin-top: 20rem;
+      font-size: 12rem;
+      display: flex;
+
+      .left {
+        padding-top: 1rem;
+        margin-right: 5rem;
+      }
+    }
+    .options {
+      position: relative;
+      font-size: 14rem;
+      display: flex;
+    }
+  }
+
   .options {
     margin-top: 10rem;
   }

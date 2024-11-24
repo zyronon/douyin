@@ -3,6 +3,7 @@
     <Loading v-if="state.loading" style="position: absolute" />
     <!--    <video :src="item.video + '?v=123'"-->
     <video
+      :src="item.video.play_addr.url_list[2]"
       :poster="poster"
       ref="videoEl"
       :muted="state.isMuted"
@@ -16,12 +17,6 @@
       :fullscreen="false"
       :autoplay="isPlay"
     >
-      <source
-        v-for="(urlItem, index) in item.video.play_addr.url_list"
-        :key="index"
-        :src="urlItem"
-        type="video/mp4"
-      />
       <p>您的浏览器不支持 video 标签。</p>
     </video>
     <Icon icon="fluent:play-28-filled" class="pause-icon" v-if="!isPlaying" />
@@ -301,7 +296,7 @@ function onDialogMove({ tag, e }) {
 
 function onDialogEnd({ tag, isClose }) {
   if (state.commentVisible && tag === 'comment') {
-    console.log('isClose', isClose)
+    // console.log('isClose', isClose)
     _css(videoEl, 'transition-duration', `300ms`)
     if (isClose) {
       state.commentVisible = false

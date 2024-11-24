@@ -41,7 +41,7 @@ const state = reactive({
         @{{ item.author.nickname }}
       </div>
       <div class="description">
-        {{ item.desc }}
+        {{ item.video_desc }}
       </div>
       <!--      <div class="music" @click.stop="bus.emit('nav','/home/music')">-->
       <!--        <img src="../../assets/img/icon/music.svg" alt="" class="music-image">-->

@@ -70,7 +70,11 @@
             </div>
           </div>
         </div>
-        <img src="@/assets/img/icon/avatar/2.png" alt="" class="big-avatar" />
+        <img
+          :src="_checkImgUrl(store.userinfo.avatar_small.url_list[0])"
+          alt=""
+          class="big-avatar"
+        />
         <div class="footer">
           <img
             @click="state.isShowAudioCall = false"
@@ -85,6 +89,10 @@
 <script setup lang="ts">
 import { onMounted, reactive, watch } from 'vue'
 import bus, { EVENT_KEY } from '@/utils/bus'
+import { _checkImgUrl } from '@/utils'
+import { useBaseStore } from '@/store/pinia'
+
+const store = useBaseStore()
 
 defineOptions({
   name: 'Call'

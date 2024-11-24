@@ -52,11 +52,11 @@
           @click="nav('/message/visitors')"
         >
           <div class="left">
-            <img v-lazy="_checkImgUrl(item.avatar)" alt="" class="avatar" />
+            <img v-lazy="_checkImgUrl(item.avatar_small['url_list'][0])" alt="" class="avatar" />
           </div>
           <div class="right">
             <div class="desc">
-              <div class="name">{{ item.name }}</div>
+              <div class="name">{{ item.nickname }}</div>
               <div class="bottom">
                 <div class="desc-content">近期访问过你的主页</div>
                 <div class="time">01-11</div>

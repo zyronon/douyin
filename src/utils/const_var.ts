@@ -82,10 +82,10 @@ export const DefaultUser = {
       url_list: []
     }
   ],
-  avatar_168x168: {
+  avatar_small: {
     url_list: []
   },
-  avatar_300x300: {
+  avatar_large: {
     url_list: []
   }
 }

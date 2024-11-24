@@ -2,48 +2,54 @@
   <div
     class="ChatMessage"
     :class="!isMe ? 'left' : 'right'"
-    :style="message.type === MESSAGE_TYPE.TIME && 'margin-bottom: 0;'"
+    :style="message.msg_type === MESSAGE_TYPE.TIME && 'margin-bottom: 0;'"
   >
-    <div class="time" v-if="message.type === MESSAGE_TYPE.TIME">
-      {{ message.time }}
+    <div class="time" v-if="message.msg_type === MESSAGE_TYPE.TIME">
+      {{ message.create_time }}
     </div>
     <template v-else>
-      <img v-if="!isMe" src="../../../assets/img/icon/avatar/3.png" alt="" class="avatar" />
+      <img
+        v-if="!isMe"
+        :src="_checkImgUrl(chatObject.avatar_small['url_list'][0])"
+        alt=""
+        class="avatar"
+      />
       <div class="chat-wrapper" @click="$emit('itemClick', message)">
-        <div class="chat-text" v-if="message.type === MESSAGE_TYPE.TEXT">
-          {{ message.data }}
+        <div class="chat-text" v-if="message.msg_type === MESSAGE_TYPE.TEXT">
+          {{ message.msg_data }}
         </div>
 
-        <div class="douyin_video" v-if="message.type === MESSAGE_TYPE.DOUYIN_VIDEO">
-          <img class="poster" :src="message.data.poster" alt="" />
-          <div class="title">{{ message.data.title }}</div>
+        <div class="douyin_video" v-if="message.msg_type === MESSAGE_TYPE.DOUYIN_VIDEO">
+          <img class="poster" :src="message.msg_data.poster" alt="" />
+          <div class="title">{{ message.msg_data.title }}</div>
           <img src="../../../assets/img/icon/play-white.png" class="pause" />
           <div class="author">
-            <img class="video-avatar" :src="message.data.author.avatar" alt="" />
-            <span class="name">{{ message.data.author.name }}</span>
+            <img class="video-avatar" :src="message.msg_data.author.avatar" alt="" />
+            <span class="name">{{ message.msg_data.author.name }}</span>
           </div>
         </div>
 
-        <div class="douyin_video" v-if="message.type === MESSAGE_TYPE.VIDEO">
-          <img class="poster" :src="message.data.poster" alt="" />
+        <div class="douyin_video" v-if="message.msg_type === MESSAGE_TYPE.VIDEO">
+          <img class="poster" :src="message.msg_data.poster" alt="" />
           <img src="../../../assets/img/icon/play-white.png" class="pause" />
         </div>
 
-        <div class="audio" v-if="message.type === MESSAGE_TYPE.AUDIO">
+        <div class="audio" v-if="message.msg_type === MESSAGE_TYPE.AUDIO">
           <template v-if="isMe">
-            <div class="duration">{{ message.data.duration }}'</div>
+            <div class="duration">{{ message.msg_data.duration }}'</div>
             <img src="../../../assets/img/icon/message/chat/rss2.png" alt="" class="audio-icon" />
           </template>
           <template v-else>
             <img src="../../../assets/img/icon/message/chat/rss.png" alt="" class="audio-icon" />
-            <div class="duration">{{ message.data.duration }}'</div>
+            <div class="duration">{{ message.msg_data.duration }}'</div>
           </template>
         </div>
 
         <div
           class="call"
           v-if="
-            message.type === MESSAGE_TYPE.VIDEO_CALL || message.type === MESSAGE_TYPE.AUDIO_CALL
+            message.msg_type === MESSAGE_TYPE.VIDEO_CALL ||
+            message.msg_type === MESSAGE_TYPE.AUDIO_CALL
           "
         >
           <div class="resolve" v-if="message.state === CALL_STATE.RESOLVE">
@@ -63,25 +69,25 @@
           </div>
         </div>
 
-        <div class="image" v-if="message.type === MESSAGE_TYPE.IMAGE">
-          <img :src="message.data" alt="" />
+        <div class="image" v-if="message.msg_type === MESSAGE_TYPE.IMAGE">
+          <img :src="message.msg_data" alt="" />
         </div>
 
-        <div class="meme" v-if="message.type === MESSAGE_TYPE.MEME">
-          <img :src="message.data" alt="" />
+        <div class="meme" v-if="message.msg_type === MESSAGE_TYPE.MEME">
+          <img :src="message.msg_data" alt="" />
         </div>
 
         <div
           class="red_packet"
-          :class="message.data.state !== '未领取' ? 'invalid' : ''"
-          v-if="message.type === MESSAGE_TYPE.RED_PACKET"
+          :class="message.msg_data.state !== '未领取' ? 'invalid' : ''"
+          v-if="message.msg_type === MESSAGE_TYPE.RED_PACKET"
         >
           <div class="top">
             <img src="../../../assets/img/icon/message/chat/redpack-logo.webp" alt="" />
             <div class="right">
-              <div class="title">{{ message.data.title }}</div>
-              <div v-if="message.data.state !== '未领取'" class="state">
-                {{ message.data.state }}
+              <div class="title">{{ message.msg_data.title }}</div>
+              <div v-if="message.msg_data.state !== '未领取'" class="state">
+                {{ message.msg_data.state }}
               </div>
             </div>
           </div>
@@ -99,14 +105,20 @@
           />
         </div>
       </div>
-      <img v-if="isMe" src="../../../assets/img/icon/avatar/2.png" alt="" class="avatar" />
+      <img
+        v-if="isMe"
+        :src="_checkImgUrl(userinfo.avatar_small.url_list[0])"
+        alt=""
+        class="avatar"
+      />
     </template>
   </div>
 </template>
 
 <script>
 import { mapState } from 'pinia'
-import { useBaseStore } from '@/store/pinia'
+import { useBaseStore, useChatStore } from '@/store/pinia'
+import { _checkImgUrl } from '@/utils'
 
 let CALL_STATE = {
   REJECT: 0,
@@ -145,6 +157,9 @@ let MESSAGE_TYPE = {
   MEME: 7, //表情包
   RED_PACKET: 8 //红包
 }
+
+const ChatStore = useChatStore()
+
 export default {
   name: 'ChatMessage',
   props: {
@@ -157,6 +172,7 @@ export default {
   },
   data() {
     return {
+      chatObject: ChatStore.chatObject,
       MESSAGE_TYPE,
       CALL_STATE,
       RED_PACKET_MODE
@@ -165,11 +181,11 @@ export default {
   computed: {
     ...mapState(useBaseStore, ['userinfo']),
     isMe() {
-      return this.userinfo.uid === this.message.user.id
+      return this.userinfo.uid === this.message.tx_uid
     }
   },
   created() {},
-  methods: {}
+  methods: { _checkImgUrl }
 }
 </script>
 

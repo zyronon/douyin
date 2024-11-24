@@ -147,6 +147,7 @@
     <Comment
       page-id="home-index"
       :video-id="state.currentItem.aweme_id"
+      :item="state.currentItem"
       v-model="state.commentVisible"
       @close="closeComments"
     />

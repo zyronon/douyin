@@ -83,12 +83,11 @@
   </div>
 </template>
 <script setup lang="ts">
-import { userCollect } from '@/api/user'
-
 import { onMounted, onUnmounted, reactive } from 'vue'
 import { useNav } from '@/utils/hooks/useNav.js'
 import { useBaseStore } from '@/store/pinia'
 import { _checkImgUrl, _duration, _no } from '@/utils'
+import { collectVideo } from '@/api/videos'
 
 defineOptions({
   name: 'MusicCollect'
@@ -120,7 +119,7 @@ onUnmounted(stopPlay)
 
 async function getData() {
   data.loading = true
-  let res: any = await userCollect()
+  let res: any = await collectVideo()
   data.loading = false
   if (res.success) {
     data.list = res.data.music.list
