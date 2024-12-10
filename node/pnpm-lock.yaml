@@ -13,7 +13,7 @@ importers:
         version: 1.7.4
       nanoid:
         specifier: ^5.0.6
-        version: 5.0.6
+        version: 5.0.9
       request:
         specifier: ^2.88.2
         version: 2.88.2
@@ -145,8 +145,8 @@ packages:
     resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
     engines: {node: '>= 0.6'}
 
-  nanoid@5.0.6:
-    resolution: {integrity: sha512-rRq0eMHoGZxlvaFOUdK1Ev83Bd1IgzzR+WJ3IbDJ7QOSdAxYjlurSPqFs9s4lJg29RT6nPwizFtJhQS6V5xgiA==}
+  nanoid@5.0.9:
+    resolution: {integrity: sha512-Aooyr6MXU6HpvvWXKoVoXwKMs/KyVakWwg7xQfv5/S/RIgJMy0Ifa45H9qqYy7pTCszrHzP21Uk4PZq2HpEM8Q==}
     engines: {node: ^18 || >=20}
     hasBin: true
 
@@ -326,7 +326,7 @@ snapshots:
     dependencies:
       mime-db: 1.52.0
 
-  nanoid@5.0.6: {}
+  nanoid@5.0.9: {}
 
   oauth-sign@0.9.0: {}
 
