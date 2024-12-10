@@ -45,14 +45,14 @@
           <div class="share2friend" v-if="store.selectFriends.length">
             <div class="line"></div>
             <div class="comment">
-              <textarea placeholder="有什么想和好友说的..."></textarea>
+              <textarea v-model="store.message" placeholder="有什么想和好友说的..."></textarea>
               <img class="poster" src="../assets/img/poster/1.jpg" alt="" />
             </div>
             <div class="btns">
               <dy-button type="dark2" radius="7" v-if="store.selectFriends.length > 1" @click="_no"
                 >建群并发送
               </dy-button>
-              <dy-button type="primary" radius="7" @click="_no"
+              <dy-button type="primary" radius="7" @click="shared"
                 >{{ store.selectFriends.length > 1 ? '分别发送' : '发送' }}
               </dy-button>
             </div>
@@ -225,6 +225,11 @@ function closeShare() {
     return v
   })
   emit('update:modelValue', false)
+}
+function shared() {
+  _notice('分享成功！')
+  store.message = ''
+  closeShare()
 }
 </script>
 

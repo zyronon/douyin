@@ -255,6 +255,12 @@ export default {
     _time,
     _formatNumber,
     _checkImgUrl,
+    // 评论发送成功后调用此方法
+    resetSelectStatus() {
+      this.friends.all.forEach((item) => {
+        item.select = false // 重置选中状态
+      })
+    },
     async handShowChildren(item) {
       this.loadChildrenItemCId = item.comment_id
       this.loadChildren = true
@@ -268,18 +274,29 @@ export default {
       }
     },
     send() {
-      this.comments.push({
-        id: '2',
-        avatar: new URL('../assets/img/icon/avatar/4.png', import.meta.url).href,
-        name: '成都旅行',
-        text: this.comment,
-        loveNum: 27,
-        isLoved: false,
-        time: '2021-08-24 20:33',
-        children: []
-      })
+      if (!this.comment.trim()) {
+        return // 如果评论内容为空，直接返回
+      }
+      const baseStore = useBaseStore()
+      const commentData = {
+        ip_location: baseStore.userinfo.ip_location,
+        aweme_id: this.videoId,
+        content: this.comment,
+        create_time: Date.now(),
+        uid: String(baseStore.userinfo.uid),
+        short_id: String(baseStore.userinfo.short_id),
+        unique_id: baseStore.userinfo.unique_id,
+        signature: baseStore.userinfo.signature,
+        nickname: baseStore.userinfo.nickname,
+        avatar: baseStore.userinfo.avatar_168x168['url_list'][0]
+        // 其他必要的字段可以根据你的需求添加
+      }
+      // this.$props.item.statistics.comment_count++
+      // _updateItem(this.$props, 'isLoved', !props.item.isLoved)
+      this.comments.unshift(commentData)
       this.comment = ''
       this.isCall = false
+      this.resetSelectStatus()
     },
     async getData() {
       let res: any = await videoComments({ id: this.videoId })
