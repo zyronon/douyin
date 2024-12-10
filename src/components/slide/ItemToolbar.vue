@@ -77,7 +77,7 @@ const vClick = useClick()
     <div class="avatar-ctn mb2r">
       <img
         class="avatar"
-        :src="item.author.avatar_168x168.url_list[0]"
+        :src="item.author?.avatar_168x168?.url_list?.[0]"
         alt=""
         v-click="() => bus.emit(EVENT_KEY.GO_USERINFO)"
       />
