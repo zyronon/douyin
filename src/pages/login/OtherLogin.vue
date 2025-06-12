@@ -144,29 +144,80 @@ export default {
   font-size: 14rem;
   background: white;
 
-  .block-dialog {
-    color: black;
+  .content {
+    padding: 60rem 30rem;
 
-    .item {
-      height: 50rem;
+    .desc {
+      margin-bottom: 60rem;
+      margin-top: 120rem;
       display: flex;
-      justify-content: center;
       align-items: center;
-      border-top: 1px solid gainsboro;
+      flex-direction: column;
 
-      img {
-        height: 25rem;
-        margin-right: 10rem;
+      .title {
+        margin-bottom: 20rem;
+        font-size: 20rem;
       }
 
-      &:nth-last-child(1) {
-        border-top: none;
+      .phone-number {
+        letter-spacing: 3rem;
+        font-size: 30rem;
+        margin-bottom: 10rem;
+      }
+
+      .sub-title {
+        font-size: 12rem;
+        color: var(--second-text-color);
       }
     }
 
-    .space {
-      height: 10rem;
-      background: whitesmoke;
+    .button {
+      width: 100%;
+      margin-bottom: 5rem;
+    }
+
+    .protocol {
+      position: relative;
+      color: gray;
+      margin-top: 20rem;
+      font-size: 12rem;
+      display: flex;
+
+      .left {
+        padding-top: 1rem;
+        margin-right: 5rem;
+      }
+    }
+
+    .options {
+      position: relative;
+      font-size: 14rem;
+      display: flex;
+    }
+    .block-dialog {
+      color: black;
+
+      .item {
+        height: 50rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top: 1px solid gainsboro;
+
+        img {
+          height: 25rem;
+          margin-right: 10rem;
+        }
+
+        &:nth-last-child(1) {
+          border-top: none;
+        }
+      }
+
+      .space {
+        height: 10rem;
+        background: whitesmoke;
+      }
     }
   }
 }
