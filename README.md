@@ -29,11 +29,8 @@
 </div>
 
 ## 在线访问
-
-[//]: # (Gitee Pages: [https://zyronon.gitee.io/douyin/]&#40;https://zyronon.gitee.io/douyin/&#41;&#40;中国地区推荐访问这个地址&#41;   )
-[//]: # (注意：Gitee Pages现在无法更新，代码不是最新的。如果你能翻墙推荐访问下面地址  )
-
-Github Pages: [https://dy.ttentau.top/](https://dy.ttentau.top/)  
+ 
+Github Pages: [https://dy.2study.top/](https://dy.2study.top/)  
 
 [//]: # (Gitee pages: [https://dy.ttentau.top/]&#40;https://dy.ttentau.top/&#41; &#40;中国地区推荐访问这个地址&#41;  )
 [//]: # (Github pages: [https://zyronon.github.io/douyin/]&#40;https://zyronon.github.io/douyin/&#41;  )
