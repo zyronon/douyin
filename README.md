@@ -15,7 +15,7 @@
 </p> 
 
 <div align=center>
-<a href="https://trendshift.io/repositories/9068" target="_blank" class="trendshift-badge"><img src="https://trendshift.io/api/badge/repositories/9068" alt="RealKai42%2Fqwerty-learner | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<a href="https://trendshift.io/repositories/9068" target="_blank" class="trendshift-badge"><img src="https://trendshift.io/api/badge/repositories/9068" alt="Douyin | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 </div>
 
 `douyin-vue` 是一个模仿 `抖音|TikTok` 的移动端短视频项目。`Vue` 在移动端的"最佳实践"，媲美原生 `App` 丝滑流畅的使用体验。使用了最新的 `Vue` 技术栈，基于 [`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)
