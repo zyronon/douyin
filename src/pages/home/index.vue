@@ -4,9 +4,15 @@
       <SlideItem class="sidebar">
         <div class="header">
           <div class="left">下午好</div>
-          <div class="right" @click="nav('/home/live')">
-            <Icon icon="iconamoon:scanner" />
-            <span>扫一扫</span>
+          <div class="right">
+            <div class="header-btn" @click="nav('/home/live')">
+              <Icon icon="iconamoon:scanner" />
+              <span>扫一扫</span>
+            </div>
+            <div class="header-btn ride-code-btn" @click="nav('/ride-code')">
+              <Icon icon="mingcute:bus-line" />
+              <span>乘车码</span>
+            </div>
           </div>
         </div>
         <div class="card">
@@ -379,16 +385,36 @@ function dislike() {
       align-items: center;
 
       .right {
-        border-radius: 20rem;
-        padding: 8rem 15rem;
-        background: rgb(36, 36, 36);
         display: flex;
-        align-items: center;
-        font-size: 14rem;
         gap: 10rem;
 
-        svg {
-          font-size: 18rem;
+        .header-btn {
+          border-radius: 20rem;
+          padding: 8rem 15rem;
+          background: rgb(36, 36, 36);
+          display: flex;
+          align-items: center;
+          font-size: 14rem;
+          gap: 10rem;
+          cursor: pointer;
+          transition: background 0.3s;
+
+          &:active {
+            background: rgb(46, 46, 46);
+          }
+
+          svg {
+            font-size: 18rem;
+          }
+        }
+
+        .ride-code-btn {
+          background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+          color: white;
+
+          &:active {
+            background: linear-gradient(135deg, #ee5a52, #dd4a42);
+          }
         }
       }
     }

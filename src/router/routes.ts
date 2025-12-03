@@ -19,6 +19,8 @@ const routes: RouteRecordRaw[] = [
   },
   { path: '/home/live', component: () => import('@/pages/home/LivePage.vue') },
 
+  { path: '/ride-code', component: () => import('@/pages/ride-code/index.vue') },
+
   { path: '/shop', component: () => import('@/pages/shop/Shop.vue') },
   {
     path: '/shop/detail',

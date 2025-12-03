@@ -1,5 +1,5 @@
 <template>
-  <div class="SelectDialog" @click="onCancel">
+  <div v-if="visible" class="SelectDialog" @click="onCancel">
     <div class="content">
       <div class="item" :key="i" v-for="(item, i) in list" @click.stop="onOk(item)">
         {{ item.name }}
