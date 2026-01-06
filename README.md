@@ -18,16 +18,6 @@
 <a href="https://trendshift.io/repositories/9068" target="_blank" class="trendshift-badge"><img src="https://trendshift.io/api/badge/repositories/9068" alt="Douyin | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 </div>
 
-
-<p align="center">
-  <br/>
-  <a href="https://skywork.ai/p/lgpy6R"><img src="https://github.com/user-attachments/assets/24b255a7-f0bc-41b5-9044-52694546d59e" alt="License"></a>
-  Skywork.AI:<a href="https://skywork.ai/p/lgpy6R" target="_blank">10X your work results in 10 minutes →Free today only</a>
-  <br/>
-  <br/>
-  <br/>
-</p>  
-
 `douyin-vue` 是一个模仿 `抖音|TikTok` 的移动端短视频项目。`Vue` 在移动端的"最佳实践"，媲美原生 `App` 丝滑流畅的使用体验。使用了最新的 `Vue` 技术栈，基于 [`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)
 、[`Pinia`](https://pinia.vuejs.org/)实现。数据保存在项目本地，通过 [`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter) 库拦截Api 并返回本地json数据，模拟真实后端请求
 
