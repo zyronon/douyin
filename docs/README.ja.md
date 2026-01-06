@@ -14,16 +14,7 @@
 </p>
 
 
-
-<p align="center">
-  <br/>
-  <a href="https://skywork.ai/p/lgpy6R"><img src="https://github.com/user-attachments/assets/24b255a7-f0bc-41b5-9044-52694546d59e" alt="License"></a>
-  Skywork.AI:<a href="https://skywork.ai/p/lgpy6R" target="_blank">10X your work results in 10 minutes →Free today only</a>
-  <br/>
-  <br/>
-  <br/>
-</p>  
-
+ 
 
 
 `douyin-vue`パロディです`抖音|TikTok`モバイルショートビデオプロジェクト。`Vue`ネイティブと同等のモバイル側の「ベスト プラクティス」`App`シルキーで滑らかな使い心地。最新のものを使用しました`Vue`テクノロジースタック、に基づく[`Vue3`](https://cn.vuejs.org/)、[`Vite5`](https://cn.vitejs.dev/)、[`Pinia`](https://pinia.vuejs.org/)成し遂げる。データはプロジェクト内でローカルに保存されます。[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter)ライブラリは API をインターセプトし、ローカルの JSON データを返して、実際のバックエンド リクエストをシミュレートします。
