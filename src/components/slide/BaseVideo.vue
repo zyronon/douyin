@@ -1,7 +1,6 @@
 <template>
   <div class="video-wrapper" ref="videoWrapper" :class="positionName">
     <Loading v-if="state.loading" style="position: absolute" />
-    <!--    <video :src="item.video + '?v=123'"-->
     <video
       :poster="poster"
       ref="videoEl"
@@ -25,6 +24,80 @@
       <p>您的浏览器不支持 video 标签。</p>
     </video>
     <Icon icon="fluent:play-28-filled" class="pause-icon" v-if="!isPlaying" />
+
+    <div class="speed-indicator" v-if="speedState.showSpeedIndicator">
+      <span class="speed-text">{{ speedState.currentSpeed }}x</span>
+      <span class="speed-hint">{{ speedState.speedHint }}</span>
+    </div>
+
+    <div class="speed-panel" v-if="speedState.showSpeedPanel" @click.stop>
+      <div class="speed-panel-header">
+        <span class="speed-panel-title">播放速度</span>
+        <Icon icon="icon-park-outline:close" class="speed-panel-close" @click="closeSpeedPanel" />
+      </div>
+      <div class="speed-panel-options">
+        <div
+          class="speed-option"
+          :class="{ active: speedState.currentSpeed === 1 }"
+          @click="setSpeed(1)"
+        >
+          <span class="speed-option-text">正常</span>
+          <Icon
+            v-if="speedState.currentSpeed === 1"
+            icon="icon-park-outline:check"
+            class="speed-option-check"
+          />
+        </div>
+        <div
+          class="speed-option"
+          :class="{ active: speedState.currentSpeed === 2 }"
+          @click="setSpeed(2)"
+        >
+          <span class="speed-option-text">2倍速</span>
+          <Icon
+            v-if="speedState.currentSpeed === 2"
+            icon="icon-park-outline:check"
+            class="speed-option-check"
+          />
+        </div>
+        <div
+          class="speed-option"
+          :class="{ active: speedState.currentSpeed === 3 }"
+          @click="setSpeed(3)"
+        >
+          <span class="speed-option-text">3倍速</span>
+          <Icon
+            v-if="speedState.currentSpeed === 3"
+            icon="icon-park-outline:check"
+            class="speed-option-check"
+          />
+        </div>
+        <div
+          class="speed-option"
+          :class="{ active: speedState.currentSpeed === 4 }"
+          @click="setSpeed(4)"
+        >
+          <span class="speed-option-text">4倍速</span>
+          <Icon
+            v-if="speedState.currentSpeed === 4"
+            icon="icon-park-outline:check"
+            class="speed-option-check"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="speed-btn" v-if="!isLive && !state.commentVisible" @click.stop="toggleSpeedPanel">
+      <span class="speed-btn-text">{{ speedState.currentSpeed }}x</span>
+    </div>
+    <div
+      class="speed-hint-text"
+      v-if="!isLive && !state.commentVisible && !speedState.isLongPressActive"
+    >
+      <span class="hint-left">长按左侧慢放</span>
+      <span class="hint-right">长按右侧快放</span>
+    </div>
+
     <div class="float">
       <template v-if="isLive">
         <div class="living">点击进入直播间</div>
@@ -88,7 +161,7 @@ import ItemToolbar from './ItemToolbar.vue'
 import ItemDesc from './ItemDesc.vue'
 import bus, { EVENT_KEY } from '../../utils/bus'
 import { SlideItemPlayStatus } from '@/utils/const_var'
-import { computed, onMounted, onUnmounted, provide, reactive } from 'vue'
+import { computed, onMounted, onUnmounted, provide, reactive, ref } from 'vue'
 import { Icon } from '@iconify/vue'
 import { _css } from '@/utils/dom'
 
@@ -109,7 +182,6 @@ const props = defineProps({
       return {}
     }
   },
-  //用于第一条数据，自动播放，如果都用事件去触发播放，有延迟
   isPlay: {
     type: Boolean,
     default: () => {
@@ -149,6 +221,9 @@ provide(
 
 const videoEl = $ref<HTMLVideoElement>()
 const progressEl = $ref<HTMLDivElement>()
+const longPressTimer = ref<number | null>(null)
+const speedIndicatorTimer = ref<number | null>(null)
+
 let state = reactive({
   loading: false,
   paused: false,
@@ -158,12 +233,12 @@ let state = reactive({
   step: 0,
   currentTime: -1,
   playX: 0,
-  start: { x: 0 },
+  start: { x: 0, y: 0 },
   last: { x: 0, time: 0 },
   height: 0,
   width: 0,
   isMove: false,
-  ignoreWaiting: false, //忽略waiting事件。因为改变进度会触发waiting事件，烦的一批
+  ignoreWaiting: false,
   test: [1, 2],
   localItem: props.item,
   progressBarRect: {
@@ -173,6 +248,18 @@ let state = reactive({
   videoScreenHeight: 0,
   commentVisible: false
 })
+
+const speedState = reactive({
+  currentSpeed: 1,
+  defaultSpeed: 1,
+  showSpeedPanel: false,
+  showSpeedIndicator: false,
+  speedHint: '',
+  isLongPressActive: false,
+  longPressStartX: 0,
+  longPressDirection: '' as 'left' | 'right' | ''
+})
+
 const poster = $computed(() => {
   return _checkImgUrl(props.item.video.poster ?? props.item.video.cover.url_list[0])
 })
@@ -193,12 +280,218 @@ const progressClass = $computed(() => {
   }
 })
 
+function setSpeed(speed: number) {
+  speedState.currentSpeed = speed
+  speedState.defaultSpeed = speed
+  if (videoEl) {
+    videoEl.playbackRate = speed
+  }
+  closeSpeedPanel()
+  showSpeedIndicator(speed, speed === 1 ? '正常播放' : `${speed}倍速播放`)
+}
+
+function toggleSpeedPanel() {
+  speedState.showSpeedPanel = !speedState.showSpeedPanel
+}
+
+function closeSpeedPanel() {
+  speedState.showSpeedPanel = false
+}
+
+function showSpeedIndicator(speed: number, hint: string) {
+  if (speedIndicatorTimer.value) {
+    clearTimeout(speedIndicatorTimer.value)
+  }
+  speedState.showSpeedIndicator = true
+  speedState.speedHint = hint
+  speedIndicatorTimer.value = window.setTimeout(() => {
+    speedState.showSpeedIndicator = false
+  }, 1500)
+}
+
+function startLongPress(clientX: number) {
+  if (props.isLive || state.commentVisible) return
+
+  const screenWidth = state.width
+
+  speedState.longPressStartX = clientX
+  speedState.isLongPressActive = true
+
+  if (clientX < screenWidth / 2) {
+    speedState.longPressDirection = 'left'
+    speedState.currentSpeed = 0.5
+    showSpeedIndicator(0.5, '慢放中')
+  } else {
+    speedState.longPressDirection = 'right'
+    speedState.currentSpeed = 2
+    showSpeedIndicator(2, '快放中')
+  }
+
+  if (videoEl) {
+    videoEl.playbackRate = speedState.currentSpeed
+  }
+}
+
+function updateLongPress(clientX: number) {
+  if (!speedState.isLongPressActive) return
+
+  const dx = clientX - speedState.longPressStartX
+
+  if (speedState.longPressDirection === 'left') {
+    if (dx < -50) {
+      speedState.currentSpeed = 0.3
+      showSpeedIndicator(0.3, '超慢放中')
+    } else {
+      speedState.currentSpeed = 0.5
+      showSpeedIndicator(0.5, '慢放中')
+    }
+  } else if (speedState.longPressDirection === 'right') {
+    if (dx > 100) {
+      speedState.currentSpeed = 4
+      showSpeedIndicator(4, '超快放中')
+    } else if (dx > 50) {
+      speedState.currentSpeed = 3
+      showSpeedIndicator(3, '快放中')
+    } else {
+      speedState.currentSpeed = 2
+      showSpeedIndicator(2, '快放中')
+    }
+  }
+
+  if (videoEl) {
+    videoEl.playbackRate = speedState.currentSpeed
+  }
+}
+
+function endLongPress() {
+  if (!speedState.isLongPressActive) return
+
+  speedState.isLongPressActive = false
+  speedState.longPressDirection = ''
+  speedState.currentSpeed = speedState.defaultSpeed
+
+  if (videoEl) {
+    videoEl.playbackRate = speedState.defaultSpeed
+  }
+
+  if (speedIndicatorTimer.value) {
+    clearTimeout(speedIndicatorTimer.value)
+  }
+  speedState.showSpeedIndicator = false
+}
+
+function videoTouchStart(e: TouchEvent) {
+  if (speedState.showSpeedPanel) {
+    closeSpeedPanel()
+    return
+  }
+
+  if (longPressTimer.value) {
+    clearTimeout(longPressTimer.value)
+  }
+
+  const touch = e.touches[0]
+  state.start.x = touch.clientX
+  state.start.y = touch.clientY
+
+  longPressTimer.value = window.setTimeout(() => {
+    startLongPress(touch.clientX)
+  }, 300)
+}
+
+function videoTouchMove(e: TouchEvent) {
+  if (longPressTimer.value) {
+    clearTimeout(longPressTimer.value)
+    longPressTimer.value = null
+  }
+
+  if (speedState.isLongPressActive) {
+    _stopPropagation(e)
+    updateLongPress(e.touches[0].clientX)
+  }
+}
+
+function videoTouchEnd(e: TouchEvent) {
+  if (longPressTimer.value) {
+    clearTimeout(longPressTimer.value)
+    longPressTimer.value = null
+  }
+
+  if (speedState.isLongPressActive) {
+    _stopPropagation(e)
+    endLongPress()
+  }
+}
+
+function videoMouseDown(e: MouseEvent) {
+  if (speedState.showSpeedPanel) {
+    closeSpeedPanel()
+    return
+  }
+
+  if (longPressTimer.value) {
+    clearTimeout(longPressTimer.value)
+  }
+
+  state.start.x = e.clientX
+  state.start.y = e.clientY
+
+  longPressTimer.value = window.setTimeout(() => {
+    startLongPress(e.clientX)
+  }, 300)
+}
+
+function videoMouseMove(e: MouseEvent) {
+  if (longPressTimer.value) {
+    clearTimeout(longPressTimer.value)
+    longPressTimer.value = null
+  }
+
+  if (speedState.isLongPressActive) {
+    _stopPropagation(e)
+    updateLongPress(e.clientX)
+  }
+}
+
+function videoMouseUp(e: MouseEvent) {
+  if (longPressTimer.value) {
+    clearTimeout(longPressTimer.value)
+    longPressTimer.value = null
+  }
+
+  if (speedState.isLongPressActive) {
+    _stopPropagation(e)
+    endLongPress()
+  }
+}
+
+function videoMouseLeave() {
+  if (longPressTimer.value) {
+    clearTimeout(longPressTimer.value)
+    longPressTimer.value = null
+  }
+
+  if (speedState.isLongPressActive) {
+    endLongPress()
+  }
+}
+
 onMounted(() => {
-  // console.log('video', this.localItem.aweme_id)
-  // console.log(this.commentVisible)
   state.height = document.body.clientHeight
   state.width = document.body.clientWidth
   videoEl.currentTime = 0
+
+  const videoWrapper = document.querySelector('.video-wrapper')
+  if (videoWrapper) {
+    videoWrapper.addEventListener('touchstart', videoTouchStart, { passive: false })
+    videoWrapper.addEventListener('touchmove', videoTouchMove, { passive: false })
+    videoWrapper.addEventListener('touchend', videoTouchEnd, { passive: false })
+    videoWrapper.addEventListener('mousedown', videoMouseDown)
+    videoWrapper.addEventListener('mousemove', videoMouseMove)
+    videoWrapper.addEventListener('mouseup', videoMouseUp)
+    videoWrapper.addEventListener('mouseleave', videoMouseLeave)
+  }
+
   let fun = (e) => {
     state.currentTime = Math.ceil(e.target.currentTime)
     state.playX = (state.currentTime - 1) * state.step
@@ -215,7 +508,6 @@ onMounted(() => {
     videoEl.addEventListener(
       e,
       () => {
-        // console.log('eventTester', e, state.item.aweme_id)
         if (e === 'playing') state.loading = false
         if (e === 'waiting') {
           if (!state.paused && !state.ignoreWaiting) {
@@ -231,32 +523,9 @@ onMounted(() => {
     )
   }
 
-  // eventTester("loadstart", '客户端开始请求数据'); //客户端开始请求数据
-  // eventTester("abort", '客户端主动终止下载（不是因为错误引起）'); //客户端主动终止下载（不是因为错误引起）
-  // eventTester("loadstart", '客户端开始请求数据'); //客户端开始请求数据
-  // eventTester("progress", '客户端正在请求数据'); //客户端正在请求数据
-  // // eventTester("suspend", '延迟下载'); //延迟下载
-  // eventTester("abort", '客户端主动终止下载（不是因为错误引起），'); //客户端主动终止下载（不是因为错误引起），
-  // eventTester("error", '请求数据时遇到错误'); //请求数据时遇到错误
-  // eventTester("stalled", '网速失速'); //网速失速
-  // eventTester("play", 'play()和autoplay开始播放时触发'); //play()和autoplay开始播放时触发
-  // eventTester("pause", 'pause()触发'); //pause()触发
-  // eventTester("loadedmetadata", '成功获取资源长度'); //成功获取资源长度
-  // eventTester("loadeddata"); //
-  eventTester('waiting', '等待数据，并非错误') //等待数据，并非错误
-  eventTester('playing', '开始回放') //开始回放
-  // eventTester("canplay", '/可以播放，但中途可能因为加载而暂停'); //可以播放，但中途可能因为加载而暂停
-  // eventTester("canplaythrough", '可以播放，歌曲全部加载完毕'); //可以播放，歌曲全部加载完毕
-  // eventTester("seeking", '寻找中'); //寻找中
-  // eventTester("seeked", '寻找完毕'); //寻找完毕
-  // // eventTester("timeupdate",'播放时间改变'); //播放时间改变
-  // eventTester("ended", '播放结束'); //播放结束
-  // eventTester("ratechange", '播放速率改变'); //播放速率改变
-  // eventTester("durationchange", '资源长度改变'); //资源长度改变
-  // eventTester("volumechange", '音量改变'); //音量改变
+  eventTester('waiting', '等待数据，并非错误')
+  eventTester('playing', '开始回放')
 
-  // console.log('mounted')
-  // bus.off('singleClickBroadcast')
   bus.on(EVENT_KEY.SINGLE_CLICK_BROADCAST, click)
   bus.on(EVENT_KEY.DIALOG_MOVE, onDialogMove)
   bus.on(EVENT_KEY.DIALOG_END, onDialogEnd)
@@ -269,7 +538,24 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  // console.log('unmounted')
+  if (longPressTimer.value) {
+    clearTimeout(longPressTimer.value)
+  }
+  if (speedIndicatorTimer.value) {
+    clearTimeout(speedIndicatorTimer.value)
+  }
+
+  const videoWrapper = document.querySelector('.video-wrapper')
+  if (videoWrapper) {
+    videoWrapper.removeEventListener('touchstart', videoTouchStart)
+    videoWrapper.removeEventListener('touchmove', videoTouchMove)
+    videoWrapper.removeEventListener('touchend', videoTouchEnd)
+    videoWrapper.removeEventListener('mousedown', videoMouseDown)
+    videoWrapper.removeEventListener('mousemove', videoMouseMove)
+    videoWrapper.removeEventListener('mouseup', videoMouseUp)
+    videoWrapper.removeEventListener('mouseleave', videoMouseLeave)
+  }
+
   bus.off(EVENT_KEY.SINGLE_CLICK_BROADCAST, click)
   bus.off(EVENT_KEY.DIALOG_MOVE, onDialogMove)
   bus.off(EVENT_KEY.DIALOG_END, onDialogEnd)
@@ -379,7 +665,6 @@ function touchstart(e) {
 }
 
 function touchmove(e) {
-  // console.log('move',e)
   _stopPropagation(e)
   state.isMove = true
   pause()
@@ -391,7 +676,6 @@ function touchmove(e) {
 }
 
 function touchend(e) {
-  // console.log('end', e)
   _stopPropagation(e)
   if (isPlaying) return
   setTimeout(() => (state.isMove = false), 1000)
@@ -414,8 +698,6 @@ function touchend(e) {
     transition:
       height,
       margin-top 0.3s;
-    //background: black;
-    /*position: absolute;*/
   }
 
   .float {
@@ -506,107 +788,267 @@ function touchend(e) {
         }
       }
     }
+  }
 
-    .progress {
-      z-index: 10;
-      @w: 90%;
+  .progress {
+    z-index: 10;
+    @w: 90%;
+    position: absolute;
+    bottom: -1rem;
+    height: 10rem;
+    left: calc((100% - @w) / 2);
+    width: @w;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+
+    .time {
       position: absolute;
-      bottom: -1rem;
-      height: 10rem;
-      left: calc((100% - @w) / 2);
-      width: @w;
-      display: flex;
-      align-items: flex-end;
-      margin-bottom: 2rem;
+      z-index: 9;
+      font-size: 24px;
+      bottom: 50px;
+      left: 0;
+      right: 0;
+      color: white;
+      text-align: center;
 
-      .time {
-        position: absolute;
-        z-index: 9;
-        font-size: 24px;
-        bottom: 50px;
-        left: 0;
-        right: 0;
+      .duration {
+        color: darkgray;
+      }
+    }
+
+    @radius: 10rem;
+
+    @h: 2rem;
+    @tr: height 0.3s;
+
+    .bg {
+      transition: @tr;
+      position: absolute;
+      width: 100%;
+      height: @h;
+      background: #4f4f4f;
+      border-radius: @radius;
+    }
+
+    @p: 50px;
+
+    .progress-line {
+      transition: @tr;
+      height: calc(@h + 0.5rem);
+      width: @p;
+      border-radius: @radius 0 0 @radius;
+      background: #777777;
+      z-index: 1;
+    }
+
+    .point {
+      transition: all 0.2s;
+      width: @h+2;
+      height: @h+2;
+      border-radius: 50%;
+      background: gray;
+      z-index: 2;
+      transform: translate(-1rem, 1rem);
+    }
+  }
+
+  & .move {
+    @h: 10rem;
+
+    .bg {
+      height: @h;
+      background: var(--active-main-bg);
+    }
+
+    .progress-line {
+      height: @h;
+      background: var(--second-text-color);
+    }
+
+    .point {
+      width: @h+2;
+      height: @h+2;
+      background: white;
+    }
+  }
+
+  & .stop {
+    @h: 4rem;
+
+    .bg {
+      height: @h;
+    }
+
+    .progress-line {
+      height: @h;
+      background: white;
+    }
+
+    .point {
+      width: @h+2;
+      height: @h+2;
+      background: white;
+    }
+  }
+}
+
+.speed-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 20rem;
+  padding: 20rem 40rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+
+  .speed-text {
+    font-size: 48rem;
+    font-weight: bold;
+    color: white;
+    line-height: 1;
+  }
+
+  .speed-hint {
+    font-size: 14rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 8rem;
+  }
+}
+
+.speed-btn {
+  position: absolute;
+  top: 60rem;
+  right: 20rem;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 24rem;
+  padding: 10rem 20rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s;
+
+  .speed-btn-text {
+    font-size: 16rem;
+    color: white;
+    font-weight: 600;
+  }
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    background: rgba(0, 0, 0, 0.9);
+    transform: scale(0.95);
+  }
+}
+
+.speed-hint-text {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 30;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40rem;
+
+  .hint-left,
+  .hint-right {
+    font-size: 12rem;
+    color: rgba(255, 255, 255, 0.4);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 6rem 12rem;
+    border-radius: 12rem;
+  }
+}
+
+.speed-panel {
+  position: absolute;
+  top: 120rem;
+  right: 20rem;
+  transform: none;
+  z-index: 200;
+  background: rgba(30, 30, 30, 0.98);
+  border-radius: 16rem;
+  padding: 16rem;
+  min-width: 160rem;
+  box-shadow: 0 4rem 20rem rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10rem);
+
+  .speed-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12rem;
+    padding-bottom: 10rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    .speed-panel-title {
+      font-size: 14rem;
+      color: white;
+      font-weight: 600;
+    }
+
+    .speed-panel-close {
+      font-size: 18rem;
+      color: rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      padding: 4rem;
+
+      &:hover {
         color: white;
-        text-align: center;
-
-        .duration {
-          color: darkgray;
-        }
       }
+    }
+  }
 
-      @radius: 10rem;
+  .speed-panel-options {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
 
-      @h: 2rem;
-      @tr: height 0.3s;
+  .speed-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10rem 14rem;
+    border-radius: 8rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    min-height: 36rem;
 
-      .bg {
-        transition: @tr;
-        position: absolute;
-        width: 100%;
-        height: @h;
-        background: #4f4f4f;
-        border-radius: @radius;
-      }
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
 
-      @p: 50px;
+    &.active {
+      background: rgba(254, 44, 85, 0.2);
 
-      .progress-line {
-        transition: @tr;
-        height: calc(@h + 0.5rem);
-        width: @p;
-        border-radius: @radius 0 0 @radius;
-        background: #777777;
-        z-index: 1;
-      }
-
-      .point {
-        transition: all 0.2s;
-        width: @h+2;
-        height: @h+2;
-        border-radius: 50%;
-        background: gray;
-        z-index: 2;
-        transform: translate(-1rem, 1rem);
+      .speed-option-text {
+        color: #fe2c55;
+        font-weight: 600;
       }
     }
 
-    & .move {
-      @h: 10rem;
-
-      .bg {
-        height: @h;
-        background: var(--active-main-bg);
-      }
-
-      .progress-line {
-        height: @h;
-        background: var(--second-text-color);
-      }
-
-      .point {
-        width: @h+2;
-        height: @h+2;
-        background: white;
-      }
+    .speed-option-text {
+      font-size: 14rem;
+      color: white;
     }
 
-    & .stop {
-      @h: 4rem;
-
-      .bg {
-        height: @h;
-      }
-
-      .progress-line {
-        height: @h;
-        background: white;
-      }
-
-      .point {
-        width: @h+2;
-        height: @h+2;
-        background: white;
-      }
+    .speed-option-check {
+      font-size: 14rem;
+      color: #fe2c55;
     }
   }
 }
