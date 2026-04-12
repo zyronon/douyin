@@ -380,50 +380,7 @@ function endLongPress() {
   speedState.showSpeedIndicator = false
 }
 
-function videoTouchStart(e: TouchEvent) {
-  if (speedState.showSpeedPanel) {
-    closeSpeedPanel()
-    return
-  }
-
-  if (longPressTimer.value) {
-    clearTimeout(longPressTimer.value)
-  }
-
-  const touch = e.touches[0]
-  state.start.x = touch.clientX
-  state.start.y = touch.clientY
-
-  longPressTimer.value = window.setTimeout(() => {
-    startLongPress(touch.clientX)
-  }, 300)
-}
-
-function videoTouchMove(e: TouchEvent) {
-  if (longPressTimer.value) {
-    clearTimeout(longPressTimer.value)
-    longPressTimer.value = null
-  }
-
-  if (speedState.isLongPressActive) {
-    _stopPropagation(e)
-    updateLongPress(e.touches[0].clientX)
-  }
-}
-
-function videoTouchEnd(e: TouchEvent) {
-  if (longPressTimer.value) {
-    clearTimeout(longPressTimer.value)
-    longPressTimer.value = null
-  }
-
-  if (speedState.isLongPressActive) {
-    _stopPropagation(e)
-    endLongPress()
-  }
-}
-
-function videoMouseDown(e: MouseEvent) {
+function videoPointerDown(e: PointerEvent) {
   if (speedState.showSpeedPanel) {
     closeSpeedPanel()
     return
@@ -441,7 +398,7 @@ function videoMouseDown(e: MouseEvent) {
   }, 300)
 }
 
-function videoMouseMove(e: MouseEvent) {
+function videoPointerMove(e: PointerEvent) {
   if (longPressTimer.value) {
     clearTimeout(longPressTimer.value)
     longPressTimer.value = null
@@ -453,7 +410,7 @@ function videoMouseMove(e: MouseEvent) {
   }
 }
 
-function videoMouseUp(e: MouseEvent) {
+function videoPointerUp(e: PointerEvent) {
   if (longPressTimer.value) {
     clearTimeout(longPressTimer.value)
     longPressTimer.value = null
@@ -465,7 +422,7 @@ function videoMouseUp(e: MouseEvent) {
   }
 }
 
-function videoMouseLeave() {
+function videoPointerLeave() {
   if (longPressTimer.value) {
     clearTimeout(longPressTimer.value)
     longPressTimer.value = null
@@ -483,13 +440,10 @@ onMounted(() => {
 
   const videoWrapper = document.querySelector('.video-wrapper')
   if (videoWrapper) {
-    videoWrapper.addEventListener('touchstart', videoTouchStart, { passive: false })
-    videoWrapper.addEventListener('touchmove', videoTouchMove, { passive: false })
-    videoWrapper.addEventListener('touchend', videoTouchEnd, { passive: false })
-    videoWrapper.addEventListener('mousedown', videoMouseDown)
-    videoWrapper.addEventListener('mousemove', videoMouseMove)
-    videoWrapper.addEventListener('mouseup', videoMouseUp)
-    videoWrapper.addEventListener('mouseleave', videoMouseLeave)
+    videoWrapper.addEventListener('pointerdown', videoPointerDown)
+    videoWrapper.addEventListener('pointermove', videoPointerMove)
+    videoWrapper.addEventListener('pointerup', videoPointerUp)
+    videoWrapper.addEventListener('pointerleave', videoPointerLeave)
   }
 
   let fun = (e) => {
@@ -547,13 +501,10 @@ onUnmounted(() => {
 
   const videoWrapper = document.querySelector('.video-wrapper')
   if (videoWrapper) {
-    videoWrapper.removeEventListener('touchstart', videoTouchStart)
-    videoWrapper.removeEventListener('touchmove', videoTouchMove)
-    videoWrapper.removeEventListener('touchend', videoTouchEnd)
-    videoWrapper.removeEventListener('mousedown', videoMouseDown)
-    videoWrapper.removeEventListener('mousemove', videoMouseMove)
-    videoWrapper.removeEventListener('mouseup', videoMouseUp)
-    videoWrapper.removeEventListener('mouseleave', videoMouseLeave)
+    videoWrapper.removeEventListener('pointerdown', videoPointerDown)
+    videoWrapper.removeEventListener('pointermove', videoPointerMove)
+    videoWrapper.removeEventListener('pointerup', videoPointerUp)
+    videoWrapper.removeEventListener('pointerleave', videoPointerLeave)
   }
 
   bus.off(EVENT_KEY.SINGLE_CLICK_BROADCAST, click)
